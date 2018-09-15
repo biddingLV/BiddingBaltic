@@ -1,0 +1,81 @@
+<div class="modal-header">
+  <h3 class="modal-title pull-left">Es gribu saņemt jaunumus WhatsAppā</h3>
+  <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<div class="modal-body">
+  <form class="container-fluid" (ngSubmit)="onSubmit(whatsAppSubForm)" #whatsAppSubForm="ngForm">
+    <div class="form-group">
+      <p>Atzīmē savas intereses, lai mēs zinām kādas izsoles Tev sūtīt WhatsAppā</p>
+    </div>
+
+    <div class="form-group">
+      <div class="custom-control custom-checkbox">
+        <input type="checkbox" class="custom-control-input" id="customCheck1">
+        <label class="custom-control-label" for="customCheck1">Transportlīdzekļi</label>
+      </div>
+      <div class="custom-control custom-checkbox">
+        <input type="checkbox" class="custom-control-input" id="customCheck2">
+        <label class="custom-control-label" for="customCheck2">Mantas</label>
+      </div>
+      <div class="custom-control custom-checkbox">
+        <input type="checkbox" class="custom-control-input" id="customCheck3">
+        <label class="custom-control-label" for="customCheck3">Uzņēmumu iegāde</label>
+      </div>
+      <div class="custom-control custom-checkbox">
+        <input type="checkbox" class="custom-control-input" id="customCheck4">
+        <label class="custom-control-label" for="customCheck4">Preču zīmes / domēna vārdi</label>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="name">
+        <strong>Vārds:</strong>
+      </label>
+      <input type="text" id="name" name="name" class="form-control" placeholder="Tavs Vārds" required minlength="3" [(ngModel)]="model.name"
+        #name="ngModel">
+
+      <div *ngIf="name.invalid && (name.dirty || name.touched)" class="alert alert-danger">
+        <div *ngIf="name.errors.required">
+          Name is required.
+        </div>
+        <div *ngIf="name.errors.minlength">
+          Name must be at least 3 characters long.
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="phone">
+        <strong>Telefons:</strong>
+      </label>
+      <input type="phone" id="phone" name="phone" class="form-control" placeholder="Tavs Telefons" required ngModel phone #phone="ngModel">
+
+      <div *ngIf="phone.invalid && (phone.dirty || phone.touched)" class="alert alert-danger">
+        <div *ngIf="phone.errors.required">
+          phone is required.
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="custom-control custom-checkbox">
+        <input type="checkbox" class="custom-control-input" name="agreeRules" id="agreeRules" required ngModel agreeRules #agreeRules="ngModel">
+        <label class="custom-control-label" for="agreeRules">Piekrītu noteikumiem</label>
+
+        <div *ngIf="agreeRules.invalid && (agreeRules.dirty || agreeRules.touched)" class="alert alert-danger">
+          <div *ngIf="agreeRules.errors.required">
+            Please check me
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group mr-auto">
+      <button type="submit" class="btn btn-primary" [disabled]="!whatsAppSubForm.form.valid" value="Submit">Ok</button>
+      <button type="button" class="btn btn-default" (click)="bsModalRef.hide()">Cancel</button>
+    </div>
+  </form>
+</div>

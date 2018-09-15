@@ -1,0 +1,6 @@
+<div class="container">
+  <div class="row">
+    <app-auctions-table *ngIf="response$ | async;" [list]="Auctions" [numberRows]="numberRows" [selected]="selected" (pageChange)="onPageChange($event)"
+      (rowChange)="onRowChange($event)" (sortChange)="onSortChange($event)"></app-auctions-table>
+  </div>
+</div>

@@ -1,0 +1,109 @@
+<div class="modal-header">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-md-11">
+        <h4 class="modal-title pull-left">Es gribu saņemt jaunumus e-pastā</h4>
+      </div>
+
+      <div class="col-md-1">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<div class="modal-body">
+  <form class="container-fluid" (ngSubmit)="onSubmit(emailSubForm)" #emailSubForm="ngForm" novalidate>
+    <div class="form-group">
+      <p>Atzīmē savas intereses, lai mēs zinām kādas izsoles Tev sūtīt<br>e-pastā</p>
+    </div>
+
+    <div class="form-group">
+      <div class="custom-control custom-checkbox">
+        <input type="checkbox" class="custom-control-input" id="categoryVehicles">
+        <label class="custom-control-label" for="categoryVehicles">Transportlīdzekļi</label>
+      </div>
+      <div class="custom-control custom-checkbox">
+        <input type="checkbox" class="custom-control-input" id="categoryItems">
+        <label class="custom-control-label" for="categoryItems">Mantas</label>
+      </div>
+      <div class="custom-control custom-checkbox">
+        <input type="checkbox" class="custom-control-input" id="categoryCompanies">
+        <label class="custom-control-label" for="categoryCompanies">Uzņēmumu iegāde</label>
+      </div>
+      <div class="custom-control custom-checkbox">
+        <input type="checkbox" class="custom-control-input" id="categoryBrands">
+        <label class="custom-control-label" for="categoryBrands">Preču zīmes / domēna vārdi</label>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <div class="col-8">
+        <label for="name">
+          <strong>Vārds:</strong>
+        </label>
+        <input type="text" id="name" name="name" class="form-control" placeholder="Tavs Vārds" required minlength="3"
+          [(ngModel)]="model.name" #name="ngModel">
+
+        <div *ngIf="name.invalid && (name.dirty || name.touched)" class="d-block invalid-feedback">
+          <div *ngIf="name.errors.required">
+            Norādi savu vārdu.
+          </div>
+          <div *ngIf="name.errors.minlength">
+            Vārdam ir jābūt vismaz 3 simbolu garumā.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group row">
+      <div class="col-8">
+        <label for="email">
+          <strong>E-pasts:</strong>
+        </label>
+        <input type="email" id="email" name="email" class="form-control" placeholder="Tavs E-pasts" required ngModel
+          email #email="ngModel">
+
+        <div *ngIf="email.invalid && (email.dirty || email.touched)" class="d-block invalid-feedback">
+          <div *ngIf="email.errors.required">
+            Norādi savu e-pastu.
+          </div>
+
+          <div *ngIf="email.errors.email">
+            Nepareizs e-pasta formāts.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="custom-control custom-checkbox">
+        <input type="checkbox" class="custom-control-input" name="agreeRules" id="agreeRules" required ngModel
+          agreeRules #agreeRules="ngModel">
+        <label class="custom-control-label" for="agreeRules">Piekrītu noteikumiem</label>
+
+        <div *ngIf="agreeRules.invalid && (agreeRules.dirty || agreeRules.touched)" class="d-block invalid-feedback">
+          <div *ngIf="agreeRules.errors.required">
+            Lai turpinātu tev ir jāpiekrīt bidding.lv noteikumiem
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group mr-auto">
+      <div class="row">
+        <div class="col-md-6">
+          <button type="submit" id="submit-button" class="btn btn-primary" [disabled]="!emailSubForm.form.valid" value="Submit">Gatavs</button>
+          <button type="button" id="cancel-button" class="btn btn-default" (click)="bsModalRef.hide()">Atpakaļ</button>
+        </div>
+      </div>
+
+    </div>
+
+
+
+  </form>
+</div>

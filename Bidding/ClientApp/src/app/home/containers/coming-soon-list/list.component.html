@@ -1,0 +1,43 @@
+<app-welcome-header></app-welcome-header>
+<div class="container welcome-list-container">
+  <div class="row call-to-action">
+    <div class="col-md-4 offset-md-1">
+      <h4>Mums interesē Tavs viedoklis.</h4>
+      <p>Vai tev ir idejas ko tu vēlētos redzēt izsoļu datubāzē?</p>
+    </div>
+
+    <div class="col-md-5 offset-md-1">
+      <a class="btn btn-primary btn-lg btn-block main-button" [routerLink]="['/aptaujas-anketa']" role="button">Aizpildi
+        aptaujas anketu</a>
+    </div>
+  </div>
+
+  <div class="row call-to-action">
+    <div class="col-md-5 offset-md-1">
+      <button type="button" class="btn btn-primary btn-lg btn-block main-button" (click)="openEmail()">
+        Gribu saņemt jaunumus e-pastā
+      </button>
+    </div>
+
+    <div class="col-md-4 offset-md-1">
+      <h4>Patīk saņemt jaunumus epastā?</h4>
+      <p>Piesakies bidding.lv jaunumiem un uzzini visu pirmais savā epastā.</p>
+    </div>
+  </div>
+
+  <div class="row call-to-action">
+    <div class="col-md-4 offset-md-1">
+      <h4>Patīk komunicēt WhatsApp?</h4>
+      <p>Piesakies bidding.lv WhatsApp grupai un iesaisties diskusijās kopā ar mums.</p>
+    </div>
+
+    <div class="col-md-5 offset-md-1">
+      <button type="button" class="btn btn-primary btn-lg btn-block main-button" (click)="openWhatsapp()">
+        Gribu pieteikties whatsapp grupai
+      </button>
+    </div>
+  </div>
+</div>
+
+
+<app-blog-list></app-blog-list>
