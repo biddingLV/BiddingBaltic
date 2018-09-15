@@ -1,0 +1,38 @@
+/* You can add global styles to this file, and also import other style files */
+//@import "variables";
+
+// @import "../node_modules/bootstrap/scss/bootstrap.scss";
+
+
+// _variables.scss
+// $primary: #3498db;
+// $secondary: #e67e22;
+// $success: #2ecc71;
+// $danger: #e74c3c;
+
+/* Custom bootstrap styling */
+
+/* https://wp-colorado.com/overriding-the-color-palette-in-bootstrap-4/ */
+
+/* Set theme colors */
+$theme-colors: (
+ "primary": #6f5081,
+ "secondary": #f2f2f2
+);
+
+@import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,900');
+/* Set global default font family */
+$font-family-base: 'Source Sans Pro',sans-serif;
+
+/* Load the default bootstrap styles after the custom styles. */
+@import "../node_modules/bootstrap/scss/bootstrap";
+
+/*  TODO: MJU: Better way to do this? No sass variables for this component, and it overrides 
+    font sizes from bootstrap */
+.ngx-datatable.bootstrap {
+    font-size: $font-size-sm;
+}
+    
+body, html {
+    font-family: $font-family-base
+}
