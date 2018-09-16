@@ -12,7 +12,6 @@ import { AuctionsTableComponent } from './components/table/auctions/auctions.com
 // filter components
 import { ArrayDropdownComponent } from './components/dropdowns/array/array.component';
 import { ObjectDropdownComponent } from './components/dropdowns/object/object.component';
-import { ComingSoonNavbarComponent } from './components/coming-soon-navbav/coming-soon-navbav.component';
 
 @NgModule({
   imports: [
@@ -24,7 +23,6 @@ import { ComingSoonNavbarComponent } from './components/coming-soon-navbav/comin
   exports: [
     HeaderComponent,
     NavbarComponent,
-    ComingSoonNavbarComponent,
     FooterComponent,
     AuctionsTableComponent,
     ArrayDropdownComponent,
@@ -34,7 +32,6 @@ import { ComingSoonNavbarComponent } from './components/coming-soon-navbav/comin
   declarations: [
     HeaderComponent,
     NavbarComponent,
-    ComingSoonNavbarComponent,
     FooterComponent,
     AuctionsTableComponent,
     ArrayDropdownComponent,

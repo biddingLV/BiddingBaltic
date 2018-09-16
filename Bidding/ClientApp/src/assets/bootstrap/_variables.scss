@@ -1,0 +1,11 @@
+// Our own custom variables.scss
+// This file loads before Bootstrap's SCSS
+
+// overwrite default theme colors
+$theme-colors: (
+ "primary": #6f5081,
+ "secondary": #f2f2f2
+);
+
+// overwrite default heading sizes
+$h1-font-size: 50px;

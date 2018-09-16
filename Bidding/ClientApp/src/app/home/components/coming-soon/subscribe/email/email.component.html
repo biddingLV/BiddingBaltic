@@ -12,7 +12,6 @@
       </div>
     </div>
   </div>
-
 </div>
 
 <div class="modal-body">
@@ -22,21 +21,14 @@
     </div>
 
     <div class="form-group">
-      <div class="custom-control custom-checkbox">
-        <input type="checkbox" class="custom-control-input" id="categoryVehicles">
-        <label class="custom-control-label" for="categoryVehicles">Transportlīdzekļi</label>
+      <div class="custom-control custom-checkbox" *ngFor="let box of checkboxes; let i = index;">
+        <input type="checkbox" class="custom-control-input" id="{{box.category}}" name="{{box.category}}" [(ngModel)]="checkboxes[i].checked">
+        <label class="custom-control-label" for="{{box.category}}">{{box.name}}</label>
       </div>
-      <div class="custom-control custom-checkbox">
-        <input type="checkbox" class="custom-control-input" id="categoryItems">
-        <label class="custom-control-label" for="categoryItems">Mantas</label>
-      </div>
-      <div class="custom-control custom-checkbox">
-        <input type="checkbox" class="custom-control-input" id="categoryCompanies">
-        <label class="custom-control-label" for="categoryCompanies">Uzņēmumu iegāde</label>
-      </div>
-      <div class="custom-control custom-checkbox">
-        <input type="checkbox" class="custom-control-input" id="categoryBrands">
-        <label class="custom-control-label" for="categoryBrands">Preču zīmes / domēna vārdi</label>
+      <div *ngIf="checkboxFlag === false" class="d-block invalid-feedback">
+        <div>
+          check at least one of the!
+        </div>
       </div>
     </div>
 
@@ -100,10 +92,7 @@
           <button type="button" id="cancel-button" class="btn btn-default" (click)="bsModalRef.hide()">Atpakaļ</button>
         </div>
       </div>
-
     </div>
-
-
 
   </form>
 </div>
