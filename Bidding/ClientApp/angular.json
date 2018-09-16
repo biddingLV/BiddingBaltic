@@ -23,15 +23,12 @@
               "src/assets"
             ],
             "styles": [
-              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "src/styles.scss",
               "node_modules/@swimlane/ngx-datatable/release/index.css",
               "node_modules/@swimlane/ngx-datatable/release/assets/icons.css",
-              "node_modules/@swimlane/ngx-datatable/release/themes/bootstrap.css",
-              "src/styles.scss"
+              "node_modules/@swimlane/ngx-datatable/release/themes/bootstrap.css"
             ],
-            "scripts": [
-              "node_modules/bootstrap/dist/js/bootstrap.min.js"
-            ]
+            "scripts": []
           },
           "configurations": {
             "production": {
