@@ -33,8 +33,6 @@ export class SubscribeEmailComponent implements OnInit {
   public ngOnInit() { }
 
   public onSubmit(form: NgForm) {
-
-
     let addSuccess: boolean;
 
     // const selectedCategories = this.checkboxes.filter((category) => category.checked);

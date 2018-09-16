@@ -9,11 +9,23 @@ import { IWhatsAppSubscribeRequest } from '../../../../models/whatsapp-subscribe
   styleUrls: ['./whatsapp.component.scss']
 })
 export class SubscribeWhatsappComponent implements OnInit {
-  constructor(public bsModalRef: BsModalRef) { }
-
+  // API
   public whatsAppSubRequest: IWhatsAppSubscribeRequest;
 
-  model: any = {};
+  // form
+  public model: any = {};
+  public checkboxFlag = true;
+  public selectedCategories: string[];
+
+  // form checkboxes
+  public checkboxes = [
+    { category: 'vehicles', name: 'Transportlīdzekļi', checked: false },
+    { category: 'items', name: 'Mantas', checked: false },
+    { category: 'companies', name: 'Uzņēmumu iegāde', checked: false },
+    { category: 'brands', name: 'Preču zīmes / domēna vārdi', checked: false }
+  ];
+
+  constructor(public bsModalRef: BsModalRef) { }
 
   public ngOnInit() { }
 

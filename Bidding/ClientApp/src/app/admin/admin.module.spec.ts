@@ -11,4 +11,3 @@ describe('AuctionsModule', () => {
     expect(adminModule).toBeTruthy();
   });
 });
-xxxxx
