@@ -5,12 +5,13 @@ import { Routes, RouterModule } from '@angular/router';
 // import { AdminComponent } from './admin/admin.component';
 import { AuthGuardService as AuthGuard } from './auth/auth-guard.service';
 import { ScopeGuardService as ScopeGuard } from './auth/scope-guard.service';
+import { BlogDetailsComponent } from './blog/components/details/details.component';
+import { BlogWidgetComponent } from './blog/containers/widget/widget.component';
 
 const routes: Routes = [
   { path: '', loadChildren: './home/home.module#HomeModule' },
-  { path: 'users', loadChildren: './users/users.module#UsersModule' },
-  // todo: KKE: canLoad or canActivate?
-  { path: 'auctions', loadChildren: './auctions/auctions.module#AuctionsModule' }
+  // { path: 'users', loadChildren: './users/users.module#UsersModule' },
+  // { path: 'auctions', loadChildren: './auctions/auctions.module#AuctionsModule' },
   // { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   // { path: 'ping', component: PingComponent, canActivate: [AuthGuard] },
   // {
@@ -20,12 +21,8 @@ const routes: Routes = [
   // },
 
   // { path: 'admin', component: AdminComponent, canActivate: [ScopeGuard], data: { expectedScopes: ['write:messages'] } },
-  // {
-  //   path: '',
-  //   redirectTo: '',
-  //   pathMatch: 'full'
-  // },
-  // { path: '**', 404}
+  // { path: '', redirectTo: '/home', pathMatch: 'full' },
+  // { path: '**', component: PageNotFoundComponent }
 ];
 
 @NgModule({

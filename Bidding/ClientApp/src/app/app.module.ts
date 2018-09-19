@@ -16,11 +16,15 @@ import { AuthService } from './auth/auth.service';
 import { AuthGuardService } from './auth/auth-guard.service';
 import { ScopeGuardService } from './auth/scope-guard.service';
 
-// shared
-import { SharedModule } from './shared/shared.module';
+// modals
 import { SubscribeEmailComponent } from './home/components/coming-soon/subscribe/email/email.component';
-import { HomeModule } from './home/home.module';
 import { SubscribeWhatsappComponent } from './home/components/coming-soon/subscribe/whatsapp/whatsapp.component';
+
+// Modules
+import { CoreModule } from './core/core.module';
+import { SharedModule } from './shared/shared.module';
+import { HomeModule } from './home/home.module';
+import { BlogModule } from './blog/blog.module';
 
 @NgModule({
   declarations: [
@@ -31,9 +35,11 @@ import { SubscribeWhatsappComponent } from './home/components/coming-soon/subscr
     FormsModule,
     HttpClientModule,
     ModalModule.forRoot(),
-    AppRoutingModule,
     SharedModule,
-    HomeModule
+    HomeModule,
+    BlogModule,
+    CoreModule.forRoot(),
+    AppRoutingModule
   ],
   providers: [
     AuthService,

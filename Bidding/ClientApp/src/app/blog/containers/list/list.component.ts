@@ -6,18 +6,6 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./list.component.scss']
 })
 export class BlogListComponent implements OnInit {
-  public newestBlogPosts = [
-    {
-      id: 1,
-      title: '',
-      description: ''
-    },
-    {
-      id: 2,
-      title: '',
-      description: ''
-    },
-  ];
 
   constructor() { }
 
