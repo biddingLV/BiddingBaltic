@@ -1,21 +1,82 @@
 <div class="container">
   <div class="row">
     <div class="col-md-12">
-      <form (ngSubmit)="onSubmit(surveyForm)" #surveyForm="ngForm">
-        <h1 id="surveyMainTitle">Palīdzi mums izveidot bidding.lv pielāgotu Tev</h1>
-        <p id="surveyMainParagraph">Mums ir svarīgs lietotāju viedoklis. Kamēr mēs taisām bidding.lv portālu mēs
-          vēlētos
-          dzirdēt tavu viedokli kādas izsoles tu nākotnē vēlētos mūsu portāla redzēt. Aizpildi zemāk redzamos aptaujas
-          jautājumus
-          un pieraksties jaunumu saņemšanai.
-        </p>
+      <h1 id="surveyMainTitle">Palīdzi mums izveidot bidding.lv pielāgotu Tev</h1>
+      <p id="surveyMainParagraph">Mums ir svarīgs lietotāju viedoklis. Kamēr mēs taisām bidding.lv portālu mēs
+        vēlētos
+        dzirdēt tavu viedokli kādas izsoles tu nākotnē vēlētos mūsu portāla redzēt. Aizpildi zemāk redzamos aptaujas
+        jautājumus
+        un pieraksties jaunumu saņemšanai.
+      </p>
 
-        <div class="form-row">
-          <div class="form-group offset-md-2 col-md-8">
-            <div class="row">
-              <div class="col-md-4">
-                <label for="name">Vārds</label>
-                <input type="text" class="form-control" id="name" placeholder="Tavs Vārds" required>
+      <form (ngSubmit)="onSubmit(surveyForm)" #surveyForm="ngForm" novalidate>
+        <div class="form-group row">
+          <div class="offset-md-2 col-md-4">
+            <label for="name">
+              <strong>Vārds:</strong>
+            </label>
+            <input type="text" id="name" name="name" class="form-control" placeholder="Tavs Vārds" required minlength="3"
+              [(ngModel)]="model.name" #name="ngModel">
+
+            <div *ngIf="name.invalid && (name.dirty || name.touched)" class="d-block invalid-feedback">
+              <div *ngIf="name.errors.required">
+                Norādi savu vārdu.
+              </div>
+              <div *ngIf="name.errors.minlength">
+                Vārdam ir jābūt vismaz 3 simbolu garumā.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <div class="offset-md-2 col-md-8">
+            <p><strong>Izvēlies savas interešu kategorijas:</strong></p>
+          </div>
+          <div class="offset-md-2 col-md-4">
+            <div class="custom-control custom-checkbox" *ngFor="let box of categoryBoxes; let i = index;">
+              <input type="checkbox" class="custom-control-input" id="{{box.category}}" name="{{box.category}}"
+                [(ngModel)]="categoryBoxes[i].checked">
+              <label class="custom-control-label" for="{{box.category}}">{{box.name}}</label>
+            </div>
+            <div *ngIf="checkboxFlag === false" class="d-block invalid-feedback">
+              <div>
+                check at least one of the!
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <div class="offset-md-2 col-md-8">
+            <label for="interests"><strong>Mini kādas lietas Tu labprāt pirktu izsolē?</strong></label>
+            <textarea class="form-control" id="interests" rows="2" placeholder="Piemēram, auto, datoru, sadzīves tehniku, velosipēdu, utt."></textarea>
+
+            <!-- todo: kke: validations? -->
+            <!-- <div *ngIf="name.invalid && (name.dirty || name.touched)" class="d-block invalid-feedback">
+              <div *ngIf="name.errors.required">
+                Norādi savu vārdu.
+              </div>
+              <div *ngIf="name.errors.minlength">
+                Vārdam ir jābūt vismaz 3 simbolu garumā.
+              </div>
+            </div> -->
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <div class="offset-md-2 col-md-8">
+            <p><strong>Kur Tu vēlētos saņemt jaunumus par jaunākajām izsolēm, par sev atbilstošajām interesēm?</strong></p>
+          </div>
+          <div class="offset-md-2 col-md-4">
+            <div class="custom-control custom-checkbox" *ngFor="let box of subTypeBoxes; let i = index;">
+              <input type="checkbox" class="custom-control-input" id="{{box.category}}" name="{{box.category}}"
+                [(ngModel)]="subTypeBoxes[i].checked">
+              <label class="custom-control-label" for="{{box.category}}">{{box.name}}</label>
+            </div>
+            <div *ngIf="checkboxFlag === false" class="d-block invalid-feedback">
+              <div>
+                check at least one of the!
               </div>
             </div>
           </div>
@@ -23,59 +84,7 @@
 
         <div class="form-row">
           <div class="form-group offset-md-2 col-md-8">
-            <p>Izvēlies savas interešu kategorijas:</p>
-            <div class="custom-control custom-checkbox custom-control-inline">
-              <input type="checkbox" class="custom-control-input" id="categoryVehicles">
-              <label class="custom-control-label" for="categoryVehicles">Transportlīdzekļi</label>
-            </div>
-            <div class="custom-control custom-checkbox custom-control-inline">
-              <input type="checkbox" class="custom-control-input" id="categoryItems">
-              <label class="custom-control-label" for="categoryItems">Mantas</label>
-            </div>
-            <div class="custom-control custom-checkbox">
-              <input type="checkbox" class="custom-control-input" id="categoryCompanies">
-              <label class="custom-control-label" for="categoryCompanies">Uzņēmumu iegāde</label>
-            </div>
-            <div class="custom-control custom-checkbox custom-control-inline">
-              <input type="checkbox" class="custom-control-input" id="categoryBrands">
-              <label class="custom-control-label" for="categoryBrands">Preču zīmes / domēna vārdi</label>
-            </div>
-          </div>
-        </div>
-
-        <div class="form-row">
-          <div class="form-group offset-md-2 col-md-8">
-            <label for="interests">Mini kādas lietas Tu labprāt pirktu izsolē?</label>
-            <textarea class="form-control" id="interests" rows="2" placeholder="Piemēram, auto, datoru, sadzīves tehniku, velosipēdu, utt."></textarea>
-          </div>
-        </div>
-
-        <div class="form-row">
-          <div class="form-group offset-md-2 col-md-8">
-            <p>Kur Tu vēlētos saņemt jaunumus par jaunākajām izsolēm, par sev atbilstošajām interesēm?</p>
-            <div class="custom-control custom-checkbox custom-control-inline">
-              <input type="checkbox" class="custom-control-input" id="newsEmail">
-              <label class="custom-control-label" for="newsEmail">epastā</label>
-            </div>
-            <div class="custom-control custom-checkbox custom-control-inline">
-              <input type="checkbox" class="custom-control-input" id="newsSms">
-              <label class="custom-control-label" for="newsSms">sms</label>
-            </div>
-            <div class="custom-control custom-checkbox">
-              <input type="checkbox" class="custom-control-input" id="newsCall">
-              <label class="custom-control-label" for="newsCall">zvans</label>
-            </div>
-            <div class="custom-control custom-checkbox custom-control-inline">
-              <input type="checkbox" class="custom-control-input" id="newsOptionCheckBox">
-              <label class="custom-control-label" for="newsOptionCheckBox">tavs variants</label>
-              <input type="text" class="form-control" id="newsOptionInput">
-            </div>
-          </div>
-        </div>
-
-        <div class="form-row">
-          <div class="form-group offset-md-2 col-md-8">
-            <p>Cik bieži tu gribētu saņemt jaunumus par sev interesējošām izsolēm:</p>
+            <p><strong>Cik bieži tu gribētu saņemt jaunumus par sev interesējošām izsolēm:</strong></p>
             <div class="custom-control custom-radio custom-control-inline">
               <input type="radio" id="radioDay" name="subFrequency" class="custom-control-input">
               <label class="custom-control-label" for="radioDay">Katru dienu</label>
@@ -107,42 +116,74 @@
           </div>
         </div>
 
-        <div class="form-row">
-          <div class="form-group offset-md-2 col-md-8">
-            <label for="questionVisual">Vai nepieciešamas bildes, vai der tikai apraksts, ko domā par video ieskatu?
-            </label>
+        <div class="form-group row">
+          <div class="offset-md-2 col-md-8">
+            <label for="questionVisual"><strong>Vai nepieciešamas bildes, vai der tikai apraksts, ko domā par video
+                ieskatu?</strong></label>
             <textarea class="form-control" id="questionVisual" rows="2" placeholder="Es vislabāk uztveru informāciju caur ..."></textarea>
+
+            <!-- todo: kke: validations? -->
+            <!-- <div *ngIf="name.invalid && (name.dirty || name.touched)" class="d-block invalid-feedback">
+              <div *ngIf="name.errors.required">
+                Norādi savu vārdu.
+              </div>
+              <div *ngIf="name.errors.minlength">
+                Vārdam ir jābūt vismaz 3 simbolu garumā.
+              </div>
+            </div> -->
           </div>
         </div>
 
         <div class="form-row">
           <div class="form-group offset-md-2 col-md-8">
-            <label for="customRange2">Cik Tu būtu gatavs maksāt mēnesī par piekļuvi jaunākajām izsolēm un jaunumu
-              saņemšanai?</label>
+            <label for="customRange2"><strong>Cik Tu būtu gatavs maksāt mēnesī par piekļuvi jaunākajām izsolēm un
+                jaunumu saņemšanai?</strong></label>
             <input type="range" class="custom-range" min="0" max="5" id="customRange2">
           </div>
         </div>
 
-        <div class="form-row">
-          <div class="form-group offset-md-2 col-md-8">
-            <label for="questionStatistic">Tevi interesē izsoļu statistika...</label>
+        <div class="form-group row">
+          <div class="offset-md-2 col-md-8">
+            <label for="questionStatistic"><strong>Tevi interesē izsoļu statistika...</strong></label>
             <textarea class="form-control" id="questionStatistic" rows="2" placeholder="... Piemēram, izsoles priekšmeta vidējā cena vai izsoles apmeklētības statistika"></textarea>
+
+            <!-- todo: kke: validations? -->
+            <!-- <div *ngIf="name.invalid && (name.dirty || name.touched)" class="d-block invalid-feedback">
+                <div *ngIf="name.errors.required">
+                  Norādi savu vārdu.
+                </div>
+                <div *ngIf="name.errors.minlength">
+                  Vārdam ir jābūt vismaz 3 simbolu garumā.
+                </div>
+              </div> -->
           </div>
         </div>
 
-        <div class="form-row">
-          <div class="form-group offset-md-2 col-md-8">
-            <label for="questionConsultation">Vai Tev būtu nepieciešama konsultācija kā piedalīties izsolē, izsoļu
-              pieteikumu veidošanā un citas ar izsoli saistītas lietas?</label>
+        <div class="form-group row">
+          <div class="offset-md-2 col-md-8">
+            <label for="questionConsultation"><strong>Vai Tev būtu nepieciešama konsultācija kā piedalīties izsolē,
+                izsoļu
+                pieteikumu veidošanā un citas ar izsoli saistītas lietas?</strong></label>
             <textarea class="form-control" id="questionConsultation" rows="2" placeholder="Piemēram, dokumentu aizpildīšana tavā vietā vai dokumentu iesniegšana"></textarea>
+
+            <!-- todo: kke: validations? -->
+            <!-- <div *ngIf="name.invalid && (name.dirty || name.touched)" class="d-block invalid-feedback">
+                  <div *ngIf="name.errors.required">
+                    Norādi savu vārdu.
+                  </div>
+                  <div *ngIf="name.errors.minlength">
+                    Vārdam ir jābūt vismaz 3 simbolu garumā.
+                  </div>
+                </div> -->
           </div>
         </div>
 
-        <div class="form-row">
-          <div class="form-group offset-md-2 col-md-8">
-            <p>Paldies par tavu ieguldīto laiku mūsu portāla izaugsmē. Mēs būtu ļoti pateicīgi, ja tu pieteiktos uz
-              jaunumu
-              saņemšanu kādā no tevis izvēlētajiem kanāliem:</p>
+        <div class="form-group row">
+          <div class="offset-md-2 col-md-8">
+            <p><strong>Paldies par tavu ieguldīto laiku mūsu portāla izaugsmē. Mēs būtu ļoti pateicīgi, ja tu
+                pieteiktos uz
+                jaunumu
+                saņemšanu kādā no tevis izvēlētajiem kanāliem:</strong></p>
           </div>
         </div>
 

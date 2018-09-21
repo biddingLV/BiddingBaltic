@@ -1,8 +1,12 @@
+using BiddingAPI.Models.DatabaseModels;
+using BiddingAPI.Repositories.Subscribe;
+using BiddingAPI.Services.Subscribe;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -21,6 +25,9 @@ namespace Bidding
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            ConfigureDbContext(ref services);
+            ConfigureAppServices(ref services);
 
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -65,6 +72,18 @@ namespace Bidding
                     spa.UseAngularCliServer(npmScript: "start");
                 }
             });
+        }
+
+        private void ConfigureDbContext(ref IServiceCollection services)
+        {
+            services.AddDbContext<BiddingContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Bidding"),
+                sqlOptions => sqlOptions.EnableRetryOnFailure()));
+        }
+
+        private void ConfigureAppServices(ref IServiceCollection services)
+        {
+            services.AddScoped<ISubscribeService, SubscribeService>();
+            services.AddScoped<ISubscribeRepository, SubscribeRepository>();
         }
     }
 }

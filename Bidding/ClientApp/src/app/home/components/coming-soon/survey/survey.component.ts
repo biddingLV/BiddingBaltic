@@ -7,8 +7,27 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./survey.component.scss']
 })
 export class ComingSoonSurveyComponent implements OnInit {
-
+  public model: any = {};
   public submitted = false;
+
+  // form
+  public checkboxFlag = true;
+  public selectedCategories: string[];
+
+  // form checkboxes
+  public categoryBoxes = [
+    { category: 'vehicles', name: 'Transportlīdzekļi', checked: false },
+    { category: 'items', name: 'Mantas', checked: false },
+    { category: 'companies', name: 'Uzņēmumu iegāde', checked: false },
+    { category: 'brands', name: 'Preču zīmes / domēna vārdi', checked: false }
+  ];
+
+  public subTypeBoxes = [
+    { category: 'email', name: 'epastā', checked: false },
+    { category: 'sms', name: 'sms', checked: false },
+    { category: 'call', name: 'zvans', checked: false },
+    { category: 'other', name: 'tavs variants', checked: false }
+  ];
 
   constructor() { }
 

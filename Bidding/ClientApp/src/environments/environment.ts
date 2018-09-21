@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  baseUrl: 'http://izsoles-dev.azurewebsites.net/api'
+  baseUrl: 'http://localhost:44310/api'
 };
 
 /*

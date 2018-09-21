@@ -1,16 +1,16 @@
-// import { TestBed, inject } from '@angular/core/testing';
+import { TestBed, inject } from '@angular/core/testing';
 
-// import { FeaturesService } from './auctions.service';
+import { BlogService } from './blog.service';
 
-// describe('FeaturesService', () => {
-//   beforeEach(() => {
-//     TestBed.configureTestingModule({
-//       providers: [FeaturesService]
-//     });
-//   });
+describe('BlogService', () => {
+  beforeEach(() => {
+    TestBed.configureTestingModule({
+      providers: [BlogService]
+    });
+  });
 
-//   it('should be created', inject([FeaturesService], (service: FeaturesService) => {
-//     expect(service)
-//       .toBeTruthy();
-//   }));
-// });
+  it('should be created', inject([BlogService], (service: BlogService) => {
+    expect(service)
+      .toBeTruthy();
+  }));
+});
