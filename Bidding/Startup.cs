@@ -25,8 +25,12 @@ namespace Bidding
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddCors();
 
+            // ConfigureMVC(ref services);
+            // ConfigureCORS(ref services);
             ConfigureDbContext(ref services);
+            ConfigureAppConfigurationService(ref services);
             ConfigureAppServices(ref services);
 
             // In production, the Angular files will be served from this directory
@@ -53,6 +57,12 @@ namespace Bidding
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
 
+            app.UseCors(
+                options => options.WithOrigins("http://localhost:4200")
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+            );
+
             app.UseMvc(routes =>
             {
                 routes.MapRoute(
@@ -74,10 +84,43 @@ namespace Bidding
             });
         }
 
+        //private void ConfigureMVC(ref IServiceCollection services)
+        //{
+        //    services
+        //        .AddMvc(options =>
+        //        {
+        //            options.Filters.Add(typeof(ApiExceptionFilter));
+        //            var policy = new AuthorizationPolicyBuilder()
+        //                        .RequireAuthenticatedUser()
+        //                        .Build();
+        //            options.Filters.Add(new AuthorizeFilter(policy));
+        //        })
+        //        .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver())
+        //        .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+        //}
+
+        //private void ConfigureCORS(ref IServiceCollection services)
+        //{
+        //    services.AddCors(
+        //        options => options.AddPolicy("Dev", builder =>
+        //        {
+        //            builder.WithOrigins("http://localhost:4200", "http://izsoles-dev.azurewebsites.net/");
+        //            builder.AllowAnyHeader();
+        //            builder.AllowAnyMethod();
+        //            builder.AllowCredentials();
+        //        }));
+        //}
+
         private void ConfigureDbContext(ref IServiceCollection services)
         {
             services.AddDbContext<BiddingContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Bidding"),
                 sqlOptions => sqlOptions.EnableRetryOnFailure()));
+        }
+
+        private void ConfigureAppConfigurationService(ref IServiceCollection services)
+        {
+            services.AddSingleton<IConfiguration>(Configuration);
+
         }
 
         private void ConfigureAppServices(ref IServiceCollection services)

@@ -19,7 +19,7 @@ export class HomeService {
 
     console.log(request);
 
-    return this.http.post(url, request)
+    return this.http.put(url, request)
       .pipe(catchError(this.exception.errorHandler));
   }
 }

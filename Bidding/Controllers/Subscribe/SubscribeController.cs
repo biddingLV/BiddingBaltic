@@ -22,23 +22,9 @@ namespace Bidding.Controllers
         }
 
         [HttpPut]
-        [Route("public")]
-        public IActionResult Public(int id)
-        {
-            return Json(new
-            {
-                Message = "Hello from a public endpoint! You don't need to be authenticated to see this."
-            });
-        }
-
-        [HttpPost]
         public async Task<IActionResult> UsingEmail([FromBody] EmailRequestModel request)
         {
-            return Json(new
-            {
-                Message = "Hello from a public endpoint! You don't need to be authenticated to see this."
-            });
-            // return Ok(await m_subscribeService.UsingEmail(request));
+            return Ok(await m_subscribeService.UsingEmail(request));
         }
 
         [HttpPut]
