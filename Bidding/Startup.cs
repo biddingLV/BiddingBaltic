@@ -58,7 +58,7 @@ namespace Bidding
             app.UseSpaStaticFiles();
 
             app.UseCors(
-                options => options.WithOrigins("http://localhost:4200")
+                options => options.WithOrigins("http://localhost:4200", "http://izsoles-dev.azurewebsites.net/")
                     .AllowAnyMethod()
                     .AllowAnyHeader()
             );
