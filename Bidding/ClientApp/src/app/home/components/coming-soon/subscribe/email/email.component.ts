@@ -6,7 +6,6 @@ import { BsModalRef } from 'ngx-bootstrap/modal';
 import { IEmailSubscribeRequest } from '../../../../models/email-subscribe-request.model';
 import { HomeService } from '../../../../services/home.service';
 import { NotificationsService } from '../../../../../core';
-import { IEmailSubscribeResponse } from '../../../../models/email-subscribe-response.model';
 
 @Component({
   selector: 'app-subscribe-email',
@@ -33,8 +32,6 @@ export class SubscribeEmailComponent {
   constructor(public bsModalRef: BsModalRef, private homeApi: HomeService, private notification: NotificationsService) { }
 
   public onSubmit(form: NgForm) {
-    // todo: kke: validate form values here also!
-
     // filtered categories
     const selectedCategories = this.filterOutCategories();
 
@@ -49,7 +46,7 @@ export class SubscribeEmailComponent {
   }
 
   private validateCheckboxes(categories: string[]): boolean {
-    if (categories && categories.constructor === Array && categories.length === 0) {
+    if (categories && categories.constructor === Array && categories.length !== 0) {
       this.checkboxFlag = true;
       return true;
     } else {
@@ -61,8 +58,8 @@ export class SubscribeEmailComponent {
   private initEmailRequest(form, selectedCategories) {
     this.emailSubRequest = {
       Name: form.value.name,
-      Email: form.value.email // ,
-     //  Categories: ['magic']
+      Email: form.value.email,
+      Categories: selectedCategories
     };
   }
 

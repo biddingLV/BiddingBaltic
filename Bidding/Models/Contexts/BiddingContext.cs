@@ -1,4 +1,5 @@
 ﻿using System;
+using Bidding.Models.DatabaseModels.Bidding.Subscribe;
 using BiddingAPI.Models.DatabaseModels.Bidding;
 using BiddingAPI.Models.ViewModels.Bidding.Auctions.List;
 using Microsoft.EntityFrameworkCore;
@@ -30,6 +31,7 @@ namespace BiddingAPI.Models.DatabaseModels
         public virtual DbSet<UserOrganizations> UserOrganizations { get; set; }
         public virtual DbSet<UserRoles> UserRoles { get; set; }
         public virtual DbSet<Users> Users { get; set; }
+        public virtual DbSet<Newsletter> Newsletter { get; set; }
 
         // todo: kke: queries -> move to Query() 2.1 version
         public virtual DbQuery<AuctionListViewModel> AuctionListViewModel { get; set; }

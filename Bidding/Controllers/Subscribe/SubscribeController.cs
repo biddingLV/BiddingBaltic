@@ -24,19 +24,19 @@ namespace Bidding.Controllers
         [HttpPut]
         public async Task<IActionResult> UsingEmail([FromBody] EmailRequestModel request)
         {
-            return Ok(await m_subscribeService.UsingEmail(request));
+            return Ok(await m_subscribeService.UsingEmailAsync(request));
         }
 
         [HttpPut]
         public async Task<IActionResult> UsingWhatsApp([FromBody] WhatsAppRequestModel request)
         {
-            return Ok(await m_subscribeService.UsingWhatsApp(request));
+            return Ok(await m_subscribeService.UsingWhatsAppAsync(request));
         }
 
         [HttpPut]
         public async Task<IActionResult> UsingSurvey([FromBody] SurveyRequestModel request)
         {
-            return Ok(await m_subscribeService.UsingSurvey(request));
+            return Ok(await m_subscribeService.UsingSurveyAsync(request));
         }
     }
 }

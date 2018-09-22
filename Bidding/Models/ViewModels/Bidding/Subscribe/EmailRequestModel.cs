@@ -9,6 +9,6 @@ namespace Bidding.Models.ViewModels.Bidding.Subscribe
     {
         public string Name { get; set; }
         public string Email { get; set; }
-        //public List<string> Categories { get; set; }
+        public List<string> Categories { get; set; }
     }
 }

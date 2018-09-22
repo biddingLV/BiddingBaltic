@@ -4,10 +4,10 @@ namespace BiddingAPI.Services.Subscribe
 {
     public interface ISubscribeService
     {
-        Task<bool> UsingEmail(EmailRequestModel request);
+        Task<bool> UsingEmailAsync(EmailRequestModel request);
 
-        Task<bool> UsingWhatsApp(WhatsAppRequestModel request);
+        Task<bool> UsingWhatsAppAsync(WhatsAppRequestModel request);
 
-        Task<bool> UsingSurvey(SurveyRequestModel request);
+        Task<bool> UsingSurveyAsync(SurveyRequestModel request);
     }
 }

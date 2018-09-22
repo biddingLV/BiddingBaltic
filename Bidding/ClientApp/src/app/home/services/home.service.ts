@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 import { IEmailSubscribeRequest } from '../models/email-subscribe-request.model';
 import { IEmailSubscribeResponse } from '../models/email-subscribe-response.model';
 import { catchError } from 'node_modules/rxjs/operators';
 import { ExceptionsService } from '../../core';
+import { IWhatsAppSubscribeRequest } from '../models/whatsapp-subscribe-request.model';
 
 
 @Injectable()
@@ -17,7 +18,12 @@ export class HomeService {
   public emailSubscribe(request: IEmailSubscribeRequest): Observable<Object> {
     const url = this.baseUrl + '/subscribe/usingemail';
 
-    console.log(request);
+    return this.http.put(url, request)
+      .pipe(catchError(this.exception.errorHandler));
+  }
+
+  public whatsAppSubscribe(request: IWhatsAppSubscribeRequest): Observable<Object> {
+    const url = this.baseUrl + '/subscribe/usingwhatsapp';
 
     return this.http.put(url, request)
       .pipe(catchError(this.exception.errorHandler));
