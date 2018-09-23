@@ -12,9 +12,6 @@ import { IBlogWidgetResponse } from '../../models/widget/blog-widget-response.mo
 })
 export class BlogWidgetComponent implements OnInit {
   public dummyTitle = 'to do';
-
-
-
   // API
   public blogSubscription: Subscription;
   private request: IBlogWidgetRequest;
@@ -23,7 +20,7 @@ export class BlogWidgetComponent implements OnInit {
   constructor(private blogApi: BlogService, private notification: NotificationsService) { }
 
   public ngOnInit() {
-    this.getBlogPosts();
+    // this.getBlogPosts();
   }
 
   private getBlogPosts(): void {
@@ -32,8 +29,6 @@ export class BlogWidgetComponent implements OnInit {
         posts => { this.posts = posts; },
         (error: string) => this.notification.error(error)
       );
-
-    console.log('posts', this.posts);
   }
 
 }

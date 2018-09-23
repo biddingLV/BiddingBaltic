@@ -28,7 +28,6 @@ export class AuthService {
   }
 
   public handleAuthentication(): void {
-    console.log('authorization step 1');  
     this.auth0.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken && authResult.idToken) {
         this.setSession(authResult);
