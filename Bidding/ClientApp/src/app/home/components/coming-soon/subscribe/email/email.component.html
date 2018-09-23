@@ -17,7 +17,7 @@
 <div class="modal-body">
   <form class="container-fluid" (ngSubmit)="onSubmit(emailSubForm)" #emailSubForm="ngForm" novalidate>
     <div class="form-group">
-      <p>Atzīmē savas intereses, lai mēs zinām kādas izsoles Tev sūtīt<br>e-pastā</p>
+      <p class="required"><strong>Atzīmē savas intereses, lai mēs zinām kādas izsoles Tev sūtīt<br>e-pastā:</strong></p>
     </div>
 
     <div class="form-group">
@@ -27,14 +27,14 @@
       </div>
       <div *ngIf="checkboxFlag === false" class="d-block invalid-feedback">
         <div>
-          check at least one of the!
+          Lai turpinātu izvēlies vismaz vienu kategoriju!
         </div>
       </div>
     </div>
 
     <div class="form-group row">
       <div class="col-8">
-        <label for="name">
+        <label for="name" class="required">
           <strong>Vārds:</strong>
         </label>
         <input type="text" id="name" name="name" class="form-control" placeholder="Tavs Vārds" required minlength="3"
@@ -53,7 +53,7 @@
 
     <div class="form-group row">
       <div class="col-8">
-        <label for="email">
+        <label for="email" class="required">
           <strong>E-pasts:</strong>
         </label>
         <input type="email" id="email" name="email" class="form-control" placeholder="Tavs E-pasts" required ngModel

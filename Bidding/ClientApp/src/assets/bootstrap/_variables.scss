@@ -9,3 +9,11 @@ $theme-colors: (
 
 // overwrite default heading sizes
 $h1-font-size: 50px;
+$h5-font-size: 1rem;
+$p-font-size: 1rem;
+
+// add asterisk symbol to required form fields
+.required::after { 
+  content:" *";
+  color: red;
+}

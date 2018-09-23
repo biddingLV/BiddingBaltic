@@ -17,7 +17,7 @@
 <div class="modal-body">
   <form class="container-fluid" (ngSubmit)="onSubmit(whatsAppSubForm)" #whatsAppSubForm="ngForm" novalidate>
     <div class="form-group">
-      <p>Atzīmē savas intereses, lai mēs zinām kādas izsoles Tev sūtīt<br>WhatsAppā</p>
+      <p class="required"><strong>Atzīmē savas intereses, lai mēs zinām kādas izsoles Tev sūtīt<br>WhatsAppā:</strong></p>
     </div>
 
     <div class="form-group">
@@ -27,14 +27,14 @@
       </div>
       <div *ngIf="checkboxFlag === false" class="d-block invalid-feedback">
         <div>
-          check at least one of the!
+          Lai turpinātu izvēlies vismaz vienu kategoriju!
         </div>
       </div>
     </div>
 
     <div class="form-group row">
       <div class="col-8">
-        <label for="name">
+        <label for="name" class="required">
           <strong>Vārds:</strong>
         </label>
         <input type="text" id="name" name="name" class="form-control" placeholder="Tavs Vārds" required minlength="3"
@@ -54,7 +54,7 @@
 
     <div class="form-group row">
       <div class="col-8">
-        <label for="phone">
+        <label for="phone" class="required">
           <strong>Telefons:</strong>
         </label>
         <input type="phone" id="phone" name="phone" class="form-control" placeholder="Tavs Telefons" required ngModel

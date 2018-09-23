@@ -7,6 +7,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // Third Party
 import { ToastrModule } from 'ngx-toastr';
+import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 // Services
 import { // AuthGuard, PermissionsService, UserService,
@@ -21,7 +22,8 @@ import { // AuthGuard, PermissionsService, UserService,
   imports: [
     CommonModule,
     BrowserAnimationsModule, // required animations module for toastr
-    ToastrModule.forRoot()
+    ToastrModule.forRoot(),
+    AngularFontAwesomeModule
   ],
   providers: [
     // { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
@@ -37,6 +39,7 @@ import { // AuthGuard, PermissionsService, UserService,
     HttpClientModule,
     BrowserAnimationsModule,
     ToastrModule,
+    AngularFontAwesomeModule
   ],
   declarations: []
 })
