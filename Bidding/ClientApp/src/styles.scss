@@ -1,7 +1,14 @@
 /* You can add global styles to this file, and also import other style files */
 @import url('https://fonts.googleapis.com/css?family=Source+Sans+Pro:400,600,700,900');
 @import "assets/bootstrap/variables";
-@import "~bootstrap/scss/bootstrap.scss";
+@import "styles-variables.scss";
+@import '~bootstrap/scss/bootstrap-reboot';
+@import '~bootstrap/scss/bootstrap-grid';
+// Required
+@import "~node_modules/bootstrap/scss/bootstrap";
+
+// bootstrap style - toastr
+@import '~ngx-toastr/toastr-bs4-alert'; 
 
 /* Set global default font family */
 $font-family-base: 'Source Sans Pro',sans-serif;

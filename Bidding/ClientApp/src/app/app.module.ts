@@ -26,6 +26,8 @@ import { SharedModule } from './shared/shared.module';
 import { HomeModule } from './home/home.module';
 import { BlogModule } from './blog/blog.module';
 
+import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
+
 @NgModule({
   declarations: [
     AppComponent
@@ -39,7 +41,8 @@ import { BlogModule } from './blog/blog.module';
     HomeModule,
     BlogModule,
     CoreModule.forRoot(),
-    AppRoutingModule
+    AppRoutingModule,
+    ScrollToModule.forRoot()
   ],
   providers: [
     AuthService,

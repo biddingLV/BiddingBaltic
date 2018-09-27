@@ -36,6 +36,7 @@ namespace BiddingAPI.Repositories.Subscribe
                 Items = categoryItems,
                 Companies = categoryCompanies,
                 Brands = categoryBrands,
+                CreatedDate = DateTime.Now
             };
 
             m_context.Add(newsletter);
@@ -57,6 +58,7 @@ namespace BiddingAPI.Repositories.Subscribe
                 Items = categoryItems,
                 Companies = categoryCompanies,
                 Brands = categoryBrands,
+                CreatedDate = DateTime.Now
             };
 
             m_context.Add(newsletter);

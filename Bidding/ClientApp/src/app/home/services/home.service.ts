@@ -7,6 +7,7 @@ import { IEmailSubscribeResponse } from '../models/email-subscribe-response.mode
 import { catchError } from 'node_modules/rxjs/operators';
 import { ExceptionsService } from '../../core';
 import { IWhatsAppSubscribeRequest } from '../models/whatsapp-subscribe-request.model';
+import { ISurveyRequest } from '../models/survey-request.model';
 
 
 @Injectable()
@@ -24,6 +25,13 @@ export class HomeService {
 
   public whatsAppSubscribe(request: IWhatsAppSubscribeRequest): Observable<Object> {
     const url = this.baseUrl + '/subscribe/usingwhatsapp';
+
+    return this.http.put(url, request)
+      .pipe(catchError(this.exception.errorHandler));
+  }
+
+  public submitSurvey(request: ISurveyRequest): Observable<Object> {
+    const url = this.baseUrl + '/subscribe/usingsurvey';
 
     return this.http.put(url, request)
       .pipe(catchError(this.exception.errorHandler));

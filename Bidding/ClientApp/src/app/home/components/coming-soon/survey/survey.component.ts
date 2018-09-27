@@ -4,8 +4,6 @@ import { HomeService } from '../../../services/home.service';
 import { NotificationsService } from '../../../../core';
 import { ISurveyRequest } from '../../../models/survey-request.model';
 
-
-
 @Component({
   selector: 'app-coming-soon-survey',
   templateUrl: './survey.component.html',
@@ -45,7 +43,7 @@ export class ComingSoonSurveyComponent {
     const validNewsLetterOptions = this.filterOutNLOptions();
 
     if (this.validateCheckboxes(selectedCategories, validNewsLetterOptions)) {
-      this.initEmailRequest(form, selectedCategories);
+      this.initEmailRequest(form, selectedCategories, validNewsLetterOptions);
       this.submitRequest();
     }
   }
@@ -74,9 +72,17 @@ export class ComingSoonSurveyComponent {
     }
   }
 
-  private initEmailRequest(form, selectedCategories) {
+  private initEmailRequest(form, selectedCategories, validNewsLetterOptions) {
     this.surveyRequest = {
-      Name: form.value.name
+      Name: form.value.name,
+      Categories: selectedCategories,
+      InterestsQuestion: form.value.interests,
+      NewsLetterOptions: validNewsLetterOptions,
+      FrequencyQuestion: '', // todo: kke!
+      VisualQuestion: form.value.questionVisual,
+      MoneyQuestion: 1, // todo: kke
+      StatisticQuestion: form.value.questionStatistic,
+      ConsultationQuestion: form.value.questionConsultation
     };
   }
 
@@ -85,18 +91,18 @@ export class ComingSoonSurveyComponent {
 
     let surveySuccess: boolean;
 
-    // this.homeApi.emailSubscribe(this.surveyRequest)
-    //   .subscribe(
-    //     (data: boolean) => {
-    //       subSuccess = data;
+    this.homeApi.submitSurvey(this.surveyRequest)
+      .subscribe(
+        (data: boolean) => {
+          surveySuccess = data;
 
-    //       if (subSuccess) {
-    //         this.notification.success('Succesfully subscribed!');
-    //       } else {
-    //         this.notification.error('N-Succesfully subscribed!');
-    //       }
-    //     },
-    //     (error: string) => this.notification.error(error)
-    //   );
+          if (surveySuccess) {
+            this.notification.success('Succesfully subscribed!');
+          } else {
+            this.notification.error('N-Succesfully subscribed!');
+          }
+        },
+        (error: string) => this.notification.error(error)
+      );
   }
 }

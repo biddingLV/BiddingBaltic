@@ -45,6 +45,11 @@ namespace BiddingAPI.Services.Subscribe
 
         public async Task<bool> UsingSurveyAsync(SurveyRequestModel request)
         {
+            // todo: kke: check request params!
+            //if (request.Categories.IsEmpty()) { throw new WebApiException(HttpStatusCode.BadRequest, "Incorrect categories"); }
+            //if (request.Phone.IsEmpty()) { throw new WebApiException(HttpStatusCode.BadRequest, "Incorrect phone"); }
+            //if (request.Name.IsEmpty()) { throw new WebApiException(HttpStatusCode.BadRequest, "Incorrect name"); }
+
             return await m_subscribeRepository.UsingSurveyAsync(request);
         }
 
