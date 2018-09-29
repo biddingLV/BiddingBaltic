@@ -3,13 +3,16 @@ import { Routes, RouterModule } from '@angular/router';
 // import { ProfileComponent } from './profile/profile.component';
 // import { PingComponent } from './ping/ping.component';
 // import { AdminComponent } from './admin/admin.component';
-import { AuthGuardService as AuthGuard } from './auth/auth-guard.service';
-import { ScopeGuardService as ScopeGuard } from './auth/scope-guard.service';
-import { BlogDetailsComponent } from './blog/components/details/details.component';
-import { BlogWidgetComponent } from './blog/containers/widget/widget.component';
+// import { AuthGuardService as AuthGuard } from './auth/auth-guard.service';
+// import { ScopeGuardService as ScopeGuard } from './auth/scope-guard.service';
+// import { BlogDetailsComponent } from './blog/components/details/details.component';
+// import { BlogWidgetComponent } from './blog/containers/widget/widget.component';
+
 
 const routes: Routes = [
   { path: '', loadChildren: './home/home.module#HomeModule' },
+  { path: 'noteikumi-un-nosacijumi', loadChildren: './rules/rules.module#RulesModule' },
+  { path: 'gdpr', loadChildren: './gdpr/gdpr.module#GdprModule' },
   // { path: 'users', loadChildren: './users/users.module#UsersModule' },
   // { path: 'auctions', loadChildren: './auctions/auctions.module#AuctionsModule' },
   // { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
@@ -21,7 +24,11 @@ const routes: Routes = [
   // },
 
   // { path: 'admin', component: AdminComponent, canActivate: [ScopeGuard], data: { expectedScopes: ['write:messages'] } },
-  // { path: '', redirectTo: '/home', pathMatch: 'full' },
+  {
+    path: '',
+    redirectTo: '',
+    pathMatch: 'full'
+  }
   // { path: '**', component: PageNotFoundComponent }
 ];
 

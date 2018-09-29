@@ -41,8 +41,9 @@ import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
     HomeModule,
     BlogModule,
     CoreModule.forRoot(),
-    AppRoutingModule,
-    ScrollToModule.forRoot()
+    ScrollToModule.forRoot(),
+    // leave routing module as the last one!
+    AppRoutingModule
   ],
   providers: [
     AuthService,
