@@ -1,6 +1,6 @@
 <footer>
   <div class="container">
-    <div class="row footer-row">
+    <div class="row" id="footer-row">
       <div class="col-md-4">
         <h5 id="service-title" class="footer-title">Bidding.lv pakalpojumi</h5>
         <p>Pakalpojumi Bidding.lv apmeklētājiem</p>
@@ -15,16 +15,19 @@
 
       <div class="col-md-4">
         <h5 id="terms-title" class="footer-title">Bidding.lv noteikumu sadaļa</h5>
-        <a [routerLink]="['/noteikumi-un-nosacijumi']">Izsoļu portāla bidding.lv noteikumi pagaidu lapai</a>
+        <a class="text-white" [routerLink]="['/noteikumi-un-nosacijumi']">Izsoļu portāla bidding.lv noteikumi pagaidu
+          lapai</a>
         <br>
-        <a [routerLink]="['/gdpr']">GDPR noteikumi</a>
+        <a class="text-white" [routerLink]="['/gdpr']">GDPR noteikumi</a>
       </div>
     </div>
 
-    <div class="row">
-      <div class="col-md-12 text-center text-white">
-        <span><i class="fa fa-facebook-f"></i></span>
-        <span><i class="fa fa-instagram"></i></span>
+    <div class="row" id="social-icon-row">
+      <div class="col-md-2 offset-md-5">
+        <ul class="social-network social-circle">
+          <li><a class="text-center text-white" href="#"><i class="fa fa-facebook-f"></i></a></li>
+          <li><a class="text-center text-white" href="#"><i class="fa fa-instagram"></i></a></li>
+        </ul>
       </div>
     </div>
 
