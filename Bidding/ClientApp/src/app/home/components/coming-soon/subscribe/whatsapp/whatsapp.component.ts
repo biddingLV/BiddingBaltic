@@ -24,6 +24,7 @@ export class SubscribeWhatsappComponent {
     { category: 'vehicles', name: 'Transportlīdzekļi', checked: false },
     { category: 'items', name: 'Mantas', checked: false },
     { category: 'companies', name: 'Uzņēmumu iegāde', checked: false },
+    { category: 'estate', name: 'Nekustamie īpašumi', checked: false },
     { category: 'brands', name: 'Preču zīmes / domēna vārdi', checked: false }
   ];
 

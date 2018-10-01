@@ -26,6 +26,7 @@ namespace BiddingAPI.Repositories.Subscribe
             bool categoryVehicles = (request.Categories.Contains("vehicles")) ? true : false;
             bool categoryItems = (request.Categories.Contains("items")) ? true : false;
             bool categoryCompanies = (request.Categories.Contains("companies")) ? true : false;
+            bool categoryEstate = (request.Categories.Contains("estate")) ? true : false;
             bool categoryBrands = (request.Categories.Contains("brands")) ? true : false;
 
             Newsletter newsletter = new Newsletter()
@@ -35,6 +36,7 @@ namespace BiddingAPI.Repositories.Subscribe
                 Vehicles = categoryVehicles,
                 Items = categoryItems,
                 Companies = categoryCompanies,
+                Estate = categoryEstate,
                 Brands = categoryBrands,
                 CreatedDate = DateTime.Now
             };
@@ -45,9 +47,10 @@ namespace BiddingAPI.Repositories.Subscribe
 
         public async Task<bool> UsingWhatsAppAsync(WhatsAppRequestModel request)
         {
-            bool categoryVehicles = (request.Categories.Contains("vehicle")) ? true : false;
+            bool categoryVehicles = (request.Categories.Contains("vehicles")) ? true : false;
             bool categoryItems = (request.Categories.Contains("items")) ? true : false;
             bool categoryCompanies = (request.Categories.Contains("companies")) ? true : false;
+            bool categoryEstate = (request.Categories.Contains("estate")) ? true : false;
             bool categoryBrands = (request.Categories.Contains("brands")) ? true : false;
 
             Newsletter newsletter = new Newsletter()
@@ -57,6 +60,7 @@ namespace BiddingAPI.Repositories.Subscribe
                 Vehicles = categoryVehicles,
                 Items = categoryItems,
                 Companies = categoryCompanies,
+                Estate = categoryEstate,
                 Brands = categoryBrands,
                 CreatedDate = DateTime.Now
             };

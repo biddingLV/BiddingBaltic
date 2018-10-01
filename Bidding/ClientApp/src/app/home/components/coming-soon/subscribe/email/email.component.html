@@ -75,7 +75,8 @@
       <div class="custom-control custom-checkbox">
         <input type="checkbox" class="custom-control-input" name="agreeRules" id="agreeRules" required ngModel
           agreeRules #agreeRules="ngModel">
-        <label class="custom-control-label" for="agreeRules">Piekrītu noteikumiem</label>
+        <label class="custom-control-label" for="agreeRules"><a target="_blank" [routerLink]="['/noteikumi-un-nosacijumi']">Piekrītu
+            noteikumiem</a></label>
 
         <div *ngIf="agreeRules.invalid && (agreeRules.dirty || agreeRules.touched)" class="d-block invalid-feedback">
           <div *ngIf="agreeRules.errors.required">

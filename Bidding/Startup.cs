@@ -113,7 +113,7 @@ namespace Bidding
 
         private void ConfigureDbContext(ref IServiceCollection services)
         {
-            services.AddDbContext<BiddingContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Bidding"),
+            services.AddDbContext<BiddingContext>(options => options.UseSqlServer(Configuration.GetConnectionString("BiddingLV"),
                 sqlOptions => sqlOptions.EnableRetryOnFailure()));
         }
 

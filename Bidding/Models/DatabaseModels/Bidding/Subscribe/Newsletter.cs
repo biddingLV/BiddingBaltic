@@ -18,6 +18,7 @@ namespace Bidding.Models.DatabaseModels.Bidding.Subscribe
         public bool Vehicles { get; set; }
         public bool Items { get; set; }
         public bool Companies { get; set; }
+        public bool Estate { get; set; }
         public bool Brands { get; set; }
         public DateTime CreatedDate { get; set; }
     }

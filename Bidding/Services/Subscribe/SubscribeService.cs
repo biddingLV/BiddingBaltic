@@ -55,13 +55,13 @@ namespace BiddingAPI.Services.Subscribe
 
         private bool ValidateCategories(List<string> categories)
         {
-            List<string> validCategories = new List<string>(new string[] { "vehicles", "items", "companies", "brands" });
+            List<string> validCategories = new List<string>(new string[] { "vehicles", "items", "companies", "estate", "brands" });
 
             foreach (string category in categories)
             {
                 if (!validCategories.Contains(category))
                 {
-                    throw new WebApiException(HttpStatusCode.BadRequest, "somethign is wrong with the categories!");
+                    throw new WebApiException(HttpStatusCode.BadRequest, "Something is wrong with the categories!");
                 }
                 else
                 {
