@@ -1,11 +1,11 @@
 <div class="modal-header">
   <div class="container-fluid">
     <div class="row">
-      <div class="col-md-11">
-        <h4 class="modal-title pull-left">Es gribu saņemt jaunumus WhatsAppā</h4>
+      <div class="col-10 col-md-11">
+        <h4 id="whatsapp-modal-title" class="modal-title pull-left">Es gribu saņemt jaunumus WhatsAppā</h4>
       </div>
 
-      <div class="col-md-1">
+      <div class="col-2 col-md-1">
         <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -33,7 +33,7 @@
     </div>
 
     <div class="form-group row">
-      <div class="col-8">
+      <div class="col-12 col-md-8">
         <label for="name" class="required">
           <strong>Vārds:</strong>
         </label>
@@ -53,7 +53,7 @@
 
 
     <div class="form-group row">
-      <div class="col-8">
+      <div class="col-12 col-md-8">
         <label for="phone" class="required">
           <strong>Telefons:</strong>
         </label>
@@ -70,10 +70,28 @@
 
     <div class="form-group">
       <div class="custom-control custom-checkbox">
+        <input type="checkbox" class="custom-control-input" name="agreeXxx" id="agreeXxx" required ngModel agreeXxx
+          #agreeXxx="ngModel">
+        <label class="custom-control-label" for="agreeXxx">Piekrītu
+          saņemt <a target="_blank" [routerLink]="['/noteikumi-un-nosacijumi']">bidding.lv sadarbības partneru
+            piedāvājumus</a>, kas saistīti ar izsoles priekšmetu.</label>
+
+        <div *ngIf="agreeXxx.invalid && (agreeXxx.dirty || agreeXxx.touched)" class="d-block invalid-feedback">
+          <div *ngIf="agreeXxx.errors.required">
+            Lai turpinātu tev ir jāpiekrīt bidding.lv sadarbības partneru piedāvājumiem
+          </div>
+        </div>
+      </div>
+
+      <div class="custom-control custom-checkbox">
         <input type="checkbox" class="custom-control-input" name="agreeRules" id="agreeRules" required ngModel
           agreeRules #agreeRules="ngModel">
-        <label class="custom-control-label" for="agreeRules"><a target="_blank" [routerLink]="['/noteikumi-un-nosacijumi']">Piekrītu
-            noteikumiem</a></label>
+        <label class="custom-control-label" for="agreeRules">Es
+          izlasīju, saprotu un piekrītu <a target="_blank" [routerLink]="['/noteikumi-un-nosacijumi']">bidding.lv
+            noteikumiem un nosacījumiem.</a></label>
+
+        <P id="whatsapp-app-info">*Lai saņemtu šo pakalpjumu, manai viedierīcei ir jābūt augšupielādētai Whatsapp aplikācijai, kas var prasīt
+          papildus lietošanas komisijas maksu.</P>
 
         <div *ngIf="agreeRules.invalid && (agreeRules.dirty || agreeRules.touched)" class="d-block invalid-feedback">
           <div *ngIf="agreeRules.errors.required">

@@ -57,11 +57,16 @@ namespace Bidding
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
 
-            app.UseCors(
-                options => options.WithOrigins("http://localhost:4200", "http://izsoles-dev.azurewebsites.net/")
-                    .AllowAnyMethod()
-                    .AllowAnyHeader()
-            );
+            //app.UseCors(
+            //    options => options.WithOrigins("http://localhost:4200", "http://bidding.lv", "http://biddinglv.azurewebsites.net/")
+            //        .AllowAnyMethod()
+            //        .AllowAnyHeader()
+            //);
+
+            app.UseCors(builder => builder
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
 
             app.UseMvc(routes =>
             {

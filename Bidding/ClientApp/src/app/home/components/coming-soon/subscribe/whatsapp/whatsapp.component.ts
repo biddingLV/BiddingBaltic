@@ -71,10 +71,10 @@ export class SubscribeWhatsappComponent {
           subSuccess = data;
 
           if (subSuccess) {
-            this.notification.success('Succesfully subscribed!');
+            this.notification.success('Esam veiksmīgi reģistrējuši tavu pieteikumu.');
             this.bsModalRef.hide();
           } else {
-            this.notification.error('N-Succesfully subscribed!');
+            this.notification.error('Izskatās ka ir notikusi kļūda, atgriezies vēlāk!');
           }
         },
         (error: string) => this.notification.error(error)

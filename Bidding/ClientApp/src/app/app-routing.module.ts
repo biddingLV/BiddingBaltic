@@ -13,6 +13,7 @@ const routes: Routes = [
   { path: '', loadChildren: './home/home.module#HomeModule' },
   { path: 'noteikumi-un-nosacijumi', loadChildren: './rules/rules.module#RulesModule' },
   { path: 'gdpr', loadChildren: './gdpr/gdpr.module#GdprModule' },
+  { path: 'pakalpojumi', loadChildren: './services/services.module#ServicesModule' },
   // { path: 'users', loadChildren: './users/users.module#UsersModule' },
   // { path: 'auctions', loadChildren: './auctions/auctions.module#AuctionsModule' },
   // { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
