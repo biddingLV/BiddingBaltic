@@ -1,4 +1,12 @@
 /* You can add global styles to this file, and also import other style files */
+
+// partials
+@import 'partials/layout.vars';
+@import 'partials/responsive.partial';
+
+// global styles
+@import 'base';
+
 @import "assets/bootstrap/variables";
 @import "styles-variables.scss";
 @import '~bootstrap/scss/bootstrap-reboot';

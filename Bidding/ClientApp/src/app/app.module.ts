@@ -27,10 +27,12 @@ import { HomeModule } from './home/home.module';
 import { BlogModule } from './blog/blog.module';
 
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
+import { CallbackComponent } from './pages/callback/callback.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    CallbackComponent
   ],
   imports: [
     BrowserModule,

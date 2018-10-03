@@ -1,6 +1,7 @@
 using BiddingAPI.Models.DatabaseModels;
 using BiddingAPI.Repositories.Subscribe;
 using BiddingAPI.Services.Subscribe;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
@@ -25,6 +26,19 @@ namespace Bidding
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+
+            // 1. Add Authentication Services
+            services.AddAuthentication(options =>
+            {
+                options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+
+            }).AddJwtBearer(options =>
+            {
+                options.Authority = "https://biddinglv.eu.auth0.com/";
+                options.Audience = "http://localhost:44310/api/";
+            });
+
             services.AddCors();
 
             // ConfigureMVC(ref services);
@@ -74,6 +88,9 @@ namespace Bidding
                     name: "default",
                     template: "{controller}/{action=Index}/{id?}");
             });
+
+            // 2. Enable authentication middleware
+            app.UseAuthentication();
 
             app.UseSpa(spa =>
             {

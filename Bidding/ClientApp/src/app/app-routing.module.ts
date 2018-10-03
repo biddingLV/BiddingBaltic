@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { CallbackComponent } from './pages/callback/callback.component';
 // import { ProfileComponent } from './profile/profile.component';
 // import { PingComponent } from './ping/ping.component';
 // import { AdminComponent } from './admin/admin.component';
@@ -14,6 +15,7 @@ const routes: Routes = [
   { path: 'noteikumi-un-nosacijumi', loadChildren: './rules/rules.module#RulesModule' },
   { path: 'gdpr', loadChildren: './gdpr/gdpr.module#GdprModule' },
   { path: 'pakalpojumi', loadChildren: './services/services.module#ServicesModule' },
+  { path: 'callback', component: CallbackComponent },
   // { path: 'users', loadChildren: './users/users.module#UsersModule' },
   // { path: 'auctions', loadChildren: './auctions/auctions.module#AuctionsModule' },
   // { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
