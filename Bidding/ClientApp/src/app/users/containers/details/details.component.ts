@@ -12,13 +12,13 @@ export class UsersDetailComponent implements OnInit {
   constructor(public auth: AuthService) { }
 
   public ngOnInit() {
-    if (this.auth.userProfile) {
-      this.profile = this.auth.userProfile;
-    } else {
-      this.auth.getProfile((err, profile) => {
-        this.profile = profile;
-      });
-    }
+    // if (this.auth.userProfile) {
+    //   this.profile = this.auth.userProfile;
+    // } else {
+    //   this.auth.getProfile((err, profile) => {
+    //     this.profile = profile;
+    //   });
+    // }
   }
 
 }

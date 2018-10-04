@@ -13,8 +13,8 @@ import { AppComponent } from './app.component';
 // import { AdminComponent } from './admin/admin.component';
 
 import { AuthService } from './auth/auth.service';
-import { AuthGuardService } from './auth/auth-guard.service';
-import { ScopeGuardService } from './auth/scope-guard.service';
+// import { AuthGuardService } from './auth/auth-guard.service';
+// import { ScopeGuardService } from './auth/scope-guard.service';
 
 // modals
 import { SubscribeEmailComponent } from './home/components/coming-soon/subscribe/email/email.component';
@@ -48,9 +48,9 @@ import { CallbackComponent } from './pages/callback/callback.component';
     AppRoutingModule
   ],
   providers: [
-    AuthService,
-    AuthGuardService,
-    ScopeGuardService
+    AuthService // ,
+    // AuthGuardService,
+    // ScopeGuardService
   ],
   bootstrap: [
     AppComponent
