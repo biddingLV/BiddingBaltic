@@ -13,6 +13,7 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { // AuthGuard, PermissionsService, UserService,
   NotificationsService, ExceptionsService
 } from './services';
+import { HeaderComponent } from './components/header/header.component';
 // import { CookieService } from 'ngx-cookie-service';
 
 // Interceptors
@@ -39,9 +40,12 @@ import { // AuthGuard, PermissionsService, UserService,
     HttpClientModule,
     BrowserAnimationsModule,
     ToastrModule,
-    AngularFontAwesomeModule
+    AngularFontAwesomeModule,
+    HeaderComponent
   ],
-  declarations: []
+  declarations: [
+    HeaderComponent
+  ]
 })
 export class CoreModule {
   constructor(@Optional() @SkipSelf() parentModule: CoreModule) {

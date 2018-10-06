@@ -36,7 +36,7 @@ namespace Bidding
             }).AddJwtBearer(options =>
             {
                 options.Authority = "https://biddinglv.eu.auth0.com/";
-                options.Audience = "http://localhost:44310/api/";
+                options.Audience = "http://localhost:61244/api/";
             });
 
             services.AddCors();

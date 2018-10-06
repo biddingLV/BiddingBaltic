@@ -12,9 +12,9 @@ export class AuthService {
   private _auth0 = new auth0.WebAuth({
     clientID: AUTH_CONFIG.CLIENT_ID,
     domain: AUTH_CONFIG.CLIENT_DOMAIN,
-    responseType: 'token',
+    responseType: 'token id_token',
     redirectUri: AUTH_CONFIG.REDIRECT,
-    audience: AUTH_CONFIG.AUDIENCE,
+    // audience: AUTH_CONFIG.AUDIENCE, // todo: kke is this needed?
     scope: AUTH_CONFIG.SCOPE
   });
   accessToken: string;
@@ -43,7 +43,7 @@ export class AuthService {
     this._auth0.authorize();
   }
 
-  handleAuth() {
+  handleAuthentication() {
     // When Auth0 hash parsed, get profile
     this._auth0.parseHash((err, authResult) => {
       if (authResult && authResult.accessToken) {
@@ -89,7 +89,7 @@ export class AuthService {
     this._clearExpiration();
     // End Auth0 authentication session
     this._auth0.logout({
-      clientId: AUTH_CONFIG.CLIENT_ID,
+      clientID: AUTH_CONFIG.CLIENT_ID,
       returnTo: this.baseUrl
     });
   }

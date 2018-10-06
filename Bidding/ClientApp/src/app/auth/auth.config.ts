@@ -1,3 +1,5 @@
+import { environment } from '../../environments/environment';
+
 interface AuthConfig {
   CLIENT_ID: string;
   CLIENT_DOMAIN: string;
@@ -7,9 +9,9 @@ interface AuthConfig {
 }
 
 export const AUTH_CONFIG: AuthConfig = {
-  CLIENT_ID: '[AUTH0_CLIENT_ID]',
-  CLIENT_DOMAIN: '[AUTH0_CLIENT_DOMAIN]', // e.g., you.auth0.com
-  AUDIENCE: 'https://localhost:44310/api', // e.g., http://localhost:8083/api/
-  REDIRECT: 'https://localhost:44310/api/callback',
-  SCOPE: 'openid profile'
+  CLIENT_ID: 'RGm50MKxa1XcWeRJdI3Ebgf6l7SBFmz0',
+  CLIENT_DOMAIN: 'biddinglv.eu.auth0.com',
+  AUDIENCE: `${environment.baseUrl}`,
+  REDIRECT: 'http://localhost:4200/callback', // `${environment.baseUrl}/callback`
+  SCOPE: 'openid'
 };
