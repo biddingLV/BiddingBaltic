@@ -1,51 +1,59 @@
-import { Component, OnInit } from '@angular/core';
-import { IAuctionListRequest } from '../../models/auction-list-request.model';
-import { IAuctionListResponse } from '../../models/auction-list-response.model';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { IAuctionListRequest } from '../../models/interfaces/auction-list-request.model';
+import { IAuctionListResponse } from '../../models/interfaces/auction-list-response.model';
 import { AuctionsService } from '../../services/auctions.service';
-import { Observable } from 'rxjs';
+import { UtilsService } from '../../../core';
+import { Subscription } from 'rxjs';
+import { Title } from '@angular/platform-browser';
 
 @Component({
   selector: 'app-auction-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss']
 })
-export class AuctionListComponent implements OnInit {
+export class AuctionListComponent implements OnInit, OnDestroy {
+  pageTitle = 'Auctions';
+  auctionListSub: Subscription;
+  auctionList: IAuctionListResponse[];
+  filteredAuctions: IAuctionListResponse[];
+  loading: boolean;
+  error: boolean;
+  query: '';
 
   public numberRows = 10;
-  public selected = [];
+  // public selected = [];
 
   // API
-  public response$: Observable<IAuctionListResponse>;
   private request: IAuctionListRequest;
-  public Auctions: IAuctionListResponse;
 
-  constructor(private auctionApi: AuctionsService) { }
+  constructor(private title: Title, public utils: UtilsService, private auctionApi: AuctionsService) { }
 
   public ngOnInit() {
-    this.initRequest();
-    this.getAuctions();
+    this.title.setTitle(this.pageTitle);
+    this.initializeRequest();
+    this._getAuctionList();
   }
 
   // Data Table Events
   public onSortChange(event): void {
     this.request.SortByColumn = event.column.prop;
     this.request.SortingDirection = event.newValue;
-    this.getAuctions();
+    this._getAuctionList();
   }
 
   public onPageChange(event): void {
     this.request.OffsetStart = event.page;
-    this.getAuctions();
+    this._getAuctionList();
   }
 
   public onRowChange(event): void {
     this.request.OffsetStart = 1;
     this.request.OffsetEnd = event;
-    this.getAuctions();
+    this._getAuctionList();
   }
 
   // Private
-  private initRequest(): void {
+  private initializeRequest(): void {
     this.request = {
       OffsetEnd: this.numberRows,
       OffsetStart: 1,
@@ -56,10 +64,26 @@ export class AuctionListComponent implements OnInit {
   }
 
   // Private API Get Functions
-  private getAuctions(): void {
-    this.response$ = this.auctionApi.getAuctions(this.request);
-    this.response$.subscribe((data: IAuctionListResponse) => {
-      this.Auctions = { ...data };
-    });
+  private _getAuctionList() {
+    this.loading = true;
+
+    this.auctionListSub = this.auctionApi
+      .getAuctions$(this.request)
+      .subscribe(
+        res => {
+          this.auctionList = res;
+          this.filteredAuctions = res;
+          this.loading = false;
+        },
+        err => {
+          console.error(err);
+          this.loading = false;
+          this.error = true;
+        }
+      );
+  }
+
+  ngOnDestroy() {
+    this.auctionListSub.unsubscribe();
   }
 }

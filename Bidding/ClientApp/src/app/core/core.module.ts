@@ -11,9 +11,10 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 // Services
 import { // AuthGuard, PermissionsService, UserService,
-  NotificationsService, ExceptionsService
+  NotificationsService, ExceptionsService, UtilsService
 } from './services';
 import { HeaderComponent } from './components/header/header.component';
+import { LoadingComponent } from './components/loading/loading.component';
 // import { CookieService } from 'ngx-cookie-service';
 
 // Interceptors
@@ -33,6 +34,7 @@ import { HeaderComponent } from './components/header/header.component';
     // UserService,
     NotificationsService,
     ExceptionsService,
+    UtilsService,
     // CookieService,
     HttpClientModule
   ],
@@ -41,10 +43,12 @@ import { HeaderComponent } from './components/header/header.component';
     BrowserAnimationsModule,
     ToastrModule,
     AngularFontAwesomeModule,
-    HeaderComponent
+    HeaderComponent,
+    LoadingComponent
   ],
   declarations: [
-    HeaderComponent
+    HeaderComponent,
+    LoadingComponent
   ]
 })
 export class CoreModule {

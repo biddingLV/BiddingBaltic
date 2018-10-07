@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { IAuctionListResponse } from '../../../../auctions/models/auction-list-response.model';
+import { IAuctionListResponse } from '../../../../auctions/models/interfaces/auction-list-response.model';
 
 @Component({
   selector: 'app-auctions-table',

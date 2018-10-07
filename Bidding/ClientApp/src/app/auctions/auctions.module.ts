@@ -10,14 +10,17 @@ import { AuctionEditComponent } from './components/edit/edit.component';
 import { AuctionDeleteComponent } from './components/delete/delete.component';
 import { AuctionAddComponent } from './components/add/add.component';
 import { AuctionCardListComponent } from './containers/card/list/list.component';
+import { LoadingComponent } from '../core/components/loading/loading.component';
+import { CoreModule } from '../core';
 
 
 @NgModule({
   imports: [
     CommonModule,
-    AuctionsRoutingModule,
     NgxDatatableModule,
-    SharedModule
+    SharedModule,
+    AuctionsRoutingModule,
+    CoreModule
   ],
   exports: [
     AuctionEditComponent,

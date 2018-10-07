@@ -16,8 +16,8 @@ const routes: Routes = [
   { path: 'gdpr', loadChildren: './gdpr/gdpr.module#GdprModule' },
   { path: 'pakalpojumi', loadChildren: './services/services.module#ServicesModule' },
   { path: 'callback', component: CallbackComponent },
+  { path: 'auctions', loadChildren: './auctions/auctions.module#AuctionsModule' },
   // { path: 'users', loadChildren: './users/users.module#UsersModule' },
-  // { path: 'auctions', loadChildren: './auctions/auctions.module#AuctionsModule' },
   // { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   // { path: 'ping', component: PingComponent, canActivate: [AuthGuard] },
   // {

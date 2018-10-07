@@ -1,3 +1,7 @@
+<!-- todo: kke: remove later -->
+<h1 class="text-center">{{ pageTitle }}</h1>
+<app-loading *ngIf="loading"></app-loading>
+
 <div class="container">
   <div class="row">
     <app-auctions-table *ngIf="response$ | async;" [list]="Auctions" [numberRows]="numberRows" [selected]="selected" (pageChange)="onPageChange($event)"

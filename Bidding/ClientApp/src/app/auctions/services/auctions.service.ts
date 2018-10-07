@@ -1,20 +1,26 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
-// import { Observable } from 'rxjs/Observable';
+import { HttpClient, HttpParams, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
 
-// import { Auth0Service } from '../../../auth/services/auth/auth0.service';
-import { IAuctionListResponse } from '../models/auction-list-response.model';
-import { IAuctionListRequest } from '../models/auction-list-request.model';
-import { Observable } from 'rxjs';
+import { IAuctionListResponse } from '../models/interfaces/auction-list-response.model';
+import { IAuctionListRequest } from '../models/interfaces/auction-list-request.model';
+import { AuthService } from '../../auth/auth.service';
+import { catchError } from 'rxjs/operators';
+import { throwError as ObservableThrowError, Observable } from 'rxjs';
+import { environment } from '../../../environments/environment';
 
 
 @Injectable()
 export class AuctionsService {
-  public API_URL = 'http://localhost:3010/api';
-  constructor(private http: HttpClient) { }
+  private baseUrl = environment.baseUrl;
 
-  public getAuctions(request: IAuctionListRequest): Observable<IAuctionListResponse> {
-    const url = '/auctions/search';
+  constructor(private http: HttpClient, private auth: AuthService) { }
+
+  private get _authHeader(): string {
+    return `Bearer ${this.auth.accessToken}`;
+  }
+
+  public getAuctions$(request: IAuctionListRequest): Observable<IAuctionListResponse[]> {
+    const url = this.baseUrl + '/auctions/search';
 
     const params = new HttpParams({
       fromObject: {
@@ -26,20 +32,20 @@ export class AuctionsService {
       }
     });
 
-    return this.http.get<IAuctionListResponse>(`${this.API_URL + url}`, { headers: this.getAuthHeader(), params });
+    return this.http
+      .get<IAuctionListResponse[]>(url, {
+        headers: new HttpHeaders().set('Authorization', this._authHeader), params
+      })
+      .pipe(
+        catchError((error) => this._handleError(error))
+      );
   }
 
-  public getAuthHeader() {
-    return new HttpHeaders()
-      .set('Authorization', `Bearer ${localStorage.getItem('access_token')}`);
+  private _handleError(err: HttpErrorResponse | any): Observable<any> {
+    const errorMsg = err.message || 'Error: Unable to complete request.';
+    if (err.message && err.message.indexOf('No JWT present') > -1) {
+      this.auth.login();
+    }
+    return ObservableThrowError(errorMsg);
   }
-
-  // public ping(): void {
-  //   this.message = '';
-  //   this.http.get<IApiResponse>(`${this.API_URL}/public`)
-  //     .subscribe(
-  //       data => this.message = data.message,
-  //       error => this.message = error
-  //     );
-  // }
 }

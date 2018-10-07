@@ -2,7 +2,7 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 // import { IDropdownConfig, IDropdownOption, IDropdownItem } from '../../../models/dropdown.model';
 
 @Component({
-  selector: 'object-dropdown',
+  selector: 'app-object-dropdown',
   templateUrl: './object.component.html'
 })
 export class ObjectDropdownComponent{

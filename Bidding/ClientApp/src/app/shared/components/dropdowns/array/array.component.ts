@@ -2,7 +2,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 // import { IDropdownConfig } from '../../../models/dropdown.model';
 
 @Component({
-  selector: 'array-dropdown',
+  selector: 'app-array-dropdown',
   templateUrl: './array.component.html'
 })
 export class ArrayDropdownComponent {
