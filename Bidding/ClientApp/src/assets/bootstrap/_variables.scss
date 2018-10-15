@@ -1,3 +1,4 @@
+@import '../../styles-variables.scss';
 // Our own custom variables.scss
 // This file loads before Bootstrap's SCSS
 
@@ -17,6 +18,20 @@ $p-font-size: 1rem;
   content:" *";
   color: red;
 }
+
+// todo: kke: not working
+@media only screen and (min-width: map-get($grid-breakpoints, xs)) {
+  $h1-font-size: 12px;
+}
+
+@media only screen and (min-width: map-get($grid-breakpoints, md)) {
+
+}
+
+@media only screen and (min-width: map-get($grid-breakpoints, lg)) {
+  $h1-font-size: 50px;
+}
+
 // todo: kke: move this to the documentation!
 // for phone headings:
 // h1 - 30px
