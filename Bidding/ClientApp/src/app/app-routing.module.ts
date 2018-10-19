@@ -15,6 +15,7 @@ const routes: Routes = [
   { path: 'noteikumi-un-nosacijumi', loadChildren: './rules/rules.module#RulesModule' },
   { path: 'gdpr', loadChildren: './gdpr/gdpr.module#GdprModule' },
   { path: 'pakalpojumi', loadChildren: './services/services.module#ServicesModule' },
+  { path: 'sadarbibas-partneru-piedavajumi', loadChildren: './partners/partners.module#PartnersModule' },
   { path: 'callback', component: CallbackComponent },
   { path: 'auctions', loadChildren: './auctions/auctions.module#AuctionsModule' },
   // { path: 'users', loadChildren: './users/users.module#UsersModule' },

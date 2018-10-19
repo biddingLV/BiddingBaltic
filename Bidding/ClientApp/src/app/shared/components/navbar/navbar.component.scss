@@ -1,7 +1,23 @@
+@import '../../../../styles-variables.scss';
+
 ul li a {
   color: white !important;
 }
 
-#bidding-logo {
-  height: 56px;
+@media only screen and (min-width: map-get($grid-breakpoints, xs)) {
+  #bidding-logo {
+    height: 35px;
+  }
+}
+
+@media only screen and (min-width: map-get($grid-breakpoints, md)) {
+  #bidding-logo {
+    height: 35px;
+  }
+}
+
+@media only screen and (min-width: map-get($grid-breakpoints, lg)) {
+  #bidding-logo {
+    height: 56px;
+  }  
 }

@@ -27,6 +27,7 @@ import { CoreModule } from './core/core.module';
 import { SharedModule } from './shared/shared.module';
 import { HomeModule } from './home/home.module';
 import { BlogModule } from './blog/blog.module';
+import { PartnersModule } from './partners/partners.module';
 import { AuctionsModule } from './auctions/auctions.module';
 
 // 3rd party modules
@@ -46,6 +47,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     SharedModule,
     HomeModule,
     BlogModule,
+    PartnersModule,
     CoreModule.forRoot(),
     ScrollToModule.forRoot(),
     AuctionsModule,

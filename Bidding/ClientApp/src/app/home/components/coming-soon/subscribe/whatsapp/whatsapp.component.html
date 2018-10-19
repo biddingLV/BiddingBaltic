@@ -2,7 +2,7 @@
   <div class="container-fluid">
     <div class="row">
       <div class="col-10 col-md-11">
-        <h4 id="whatsapp-modal-title" class="modal-title pull-left">Es gribu saņemt jaunumus WhatsAppā</h4>
+        <h4 id="whatsapp-modal-title" class="modal-title pull-left">Gribu saņemt jaunumus WhatsApp</h4>
       </div>
 
       <div class="col-2 col-md-1">
@@ -17,7 +17,7 @@
 <div class="modal-body">
   <form class="container-fluid" (ngSubmit)="onSubmit(whatsAppSubForm)" #whatsAppSubForm="ngForm" novalidate>
     <div class="form-group">
-      <p class="required"><strong>Atzīmē savas intereses, lai mēs zinām kādas izsoles Tev sūtīt<br>WhatsAppā:</strong></p>
+      <p class="required"><strong>Atzīmē savas intereses, lai mēs zinām kādas izsoles Tev sūtīt<br>WhatsApp:</strong></p>
     </div>
 
     <div class="form-group">
@@ -90,7 +90,10 @@
           izlasīju, saprotu un piekrītu <a target="_blank" [routerLink]="['/noteikumi-un-nosacijumi']">bidding.lv
             noteikumiem un nosacījumiem.</a></label>
 
-        <P id="whatsapp-app-info">*Lai saņemtu šo pakalpjumu, manai viedierīcei ir jābūt augšupielādētai Whatsapp aplikācijai, kas var prasīt
+        <P id="whatsapp-app-info"><i class="fa fa-exclamation-circle"></i>Lai saņemtu šo pakalpjumu, manai viedierīcei
+          ir
+          jābūt augšupielādētai WhatsApp
+          aplikācijai, kas var prasīt
           papildus lietošanas komisijas maksu.</P>
 
         <div *ngIf="agreeRules.invalid && (agreeRules.dirty || agreeRules.touched)" class="d-block invalid-feedback">
