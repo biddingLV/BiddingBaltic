@@ -8,10 +8,10 @@ namespace BiddingAPI.Repositories.Subscribe
 {
     public interface ISubscribeRepository
     {
-        Task<bool> UsingEmailAsync(EmailRequestModel request);
+        bool UsingEmail(EmailRequestModel request);
 
-        Task<bool> UsingWhatsAppAsync(WhatsAppRequestModel request);
+        bool UsingWhatsApp(WhatsAppRequestModel request);
 
-        Task<bool> UsingSurveyAsync(SurveyRequestModel request);
+        bool UsingSurvey(SurveyRequestModel request);
     }
 }

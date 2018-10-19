@@ -22,21 +22,21 @@ namespace Bidding.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> UsingEmail([FromBody] EmailRequestModel request)
+        public IActionResult UsingEmail([FromBody] EmailRequestModel request)
         {
-            return Ok(await m_subscribeService.UsingEmailAsync(request));
+            return Ok(m_subscribeService.UsingEmail(request));
         }
 
         [HttpPut]
-        public async Task<IActionResult> UsingWhatsApp([FromBody] WhatsAppRequestModel request)
+        public IActionResult UsingWhatsApp([FromBody] WhatsAppRequestModel request)
         {
-            return Ok(await m_subscribeService.UsingWhatsAppAsync(request));
+            return Ok(m_subscribeService.UsingWhatsApp(request));
         }
 
         [HttpPut]
-        public async Task<IActionResult> UsingSurvey([FromBody] SurveyRequestModel request)
+        public IActionResult UsingSurvey([FromBody] SurveyRequestModel request)
         {
-            return Ok(await m_subscribeService.UsingSurveyAsync(request));
+            return Ok(m_subscribeService.UsingSurvey(request));
         }
     }
 }

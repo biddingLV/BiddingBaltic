@@ -8,12 +8,12 @@ namespace BiddingAPI.Repositories.Auctions
 {
     public interface IAuctionsRepository
     {
-        Task<AuctionListResponseModel> Search(AuctionListRequestModel request, int? start, int? end);
+        AuctionListResponseModel Search(AuctionListRequestModel request, int? start, int? end);
 
-        Task<bool> Update(AuctionEditRequestModel request);
+        bool Update(AuctionEditRequestModel request);
 
-        Task<bool> Create(AuctionAddRequestModel request);
+        bool Create(AuctionAddRequestModel request);
 
-        Task<bool> Delete(AuctionDeleteRequestModel request);
+        bool Delete(AuctionDeleteRequestModel request);
     }
 }

@@ -16,7 +16,7 @@ namespace BiddingAPI.Services.Auctions
             m_auctionsRepository = auctionRepository ?? throw new ArgumentNullException(nameof(auctionRepository));
         }
 
-        public async Task<AuctionListResponseModel> Search(AuctionListRequestModel request)
+        public AuctionListResponseModel Search(AuctionListRequestModel request)
         {
             var response = new AuctionListResponseModel();
 
@@ -65,17 +65,17 @@ namespace BiddingAPI.Services.Auctions
             return response;
         }
 
-        public Task<bool> Update(AuctionEditRequestModel request)
+        public bool Update(AuctionEditRequestModel request)
         {
             return m_auctionsRepository.Update(request);
         }
 
-        public Task<bool> Create(AuctionAddRequestModel request)
+        public bool Create(AuctionAddRequestModel request)
         {
             return m_auctionsRepository.Create(request);
         }
 
-        public Task<bool> Delete(AuctionDeleteRequestModel request)
+        public bool Delete(AuctionDeleteRequestModel request)
         {
             return m_auctionsRepository.Delete(request);
         }

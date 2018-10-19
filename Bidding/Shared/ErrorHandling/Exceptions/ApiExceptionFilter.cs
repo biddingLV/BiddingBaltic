@@ -17,7 +17,7 @@ namespace Bidding.Shared.Exceptions
             m_logger = loggerFactory.CreateLogger("Status");
         }
 
-        public async void OnException(ExceptionContext context)
+        public void OnException(ExceptionContext context)
         {
             Exception ex = context.Exception;
             if (ex is WebApiException wex) // handled exceptions
@@ -28,7 +28,7 @@ namespace Bidding.Shared.Exceptions
                 m_logger.LogError(wex.Message);
                 if (wex.UserMessage != null)
                 {
-                    await context.HttpContext.Response.WriteAsync(wex.UserMessage).ConfigureAwait(false);
+                    context.HttpContext.Response.WriteAsync(wex.UserMessage).ConfigureAwait(false);
                 }
             }
             else // unhandled exceptions: send an email (note that unhandled exceptions are automatically logged in the logger)

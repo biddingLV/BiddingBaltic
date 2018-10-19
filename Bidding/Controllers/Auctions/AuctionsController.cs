@@ -21,28 +21,28 @@ namespace BiddingAPI.Controllers.Auctions
         }
 
         [HttpGet]
-        public async Task<IActionResult> Search([FromQuery] AuctionListRequestModel request)
+        public IActionResult Search([FromQuery] AuctionListRequestModel request)
         {
-            return Ok(await m_auctionsService.Search(request));
+            return Ok(m_auctionsService.Search(request));
         }
 
         // add
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] AuctionAddRequestModel request)
+        public IActionResult Create([FromBody] AuctionAddRequestModel request)
         {
-            return Ok(await m_auctionsService.Create(request));
+            return Ok(m_auctionsService.Create(request));
         }
 
         [HttpPut]
-        public async Task<IActionResult> Edit([FromBody] AuctionEditRequestModel request)
+        public IActionResult Edit([FromBody] AuctionEditRequestModel request)
         {
-            return Ok(await m_auctionsService.Update(request));
+            return Ok(m_auctionsService.Update(request));
         }
 
         [HttpDelete]
-        public async Task<IActionResult> Delete([FromBody] AuctionDeleteRequestModel request)
+        public IActionResult Delete([FromBody] AuctionDeleteRequestModel request)
         {
-            return Ok(await m_auctionsService.Delete(request));
+            return Ok(m_auctionsService.Delete(request));
         }
 
         // testing
