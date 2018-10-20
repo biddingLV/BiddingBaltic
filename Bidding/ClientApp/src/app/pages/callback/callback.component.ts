@@ -10,7 +10,7 @@ export class CallbackComponent implements OnInit {
 
   constructor(private auth: AuthService) {
     // Check for authentication and handle if hash present
-    auth.handleAuthentication();
+    auth.handleAuth();
   }
 
   ngOnInit() {

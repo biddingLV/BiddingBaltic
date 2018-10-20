@@ -24,7 +24,7 @@ namespace BiddingAPI.Services.Auctions
 
             var start = Math.Max(pageNum - 1, 0) * request.OffsetEnd;
             var end = start + request.OffsetEnd;
-            response = await m_auctionsRepository.Search(request, start, end);
+            response = m_auctionsRepository.Search(request, start, end);
 
             int totalPages = 0;
             //check if total data < pagesize

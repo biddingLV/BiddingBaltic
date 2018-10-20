@@ -33,6 +33,8 @@ import { AuctionsModule } from './auctions/auctions.module';
 // 3rd party modules
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AuthModule } from './auth/auth.module';
 
 @NgModule({
   declarations: [
@@ -41,6 +43,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
     ModalModule.forRoot(),
@@ -48,9 +51,10 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     HomeModule,
     BlogModule,
     PartnersModule,
-    CoreModule.forRoot(),
     ScrollToModule.forRoot(),
     AuctionsModule,
+    AuthModule.forRoot(),
+    CoreModule.forRoot(),
     // leave routing module as the last one!
     AppRoutingModule
   ],

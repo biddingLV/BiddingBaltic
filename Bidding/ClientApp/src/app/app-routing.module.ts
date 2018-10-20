@@ -1,5 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+// Route guards
+import { AuthGuard } from './auth/guards/auth.guard';
+import { AdminGuard } from './auth/guards/admin.guard';
+// Page components
 import { CallbackComponent } from './pages/callback/callback.component';
 // import { ProfileComponent } from './profile/profile.component';
 // import { PingComponent } from './ping/ping.component';
@@ -11,13 +15,39 @@ import { CallbackComponent } from './pages/callback/callback.component';
 
 
 const routes: Routes = [
-  { path: '', loadChildren: './home/home.module#HomeModule' },
-  { path: 'noteikumi-un-nosacijumi', loadChildren: './rules/rules.module#RulesModule' },
-  { path: 'gdpr', loadChildren: './gdpr/gdpr.module#GdprModule' },
-  { path: 'pakalpojumi', loadChildren: './services/services.module#ServicesModule' },
-  { path: 'sadarbibas-partneru-piedavajumi', loadChildren: './partners/partners.module#PartnersModule' },
-  { path: 'callback', component: CallbackComponent },
-  { path: 'auctions', loadChildren: './auctions/auctions.module#AuctionsModule' },
+  { 
+    path: '', loadChildren: './home/home.module#HomeModule' 
+  },
+  { 
+    path: 'noteikumi-un-nosacijumi', loadChildren: './rules/rules.module#RulesModule' 
+  },
+  { 
+    path: 'gdpr', loadChildren: './gdpr/gdpr.module#GdprModule' 
+  },
+  { 
+    path: 'pakalpojumi', loadChildren: './services/services.module#ServicesModule' 
+  },
+  { 
+    path: 'sadarbibas-partneru-piedavajumi', loadChildren: './partners/partners.module#PartnersModule' 
+  },
+  { 
+    path: 'callback', component: CallbackComponent 
+  },
+  { 
+    path: 'auctions', 
+    loadChildren: './auctions/auctions.module#AuctionsModule',
+    canActivate: [
+      AuthGuard
+    ]
+  },
+  // {
+  //   path: 'admin',
+  //   loadChildren: './pages/admin/admin.module#AdminModule',
+  //   canActivate: [
+  //     AuthGuard,
+  //     AdminGuard
+  //   ]
+  // },
   // { path: 'users', loadChildren: './users/users.module#UsersModule' },
   // { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   // { path: 'ping', component: PingComponent, canActivate: [AuthGuard] },
@@ -29,7 +59,7 @@ const routes: Routes = [
 
   // { path: 'admin', component: AdminComponent, canActivate: [ScopeGuard], data: { expectedScopes: ['write:messages'] } },
   {
-    path: '',
+    path: '**',
     redirectTo: '',
     pathMatch: 'full'
   }
@@ -41,6 +71,10 @@ const routes: Routes = [
     RouterModule.forRoot(routes, {
       scrollPositionRestoration: 'enabled'
     })
+  ],
+  providers: [
+    AuthGuard,
+    AdminGuard
   ],
   exports: [RouterModule]
 })

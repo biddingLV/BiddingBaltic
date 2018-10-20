@@ -15,6 +15,8 @@ import { // AuthGuard, PermissionsService, UserService,
 } from './services';
 import { HeaderComponent } from './components/header/header.component';
 import { LoadingComponent } from './components/loading/loading.component';
+import { RouterModule } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
 // import { CookieService } from 'ngx-cookie-service';
 
 // Interceptors
@@ -25,7 +27,10 @@ import { LoadingComponent } from './components/loading/loading.component';
     CommonModule,
     BrowserAnimationsModule, // required animations module for toastr
     ToastrModule.forRoot(),
-    AngularFontAwesomeModule
+    AngularFontAwesomeModule,
+    HttpClientModule,
+    RouterModule,
+    ReactiveFormsModule
   ],
   providers: [
     // { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
@@ -36,18 +41,23 @@ import { LoadingComponent } from './components/loading/loading.component';
     ExceptionsService,
     UtilsService,
     // CookieService,
-    HttpClientModule
   ],
   exports: [
     HttpClientModule,
+    RouterModule,
+    ReactiveFormsModule,
     BrowserAnimationsModule,
     ToastrModule,
     AngularFontAwesomeModule,
     HeaderComponent,
+    // todo: kke: implement this!
+    // FooterComponent,
     LoadingComponent
   ],
   declarations: [
+    // todo: kke: implement this!
     HeaderComponent,
+    //FooterComponent,
     LoadingComponent
   ]
 })
