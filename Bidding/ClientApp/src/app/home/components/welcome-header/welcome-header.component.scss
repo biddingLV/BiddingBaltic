@@ -1,5 +1,4 @@
 @import '../../../../styles-variables.scss';
-
 #main-title {
   color: white;
   font-weight: 600;
@@ -10,16 +9,13 @@
     font-size: 30px;
     margin-top: 30px;
   }
-
   #main-description {
     font-size: 21px;
     margin-top: 30px;
   }
-
   #main-image-container {
     margin-top: 30px;
   }
-
   #welcome-header-container {
     padding-bottom: 100px;
   }
@@ -30,16 +26,13 @@
     font-size: 50px;
     margin-top: 50px;
   }
-
   #main-description {
     font-size: 26px;
     margin-top: 50px;
   }
-
   #main-image-container {
     margin-top: 50px;
   }
-
   #welcome-header-container {
     padding-bottom: 30px;
   }
@@ -50,34 +43,36 @@
     font-size: 65px;
     margin-top: 50px;
   }
-
   #main-description {
     font-size: 32px;
     margin-top: 50px;
   }
-
   #main-image-container {
     margin-top: 50px;
   }
-
   #welcome-header-container {
     padding-bottom: 0;
   }
 }
- 
+
 #main-description {
   color: white;
   font-weight: 600;
 }
-  
+
 #welcome-header-container {
-  box-shadow: 0px 10px 17px rgba(0,0,0,0.1);
+  box-shadow: 0px 10px 17px rgba(0, 0, 0, 0.1);
   /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#863456+0,6f5081+100,863456+100 */
-  background: rgb(134,52,86); /* Old browsers */
-  background: -moz-linear-gradient(top, rgba(134,52,86,1) 0%, rgba(111,80,129,1) 100%, rgba(134,52,86,1) 100%); /* FF3.6-15 */
-  background: -webkit-linear-gradient(top, rgba(134,52,86,1) 0%,rgba(111,80,129,1) 100%,rgba(134,52,86,1) 100%); /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(to bottom, rgba(134,52,86,1) 0%,rgba(111,80,129,1) 100%,rgba(134,52,86,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#863456', endColorstr='#863456',GradientType=0 ); /* IE6-9 */
+  background: rgb(134, 52, 86);
+  /* Old browsers */
+  background: -moz-linear-gradient(top, rgba(134, 52, 86, 1) 0%, rgba(111, 80, 129, 1) 100%, rgba(134, 52, 86, 1) 100%);
+  /* FF3.6-15 */
+  background: -webkit-linear-gradient(top, rgba(134, 52, 86, 1) 0%, rgba(111, 80, 129, 1) 100%, rgba(134, 52, 86, 1) 100%);
+  /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(to bottom, rgba(134, 52, 86, 1) 0%, rgba(111, 80, 129, 1) 100%, rgba(134, 52, 86, 1) 100%);
+  /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#863456', endColorstr='#863456', GradientType=0);
+  /* IE6-9 */
   // dont remove, this fixes random 1-5px space between navigation header and main header
   margin-top: -5px !important;
 }

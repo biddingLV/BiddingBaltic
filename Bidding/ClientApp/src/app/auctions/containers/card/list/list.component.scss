@@ -1,71 +1,77 @@
 .wrapper {
-    padding-top: 40px;
-    padding-bottom: 40px;
-  }
-  .wrapper:focus {
-    outline: 0;
-  }
+  padding-top: 40px;
+  padding-bottom: 40px;
+}
 
-  .clash-card {
-    background: white;
-    display: inline-block;
-    margin: auto;
-    position: relative;
-    text-align: center;
-    box-shadow: -1px 15px 30px -12px black;
-    z-index: 9999;
-  }
+.wrapper:focus {
+  outline: 0;
+}
 
-  .clash-card__unit-name {
-    font-size: 26px;
-    color: black;
-    font-weight: 900;
-    margin-bottom: 5px;
-  }
+.clash-card {
+  background: white;
+  display: inline-block;
+  margin: auto;
+  position: relative;
+  text-align: center;
+  box-shadow: -1px 15px 30px -12px black;
+  z-index: 9999;
+}
 
-  .clash-card__unit-description {
-    padding: 20px;
-    margin-bottom: 10px;  
-  }
+.clash-card__unit-name {
+  font-size: 26px;
+  color: black;
+  font-weight: 900;
+  margin-bottom: 5px;
+}
 
-  .clash-card__unit-stats--barbarian .one-third {
-    border-right: 1px solid #BD7C2F;
-  }
+.clash-card__unit-description {
+  padding: 20px;
+  margin-bottom: 10px;
+}
 
-  .clash-card__unit-stats {
-    color: black;
-    font-weight: 700;
-  }
-  .clash-card__unit-stats .one-third {
-    width: 33%;
-    float: left;
-    padding: 20px 15px;
-  }
-  .clash-card__unit-stats sup {
-    position: absolute;
-    bottom: 4px;
-    font-size: 45%;
-    margin-left: 2px;
-  }
-  .clash-card__unit-stats .stat {
-    position: relative;
-    font-size: 24px;
-    margin-bottom: 10px;
-  }
-  .clash-card__unit-stats .stat-value {
-    text-transform: uppercase;
-    font-weight: 400;
-    font-size: 12px;
-  }
-  .clash-card__unit-stats .no-border {
-    border-right: none;
-  }
+.clash-card__unit-stats--barbarian .one-third {
+  border-right: 1px solid #BD7C2F;
+}
 
-  .clearfix:after {
-    visibility: hidden;
-    display: block;
-    font-size: 0;
-    content: " ";
-    clear: both;
-    height: 0;
-  }
+.clash-card__unit-stats {
+  color: black;
+  font-weight: 700;
+}
+
+.clash-card__unit-stats .one-third {
+  width: 33%;
+  float: left;
+  padding: 20px 15px;
+}
+
+.clash-card__unit-stats sup {
+  position: absolute;
+  bottom: 4px;
+  font-size: 45%;
+  margin-left: 2px;
+}
+
+.clash-card__unit-stats .stat {
+  position: relative;
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.clash-card__unit-stats .stat-value {
+  text-transform: uppercase;
+  font-weight: 400;
+  font-size: 12px;
+}
+
+.clash-card__unit-stats .no-border {
+  border-right: none;
+}
+
+.clearfix:after {
+  visibility: hidden;
+  display: block;
+  font-size: 0;
+  content: " ";
+  clear: both;
+  height: 0;
+}

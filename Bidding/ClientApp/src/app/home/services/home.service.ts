@@ -8,6 +8,7 @@ import { catchError } from 'node_modules/rxjs/operators';
 import { ExceptionsService } from '../../core';
 import { IWhatsAppSubscribeRequest } from '../models/whatsapp-subscribe-request.model';
 import { ISurveyRequest } from '../models/survey-request.model';
+import { NewsletterModel } from 'src/app/core/models/newsletter/newsletter.model';
 
 
 @Injectable()
@@ -16,24 +17,25 @@ export class HomeService {
 
   constructor(private http: HttpClient, private exception: ExceptionsService) { }
 
-  public emailSubscribe(request: IEmailSubscribeRequest): Observable<Object> {
+  public emailSubscribe$(request: IEmailSubscribeRequest): Observable<boolean> {
     const url = this.baseUrl + '/subscribe/usingemail';
 
-    return this.http.put(url, request)
+    return this.http.put<boolean>(url, request)
       .pipe(catchError(this.exception.errorHandler));
   }
 
-  public whatsAppSubscribe(request: IWhatsAppSubscribeRequest): Observable<Object> {
+  public whatsAppSubscribe$(request: IWhatsAppSubscribeRequest): Observable<Object> {
     const url = this.baseUrl + '/subscribe/usingwhatsapp';
 
     return this.http.put(url, request)
       .pipe(catchError(this.exception.errorHandler));
   }
 
-  public submitSurvey(request: ISurveyRequest): Observable<Object> {
-    const url = this.baseUrl + '/subscribe/usingsurvey';
+  // not used - right now!
+  // public submitSurvey$(request: ISurveyRequest): Observable<Object> {
+  //   const url = this.baseUrl + '/subscribe/usingsurvey';
 
-    return this.http.put(url, request)
-      .pipe(catchError(this.exception.errorHandler));
-  }
+  //   return this.http.put(url, request)
+  //     .pipe(catchError(this.exception.errorHandler));
+  // }
 }

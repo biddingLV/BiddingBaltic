@@ -12,9 +12,13 @@ export class ExceptionsService {
       return throwError('Something bad happened; please try again later.');
     } else {
       if (error.status === 500) {
-        return throwError(error.status + ' ' + error.statusText + ': ' + 'Something bad happened; please try again later.');
-      } else {
-        return throwError(error.status + ' ' + error.statusText + ': ' + error.error);
+        return throwError('Something bad happened; please try again later.');
+      } else if (error.status === 404) {
+        // todo: kke: improve error msg, if needed!
+        return throwError('It looks like you dont have rights to do this.');
+      }
+      else {
+        return throwError(error.error);
       }
     }
   }

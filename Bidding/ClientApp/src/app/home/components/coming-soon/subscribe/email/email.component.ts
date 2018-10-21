@@ -67,7 +67,7 @@ export class SubscribeEmailComponent {
   private submitRequest() {
     let subSuccess: boolean;
 
-    this.homeApi.emailSubscribe(this.emailSubRequest)
+    this.homeApi.emailSubscribe$(this.emailSubRequest)
       .subscribe(
         (data: boolean) => {
           subSuccess = data;

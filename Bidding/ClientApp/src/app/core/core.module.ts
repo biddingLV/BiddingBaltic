@@ -11,7 +11,7 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 // Services
 import { // AuthGuard, PermissionsService, UserService,
-  NotificationsService, ExceptionsService
+  NotificationsService, ExceptionsService, FormService, CustomValidators
 } from './services';
 // import { CookieService } from 'ngx-cookie-service';
 
@@ -32,6 +32,7 @@ import { // AuthGuard, PermissionsService, UserService,
     // UserService,
     NotificationsService,
     ExceptionsService,
+    FormService,
     // CookieService,
     HttpClientModule
   ],

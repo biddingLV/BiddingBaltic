@@ -1,37 +1,44 @@
 @import '../../styles-variables.scss';
-// Our own custom variables.scss
-// This file loads before Bootstrap's SCSS
-
-// overwrite default theme colors
-$theme-colors: (
- "primary": #6f5081,
- "secondary": #f2f2f2
-);
-
-// overwrite default heading sizes
-$h1-font-size: 50px;
-$h5-font-size: 1rem;
-$p-font-size: 1rem;
-
 // add asterisk symbol to required form fields
-.required::after { 
-  content:" *";
+.required::after {
+  content: " *";
   color: red;
 }
 
-// todo: kke: not working
+// define global heading styles
+$h5-font-size: 1rem;
 @media only screen and (min-width: map-get($grid-breakpoints, xs)) {
-  $h1-font-size: 12px;
+  $h1-font-size: 30px;
+  h1 {
+    font-size: $h1-font-size
+  }
+  h5 {
+    font-size: $h5-font-size
+  }
 }
 
 @media only screen and (min-width: map-get($grid-breakpoints, md)) {
-
+  $h1-font-size: 40px;
+  h1 {
+    font-size: $h1-font-size
+  }
+  h5 {
+    font-size: $h5-font-size
+  }
 }
 
 @media only screen and (min-width: map-get($grid-breakpoints, lg)) {
   $h1-font-size: 50px;
+  h1 {
+    font-size: $h1-font-size
+  }
+  h5 {
+    font-size: $h5-font-size
+  }
 }
 
+// overwrite default heading sizes
+$p-font-size: 1rem;
 // todo: kke: move this to the documentation!
 // for phone headings:
 // h1 - 30px
@@ -40,16 +47,14 @@ $p-font-size: 1rem;
 // h4 - 18px
 // h5 - 16px + semi-bold
 // a / pogas - 16px
-
 // for tablet headings:
-// h1 - 50px
+// h1 - 40px
 // h2 - 
 // h3 - 21px
 // h4 - 19px
 // h5 - 
 // p -
 // a / pogas - 
-
 // for desktop headings:
 // h1 - 50px
 // h2 - 32px
@@ -57,4 +62,4 @@ $p-font-size: 1rem;
 // h4 - 24px
 // h5 -
 // p -  
-// a / pogas - 
+// a / pogas -
