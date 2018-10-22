@@ -16,11 +16,14 @@ import { BlogWidgetComponent } from '../blog/containers/widget/widget.component'
 
 // Services
 import { HomeService } from './services/home.service';
+import { ReactiveFormsModule } from '@angular/forms';
+import { NewsletterFormService } from './services/newsletter-form.service';
 
 @NgModule({
   imports: [
     CommonModule,
     SharedModule,
+    ReactiveFormsModule,
     HomeRoutingModule
   ],
   exports: [
@@ -36,7 +39,8 @@ import { HomeService } from './services/home.service';
     SubscribeWhatsappComponent
   ],
   providers: [
-    HomeService
+    HomeService,
+    NewsletterFormService
   ]
 })
 export class HomeModule { }

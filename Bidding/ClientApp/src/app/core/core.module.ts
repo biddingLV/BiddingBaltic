@@ -11,7 +11,7 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
 
 // Services
 import { // AuthGuard, PermissionsService, UserService,
-  NotificationsService, ExceptionsService, UtilsService
+  NotificationsService, ExceptionsService, FormService, CustomValidators
 } from './services';
 import { HeaderComponent } from './components/header/header.component';
 import { LoadingComponent } from './components/loading/loading.component';
@@ -39,7 +39,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     // UserService,
     NotificationsService,
     ExceptionsService,
-    UtilsService,
+    FormService,
     // CookieService,
   ],
   exports: [

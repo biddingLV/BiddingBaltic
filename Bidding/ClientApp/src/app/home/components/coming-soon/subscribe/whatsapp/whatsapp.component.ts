@@ -65,7 +65,8 @@ export class SubscribeWhatsappComponent {
   private submitRequest() {
     let subSuccess: boolean;
 
-    this.homeApi.whatsAppSubscribe(this.whatsAppSubRequest)
+    this.homeApi
+      .whatsAppSubscribe$(this.whatsAppSubRequest)
       .subscribe(
         (data: boolean) => {
           subSuccess = data;
