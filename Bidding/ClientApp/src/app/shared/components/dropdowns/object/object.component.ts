@@ -5,13 +5,13 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
   selector: 'app-object-dropdown',
   templateUrl: './object.component.html'
 })
-export class ObjectDropdownComponent{
+export class ObjectDropdownComponent {
   // @Input() public config: IDropdownConfig;
   // tslint:disable-next-line:no-any
   @Output() public idChange = new EventEmitter<any>();
   // tslint:disable-next-line:no-any
   public onIdChange(id) {
     this.idChange.emit(id);
- }
+  }
 
 }

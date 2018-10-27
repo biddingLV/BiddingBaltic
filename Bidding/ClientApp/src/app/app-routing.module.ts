@@ -5,6 +5,9 @@ import { AuthGuard } from './auth/guards/auth.guard';
 import { AdminGuard } from './auth/guards/admin.guard';
 // Page components
 import { CallbackComponent } from './pages/callback/callback.component';
+import { ProfileComponent } from './pages/profile/profile.component';
+import { PingComponent } from './pages/ping/ping.component';
+import { HomeComponent } from './pages/home/home.component';
 // import { ProfileComponent } from './profile/profile.component';
 // import { PingComponent } from './ping/ping.component';
 // import { AdminComponent } from './admin/admin.component';
@@ -15,30 +18,33 @@ import { CallbackComponent } from './pages/callback/callback.component';
 
 
 const routes: Routes = [
-  { 
-    path: '', loadChildren: './home/home.module#HomeModule' 
+  {
+    path: '', loadChildren: './home/home.module#HomeModule'
   },
-  { 
-    path: 'noteikumi-un-nosacijumi', loadChildren: './rules/rules.module#RulesModule' 
+  {
+    path: 'noteikumi-un-nosacijumi', loadChildren: './rules/rules.module#RulesModule'
   },
-  { 
-    path: 'gdpr', loadChildren: './gdpr/gdpr.module#GdprModule' 
+  {
+    path: 'gdpr', loadChildren: './gdpr/gdpr.module#GdprModule'
   },
-  { 
-    path: 'pakalpojumi', loadChildren: './services/services.module#ServicesModule' 
+  {
+    path: 'pakalpojumi', loadChildren: './services/services.module#ServicesModule'
   },
-  { 
-    path: 'sadarbibas-partneru-piedavajumi', loadChildren: './partners/partners.module#PartnersModule' 
+  {
+    path: 'sadarbibas-partneru-piedavajumi', loadChildren: './partners/partners.module#PartnersModule'
   },
-  { 
-    path: 'callback', component: CallbackComponent 
+  {
+    path: 'callback', component: CallbackComponent
   },
-  { 
-    path: 'auctions', 
+  { path: 'profile', component: ProfileComponent },
+  { path: 'ping', component: PingComponent },
+  { path: 'home', component: HomeComponent },
+  {
+    path: 'auctions',
     loadChildren: './auctions/auctions.module#AuctionsModule',
-    canActivate: [
-      AuthGuard
-    ]
+    // canActivate: [
+    //   AuthGuard
+    // ]
   },
   // {
   //   path: 'admin',

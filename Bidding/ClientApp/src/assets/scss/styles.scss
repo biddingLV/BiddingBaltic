@@ -8,8 +8,8 @@ $theme-colors: ( "primary": #6f5081, "secondary": #f2f2f2);
 // bootstrap style - toastr
 @import '~ngx-toastr/toastr-bs4-alert';
 // custom scss files
-@import "assets/bootstrap/variables";
-@import "styles-variables.scss";
+// @import "assets/bootstrap/variables";
+// @import "styles-variables.scss";
 /* Set global default font family */
 
 $font-family-base: 'Source Sans Pro',

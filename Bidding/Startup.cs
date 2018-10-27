@@ -1,15 +1,23 @@
+using Bidding.Shared.Exceptions;
+using BiddingAPI.Authorization;
 using BiddingAPI.Models.DatabaseModels;
 using BiddingAPI.Repositories.Subscribe;
 using BiddingAPI.Services.Subscribe;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json.Serialization;
+using System.Text;
 
 namespace Bidding
 {
@@ -25,9 +33,17 @@ namespace Bidding
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            ConfigureMVC(ref services);
 
-            // 1. Add Authentication Services
+            // todo: kke: why is this needed?
+            services.AddIdentity<IdentityUser, IdentityRole>()
+                .AddEntityFrameworkStores<BiddingContext>()
+                .AddDefaultTokenProviders();
+            //
+
+            // https://www.jerriepelser.com/blog/accessing-tokens-aspnet-core-2/
+            // https://wildermuth.com/2017/08/19/Two-AuthorizationSchemes-in-ASP-NET-Core-2
+            string domain = $"https://{Configuration["Auth0:Domain"]}/";
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -35,14 +51,35 @@ namespace Bidding
 
             }).AddJwtBearer(options =>
             {
-                options.Authority = "https://biddinglv.eu.auth0.com/";
-                options.Audience = "http://localhost:61244/api/";
+                options.Authority = domain;
+                options.Audience = Configuration["Auth0:ApiIdentifier"];
+            });
+            //.AddJwtBearer(opt =>
+            //{
+            //    opt.Authority = domain;
+            //    opt.Audience = Configuration["Auth0:ApiIdentifier"];
+
+            //    //opt.TokenValidationParameters = new TokenValidationParameters()
+            //    //{
+            //    //    ValidIssuer = Configuration["Auth0:Issuer"],
+            //    //    ValidAudience = Configuration["Auth0:Issuer"],
+            //    //    IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(Configuration["Auth0:Key"]))
+            //    //};
+            //    // this - https://joonasw.net/view/adding-custom-claims-aspnet-core-2
+            //    //opt.TokenValidationParameters.
+            //    // https://joonasw.net/view/adding-custom-claims-aspnet-core-2
+
+            //});
+
+            services.AddAuthorization(options =>
+            {
+                options.AddPolicy("read:messages", policy => policy.Requirements.Add(new HasScopeRequirement("read:messages", domain)));
             });
 
-            services.AddCors();
+            // register the scope authorization handler
+            services.AddSingleton<IAuthorizationHandler, HasScopeHandler>();
 
-            // ConfigureMVC(ref services);
-            // ConfigureCORS(ref services);
+            ConfigureCORS(ref services);
             ConfigureDbContext(ref services);
             ConfigureAppConfigurationService(ref services);
             ConfigureAppServices(ref services);
@@ -67,20 +104,13 @@ namespace Bidding
                 app.UseHsts();
             }
 
+            app.UseCors("AllowSpecificOrigin");
+
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseSpaStaticFiles();
 
-            //app.UseCors(
-            //    options => options.WithOrigins("http://localhost:4200", "http://bidding.lv", "http://biddinglv.azurewebsites.net/")
-            //        .AllowAnyMethod()
-            //        .AllowAnyHeader()
-            //);
-
-            app.UseCors(builder => builder
-                .AllowAnyOrigin()
-                .AllowAnyMethod()
-                .AllowAnyHeader());
+            app.UseAuthentication();
 
             app.UseMvc(routes =>
             {
@@ -88,9 +118,6 @@ namespace Bidding
                     name: "default",
                     template: "{controller}/{action=Index}/{id?}");
             });
-
-            // 2. Enable authentication middleware
-            app.UseAuthentication();
 
             app.UseSpa(spa =>
             {
@@ -106,32 +133,31 @@ namespace Bidding
             });
         }
 
-        //private void ConfigureMVC(ref IServiceCollection services)
-        //{
-        //    services
-        //        .AddMvc(options =>
-        //        {
-        //            options.Filters.Add(typeof(ApiExceptionFilter));
-        //            var policy = new AuthorizationPolicyBuilder()
-        //                        .RequireAuthenticatedUser()
-        //                        .Build();
-        //            options.Filters.Add(new AuthorizeFilter(policy));
-        //        })
-        //        .AddJsonOptions(options => options.SerializerSettings.ContractResolver = new DefaultContractResolver())
-        //        .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
-        //}
+        private void ConfigureMVC(ref IServiceCollection services)
+        {
+            services
+                .AddMvc(options =>
+                {
+                    options.Filters.Add(typeof(ApiExceptionFilter));
+                })
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+        }
 
-        //private void ConfigureCORS(ref IServiceCollection services)
-        //{
-        //    services.AddCors(
-        //        options => options.AddPolicy("Dev", builder =>
-        //        {
-        //            builder.WithOrigins("http://localhost:4200", "http://izsoles-dev.azurewebsites.net/");
-        //            builder.AllowAnyHeader();
-        //            builder.AllowAnyMethod();
-        //            builder.AllowCredentials();
-        //        }));
-        //}
+        private void ConfigureCORS(ref IServiceCollection services)
+        {
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowSpecificOrigin",
+                    builder =>
+                    {
+                        builder
+                        .WithOrigins("http://localhost:4200")
+                        .AllowAnyMethod()
+                        .AllowAnyHeader()
+                        .AllowCredentials();
+                    });
+            });
+        }
 
         private void ConfigureDbContext(ref IServiceCollection services)
         {
@@ -141,7 +167,7 @@ namespace Bidding
 
         private void ConfigureAppConfigurationService(ref IServiceCollection services)
         {
-            services.AddSingleton<IConfiguration>(Configuration);
+            services.AddSingleton(Configuration);
 
         }
 

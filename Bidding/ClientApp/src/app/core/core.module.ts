@@ -57,7 +57,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   declarations: [
     // todo: kke: implement this!
     HeaderComponent,
-    //FooterComponent,
+    // FooterComponent,
     LoadingComponent
   ]
 })

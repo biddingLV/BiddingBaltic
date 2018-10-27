@@ -12,15 +12,16 @@ export class AuthGuard implements CanActivate {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): Observable<boolean> | Promise<boolean> | boolean {
-    if (!this.auth.loggedIn) {
-      localStorage.setItem('authRedirect', state.url);
-    }
-    if (!this.auth.tokenValid && !this.auth.loggedIn) {
-      this.auth.login();
-      return false;
-    }
-    if (this.auth.tokenValid && this.auth.loggedIn) {
-      return true;
-    }
+    // if (!this.auth.loggedIn) {
+    //   localStorage.setItem('authRedirect', state.url);
+    // }
+    // if (!this.auth.tokenValid && !this.auth.loggedIn) {
+    //   this.auth.login();
+    //   return false;
+    // }
+    // if (this.auth.tokenValid && this.auth.loggedIn) {
+    //   return true;
+    // }
+    return true;
   }
 }

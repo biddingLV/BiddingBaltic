@@ -4,6 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BiddingAPI.Models.ViewModels.Bidding.Auctions;
 using BiddingAPI.Services.Auctions;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -23,6 +24,14 @@ namespace BiddingAPI.Controllers.Auctions
         [HttpGet]
         public IActionResult Search([FromQuery] AuctionListRequestModel request)
         {
+            //if (User.Identity.IsAuthenticated)
+            //{
+            //    string accessToken = await HttpContext.GetTokenAsync("access_token");
+            //    string idToken = await HttpContext.GetTokenAsync("id_token");
+
+            //    // Now you can use them. For more info on when and how to use the 
+            //    // access_token and id_token, see https://auth0.com/docs/tokens
+            //}
             return Ok(m_auctionsService.Search(request));
         }
 

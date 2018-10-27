@@ -1,25 +1,28 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
-
-import { IAuctionListResponse } from '../models/interfaces/auction-list-response.model';
-import { IAuctionListRequest } from '../models/interfaces/auction-list-request.model';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { AuthService } from '../../auth/auth.service';
-import { catchError } from 'rxjs/operators';
-import { throwError as ObservableThrowError, Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
-
+import { AuctionModel } from '../models/list/auction.model';
+import { catchError } from 'rxjs/operators';
+import { ExceptionsService } from 'src/app/core';
+import { Observable } from 'rxjs';
+import { IAuctionListRequest } from '../models/auction-list-request.model';
 
 @Injectable()
 export class AuctionsService {
   private baseUrl = environment.baseUrl;
 
-  constructor(private http: HttpClient, private auth: AuthService) { }
+  constructor(
+    private http: HttpClient,
+    private auth: AuthService,
+    private exception: ExceptionsService
+  ) { }
 
-  private get _authHeader(): string {
+  private get authHeader(): string {
     return `Bearer ${this.auth.accessToken}`;
   }
 
-  public getAuctions$(request: IAuctionListRequest): Observable<IAuctionListResponse[]> {
+  getAuctions$(request: IAuctionListRequest): Observable<AuctionModel[]> {
     const url = this.baseUrl + '/auctions/search';
 
     const params = new HttpParams({
@@ -32,20 +35,9 @@ export class AuctionsService {
       }
     });
 
-    return this.http
-      .get<IAuctionListResponse[]>(url, {
-        headers: new HttpHeaders().set('Authorization', this._authHeader), params
-      })
-      .pipe(
-        catchError((error) => this._handleError(error))
-      );
-  }
-
-  private _handleError(err: HttpErrorResponse | any): Observable<any> {
-    const errorMsg = err.message || 'Error: Unable to complete request.';
-    if (err.message && err.message.indexOf('No JWT present') > -1) {
-      this.auth.login();
-    }
-    return ObservableThrowError(errorMsg);
+    return this.http.get<AuctionModel[]>(url, {
+      headers: new HttpHeaders().set('Authorization', this.authHeader), params
+    })
+      .pipe(catchError(this.exception.errorHandler));
   }
 }

@@ -1,30 +1,45 @@
 <header id="header" class="header">
-  <div class="header-page bg-primary">
-    <a class="toggle-offcanvas bg-primary" (click)="toggleNav()"><span></span></a>
-    <h1 class="header-page-siteTitle">
-      <a routerLink="/">RSVP</a>
-    </h1>
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">Auth0 - Angular</a>
 
-    <div class="header-page-authStatus">
-      <span *ngIf="auth.loggingIn">Logging in...</span>
-      <ng-template [ngIf]="!auth.loggingIn">
-        <a *ngIf="!auth.loggedIn" (click)="auth.login()">Log In</a>
-        <span *ngIf="auth.loggedIn && auth.userProfile">
-          {{ auth.userProfile.name }}
-          <span class="divider">|</span>
-          <a (click)="auth.logout()">Log Out</a>
-        </span>
-      </ng-template>
+        <button
+        class="btn btn-primary btn-margin"
+        routerLink="/">
+          Home
+      </button>
+
+      <button
+        class="btn btn-primary btn-margin"
+        *ngIf="auth.isAuthenticated()"
+        routerLink="/profile">
+          Profile
+      </button>
+
+      <button
+        class="btn btn-primary btn-margin"
+        *ngIf="auth.isAuthenticated()"
+        routerLink="/ping">Ping
+      </button>
+
+      <button
+        id="qsLoginBtn"
+        class="btn btn-primary btn-margin"
+        *ngIf="!auth.isAuthenticated()"
+        (click)="auth.login()">
+          Log In
+      </button>
+
+      <button
+        id="qsLogoutBtn"
+        class="btn btn-primary btn-margin"
+        *ngIf="auth.isAuthenticated()"
+        (click)="auth.logout()">
+          Log Out
+      </button>
+
+      </div>
     </div>
-  </div>
-
-  <nav id="nav" class="nav" role="navigation">
-    <ul class="nav-list">
-      <li>
-        <a routerLink="/" routerLinkActive="active">Events</a>
-        <!-- todo: kke: not sure about this option, if needed! -->
-        <!-- [routerLinkActiveOptions]="{ exact: true }" -->
-      </li>
-    </ul>
   </nav>
 </header>
