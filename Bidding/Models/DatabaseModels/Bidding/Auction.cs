@@ -1,17 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace BiddingAPI.Models.DatabaseModels.Bidding
 {
-    public partial class Auctions
+    public partial class Auction
     {
-        public Auctions()
+        public Auction()
         {
-            AuctionCategories = new HashSet<AuctionCategories>();
+            AuctionCategories = new HashSet<AuctionCategory>();
         }
 
+        [Key]
         public int Id { get; set; }
         public string Description { get; set; }
         public string Brand { get; set; }
@@ -20,6 +22,6 @@ namespace BiddingAPI.Models.DatabaseModels.Bidding
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
 
-        public ICollection<AuctionCategories> AuctionCategories { get; set; }
+        public ICollection<AuctionCategory> AuctionCategories { get; set; }
     }
 }

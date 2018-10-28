@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using BiddingAPI.Models.DatabaseModels;
+using BiddingAPI.Models.DatabaseModels.Bidding;
 using BiddingAPI.Models.ViewModels.Bidding.Auctions;
 using BiddingAPI.Models.ViewModels.Bidding.Auctions.List;
 using Microsoft.EntityFrameworkCore;
@@ -20,42 +21,20 @@ namespace BiddingAPI.Repositories.Auctions
             m_context = context;
         }
 
-        public AuctionListResponseModel Search(AuctionListRequestModel request, int? start, int? end)
+        public async Task<List<Auction>> SearchAsync(AuctionListRequestModel request, int? start, int? end)
         {
-            AuctionListResponseModel response = new AuctionListResponseModel();
-
-            //var parameters = new[] {
-            //    new SqlParameter{ ParameterName = "OffsetStart", SqlDbType = SqlDbType.Int, Value = request.OffsetStart },
-            //    new SqlParameter{ ParameterName = "OffsetEnd", SqlDbType = SqlDbType.Int, Value = request.OffsetEnd },
-            //    new SqlParameter{ ParameterName = "SearchValue", SqlDbType = SqlDbType.VarChar, Value = request.SearchValue },
-            //    new SqlParameter{ ParameterName = "SortByColumn", SqlDbType = SqlDbType.VarChar, Value = request.SortByColumn },
-            //    new SqlParameter{ ParameterName = "SortingDirection", SqlDbType = SqlDbType.VarChar, Value = request.SortingDirection }
-            //};
-
-            //try {
-            //    IQueryable<AuctionListViewModel> result = m_context.AuctionListViewModel.FromSql("Bid_Auctions_SearchList @OffsetStart, @OffsetEnd, @SearchValue, @SortByColumn, @SortingDirection", parameters).AsNoTracking();
-
-            //    response.Auctions = await result
-            //        .Select(auct => new AuctionListModel()
-            //        {
-            //            Brand = auct.Brand,
-            //            Description = auct.Description,
-            //            Price = auct.Price,
-            //            Type = auct.Type,
-            //            EndDate = auct.EndDate,
-            //            StartDate = auct.StartDate
-            //        })
-            //        .AsNoTracking()
-            //        .ToListAsync();
-            //}
-            //catch(Exception ex)
-            //{
-            //    var magic = "";
-            //}
-
-
-
-            return response;
+            return await m_context.Execute<Auction>($"dbo.wsGetOrganizationLicenseFeatureLogin @licenseCode = {request.OffsetStart}, @featureId = {request.SearchValue}")
+                .Select(auct => new Auction()
+                {
+                    Brand = auct.Brand,
+                    Description = auct.Description,
+                    Price = auct.Price,
+                    Type = auct.Type,
+                    EndDate = auct.EndDate,
+                    StartDate = auct.StartDate
+                })
+                .AsNoTracking()
+                .ToListAsync();
         }
 
         public bool Update(AuctionEditRequestModel request)

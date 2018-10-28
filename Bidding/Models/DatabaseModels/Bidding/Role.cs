@@ -3,17 +3,17 @@ using System.Collections.Generic;
 
 namespace BiddingAPI.Models.DatabaseModels
 {
-    public partial class Roles
+    public partial class Role
     {
-        public Roles()
+        public Role()
         {
-            UserRoles = new HashSet<UserRoles>();
+            UserRoles = new HashSet<UserRole>();
         }
 
         public int Id { get; set; }
         public string Name { get; set; }
         public bool? Status { get; set; }
 
-        public ICollection<UserRoles> UserRoles { get; set; }
+        public ICollection<UserRole> UserRoles { get; set; }
     }
 }

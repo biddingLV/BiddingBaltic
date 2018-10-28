@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace BiddingAPI.Models.DatabaseModels.Bidding
 {
-    public class AuctionDetails
+    public class AuctionDetail
     {
         public int Id { get; set; }
         public int AuctionId { get; set; }

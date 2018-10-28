@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BiddingAPI.Models.DatabaseModels.Bidding;
 using BiddingAPI.Models.ViewModels.Bidding.Auctions;
 
 namespace BiddingAPI.Services.Auctions
 {
     public interface IAuctionsService
     {
-        AuctionListResponseModel Search(AuctionListRequestModel request);
+        Task<List<Auction>> SearchAsync(AuctionListRequestModel request);
 
         bool Update(AuctionEditRequestModel request);
 

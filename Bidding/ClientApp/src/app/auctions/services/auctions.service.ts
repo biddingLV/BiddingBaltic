@@ -27,16 +27,17 @@ export class AuctionsService {
 
     const params = new HttpParams({
       fromObject: {
-        SortByColumn: request.SortByColumn.toString(),
-        SortingDirection: request.SortingDirection.toString(),
-        OffsetEnd: request.OffsetEnd.toString(),
-        OffsetStart: request.OffsetStart.toString(),
-        SearchValue: request.SearchValue.toString()
+        SortByColumn: '', //request.SortByColumn.toString(),
+        SortingDirection: '',// request.SortingDirection.toString(),
+        OffsetEnd: '1', //request.OffsetEnd.toString(),
+        OffsetStart: '1', //request.OffsetStart.toString(),
+        SearchValue: '', //request.SearchValue.toString()
       }
     });
 
     return this.http.get<AuctionModel[]>(url, {
-      headers: new HttpHeaders().set('Authorization', this.authHeader), params
+      headers: new HttpHeaders()
+        .set('Authorization', `Bearer ${localStorage.getItem('access_token')}`), params
     })
       .pipe(catchError(this.exception.errorHandler));
   }

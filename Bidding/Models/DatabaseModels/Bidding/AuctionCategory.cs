@@ -5,13 +5,13 @@ using System.Threading.Tasks;
 
 namespace BiddingAPI.Models.DatabaseModels.Bidding
 {
-    public partial class AuctionCategories
+    public partial class AuctionCategory
     {
         public int Id { get; set; }
         public int CategoryId { get; set; }
         public int AuctionId { get; set; }
 
-        public Categories Category { get; set; }
-        public Auctions Auction { get; set; }
+        public Category Category { get; set; }
+        public Auction Auction { get; set; }
     }
 }
