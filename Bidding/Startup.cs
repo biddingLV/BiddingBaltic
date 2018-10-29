@@ -1,7 +1,9 @@
 using Bidding.Shared.Exceptions;
 using BiddingAPI.Authorization;
 using BiddingAPI.Models.DatabaseModels;
+using BiddingAPI.Repositories.Auctions;
 using BiddingAPI.Repositories.Subscribe;
+using BiddingAPI.Services.Auctions;
 using BiddingAPI.Services.Subscribe;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -173,8 +175,11 @@ namespace Bidding
 
         private void ConfigureAppServices(ref IServiceCollection services)
         {
+            // if there is a problem with Cors, check if you have added service and repo here!
             services.AddScoped<ISubscribeService, SubscribeService>();
             services.AddScoped<ISubscribeRepository, SubscribeRepository>();
+            services.AddScoped<IAuctionsService, AuctionsService>();
+            services.AddScoped<IAuctionsRepository, AuctionsRepository>();
         }
     }
 }

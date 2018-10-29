@@ -27,10 +27,12 @@ export class AuctionsService {
 
     const params = new HttpParams({
       fromObject: {
+        startDate: '10/29/2018'.toString(),
+        endDate: '10/31/2018'.toString(),
         SortByColumn: '', //request.SortByColumn.toString(),
         SortingDirection: '',// request.SortingDirection.toString(),
-        OffsetEnd: '1', //request.OffsetEnd.toString(),
-        OffsetStart: '1', //request.OffsetStart.toString(),
+        OffsetEnd: '', //request.OffsetEnd.toString(),
+        OffsetStart: '', //request.OffsetStart.toString(),
         SearchValue: '', //request.SearchValue.toString()
       }
     });

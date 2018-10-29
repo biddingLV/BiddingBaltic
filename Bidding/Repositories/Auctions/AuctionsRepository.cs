@@ -23,9 +23,10 @@ namespace BiddingAPI.Repositories.Auctions
 
         public async Task<List<Auction>> SearchAsync(AuctionListRequestModel request, int? start, int? end)
         {
-            return await m_context.Execute<Auction>($"dbo.wsGetOrganizationLicenseFeatureLogin @licenseCode = {request.OffsetStart}, @featureId = {request.SearchValue}")
+            return await m_context.Execute<Auction>($"dbo.[GetAuctions] @StartDate = {request.StartDate}, @EndDate = {request.EndDate}")
                 .Select(auct => new Auction()
                 {
+                    Id = auct.Id,
                     Brand = auct.Brand,
                     Description = auct.Description,
                     Price = auct.Price,

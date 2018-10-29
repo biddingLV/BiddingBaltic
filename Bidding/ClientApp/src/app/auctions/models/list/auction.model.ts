@@ -1,9 +1,11 @@
 export class AuctionModel {
   constructor(
-    public type: Date,
-    public price: Date,
-    public brand: boolean,
-    public Description?: string,
-    public _id?: string,
+    public startDate: Date,
+    public endDate: Date,
+    public type: string,
+    public price: number,
+    public brand: string,
+    public description: string,
+    public _id?: number,
   ) { }
 }

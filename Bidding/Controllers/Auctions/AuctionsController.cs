@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using BiddingAPI.Models.DatabaseModels.Bidding;
 using BiddingAPI.Models.ViewModels.Bidding.Auctions;
 using BiddingAPI.Services.Auctions;
 using Microsoft.AspNetCore.Authentication;
@@ -45,28 +46,6 @@ namespace BiddingAPI.Controllers.Auctions
         public IActionResult Delete([FromBody] AuctionDeleteRequestModel request)
         {
             return Ok(m_auctionsService.Delete(request));
-        }
-
-        // testing
-        [HttpGet]
-        [Route("public")]
-        public IActionResult Public()
-        {
-            return Json(new
-            {
-                Message = "Hello from a public endpoint! You don't need to be authenticated to see this."
-            });
-        }
-
-        [HttpGet]
-        [Route("private")]
-        [Authorize]
-        public IActionResult Private()
-        {
-            return Json(new
-            {
-                Message = "Hello from a private endpoint! You need to be authenticated to see this."
-            });
         }
     }
 }
