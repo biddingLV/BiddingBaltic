@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Bidding.Models.DatabaseModels.Bidding.Subscribe;
+using Bidding.Models.ViewModels.Bidding.Auctions;
 using Bidding.Shared.Database;
 using BiddingAPI.Models.DatabaseModels.Bidding;
 using BiddingAPI.Models.ViewModels.Bidding.Auctions.List;
@@ -35,8 +36,7 @@ namespace BiddingAPI.Models.DatabaseModels
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Newsletter> Newsletters { get; set; }
 
-        // do I need this???
-        // todo: kke: queries -> move to Query() 2.1 version
-        //public virtual DbQuery<AuctionListViewModel> AuctionListViewModel { get; set; }
+        // DbQueries
+        public virtual DbQuery<AuctionModel> AuctionModel { get; set; }
     }
 }

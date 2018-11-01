@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Bidding.Models.ViewModels.Bidding.Auctions;
 using BiddingAPI.Models.DatabaseModels.Bidding;
 using BiddingAPI.Models.ViewModels.Bidding.Auctions;
 using BiddingAPI.Services.Auctions;
@@ -24,9 +25,9 @@ namespace BiddingAPI.Controllers.Auctions
         }
 
         [HttpGet]
-        public async Task<IActionResult> Search([FromQuery] AuctionListRequestModel request)
+        public IActionResult Search([FromQuery] AuctionModel request)
         {
-            return Ok(await m_auctionsService.SearchAsync(request));
+            return Ok(m_auctionsService.Search(request));
         }
 
         // add

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Bidding.Models.ViewModels.Bidding.Auctions;
 using BiddingAPI.Models.DatabaseModels.Bidding;
 using BiddingAPI.Models.ViewModels.Bidding.Auctions;
 
@@ -9,7 +10,7 @@ namespace BiddingAPI.Repositories.Auctions
 {
     public interface IAuctionsRepository
     {
-        Task<List<Auction>> SearchAsync(AuctionListRequestModel request, int? start, int? end);
+        List<AuctionModel> Search(AuctionModel request, int? start, int? end);
 
         bool Update(AuctionEditRequestModel request);
 

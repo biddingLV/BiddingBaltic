@@ -4,6 +4,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
+using Bidding.Models.ViewModels.Bidding.Auctions;
 using BiddingAPI.Models.DatabaseModels;
 using BiddingAPI.Models.DatabaseModels.Bidding;
 using BiddingAPI.Models.ViewModels.Bidding.Auctions;
@@ -21,10 +22,10 @@ namespace BiddingAPI.Repositories.Auctions
             m_context = context;
         }
 
-        public async Task<List<Auction>> SearchAsync(AuctionListRequestModel request, int? start, int? end)
+        public List<AuctionModel> Search(AuctionModel request, int? start, int? end)
         {
-            return await m_context.Execute<Auction>($"dbo.[GetAuctions] @StartDate = {request.StartDate}, @EndDate = {request.EndDate}")
-                .Select(auct => new Auction()
+            return m_context.AuctionModel.FromSql($"EXEC dbo.[GetAuctions] @StartDate = {request.StartDate}, @EndDate = {request.EndDate}")
+                .Select(auct => new AuctionModel()
                 {
                     Id = auct.Id,
                     Brand = auct.Brand,
@@ -35,7 +36,7 @@ namespace BiddingAPI.Repositories.Auctions
                     StartDate = auct.StartDate
                 })
                 .AsNoTracking()
-                .ToListAsync();
+                .ToList();
         }
 
         public bool Update(AuctionEditRequestModel request)

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Bidding.Models.ViewModels.Bidding.Auctions;
 using BiddingAPI.Models.DatabaseModels.Bidding;
 using BiddingAPI.Models.ViewModels.Bidding.Auctions;
 using BiddingAPI.Repositories.Auctions;
@@ -17,40 +18,40 @@ namespace BiddingAPI.Services.Auctions
             m_auctionsRepository = auctionRepository ?? throw new ArgumentNullException(nameof(auctionRepository));
         }
 
-        public async Task<List<Auction>> SearchAsync(AuctionListRequestModel request)
+        public List<AuctionModel> Search(AuctionModel request)
         {
             // todo: kke: validate all request values!
 
             int pageNum = request.OffsetStart;
             int start = Math.Max(pageNum - 1, 0) * request.OffsetEnd;
             int end = start + request.OffsetEnd;
-            List<Auction> response = await m_auctionsRepository.SearchAsync(request, start, end);
+            List<AuctionModel> response = m_auctionsRepository.Search(request, start, end);
 
-            int totalPages = 0;
-            //check if total data < pagesize
-            if (response.Count > 0)
-            {
-                if (response.Count > request.OffsetEnd)
-                {
-                    totalPages = response.Count / request.OffsetEnd;
-                    if (response.Count % request.OffsetEnd > 0)
-                    {
-                        totalPages++;
-                    }
-                }
-                else
-                {
-                    totalPages = 1;
-                }
-            }
-            if (totalPages < pageNum)
-            {
-                pageNum = totalPages;
-            }
-            if (response.Count == 0)
-            {
-                return response;
-            }
+            //int totalPages = 0;
+            ////check if total data < pagesize
+            //if (response.Count > 0)
+            //{
+            //    if (response.Count > request.OffsetEnd)
+            //    {
+            //        totalPages = response.Count / request.OffsetEnd;
+            //        if (response.Count % request.OffsetEnd > 0)
+            //        {
+            //            totalPages++;
+            //        }
+            //    }
+            //    else
+            //    {
+            //        totalPages = 1;
+            //    }
+            //}
+            //if (totalPages < pageNum)
+            //{
+            //    pageNum = totalPages;
+            //}
+            //if (response.Count == 0)
+            //{
+            //    return response;
+            //}
 
             // todo: kke: add this back when ready for pagination! 
             //if (((pageNum - 1) * request.OffsetEnd) < 0)

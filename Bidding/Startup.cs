@@ -38,9 +38,9 @@ namespace Bidding
             ConfigureMVC(ref services);
 
             // todo: kke: why is this needed?
-            services.AddIdentity<IdentityUser, IdentityRole>()
-                .AddEntityFrameworkStores<BiddingContext>()
-                .AddDefaultTokenProviders();
+            //services.AddIdentity<IdentityUser, IdentityRole>()
+            //    .AddEntityFrameworkStores<BiddingContext>()
+            //    .AddDefaultTokenProviders();
             //
 
             // https://www.jerriepelser.com/blog/accessing-tokens-aspnet-core-2/

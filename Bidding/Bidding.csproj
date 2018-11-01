@@ -34,6 +34,8 @@
   <ItemGroup>
     <Compile Remove="Migrations\20181001163510_AddEstateCategoryToNewsletter.cs" />
     <Compile Remove="Migrations\20181001163510_AddEstateCategoryToNewsletter.Designer.cs" />
+    <Compile Remove="Migrations\20181101191507_TestingDbQueries.cs" />
+    <Compile Remove="Migrations\20181101191507_TestingDbQueries.Designer.cs" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">
