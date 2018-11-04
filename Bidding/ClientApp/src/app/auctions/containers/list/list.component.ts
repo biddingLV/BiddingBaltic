@@ -1,65 +1,76 @@
-import { Component, OnInit } from '@angular/core';
-import { IAuctionListRequest } from '../../models/auction-list-request.model';
-import { IAuctionListResponse } from '../../models/auction-list-response.model';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Title } from '@angular/platform-browser';
+import { Subscription } from 'rxjs';
 import { AuctionsService } from '../../services/auctions.service';
-import { Observable } from 'rxjs';
+import { AuctionModel } from '../../models/list/auction.model';
+import { IAuctionListRequest } from '../../models/auction-list-request.model';
+import { Page } from 'src/app/shared/models/page';
 
 @Component({
   selector: 'app-auction-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss']
 })
-export class AuctionListComponent implements OnInit {
+export class AuctionListComponent implements OnInit, OnDestroy {
+  pageTitle = 'Auctions';
+  auctionsSub: Subscription;
+  auctionList: AuctionModel[];
+  loading: boolean;
+  error: boolean;
+  query: '';
 
-  public numberRows = 10;
-  public selected = [];
+  page = new Page();
+
+  // old logic:
+  // public numberRows = 10;
+  // public selected = [];
 
   // API
-  public response$: Observable<IAuctionListResponse>;
+  // 
   private request: IAuctionListRequest;
-  public Auctions: IAuctionListResponse;
 
-  constructor(private auctionApi: AuctionsService) { }
-
-  public ngOnInit() {
-    this.initRequest();
-    this.getAuctions();
+  constructor(
+    private title: Title,
+    private auctionApi: AuctionsService
+  ) {
+    this.page.pageNumber = 0;
+    this.page.size = 20;
   }
 
-  // Data Table Events
-  public onSortChange(event): void {
-    this.request.SortByColumn = event.column.prop;
-    this.request.SortingDirection = event.newValue;
-    this.getAuctions();
+  ngOnInit() {
+    this.title.setTitle(this.pageTitle);
+    this.getAuctionList();
   }
 
-  public onPageChange(event): void {
-    this.request.OffsetStart = event.page;
-    this.getAuctions();
+  private getAuctionList() {
+    this.loading = true;
+
+    // Get all (admin) events
+    this.auctionsSub = this.auctionApi
+      .getAuctions$(this.request)
+      .subscribe(
+        res => {
+          this.auctionList = res;
+          this.loading = false;
+        },
+        err => {
+          console.error(err);
+          this.loading = false;
+          this.error = true;
+        }
+      );
   }
 
-  public onRowChange(event): void {
-    this.request.OffsetStart = 1;
-    this.request.OffsetEnd = event;
-    this.getAuctions();
-  }
+  // searchEvents() {
+  //   this.filteredEvents = this.fs.search(this.eventList, this.query, '_id', 'mediumDate');
+  // }
 
-  // Private
-  private initRequest(): void {
-    this.request = {
-      OffsetEnd: this.numberRows,
-      OffsetStart: 1,
-      SortByColumn: 'Brand',
-      SortingDirection: 'asc',
-      SearchValue: 'BMW'
-    };
-  }
+  // resetQuery() {
+  //   this.query = '';
+  //   this.filteredEvents = this.eventList;
+  // }
 
-  // Private API Get Functions
-  private getAuctions(): void {
-    this.response$ = this.auctionApi.getAuctions(this.request);
-    this.response$.subscribe((data: IAuctionListResponse) => {
-      this.Auctions = { ...data };
-    });
+  ngOnDestroy() {
+    this.auctionsSub.unsubscribe();
   }
 }

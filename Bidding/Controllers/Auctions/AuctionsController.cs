@@ -2,14 +2,18 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Bidding.Models.ViewModels.Bidding.Auctions;
+using BiddingAPI.Models.DatabaseModels.Bidding;
 using BiddingAPI.Models.ViewModels.Bidding.Auctions;
 using BiddingAPI.Services.Auctions;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BiddingAPI.Controllers.Auctions
 {
+    [Produces("application/json")]
     [Route("api/[Controller]/[action]")]
     public class AuctionsController : Controller
     {
@@ -21,50 +25,28 @@ namespace BiddingAPI.Controllers.Auctions
         }
 
         [HttpGet]
-        public async Task<IActionResult> Search([FromQuery] AuctionListRequestModel request)
+        public IActionResult Search([FromQuery] AuctionModel request)
         {
-            return Ok(await m_auctionsService.Search(request));
+            return Ok(m_auctionsService.Search(request));
         }
 
         // add
         [HttpPost]
-        public async Task<IActionResult> Create([FromBody] AuctionAddRequestModel request)
+        public IActionResult Create([FromBody] AuctionAddRequestModel request)
         {
-            return Ok(await m_auctionsService.Create(request));
+            return Ok(m_auctionsService.Create(request));
         }
 
         [HttpPut]
-        public async Task<IActionResult> Edit([FromBody] AuctionEditRequestModel request)
+        public IActionResult Edit([FromBody] AuctionEditRequestModel request)
         {
-            return Ok(await m_auctionsService.Update(request));
+            return Ok(m_auctionsService.Update(request));
         }
 
         [HttpDelete]
-        public async Task<IActionResult> Delete([FromBody] AuctionDeleteRequestModel request)
+        public IActionResult Delete([FromBody] AuctionDeleteRequestModel request)
         {
-            return Ok(await m_auctionsService.Delete(request));
-        }
-
-        // testing
-        [HttpGet]
-        [Route("public")]
-        public IActionResult Public()
-        {
-            return Json(new
-            {
-                Message = "Hello from a public endpoint! You don't need to be authenticated to see this."
-            });
-        }
-
-        [HttpGet]
-        [Route("private")]
-        [Authorize]
-        public IActionResult Private()
-        {
-            return Json(new
-            {
-                Message = "Hello from a private endpoint! You need to be authenticated to see this."
-            });
+            return Ok(m_auctionsService.Delete(request));
         }
     }
 }

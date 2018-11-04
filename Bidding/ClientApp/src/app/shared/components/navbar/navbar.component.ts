@@ -16,7 +16,7 @@ export class NavbarComponent implements OnInit {
   constructor(private router: Router, private authService: AuthService, private _scrollToService: ScrollToService) {
     router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
-        this.isAuthenticated = this.authService.isAuthenticated();
+        // this.isAuthenticated = this.authService.isAuthenticated();
         this.username = localStorage.getItem('username');
       }
     });

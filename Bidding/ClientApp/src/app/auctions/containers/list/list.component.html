@@ -1,6 +1,62 @@
-<div class="container">
-  <div class="row">
-    <app-auctions-table *ngIf="response$ | async;" [list]="Auctions" [numberRows]="numberRows" [selected]="selected" (pageChange)="onPageChange($event)"
-      (rowChange)="onRowChange($event)" (sortChange)="onSortChange($event)"></app-auctions-table>
-  </div>
-</div>
+<h1 class="text-center">{{ pageTitle }}</h1>
+<app-loading *ngIf="loading"></app-loading>
+
+<!-- Auctions -->
+<ng-template [ngIf]="auctionList">
+  <ng-template [ngIf]="auctionList.length">
+    <!-- Search auctions -->
+    <app-search-bar (search)="updateRequest('Search', $event)"></app-search-bar>
+
+    <!-- No search results -->
+    <!-- <p *ngIf="fs.noSearchResults(filteredEvents, query)" class="alert alert-warning">
+      No events found for <em class="text-danger">{{ query }}</em>, sorry!
+    </p> -->
+
+    <!-- Events listing -->
+    <section class="list-group">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-12">
+            <app-auctions-table [list]="auctionList" [numberRows]="10" [selected]="selected"></app-auctions-table>
+          </div>
+        </div>
+      </div>
+      <!-- <div
+          *ngFor="let event of fs.orderByDate(filteredEvents, 'startDatetime')"
+          class="list-group-item list-group-item-action flex-column align-items-start">
+          <div class="d-flex w-100 justify-content-between">
+            <a [routerLink]="['/event', event._id]">
+              <h5 class="mb-1" [innerHTML]="event.title"></h5>
+            </a>
+            <div class="event-icons">
+              <img
+                *ngIf="!event.viewPublic"
+                class="event-icon"
+                title="Private"
+                src="/assets/images/eye.svg">
+              <img
+                *ngIf="utils.eventPast(event.endDatetime)"
+                class="event-icon"
+                title="Event is over"
+                src="/assets/images/calendar.svg">
+            </div>
+          </div>
+          <p class="mb-1">
+            <strong>Date:</strong> {{ utils.eventDates(event.startDatetime, event.endDatetime) }}
+          </p>
+        </div> -->
+    </section>
+  </ng-template>
+
+  <!-- No events available -->
+  <!-- <p *ngIf="!eventList.length" class="alert alert-info">
+      No events have been created yet.
+    </p> -->
+</ng-template>
+
+<!-- Error loading events -->
+<!-- <p *ngIf="error" class="alert alert-danger">
+    <strong>Oops!</strong> There was an error retrieving event data.
+  </p> -->
+
+<!-- </ng-template> -->

@@ -1,9 +1,9 @@
 import { IListResponse } from '../../shared/basemodels/list-response.model';
 
 export interface IAuctionListResponse extends IListResponse {
-  Auctions: IAuctionList[];
+  Auctions: IAuctionItem[];
 }
-export interface IAuctionList {
+export interface IAuctionItem {
   Id: number;
   Description: string;
   Brand: string;

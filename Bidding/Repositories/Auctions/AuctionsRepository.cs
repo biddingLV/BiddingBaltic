@@ -4,7 +4,9 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
+using Bidding.Models.ViewModels.Bidding.Auctions;
 using BiddingAPI.Models.DatabaseModels;
+using BiddingAPI.Models.DatabaseModels.Bidding;
 using BiddingAPI.Models.ViewModels.Bidding.Auctions;
 using BiddingAPI.Models.ViewModels.Bidding.Auctions.List;
 using Microsoft.EntityFrameworkCore;
@@ -19,46 +21,60 @@ namespace BiddingAPI.Repositories.Auctions
         {
             m_context = context;
         }
+//        USE[BiddingLVDev]
+//GO
+///****** Object:  StoredProcedure [dbo].[GetAuctions]    Script Date: 01/11/2018 20.26.56 ******/
+//SET ANSI_NULLS ON
+//GO
+//SET QUOTED_IDENTIFIER ON
+//GO
+//ALTER PROCEDURE[dbo].[GetAuctions]
+//        @StartDate date,
+//   @EndDate date
+//AS
+//BEGIN
+//    select
 
-        public async Task<AuctionListResponseModel> Search(AuctionListRequestModel request, int? start, int? end)
+//        auct.Id,
+//		auct.Description,
+//		auct.Brand,
+//		auct.Price,
+//		auct.Type,
+//		auct.StartDate,
+//		auct.EndDate,
+//		cast(
+//		  case
+//			when 1 is not null then 1 else 0
+
+//          end
+//		as bit) as AllData,
+//		'' as SortByColumn,
+//		'' as SortingDirection,
+//		'' as SearchValue,
+//		1 as OffsetStart,
+//		10 as OffsetEnd
+//    from Auctions auct
+
+//    where auct.StartDate BETWEEN @StartDate AND @EndDate;
+//        END
+        public List<AuctionModel> Search(AuctionModel request, int? start, int? end)
         {
-            AuctionListResponseModel response = new AuctionListResponseModel();
-
-            //var parameters = new[] {
-            //    new SqlParameter{ ParameterName = "OffsetStart", SqlDbType = SqlDbType.Int, Value = request.OffsetStart },
-            //    new SqlParameter{ ParameterName = "OffsetEnd", SqlDbType = SqlDbType.Int, Value = request.OffsetEnd },
-            //    new SqlParameter{ ParameterName = "SearchValue", SqlDbType = SqlDbType.VarChar, Value = request.SearchValue },
-            //    new SqlParameter{ ParameterName = "SortByColumn", SqlDbType = SqlDbType.VarChar, Value = request.SortByColumn },
-            //    new SqlParameter{ ParameterName = "SortingDirection", SqlDbType = SqlDbType.VarChar, Value = request.SortingDirection }
-            //};
-
-            //try {
-            //    IQueryable<AuctionListViewModel> result = m_context.AuctionListViewModel.FromSql("Bid_Auctions_SearchList @OffsetStart, @OffsetEnd, @SearchValue, @SortByColumn, @SortingDirection", parameters).AsNoTracking();
-
-            //    response.Auctions = await result
-            //        .Select(auct => new AuctionListModel()
-            //        {
-            //            Brand = auct.Brand,
-            //            Description = auct.Description,
-            //            Price = auct.Price,
-            //            Type = auct.Type,
-            //            EndDate = auct.EndDate,
-            //            StartDate = auct.StartDate
-            //        })
-            //        .AsNoTracking()
-            //        .ToListAsync();
-            //}
-            //catch(Exception ex)
-            //{
-            //    var magic = "";
-            //}
-
-
-
-            return response;
+            return m_context.AuctionModel.FromSql($"EXEC dbo.[GetAuctions] @StartDate = {request.StartDate}, @EndDate = {request.EndDate}")
+                .Select(auct => new AuctionModel()
+                {
+                    Id = auct.Id,
+                    Brand = auct.Brand,
+                    Description = auct.Description,
+                    Price = auct.Price,
+                    Type = auct.Type,
+                    EndDate = auct.EndDate,
+                    StartDate = auct.StartDate
+                })
+                .AsNoTracking()
+                .ToList();
         }
 
-        public async Task<bool> Update(AuctionEditRequestModel request)
+        public bool Update(AuctionEditRequestModel request)
         {
             //var auction = await m_context.Auctions.FirstOrDefaultAsync(lf => lf.Id == request.Id);
 
@@ -68,10 +84,10 @@ namespace BiddingAPI.Repositories.Auctions
             // auction.Count = request.FeatureValue;
             // m_context.Entry(auction).Property("Count").IsModified = true;
 
-            return await m_context.SaveChangesAsync() == 1;
+            return m_context.SaveChanges() == 1;
         }
 
-        public async Task<bool> Create(AuctionAddRequestModel request)
+        public bool Create(AuctionAddRequestModel request)
         {
 
             return true;
@@ -90,7 +106,7 @@ namespace BiddingAPI.Repositories.Auctions
             //return await m_context.SaveChangesAsync() == 1;
         }
 
-        public async Task<bool> Delete(AuctionDeleteRequestModel request)
+        public bool Delete(AuctionDeleteRequestModel request)
         {
             return true;
             //m_context

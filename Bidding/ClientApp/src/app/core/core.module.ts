@@ -3,7 +3,6 @@ import { NgModule, Optional, SkipSelf, ModuleWithProviders } from '@angular/core
 import { CommonModule } from '@angular/common';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // Third Party
 import { ToastrModule } from 'ngx-toastr';
@@ -13,6 +12,9 @@ import { AngularFontAwesomeModule } from 'angular-font-awesome';
 import { // AuthGuard, PermissionsService, UserService,
   NotificationsService, ExceptionsService, FormService, CustomValidators
 } from './services';
+import { HeaderComponent } from './components/header/header.component';
+import { RouterModule } from '@angular/router';
+import { ReactiveFormsModule } from '@angular/forms';
 // import { CookieService } from 'ngx-cookie-service';
 
 // Interceptors
@@ -21,9 +23,11 @@ import { // AuthGuard, PermissionsService, UserService,
 @NgModule({
   imports: [
     CommonModule,
-    BrowserAnimationsModule, // required animations module for toastr
     ToastrModule.forRoot(),
-    AngularFontAwesomeModule
+    AngularFontAwesomeModule,
+    HttpClientModule,
+    RouterModule,
+    ReactiveFormsModule
   ],
   providers: [
     // { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
@@ -34,15 +38,22 @@ import { // AuthGuard, PermissionsService, UserService,
     ExceptionsService,
     FormService,
     // CookieService,
-    HttpClientModule
   ],
   exports: [
     HttpClientModule,
-    BrowserAnimationsModule,
+    RouterModule,
+    ReactiveFormsModule,
     ToastrModule,
-    AngularFontAwesomeModule
+    AngularFontAwesomeModule,
+    HeaderComponent,
+    // todo: kke: implement this!
+    // FooterComponent
   ],
-  declarations: []
+  declarations: [
+    // todo: kke: implement this!
+    HeaderComponent,
+    // FooterComponent
+  ]
 })
 export class CoreModule {
   constructor(@Optional() @SkipSelf() parentModule: CoreModule) {

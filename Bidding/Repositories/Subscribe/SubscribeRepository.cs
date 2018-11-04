@@ -21,7 +21,7 @@ namespace BiddingAPI.Repositories.Subscribe
             m_context = context;
         }
 
-        public async Task<bool> UsingEmailAsync(EmailRequestModel request)
+        public bool UsingEmail(EmailRequestModel request)
         {
             bool categoryVehicles = (request.Categories.Contains("vehicles")) ? true : false;
             bool categoryItems = (request.Categories.Contains("items")) ? true : false;
@@ -42,10 +42,10 @@ namespace BiddingAPI.Repositories.Subscribe
             };
 
             m_context.Add(newsletter);
-            return await m_context.SaveChangesAsync() == 1;
+            return m_context.SaveChanges() == 1;
         }
 
-        public async Task<bool> UsingWhatsAppAsync(WhatsAppRequestModel request)
+        public bool UsingWhatsApp(WhatsAppRequestModel request)
         {
             bool categoryVehicles = (request.Categories.Contains("vehicles")) ? true : false;
             bool categoryItems = (request.Categories.Contains("items")) ? true : false;
@@ -66,10 +66,10 @@ namespace BiddingAPI.Repositories.Subscribe
             };
 
             m_context.Add(newsletter);
-            return await m_context.SaveChangesAsync() == 1;
+            return m_context.SaveChanges() == 1;
         }
 
-        public async Task<bool> UsingSurveyAsync(SurveyRequestModel request)
+        public bool UsingSurvey(SurveyRequestModel request)
         {
             return true;
         }

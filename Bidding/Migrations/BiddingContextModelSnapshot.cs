@@ -15,7 +15,7 @@ namespace Bidding.Migrations
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "2.1.3-rtm-32065")
+                .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -45,44 +45,10 @@ namespace Bidding.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Newsletter");
+                    b.ToTable("Newsletters");
                 });
 
-            modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.Bidding.AuctionCategories", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("AuctionId");
-
-                    b.Property<int>("CategoryId");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AuctionId");
-
-                    b.HasIndex("CategoryId");
-
-                    b.ToTable("AuctionCategories");
-                });
-
-            modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.Bidding.AuctionDetails", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("AuctionId");
-
-                    b.Property<string>("Model");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("AuctionDetails");
-                });
-
-            modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.Bidding.Auctions", b =>
+            modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.Bidding.Auction", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -105,7 +71,41 @@ namespace Bidding.Migrations
                     b.ToTable("Auctions");
                 });
 
-            modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.Categories", b =>
+            modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.Bidding.AuctionCategory", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AuctionId");
+
+                    b.Property<int>("CategoryId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AuctionId");
+
+                    b.HasIndex("CategoryId");
+
+                    b.ToTable("AuctionCategories");
+                });
+
+            modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.Bidding.AuctionDetail", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("AuctionId");
+
+                    b.Property<string>("Model");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("AuctionDetails");
+                });
+
+            modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.Category", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -116,7 +116,7 @@ namespace Bidding.Migrations
                     b.ToTable("Categories");
                 });
 
-            modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.CategoryTypes", b =>
+            modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.CategoryType", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -135,7 +135,7 @@ namespace Bidding.Migrations
                     b.ToTable("CategoryTypes");
                 });
 
-            modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.Features", b =>
+            modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.Feature", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -146,7 +146,7 @@ namespace Bidding.Migrations
                     b.ToTable("Features");
                 });
 
-            modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.Organizations", b =>
+            modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.Organization", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -157,7 +157,18 @@ namespace Bidding.Migrations
                     b.ToTable("Organizations");
                 });
 
-            modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.ProductDetails", b =>
+            modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.Product", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Products");
+                });
+
+            modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.ProductDetail", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -176,18 +187,7 @@ namespace Bidding.Migrations
                     b.ToTable("ProductDetails");
                 });
 
-            modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.Products", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Products");
-                });
-
-            modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.Roles", b =>
+            modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.Role", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -202,7 +202,18 @@ namespace Bidding.Migrations
                     b.ToTable("Roles");
                 });
 
-            modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.TypeProducts", b =>
+            modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.Type", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Types");
+                });
+
+            modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.TypeProduct", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -221,7 +232,7 @@ namespace Bidding.Migrations
                     b.ToTable("TypeProducts");
                 });
 
-            modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.Types", b =>
+            modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.User", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -229,10 +240,10 @@ namespace Bidding.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Types");
+                    b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.UserDetails", b =>
+            modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.UserDetail", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -249,7 +260,7 @@ namespace Bidding.Migrations
                     b.ToTable("UserDetails");
                 });
 
-            modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.UserOrganizations", b =>
+            modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.UserOrganization", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -268,7 +279,7 @@ namespace Bidding.Migrations
                     b.ToTable("UserOrganizations");
                 });
 
-            modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.UserRoles", b =>
+            modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.UserRole", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -287,98 +298,87 @@ namespace Bidding.Migrations
                     b.ToTable("UserRoles");
                 });
 
-            modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.Users", b =>
+            modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.Bidding.AuctionCategory", b =>
                 {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Users");
-                });
-
-            modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.Bidding.AuctionCategories", b =>
-                {
-                    b.HasOne("BiddingAPI.Models.DatabaseModels.Bidding.Auctions", "Auction")
+                    b.HasOne("BiddingAPI.Models.DatabaseModels.Bidding.Auction", "Auction")
                         .WithMany("AuctionCategories")
                         .HasForeignKey("AuctionId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("BiddingAPI.Models.DatabaseModels.Categories", "Category")
+                    b.HasOne("BiddingAPI.Models.DatabaseModels.Category", "Category")
                         .WithMany()
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.CategoryTypes", b =>
+            modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.CategoryType", b =>
                 {
-                    b.HasOne("BiddingAPI.Models.DatabaseModels.Categories", "Category")
+                    b.HasOne("BiddingAPI.Models.DatabaseModels.Category", "Category")
                         .WithMany("CategoryTypes")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("BiddingAPI.Models.DatabaseModels.Types", "Type")
+                    b.HasOne("BiddingAPI.Models.DatabaseModels.Type", "Type")
                         .WithMany("CategoryTypes")
                         .HasForeignKey("TypeId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.ProductDetails", b =>
+            modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.ProductDetail", b =>
                 {
-                    b.HasOne("BiddingAPI.Models.DatabaseModels.Features", "Feature")
+                    b.HasOne("BiddingAPI.Models.DatabaseModels.Feature", "Feature")
                         .WithMany("ProductDetails")
                         .HasForeignKey("FeatureId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("BiddingAPI.Models.DatabaseModels.Products", "Product")
+                    b.HasOne("BiddingAPI.Models.DatabaseModels.Product", "Product")
                         .WithMany("ProductDetails")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.TypeProducts", b =>
+            modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.TypeProduct", b =>
                 {
-                    b.HasOne("BiddingAPI.Models.DatabaseModels.Products", "Product")
+                    b.HasOne("BiddingAPI.Models.DatabaseModels.Product", "Product")
                         .WithMany("TypeProducts")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("BiddingAPI.Models.DatabaseModels.Types", "Type")
+                    b.HasOne("BiddingAPI.Models.DatabaseModels.Type", "Type")
                         .WithMany("TypeProducts")
                         .HasForeignKey("TypeId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.UserDetails", b =>
+            modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.UserDetail", b =>
                 {
-                    b.HasOne("BiddingAPI.Models.DatabaseModels.Users", "User")
+                    b.HasOne("BiddingAPI.Models.DatabaseModels.User", "User")
                         .WithMany("UserDetails")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.UserOrganizations", b =>
+            modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.UserOrganization", b =>
                 {
-                    b.HasOne("BiddingAPI.Models.DatabaseModels.Organizations", "Organization")
+                    b.HasOne("BiddingAPI.Models.DatabaseModels.Organization", "Organization")
                         .WithMany("UserOrganizations")
                         .HasForeignKey("OrganizationId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("BiddingAPI.Models.DatabaseModels.Users", "User")
+                    b.HasOne("BiddingAPI.Models.DatabaseModels.User", "User")
                         .WithMany("UserOrganizations")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
-            modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.UserRoles", b =>
+            modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.UserRole", b =>
                 {
-                    b.HasOne("BiddingAPI.Models.DatabaseModels.Roles", "Role")
+                    b.HasOne("BiddingAPI.Models.DatabaseModels.Role", "Role")
                         .WithMany("UserRoles")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("BiddingAPI.Models.DatabaseModels.Users", "User")
+                    b.HasOne("BiddingAPI.Models.DatabaseModels.User", "User")
                         .WithMany("UserRoles")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade);

@@ -1,5 +1,6 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { IAuctionListResponse } from '../../../../auctions/models/auction-list-response.model';
+import { AuctionModel } from 'src/app/auctions/models/list/auction.model';
+import { Page } from 'src/app/shared/models/page';
 
 @Component({
   selector: 'app-auctions-table',
@@ -7,13 +8,15 @@ import { IAuctionListResponse } from '../../../../auctions/models/auction-list-r
   styleUrls: ['./auctions.component.scss']
 })
 export class AuctionsTableComponent implements OnInit {
-  @Input() public list: IAuctionListResponse;
-  @Input() public numberRows: number;
-  @Input() public selected: any[];
+  @Input() list: AuctionModel[];
+  @Input() numberRows: number;
+  @Input() selected: any[];
 
-  @Output() public pageChange = new EventEmitter<number>();
-  @Output() public sortChange = new EventEmitter<boolean>();
-  @Output() public rowChange = new EventEmitter<number>();
+  @Output() pageChange = new EventEmitter<number>();
+  @Output() sortChange = new EventEmitter<boolean>();
+  @Output() rowChange = new EventEmitter<number>();
+
+  page = new Page();
 
   private items = [
     { name: '5 per page', value: 5 },
@@ -26,20 +29,22 @@ export class AuctionsTableComponent implements OnInit {
 
   constructor() { }
 
-  public ngOnInit() {
-    console.log(this.list);
+  ngOnInit() {
+    console.log('list', this.list);
+    this.page.pageNumber = 0;
+    this.page.totalElements = this.list.length;
+    this.page.size = 30;
   }
 
-  public onPageChange(page) {
+  onPageChange(page) {
     this.pageChange.emit(page);
   }
 
-  public onRowChange(row) {
+  onRowChange(row) {
     this.rowChange.emit(row);
   }
 
-  public onSortChange(event) {
+  onSortChange(event) {
     this.sortChange.emit(event);
   }
-
 }

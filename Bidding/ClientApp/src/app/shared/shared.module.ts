@@ -12,6 +12,8 @@ import { AuctionsTableComponent } from './components/table/auctions/auctions.com
 // filter components
 import { ArrayDropdownComponent } from './components/dropdowns/array/array.component';
 import { ObjectDropdownComponent } from './components/dropdowns/object/object.component';
+import { SearchComponent } from './components/search/search.component';
+import { LoadingComponent } from './components/loading/loading.component';
 
 @NgModule({
   imports: [
@@ -25,17 +27,21 @@ import { ObjectDropdownComponent } from './components/dropdowns/object/object.co
     NavbarComponent,
     FooterComponent,
     AuctionsTableComponent,
+    SearchComponent,
     ArrayDropdownComponent,
     ObjectDropdownComponent,
-    FormsModule
+    FormsModule,
+    LoadingComponent
   ],
   declarations: [
     HeaderComponent,
     NavbarComponent,
     FooterComponent,
     AuctionsTableComponent,
+    SearchComponent,
     ArrayDropdownComponent,
-    ObjectDropdownComponent
+    ObjectDropdownComponent,
+    LoadingComponent
   ],
   providers: [
 

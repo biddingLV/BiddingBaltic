@@ -22,9 +22,9 @@ import { NewsletterFormService } from './services/newsletter-form.service';
 @NgModule({
   imports: [
     CommonModule,
-    HomeRoutingModule,
     SharedModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    HomeRoutingModule
   ],
   exports: [
 

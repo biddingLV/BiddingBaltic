@@ -16,8 +16,7 @@ export class ExceptionsService {
       } else if (error.status === 404) {
         // todo: kke: improve error msg, if needed!
         return throwError('It looks like you dont have rights to do this.');
-      }
-      else {
+      } else {
         return throwError(error.error);
       }
     }

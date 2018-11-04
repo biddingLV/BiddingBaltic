@@ -21,7 +21,7 @@ namespace BiddingAPI.Services.Subscribe
             m_subscribeRepository = subscribeRepository ?? throw new ArgumentNullException(nameof(subscribeRepository));
         }
 
-        public async Task<bool> UsingEmailAsync(EmailRequestModel request)
+        public bool UsingEmail(EmailRequestModel request)
         {
             if (request.Categories.IsEmpty()) { throw new WebApiException(HttpStatusCode.BadRequest, "Incorrect categories"); }
             if (request.Email.IsEmpty()) { throw new WebApiException(HttpStatusCode.BadRequest, "Incorrect email"); }
@@ -29,10 +29,10 @@ namespace BiddingAPI.Services.Subscribe
 
             ValidateCategories(request.Categories);
 
-            return await m_subscribeRepository.UsingEmailAsync(request);
+            return m_subscribeRepository.UsingEmail(request);
         }
 
-        public async Task<bool> UsingWhatsAppAsync(WhatsAppRequestModel request)
+        public bool UsingWhatsApp(WhatsAppRequestModel request)
         {
             if (request.Categories.IsEmpty()) { throw new WebApiException(HttpStatusCode.BadRequest, "Incorrect categories"); }
             if (request.Phone.IsEmpty()) { throw new WebApiException(HttpStatusCode.BadRequest, "Incorrect phone"); }
@@ -40,17 +40,17 @@ namespace BiddingAPI.Services.Subscribe
 
             ValidateCategories(request.Categories);
 
-            return await m_subscribeRepository.UsingWhatsAppAsync(request);
+            return m_subscribeRepository.UsingWhatsApp(request);
         }
 
-        public async Task<bool> UsingSurveyAsync(SurveyRequestModel request)
+        public bool UsingSurvey(SurveyRequestModel request)
         {
             // todo: kke: check request params!
             //if (request.Categories.IsEmpty()) { throw new WebApiException(HttpStatusCode.BadRequest, "Incorrect categories"); }
             //if (request.Phone.IsEmpty()) { throw new WebApiException(HttpStatusCode.BadRequest, "Incorrect phone"); }
             //if (request.Name.IsEmpty()) { throw new WebApiException(HttpStatusCode.BadRequest, "Incorrect name"); }
 
-            return await m_subscribeRepository.UsingSurveyAsync(request);
+            return m_subscribeRepository.UsingSurvey(request);
         }
 
         private bool ValidateCategories(List<string> categories)

@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Bidding.Models.ViewModels.Bidding.Auctions;
+using BiddingAPI.Models.DatabaseModels.Bidding;
 using BiddingAPI.Models.ViewModels.Bidding.Auctions;
 using BiddingAPI.Repositories.Auctions;
 
@@ -16,66 +18,66 @@ namespace BiddingAPI.Services.Auctions
             m_auctionsRepository = auctionRepository ?? throw new ArgumentNullException(nameof(auctionRepository));
         }
 
-        public async Task<AuctionListResponseModel> Search(AuctionListRequestModel request)
+        public List<AuctionModel> Search(AuctionModel request)
         {
-            var response = new AuctionListResponseModel();
+            // todo: kke: validate all request values!
 
-            var pageNum = request.OffsetStart;
+            int pageNum = request.OffsetStart;
+            int start = Math.Max(pageNum - 1, 0) * request.OffsetEnd;
+            int end = start + request.OffsetEnd;
+            List<AuctionModel> response = m_auctionsRepository.Search(request, start, end);
 
-            var start = Math.Max(pageNum - 1, 0) * request.OffsetEnd;
-            var end = start + request.OffsetEnd;
-            response = await m_auctionsRepository.Search(request, start, end);
+            //int totalPages = 0;
+            ////check if total data < pagesize
+            //if (response.Count > 0)
+            //{
+            //    if (response.Count > request.OffsetEnd)
+            //    {
+            //        totalPages = response.Count / request.OffsetEnd;
+            //        if (response.Count % request.OffsetEnd > 0)
+            //        {
+            //            totalPages++;
+            //        }
+            //    }
+            //    else
+            //    {
+            //        totalPages = 1;
+            //    }
+            //}
+            //if (totalPages < pageNum)
+            //{
+            //    pageNum = totalPages;
+            //}
+            //if (response.Count == 0)
+            //{
+            //    return response;
+            //}
 
-            int totalPages = 0;
-            //check if total data < pagesize
-            if (response.Auctions.Count > 0)
-            {
-                if (response.Count > request.OffsetEnd)
-                {
-                    totalPages = response.Count / request.OffsetEnd;
-                    if (response.Count % request.OffsetEnd > 0)
-                    {
-                        totalPages++;
-                    }
-                }
-                else
-                {
-                    totalPages = 1;
-                }
-            }
-            if (totalPages < pageNum)
-            {
-                pageNum = totalPages;
-            }
-            if (response.Auctions.Count == 0)
-            {
-                return response;
-            }
-
-            if (((pageNum - 1) * request.OffsetEnd) < 0)
-            {
-                response.Offset = 0;
-            }
-            else
-            {
-                response.Offset = (pageNum - 1) * request.OffsetEnd;
-            }
-            response.TotalPages = totalPages;
-            response.CurrentPage = request.OffsetStart;
+            // todo: kke: add this back when ready for pagination! 
+            //if (((pageNum - 1) * request.OffsetEnd) < 0)
+            //{
+            //    response.Offset = 0;
+            //}
+            //else
+            //{
+            //    response.Offset = (pageNum - 1) * request.OffsetEnd;
+            //}
+            //response.TotalPages = totalPages;
+            //response.CurrentPage = request.OffsetStart;
             return response;
         }
 
-        public Task<bool> Update(AuctionEditRequestModel request)
+        public bool Update(AuctionEditRequestModel request)
         {
             return m_auctionsRepository.Update(request);
         }
 
-        public Task<bool> Create(AuctionAddRequestModel request)
+        public bool Create(AuctionAddRequestModel request)
         {
             return m_auctionsRepository.Create(request);
         }
 
-        public Task<bool> Delete(AuctionDeleteRequestModel request)
+        public bool Delete(AuctionDeleteRequestModel request)
         {
             return m_auctionsRepository.Delete(request);
         }

@@ -6,8 +6,9 @@ interface AuthConfig {
 }
 
 export const AUTH_CONFIG: AuthConfig = {
-  clientID: 'GjK056TSEyB4McMZ2w5VWgGca3hkYGIC',
-  domain: 'bidding.eu.auth0.com',
-  callbackURL: 'http://localhost:4200/auctions',
-  apiUrl: 'http://localhost:3010'
+  clientID: 'RGm50MKxa1XcWeRJdI3Ebgf6l7SBFmz0',
+  domain: 'biddinglv.eu.auth0.com',
+  callbackURL: 'http://localhost:4200/callback',
+  apiUrl: 'http://localhost:61244'
 };
+
