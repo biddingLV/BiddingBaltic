@@ -1,0 +1,9 @@
+<div class="search input-group mb-3">
+  <div class="input-group-prepend">
+    <div class="input-group-text">Search</div>
+  </div>
+  <input id="search" type="text" class="form-control" [(ngModel)]="searchText" (keydown.enter)="onSearch(searchText)">
+  <span class="input-group-append">
+    <button class="btn btn-danger" (click)="resetQuery()" [disabled]="!searchText">&times;</button>
+  </span>
+</div>

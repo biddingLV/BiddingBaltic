@@ -3,7 +3,7 @@ import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { AuthService } from '../../auth/auth.service';
 import { environment } from '../../../environments/environment';
 import { AuctionModel } from '../models/list/auction.model';
-import { catchError } from 'rxjs/operators';
+import { catchError, delay } from 'rxjs/operators';
 import { ExceptionsService } from 'src/app/core';
 import { Observable } from 'rxjs';
 import { IAuctionListRequest } from '../models/auction-list-request.model';
@@ -41,6 +41,7 @@ export class AuctionsService {
       headers: new HttpHeaders()
         .set('Authorization', `Bearer ${localStorage.getItem('access_token')}`), params
     })
-      .pipe(catchError(this.exception.errorHandler));
+      .pipe(delay(2000))
+    // .pipe(catchError(this.exception.errorHandler));
   }
 }

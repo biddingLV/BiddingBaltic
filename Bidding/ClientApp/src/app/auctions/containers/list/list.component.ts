@@ -4,6 +4,7 @@ import { Subscription } from 'rxjs';
 import { AuctionsService } from '../../services/auctions.service';
 import { AuctionModel } from '../../models/list/auction.model';
 import { IAuctionListRequest } from '../../models/auction-list-request.model';
+import { Page } from 'src/app/shared/models/page';
 
 @Component({
   selector: 'app-auction-list',
@@ -18,6 +19,8 @@ export class AuctionListComponent implements OnInit, OnDestroy {
   error: boolean;
   query: '';
 
+  page = new Page();
+
   // old logic:
   // public numberRows = 10;
   // public selected = [];
@@ -29,7 +32,10 @@ export class AuctionListComponent implements OnInit, OnDestroy {
   constructor(
     private title: Title,
     private auctionApi: AuctionsService
-  ) { }
+  ) {
+    this.page.pageNumber = 0;
+    this.page.size = 20;
+  }
 
   ngOnInit() {
     this.title.setTitle(this.pageTitle);
@@ -38,6 +44,7 @@ export class AuctionListComponent implements OnInit, OnDestroy {
 
   private getAuctionList() {
     this.loading = true;
+
     // Get all (admin) events
     this.auctionsSub = this.auctionApi
       .getAuctions$(this.request)

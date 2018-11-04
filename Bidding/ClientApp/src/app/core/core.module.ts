@@ -3,7 +3,6 @@ import { NgModule, Optional, SkipSelf, ModuleWithProviders } from '@angular/core
 import { CommonModule } from '@angular/common';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // Third Party
 import { ToastrModule } from 'ngx-toastr';
@@ -14,7 +13,6 @@ import { // AuthGuard, PermissionsService, UserService,
   NotificationsService, ExceptionsService, FormService, CustomValidators
 } from './services';
 import { HeaderComponent } from './components/header/header.component';
-import { LoadingComponent } from './components/loading/loading.component';
 import { RouterModule } from '@angular/router';
 import { ReactiveFormsModule } from '@angular/forms';
 // import { CookieService } from 'ngx-cookie-service';
@@ -25,7 +23,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   imports: [
     CommonModule,
-    BrowserAnimationsModule, // required animations module for toastr
     ToastrModule.forRoot(),
     AngularFontAwesomeModule,
     HttpClientModule,
@@ -46,19 +43,16 @@ import { ReactiveFormsModule } from '@angular/forms';
     HttpClientModule,
     RouterModule,
     ReactiveFormsModule,
-    BrowserAnimationsModule,
     ToastrModule,
     AngularFontAwesomeModule,
     HeaderComponent,
     // todo: kke: implement this!
-    // FooterComponent,
-    LoadingComponent
+    // FooterComponent
   ],
   declarations: [
     // todo: kke: implement this!
     HeaderComponent,
-    // FooterComponent,
-    LoadingComponent
+    // FooterComponent
   ]
 })
 export class CoreModule {
