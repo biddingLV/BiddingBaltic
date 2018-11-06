@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Bidding.Models.ViewModels.Bidding.Auctions;
+using Bidding.Models.ViewModels.Bidding.Categories;
+using BiddingAPI.Models.DatabaseModels;
 using BiddingAPI.Models.DatabaseModels.Bidding;
 using BiddingAPI.Models.ViewModels.Bidding.Auctions;
 using BiddingAPI.Repositories.Auctions;
@@ -65,6 +67,11 @@ namespace BiddingAPI.Services.Auctions
             //response.TotalPages = totalPages;
             //response.CurrentPage = request.OffsetStart;
             return response;
+        }
+
+        public List<CategoryModel> Categories()
+        {
+            return m_auctionsRepository.Categories();
         }
 
         public bool Update(AuctionEditRequestModel request)

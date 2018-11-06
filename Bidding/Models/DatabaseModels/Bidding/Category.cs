@@ -11,6 +11,8 @@ namespace BiddingAPI.Models.DatabaseModels
         }
 
         public int Id { get; set; }
+        public string Name { get; set; }
+        public bool Status { get; set; }
 
         public ICollection<CategoryType> CategoryTypes { get; set; }
     }

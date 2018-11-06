@@ -4,6 +4,14 @@
 <!-- Auctions -->
 <ng-template [ngIf]="auctionList">
   <ng-template [ngIf]="auctionList.length">
+
+    <label class="required">Categories:</label>
+    <select class="form-control">
+      <option *ngFor="let category of (categories); let i = index" [value]="category.id">
+        {{category.name}}
+      </option>
+    </select>
+
     <!-- Search auctions -->
     <app-search-bar (search)="updateRequest('Search', $event)"></app-search-bar>
 

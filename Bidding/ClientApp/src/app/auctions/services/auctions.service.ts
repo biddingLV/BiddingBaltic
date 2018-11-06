@@ -7,6 +7,7 @@ import { catchError, delay } from 'rxjs/operators';
 import { ExceptionsService } from 'src/app/core';
 import { Observable } from 'rxjs';
 import { IAuctionListRequest } from '../models/auction-list-request.model';
+import { CategoryModel } from '../models/list/category.model';
 
 @Injectable()
 export class AuctionsService {
@@ -40,8 +41,15 @@ export class AuctionsService {
     return this.http.get<AuctionModel[]>(url, {
       headers: new HttpHeaders()
         .set('Authorization', `Bearer ${localStorage.getItem('access_token')}`), params
-    })
-      .pipe(delay(2000))
-    // .pipe(catchError(this.exception.errorHandler));
+    }).pipe(catchError(this.exception.errorHandler));
+  }
+
+  getCategories$(): Observable<CategoryModel[]> {
+    const url = this.baseUrl + '/auctions/categories';
+
+    return this.http.get<CategoryModel[]>(url, {
+      headers: new HttpHeaders()
+        .set('Authorization', `Bearer ${localStorage.getItem('access_token')}`)
+    }).pipe(catchError(this.exception.errorHandler));
   }
 }

@@ -30,6 +30,12 @@ namespace BiddingAPI.Controllers.Auctions
             return Ok(m_auctionsService.Search(request));
         }
 
+        [HttpGet]
+        public IActionResult Categories()
+        {
+            return Ok(m_auctionsService.Categories());
+        }
+
         // add
         [HttpPost]
         public IActionResult Create([FromBody] AuctionAddRequestModel request)

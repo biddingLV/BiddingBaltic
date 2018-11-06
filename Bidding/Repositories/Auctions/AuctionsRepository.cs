@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using Bidding.Models.ViewModels.Bidding.Auctions;
+using Bidding.Models.ViewModels.Bidding.Categories;
 using BiddingAPI.Models.DatabaseModels;
 using BiddingAPI.Models.DatabaseModels.Bidding;
 using BiddingAPI.Models.ViewModels.Bidding.Auctions;
@@ -21,45 +22,45 @@ namespace BiddingAPI.Repositories.Auctions
         {
             m_context = context;
         }
-//        USE[BiddingLVDev]
-//GO
-///****** Object:  StoredProcedure [dbo].[GetAuctions]    Script Date: 01/11/2018 20.26.56 ******/
-//SET ANSI_NULLS ON
-//GO
-//SET QUOTED_IDENTIFIER ON
-//GO
-//ALTER PROCEDURE[dbo].[GetAuctions]
-//        @StartDate date,
-//   @EndDate date
-//AS
-//BEGIN
-//    select
+        //        USE[BiddingLVDev]
+        //GO
+        ///****** Object:  StoredProcedure [dbo].[GetAuctions]    Script Date: 01/11/2018 20.26.56 ******/
+        //SET ANSI_NULLS ON
+        //GO
+        //SET QUOTED_IDENTIFIER ON
+        //GO
+        //ALTER PROCEDURE[dbo].[GetAuctions]
+        //        @StartDate date,
+        //   @EndDate date
+        //AS
+        //BEGIN
+        //    select
 
-//        auct.Id,
-//		auct.Description,
-//		auct.Brand,
-//		auct.Price,
-//		auct.Type,
-//		auct.StartDate,
-//		auct.EndDate,
-//		cast(
-//		  case
-//			when 1 is not null then 1 else 0
+        //        auct.Id,
+        //		auct.Description,
+        //		auct.Brand,
+        //		auct.Price,
+        //		auct.Type,
+        //		auct.StartDate,
+        //		auct.EndDate,
+        //		cast(
+        //		  case
+        //			when 1 is not null then 1 else 0
 
-//          end
-//		as bit) as AllData,
-//		'' as SortByColumn,
-//		'' as SortingDirection,
-//		'' as SearchValue,
-//		1 as OffsetStart,
-//		10 as OffsetEnd
-//    from Auctions auct
+        //          end
+        //		as bit) as AllData,
+        //		'' as SortByColumn,
+        //		'' as SortingDirection,
+        //		'' as SearchValue,
+        //		1 as OffsetStart,
+        //		10 as OffsetEnd
+        //    from Auctions auct
 
-//    where auct.StartDate BETWEEN @StartDate AND @EndDate;
-//        END
+        //    where auct.StartDate BETWEEN @StartDate AND @EndDate;
+        //        END
         public List<AuctionModel> Search(AuctionModel request, int? start, int? end)
         {
-            return m_context.AuctionModel.FromSql($"EXEC dbo.[GetAuctions] @StartDate = {request.StartDate}, @EndDate = {request.EndDate}")
+            return m_context.AuctionsList.FromSql($"EXEC dbo.[GetAuctions] @StartDate = {request.StartDate}, @EndDate = {request.EndDate}")
                 .Select(auct => new AuctionModel()
                 {
                     Id = auct.Id,
@@ -72,6 +73,11 @@ namespace BiddingAPI.Repositories.Auctions
                 })
                 .AsNoTracking()
                 .ToList();
+        }
+
+        public List<CategoryModel> Categories()
+        {
+            return m_context.Categories.Select(cat => new CategoryModel { Id = cat.Id, Name = cat.Name }).ToList();
         }
 
         public bool Update(AuctionEditRequestModel request)

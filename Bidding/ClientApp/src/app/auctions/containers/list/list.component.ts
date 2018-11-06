@@ -1,20 +1,22 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { Title } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
 import { AuctionsService } from '../../services/auctions.service';
 import { AuctionModel } from '../../models/list/auction.model';
 import { IAuctionListRequest } from '../../models/auction-list-request.model';
 import { Page } from 'src/app/shared/models/page';
+import { CategoryModel } from '../../models/list/category.model';
 
 @Component({
   selector: 'app-auction-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss']
 })
-export class AuctionListComponent implements OnInit, OnDestroy {
+export class AuctionListComponent implements OnInit, OnDestroy, AfterViewInit {
   pageTitle = 'Auctions';
   auctionsSub: Subscription;
   auctionList: AuctionModel[];
+  categories: CategoryModel[];
   loading: boolean;
   error: boolean;
   query: '';
@@ -61,14 +63,24 @@ export class AuctionListComponent implements OnInit, OnDestroy {
       );
   }
 
-  // searchEvents() {
-  //   this.filteredEvents = this.fs.search(this.eventList, this.query, '_id', 'mediumDate');
-  // }
+  ngAfterViewInit() {
+    this.loadCategoryFilter();
+  }
 
-  // resetQuery() {
-  //   this.query = '';
-  //   this.filteredEvents = this.eventList;
-  // }
+  private loadCategoryFilter() {
+    // get all categories for the filter
+    this.auctionsSub = this.auctionApi
+      .getCategories$()
+      .subscribe(
+        res => {
+          this.categories = res;
+        },
+        err => {
+          console.error(err);
+          this.error = true;
+        }
+      );
+  }
 
   ngOnDestroy() {
     this.auctionsSub.unsubscribe();
