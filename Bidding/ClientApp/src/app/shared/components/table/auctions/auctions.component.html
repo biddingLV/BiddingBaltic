@@ -1,24 +1,24 @@
-<ngx-datatable class="bootstrap" [rows]="list" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50"
-  [rowHeight]="'auto'" [externalPaging]="true" [count]="page.totalElements" [offset]="page.pageNumber" [limit]="page.size">
+<ngx-datatable class="bootstrap" [rows]="auctionTable.auctions" [columnMode]="'force'" [headerHeight]="50"
+  [footerHeight]="50" [rowHeight]="'auto'" [externalSorting]="true" [externalPaging]="true" [count]="auctionTable.itemCount"
+  [offset]="auctionTable.offset" [limit]="10" (sort)="onSortChange($event)">
 
-  <ngx-datatable-column [width]="50" prop="brand" name="Brand"></ngx-datatable-column>
-  <ngx-datatable-column [width]="50" prop="description" name="Description"></ngx-datatable-column>
-  <ngx-datatable-column [width]="50" prop="startDate" name="Start Date"></ngx-datatable-column>
-  <ngx-datatable-column [width]="50" prop="endDate" name="End Date"></ngx-datatable-column>
-  <ngx-datatable-column [width]="50" prop="type" name="Type"></ngx-datatable-column>
-  <ngx-datatable-column [width]="50" prop="price" name="Price"></ngx-datatable-column>
+  <ngx-datatable-column [width]="50" prop="name" name="Nosaukums"></ngx-datatable-column>
+  <ngx-datatable-column [width]="50" prop="description" name="Apraksts"></ngx-datatable-column>
+  <ngx-datatable-column [width]="50" prop="price" name="Sākumcena"></ngx-datatable-column>
+  <ngx-datatable-column [width]="50" prop="endDate" name="Izsoles datums"></ngx-datatable-column>
+  <ngx-datatable-column [width]="50" prop="creator" name="Izsoles veidotājs"></ngx-datatable-column>
 
   <ngx-datatable-footer>
     <ng-template ngx-datatable-footer-template let-rowCount="page.size">
       <div class="row-count-container" style="padding-left:10px">
         <div>
-          <strong>Number of Features: </strong>{{page.size}}
+          <strong>Izsoļu skaits: </strong>{{auctionTable.itemCount}}
         </div>
       </div>
 
       <datatable-pager style="text-align:center" [pagerLeftArrowIcon]="'datatable-icon-left'" [pagerRightArrowIcon]="'datatable-icon-right'"
-        [pagerPreviousIcon]="'datatable-icon-prev'" [pagerNextIcon]="'datatable-icon-skip'" [page]="list?.CurrentPage"
-        [size]="numberRows" [count]="page.totalElements" (change)="onPageChange($event)">
+        [pagerPreviousIcon]="'datatable-icon-prev'" [pagerNextIcon]="'datatable-icon-skip'" [page]="auctionTable.CurrentPage"
+        [size]="10" [count]="auctionTable.itemCount" (change)="onPageChange($event)">
       </datatable-pager>
 
       <div class="page-limit-container" style="padding-right:10px">

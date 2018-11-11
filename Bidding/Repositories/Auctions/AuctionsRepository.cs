@@ -9,7 +9,6 @@ using Bidding.Models.ViewModels.Bidding.Categories;
 using BiddingAPI.Models.DatabaseModels;
 using BiddingAPI.Models.DatabaseModels.Bidding;
 using BiddingAPI.Models.ViewModels.Bidding.Auctions;
-using BiddingAPI.Models.ViewModels.Bidding.Auctions.List;
 using Microsoft.EntityFrameworkCore;
 
 namespace BiddingAPI.Repositories.Auctions
@@ -22,57 +21,32 @@ namespace BiddingAPI.Repositories.Auctions
         {
             m_context = context;
         }
-        //        USE[BiddingLVDev]
-        //GO
-        ///****** Object:  StoredProcedure [dbo].[GetAuctions]    Script Date: 01/11/2018 20.26.56 ******/
-        //SET ANSI_NULLS ON
-        //GO
-        //SET QUOTED_IDENTIFIER ON
-        //GO
-        //ALTER PROCEDURE[dbo].[GetAuctions]
-        //        @StartDate date,
-        //   @EndDate date
-        //AS
-        //BEGIN
-        //    select
 
-        //        auct.Id,
-        //		auct.Description,
-        //		auct.Brand,
-        //		auct.Price,
-        //		auct.Type,
-        //		auct.StartDate,
-        //		auct.EndDate,
-        //		cast(
-        //		  case
-        //			when 1 is not null then 1 else 0
-
-        //          end
-        //		as bit) as AllData,
-        //		'' as SortByColumn,
-        //		'' as SortingDirection,
-        //		'' as SearchValue,
-        //		1 as OffsetStart,
-        //		10 as OffsetEnd
-        //    from Auctions auct
-
-        //    where auct.StartDate BETWEEN @StartDate AND @EndDate;
-        //        END
-        public List<AuctionModel> Search(AuctionModel request, int? start, int? end)
+        public AuctionListResponseModel Search(AuctionListRequestModel request, int? start, int? end)
         {
-            return m_context.AuctionsList.FromSql($"EXEC dbo.[GetAuctions] @StartDate = {request.StartDate}, @EndDate = {request.EndDate}")
-                .Select(auct => new AuctionModel()
-                {
-                    Id = auct.Id,
-                    Brand = auct.Brand,
-                    Description = auct.Description,
-                    Price = auct.Price,
-                    Type = auct.Type,
-                    EndDate = auct.EndDate,
-                    StartDate = auct.StartDate
-                })
-                .AsNoTracking()
-                .ToList();
+            AuctionListResponseModel response = new AuctionListResponseModel();
+
+            IQueryable<AuctionItemModel> dbResult = m_context.AuctionsList.FromSql($"EXEC dbo.[GetAuctions] @StartDate = {request.StartDate}, @EndDate = {request.EndDate}");
+
+            // todo: kke: check if this is called two times to get result and count!
+            response.Auctions =
+            dbResult.Select(auct => new AuctionItemModel()
+            {
+                Id = auct.Id,
+                Name = auct.Name,
+                Description = auct.Description,
+                Price = auct.Price,
+                EndDate = auct.EndDate,
+                StartDate = auct.StartDate,
+                Creator = auct.Creator,
+                CreatorId = auct.CreatorId
+            })
+            .AsNoTracking()
+            .ToList();
+
+            response.ItemCount = response.Auctions.Count;
+
+            return response;
         }
 
         public List<CategoryModel> Categories()

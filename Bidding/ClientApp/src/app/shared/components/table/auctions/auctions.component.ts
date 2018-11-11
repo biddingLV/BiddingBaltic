@@ -8,15 +8,15 @@ import { Page } from 'src/app/shared/models/page';
   styleUrls: ['./auctions.component.scss']
 })
 export class AuctionsTableComponent implements OnInit {
-  @Input() list: AuctionModel[];
+  @Input() auctionTable: AuctionModel;
   @Input() numberRows: number;
-  @Input() selected: any[];
+  // @Input() selected: any[];
 
   @Output() pageChange = new EventEmitter<number>();
   @Output() sortChange = new EventEmitter<boolean>();
   @Output() rowChange = new EventEmitter<number>();
 
-  page = new Page();
+  // page = new Page();
 
   private items = [
     { name: '5 per page', value: 5 },
@@ -30,21 +30,21 @@ export class AuctionsTableComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log('list', this.list);
-    this.page.pageNumber = 0;
-    this.page.totalElements = this.list.length;
-    this.page.size = 30;
+    console.log('auctionTable', this.auctionTable)
   }
 
   onPageChange(page) {
+    console.log('page: ', page)
     this.pageChange.emit(page);
   }
 
   onRowChange(row) {
+    console.log('row: ', row)
     this.rowChange.emit(row);
   }
 
   onSortChange(event) {
+    console.log('event: ', event)
     this.sortChange.emit(event);
   }
 }

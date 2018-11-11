@@ -25,7 +25,7 @@ namespace BiddingAPI.Controllers.Auctions
         }
 
         [HttpGet]
-        public IActionResult Search([FromQuery] AuctionModel request)
+        public IActionResult Search([FromQuery] AuctionListRequestModel request)
         {
             return Ok(m_auctionsService.Search(request));
         }

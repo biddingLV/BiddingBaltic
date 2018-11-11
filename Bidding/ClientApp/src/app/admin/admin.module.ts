@@ -8,8 +8,6 @@ import { AuctionDeleteComponent } from './components/delete/delete.component';
 import { AuctionAddComponent } from './components/add/add.component';
 import { AuctionEditComponent } from './components/edit/edit.component';
 
-
-
 @NgModule({
   imports: [
     CommonModule,

@@ -1,11 +1,11 @@
 import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
-import { Title } from '@angular/platform-browser';
 import { Subscription } from 'rxjs';
 import { AuctionsService } from '../../services/auctions.service';
 import { AuctionModel } from '../../models/list/auction.model';
 import { IAuctionListRequest } from '../../models/auction-list-request.model';
 import { Page } from 'src/app/shared/models/page';
 import { CategoryModel } from '../../models/list/category.model';
+import { NotificationsService } from 'src/app/core/services/notifications/notifications.service';
 
 @Component({
   selector: 'app-auction-list',
@@ -13,13 +13,18 @@ import { CategoryModel } from '../../models/list/category.model';
   styleUrls: ['./list.component.scss']
 })
 export class AuctionListComponent implements OnInit, OnDestroy, AfterViewInit {
-  pageTitle = 'Auctions';
+  // table
   auctionsSub: Subscription;
-  auctionList: AuctionModel[];
+  auctionTable: AuctionModel;
+
+  // pagination
+  numberRows = 10;
+
+  //filters
   categories: CategoryModel[];
+
+  //utility
   loading: boolean;
-  error: boolean;
-  query: '';
 
   page = new Page();
 
@@ -29,42 +34,75 @@ export class AuctionListComponent implements OnInit, OnDestroy, AfterViewInit {
 
   // API
   // 
-  private request: IAuctionListRequest;
+  request: IAuctionListRequest;
 
   constructor(
-    private title: Title,
-    private auctionApi: AuctionsService
+    private auctionApi: AuctionsService,
+    private notification: NotificationsService
   ) {
     this.page.pageNumber = 0;
     this.page.size = 20;
   }
 
   ngOnInit() {
-    this.title.setTitle(this.pageTitle);
+    this.setupRequest();
     this.getAuctionList();
   }
 
-  private getAuctionList() {
-    this.loading = true;
+  // Request Update Events
+  updateRequest(property: string, event) {
+    if (property === 'Page') {
+      this.request.CurrentPage = event.page;
+    } else {
+      this.request[property] = (event === undefined) || (event === 'undefined') ? '' : event;
+      this.request.CurrentPage = 1;
+    }
 
-    // Get all (admin) events
-    this.auctionsSub = this.auctionApi
-      .getAuctions$(this.request)
-      .subscribe(
-        res => {
-          this.auctionList = res;
-          this.loading = false;
-        },
-        err => {
-          console.error(err);
-          this.loading = false;
-          this.error = true;
-        }
-      );
+    this.getAuctionList();
+  }
+
+  // Sort Update Events
+  onSortChange(event): void {
+    this.request.SortingDirection = this.request.SortByColumn === event.column.prop ?
+      this.request.SortingDirection === 'asc' ? 'desc' : 'asc'
+      : 'asc'; // TODO: HS: maybe this can still be new value
+    this.request.SortByColumn = event.column.prop;
+    this.request.CurrentPage = 1;
+
+    this.getAuctionList();
+  }
+
+  ngOnDestroy() {
+    this.auctionsSub.unsubscribe();
   }
 
   ngAfterViewInit() {
     this.loadCategoryFilter();
+  }
+
+  private setupRequest(): void {
+    // todo: kke: improve this
+    this.request = {
+      StarDate: new Date(),
+      EndDate: new Date(),
+      SizeOfPage: this.numberRows,
+      CurrentPage: 1,
+      SortByColumn: 'Name',
+      SortingDirection: 'asc',
+      SearchValue: ''
+    };
+  }
+
+  private getAuctionList() {
+    // this.loading = true;
+    console.log('request', this.request)
+    // Get all (admin) events
+    this.auctionsSub = this.auctionApi
+      .getAuctions$(this.request)
+      .subscribe(
+        (result: AuctionModel) => { this.auctionTable = result; },
+        (error: string) => this.notification.error(error)
+      );
   }
 
   private loadCategoryFilter() {
@@ -72,17 +110,8 @@ export class AuctionListComponent implements OnInit, OnDestroy, AfterViewInit {
     this.auctionsSub = this.auctionApi
       .getCategories$()
       .subscribe(
-        res => {
-          this.categories = res;
-        },
-        err => {
-          console.error(err);
-          this.error = true;
-        }
+        (result: CategoryModel[]) => { this.categories = result; },
+        (error: string) => this.notification.error(error)
       );
-  }
-
-  ngOnDestroy() {
-    this.auctionsSub.unsubscribe();
   }
 }

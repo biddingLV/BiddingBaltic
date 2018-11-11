@@ -23,22 +23,22 @@ export class AuctionsService {
     return `Bearer ${this.auth.accessToken}`;
   }
 
-  getAuctions$(request: IAuctionListRequest): Observable<AuctionModel[]> {
+  getAuctions$(request: IAuctionListRequest): Observable<AuctionModel> {
     const url = this.baseUrl + '/auctions/search';
 
     const params = new HttpParams({
       fromObject: {
         startDate: '10/29/2018'.toString(),
         endDate: '10/31/2018'.toString(),
-        SortByColumn: '', //request.SortByColumn.toString(),
-        SortingDirection: '',// request.SortingDirection.toString(),
-        OffsetEnd: '', //request.OffsetEnd.toString(),
-        OffsetStart: '', //request.OffsetStart.toString(),
-        SearchValue: '', //request.SearchValue.toString()
+        SortByColumn: request.SortByColumn.toString(),
+        SortingDirection: request.SortingDirection.toString(),
+        OffsetEnd: request.SizeOfPage.toString(),
+        OffsetStart: request.CurrentPage.toString(),
+        SearchValue: request.SearchValue.toString()
       }
     });
 
-    return this.http.get<AuctionModel[]>(url, {
+    return this.http.get<AuctionModel>(url, {
       headers: new HttpHeaders()
         .set('Authorization', `Bearer ${localStorage.getItem('access_token')}`), params
     }).pipe(catchError(this.exception.errorHandler));

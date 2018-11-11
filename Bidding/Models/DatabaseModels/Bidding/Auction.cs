@@ -15,12 +15,20 @@ namespace BiddingAPI.Models.DatabaseModels.Bidding
 
         [Key]
         public int Id { get; set; }
+
         public string Description { get; set; }
-        public string Brand { get; set; }
-        public int Price { get; set; } // could be string also!
-        public string Type { get; set; }
+
+        public string Name { get; set; }
+
+        public int Price { get; set; }
+
         public DateTime StartDate { get; set; }
+
         public DateTime EndDate { get; set; }
+
+        public int CreatorId { get; set; }
+
+        public string Creator { get; set; }
 
         public ICollection<AuctionCategory> AuctionCategories { get; set; }
     }

@@ -20,53 +20,60 @@ namespace BiddingAPI.Services.Auctions
             m_auctionsRepository = auctionRepository ?? throw new ArgumentNullException(nameof(auctionRepository));
         }
 
-        public List<AuctionModel> Search(AuctionModel request)
+        public AuctionListResponseModel Search(AuctionListRequestModel request)
         {
+            // implement this when the list request model is done!
             // todo: kke: validate all request values!
 
-            int pageNum = request.OffsetStart;
-            int start = Math.Max(pageNum - 1, 0) * request.OffsetEnd;
-            int end = start + request.OffsetEnd;
-            List<AuctionModel> response = m_auctionsRepository.Search(request, start, end);
+            // pagination
+            // improve naming here!
+            int startFromThisItem = request.OffsetStart;
+            int takeUntilThisItem = request.OffsetEnd;
+            int start = Math.Max(startFromThisItem - 1, 0) * takeUntilThisItem;
+            int end = start + takeUntilThisItem;
 
-            //int totalPages = 0;
-            ////check if total data < pagesize
-            //if (response.Count > 0)
-            //{
-            //    if (response.Count > request.OffsetEnd)
-            //    {
-            //        totalPages = response.Count / request.OffsetEnd;
-            //        if (response.Count % request.OffsetEnd > 0)
-            //        {
-            //            totalPages++;
-            //        }
-            //    }
-            //    else
-            //    {
-            //        totalPages = 1;
-            //    }
-            //}
-            //if (totalPages < pageNum)
-            //{
-            //    pageNum = totalPages;
-            //}
-            //if (response.Count == 0)
-            //{
-            //    return response;
-            //}
+            AuctionListResponseModel auctionsResponse = m_auctionsRepository.Search(request, start, end);
 
-            // todo: kke: add this back when ready for pagination! 
-            //if (((pageNum - 1) * request.OffsetEnd) < 0)
-            //{
-            //    response.Offset = 0;
-            //}
-            //else
-            //{
-            //    response.Offset = (pageNum - 1) * request.OffsetEnd;
-            //}
-            //response.TotalPages = totalPages;
-            //response.CurrentPage = request.OffsetStart;
-            return response;
+            int totalPages = 0;
+            //check if total data < pagesize
+            if (auctionsResponse.Auctions.Count > 0)
+            {
+                if (auctionsResponse.Auctions.Count > takeUntilThisItem)
+                {
+                    totalPages = auctionsResponse.Auctions.Count / takeUntilThisItem;
+                    if (auctionsResponse.Auctions.Count % takeUntilThisItem > 0)
+                    {
+                        totalPages++;
+                    }
+                }
+                else
+                {
+                    totalPages = 1;
+                }
+            }
+
+            if (totalPages < startFromThisItem)
+            {
+                startFromThisItem = totalPages;
+            }
+
+            if (auctionsResponse.Auctions.Count == 0)
+            {
+                return auctionsResponse;
+            }
+
+            if (((startFromThisItem - 1) * takeUntilThisItem) < 0)
+            {
+                auctionsResponse.Offset = 0;
+            }
+            else
+            {
+                auctionsResponse.Offset = (startFromThisItem - 1) * takeUntilThisItem;
+            }
+
+            auctionsResponse.TotalPages = totalPages;
+            auctionsResponse.CurrentPage = request.OffsetStart;
+            return auctionsResponse;
         }
 
         public List<CategoryModel> Categories()

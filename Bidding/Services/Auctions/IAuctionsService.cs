@@ -12,7 +12,7 @@ namespace BiddingAPI.Services.Auctions
 {
     public interface IAuctionsService
     {
-        List<AuctionModel> Search(AuctionModel request);
+        AuctionListResponseModel Search(AuctionListRequestModel request);
 
         List<CategoryModel> Categories();
 

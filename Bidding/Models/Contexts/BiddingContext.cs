@@ -5,7 +5,6 @@ using Bidding.Models.ViewModels.Bidding.Auctions;
 using Bidding.Models.ViewModels.Bidding.Categories;
 using Bidding.Shared.Database;
 using BiddingAPI.Models.DatabaseModels.Bidding;
-using BiddingAPI.Models.ViewModels.Bidding.Auctions.List;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 
@@ -38,6 +37,6 @@ namespace BiddingAPI.Models.DatabaseModels
         public virtual DbSet<Newsletter> Newsletters { get; set; }
 
         // DbQueries
-        public virtual DbQuery<AuctionModel> AuctionsList { get; set; }
+        public virtual DbQuery<AuctionItemModel> AuctionsList { get; set; }
     }
 }
