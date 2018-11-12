@@ -6,6 +6,7 @@ import { AuctionListComponent } from './containers/list/list.component';
 import { SharedModule } from '../shared/shared.module';
 import { AuctionsService } from './services/auctions.service';
 import { ReactiveFormsModule } from '@angular/forms';
+import { AuctionDetailsComponent } from './containers/details/details.component';
 
 @NgModule({
   imports: [
@@ -21,6 +22,7 @@ import { ReactiveFormsModule } from '@angular/forms';
   ],
   declarations: [
     AuctionListComponent,
+    AuctionDetailsComponent
     // AuctionEditComponent,
     // AuctionDeleteComponent,
     // AuctionAddComponent,

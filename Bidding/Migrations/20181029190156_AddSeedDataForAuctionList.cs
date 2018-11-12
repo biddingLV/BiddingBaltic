@@ -8,7 +8,7 @@ namespace Bidding.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             string dateInString = "29/10/2018";
-            DateTime startDate = DateTime.Parse(dateInString);
+            DateTime startDate = DateTime.ParseExact(dateInString, "dd/MM/yyyy", null);
             DateTime expiryDate = startDate.AddDays(30);
 
             migrationBuilder.InsertData(

@@ -28,13 +28,14 @@ export class AuctionsService {
 
     const params = new HttpParams({
       fromObject: {
-        startDate: '10/29/2018'.toString(),
-        endDate: '10/31/2018'.toString(),
-        SortByColumn: request.SortByColumn.toString(),
-        SortingDirection: request.SortingDirection.toString(),
-        OffsetEnd: request.SizeOfPage.toString(),
-        OffsetStart: request.CurrentPage.toString(),
-        SearchValue: request.SearchValue.toString()
+        startDate: request.starDate.toString(),
+        endDate: request.endDate.toString(),
+        sortByColumn: request.sortByColumn.toString(),
+        sortingDirection: request.sortingDirection.toString(),
+        offsetEnd: request.sizeOfPage.toString(),
+        offsetStart: request.currentPage.toString(),
+        searchValue: request.searchValue.toString(),
+        currentPage: request.currentPage.toString()
       }
     });
 

@@ -87,8 +87,6 @@ export class ComingSoonSurveyComponent {
   }
 
   private submitRequest() {
-    console.log(this.surveyRequest);
-
     let surveySuccess: boolean;
 
     // this.homeApi.submitSurvey(this.surveyRequest)

@@ -26,22 +26,21 @@ namespace BiddingAPI.Services.Auctions
             // todo: kke: validate all request values!
 
             // pagination
-            // improve naming here!
             int startFromThisItem = request.OffsetStart;
             int takeUntilThisItem = request.OffsetEnd;
-            int start = Math.Max(startFromThisItem - 1, 0) * takeUntilThisItem;
-            int end = start + takeUntilThisItem;
+            int startFrom = Math.Max(startFromThisItem - 1, 0) * takeUntilThisItem;
+            int endAt = startFrom + takeUntilThisItem;
 
-            AuctionListResponseModel auctionsResponse = m_auctionsRepository.Search(request, start, end);
+            AuctionListResponseModel auctionsResponse = m_auctionsRepository.Search(request, startFrom, endAt);
 
             int totalPages = 0;
             //check if total data < pagesize
-            if (auctionsResponse.Auctions.Count > 0)
+            if (auctionsResponse.ItemCount > 0)
             {
-                if (auctionsResponse.Auctions.Count > takeUntilThisItem)
+                if (auctionsResponse.ItemCount > takeUntilThisItem)
                 {
-                    totalPages = auctionsResponse.Auctions.Count / takeUntilThisItem;
-                    if (auctionsResponse.Auctions.Count % takeUntilThisItem > 0)
+                    totalPages = auctionsResponse.ItemCount / takeUntilThisItem;
+                    if (auctionsResponse.ItemCount % takeUntilThisItem > 0)
                     {
                         totalPages++;
                     }
@@ -57,22 +56,22 @@ namespace BiddingAPI.Services.Auctions
                 startFromThisItem = totalPages;
             }
 
-            if (auctionsResponse.Auctions.Count == 0)
+            if (auctionsResponse.ItemCount == 0)
             {
                 return auctionsResponse;
             }
 
-            if (((startFromThisItem - 1) * takeUntilThisItem) < 0)
-            {
-                auctionsResponse.Offset = 0;
-            }
-            else
-            {
-                auctionsResponse.Offset = (startFromThisItem - 1) * takeUntilThisItem;
-            }
+            // prob not really needed here anymore!
+            //if (((startFromThisItem - 1) * takeUntilThisItem) < 0)
+            //{
+            //    auctionsResponse.Offset = 0;
+            //}
+            //else
+            //{
+            //    auctionsResponse.Offset = (startFromThisItem - 1) * takeUntilThisItem;
+            //}
 
-            auctionsResponse.TotalPages = totalPages;
-            auctionsResponse.CurrentPage = request.OffsetStart;
+            auctionsResponse.CurrentPage = request.CurrentPage;
             return auctionsResponse;
         }
 

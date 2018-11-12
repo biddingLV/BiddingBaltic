@@ -12,7 +12,7 @@ namespace BiddingAPI.Repositories.Auctions
 {
     public interface IAuctionsRepository
     {
-        AuctionListResponseModel Search(AuctionListRequestModel request, int? start, int? end);
+        AuctionListResponseModel Search(AuctionListRequestModel request, int start, int end);
 
         List<CategoryModel> Categories();
 
