@@ -23,7 +23,7 @@
       <div class="row">
         <div class="col-md-12">
           <app-auctions-table *ngIf="auctionTable.auctions" [auctionTable]="auctionTable" [numberRows]="numberRows"
-            (pageChange)="updateRequest('Page', $event)" (sortChange)="onSortChange($event)"></app-auctions-table>
+            (pageChange)="updateRequest('Page', $event)" (sortChange)="onSortChange($event)" (detailsClick)="onDetailsClick()"></app-auctions-table>
         </div>
       </div>
     </div>

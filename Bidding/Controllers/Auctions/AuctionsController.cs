@@ -31,6 +31,13 @@ namespace BiddingAPI.Controllers.Auctions
         }
 
         [HttpGet]
+        public IActionResult Details([FromQuery] int auctionId)
+        {
+            return Ok(m_auctionsService.Details(auctionId));
+        }
+
+        // filter
+        [HttpGet]
         public IActionResult Categories()
         {
             return Ok(m_auctionsService.Categories());

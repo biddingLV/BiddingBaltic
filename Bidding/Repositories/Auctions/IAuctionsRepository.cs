@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Bidding.Models.ViewModels.Bidding.Auctions;
+using Bidding.Models.ViewModels.Bidding.Auctions.Details;
 using Bidding.Models.ViewModels.Bidding.Categories;
 using BiddingAPI.Models.DatabaseModels;
 using BiddingAPI.Models.DatabaseModels.Bidding;
@@ -13,6 +14,8 @@ namespace BiddingAPI.Repositories.Auctions
     public interface IAuctionsRepository
     {
         AuctionListResponseModel Search(AuctionListRequestModel request, int start, int end);
+
+        AuctionDetailsModel Details(int auctionId);
 
         List<CategoryModel> Categories();
 

@@ -5,7 +5,7 @@ import { AuctionDetailsComponent } from './containers/details/details.component'
 
 const routes: Routes = [
   { path: '', component: AuctionListComponent },
-  { path: 'details/:id', component: AuctionDetailsComponent }
+  { path: 'auction/:id', component: AuctionDetailsComponent }
 ];
 
 @NgModule({

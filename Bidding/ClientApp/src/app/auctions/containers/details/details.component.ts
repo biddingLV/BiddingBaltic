@@ -1,8 +1,13 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Router, ActivatedRoute, ParamMap } from '@angular/router';
+
 import { AuctionsService } from '../../services/auctions.service';
 import { IAuctionListRequest } from '../../models/auction-list-request.model';
 import { NotificationsService } from 'src/app/core/services/notifications/notifications.service';
+
+// rxjs
+import { Subscription } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-auction-details',
@@ -11,7 +16,7 @@ import { NotificationsService } from 'src/app/core/services/notifications/notifi
 })
 export class AuctionDetailsComponent implements OnInit, OnDestroy {
   // table
-  auctionsSub: Subscription;
+  auctionDetailsSub: Subscription;
 
   // utility
   loading: boolean;
@@ -21,31 +26,28 @@ export class AuctionDetailsComponent implements OnInit, OnDestroy {
 
   constructor(
     private auctionApi: AuctionsService,
-    private notification: NotificationsService
-  ) { }
+    private notification: NotificationsService,
+    private route: ActivatedRoute,
+    private router: Router
+  ) {
+
+  }
 
   ngOnInit() {
-    this.setupRequest();
-    this.getAuctionList();
+    this.getAuctionDetails();
   }
 
   ngOnDestroy() {
-    this.auctionsSub.unsubscribe();
+    if (this.auctionDetailsSub) {
+      this.auctionDetailsSub.unsubscribe();
+    }
   }
 
-  private setupRequest(): void {
-    // this.request = {
-    //   starDate: new Date(),
-    //   endDate: new Date(),
-    //   sizeOfPage: this.numberRows,
-    //   currentPage: this.currentPage,
-    //   sortByColumn: 'Name',
-    //   sortingDirection: 'asc',
-    //   searchValue: this.searchValue
-    // };
-  }
-
-  private getAuctionList() {
+  private getAuctionDetails() {
+    this.route.paramMap.pipe(
+      switchMap((params: ParamMap) =>
+        this.auctionApi.getAuctionDetails$(params.get('id')))
+    );
     // this.loading = true;
 
     // Get all (admin) events

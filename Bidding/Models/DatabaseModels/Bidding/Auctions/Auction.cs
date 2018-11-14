@@ -28,8 +28,6 @@ namespace BiddingAPI.Models.DatabaseModels.Bidding
 
         public int CreatorId { get; set; }
 
-        public string Creator { get; set; }
-
         public ICollection<AuctionCategory> AuctionCategories { get; set; }
     }
 }

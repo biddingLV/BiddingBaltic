@@ -1,5 +1,12 @@
 import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+
+// rxjs
 import { Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
+
+// custom
 import { AuctionsService } from '../../services/auctions.service';
 import { AuctionModel } from '../../models/list/auction.model';
 import { IAuctionListRequest } from '../../models/auction-list-request.model';
@@ -32,7 +39,8 @@ export class AuctionListComponent implements OnInit, OnDestroy, AfterViewInit {
 
   constructor(
     private auctionApi: AuctionsService,
-    private notification: NotificationsService
+    private notification: NotificationsService,
+    private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
@@ -63,8 +71,14 @@ export class AuctionListComponent implements OnInit, OnDestroy, AfterViewInit {
     this.getAuctionList();
   }
 
+  onDetailsClick(): void {
+    console.log('yay, someone just clicked on the details page!')
+  }
+
   ngOnDestroy() {
-    this.auctionsSub.unsubscribe();
+    if (this.auctionsSub) {
+      this.auctionsSub.unsubscribe();
+    }
   }
 
   ngAfterViewInit() {

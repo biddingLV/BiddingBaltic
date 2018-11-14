@@ -12,11 +12,12 @@ export class AuctionsTableComponent implements OnInit {
 
   @Output() pageChange = new EventEmitter<number>();
   @Output() sortChange = new EventEmitter<boolean>();
+  @Output() detailsClick = new EventEmitter<boolean>();
 
   constructor() { }
 
-  ngOnInit() { 
-    console.log(this.auctionTable)
+  ngOnInit() {
+
   }
 
   onPageChange(page) {
@@ -25,5 +26,9 @@ export class AuctionsTableComponent implements OnInit {
 
   onSortChange(event) {
     this.sortChange.emit(event);
+  }
+
+  onDetailsClick() {
+    this.detailsClick.emit();
   }
 }

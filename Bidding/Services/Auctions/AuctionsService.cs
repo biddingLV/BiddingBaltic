@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Bidding.Models.ViewModels.Bidding.Auctions;
+using Bidding.Models.ViewModels.Bidding.Auctions.Details;
 using Bidding.Models.ViewModels.Bidding.Categories;
 using BiddingAPI.Models.DatabaseModels;
 using BiddingAPI.Models.DatabaseModels.Bidding;
@@ -73,6 +74,11 @@ namespace BiddingAPI.Services.Auctions
 
             auctionsResponse.CurrentPage = request.CurrentPage;
             return auctionsResponse;
+        }
+
+        public AuctionDetailsModel Details(int auctionId)
+        {
+            return m_auctionsRepository.Details(auctionId);
         }
 
         public List<CategoryModel> Categories()

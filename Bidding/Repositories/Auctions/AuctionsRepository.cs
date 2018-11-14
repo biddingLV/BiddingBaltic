@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using Bidding.Models.ViewModels.Bidding.Auctions;
+using Bidding.Models.ViewModels.Bidding.Auctions.Details;
 using Bidding.Models.ViewModels.Bidding.Categories;
 using BiddingAPI.Models.DatabaseModels;
 using BiddingAPI.Models.DatabaseModels.Bidding;
@@ -51,6 +52,12 @@ namespace BiddingAPI.Repositories.Auctions
             response.ItemCount = m_context.Auctions.Count(); // (auct => auct.StartDate ==);
 
             return response;
+        }
+
+        public AuctionDetailsModel Details(int auctionId)
+        {
+            return new AuctionDetailsModel();
+            // return m_context.AuctionDetails.FirstOrDefault(row => row.Id == auctionId);
         }
 
         public List<CategoryModel> Categories()
