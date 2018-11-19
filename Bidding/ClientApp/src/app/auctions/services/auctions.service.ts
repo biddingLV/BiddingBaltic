@@ -28,13 +28,14 @@ export class AuctionsService {
 
     const params = new HttpParams({
       fromObject: {
-        startDate: '10/29/2018'.toString(),
-        endDate: '10/31/2018'.toString(),
-        SortByColumn: request.SortByColumn.toString(),
-        SortingDirection: request.SortingDirection.toString(),
-        OffsetEnd: request.SizeOfPage.toString(),
-        OffsetStart: request.CurrentPage.toString(),
-        SearchValue: request.SearchValue.toString()
+        startDate: request.starDate.toString(),
+        endDate: request.endDate.toString(),
+        sortByColumn: request.sortByColumn.toString(),
+        sortingDirection: request.sortingDirection.toString(),
+        offsetEnd: request.sizeOfPage.toString(),
+        offsetStart: request.currentPage.toString(),
+        searchValue: request.searchValue.toString(),
+        currentPage: request.currentPage.toString()
       }
     });
 
@@ -44,6 +45,16 @@ export class AuctionsService {
     }).pipe(catchError(this.exception.errorHandler));
   }
 
+  getAuctionDetails$(auctionId: string): Observable<AuctionDetailsModel> {
+    const url = this.baseUrl + `/auctions/details?organizationId=${auctionId}`;
+
+    return this.http.get<AuctionDetailsModel>(url, {
+      headers: new HttpHeaders()
+        .set('Authorization', `Bearer ${localStorage.getItem('access_token')}`)
+    }).pipe(catchError(this.exception.errorHandler));
+  }
+
+  // filters
   getCategories$(): Observable<CategoryModel[]> {
     const url = this.baseUrl + '/auctions/categories';
 

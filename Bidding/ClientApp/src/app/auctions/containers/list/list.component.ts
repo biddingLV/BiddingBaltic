@@ -1,5 +1,12 @@
 import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+
+// rxjs
 import { Subscription } from 'rxjs';
+import { Observable } from 'rxjs';
+import { switchMap } from 'rxjs/operators';
+
+// custom
 import { AuctionsService } from '../../services/auctions.service';
 import { AuctionModel } from '../../models/list/auction.model';
 import { AuctionListRequest } from '../../models/list/auction-list-request.model';
@@ -16,13 +23,15 @@ export class AuctionListComponent implements OnInit, OnDestroy, AfterViewInit {
   auctionsSub: Subscription;
   auctionTable: AuctionModel;
 
-  // pagination
-  numberRows = 10;
+  // pagination || form
+  numberRows = 15;
+  searchValue = '';
+  currentPage = 0;
 
-  //filters
+  // filters
   categories: CategoryModel[];
 
-  //utility
+  // utility
   loading: boolean;
 
   // API
@@ -41,10 +50,10 @@ export class AuctionListComponent implements OnInit, OnDestroy, AfterViewInit {
   // Request Update Events
   updateRequest(property: string, event) {
     if (property === 'Page') {
-      this.request.CurrentPage = event.page;
+      this.request.currentPage = event.page;
     } else {
-      this.request[property] = (event === undefined) || (event === 'undefined') ? '' : event;
-      this.request.CurrentPage = 1;
+      this.request.searchValue = event;
+      this.request.currentPage = 1;
     }
 
     this.getAuctionList();
@@ -52,17 +61,23 @@ export class AuctionListComponent implements OnInit, OnDestroy, AfterViewInit {
 
   // Sort Update Events
   onSortChange(event): void {
-    this.request.SortingDirection = this.request.SortByColumn === event.column.prop ?
-      this.request.SortingDirection === 'asc' ? 'desc' : 'asc'
-      : 'asc'; // TODO: HS: maybe this can still be new value
-    this.request.SortByColumn = event.column.prop;
-    this.request.CurrentPage = 1;
+    this.request.sortingDirection =
+      this.request.sortByColumn === event.column.prop ? this.request.sortingDirection === 'asc' ? 'desc' : 'asc' : 'asc';
+
+    this.request.sortByColumn = event.column.prop;
+    this.request.currentPage = 1;
 
     this.getAuctionList();
   }
 
+  onDetailsClick(): void {
+    console.log('yay, someone just clicked on the details page!')
+  }
+
   ngOnDestroy() {
-    this.auctionsSub.unsubscribe();
+    if (this.auctionsSub) {
+      this.auctionsSub.unsubscribe();
+    }
   }
 
   ngAfterViewInit() {
@@ -70,21 +85,20 @@ export class AuctionListComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   private setupRequest(): void {
-    // todo: kke: improve this
     this.request = {
-      StarDate: new Date(),
-      EndDate: new Date(),
-      SizeOfPage: this.numberRows,
-      CurrentPage: 1,
-      SortByColumn: 'Name',
-      SortingDirection: 'asc',
-      SearchValue: ''
+      starDate: new Date(),
+      endDate: new Date(),
+      sizeOfPage: this.numberRows,
+      currentPage: this.currentPage,
+      sortByColumn: 'Name',
+      sortingDirection: 'asc',
+      searchValue: this.searchValue
     };
   }
 
   private getAuctionList() {
     // this.loading = true;
-    console.log('request', this.request)
+
     // Get all (admin) events
     this.auctionsSub = this.auctionApi
       .getAuctions$(this.request)

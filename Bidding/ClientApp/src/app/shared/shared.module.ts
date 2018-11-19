@@ -2,8 +2,12 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule } from '@angular/forms';
-import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
+// third-libraries
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+import { MomentModule } from 'ngx-moment';
+
+// components
 import { HeaderComponent } from './components/header/header.component';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
@@ -21,7 +25,8 @@ import { AdminTableComponent } from './components/table/admin/admin.component';
     CommonModule,
     RouterModule,
     FormsModule,
-    NgxDatatableModule
+    NgxDatatableModule,
+    MomentModule
   ],
   exports: [
     HeaderComponent,
@@ -33,7 +38,8 @@ import { AdminTableComponent } from './components/table/admin/admin.component';
     ArrayDropdownComponent,
     ObjectDropdownComponent,
     FormsModule,
-    LoadingComponent
+    LoadingComponent,
+    MomentModule
   ],
   declarations: [
     HeaderComponent,

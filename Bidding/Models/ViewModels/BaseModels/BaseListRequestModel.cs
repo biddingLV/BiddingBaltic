@@ -21,5 +21,7 @@ namespace BiddingAPI.Models.ViewModels.BaseModels
 
         // take only till 10, 20, 100
         public int OffsetEnd { get; set; }
+
+        public int CurrentPage { get; set; }
     }
 }

@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Threading.Tasks;
 using Bidding.Models.ViewModels.Bidding.Auctions;
+using Bidding.Models.ViewModels.Bidding.Auctions.Details;
 using Bidding.Models.ViewModels.Bidding.Categories;
 using BiddingAPI.Models.DatabaseModels;
 using BiddingAPI.Models.DatabaseModels.Bidding;
@@ -22,11 +23,14 @@ namespace BiddingAPI.Repositories.Auctions
             m_context = context;
         }
 
-        public AuctionListResponseModel Search(AuctionListRequestModel request, int? start, int? end)
+        public AuctionListResponseModel Search(AuctionListRequestModel request, int start, int end)
         {
             AuctionListResponseModel response = new AuctionListResponseModel();
 
-            IQueryable<AuctionItemModel> dbResult = m_context.AuctionsList.FromSql($"EXEC dbo.[GetAuctions] @StartDate = {request.StartDate}, @EndDate = {request.EndDate}");
+            IQueryable<AuctionItemModel> dbResult =
+                m_context
+                .AuctionsList
+                .FromSql($"EXEC dbo.[GetAuctions] @startDate = {request.StartDate}, @endDate = {request.EndDate}, @start = {start}, @end = {end}, @sortByColumn = {request.SortByColumn}, @sortingDirection = {request.SortingDirection}");
 
             // todo: kke: check if this is called two times to get result and count!
             response.Auctions =
@@ -44,9 +48,16 @@ namespace BiddingAPI.Repositories.Auctions
             .AsNoTracking()
             .ToList();
 
-            response.ItemCount = response.Auctions.Count;
+            // todo: kke: add the where condition here!
+            response.ItemCount = m_context.Auctions.Count(); // (auct => auct.StartDate ==);
 
             return response;
+        }
+
+        public AuctionDetailsModel Details(int auctionId)
+        {
+            return new AuctionDetailsModel();
+            // return m_context.AuctionDetails.FirstOrDefault(row => row.Id == auctionId);
         }
 
         public List<CategoryModel> Categories()

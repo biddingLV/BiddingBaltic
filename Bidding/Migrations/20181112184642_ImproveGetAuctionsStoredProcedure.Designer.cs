@@ -4,37 +4,22 @@ using BiddingAPI.Models.DatabaseModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Bidding.Migrations
 {
     [DbContext(typeof(BiddingContext))]
-    partial class BiddingContextModelSnapshot : ModelSnapshot
+    [Migration("20181112184642_ImproveGetAuctionsStoredProcedure")]
+    partial class ImproveGetAuctionsStoredProcedure
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "2.1.4-rtm-31024")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-            modelBuilder.Entity("Bidding.Models.DatabaseModels.Bidding.AuctionCreator", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("FirstName");
-
-                    b.Property<string>("LastName");
-
-                    b.Property<bool>("Status");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("AuctionCreators");
-                });
 
             modelBuilder.Entity("Bidding.Models.DatabaseModels.Bidding.Subscribe.Newsletter", b =>
                 {
@@ -70,6 +55,8 @@ namespace Bidding.Migrations
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Creator");
 
                     b.Property<int>("CreatorId");
 

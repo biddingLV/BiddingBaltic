@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Bidding.Models.DatabaseModels.Bidding;
 using Bidding.Models.DatabaseModels.Bidding.Subscribe;
 using Bidding.Models.ViewModels.Bidding.Auctions;
 using Bidding.Models.ViewModels.Bidding.Categories;
@@ -35,6 +36,7 @@ namespace BiddingAPI.Models.DatabaseModels
         public virtual DbSet<UserRole> UserRoles { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Newsletter> Newsletters { get; set; }
+        public virtual DbSet<AuctionCreator> AuctionCreators { get; set; }
 
         // DbQueries
         public virtual DbQuery<AuctionItemModel> AuctionsList { get; set; }
