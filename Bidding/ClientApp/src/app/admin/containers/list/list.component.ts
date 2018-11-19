@@ -1,20 +1,22 @@
 import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
 import { Subscription } from 'rxjs';
-import { AuctionsService } from '../../services/auctions.service';
-import { AuctionModel } from '../../models/list/auction.model';
-import { AuctionListRequest } from '../../models/list/auction-list-request.model';
+
+// error handling
 import { NotificationsService } from 'src/app/core/services/notifications/notifications.service';
-import { CategoryModel } from '../../models/filters/category.model';
+import { AuctionModel } from 'src/app/auctions/models/list/auction.model';
+import { AuctionsService } from 'src/app/auctions/services/auctions.service';
+import { AuctionListRequest } from 'src/app/auctions/models/list/auction-list-request.model';
+import { CategoryModel } from 'src/app/auctions/models/filters/category.model';
 
 @Component({
-  selector: 'app-auction-list',
+  selector: 'app-admin-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss']
 })
-export class AuctionListComponent implements OnInit, OnDestroy, AfterViewInit {
+export class AdminListComponent implements OnInit, OnDestroy, AfterViewInit {
   // table
   auctionsSub: Subscription;
-  auctionTable: AuctionModel;
+  adminTable: AuctionModel;
 
   // pagination
   numberRows = 10;
@@ -66,7 +68,7 @@ export class AuctionListComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   ngAfterViewInit() {
-    this.loadCategoryFilter();
+    // this.loadCategoryFilter();
   }
 
   private setupRequest(): void {
@@ -89,7 +91,7 @@ export class AuctionListComponent implements OnInit, OnDestroy, AfterViewInit {
     this.auctionsSub = this.auctionApi
       .getAuctions$(this.request)
       .subscribe(
-        (result: AuctionModel) => { this.auctionTable = result; },
+        (result: AuctionModel) => { this.adminTable = result; },
         (error: string) => this.notification.error(error)
       );
   }

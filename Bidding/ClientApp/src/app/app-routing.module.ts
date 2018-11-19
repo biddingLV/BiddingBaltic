@@ -46,14 +46,14 @@ const routes: Routes = [
     //   AuthGuard
     // ]
   },
-  // {
-  //   path: 'admin',
-  //   loadChildren: './pages/admin/admin.module#AdminModule',
-  //   canActivate: [
-  //     AuthGuard,
-  //     AdminGuard
-  //   ]
-  // },
+  {
+    path: 'admin',
+    loadChildren: './admin/admin.module#AdminModule',
+    // canActivate: [
+    //   AuthGuard,
+    //   AdminGuard
+    // ]
+  },
   // { path: 'users', loadChildren: './users/users.module#UsersModule' },
   // { path: 'profile', component: ProfileComponent, canActivate: [AuthGuard] },
   // { path: 'ping', component: PingComponent, canActivate: [AuthGuard] },

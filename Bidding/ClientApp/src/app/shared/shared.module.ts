@@ -14,6 +14,7 @@ import { ArrayDropdownComponent } from './components/dropdowns/array/array.compo
 import { ObjectDropdownComponent } from './components/dropdowns/object/object.component';
 import { SearchComponent } from './components/search/search.component';
 import { LoadingComponent } from './components/loading/loading.component';
+import { AdminTableComponent } from './components/table/admin/admin.component';
 
 @NgModule({
   imports: [
@@ -27,6 +28,7 @@ import { LoadingComponent } from './components/loading/loading.component';
     NavbarComponent,
     FooterComponent,
     AuctionsTableComponent,
+    AdminTableComponent,
     SearchComponent,
     ArrayDropdownComponent,
     ObjectDropdownComponent,
@@ -38,6 +40,7 @@ import { LoadingComponent } from './components/loading/loading.component';
     NavbarComponent,
     FooterComponent,
     AuctionsTableComponent,
+    AdminTableComponent,
     SearchComponent,
     ArrayDropdownComponent,
     ObjectDropdownComponent,

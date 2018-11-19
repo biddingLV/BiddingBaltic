@@ -1,0 +1,31 @@
+<app-loading *ngIf="loading"></app-loading>
+
+<ng-template [ngIf]="adminTable">
+  <ng-template [ngIf]="adminTable.auctions.length">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6">
+          <label class="required">Categories:</label>
+          <select class="form-control">
+            <option *ngFor="let category of (categories); let i = index" [value]="category.id">
+              {{category.name}}
+            </option>
+          </select>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-6">
+          <app-search-bar (search)="updateRequest('Search', $event)"></app-search-bar>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-12">
+          <app-admin-table *ngIf="adminTable.auctions" [adminTable]="adminTable" [numberRows]="10"
+            (pageChange)="updateRequest('Page', $event)" (rowChange)="updateRequest('PageSize', $event)" (sortChange)="onSortChange($event)"></app-admin-table>
+        </div>
+      </div>
+    </div>
+  </ng-template>
+</ng-template>

@@ -3,11 +3,11 @@ import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 import { AuthService } from '../../auth/auth.service';
 import { environment } from '../../../environments/environment';
 import { AuctionModel } from '../models/list/auction.model';
-import { catchError, delay } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 import { ExceptionsService } from 'src/app/core';
 import { Observable } from 'rxjs';
-import { IAuctionListRequest } from '../models/auction-list-request.model';
-import { CategoryModel } from '../models/list/category.model';
+import { AuctionListRequest } from '../models/list/auction-list-request.model';
+import { CategoryModel } from '../models/filters/category.model';
 
 @Injectable()
 export class AuctionsService {
@@ -23,7 +23,7 @@ export class AuctionsService {
     return `Bearer ${this.auth.accessToken}`;
   }
 
-  getAuctions$(request: IAuctionListRequest): Observable<AuctionModel> {
+  getAuctions$(request: AuctionListRequest): Observable<AuctionModel> {
     const url = this.baseUrl + '/auctions/search';
 
     const params = new HttpParams({

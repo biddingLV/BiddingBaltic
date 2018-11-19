@@ -1,4 +1,4 @@
-export interface IListRequest {
+export interface ListRequest {
   SortByColumn: string;
   SortingDirection: string;
   SearchValue: string;

@@ -1,10 +1,10 @@
-import { AdminsModule } from './admin.module';
+import { AdminModule } from './admin.module';
 
-describe('AuctionsModule', () => {
-  let adminModule: AdminsModule;
+describe('AdminModule', () => {
+  let adminModule: AdminModule;
 
   beforeEach(() => {
-    adminModule = new AdminsModule();
+    adminModule = new AdminModule();
   });
 
   it('should create an instance', () => {

@@ -2,12 +2,12 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { AuctionModel } from 'src/app/auctions/models/list/auction.model';
 
 @Component({
-  selector: 'app-auctions-table',
-  templateUrl: './auctions.component.html',
-  styleUrls: ['./auctions.component.scss']
+  selector: 'app-admin-table',
+  templateUrl: './admin.component.html',
+  styleUrls: ['./admin.component.scss']
 })
-export class AuctionsTableComponent implements OnInit {
-  @Input() auctionTable: AuctionModel;
+export class AdminTableComponent implements OnInit {
+  @Input() adminTable: AuctionModel;
   @Input() numberRows: number;
   // @Input() selected: any[];
 
@@ -27,7 +27,7 @@ export class AuctionsTableComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log('auctionTable', this.auctionTable)
+    console.log('adminTable', this.adminTable)
   }
 
   onPageChange(page) {

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { IBlogWidgetResponse } from '../models/widget/blog-widget-response.model';
-import { IBlogWidgetRequest } from '../models/widget/blog-widget-request.model';
+import { BlogWidgetRequest } from '../models/widget/blog-widget-request.model';
 import { Observable } from 'rxjs';
 import { environment } from '../../../environments/environment';
 
@@ -13,7 +13,7 @@ export class BlogService {
 
   constructor(private http: HttpClient) { }
 
-  public getBlogPosts(request: IBlogWidgetRequest): Observable<IBlogWidgetResponse> {
+  public getBlogPosts(request: BlogWidgetRequest): Observable<IBlogWidgetResponse> {
     const url = this.baseUrl + '/public';
 
     const params = new HttpParams({
