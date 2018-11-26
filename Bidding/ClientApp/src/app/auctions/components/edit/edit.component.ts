@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
-import { NgForm } from '@angular/forms';
 
 // import { FeaturesService } from '../../../services/features/features.service';
 // import { Guid } from '../../../../shared/types/guid.model';
@@ -8,7 +7,6 @@ import { NgForm } from '@angular/forms';
 // import { IFeatureEditRequest } from '../../../models/features/edit/feature-edit-request.model';
 
 @Component({
-  selector: 'app-auction-edit',
   templateUrl: './edit.component.html',
   styleUrls: ['./edit.component.scss']
 })

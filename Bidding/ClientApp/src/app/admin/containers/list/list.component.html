@@ -1,3 +1,21 @@
+<div class="row">
+  <div class="col-6">
+    <span class="float-right">
+      <button value="Add" type="button" (click)="addModal()" class="btn">
+        <i class="fas fa-edit"></i> Add
+      </button>
+
+      <button value="Delete" type="button" (click)="deleteModal()" class="btn">
+        <i class="fas fa-edit"></i> Delete
+      </button>
+
+      <button value="Edit" type="button" class="btn" (click)="editModal()">
+        <i class="fas fa-edit"></i> Edit
+      </button>
+    </span>
+  </div>
+</div>
+
 <app-loading *ngIf="loading"></app-loading>
 
 <ng-template [ngIf]="adminTable">
@@ -22,8 +40,8 @@
 
       <div class="row">
         <div class="col-md-12">
-          <app-admin-table *ngIf="adminTable.auctions" [adminTable]="adminTable" [numberRows]="10"
-            (pageChange)="updateRequest('Page', $event)" (rowChange)="updateRequest('PageSize', $event)" (sortChange)="onSortChange($event)"></app-admin-table>
+          <app-admin-table *ngIf="adminTable.auctions" [adminTable]="adminTable" [numberRows]="10" (pageChange)="updateRequest('Page', $event)"
+            (rowChange)="updateRequest('PageSize', $event)" (sortChange)="onSortChange($event)"></app-admin-table>
         </div>
       </div>
     </div>

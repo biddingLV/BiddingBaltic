@@ -8,6 +8,7 @@ import { ExceptionsService } from 'src/app/core';
 import { Observable } from 'rxjs';
 import { AuctionListRequest } from '../models/list/auction-list-request.model';
 import { CategoryModel } from '../models/filters/category.model';
+import { AuctionDetailsModel } from '../models/details/auction-details.model';
 
 @Injectable()
 export class AuctionsService {

@@ -5,7 +5,6 @@ import { FormsModule } from '@angular/forms';
 
 // third-libraries
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
-import { MomentModule } from 'ngx-moment';
 
 // components
 import { HeaderComponent } from './components/header/header.component';
@@ -26,7 +25,7 @@ import { AdminTableComponent } from './components/table/admin/admin.component';
     RouterModule,
     FormsModule,
     NgxDatatableModule,
-    MomentModule
+    // MomentModule
   ],
   exports: [
     HeaderComponent,
@@ -39,7 +38,7 @@ import { AdminTableComponent } from './components/table/admin/admin.component';
     ObjectDropdownComponent,
     FormsModule,
     LoadingComponent,
-    MomentModule
+    // MomentModule
   ],
   declarations: [
     HeaderComponent,

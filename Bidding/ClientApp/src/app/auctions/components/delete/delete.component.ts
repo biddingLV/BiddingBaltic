@@ -6,7 +6,6 @@ import { BsModalRef } from 'ngx-bootstrap/modal';
 // import { FeaturesService } from '../../../services/features/features.service';
 
 @Component({
-  selector: 'app-auction-delete',
   templateUrl: './delete.component.html',
   styleUrls: ['./delete.component.scss']
 })

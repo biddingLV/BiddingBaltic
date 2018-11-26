@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { BsModalRef } from 'ngx-bootstrap/modal';
-import { NgForm } from '@angular/forms';
 
 // import { FeaturesService } from '../../../services/features/features.service';
 // import { Guid } from '../../../../shared/types/guid.model';
@@ -12,7 +11,6 @@ import { NgForm } from '@angular/forms';
 
 
 @Component({
-  selector: 'app-auction-add',
   templateUrl: './add.component.html',
   styleUrls: ['./add.component.scss']
 })

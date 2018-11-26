@@ -2,12 +2,12 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
 
 import { AuctionsService } from '../../services/auctions.service';
-import { IAuctionListRequest } from '../../models/auction-list-request.model';
 import { NotificationsService } from 'src/app/core/services/notifications/notifications.service';
 
 // rxjs
 import { Subscription } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
+import { AuctionListRequest } from '../../models/list/auction-list-request.model';
 
 @Component({
   selector: 'app-auction-details',
@@ -22,7 +22,7 @@ export class AuctionDetailsComponent implements OnInit, OnDestroy {
   loading: boolean;
 
   // API
-  request: IAuctionListRequest;
+  request: AuctionListRequest;
 
   constructor(
     private auctionApi: AuctionsService,
