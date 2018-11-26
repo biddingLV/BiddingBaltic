@@ -9,9 +9,9 @@ import { switchMap } from 'rxjs/operators';
 // custom
 import { AuctionsService } from '../../services/auctions.service';
 import { AuctionModel } from '../../models/list/auction.model';
-import { IAuctionListRequest } from '../../models/auction-list-request.model';
-import { CategoryModel } from '../../models/list/category.model';
+import { AuctionListRequest } from '../../models/list/auction-list-request.model';
 import { NotificationsService } from 'src/app/core/services/notifications/notifications.service';
+import { CategoryModel } from '../../models/filters/category.model';
 
 @Component({
   selector: 'app-auction-list',
@@ -35,12 +35,11 @@ export class AuctionListComponent implements OnInit, OnDestroy, AfterViewInit {
   loading: boolean;
 
   // API
-  request: IAuctionListRequest;
+  request: AuctionListRequest;
 
   constructor(
     private auctionApi: AuctionsService,
-    private notification: NotificationsService,
-    private route: ActivatedRoute
+    private notification: NotificationsService
   ) { }
 
   ngOnInit() {

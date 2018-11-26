@@ -1,5 +1,5 @@
-import { IListRequest } from '../../../shared/basemodels/list-request.model';
+import { ListRequest } from '../../../shared/basemodels/list-request.model';
 
-export interface IBlogWidgetRequest extends IListRequest {
+export interface BlogWidgetRequest extends ListRequest {
 
 }

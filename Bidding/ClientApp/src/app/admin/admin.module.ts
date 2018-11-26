@@ -1,12 +1,15 @@
+// angular
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+// routing
 import { AdminRoutingModule } from './admin-routing.module';
+
+// utility
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { SharedModule } from '../shared/shared.module';
-import { AuctionDeleteComponent } from './components/delete/delete.component';
-import { AuctionAddComponent } from './components/add/add.component';
-import { AuctionEditComponent } from './components/edit/edit.component';
+import { AdminListComponent } from './containers/list/list.component';
+
 
 @NgModule({
   imports: [
@@ -16,14 +19,10 @@ import { AuctionEditComponent } from './components/edit/edit.component';
     SharedModule
   ],
   exports: [
-    AuctionEditComponent,
-    AuctionDeleteComponent,
-    AuctionAddComponent
+
   ],
   declarations: [
-    AuctionEditComponent,
-    AuctionDeleteComponent,
-    AuctionAddComponent
+    AdminListComponent
   ],
   providers: [
   ],
@@ -31,4 +30,4 @@ import { AuctionEditComponent } from './components/edit/edit.component';
 
   ]
 })
-export class AdminsModule { }
+export class AdminModule { }

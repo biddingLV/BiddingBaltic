@@ -1,7 +1,7 @@
-export interface IListRequest {
-  sortByColumn: string;
-  sortingDirection: string;
-  searchValue: string;
-  sizeOfPage: number;
-  currentPage: number;
+export interface ListRequest {
+  SortByColumn: string;
+  SortingDirection: string;
+  SearchValue: string;
+  SizeOfPage: number;
+  CurrentPage: number;
 }
