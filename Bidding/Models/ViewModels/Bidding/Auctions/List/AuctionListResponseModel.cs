@@ -20,6 +20,7 @@ namespace Bidding.Models.ViewModels.Bidding.Auctions
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public int CreatorId { get; set; }
-        public string Creator { get; set; }
+        public string CreatorFirstName { get; set; }
+        public string CreatorLastName { get; set; }
     }
 }

@@ -10,6 +10,7 @@ export interface AuctionItem {
   name: string;
   description: string;
   id: number;
-  creator: string;
+  creatorFirstName: string;
+  creatorLastName: string;
   creatorId: number;
 }

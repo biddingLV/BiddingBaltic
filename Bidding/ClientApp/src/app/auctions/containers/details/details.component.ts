@@ -1,13 +1,15 @@
+// angular
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute, ParamMap } from '@angular/router';
-
-import { AuctionsService } from '../../services/auctions.service';
-import { IAuctionListRequest } from '../../models/auction-list-request.model';
-import { NotificationsService } from 'src/app/core/services/notifications/notifications.service';
 
 // rxjs
 import { Subscription } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
+
+// internal
+import { AuctionsService } from '../../services/auctions.service';
+import { NotificationsService } from 'src/app/core/services/notifications/notifications.service';
+import { AuctionDetailsModel } from '../../models/details/auction-details.model';
 
 @Component({
   selector: 'app-auction-details',
@@ -15,20 +17,17 @@ import { switchMap } from 'rxjs/operators';
   styleUrls: ['./details.component.scss']
 })
 export class AuctionDetailsComponent implements OnInit, OnDestroy {
-  // table
+  // details
   auctionDetailsSub: Subscription;
+  auctionDetails: AuctionDetailsModel;
 
   // utility
   loading: boolean;
 
-  // API
-  request: IAuctionListRequest;
-
   constructor(
     private auctionApi: AuctionsService,
     private notification: NotificationsService,
-    private route: ActivatedRoute,
-    private router: Router
+    private route: ActivatedRoute
   ) {
 
   }
@@ -44,18 +43,11 @@ export class AuctionDetailsComponent implements OnInit, OnDestroy {
   }
 
   private getAuctionDetails() {
-    this.route.paramMap.pipe(
-      switchMap((params: ParamMap) =>
-        this.auctionApi.getAuctionDetails$(params.get('id')))
-    );
-    // this.loading = true;
-
-    // Get all (admin) events
-    // this.auctionsSub = this.auctionApi
-    //   .getAuctions$(this.request)
-    //   .subscribe(
-    //     (result: AuctionModel) => { this.auctionTable = result; },
-    //     (error: string) => this.notification.error(error)
-    //   );
+    this.auctionDetailsSub =
+      this.route.paramMap.pipe(
+        switchMap((params: ParamMap) =>
+          this.auctionApi.getAuctionDetails$(params.get('id')))
+      ).subscribe(result => { this.auctionDetails = result; },
+        (error: string) => this.notification.error(error));
   }
 }

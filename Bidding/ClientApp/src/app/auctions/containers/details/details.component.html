@@ -1,1 +1,32 @@
-<h1>details works!</h1>
+<div class="row">
+  <div class="col-12">
+    <h5>General Info</h5>
+  </div>
+
+  <div class="col-4">
+    <strong><span>Street Name and Number:</span></strong>
+    <p>{{auctionDetails.auctionType || "-"}}</p>
+
+    <strong>
+      <span>Postal Code:</span>
+    </strong>
+    <p>{{auctionDetails.evaluation || "-"}}</p>
+
+    <strong>
+      <span>City:</span>
+    </strong>
+    <p>{{auctionDetails.vin || "-"}}</p>
+
+    <strong>
+      <span>State/Region:</span>
+    </strong>
+    <p>{{auctionDetails.vrn || "-"}}</p>
+  </div>
+
+  <div class="col-4">
+    <strong>
+      <span>Country:</span>
+    </strong>
+    <p>{{auctionDetails.year || "-"}}</p>
+  </div>
+</div>

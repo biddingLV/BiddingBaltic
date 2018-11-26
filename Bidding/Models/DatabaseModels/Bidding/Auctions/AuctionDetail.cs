@@ -7,10 +7,13 @@ namespace BiddingAPI.Models.DatabaseModels.Bidding
 {
     public class AuctionDetail
     {
+        // kke: WIP!
         public int Id { get; set; }
         public int AuctionId { get; set; }
-        public string Model { get; set; }
-        // todo: kke: define Relationships
-        // one-to-one relationship
+        public string VehicleRegistrationNumber { get; set; }
+        public string VehicleIdentificationNumber { get; set; }
+        public string Year { get; set; } // only year needed
+        public int Evaluation { get; set; }
+        public string AuctionType { get; set; }
     }
 }

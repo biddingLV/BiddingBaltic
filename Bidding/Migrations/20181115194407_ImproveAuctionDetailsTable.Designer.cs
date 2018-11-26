@@ -4,14 +4,16 @@ using BiddingAPI.Models.DatabaseModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Bidding.Migrations
 {
     [DbContext(typeof(BiddingContext))]
-    partial class BiddingContextModelSnapshot : ModelSnapshot
+    [Migration("20181115194407_ImproveAuctionDetailsTable")]
+    partial class ImproveAuctionDetailsTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -119,11 +121,11 @@ namespace Bidding.Migrations
 
                     b.Property<int>("Evaluation");
 
-                    b.Property<string>("VehicleIdentificationNumber");
+                    b.Property<int>("VehicleIdentificationNumber");
 
-                    b.Property<string>("VehicleRegistrationNumber");
+                    b.Property<int>("VehicleRegistrationNumber");
 
-                    b.Property<string>("Year");
+                    b.Property<DateTime>("Year");
 
                     b.HasKey("Id");
 
