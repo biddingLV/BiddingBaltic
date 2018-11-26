@@ -42,7 +42,8 @@ namespace BiddingAPI.Repositories.Auctions
                 Price = auct.Price,
                 EndDate = auct.EndDate,
                 StartDate = auct.StartDate,
-                Creator = auct.Creator,
+                CreatorFirstName = auct.CreatorFirstName,
+                CreatorLastName = auct.CreatorLastName,
                 CreatorId = auct.CreatorId
             })
             .AsNoTracking()
@@ -56,8 +57,19 @@ namespace BiddingAPI.Repositories.Auctions
 
         public AuctionDetailsModel Details(int auctionId)
         {
-            return new AuctionDetailsModel();
-            // return m_context.AuctionDetails.FirstOrDefault(row => row.Id == auctionId);
+            return m_context.AuctionDetails
+                .Where(auct => auct.AuctionId == auctionId)
+                .Select(auct => new AuctionDetailsModel
+                {
+                    Id = auct.Id,
+                    AuctionId = auct.AuctionId,
+                    VRN = auct.VehicleRegistrationNumber,
+                    VIN = auct.VehicleIdentificationNumber,
+                    Year = auct.Year,
+                    Evaluation = auct.Evaluation,
+                    AuctionType = auct.AuctionType
+                }
+                ).FirstOrDefault();
         }
 
         public List<CategoryModel> Categories()

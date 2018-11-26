@@ -40,6 +40,8 @@
     <Compile Remove="Migrations\20181105190509_UpdateCategoriesTable.Designer.cs" />
     <Compile Remove="Migrations\20181105190551_AddNameAndStatusToCategoriesTable.cs" />
     <Compile Remove="Migrations\20181105190551_AddNameAndStatusToCategoriesTable.Designer.cs" />
+    <Compile Remove="Migrations\20181115194232_ImproveAuctionDetailsTable.cs" />
+    <Compile Remove="Migrations\20181115194232_ImproveAuctionDetailsTable.Designer.cs" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

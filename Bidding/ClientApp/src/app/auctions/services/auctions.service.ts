@@ -47,7 +47,7 @@ export class AuctionsService {
   }
 
   getAuctionDetails$(auctionId: string): Observable<AuctionDetailsModel> {
-    const url = this.baseUrl + `/auctions/details?organizationId=${auctionId}`;
+    const url = this.baseUrl + `/auctions/details?auctionId=${auctionId}`;
 
     return this.http.get<AuctionDetailsModel>(url, {
       headers: new HttpHeaders()

@@ -14,10 +14,13 @@ export class AuctionsTableComponent implements OnInit {
   @Output() sortChange = new EventEmitter<boolean>();
   @Output() detailsClick = new EventEmitter<boolean>();
 
+  creator: string;
+
   constructor() { }
 
   ngOnInit() {
-
+    // not working!
+    this.creator = this.auctionTable.creatorFirstName + this.auctionTable.creatorLastName;
   }
 
   onPageChange(page) {
