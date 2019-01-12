@@ -45,6 +45,12 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="ClientApp\src\app\admin\containers\" />
+    <Folder Include="ClientApp\src\app\admin\services\" />
+    <Folder Include="ClientApp\src\app\auth\components\404-page-not-found\" />
+    <Folder Include="ClientApp\src\app\auth\components\sign-in\" />
+    <Folder Include="ClientApp\src\app\auth\models\" />
+    <Folder Include="ClientApp\src\app\auth\services\" />
     <Folder Include="Shared\ErrorHandling\Validators\" />
   </ItemGroup>
 

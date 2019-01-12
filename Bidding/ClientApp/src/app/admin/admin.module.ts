@@ -8,7 +8,6 @@ import { AdminRoutingModule } from './admin-routing.module';
 // utility
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { SharedModule } from '../shared/shared.module';
-import { AdminListComponent } from './containers/list/list.component';
 
 
 @NgModule({
@@ -22,7 +21,7 @@ import { AdminListComponent } from './containers/list/list.component';
 
   ],
   declarations: [
-    AdminListComponent
+
   ],
   providers: [
   ],
