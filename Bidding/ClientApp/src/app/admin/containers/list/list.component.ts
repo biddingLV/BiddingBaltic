@@ -7,23 +7,24 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 
 // internal
 // models & services
-import { NotificationsService } from 'src/app/core/services/notifications/notifications.service';
-import { AuctionModel } from 'src/app/auctions/models/list/auction.model';
-import { AuctionsService } from 'src/app/auctions/services/auctions.service';
-import { AuctionListRequest } from 'src/app/auctions/models/list/auction-list-request.model';
-import { CategoryModel } from 'src/app/auctions/models/filters/category.model';
+
 
 // components
 import { AuctionEditComponent } from '../../components/edit/edit.component';
 import { AuctionAddComponent } from '../../components/add/add.component';
 import { AuctionDeleteComponent } from '../../components/delete/delete.component';
+import { AuctionModel } from 'ClientApp/src/app/auctions/models/list/auction.model';
+import { CategoryModel } from 'ClientApp/src/app/auctions/models/filters/category.model';
+import { AuctionListRequest } from 'ClientApp/src/app/auctions/models/list/auction-list-request.model';
+import { AuctionsService } from 'ClientApp/src/app/auctions/services/auctions.service';
+import { NotificationsService } from 'ClientApp/src/app/core';
 
 
 @Component({
   // could be a admin panel!
   selector: 'app-admin-list',
   templateUrl: './list.component.html',
-  styleUrls: ['./list.component.scss']
+  styleUrls: []
 })
 export class AdminListComponent implements OnInit, OnDestroy, AfterViewInit {
   // table

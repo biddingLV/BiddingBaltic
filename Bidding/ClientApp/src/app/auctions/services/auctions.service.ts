@@ -4,11 +4,11 @@ import { AuthService } from '../../auth/auth.service';
 import { environment } from '../../../environments/environment';
 import { AuctionModel } from '../models/list/auction.model';
 import { catchError } from 'rxjs/operators';
-import { ExceptionsService } from 'src/app/core';
 import { Observable } from 'rxjs';
 import { AuctionListRequest } from '../models/list/auction-list-request.model';
 import { CategoryModel } from '../models/filters/category.model';
 import { AuctionDetailsModel } from '../models/details/auction-details.model';
+import { ExceptionsService } from '../../core/services/exceptions/exceptions.service';
 
 @Injectable()
 export class AuctionsService {

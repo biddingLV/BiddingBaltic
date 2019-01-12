@@ -9,7 +9,7 @@
     <DefaultItemExcludes>$(DefaultItemExcludes);$(SpaRoot)node_modules\**</DefaultItemExcludes>
 
     <!-- Set this to true if you enable server-side prerendering -->
-    <BuildServerSideRenderer>false</BuildServerSideRenderer>
+    <BuildServerSideRenderer>true</BuildServerSideRenderer>
     <UserSecretsId>b57eaf8a-ceb8-4f70-9666-3ecd6356d3f6</UserSecretsId>
   </PropertyGroup>
 
@@ -42,6 +42,18 @@
     <Compile Remove="Migrations\20181105190551_AddNameAndStatusToCategoriesTable.Designer.cs" />
     <Compile Remove="Migrations\20181115194232_ImproveAuctionDetailsTable.cs" />
     <Compile Remove="Migrations\20181115194232_ImproveAuctionDetailsTable.Designer.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Shared\ErrorHandling\Validators\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="angular.json" />
+    <None Include="package-lock.json" />
+    <None Include="package.json" />
+    <None Include="tsconfig.json" />
+    <None Include="tslint.json" />
   </ItemGroup>
 
   <Target Name="DebugEnsureNodeEnv" BeforeTargets="Build" Condition=" '$(Configuration)' == 'Debug' And !Exists('$(SpaRoot)node_modules') ">

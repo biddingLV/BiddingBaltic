@@ -1,10 +1,10 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
-import { AuctionModel } from 'src/app/auctions/models/list/auction.model';
+
 
 @Component({
   selector: 'app-admin-table',
   templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.scss']
+  styleUrls: []
 })
 export class AdminTableComponent implements OnInit {
   @Input() adminTable: AuctionModel;

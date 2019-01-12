@@ -23,9 +23,9 @@ namespace BiddingAPI.Services.Subscribe
 
         public bool UsingEmail(EmailRequestModel request)
         {
-            if (request.Categories.IsEmpty()) { throw new WebApiException(HttpStatusCode.BadRequest, "Incorrect categories"); }
-            if (request.Email.IsEmpty()) { throw new WebApiException(HttpStatusCode.BadRequest, "Incorrect email"); }
-            if (request.Name.IsEmpty()) { throw new WebApiException(HttpStatusCode.BadRequest, "Incorrect name"); }
+            if (request.Categories.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, "Incorrect categories"); }
+            if (request.Email.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, "Incorrect email"); }
+            if (request.Name.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, "Incorrect name"); }
 
             ValidateCategories(request.Categories);
 
@@ -34,9 +34,9 @@ namespace BiddingAPI.Services.Subscribe
 
         public bool UsingWhatsApp(WhatsAppRequestModel request)
         {
-            if (request.Categories.IsEmpty()) { throw new WebApiException(HttpStatusCode.BadRequest, "Incorrect categories"); }
-            if (request.Phone.IsEmpty()) { throw new WebApiException(HttpStatusCode.BadRequest, "Incorrect phone"); }
-            if (request.Name.IsEmpty()) { throw new WebApiException(HttpStatusCode.BadRequest, "Incorrect name"); }
+            if (request.Categories.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, "Incorrect categories"); }
+            if (request.Phone.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, "Incorrect phone"); }
+            if (request.Name.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, "Incorrect name"); }
 
             ValidateCategories(request.Categories);
 

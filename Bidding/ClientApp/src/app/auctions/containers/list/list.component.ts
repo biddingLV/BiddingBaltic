@@ -10,13 +10,13 @@ import { switchMap } from 'rxjs/operators';
 import { AuctionsService } from '../../services/auctions.service';
 import { AuctionModel } from '../../models/list/auction.model';
 import { AuctionListRequest } from '../../models/list/auction-list-request.model';
-import { NotificationsService } from 'src/app/core/services/notifications/notifications.service';
 import { CategoryModel } from '../../models/filters/category.model';
+import { NotificationsService } from 'ClientApp/src/app/core/services/notifications/notifications.service';
 
 @Component({
-  selector: 'app-auction-list',
+  selector: 'auction-list',
   templateUrl: './list.component.html',
-  styleUrls: ['./list.component.scss']
+  styleUrls: []
 })
 export class AuctionListComponent implements OnInit, OnDestroy, AfterViewInit {
   // table

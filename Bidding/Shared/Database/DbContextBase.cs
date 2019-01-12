@@ -36,7 +36,7 @@ namespace Bidding.Shared.Database
         }
 
         /// <summary>
-        /// Execute sql query for specific value type, for example, Guid, string, int
+        /// Execute sql query for specific value type, for example, Guid, string, int, bool
         /// </summary>
         /// <typeparam name="T"></typeparam>
         /// <param name="sql"></param>
@@ -44,7 +44,7 @@ namespace Bidding.Shared.Database
         /// <returns></returns>
         public IQueryable<T> ExecuteValueType<T>(FormattableString sql, bool transaction = false) where T : struct
         {
-            return Execute<Scalar<T>>(sql, transaction).Select(row => row.Value);
+            return Execute<Scalar<T>>(sql, transaction).Select(row => (row == null) ? default(T) : row.Value);
         }
 
         /// <summary>
@@ -75,7 +75,7 @@ namespace Bidding.Shared.Database
         /// </summary>
         /// <typeparam name="T">Result model class</typeparam>
         /// <param name="collection">Action returning a collection of records</param>
-        protected IQueryable<T> Transaction<T>(Func<IQueryable<T>> collection) where T : class
+        public IQueryable<T> Transaction<T>(Func<IQueryable<T>> collection) where T : class
         {
             IQueryable<T> result = null;
             IExecutionStrategy strategy = Database.CreateExecutionStrategy(); // retry on transient exceptions (we have to do it manually because of transactions)
@@ -88,23 +88,6 @@ namespace Bidding.Shared.Database
                 }
             });
             return result;
-        }
-
-        /// <summary>
-        /// Executes the specified action in a database transaction.
-        /// </summary>
-        /// <param name="action">Action to be executed within a transaction</param>
-        public async Task TransactionAsync(Func<Task> action)
-        {
-            IExecutionStrategy strategy = Database.CreateExecutionStrategy(); // retry on transient exceptions (we have to do it manually because of transactions)
-            await strategy.Execute(async () =>                                            // note: all transient exceptions outside of the BeginTransaction block are handled globally
-            {
-                using (IDbContextTransaction transaction = await Database.BeginTransactionAsync())
-                {
-                    await action?.Invoke();
-                    transaction.Commit();
-                }
-            });
         }
     }
 }
