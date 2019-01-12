@@ -11,19 +11,17 @@ import { IWhatsAppSubscribeRequest } from '../models/whatsapp-subscribe-request.
 
 @Injectable()
 export class HomeService {
-  private baseUrl = environment.baseUrl;
-
   constructor(private http: HttpClient, private exception: ExceptionsService) { }
 
-  public emailSubscribe$(request: IEmailSubscribeRequest): Observable<boolean> {
-    const url = this.baseUrl + '/subscribe/usingemail';
+  emailSubscribe$(request: IEmailSubscribeRequest): Observable<boolean> {
+    const url = '/subscribe/usingemail';
 
     return this.http.put<boolean>(url, request)
       .pipe(catchError(this.exception.errorHandler));
   }
 
-  public whatsAppSubscribe$(request: IWhatsAppSubscribeRequest): Observable<Object> {
-    const url = this.baseUrl + '/subscribe/usingwhatsapp';
+  whatsAppSubscribe$(request: IWhatsAppSubscribeRequest): Observable<Object> {
+    const url = '/subscribe/usingwhatsapp';
 
     return this.http.put(url, request)
       .pipe(catchError(this.exception.errorHandler));

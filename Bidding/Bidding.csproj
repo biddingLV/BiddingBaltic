@@ -51,6 +51,7 @@
     <Folder Include="ClientApp\src\app\auth\components\sign-in\" />
     <Folder Include="ClientApp\src\app\auth\models\" />
     <Folder Include="ClientApp\src\app\auth\services\" />
+    <Folder Include="ClientApp\src\app\shared\components\callback\" />
     <Folder Include="Shared\ErrorHandling\Validators\" />
   </ItemGroup>
 

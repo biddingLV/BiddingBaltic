@@ -11,7 +11,6 @@ import { ExceptionsService } from '../../core/services/exceptions/exceptions.ser
 
 @Injectable()
 export class AuctionsService {
-  private baseUrl = environment.baseUrl;
 
   constructor(
     private http: HttpClient,
@@ -20,7 +19,7 @@ export class AuctionsService {
 
 
   getAuctions$(request: AuctionListRequest): Observable<AuctionModel> {
-    const url = this.baseUrl + '/auctions/search';
+    const url = '/auctions/search';
 
     const params = new HttpParams({
       fromObject: {
@@ -42,7 +41,7 @@ export class AuctionsService {
   }
 
   getAuctionDetails$(auctionId: string): Observable<AuctionDetailsModel> {
-    const url = this.baseUrl + `/auctions/details?auctionId=${auctionId}`;
+    const url = `/auctions/details?auctionId=${auctionId}`;
 
     return this.http.get<AuctionDetailsModel>(url, {
       headers: new HttpHeaders()
@@ -52,7 +51,7 @@ export class AuctionsService {
 
   // filters
   getCategories$(): Observable<CategoryModel[]> {
-    const url = this.baseUrl + '/auctions/categories';
+    const url = '/auctions/categories';
 
     return this.http.get<CategoryModel[]>(url, {
       headers: new HttpHeaders()

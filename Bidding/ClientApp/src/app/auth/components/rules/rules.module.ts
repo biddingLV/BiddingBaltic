@@ -1,8 +1,11 @@
+// angular
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
+// internal
 import { RulesRoutingModule } from './rules-routing.module';
 import { RulesListComponent } from './components/list/list.component';
-import { SharedModule } from '../../shared/shared.module';
+import { SharedModule } from 'ClientApp/src/app/shared/shared.module';
 
 @NgModule({
   imports: [
