@@ -6,7 +6,6 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
   styleUrls: []
 })
 export class AuctionsTableComponent implements OnInit {
-  @Input() auctionTable: AuctionModel;
   @Input() numberRows: number;
 
   @Output() pageChange = new EventEmitter<number>();
@@ -18,8 +17,6 @@ export class AuctionsTableComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    // not working!
-    this.creator = this.auctionTable.creatorFirstName + this.auctionTable.creatorLastName;
   }
 
   onPageChange(page) {

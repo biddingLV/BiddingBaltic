@@ -1,6 +1,5 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
-import { AuthService } from '../../auth/auth.service';
 import { environment } from '../../../environments/environment';
 import { AuctionModel } from '../models/list/auction.model';
 import { catchError } from 'rxjs/operators';
@@ -16,13 +15,9 @@ export class AuctionsService {
 
   constructor(
     private http: HttpClient,
-    private auth: AuthService,
     private exception: ExceptionsService
   ) { }
 
-  private get authHeader(): string {
-    return `Bearer ${this.auth.accessToken}`;
-  }
 
   getAuctions$(request: AuctionListRequest): Observable<AuctionModel> {
     const url = this.baseUrl + '/auctions/search';

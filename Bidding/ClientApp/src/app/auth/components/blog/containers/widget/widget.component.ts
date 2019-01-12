@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Subscription } from 'rxjs';
 import { BlogService } from '../../services/blog.service';
-import { NotificationsService } from '../../../core/services/notifications/notifications.service';
 import { BlogWidgetRequest } from '../../models/widget/blog-widget-request.model';
 import { IBlogWidgetResponse } from '../../models/widget/blog-widget-response.model';
+import { NotificationsService } from 'ClientApp/src/app/core/services/notifications/notifications.service';
 
 @Component({
   selector: 'app-blog-widget',

@@ -12,12 +12,12 @@ import { HomeListComponent } from './containers/list/list.component';
 import { WelcomeHeaderComponent } from './components/welcome-header/welcome-header.component';
 import { SubscribeEmailComponent } from './components/coming-soon/subscribe/email/email.component';
 import { SubscribeWhatsappComponent } from './components/coming-soon/subscribe/whatsapp/whatsapp.component';
-import { BlogWidgetComponent } from '../blog/containers/widget/widget.component';
 
 // Services
 import { HomeService } from './services/home.service';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NewsletterFormService } from './services/newsletter-form.service';
+import { BlogWidgetComponent } from '../auth/components/blog/containers/widget/widget.component';
 
 @NgModule({
   imports: [

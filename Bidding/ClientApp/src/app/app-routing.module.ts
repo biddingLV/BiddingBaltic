@@ -1,13 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-// Route guards
-import { AuthGuard } from './auth/guards/auth.guard';
-import { AdminGuard } from './auth/guards/admin.guard';
 // Page components
 import { CallbackComponent } from './pages/callback/callback.component';
-import { ProfileComponent } from './pages/profile/profile.component';
-import { PingComponent } from './pages/ping/ping.component';
-import { HomeComponent } from './pages/home/home.component';
+// import { ProfileComponent } from './pages/profile/profile.component';
+// import { PingComponent } from './pages/ping/ping.component';
+// import { HomeComponent } from './pages/home/home.component';
 // import { ProfileComponent } from './profile/profile.component';
 // import { PingComponent } from './ping/ping.component';
 // import { AdminComponent } from './admin/admin.component';
@@ -21,24 +18,24 @@ const routes: Routes = [
   {
     path: '', loadChildren: './home/home.module#HomeModule'
   },
-  {
-    path: 'noteikumi-un-nosacijumi', loadChildren: './rules/rules.module#RulesModule'
-  },
-  {
-    path: 'gdpr', loadChildren: './gdpr/gdpr.module#GdprModule'
-  },
-  {
-    path: 'pakalpojumi', loadChildren: './services/services.module#ServicesModule'
-  },
-  {
-    path: 'sadarbibas-partneru-piedavajumi', loadChildren: './partners/partners.module#PartnersModule'
-  },
+  // {
+  //   path: 'noteikumi-un-nosacijumi', loadChildren: './rules/rules.module#RulesModule'
+  // },
+  // {
+  //   path: 'gdpr', loadChildren: './gdpr/gdpr.module#GdprModule'
+  // },
+  // {
+  //   path: 'pakalpojumi', loadChildren: './services/services.module#ServicesModule'
+  // },
+  // {
+  //   path: 'sadarbibas-partneru-piedavajumi', loadChildren: './partners/partners.module#PartnersModule'
+  // },
   {
     path: 'callback', component: CallbackComponent
   },
-  { path: 'profile', component: ProfileComponent },
-  { path: 'ping', component: PingComponent },
-  { path: 'home', component: HomeComponent },
+  // { path: 'profile', component: ProfileComponent },
+  // { path: 'ping', component: PingComponent },
+  // { path: 'home', component: HomeComponent },
   {
     path: 'auctions',
     loadChildren: './auctions/auctions.module#AuctionsModule',
@@ -78,10 +75,7 @@ const routes: Routes = [
       scrollPositionRestoration: 'enabled'
     })
   ],
-  providers: [
-    AuthGuard,
-    AdminGuard
-  ],
+  providers: [],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

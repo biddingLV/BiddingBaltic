@@ -7,8 +7,6 @@ import { IEmailSubscribeResponse } from '../models/email-subscribe-response.mode
 import { catchError } from 'node_modules/rxjs/operators';
 import { ExceptionsService } from '../../core';
 import { IWhatsAppSubscribeRequest } from '../models/whatsapp-subscribe-request.model';
-import { ISurveyRequest } from '../models/survey-request.model';
-import { NewsletterModel } from 'src/app/core/models/newsletter/newsletter.model';
 
 
 @Injectable()

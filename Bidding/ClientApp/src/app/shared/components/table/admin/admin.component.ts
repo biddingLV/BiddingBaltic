@@ -7,7 +7,6 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
   styleUrls: []
 })
 export class AdminTableComponent implements OnInit {
-  @Input() adminTable: AuctionModel;
   @Input() numberRows: number;
   // @Input() selected: any[];
 
@@ -27,7 +26,7 @@ export class AdminTableComponent implements OnInit {
   constructor() { }
 
   ngOnInit() {
-    console.log('adminTable', this.adminTable)
+
   }
 
   onPageChange(page) {
