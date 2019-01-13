@@ -1,12 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-// todo: kke: get rid of this!
 @Component({
-  selector: 'app-header2',
+  selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: []
 })
 export class HeaderComponent implements OnInit {
   constructor() { }
 
-  public ngOnInit(): void { }
+  ngOnInit() {
+
+  }
 }

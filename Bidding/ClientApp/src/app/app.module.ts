@@ -8,12 +8,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 // routing
 import { AppRoutingModule } from './app-routing.module';
 
-// import { PingComponent } from './ping/ping.component';
-// import { ProfileComponent } from './profile/profile.component';
-// import { AdminComponent } from './admin/admin.component';
-
 // In-house components
-import { CallbackComponent } from './pages/callback/callback.component';
 import { SubscribeEmailComponent } from './home/components/coming-soon/subscribe/email/email.component';
 import { SubscribeWhatsappComponent } from './home/components/coming-soon/subscribe/whatsapp/whatsapp.component';
 import { AppComponent } from './app.component';
@@ -27,15 +22,16 @@ import { AuctionsModule } from './auctions/auctions.module';
 // 3rd party modules
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import { ModalModule } from 'ngx-bootstrap/modal';
-import { ProfileComponent } from './pages/profile/profile.component';
-import { HomeComponent } from './pages/home/home.component';
+
+// Services
+import { PreviousRouteService } from './shared/services/previous-route.service.ts/previous-route.service';
+import { PageNotFoundComponent } from './auth/components/404-page-not-found/404-page-not-found.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
-    CallbackComponent,
-    ProfileComponent,
-    HomeComponent
+    PageNotFoundComponent
   ],
   imports: [
     BrowserModule,
@@ -52,6 +48,7 @@ import { HomeComponent } from './pages/home/home.component';
     AppRoutingModule
   ],
   providers: [
+    PreviousRouteService
   ],
   bootstrap: [
     AppComponent
@@ -61,4 +58,8 @@ import { HomeComponent } from './pages/home/home.component';
     SubscribeWhatsappComponent
   ]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(private previousRouteService: PreviousRouteService) {
+    previousRouteService.init();
+  }
+}

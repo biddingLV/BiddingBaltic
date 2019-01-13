@@ -7,6 +7,8 @@ import { RouterModule } from '@angular/router';
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { CallbackComponent } from './components/callback/callback.component';
+import { HeaderComponent } from './components/header/header.component';
+
 
 @NgModule({
   imports: [
@@ -14,11 +16,13 @@ import { CallbackComponent } from './components/callback/callback.component';
     RouterModule
   ],
   exports: [
+    HeaderComponent,
     NavbarComponent,
     FooterComponent,
     CallbackComponent
   ],
   declarations: [
+    HeaderComponent,
     NavbarComponent,
     FooterComponent,
     CallbackComponent
