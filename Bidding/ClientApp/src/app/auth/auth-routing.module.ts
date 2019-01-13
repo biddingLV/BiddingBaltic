@@ -7,8 +7,6 @@ import { NoAuthGuard } from '../core/services/auth/no-auth-guard.service';
 
 // internal - components
 import { SignInComponent } from './components/sign-in/sign-in.component';
-import { PageNotFoundComponent } from './components/404-page-not-found/404-page-not-found.component';
-
 
 const routes: Routes = [
   {

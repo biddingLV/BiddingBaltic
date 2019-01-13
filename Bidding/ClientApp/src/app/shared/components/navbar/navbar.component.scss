@@ -1,5 +1,4 @@
-@import '../../../../styles-variables.scss';
-
+@import "../../../../sass/variables";
 ul li a {
   color: white !important;
 }
@@ -19,5 +18,5 @@ ul li a {
 @media only screen and (min-width: map-get($grid-breakpoints, lg)) {
   #bidding-logo {
     height: 56px;
-  }  
+  }
 }

@@ -7,9 +7,6 @@ import { FormsModule } from '@angular/forms';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 // components
-import { HeaderComponent } from './components/header/header.component';
-import { NavbarComponent } from './components/navbar/navbar.component';
-import { FooterComponent } from './components/footer/footer.component';
 import { AuctionsTableComponent } from './components/table/auctions/auctions.component';
 
 // filter components
@@ -27,9 +24,6 @@ import { AdminTableComponent } from './components/table/admin/admin.component';
     // MomentModule
   ],
   exports: [
-    HeaderComponent,
-    NavbarComponent,
-    FooterComponent,
     AuctionsTableComponent,
     AdminTableComponent,
     SearchComponent,
@@ -39,9 +33,6 @@ import { AdminTableComponent } from './components/table/admin/admin.component';
     // MomentModule
   ],
   declarations: [
-    HeaderComponent,
-    NavbarComponent,
-    FooterComponent,
     AuctionsTableComponent,
     AdminTableComponent,
     SearchComponent,
