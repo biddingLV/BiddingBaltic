@@ -5,7 +5,7 @@
   "projects": {
     "ClientApp": {
       "root": "",
-      "sourceRoot": "src",
+      "sourceRoot": "ClientApp/src",
       "projectType": "application",
       "prefix": "app",
       "schematics": {},
@@ -17,10 +17,10 @@
             "index": "ClientApp/src/index.html",
             "main": "ClientApp/src/main.ts",
             "polyfills": "ClientApp/src/polyfills.ts",
-            "tsConfig": "tsconfig.json",
+            "tsConfig": "ClientApp/src/tsconfig.app.json",
             "assets": [
-              "src/favicon.png",
-              "src/assets"
+              "ClientApp/src/favicon.png",
+              "ClientApp/src/assets"
             ],
             "styles": [
               "ClientApp/src/sass/styles.scss",
@@ -70,17 +70,17 @@
         "test": {
           "builder": "@angular-devkit/build-angular:karma",
           "options": {
-            "main": "src/test.ts",
-            "polyfills": "src/polyfills.ts",
-            "tsConfig": "src/tsconfig.spec.json",
-            "karmaConfig": "src/karma.conf.js",
+            "main": "ClientApp/src/test.ts",
+            "polyfills": "ClientApp/src/polyfills.ts",
+            "tsConfig": "ClientApp/src/tsconfig.spec.json",
+            "karmaConfig": "ClientApp/src/karma.conf.js",
             "styles": [
-              "src/styles.css"
+              "ClientApp/src/styles.css"
             ],
             "scripts": [],
             "assets": [
-              "src/favicon.ico",
-              "src/assets"
+              "ClientApp/src/favicon.ico",
+              "ClientApp/src/assets"
             ]
           }
         },
@@ -88,8 +88,8 @@
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "src/tsconfig.json",
-              "src/tsconfig.spec.json"
+              "ClientApp/src/tsconfig.app.json",
+              "ClientApp/src/tsconfig.spec.json"
             ],
             "exclude": [
               "**/node_modules/**"

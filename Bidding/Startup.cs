@@ -102,10 +102,10 @@ namespace Bidding
                 if (!env.IsDevelopment())
                 {
                     // Content Security Policy
-                    context.Response.Headers.Add(
-                        "Content-Security-Policy",
-                        "default-src 'none'; script-src 'self'; connect-src 'self' ws:; img-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self' data:; frame-ancestors 'none'"
-                    );
+                    //context.Response.Headers.Add(
+                    //    "Content-Security-Policy",
+                    //    "default-src 'none'; script-src 'self'; connect-src 'self' ws:; img-src 'self'; style-src 'self' 'unsafe-inline'; font-src 'self' data:; frame-ancestors 'none'"
+                    //);
                 }
 
                 string path = context.Request.Path.Value;
