@@ -18,7 +18,7 @@ export class SignInComponent {
 
   signIn(): void {
     this.auth.login();
-    this.router.navigate(['/']);
+    this.router.navigate(['/auctions']);
   }
 
   signOut(): void {

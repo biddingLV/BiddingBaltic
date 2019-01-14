@@ -19,7 +19,7 @@ export class AuctionsService {
 
 
   getAuctions$(request: AuctionListRequest): Observable<AuctionModel> {
-    const url = '/auctions/search';
+    const url = '/api/auctions/search'
 
     const params = new HttpParams({
       fromObject: {
@@ -34,10 +34,8 @@ export class AuctionsService {
       }
     });
 
-    return this.http.get<AuctionModel>(url, {
-      headers: new HttpHeaders()
-        .set('Authorization', `Bearer ${localStorage.getItem('access_token')}`), params
-    }).pipe(catchError(this.exception.errorHandler));
+    return this.http.get<AuctionModel>(url, { params })
+      .pipe(catchError(this.exception.errorHandler));
   }
 
   getAuctionDetails$(auctionId: string): Observable<AuctionDetailsModel> {
@@ -51,11 +49,9 @@ export class AuctionsService {
 
   // filters
   getCategories$(): Observable<CategoryModel[]> {
-    const url = '/auctions/categories';
+    const url = 'api/auctions/categories';
 
-    return this.http.get<CategoryModel[]>(url, {
-      headers: new HttpHeaders()
-        .set('Authorization', `Bearer ${localStorage.getItem('access_token')}`)
-    }).pipe(catchError(this.exception.errorHandler));
+    return this.http.get<CategoryModel[]>(url)
+      .pipe(catchError(this.exception.errorHandler));
   }
 }
