@@ -1,7 +1,5 @@
-export class CategoryModel {
-  constructor(
-    public Status: boolean,
-    public Name: string,
-    public Id?: number,
-  ) { }
+export interface CategoryModel {
+  Status: boolean,
+  Name: string,
+  Id?: number,
 }

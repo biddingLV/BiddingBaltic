@@ -27,8 +27,19 @@
 
   <ItemGroup>
     <!-- Don't publish the SPA source files, but do show them in the project files list -->
+    <Compile Remove="ClientApp\src\app\auth\models\**" />
+    <Compile Remove="ClientApp\src\app\auth\services\**" />
     <Content Remove="$(SpaRoot)**" />
+    <Content Remove="ClientApp\src\app\auth\models\**" />
+    <Content Remove="ClientApp\src\app\auth\services\**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Remove="ClientApp\src\app\auth\models\**" />
+    <EmbeddedResource Remove="ClientApp\src\app\auth\services\**" />
+    <None Remove="ClientApp\src\app\auth\models\**" />
+    <None Remove="ClientApp\src\app\auth\services\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -49,8 +60,6 @@
     <Folder Include="ClientApp\src\app\admin\services\" />
     <Folder Include="ClientApp\src\app\auth\components\404-page-not-found\" />
     <Folder Include="ClientApp\src\app\auth\components\sign-in\" />
-    <Folder Include="ClientApp\src\app\auth\models\" />
-    <Folder Include="ClientApp\src\app\auth\services\" />
     <Folder Include="ClientApp\src\app\shared\components\callback\" />
     <Folder Include="Shared\ErrorHandling\Validators\" />
   </ItemGroup>

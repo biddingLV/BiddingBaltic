@@ -2,7 +2,7 @@
 
 namespace Bidding.Migrations
 {
-    public partial class UpdateGetAuctionListStoredProcedurev2 : Migration
+    public partial class AddGetAuctionsCorrectVersion : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

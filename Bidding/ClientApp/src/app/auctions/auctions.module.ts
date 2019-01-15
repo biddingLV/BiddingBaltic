@@ -24,7 +24,7 @@ import { AuctionDetailsComponent } from './containers/details/details.component'
     AuctionsRoutingModule
   ],
   exports: [
-
+    AuctionListComponent
   ],
   declarations: [
     AuctionListComponent,

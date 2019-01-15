@@ -2,12 +2,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+// 3rd lib
+import { NgxDatatableModule } from '@swimlane/ngx-datatable'; // todo: kke: do I NEED THIS here?
+
 // routing
 import { AdminRoutingModule } from './admin-routing.module';
 
-// utility
-import { NgxDatatableModule } from '@swimlane/ngx-datatable';
+// internal
 import { SharedModule } from '../shared/shared.module';
+import { AdminListComponent } from './containers/list/list.component';
+import { AuctionsModule } from '../auctions/auctions.module';
 
 
 @NgModule({
@@ -15,13 +19,14 @@ import { SharedModule } from '../shared/shared.module';
     CommonModule,
     AdminRoutingModule,
     NgxDatatableModule,
-    SharedModule
+    SharedModule,
+    AuctionsModule
   ],
   exports: [
 
   ],
   declarations: [
-
+    AdminListComponent
   ],
   providers: [
   ],

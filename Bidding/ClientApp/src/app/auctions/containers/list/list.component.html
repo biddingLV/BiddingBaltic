@@ -2,13 +2,15 @@
   <ng-template [ngIf]="auctionTable.auctions.length">
     <div class="container">
       <div class="row">
-        <div class="col-md-6">
-          <label class="required">Categories:</label>
-          <select class="form-control">
-            <option *ngFor="let category of (categories); let i = index" [value]="category.id">
-              {{category.name}}
-            </option>
-          </select>
+        <div class="col-2">
+          <div class="sidebar">
+            <label class="required">Categories:</label>
+            <ng-select class="form-control" [virtualScroll]="true">
+              <ng-option *ngFor="let category of (categories); let i = index" [value]="category.id">
+                {{category.name}}
+              </ng-option>
+            </ng-select>
+          </div>
         </div>
       </div>
 
@@ -20,8 +22,8 @@
 
       <div class="row">
         <div class="col-md-12">
-          <!-- <app-auctions-table *ngIf="auctionTable.auctions" [auctionTable]="auctionTable" [numberRows]="numberRows"
-            (pageChange)="updateRequest('Page', $event)" (sortChange)="onSortChange($event)" (detailsClick)="onDetailsClick()"></app-auctions-table> -->
+          <app-auctions-table *ngIf="auctionTable.auctions" [auctionTable]="auctionTable" [numberRows]="numberRows"
+            (pageChange)="updateRequest('Page', $event)" (sortChange)="onSortChange($event)" (detailsClick)="onDetailsClick()"></app-auctions-table>
         </div>
       </div>
     </div>

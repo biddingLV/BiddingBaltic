@@ -1,20 +1,19 @@
+// angular
 import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 
-// rxjs
+// 3rd lib
 import { Subscription } from 'rxjs';
-import { Observable } from 'rxjs';
-import { switchMap } from 'rxjs/operators';
 
-// custom
+// internal
 import { AuctionsService } from '../../services/auctions.service';
 import { AuctionModel } from '../../models/list/auction.model';
 import { AuctionListRequest } from '../../models/list/auction-list-request.model';
 import { CategoryModel } from '../../models/filters/category.model';
 import { NotificationsService } from 'ClientApp/src/app/core/services/notifications/notifications.service';
 
+
 @Component({
-  selector: 'auction-list',
+  selector: 'app-auction-list',
   templateUrl: './list.component.html',
   styleUrls: []
 })
@@ -31,9 +30,6 @@ export class AuctionListComponent implements OnInit, OnDestroy, AfterViewInit {
   // filters
   categories: CategoryModel[];
 
-  // utility
-  loading: boolean;
-
   // API
   request: AuctionListRequest;
 
@@ -44,7 +40,7 @@ export class AuctionListComponent implements OnInit, OnDestroy, AfterViewInit {
 
   ngOnInit() {
     this.setupRequest();
-    this.getAuctionList();
+    this.getAuctions();
   }
 
   // Request Update Events
@@ -56,7 +52,7 @@ export class AuctionListComponent implements OnInit, OnDestroy, AfterViewInit {
       this.request.currentPage = 1;
     }
 
-    this.getAuctionList();
+    this.getAuctions();
   }
 
   // Sort Update Events
@@ -67,7 +63,7 @@ export class AuctionListComponent implements OnInit, OnDestroy, AfterViewInit {
     this.request.sortByColumn = event.column.prop;
     this.request.currentPage = 1;
 
-    this.getAuctionList();
+    this.getAuctions();
   }
 
   onDetailsClick(): void {
@@ -96,10 +92,7 @@ export class AuctionListComponent implements OnInit, OnDestroy, AfterViewInit {
     };
   }
 
-  private getAuctionList() {
-    // this.loading = true;
-
-    // Get all (admin) events
+  private getAuctions() {
     this.auctionsSub = this.auctionApi
       .getAuctions$(this.request)
       .subscribe(
