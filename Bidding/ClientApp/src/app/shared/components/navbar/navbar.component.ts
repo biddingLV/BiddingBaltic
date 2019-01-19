@@ -1,7 +1,12 @@
+// angular
 import { Component, OnInit } from '@angular/core';
-import { Router, NavigationEnd } from '@angular/router';
 
+// 3rd lib
 import { ScrollToService, ScrollToConfigOptions } from '@nicky-lenaers/ngx-scroll-to';
+
+// internal
+import { AuthService } from 'ClientApp/src/app/core/services/auth/auth.service';
+
 
 @Component({
   selector: 'app-navbar',
@@ -9,26 +14,29 @@ import { ScrollToService, ScrollToConfigOptions } from '@nicky-lenaers/ngx-scrol
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
-  public username = '';
-  public isAuthenticated = false;
+  username = '';
 
-  constructor(private router: Router, private _scrollToService: ScrollToService) {
-    router.events.subscribe(event => {
-      if (event instanceof NavigationEnd) {
-        // this.isAuthenticated = this.authService.isAuthenticated();
-        this.username = localStorage.getItem('username');
-      }
-    });
+  constructor(public auth: AuthService, private scrollToService: ScrollToService) {
+    if (auth.userInfo) {
+      this.username = this.auth.userInfo.UserName;
+    }
   }
 
-  public ngOnInit(): void { }
+  ngOnInit(): void { }
 
-  public triggerScrollTo() {
+  signIn(): void {
+    this.auth.login();
+  }
 
+  signOut(): void {
+    this.auth.logout();
+  }
+
+  triggerScrollTo(): void {
     const config: ScrollToConfigOptions = {
       target: 'destination'
     };
 
-    this._scrollToService.scrollTo(config);
+    this.scrollToService.scrollTo(config);
   }
 }

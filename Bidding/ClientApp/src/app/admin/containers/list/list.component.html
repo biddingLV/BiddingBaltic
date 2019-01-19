@@ -1,7 +1,36 @@
-<div class="container">
+<div class="container page-content">
   <div class="row">
-    <div class="col-12">
-      <app-auction-list></app-auction-list>
+    <div class="col">
+      <div class="page-title-wrapper">
+        <div class="page-title-text">
+          <h1 class="page-title">Admin</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-2">
+
+    </div>
+
+    <div class="col-10">
+      <div>
+        <button *ngIf="selected.length === 1" value="Edit User" type="button" (click)="editModal()" class="btn btn-primary">
+          Edit
+        </button>
+
+        <button *ngIf="selected.length === 1" value="Delete User" type="button" (click)="deleteModal()" class="btn btn-outline-danger">
+          Delete
+        </button>
+
+        <button value="Add User" type="button" (click)="addModal()" class="btn btn-primary">
+          Add
+        </button>
+      </div>
+
+      <div>
+        <app-auction-list [selected]="selected"></app-auction-list>
+      </div>
     </div>
   </div>
 </div>

@@ -1,9 +1,14 @@
 <!-- header definition -->
 <ngx-datatable class="bootstrap" [rows]="auctionTable.auctions" [columnMode]="'force'" [headerHeight]="50"
   [footerHeight]="50" [rowHeight]="'auto'" [externalSorting]="true" [externalPaging]="true" [count]="auctionTable.itemCount"
-  [offset]="auctionTable.currentPage" [limit]="numberRows" (sort)="onSortChange($event)" [sorts]="[{prop: 'name', dir: 'asc'}]">
+  [offset]="auctionTable.currentPage" [selectionType]="'checkbox'" [limit]="numberRows" (sort)="onSortChange($event)"
+  (select)='onSelect($event)' [sorts]="[{prop: 'name', dir: 'asc'}]" [selected]="selected" [selectAllRowsOnPage]="false"
+  *ngIf="auctionTable.auctions; else loading">
 
   <!-- column definition -->
+  <ngx-datatable-column [width]="30" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false"
+    [headerCheckboxable]="true" [checkboxable]="true">
+  </ngx-datatable-column>
   <ngx-datatable-column [width]="50" prop="name" name="Nosaukums / modelis" [sortable]="true"></ngx-datatable-column>
   <ngx-datatable-column [width]="50" prop="description" name="Apraksts" [sortable]="false"></ngx-datatable-column>
   <ngx-datatable-column [width]="50" prop="price" name="Izsoles sākumcena" [sortable]="true"></ngx-datatable-column>
@@ -33,3 +38,8 @@
     </ng-template>
   </ngx-datatable-footer>
 </ngx-datatable>
+<!-- TODO: KKE: Not working -->
+<ng-template #loading>
+  <div class="loading-indicator">
+  </div>
+</ng-template>

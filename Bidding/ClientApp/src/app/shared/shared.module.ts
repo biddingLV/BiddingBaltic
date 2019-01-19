@@ -14,7 +14,6 @@ import { AuctionsTableComponent } from './components/table/auctions/auctions.com
 import { ArrayDropdownComponent } from './components/dropdowns/array/array.component';
 import { ObjectDropdownComponent } from './components/dropdowns/object/object.component';
 import { SearchComponent } from './components/search/search.component';
-import { AdminTableComponent } from './components/table/admin/admin.component';
 
 @NgModule({
   imports: [
@@ -27,7 +26,6 @@ import { AdminTableComponent } from './components/table/admin/admin.component';
   ],
   exports: [
     AuctionsTableComponent,
-    AdminTableComponent,
     SearchComponent,
     ArrayDropdownComponent,
     ObjectDropdownComponent,
@@ -37,7 +35,6 @@ import { AdminTableComponent } from './components/table/admin/admin.component';
   ],
   declarations: [
     AuctionsTableComponent,
-    AdminTableComponent,
     SearchComponent,
     ArrayDropdownComponent,
     ObjectDropdownComponent

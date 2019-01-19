@@ -9,7 +9,6 @@ import { PageNotFoundComponent } from './auth/components/404-page-not-found/404-
 const routes: Routes = [
   { path: '', loadChildren: './home/home.module#HomeModule' },
   { path: 'home', loadChildren: './home/home.module#HomeModule' },
-  { path: 'sign-in', loadChildren: './auth/auth.module#AuthModule' },
   { path: 'auctions', loadChildren: './auctions/auctions.module#AuctionsModule' },
   { path: 'admin', loadChildren: './admin/admin.module#AdminModule' },
   { path: '**', canActivate: [AuthGuard], component: PageNotFoundComponent, data: { breadcrumb: 'Not Found', hideBreadcrumb: true, title: 'Not Found' } }

@@ -1,13 +1,18 @@
+// angular
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
-import { environment } from '../../../environments/environment';
-import { AuctionModel } from '../models/list/auction.model';
+
+// 3rd lib
 import { catchError } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+
+// internal
+import { AuctionModel } from '../models/list/auction.model';
 import { AuctionListRequest } from '../models/list/auction-list-request.model';
 import { CategoryModel } from '../models/filters/category.model';
 import { AuctionDetailsModel } from '../models/details/auction-details.model';
 import { ExceptionsService } from '../../core/services/exceptions/exceptions.service';
+import { AuctionAddRequest } from '../models/add/auction-add-request.model';
 
 @Injectable()
 export class AuctionsService {
@@ -16,7 +21,6 @@ export class AuctionsService {
     private http: HttpClient,
     private exception: ExceptionsService
   ) { }
-
 
   getAuctions$(request: AuctionListRequest): Observable<AuctionModel> {
     const url = '/api/auctions/search'
@@ -39,7 +43,7 @@ export class AuctionsService {
   }
 
   getAuctionDetails$(auctionId: string): Observable<AuctionDetailsModel> {
-    const url = `/auctions/details?auctionId=${auctionId}`;
+    const url = `api/auctions/details?auctionId=${auctionId}`;
 
     return this.http.get<AuctionDetailsModel>(url, {
       headers: new HttpHeaders()
@@ -52,6 +56,13 @@ export class AuctionsService {
     const url = 'api/auctions/categories';
 
     return this.http.get<CategoryModel[]>(url)
+      .pipe(catchError(this.exception.errorHandler));
+  }
+
+  addAuction$(request: AuctionAddRequest): Observable<boolean> {
+    const url = '/api/auctions/create';
+
+    return this.http.post<boolean>(url, request)
       .pipe(catchError(this.exception.errorHandler));
   }
 }

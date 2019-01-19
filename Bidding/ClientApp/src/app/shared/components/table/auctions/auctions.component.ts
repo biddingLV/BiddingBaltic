@@ -14,10 +14,12 @@ export class AuctionsTableComponent implements OnInit {
   // table
   @Input() numberRows: number;
   @Input() auctionTable: AuctionModel;
+  @Input() selected: any[];
 
   @Output() pageChange = new EventEmitter<number>();
   @Output() sortChange = new EventEmitter<boolean>();
   @Output() detailsClick = new EventEmitter<boolean>();
+  @Output() selectedChange = new EventEmitter<any>();
 
   constructor() { }
 
@@ -35,5 +37,15 @@ export class AuctionsTableComponent implements OnInit {
 
   onDetailsClick() {
     this.detailsClick.emit();
+  }
+
+  onSelect({ selected }) {
+    console.log('Select Event', selected, this.selected);
+
+    this.selected.splice(0, this.selected.length);
+    this.selected.push(...selected);
+
+    console.log('selected: ', selected)
+    this.selectedChange.emit(selected);
   }
 }

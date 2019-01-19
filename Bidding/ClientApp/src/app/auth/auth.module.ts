@@ -12,7 +12,6 @@ import { AuthRoutingModule } from './auth-routing.module';
 import { NoAuthGuard } from '../core/services/auth/no-auth-guard.service';
 
 // internal - Components
-import { SignInComponent } from './components/sign-in/sign-in.component';
 import { PageNotFoundComponent } from './components/404-page-not-found/404-page-not-found.component';
 
 
@@ -23,7 +22,6 @@ import { PageNotFoundComponent } from './components/404-page-not-found/404-page-
     AuthRoutingModule
   ],
   declarations: [
-    SignInComponent,
     PageNotFoundComponent
   ],
   providers: [

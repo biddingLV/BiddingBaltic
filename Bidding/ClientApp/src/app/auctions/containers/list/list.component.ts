@@ -1,5 +1,5 @@
 // angular
-import { Component, OnInit, OnDestroy, AfterViewInit } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit, Output, EventEmitter, Input } from '@angular/core';
 
 // 3rd lib
 import { Subscription } from 'rxjs';
@@ -18,6 +18,11 @@ import { NotificationsService } from 'ClientApp/src/app/core/services/notificati
   styleUrls: []
 })
 export class AuctionListComponent implements OnInit, OnDestroy, AfterViewInit {
+  // pass to child component and
+  // pass back to parent component selected array for table
+  @Input() selected?: any[] = [];
+  @Output() selectedChange = new EventEmitter<any>();
+
   // table
   auctionsSub: Subscription;
   auctionTable: AuctionModel;
@@ -64,6 +69,11 @@ export class AuctionListComponent implements OnInit, OnDestroy, AfterViewInit {
     this.request.currentPage = 1;
 
     this.getAuctions();
+  }
+
+  onSelectedChange(event): void {
+    console.log('auction list - event: ', event)
+    this.selectedChange.emit(event);
   }
 
   onDetailsClick(): void {
