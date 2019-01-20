@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bidding.Shared.ErrorHandling.Errors;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
@@ -22,13 +23,17 @@ namespace Bidding.Shared.Exceptions
             HttpStatusCode = (int)httpStatusCode;
         }
 
-        public WebApiException(int statusCode, string message) : base(message)
+        public WebApiException(int statusCode, string message, Exception innerException = null) : base(message, innerException)
         {
             HttpStatusCode = statusCode;
             UserMessage = message;
         }
 
         public WebApiException(HttpStatusCode statusCode, string message) : this((int)statusCode, message)
+        {
+        }
+
+        public WebApiException(HttpStatusCode statusCode, AuctionErrorMessages message, Exception innerException = null) : this((int)statusCode, EnumHelper.GetDescriptionFromValue(message), innerException)
         {
         }
 

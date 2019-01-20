@@ -10,7 +10,6 @@ import { AuctionsService } from '../../services/auctions.service';
 import { FormService } from 'ClientApp/src/app/core/services/form/form.service';
 import { AuthService } from 'ClientApp/src/app/core/services/auth/auth.service';
 import { NotificationsService } from 'ClientApp/src/app/core/services/notifications/notifications.service';
-import { CustomValidators } from 'ClientApp/src/app/core/services/form/custom.validators';
 import { AuctionAddRequest } from '../../models/add/auction-add-request.model';
 
 // internal
@@ -25,7 +24,7 @@ export class AuctionAddComponent implements OnInit {
   auctionAddForm: FormGroup;
   submitted = false;
   formErrors = {
-    name: '',
+    auctionName: '',
     description: '',
     startingPrice: '',
     startDate: '',
@@ -46,8 +45,7 @@ export class AuctionAddComponent implements OnInit {
     private notification: NotificationsService,
     private fb: FormBuilder,
     private formService: FormService,
-    private authService: AuthService,
-    private modalService: BsModalService
+    private authService: AuthService
   ) {
 
   }
@@ -64,17 +62,17 @@ export class AuctionAddComponent implements OnInit {
     this.formService.markFormGroupTouched(this.auctionAddForm);
 
     if (this.auctionAddForm.valid) {
-      this.initAddRequest();
+      this.setAddRequest();
 
       this.auctionApi.addAuction$(this.auctionAddRequest)
         .subscribe((data: boolean) => {
           addSuccess = data;
           if (addSuccess) {
-            this.notification.success('User successfully added.');
+            this.notification.success('Auction successfully added.');
             this.auctionAddForm.reset();
             this.bsModalRef.hide();
           } else {
-            this.notification.error('Could not add user.');
+            this.notification.error('Could not add auction.');
           }
         },
           (error: string) => this.notification.error(error));
@@ -90,23 +88,19 @@ export class AuctionAddComponent implements OnInit {
 
   private buildForm() {
     this.auctionAddForm = this.fb.group({
-      name: ['', [
-        Validators.required,
+      auctionName: ['', [
         Validators.maxLength(100)
       ]],
       description: ['', [
-        Validators.required,
         Validators.maxLength(100)
       ]],
-      startingPrice: ['', [
-        Validators.required,
+      startingPrice: [, [
         Validators.maxLength(100)
       ]],
-      startDate: [Date.now(), [
+      startDate: ['', [
         Validators.maxLength(100)
       ]],
       creator: ['', [
-        Validators.required
       ]]
     });
 
@@ -118,16 +112,13 @@ export class AuctionAddComponent implements OnInit {
     });
   }
 
-  private initAddRequest() {
+  private setAddRequest() {
     this.auctionAddRequest = {
-      // FirstName: this.userAddForm.value.firstName,
-      // LastName: this.userAddForm.value.lastName,
-      // SignInEmail: this.userAddForm.value.signInEmail,
-      // ContactEmail: this.userAddForm.value.signInEmail,
-      // Phone: this.userAddForm.value.phone,
-      // RoleId: this.userAddForm.value.roles,
-      // Comment: this.userAddForm.value.comment,
-      // OrganizationId: this.authService.userInfo.OrganizationId // todo: kke: this is wrong for the partner page!
+      AuctionName: this.auctionAddForm.value.auctionName,
+      Description: this.auctionAddForm.value.description,
+      StartingPrice: this.auctionAddForm.value.startingPrice,
+      // StartDate: this.auctionAddForm.value.startDate,
+      Creator: this.auctionAddForm.value.creator
     };
   }
 }

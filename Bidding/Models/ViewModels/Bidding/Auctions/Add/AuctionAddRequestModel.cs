@@ -8,6 +8,10 @@ namespace BiddingAPI.Models.ViewModels.Bidding.Auctions
 {
     public class AuctionAddRequestModel
     {
-
+        public string AuctionName { get; set; }
+        public string Description { get; set; }
+        public int StartingPrice { get; set; }
+        //public string StartDate { get; set; }
+        public string Creator { get; set; }
     }
 }

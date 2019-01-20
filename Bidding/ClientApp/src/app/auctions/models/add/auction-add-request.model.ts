@@ -1,9 +1,7 @@
 export interface AuctionAddRequest {
-  // FirstName: string;
-  // LastName: string;
-  // SignInEmail: string;
-  // ContactEmail: string;
-  // Phone: string;
-  // RoleId: number;
-  // OrganizationId: number;
+  AuctionName: string;
+  Description: string;
+  StartingPrice: string;
+  // StartDate: string;
+  Creator: string;
 }

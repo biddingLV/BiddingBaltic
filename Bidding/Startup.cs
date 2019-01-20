@@ -200,7 +200,7 @@ namespace Bidding
                                 .Build();
                     // options.Filters.AddService<AntiforgeryCookieResultFilterAttribute>();
                     options.Filters.Add(new AuthorizeFilter(policy));
-                    options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
+                    // options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()); // TODO: KKE: Check why this is not working for post requests!
                 })
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }

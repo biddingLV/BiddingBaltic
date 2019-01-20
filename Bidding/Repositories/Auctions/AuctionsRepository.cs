@@ -3,14 +3,18 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Bidding.Models.ViewModels.Bidding.Auctions;
 using Bidding.Models.ViewModels.Bidding.Auctions.Details;
 using Bidding.Models.ViewModels.Bidding.Categories;
+using Bidding.Shared.ErrorHandling.Errors;
+using Bidding.Shared.Exceptions;
 using BiddingAPI.Models.DatabaseModels;
 using BiddingAPI.Models.DatabaseModels.Bidding;
 using BiddingAPI.Models.ViewModels.Bidding.Auctions;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace BiddingAPI.Repositories.Auctions
 {
@@ -79,48 +83,43 @@ namespace BiddingAPI.Repositories.Auctions
 
         public bool Update(AuctionEditRequestModel request)
         {
-            //var auction = await m_context.Auctions.FirstOrDefaultAsync(lf => lf.Id == request.Id);
-
-            // logging
-            // var copy = m_context.CopyEntity(license);
-
-            // auction.Count = request.FeatureValue;
-            // m_context.Entry(auction).Property("Count").IsModified = true;
-
-            return m_context.SaveChanges() == 1;
+            return true;
         }
 
         public bool Create(AuctionAddRequestModel request)
         {
 
-            return true;
-            //LicenseFeatures feature = new LicenseFeatures()
-            //{
-            //    LicenseCode = request.LicenseCode,
-            //    FeatureId = request.FeatureId,
-            //    // todo: kke: check what happens with unlimited
-            //    // Unlimited(frontend) === -1(db)
-            //    Count = Convert.ToInt32(request.FeatureValue), // KKE: What if this fails? TryParse would be safer
-            //    Visible = true
-            //};
+            Auction auction = new Auction()
+            {
+                // TODO: KKE: add missing auction stuff!
+            };
 
-            //m_context.Add(feature);
-            //// todo: kke: not sure if this is correct for add/post?
-            //return await m_context.SaveChangesAsync() == 1;
+            var strategy = m_context.Database.CreateExecutionStrategy();
+            strategy.Execute(() =>
+            {
+                try
+                {
+                    using (var transaction = m_context.Database.BeginTransaction())
+                    {
+                        // save the auction
+                        EntityEntry<Auction> newAuction = m_context.Add(auction);
+                        m_context.SaveChanges();
+
+                        transaction.Commit();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.CouldNotCreateAuction);
+                }
+            });
+
+            return true;
         }
 
         public bool Delete(AuctionDeleteRequestModel request)
         {
             return true;
-            //m_context
-            //    .LicenseFeatures
-            //    .RemoveRange(m_context
-            //        .LicenseFeatures
-            //        .Where(lf => request
-            //            .FeatureIds
-            //            .Contains(lf.FeatureId) && lf.LicenseCode == request.LicenseCode));
-
-            //return await m_context.SaveChangesAsync() > 0; // Multiple items might be deleted, so == 1 might return false
         }
     }
 }

@@ -8,10 +8,10 @@
   <form [formGroup]="auctionAddForm">
     <div class="form-group">
       <p>todo:</p>
-      <label class="required">Name:</label>
-      <input type="text" formControlName="name" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.name.errors }" />
-      <div *ngIf="submitted && formErrors.name" class="invalid-feedback">
-        {{formErrors.name}}
+      <label class="required">Auction Name:</label>
+      <input type="text" formControlName="auctionName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.auctionName.errors }" />
+      <div *ngIf="submitted && formErrors.auctionName" class="invalid-feedback">
+        {{formErrors.auctionName}}
       </div>
     </div>
 

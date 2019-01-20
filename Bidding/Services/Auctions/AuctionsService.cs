@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 using Bidding.Models.ViewModels.Bidding.Auctions;
 using Bidding.Models.ViewModels.Bidding.Auctions.Details;
 using Bidding.Models.ViewModels.Bidding.Categories;
+using Bidding.Shared.ErrorHandling.Errors;
+using Bidding.Shared.Exceptions;
+using Bidding.Shared.Utility;
 using BiddingAPI.Models.DatabaseModels;
 using BiddingAPI.Models.DatabaseModels.Bidding;
 using BiddingAPI.Models.ViewModels.Bidding.Auctions;
@@ -93,12 +97,22 @@ namespace BiddingAPI.Services.Auctions
 
         public bool Create(AuctionAddRequestModel request)
         {
+            // todo: kke: add validate that the user is active!
+
+            // validations & permission checks
+            ValidateAuctionCreate(request);
+
             return m_auctionsRepository.Create(request);
         }
 
         public bool Delete(AuctionDeleteRequestModel request)
         {
             return m_auctionsRepository.Delete(request);
+        }
+
+        private void ValidateAuctionCreate(AuctionAddRequestModel request)
+        {
+            if (request.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
         }
     }
 }

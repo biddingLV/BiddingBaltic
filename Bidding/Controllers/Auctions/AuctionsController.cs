@@ -24,26 +24,40 @@ namespace BiddingAPI.Controllers.Auctions
             m_auctionsService = auctionsService ?? throw new ArgumentNullException(nameof(auctionsService));
         }
 
+        /// <summary>
+        /// Gets Auction List
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [HttpGet]
         public IActionResult Search([FromQuery] AuctionListRequestModel request)
         {
             return Ok(m_auctionsService.Search(request));
         }
 
+        /// <summary>
+        /// Gets specific auction details
+        /// </summary>
+        /// <param name="auctionId"></param>
+        /// <returns></returns>
         [HttpGet]
         public IActionResult Details([FromQuery] int auctionId)
         {
             return Ok(m_auctionsService.Details(auctionId));
         }
 
-        // filter
+        // todo: kke: add description
         [HttpGet]
         public IActionResult Categories()
         {
             return Ok(m_auctionsService.Categories());
         }
 
-        // add
+        /// <summary>
+        /// Adds a new auction
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [HttpPost]
         public IActionResult Create([FromBody] AuctionAddRequestModel request)
         {
