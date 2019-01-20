@@ -7,6 +7,7 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 // internal
 import { NotificationsService } from 'ClientApp/src/app/core/services/notifications/notifications.service';
 import { AuctionAddComponent } from 'ClientApp/src/app/auctions/components/add/add.component';
+import { AuctionEditComponent } from 'ClientApp/src/app/auctions/components/edit/edit.component';
 
 
 @Component({
@@ -31,29 +32,25 @@ export class AdminListComponent implements OnInit {
 
   // Modals
   editModal() {
+    
     const initialState = {
-      // userId: this.selected[0].Id,
-      // organizationId: this.selected[0].OrgId,
-      // organizationName: this.selected[0].CompanyName,
-      // signInEmail: this.selected[0].LoginEmail,
-      // roleId: this.selected[0].RoleId,
-      // roleName: this.selected[0].RoleName,
-      // fullName: this.selected[0].FullName,
-      // firstName: this.selected[0].FirstName,
-      // lastName: this.selected[0].LastName
+      auctionName: this.selected[0].name,
+      auctionPrice: this.selected[0].price,
+      auctionStartDate: this.selected[0].startDate,
+      auctionEndDate: this.selected[0].endDate,
+      auctionDescription: this.selected[0].description
     };
 
-    // this.bsModalRef = this.modalService.show(UsersEditComponent, { initialState });
-    // this.bsModalRef.content.closeBtnName = 'Close';
-    // this.selected = [];
-    // this.modalService.onHide.subscribe(() => { this.getUsers(); });
+    this.bsModalRef = this.modalService.show(AuctionEditComponent, { initialState });
+    this.bsModalRef.content.closeBtnName = 'Close';
+    this.modalService.onHide.subscribe(() => { }); // this.getAuctions();
   }
 
   addModal() {
     const initialState = {};
     this.bsModalRef = this.modalService.show(AuctionAddComponent, { initialState });
-    // this.bsModalRef.content.closeBtnName = 'Close';
-    // this.modalService.onHide.subscribe(() => { this.getUsers(); });
+    this.bsModalRef.content.closeBtnName = 'Close';
+    this.modalService.onHide.subscribe(() => { }); // this.getAuctions();
   }
 
   deleteModal() {

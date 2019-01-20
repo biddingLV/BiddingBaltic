@@ -3,16 +3,16 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 // 3rd party
-import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal';
 
 // internal
 import { AuctionsService } from '../../services/auctions.service';
 import { FormService } from 'ClientApp/src/app/core/services/form/form.service';
-import { AuthService } from 'ClientApp/src/app/core/services/auth/auth.service';
 import { NotificationsService } from 'ClientApp/src/app/core/services/notifications/notifications.service';
 import { AuctionAddRequest } from '../../models/add/auction-add-request.model';
 
 // internal
+
 
 @Component({
   selector: 'app-auction-add',
@@ -37,18 +37,13 @@ export class AuctionAddComponent implements OnInit {
   // convenience getter for easy access to form fields
   get f() { return this.auctionAddForm.controls; }
 
-  // modals
-  bsModalRef: BsModalRef;
-
   constructor(
     private auctionApi: AuctionsService,
     private notification: NotificationsService,
     private fb: FormBuilder,
     private formService: FormService,
-    private authService: AuthService
-  ) {
-
-  }
+    public bsModalRef: BsModalRef
+  ) { }
 
   ngOnInit() {
     this.buildForm();

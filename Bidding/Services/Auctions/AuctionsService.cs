@@ -80,9 +80,9 @@ namespace BiddingAPI.Services.Auctions
             return auctionsResponse;
         }
 
-        public AuctionDetailsModel Details(int auctionId)
+        public AuctionDetailsResponseModel Details(AuctionDetailsRequestModel request)
         {
-            return m_auctionsRepository.Details(auctionId);
+            return m_auctionsRepository.Details(request);
         }
 
         public List<CategoryModel> Categories()
@@ -92,6 +92,11 @@ namespace BiddingAPI.Services.Auctions
 
         public bool Update(AuctionEditRequestModel request)
         {
+            // todo: kke: add validate that the user is active!
+
+            // validations & permission checks
+            ValidateAuctionUpdate(request);
+
             return m_auctionsRepository.Update(request);
         }
 
@@ -107,10 +112,25 @@ namespace BiddingAPI.Services.Auctions
 
         public bool Delete(AuctionDeleteRequestModel request)
         {
+            // todo: kke: add validate that the user is active!
+
+            // validations & permission checks
+            ValidateAuctionDelete(request);
+
             return m_auctionsRepository.Delete(request);
         }
 
         private void ValidateAuctionCreate(AuctionAddRequestModel request)
+        {
+            if (request.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
+        }
+
+        private void ValidateAuctionUpdate(AuctionEditRequestModel request)
+        {
+            if (request.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
+        }
+
+        private void ValidateAuctionDelete(AuctionDeleteRequestModel request)
         {
             if (request.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
         }

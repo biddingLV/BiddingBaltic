@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Bidding.Models.ViewModels.Bidding.Auctions;
+using Bidding.Models.ViewModels.Bidding.Auctions.Details;
 using BiddingAPI.Models.DatabaseModels.Bidding;
 using BiddingAPI.Models.ViewModels.Bidding.Auctions;
 using BiddingAPI.Services.Auctions;
@@ -41,9 +42,9 @@ namespace BiddingAPI.Controllers.Auctions
         /// <param name="auctionId"></param>
         /// <returns></returns>
         [HttpGet]
-        public IActionResult Details([FromQuery] int auctionId)
+        public IActionResult Details([FromQuery] AuctionDetailsRequestModel request)
         {
-            return Ok(m_auctionsService.Details(auctionId));
+            return Ok(m_auctionsService.Details(request));
         }
 
         // todo: kke: add description

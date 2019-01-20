@@ -15,7 +15,7 @@ namespace BiddingAPI.Services.Auctions
     {
         AuctionListResponseModel Search(AuctionListRequestModel request);
 
-        AuctionDetailsModel Details(int auctionId);
+        AuctionDetailsResponseModel Details(AuctionDetailsRequestModel request);
 
         List<CategoryModel> Categories();
 

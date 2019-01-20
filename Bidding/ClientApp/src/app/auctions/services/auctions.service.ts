@@ -13,6 +13,7 @@ import { CategoryModel } from '../models/filters/category.model';
 import { AuctionDetailsModel } from '../models/details/auction-details.model';
 import { ExceptionsService } from '../../core/services/exceptions/exceptions.service';
 import { AuctionAddRequest } from '../models/add/auction-add-request.model';
+import { AuctionEditRequest } from '../models/edit/auction-edit-request.model';
 
 @Injectable()
 export class AuctionsService {
@@ -63,6 +64,13 @@ export class AuctionsService {
     const url = '/api/auctions/create';
 
     return this.http.post<boolean>(url, request)
+      .pipe(catchError(this.exception.errorHandler));
+  }
+
+  editAuction$(request: AuctionEditRequest): Observable<boolean> {
+    const url = '/api/auctions/edit';
+
+    return this.http.put<boolean>(url, request)
       .pipe(catchError(this.exception.errorHandler));
   }
 }

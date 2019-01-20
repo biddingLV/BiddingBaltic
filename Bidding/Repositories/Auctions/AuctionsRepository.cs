@@ -59,11 +59,11 @@ namespace BiddingAPI.Repositories.Auctions
             return response;
         }
 
-        public AuctionDetailsModel Details(int auctionId)
+        public AuctionDetailsResponseModel Details(AuctionDetailsRequestModel request)
         {
             return m_context.AuctionDetails
-                .Where(auct => auct.AuctionId == auctionId)
-                .Select(auct => new AuctionDetailsModel
+                .Where(auct => auct.AuctionId == request.AuctionId)
+                .Select(auct => new AuctionDetailsResponseModel
                 {
                     Id = auct.Id,
                     AuctionId = auct.AuctionId,
@@ -88,10 +88,11 @@ namespace BiddingAPI.Repositories.Auctions
 
         public bool Create(AuctionAddRequestModel request)
         {
-
             Auction auction = new Auction()
             {
-                // TODO: KKE: add missing auction stuff!
+                Name = request.AuctionName,
+                Description = request.Description,
+                Price = request.StartingPrice
             };
 
             var strategy = m_context.Database.CreateExecutionStrategy();
@@ -110,6 +111,7 @@ namespace BiddingAPI.Repositories.Auctions
                 }
                 catch (Exception ex)
                 {
+                    // todo: kke: what about the inner exception here?
                     throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.CouldNotCreateAuction);
                 }
             });
