@@ -4,6 +4,6 @@
   </div>
   <input id="search" type="text" class="form-control" [(ngModel)]="searchText" (keydown.enter)="onSearch(searchText)">
   <span class="input-group-append">
-    <button class="btn btn-danger" (click)="resetQuery()" [disabled]="!searchText">&times;</button>
+    <button class="btn btn-danger"  [disabled]="!searchText">&times;</button>
   </span>
 </div>

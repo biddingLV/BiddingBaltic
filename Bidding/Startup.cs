@@ -38,6 +38,7 @@ namespace Bidding
 
             public override void OnResultExecuting(Microsoft.AspNetCore.Mvc.Filters.ResultExecutingContext context)
             {
+                // kke: you can see this in the cookie!
                 var tokens = this.Antiforgery.GetAndStoreTokens(context.HttpContext);
                 context.HttpContext.Response.Cookies.Append("XSRF-TOKEN", tokens.RequestToken, new CookieOptions() { HttpOnly = false });
             }
@@ -172,7 +173,7 @@ namespace Bidding
 
         private void ConfigureAntiCSRF(ref IServiceCollection services)
         {
-            // what is this magic?
+            // kke: what is this magic?
             services.AddAntiforgery(options =>
             {
                 options.HeaderName = "X-XSRF-TOKEN";
@@ -189,7 +190,7 @@ namespace Bidding
         private void ConfigureMVC(ref IServiceCollection services)
         {
             // todo: kke: whats this?
-            //services.AddTransient<AntiforgeryCookieResultFilterAttribute>();
+            services.AddTransient<AntiforgeryCookieResultFilterAttribute>();
 
             services
                 .AddMvc(options =>
@@ -198,9 +199,9 @@ namespace Bidding
                     var policy = new AuthorizationPolicyBuilder()
                                 .RequireAuthenticatedUser()
                                 .Build();
-                    // options.Filters.AddService<AntiforgeryCookieResultFilterAttribute>();
+                    options.Filters.AddService<AntiforgeryCookieResultFilterAttribute>();
                     options.Filters.Add(new AuthorizeFilter(policy));
-                    // options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()); // TODO: KKE: Check why this is not working for post requests!
+                    options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()); // TODO: KKE: Check why this is not working for post requests!
                 })
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }

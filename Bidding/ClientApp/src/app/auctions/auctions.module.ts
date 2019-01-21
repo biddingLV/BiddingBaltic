@@ -18,6 +18,7 @@ import { AuctionDetailsComponent } from './containers/details/details.component'
 import { AuctionMainComponent } from './containers/main/main.component';
 import { AuctionAddComponent } from './components/add/add.component';
 import { AuctionEditComponent } from './components/edit/edit.component';
+import { AuctionDeleteComponent } from './components/delete/delete.component';
 
 @NgModule({
   imports: [
@@ -34,14 +35,16 @@ import { AuctionEditComponent } from './components/edit/edit.component';
     AuctionDetailsComponent,
     AuctionMainComponent,
     AuctionAddComponent,
-    AuctionEditComponent
+    AuctionEditComponent,
+    AuctionDeleteComponent
   ],
   providers: [
     AuctionsService
   ],
   entryComponents: [
     AuctionAddComponent,
-    AuctionEditComponent
+    AuctionEditComponent,
+    AuctionDeleteComponent
   ]
 })
 export class AuctionsModule { }
