@@ -13,8 +13,21 @@ variables:
   buildConfiguration: 'Release'
 
 steps:
-- script: |
-    dotnet build --configuration $(buildConfiguration)
-    dotnet publish --configuration $(buildConfiguration) --output $BUILD_ARTIFACTSTAGINGDIRECTORY
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet restore'
+  inputs:
+    command: restore
+- task: DotNetCoreCLI@2
+  displayName: 'dotnet publish'
+  inputs:
+    command: publish
 
+    publishWebProjects: false 
+
+    arguments: '--output $(build.artifactstagingdirectory) -c Release'
+
+    modifyOutputPath: false
+
+    workingDirectory: '$(System.DefaultWorkingDirectory)/'
 - task: PublishBuildArtifacts@1
+  displayName: 'Publish Artifact: drop'
