@@ -80,12 +80,12 @@ namespace BiddingAPI.Services.Auctions
             return auctionsResponse;
         }
 
-        public AuctionDetailsResponseModel Details(AuctionDetailsRequestModel request)
+        public IEnumerable<AuctionDetailsResponseModel> Details(AuctionDetailsRequestModel request)
         {
             return m_auctionsRepository.Details(request);
         }
 
-        public List<CategoryModel> Categories()
+        public IEnumerable<CategoryModel> Categories()
         {
             return m_auctionsRepository.Categories();
         }

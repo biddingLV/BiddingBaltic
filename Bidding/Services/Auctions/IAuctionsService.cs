@@ -15,9 +15,9 @@ namespace BiddingAPI.Services.Auctions
     {
         AuctionListResponseModel Search(AuctionListRequestModel request);
 
-        AuctionDetailsResponseModel Details(AuctionDetailsRequestModel request);
+        IEnumerable<AuctionDetailsResponseModel> Details(AuctionDetailsRequestModel request);
 
-        List<CategoryModel> Categories();
+        IEnumerable<CategoryModel> Categories();
 
         bool Update(AuctionEditRequestModel request);
 

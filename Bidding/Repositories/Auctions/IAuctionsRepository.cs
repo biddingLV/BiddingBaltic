@@ -15,9 +15,9 @@ namespace BiddingAPI.Repositories.Auctions
     {
         AuctionListResponseModel Search(AuctionListRequestModel request, int start, int end);
 
-        AuctionDetailsResponseModel Details(AuctionDetailsRequestModel request);
+        IQueryable<AuctionDetailsResponseModel> Details(AuctionDetailsRequestModel request);
 
-        List<CategoryModel> Categories();
+        IQueryable<CategoryModel> Categories();
 
         bool Update(AuctionEditRequestModel request);
 

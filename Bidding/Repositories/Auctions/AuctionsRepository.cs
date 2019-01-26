@@ -59,7 +59,7 @@ namespace BiddingAPI.Repositories.Auctions
             return response;
         }
 
-        public AuctionDetailsResponseModel Details(AuctionDetailsRequestModel request)
+        public IQueryable<AuctionDetailsResponseModel> Details(AuctionDetailsRequestModel request)
         {
             return m_context.AuctionDetails
                 .Where(auct => auct.AuctionId == request.AuctionId)
@@ -72,13 +72,12 @@ namespace BiddingAPI.Repositories.Auctions
                     Year = auct.Year,
                     Evaluation = auct.Evaluation,
                     AuctionType = auct.AuctionType
-                }
-                ).FirstOrDefault();
+                });
         }
 
-        public List<CategoryModel> Categories()
+        public IQueryable<CategoryModel> Categories()
         {
-            return m_context.Categories.Select(cat => new CategoryModel { Id = cat.Id, Name = cat.Name }).ToList();
+            return m_context.Categories.Select(cat => new CategoryModel { Id = cat.Id, Name = cat.Name });
         }
 
         public bool Update(AuctionEditRequestModel request)
