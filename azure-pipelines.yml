@@ -24,8 +24,6 @@ steps:
 
     publishWebProjects: false 
 
-    projects: Bidding.csproj
-
     arguments: '--output $(build.artifactstagingdirectory) -c Release'
 
     modifyOutputPath: false
