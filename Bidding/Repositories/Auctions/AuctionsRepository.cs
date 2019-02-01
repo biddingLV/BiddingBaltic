@@ -24,42 +24,21 @@ namespace BiddingAPI.Repositories.Auctions
 
         public AuctionsRepository(BiddingContext context)
         {
-            m_context = context;
+            m_context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public AuctionListResponseModel Search(AuctionListRequestModel request, int start, int end)
+        public IEnumerable<Auction> ListWithSearch(AuctionListRequestModel request, int start, int end)
         {
-            AuctionListResponseModel response = new AuctionListResponseModel();
-
-            IQueryable<AuctionItemModel> dbResult =
-                m_context
-                .AuctionsList
-                .FromSql($"EXEC dbo.[GetAuctions] @startDate = {request.StartDate}, @endDate = {request.EndDate}, @start = {start}, @end = {end}, @sortByColumn = {request.SortByColumn}, @sortingDirection = {request.SortingDirection}");
-
-            // todo: kke: check if this is called two times to get result and count!
-            response.Auctions =
-            dbResult.Select(auct => new AuctionItemModel()
-            {
-                Id = auct.Id,
-                Name = auct.Name,
-                Description = auct.Description,
-                Price = auct.Price,
-                EndDate = auct.EndDate,
-                StartDate = auct.StartDate,
-                CreatorFirstName = auct.CreatorFirstName,
-                CreatorLastName = auct.CreatorLastName,
-                CreatorId = auct.CreatorId
-            })
-            .AsNoTracking()
-            .ToList();
-
-            // todo: kke: add the where condition here!
-            response.ItemCount = m_context.Auctions.Count(); // (auct => auct.StartDate ==);
-
-            return response;
+            return m_context.Execute<Auction>
+                ($"EXEC dbo.[GetAuctions] @startDate = {request.StartDate}, @endDate = {request.EndDate}, @start = {start}, @end = {end}, @sortByColumn = {request.SortByColumn}, @sortingDirection = {request.SortingDirection}");
         }
 
-        public IQueryable<AuctionDetailsResponseModel> Details(AuctionDetailsRequestModel request)
+        public IEnumerable<Auction> TotalAuctionCount(DateTime startDate, DateTime endDate)
+        {
+            return m_context.Auctions.Where(auct => auct.StartDate >= startDate && auct.EndDate <= endDate);
+        }
+
+        public IEnumerable<AuctionDetailsResponseModel> Details(AuctionDetailsRequestModel request)
         {
             return m_context.AuctionDetails
                 .Where(auct => auct.AuctionId == request.AuctionId)
@@ -75,7 +54,7 @@ namespace BiddingAPI.Repositories.Auctions
                 });
         }
 
-        public IQueryable<CategoryModel> Categories()
+        public IEnumerable<CategoryModel> Categories()
         {
             return m_context.Categories.Select(cat => new CategoryModel { Id = cat.Id, Name = cat.Name });
         }

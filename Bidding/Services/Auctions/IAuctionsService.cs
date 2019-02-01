@@ -13,7 +13,7 @@ namespace BiddingAPI.Services.Auctions
 {
     public interface IAuctionsService
     {
-        AuctionListResponseModel Search(AuctionListRequestModel request);
+        AuctionListResponseModel ListWithSearch(AuctionListRequestModel request);
 
         IEnumerable<AuctionDetailsResponseModel> Details(AuctionDetailsRequestModel request);
 

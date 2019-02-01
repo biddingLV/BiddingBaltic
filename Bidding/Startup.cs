@@ -167,7 +167,7 @@ namespace Bidding
             }
             else
             {
-                services.AddHttpsRedirection(options => { options.HttpsPort = 443; });
+                // services.AddHttpsRedirection(options => { options.HttpsPort = 443; });
             }
         }
 
@@ -437,8 +437,8 @@ namespace Bidding
         //    // setup user id and organization id claims
         //    List<Claim> claims = new List<Claim>
         //    {
-        //        new Claim("UserId", user.Id.ToString(), ClaimValueTypes.Integer, "TimeXtender"),
-        //        new Claim("OrganizationId", user.OrgId.ToString(), ClaimValueTypes.Integer, "TimeXtender")
+        //        new Claim("UserId", user.Id.ToString(), ClaimValueTypes.Integer, "Bidding"),
+        //        new Claim("OrganizationId", user.OrgId.ToString(), ClaimValueTypes.Integer, "Bidding")
         //    };
 
         //    // handle super admin claims

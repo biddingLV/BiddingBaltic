@@ -2,12 +2,9 @@
 using System.Collections.Generic;
 using Bidding.Models.DatabaseModels.Bidding;
 using Bidding.Models.DatabaseModels.Bidding.Subscribe;
-using Bidding.Models.ViewModels.Bidding.Auctions;
-using Bidding.Models.ViewModels.Bidding.Categories;
 using Bidding.Shared.Database;
 using BiddingAPI.Models.DatabaseModels.Bidding;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace BiddingAPI.Models.DatabaseModels
 {
@@ -39,6 +36,6 @@ namespace BiddingAPI.Models.DatabaseModels
         public virtual DbSet<AuctionCreator> AuctionCreators { get; set; }
 
         // DbQueries
-        public virtual DbQuery<AuctionItemModel> AuctionsList { get; set; }
+        //public virtual DbQuery<AuctionItem> AuctionList { get; set; }
     }
 }

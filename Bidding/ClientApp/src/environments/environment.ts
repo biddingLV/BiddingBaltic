@@ -4,8 +4,8 @@
 
 export const environment = {
   production: false,
-  authClientID: '',
-  authDomain: '',
+  authClientID: 'QKrbvTxwlaDq6qhfAtqHoYL3g6KmYccZ',
+  authDomain: 'biddinglv.eu.auth0.com',
   authAudience: 'http://localhost:62411',
   authRedirectUri: 'http://localhost:4200',
   authLoginUri: 'http://localhost:62411/start/auth/login',

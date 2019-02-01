@@ -26,14 +26,14 @@ namespace BiddingAPI.Controllers.Auctions
         }
 
         /// <summary>
-        /// Gets Auction List
+        /// Gets Auction list and also used for to search for auction
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpGet]
         public IActionResult Search([FromQuery] AuctionListRequestModel request)
         {
-            return Ok(m_auctionsService.Search(request));
+            return Ok(m_auctionsService.ListWithSearch(request));
         }
 
         /// <summary>

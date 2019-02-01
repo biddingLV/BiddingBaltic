@@ -25,18 +25,22 @@ namespace BiddingAPI.Services.Auctions
             m_auctionsRepository = auctionRepository ?? throw new ArgumentNullException(nameof(auctionRepository));
         }
 
-        public AuctionListResponseModel Search(AuctionListRequestModel request)
+        public AuctionListResponseModel ListWithSearch(AuctionListRequestModel request)
         {
-            // implement this when the list request model is done!
-            // todo: kke: validate all request values!
+            // validate required inputs
+            ValidateAuctionListWithSearch(request);
 
-            // pagination
+            // pagination assignments
             int startFromThisItem = request.OffsetStart;
             int takeUntilThisItem = request.OffsetEnd;
             int startFrom = Math.Max(startFromThisItem - 1, 0) * takeUntilThisItem;
             int endAt = startFrom + takeUntilThisItem;
 
-            AuctionListResponseModel auctionsResponse = m_auctionsRepository.Search(request, startFrom, endAt);
+            AuctionListResponseModel auctionsResponse = new AuctionListResponseModel()
+            {
+                Auctions = m_auctionsRepository.ListWithSearch(request, startFrom, endAt).ToList(),
+                ItemCount = m_auctionsRepository.TotalAuctionCount(request.StartDate, request.EndDate).Count()
+            };
 
             int totalPages = 0;
             //check if total data < pagesize
@@ -66,17 +70,8 @@ namespace BiddingAPI.Services.Auctions
                 return auctionsResponse;
             }
 
-            // prob not really needed here anymore!
-            //if (((startFromThisItem - 1) * takeUntilThisItem) < 0)
-            //{
-            //    auctionsResponse.Offset = 0;
-            //}
-            //else
-            //{
-            //    auctionsResponse.Offset = (startFromThisItem - 1) * takeUntilThisItem;
-            //}
-
             auctionsResponse.CurrentPage = request.CurrentPage;
+
             return auctionsResponse;
         }
 
@@ -118,6 +113,21 @@ namespace BiddingAPI.Services.Auctions
             ValidateAuctionDelete(request);
 
             return m_auctionsRepository.Delete(request);
+        }
+
+        private void ValidateAuctionListWithSearch(AuctionListRequestModel request)
+        {
+            if (request.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
+            if (request.StartDate.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
+            if (request.EndDate.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
+            if (request.SortByColumn.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
+            if (request.SortingDirection.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
+            if (request.OffsetStart < 0) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
+            if (request.OffsetEnd.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
+            if (request.CurrentPage < 0) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
+
+            // todo: kke: sorting direction can only be -> asc | desc
+            // todo: kke: sort by column can only be, whats in the list?
         }
 
         private void ValidateAuctionCreate(AuctionAddRequestModel request)

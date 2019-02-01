@@ -13,7 +13,7 @@ import { filter, map, mergeMap } from 'rxjs/operators';
 })
 export class AppComponent implements OnInit {
   public title = 'app';
-  private defaultTitle: string = 'TimeXtender User Portal';
+  private defaultTitle: string = 'Bidding Portal';
   hideHeader: boolean = true;
   hideFooter: boolean = true;
 

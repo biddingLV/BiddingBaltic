@@ -20,17 +20,17 @@ import { NotificationsService } from 'ClientApp/src/app/core/services/notificati
 export class AuctionListComponent implements OnInit, OnDestroy, AfterViewInit {
   // pass to child component and
   // pass back to parent component selected array for table
-  @Input() selected?: any[] = [];
-  @Output() selectedChange = new EventEmitter<any>();
+  @Input() selected?: any[] = []; // todo: kke: specify correct type!
+  @Output() selectedChange = new EventEmitter<any>(); // todo: kke: specify correct type!
 
   // table
   auctionsSub: Subscription;
   auctionTable: AuctionModel;
 
   // pagination || form
-  numberRows = 15;
-  searchValue = '';
-  currentPage = 0;
+  numberRows: number = 15;
+  searchValue: string = '';
+  currentPage: number = 0;
 
   // filters
   categories: CategoryModel[];
@@ -43,13 +43,12 @@ export class AuctionListComponent implements OnInit, OnDestroy, AfterViewInit {
     private notification: NotificationsService
   ) { }
 
-  ngOnInit() {
-    this.setupRequest();
+  ngOnInit(): void {
     this.getAuctions();
   }
 
   // Request Update Events
-  updateRequest(property: string, event) {
+  updateRequest(property: string, event): void {
     if (property === 'Page') {
       this.request.currentPage = event.page;
     } else {
@@ -80,17 +79,17 @@ export class AuctionListComponent implements OnInit, OnDestroy, AfterViewInit {
     console.log('yay, someone just clicked on the details page!')
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     if (this.auctionsSub) {
       this.auctionsSub.unsubscribe();
     }
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     this.loadCategoryFilter();
   }
 
-  private setupRequest(): void {
+  private setupAuctionRequest(): void {
     this.request = {
       starDate: new Date(),
       endDate: new Date(),
@@ -102,7 +101,9 @@ export class AuctionListComponent implements OnInit, OnDestroy, AfterViewInit {
     };
   }
 
-  private getAuctions() {
+  private getAuctions(): void {
+    this.setupAuctionRequest();
+
     this.auctionsSub = this.auctionApi
       .getAuctions$(this.request)
       .subscribe(
@@ -111,7 +112,7 @@ export class AuctionListComponent implements OnInit, OnDestroy, AfterViewInit {
       );
   }
 
-  private loadCategoryFilter() {
+  private loadCategoryFilter(): void {
     // get all categories for the filter
     this.auctionsSub = this.auctionApi
       .getCategories$()

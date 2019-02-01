@@ -1,6 +1,6 @@
 // angular
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 // 3rd lib
 import { catchError } from 'rxjs/operators';
@@ -15,9 +15,11 @@ import { ExceptionsService } from '../../core/services/exceptions/exceptions.ser
 import { AuctionAddRequest } from '../models/add/auction-add-request.model';
 import { AuctionEditRequest } from '../models/edit/auction-edit-request.model';
 
-@Injectable()
-export class AuctionsService {
 
+@Injectable({
+  providedIn: 'root'
+})
+export class AuctionsService {
   constructor(
     private http: HttpClient,
     private exception: ExceptionsService
@@ -28,13 +30,13 @@ export class AuctionsService {
 
     const params = new HttpParams({
       fromObject: {
-        startDate: request.starDate.toString(),
-        endDate: request.endDate.toString(),
+        startDate: '01/12/2018',// request.starDate.toString(),
+        endDate: '01/12/2019', // request.endDate.toString(),
         sortByColumn: request.sortByColumn.toString(),
         sortingDirection: request.sortingDirection.toString(),
         offsetEnd: request.sizeOfPage.toString(),
         offsetStart: request.currentPage.toString(),
-        searchValue: request.searchValue.toString(),
+        searchValue: request.searchValue.toString(), // todo: kke if null or undefined set to be ''!
         currentPage: request.currentPage.toString()
       }
     });
@@ -46,13 +48,11 @@ export class AuctionsService {
   getAuctionDetails$(auctionId: string): Observable<AuctionDetailsModel> {
     const url = `api/auctions/details?auctionId=${auctionId}`;
 
-    return this.http.get<AuctionDetailsModel>(url, {
-      headers: new HttpHeaders()
-        .set('Authorization', `Bearer ${localStorage.getItem('access_token')}`)
-    }).pipe(catchError(this.exception.errorHandler));
+    return this.http.get<AuctionDetailsModel>(url)
+      .pipe(catchError(this.exception.errorHandler));
   }
 
-  // filters
+  // filters - rename to be getFilters - get all filters for the page
   getCategories$(): Observable<CategoryModel[]> {
     const url = 'api/auctions/categories';
 

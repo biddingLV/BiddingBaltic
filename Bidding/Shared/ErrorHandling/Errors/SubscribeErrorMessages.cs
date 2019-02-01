@@ -8,8 +8,6 @@ namespace Bidding.Shared.ErrorHandling.Errors
 {
     public enum SubscribeErrorMessages
     {
-        // todo: kke: add missing error messages
-        [Description("xxx")]
-        UserNotActive,
+
     }
 }
