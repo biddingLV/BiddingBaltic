@@ -35,7 +35,7 @@ namespace BiddingAPI.Repositories.Auctions
 
         public IEnumerable<Auction> TotalAuctionCount(DateTime startDate, DateTime endDate)
         {
-            return m_context.Auctions.Where(auct => auct.StartDate >= startDate && auct.EndDate <= endDate);
+            return m_context.Auctions.Where(auct => auct.AuctionStartDate >= startDate && auct.AuctionEndDate <= endDate);
         }
 
         public IEnumerable<AuctionDetailsResponseModel> Details(AuctionDetailsRequestModel request)
@@ -56,7 +56,7 @@ namespace BiddingAPI.Repositories.Auctions
 
         public IEnumerable<CategoryModel> Categories()
         {
-            return m_context.Categories.Select(cat => new CategoryModel { Id = cat.Id, Name = cat.Name });
+            return m_context.Categories.Select(cat => new CategoryModel { Id = cat.CategoryId, Name = cat.CategoryName });
         }
 
         public bool Update(AuctionEditRequestModel request)
@@ -68,9 +68,8 @@ namespace BiddingAPI.Repositories.Auctions
         {
             Auction auction = new Auction()
             {
-                Name = request.AuctionName,
-                Description = request.Description,
-                Price = request.StartingPrice
+                AuctionName = request.AuctionName,
+                AuctionStartingPrice = request.StartingPrice
             };
 
             var strategy = m_context.Database.CreateExecutionStrategy();

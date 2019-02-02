@@ -4,14 +4,16 @@ using BiddingAPI.Models.DatabaseModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Bidding.Migrations
 {
     [DbContext(typeof(BiddingContext))]
-    partial class BiddingContextModelSnapshot : ModelSnapshot
+    [Migration("20190202120414_UpdateAuctionAndCategoryTables")]
+    partial class UpdateAuctionAndCategoryTables
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -101,7 +103,7 @@ namespace Bidding.Migrations
 
             modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.CategoryType", b =>
                 {
-                    b.Property<int>("CategoryTypeId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -109,13 +111,13 @@ namespace Bidding.Migrations
 
                     b.Property<int>("TypeId");
 
-                    b.HasKey("CategoryTypeId");
+                    b.HasKey("Id");
 
                     b.HasIndex("CategoryId");
 
                     b.HasIndex("TypeId");
 
-                    b.ToTable("CategoryTypes");
+                    b.ToTable("CategoryType");
                 });
 
             modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.Feature", b =>
@@ -131,17 +133,13 @@ namespace Bidding.Migrations
 
             modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.Product", b =>
                 {
-                    b.Property<int>("ProductId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("ProductName")
-                        .IsRequired()
-                        .HasMaxLength(50);
+                    b.HasKey("Id");
 
-                    b.HasKey("ProductId");
-
-                    b.ToTable("Products");
+                    b.ToTable("Product");
                 });
 
             modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.ProductDetail", b =>
@@ -165,24 +163,22 @@ namespace Bidding.Migrations
 
             modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.Type", b =>
                 {
-                    b.Property<int>("TypeId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("TypeName")
-                        .IsRequired()
-                        .HasMaxLength(50);
+                    b.Property<string>("Name");
 
-                    b.Property<bool>("TypeStatus");
+                    b.Property<bool>("Status");
 
-                    b.HasKey("TypeId");
+                    b.HasKey("Id");
 
-                    b.ToTable("Types");
+                    b.ToTable("Type");
                 });
 
             modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.TypeProduct", b =>
                 {
-                    b.Property<int>("TypeProductId")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
@@ -190,13 +186,13 @@ namespace Bidding.Migrations
 
                     b.Property<int>("TypeId");
 
-                    b.HasKey("TypeProductId");
+                    b.HasKey("Id");
 
                     b.HasIndex("ProductId");
 
                     b.HasIndex("TypeId");
 
-                    b.ToTable("TypeProducts");
+                    b.ToTable("TypeProduct");
                 });
 
             modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.Bidding.AuctionCategory", b =>

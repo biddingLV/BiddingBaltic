@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BiddingAPI.Models.DatabaseModels
 {
@@ -11,9 +13,16 @@ namespace BiddingAPI.Models.DatabaseModels
             TypeProducts = new HashSet<TypeProduct>();
         }
 
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public bool Status { get; set; }
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        public int TypeId { get; set; }
+
+        [Required]
+        [MaxLength(50)]
+        public string TypeName { get; set; }
+
+        [Required]
+        public bool TypeStatus { get; set; }
 
         public ICollection<CategoryType> CategoryTypes { get; set; }
         public ICollection<TypeProduct> TypeProducts { get; set; }

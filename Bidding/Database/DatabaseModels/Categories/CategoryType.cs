@@ -5,7 +5,7 @@ namespace BiddingAPI.Models.DatabaseModels
 {
     public partial class CategoryType
     {
-        public int Id { get; set; }
+        public int CategoryTypeId { get; set; }
         public int CategoryId { get; set; }
         public int TypeId { get; set; }
 

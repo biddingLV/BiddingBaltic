@@ -64,6 +64,7 @@
     <Folder Include="ClientApp\src\app\admin\services\" />
     <Folder Include="ClientApp\src\app\auth\components\404-page-not-found\" />
     <Folder Include="ClientApp\src\app\shared\components\callback\" />
+    <Folder Include="Database\DatabaseModels\Users\" />
     <Folder Include="Shared\ErrorHandling\Validators\" />
   </ItemGroup>
 

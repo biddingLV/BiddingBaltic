@@ -7,7 +7,7 @@ namespace BiddingAPI.Models.DatabaseModels.Bidding
 {
     public partial class AuctionCategory
     {
-        public int Id { get; set; }
+        public int AuctionCategoryId { get; set; }
         public int CategoryId { get; set; }
         public int AuctionId { get; set; }
 
