@@ -8,7 +8,7 @@ namespace BiddingAPI.Models.ViewModels.Bidding.Auctions
 {
     public class AuctionListRequestModel : BaseListRequestModel
     {
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
+        public string AuctionStartDate { get; set; }
+        public string AuctionEndDate { get; set; }
     }
 }

@@ -9,11 +9,11 @@ import { Observable } from 'rxjs';
 // internal
 import { AuctionModel } from '../models/list/auction.model';
 import { AuctionListRequest } from '../models/list/auction-list-request.model';
-import { CategoryModel } from '../models/filters/category.model';
 import { AuctionDetailsModel } from '../models/details/auction-details.model';
 import { ExceptionsService } from '../../core/services/exceptions/exceptions.service';
 import { AuctionAddRequest } from '../models/add/auction-add-request.model';
 import { AuctionEditRequest } from '../models/edit/auction-edit-request.model';
+import { AuctionFilterModel } from '../models/filters/auction-filter.model';
 
 
 @Injectable({
@@ -45,18 +45,17 @@ export class AuctionsService {
       .pipe(catchError(this.exception.errorHandler));
   }
 
+  getFilters$(): Observable<AuctionFilterModel> {
+    const url = '/api/auctions/filters'
+
+    return this.http.get<AuctionFilterModel>(url)
+      .pipe(catchError(this.exception.errorHandler));
+  }
+
   getAuctionDetails$(auctionId: string): Observable<AuctionDetailsModel> {
     const url = `api/auctions/details?auctionId=${auctionId}`;
 
     return this.http.get<AuctionDetailsModel>(url)
-      .pipe(catchError(this.exception.errorHandler));
-  }
-
-  // filters - rename to be getFilters - get all filters for the page
-  getCategories$(): Observable<CategoryModel[]> {
-    const url = 'api/auctions/categories';
-
-    return this.http.get<CategoryModel[]>(url)
       .pipe(catchError(this.exception.errorHandler));
   }
 

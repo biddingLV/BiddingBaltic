@@ -7,7 +7,7 @@ using System.Net;
 using System.Threading.Tasks;
 using Bidding.Models.ViewModels.Bidding.Auctions;
 using Bidding.Models.ViewModels.Bidding.Auctions.Details;
-using Bidding.Models.ViewModels.Bidding.Categories;
+using Bidding.Models.ViewModels.Bidding.Filters;
 using Bidding.Shared.ErrorHandling.Errors;
 using Bidding.Shared.Exceptions;
 using BiddingAPI.Models.DatabaseModels;
@@ -30,12 +30,23 @@ namespace BiddingAPI.Repositories.Auctions
         public IEnumerable<Auction> ListWithSearch(AuctionListRequestModel request, int start, int end)
         {
             return m_context.Execute<Auction>
-                ($"EXEC dbo.[GetAuctions] @startDate = {request.StartDate}, @endDate = {request.EndDate}, @start = {start}, @end = {end}, @sortByColumn = {request.SortByColumn}, @sortingDirection = {request.SortingDirection}");
+                ($"EXEC dbo.[GetAuctions] @startDate = {request.AuctionStartDate}, @endDate = {request.AuctionEndDate}, @start = {start}, @end = {end}, @sortByColumn = {request.SortByColumn}, @sortingDirection = {request.SortingDirection}");
         }
 
-        public IEnumerable<Auction> TotalAuctionCount(DateTime startDate, DateTime endDate)
+        /// <summary>
+        /// Gets total auction count based on specific date/time range
+        /// </summary>
+        /// <param name="startDate">Start date</param>
+        /// <param name="endDate">End date</param>
+        /// <returns></returns>
+        public IEnumerable<Auction> TotalAuctionCount(DateTime auctionStartDate, DateTime auctionEndDate)
         {
-            return m_context.Auctions.Where(auct => auct.AuctionStartDate >= startDate && auct.AuctionEndDate <= endDate);
+            return m_context.Auctions.Where(auct => auct.AuctionStartDate >= auctionStartDate && auct.AuctionEndDate <= auctionEndDate);
+        }
+
+        public IEnumerable<Category> LoadTopCategories()
+        {
+            return m_context.Categories.Select(cat => new Category { CategoryId = cat.CategoryId, CategoryName = cat.CategoryName });
         }
 
         public IEnumerable<AuctionDetailsResponseModel> Details(AuctionDetailsRequestModel request)
@@ -52,11 +63,6 @@ namespace BiddingAPI.Repositories.Auctions
                     Evaluation = auct.Evaluation,
                     AuctionType = auct.AuctionType
                 });
-        }
-
-        public IEnumerable<CategoryModel> Categories()
-        {
-            return m_context.Categories.Select(cat => new CategoryModel { Id = cat.CategoryId, Name = cat.CategoryName });
         }
 
         public bool Update(AuctionEditRequestModel request)

@@ -7,7 +7,7 @@ export interface AuctionItem {
   startDate: Date;
   endDate: Date;
   price: number;
-  name: string;
+  auctionName: string;
   description: string;
   id: number;
   creatorFirstName: string;

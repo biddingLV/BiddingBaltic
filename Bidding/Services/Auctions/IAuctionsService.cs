@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Bidding.Models.ViewModels.Bidding.Auctions;
 using Bidding.Models.ViewModels.Bidding.Auctions.Details;
-using Bidding.Models.ViewModels.Bidding.Categories;
+using Bidding.Models.ViewModels.Bidding.Filters;
 using BiddingAPI.Models.DatabaseModels;
 using BiddingAPI.Models.DatabaseModels.Bidding;
 using BiddingAPI.Models.ViewModels.Bidding.Auctions;
@@ -15,9 +15,9 @@ namespace BiddingAPI.Services.Auctions
     {
         AuctionListResponseModel ListWithSearch(AuctionListRequestModel request);
 
-        IEnumerable<AuctionDetailsResponseModel> Details(AuctionDetailsRequestModel request);
+        AuctionFilterModel Filters();
 
-        IEnumerable<CategoryModel> Categories();
+        IEnumerable<AuctionDetailsResponseModel> Details(AuctionDetailsRequestModel request);
 
         bool Update(AuctionEditRequestModel request);
 

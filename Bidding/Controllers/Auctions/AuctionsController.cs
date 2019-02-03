@@ -37,6 +37,16 @@ namespace BiddingAPI.Controllers.Auctions
         }
 
         /// <summary>
+        /// Loads filters for auction list
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        public IActionResult Filters()
+        {
+            return Ok(m_auctionsService.Filters());
+        }
+
+        /// <summary>
         /// Gets specific auction details
         /// </summary>
         /// <param name="auctionId"></param>
@@ -45,13 +55,6 @@ namespace BiddingAPI.Controllers.Auctions
         public IActionResult Details([FromQuery] AuctionDetailsRequestModel request)
         {
             return Ok(m_auctionsService.Details(request));
-        }
-
-        // todo: kke: add description
-        [HttpGet]
-        public IActionResult Categories()
-        {
-            return Ok(m_auctionsService.Categories());
         }
 
         /// <summary>
@@ -71,6 +74,7 @@ namespace BiddingAPI.Controllers.Auctions
             return Ok(m_auctionsService.Update(request));
         }
 
+        // toodo: kke: it can be from fromUrl for delete!
         [HttpDelete]
         public IActionResult Delete([FromBody] AuctionDeleteRequestModel request)
         {

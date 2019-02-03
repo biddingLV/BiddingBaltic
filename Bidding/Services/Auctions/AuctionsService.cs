@@ -5,7 +5,7 @@ using System.Net;
 using System.Threading.Tasks;
 using Bidding.Models.ViewModels.Bidding.Auctions;
 using Bidding.Models.ViewModels.Bidding.Auctions.Details;
-using Bidding.Models.ViewModels.Bidding.Categories;
+using Bidding.Models.ViewModels.Bidding.Filters;
 using Bidding.Shared.ErrorHandling.Errors;
 using Bidding.Shared.Exceptions;
 using Bidding.Shared.Utility;
@@ -39,7 +39,7 @@ namespace BiddingAPI.Services.Auctions
             AuctionListResponseModel auctionsResponse = new AuctionListResponseModel()
             {
                 Auctions = m_auctionsRepository.ListWithSearch(request, startFrom, endAt).ToList(),
-                ItemCount = m_auctionsRepository.TotalAuctionCount(request.StartDate, request.EndDate).Count()
+                ItemCount = m_auctionsRepository.TotalAuctionCount(DateTime.Now, DateTime.Now).Count()
             };
 
             int totalPages = 0;
@@ -75,15 +75,21 @@ namespace BiddingAPI.Services.Auctions
             return auctionsResponse;
         }
 
+        public AuctionFilterModel Filters()
+        {
+            return new AuctionFilterModel()
+            {
+                TopCategories = m_auctionsRepository.LoadTopCategories().ToList(),
+                TopCategoryCount = 3
+            };
+        }
+
         public IEnumerable<AuctionDetailsResponseModel> Details(AuctionDetailsRequestModel request)
         {
             return m_auctionsRepository.Details(request);
         }
 
-        public IEnumerable<CategoryModel> Categories()
-        {
-            return m_auctionsRepository.Categories();
-        }
+
 
         public bool Update(AuctionEditRequestModel request)
         {
@@ -115,19 +121,34 @@ namespace BiddingAPI.Services.Auctions
             return m_auctionsRepository.Delete(request);
         }
 
+        /// <summary>
+        /// Validate auction list permissions and input values
+        /// </summary>
+        /// <param name="request"></param>
         private void ValidateAuctionListWithSearch(AuctionListRequestModel request)
         {
             if (request.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
-            if (request.StartDate.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
-            if (request.EndDate.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
+            // if (request.AuctionStartDate.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
+            // if (request.AuctionEndDate.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
             if (request.SortByColumn.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
             if (request.SortingDirection.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
             if (request.OffsetStart < 0) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
             if (request.OffsetEnd.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
             if (request.CurrentPage < 0) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
 
-            // todo: kke: sorting direction can only be -> asc | desc
-            // todo: kke: sort by column can only be, whats in the list?
+            // sorting direction can only be ascending || descending
+            //if (request.SortingDirection != "asc" || request.SortingDirection != "desc")
+            //{
+            //    throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation);
+            //}
+
+            // todo: kke: maybe use here enum?
+            //if (request.SortByColumn != "AuctionName" || request.SortByColumn != "AuctionStartingPrice" || request.SortByColumn != "AuctionStartDate" || request.SortByColumn != "AuctionEndDate")
+            //{
+            //    throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation);
+            //}
+
+            // todo: kke: validate start date and end date and convert string to date time
         }
 
         private void ValidateAuctionCreate(AuctionAddRequestModel request)

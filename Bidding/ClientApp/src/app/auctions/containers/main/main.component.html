@@ -1,22 +1,39 @@
 <div class="container page-content">
+  <!-- Page title -->
   <div class="row">
-    <div class="col">
-      <div class="page-title-wrapper">
-        <div class="page-title-text">
-          <h1 class="page-title">Auctions</h1>
-        </div>
-      </div>
+    <div class="col-12">
+      <h1>Auctions</h1>
     </div>
   </div>
+
+  <!-- Filters -->
   <div class="row">
-    <div class="col-2">
-      <div class="sidebar">
-        <!-- <object-dropdown [config]="roleDdConfig" (idChange)="onRoleChange($event)"></object-dropdown>
-        <object-dropdown [config]="orgDdConfig" (idChange)="onOrganizationChange($event)"></object-dropdown> -->
+    <div class="col-3">
+      <div class="form-group">
+        <label>Top-category:</label>
+        <ng-select [clearable]="false" [virtualScroll]="true">
+          <ng-option *ngFor="let cat of filters.topCategories; let i = index" [value]="cat.categoryId" (idChange)="onTopCategoryChange($event)">
+            {{cat.categoryName}}
+          </ng-option>
+        </ng-select>
       </div>
     </div>
 
-    <div class="col-10">
+    <div class="col-3">
+      <div class="form-group">
+        <label>Sub-category:</label>
+        <ng-select [clearable]="false" [virtualScroll]="true">
+          <ng-option>
+            -
+          </ng-option>
+        </ng-select>
+      </div>
+    </div>
+  </div>
+
+  <!-- List/Table -->
+  <div class="row">
+    <div class="col-12">
       <app-auction-list></app-auction-list>
     </div>
   </div>

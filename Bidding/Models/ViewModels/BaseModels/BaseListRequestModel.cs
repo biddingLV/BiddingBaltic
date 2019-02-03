@@ -13,10 +13,10 @@ namespace BiddingAPI.Models.ViewModels.BaseModels
         // for example, asc or desc
         public string SortingDirection { get; set; }
 
-        // for example, magic
+        // for example, magic, auto
         public string SearchValue { get; set; }
 
-        // start from 0 or 10, 100
+        // start from 0 or 10, 100 and so on
         public int OffsetStart { get; set; }
 
         // take only till 10, 20, 100

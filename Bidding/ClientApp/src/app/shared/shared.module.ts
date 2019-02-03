@@ -19,10 +19,9 @@ import { SearchComponent } from './components/search/search.component';
   imports: [
     CommonModule,
     RouterModule,
+    NgSelectModule,
     FormsModule,
-    NgxDatatableModule,
-    NgSelectModule
-    // MomentModule
+    NgxDatatableModule
   ],
   exports: [
     AuctionsTableComponent,
@@ -31,7 +30,6 @@ import { SearchComponent } from './components/search/search.component';
     ObjectDropdownComponent,
     FormsModule,
     NgSelectModule
-    // MomentModule
   ],
   declarations: [
     AuctionsTableComponent,

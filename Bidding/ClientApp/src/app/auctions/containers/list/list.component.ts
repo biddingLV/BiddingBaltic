@@ -3,12 +3,12 @@ import { Component, OnInit, OnDestroy, AfterViewInit, Output, EventEmitter, Inpu
 
 // 3rd lib
 import { Subscription } from 'rxjs';
+import * as moment from 'moment-mini';
 
 // internal
 import { AuctionsService } from '../../services/auctions.service';
 import { AuctionModel } from '../../models/list/auction.model';
 import { AuctionListRequest } from '../../models/list/auction-list-request.model';
-import { CategoryModel } from '../../models/filters/category.model';
 import { NotificationsService } from 'ClientApp/src/app/core/services/notifications/notifications.service';
 
 
@@ -17,7 +17,7 @@ import { NotificationsService } from 'ClientApp/src/app/core/services/notificati
   templateUrl: './list.component.html',
   styleUrls: []
 })
-export class AuctionListComponent implements OnInit, OnDestroy, AfterViewInit {
+export class AuctionListComponent implements OnInit, OnDestroy {
   // pass to child component and
   // pass back to parent component selected array for table
   @Input() selected?: any[] = []; // todo: kke: specify correct type!
@@ -30,10 +30,7 @@ export class AuctionListComponent implements OnInit, OnDestroy, AfterViewInit {
   // pagination || form
   numberRows: number = 15;
   searchValue: string = '';
-  currentPage: number = 0;
-
-  // filters
-  categories: CategoryModel[];
+  currentPage: number = 1;
 
   // API
   request: AuctionListRequest;
@@ -71,7 +68,6 @@ export class AuctionListComponent implements OnInit, OnDestroy, AfterViewInit {
   }
 
   onSelectedChange(event): void {
-    console.log('auction list - event: ', event)
     this.selectedChange.emit(event);
   }
 
@@ -85,18 +81,15 @@ export class AuctionListComponent implements OnInit, OnDestroy, AfterViewInit {
     }
   }
 
-  ngAfterViewInit(): void {
-    this.loadCategoryFilter();
-  }
 
   private setupAuctionRequest(): void {
     this.request = {
-      starDate: new Date(),
-      endDate: new Date(),
+      auctionStartDate: moment().subtract(365, 'days').format('DD/MM/YYYY 00:00:01'),
+      auctionEndDate: moment().format('DD/MM/YYYY 23:59:59'),
       sizeOfPage: this.numberRows,
       currentPage: this.currentPage,
-      sortByColumn: 'Name',
-      sortingDirection: 'asc',
+      sortByColumn: 'AuctionName', // by default sort by auction name
+      sortingDirection: 'asc', // by default ascending
       searchValue: this.searchValue
     };
   }
@@ -108,16 +101,6 @@ export class AuctionListComponent implements OnInit, OnDestroy, AfterViewInit {
       .getAuctions$(this.request)
       .subscribe(
         (result: AuctionModel) => { this.auctionTable = result; },
-        (error: string) => this.notification.error(error)
-      );
-  }
-
-  private loadCategoryFilter(): void {
-    // get all categories for the filter
-    this.auctionsSub = this.auctionApi
-      .getCategories$()
-      .subscribe(
-        (result: CategoryModel[]) => { this.categories = result; },
         (error: string) => this.notification.error(error)
       );
   }
