@@ -11,9 +11,9 @@
     <div class="col-3">
       <div class="form-group">
         <label>Top-category:</label>
-        <ng-select [clearable]="false" [virtualScroll]="true">
+        <ng-select [clearable]="false" [virtualScroll]="true" [multiple]="true" [closeOnSelect]="false" placeholder="Select category">
           <ng-option *ngFor="let cat of filters.topCategories; let i = index" [value]="cat.categoryId" (idChange)="onTopCategoryChange($event)">
-            {{cat.categoryName}}
+            {{cat.categoryName}} ({{filters.topCategoryCount}})
           </ng-option>
         </ng-select>
       </div>
@@ -22,9 +22,8 @@
     <div class="col-3">
       <div class="form-group">
         <label>Sub-category:</label>
-        <ng-select [clearable]="false" [virtualScroll]="true">
+        <ng-select [clearable]="false" [virtualScroll]="true" placeholder="Select category type">
           <ng-option>
-            -
           </ng-option>
         </ng-select>
       </div>
