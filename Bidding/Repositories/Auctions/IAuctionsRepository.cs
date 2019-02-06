@@ -13,14 +13,18 @@ namespace BiddingAPI.Repositories.Auctions
         IEnumerable<Auction> ListWithSearch(AuctionListRequestModel request, int start, int end);
 
         /// <summary>
-        /// Gets total auction count based on specific date/time range
+        /// Gets total auction count based on specific date/time range for pagination
         /// </summary>
         /// <param name="startDate">Start date</param>
         /// <param name="endDate">End date</param>
         /// <returns></returns>
         IEnumerable<Auction> TotalAuctionCount(DateTime startDate, DateTime endDate);
 
-        IEnumerable<Category> LoadTopCategories();
+        /// <summary>
+        /// Loads top categories with total count
+        /// </summary>
+        /// <returns></returns>
+        IEnumerable<TopCategoryFilterModel> LoadTopCategories();
 
         IEnumerable<AuctionDetailsResponseModel> Details(AuctionDetailsRequestModel request);
 

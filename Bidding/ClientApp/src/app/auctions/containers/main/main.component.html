@@ -13,7 +13,7 @@
         <label>Top-category:</label>
         <ng-select [clearable]="false" [virtualScroll]="true" [multiple]="true" [closeOnSelect]="false" placeholder="Select category">
           <ng-option *ngFor="let cat of filters.topCategories; let i = index" [value]="cat.categoryId" (idChange)="onTopCategoryChange($event)">
-            {{cat.categoryName}} ({{filters.topCategoryCount}})
+            {{cat.categoryName}} ({{cat.categoryTotalCount}})
           </ng-option>
         </ng-select>
       </div>

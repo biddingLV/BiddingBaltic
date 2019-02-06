@@ -11,10 +11,11 @@ import { AuctionEditComponent } from 'ClientApp/src/app/auctions/components/edit
 
 
 @Component({
-  templateUrl: './list.component.html',
+  selector: 'app-admin-auction-list',
+  templateUrl: './auction-list.component.html',
   styleUrls: []
 })
-export class AdminListComponent implements OnInit {
+export class AdminAuctionListComponent implements OnInit {
   // table
   selected = [];
 
@@ -32,7 +33,7 @@ export class AdminListComponent implements OnInit {
 
   // Modals
   editModal() {
-    
+
     const initialState = {
       auctionName: this.selected[0].name,
       auctionPrice: this.selected[0].price,

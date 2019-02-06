@@ -29,7 +29,7 @@ export class AuctionMainComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.loadFilters();
+    this.loadFilters(); // todo: kke: maybe load this after auction list load done?
   }
 
   // Filters

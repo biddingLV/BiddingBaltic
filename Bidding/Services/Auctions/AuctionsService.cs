@@ -75,12 +75,15 @@ namespace BiddingAPI.Services.Auctions
             return auctionsResponse;
         }
 
+        /// <summary>
+        /// Loads all filters, top category filter and sub-category filter
+        /// </summary>
+        /// <returns></returns>
         public AuctionFilterModel Filters()
         {
             return new AuctionFilterModel()
             {
-                TopCategories = m_auctionsRepository.LoadTopCategories().ToList(),
-                TopCategoryCount = 3
+                TopCategories = m_auctionsRepository.LoadTopCategories().ToList()
             };
         }
 

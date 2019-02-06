@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Bidding.Models.DatabaseModels.Bidding;
 using Bidding.Models.DatabaseModels.Bidding.Subscribe;
+using Bidding.Models.ViewModels.Bidding.Filters;
 using Bidding.Shared.Database;
 using BiddingAPI.Models.DatabaseModels.Bidding;
 using Microsoft.EntityFrameworkCore;
@@ -35,7 +36,7 @@ namespace BiddingAPI.Models.DatabaseModels
         //public virtual DbSet<Newsletter> Newsletters { get; set; }
         //public virtual DbSet<AuctionCreator> AuctionCreators { get; set; }
 
-        // DbQueries
-        //public virtual DbQuery<AuctionItem> AuctionList { get; set; }
+        // Database Queries for stored procedures / views
+        public DbQuery<TopCategoryFilterModel> TopCategoryFilter { get; set; }
     }
 }

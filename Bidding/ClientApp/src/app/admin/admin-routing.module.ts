@@ -3,10 +3,12 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 // internal
-import { AdminListComponent } from './containers/list/list.component';
+import { AdminMainComponent, } from './containers/main/main.component';
+import { AdminCategoryListComponent } from './containers/category-list/category-list.component';
 
 const routes: Routes = [
-  { path: '', component: AdminListComponent },
+  { path: '', component: AdminMainComponent },
+  { path: '/kategorijas', component: AdminCategoryListComponent },
 ];
 
 @NgModule({

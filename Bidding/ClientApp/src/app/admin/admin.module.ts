@@ -10,8 +10,10 @@ import { AdminRoutingModule } from './admin-routing.module';
 
 // internal
 import { SharedModule } from '../shared/shared.module';
-import { AdminListComponent } from './containers/list/list.component';
 import { AuctionsModule } from '../auctions/auctions.module';
+import { AdminMainComponent } from './containers/main/main.component';
+import { AdminAuctionListComponent } from './containers/auction-list/auction-list.component';
+import { AdminCategoryListComponent } from './containers/category-list/category-list.component';
 
 
 @NgModule({
@@ -26,7 +28,9 @@ import { AuctionsModule } from '../auctions/auctions.module';
 
   ],
   declarations: [
-    AdminListComponent
+    AdminMainComponent,
+    AdminAuctionListComponent,
+    AdminCategoryListComponent
   ],
   providers: [
   ],

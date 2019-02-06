@@ -1,6 +1,5 @@
-import { Category } from "ClientApp/src/app/core/models/base/category.model";
+import { TopCategoryFilterModel } from "./top-category-filter.model";
 
 export class AuctionFilterModel {
-  TopCategories: Category[];
-  TopCategoryCount: number;
+  TopCategories: TopCategoryFilterModel[];
 }

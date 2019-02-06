@@ -44,9 +44,13 @@ namespace BiddingAPI.Repositories.Auctions
             return m_context.Auctions.Where(auct => auct.AuctionStartDate >= auctionStartDate && auct.AuctionEndDate <= auctionEndDate);
         }
 
-        public IEnumerable<Category> LoadTopCategories()
+        /// <summary>
+        /// Loads top categories with total count
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<TopCategoryFilterModel> LoadTopCategories()
         {
-            return m_context.Categories.Select(cat => new Category { CategoryId = cat.CategoryId, CategoryName = cat.CategoryName });
+            return m_context.TopCategoryFilter.FromSql("GetTopCategoriesWithCount");
         }
 
         public IEnumerable<AuctionDetailsResponseModel> Details(AuctionDetailsRequestModel request)
