@@ -1,19 +1,20 @@
 <!-- header definition -->
 <ngx-datatable class="bootstrap" [rows]="auctionTable.auctions" [columnMode]="'force'" [headerHeight]="50"
-  [footerHeight]="50" [rowHeight]="'auto'" [externalSorting]="true" [externalPaging]="true" [count]="auctionTable.itemCount"
-  [offset]="auctionTable.currentPage" [selectionType]="'checkbox'" [limit]="numberRows" (sort)="onSortChange($event)"
-  (select)='onSelect($event)' [sorts]="[{prop: 'name', dir: 'asc'}]" [selected]="selected" [selectAllRowsOnPage]="false"
-  *ngIf="auctionTable.auctions; else loading">
+  [footerHeight]="50" [rowHeight]="'auto'" [externalSorting]="true" [externalPaging]="true"
+  [count]="auctionTable.itemCount" [offset]="auctionTable.currentPage" [selectionType]="'checkbox'" [limit]="numberRows"
+  (sort)="onSortChange($event)" (select)='onSelect($event)' [sorts]="[{prop: 'name', dir: 'asc'}]" [selected]="selected"
+  [selectAllRowsOnPage]="false">
 
   <!-- column definition -->
   <ngx-datatable-column [width]="30" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false"
     [headerCheckboxable]="true" [checkboxable]="true">
   </ngx-datatable-column>
-  <ngx-datatable-column [width]="50" prop="name" name="Nosaukums / modelis" [sortable]="true"></ngx-datatable-column>
-  <ngx-datatable-column [width]="50" prop="description" name="Apraksts" [sortable]="false"></ngx-datatable-column>
-  <ngx-datatable-column [width]="50" prop="price" name="Izsoles sākumcena" [sortable]="true"></ngx-datatable-column>
-  <ngx-datatable-column [width]="50" prop="endDate" name="Jāpiesakās izsolei" [sortable]="true"></ngx-datatable-column>
-  <ngx-datatable-column [width]="50" prop="creator" name="Izsoles veidotājs" [sortable]="true"></ngx-datatable-column>
+  <ngx-datatable-column [width]="50" prop="auctionName" name="Nosaukums / modelis" [sortable]="true"></ngx-datatable-column>
+  <ngx-datatable-column [width]="50" prop="auctionStartingPrice" name="Izsoles sākumcena" [sortable]="true"></ngx-datatable-column>
+  <ngx-datatable-column [width]="50" prop="auctionEndDate" name="Jāpiesakās izsolei" [sortable]="true"></ngx-datatable-column>
+  <ngx-datatable-column [width]="50" prop="" name="Izsoles statuss" [sortable]="true"></ngx-datatable-column>
+  <!-- todo: kke: add auction creator when permission implemented -->
+  <!-- <ngx-datatable-column [width]="50" prop="creator" name="Izsoles statuss" [sortable]="true"></ngx-datatable-column> -->
 
   <!-- todo: kke: this is not working! -->
   <ngx-datatable-column [width]="60" name="Details" prop="id">
@@ -31,8 +32,9 @@
         </div>
       </div>
 
-      <datatable-pager style="text-align:center" [pagerLeftArrowIcon]="'datatable-icon-left'" [pagerRightArrowIcon]="'datatable-icon-right'"
-        [pagerPreviousIcon]="'datatable-icon-prev'" [pagerNextIcon]="'datatable-icon-skip'" [size]="numberRows" [count]="auctionTable.itemCount"
+      <datatable-pager style="text-align:center" [pagerLeftArrowIcon]="'datatable-icon-left'"
+        [pagerRightArrowIcon]="'datatable-icon-right'" [pagerPreviousIcon]="'datatable-icon-prev'"
+        [pagerNextIcon]="'datatable-icon-skip'" [size]="numberRows" [count]="auctionTable.itemCount"
         (change)="onPageChange($event)">
       </datatable-pager>
     </ng-template>

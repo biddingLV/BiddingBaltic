@@ -30,13 +30,13 @@ export class AuctionsService {
 
     const params = new HttpParams({
       fromObject: {
-        startDate: '01/12/2018',// request.starDate.toString(),
-        endDate: '01/12/2019', // request.endDate.toString(),
+        startDate: request.auctionStartDate.toString(),
+        endDate: request.auctionEndDate.toString(),
         sortByColumn: request.sortByColumn.toString(),
         sortingDirection: request.sortingDirection.toString(),
         offsetEnd: request.sizeOfPage.toString(),
         offsetStart: request.currentPage.toString(),
-        searchValue: request.searchValue.toString(), // todo: kke if null or undefined set to be ''!
+        searchValue: request.searchValue.toString(),
         currentPage: request.currentPage.toString()
       }
     });

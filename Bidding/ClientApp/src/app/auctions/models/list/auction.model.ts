@@ -4,13 +4,9 @@ export interface AuctionModel extends AuctionItem {
   itemCount: number;
 }
 export interface AuctionItem {
-  startDate: Date;
-  endDate: Date;
-  price: number;
+  auctionId: number;
   auctionName: string;
-  description: string;
-  id: number;
-  creatorFirstName: string;
-  creatorLastName: string;
-  creatorId: number;
+  auctionStartingPrice: number;
+  auctionStartDate: Date;
+  auctionEndDate: Date;
 }

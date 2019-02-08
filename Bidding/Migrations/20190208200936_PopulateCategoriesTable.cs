@@ -8,17 +8,17 @@ namespace Bidding.Migrations
         {
             migrationBuilder.InsertData(
                 table: "Categories",
-                columns: new[] { "Id", "Name", "Status" },
+                columns: new[] { "CategoryId", "CategoryName", "CategoryStatus" },
                 values: new object[] { "1", "Transports", true });
 
             migrationBuilder.InsertData(
                 table: "Categories",
-                columns: new[] { "Id", "Name", "Status" },
+                columns: new[] { "CategoryId", "CategoryName", "CategoryStatus" },
                 values: new object[] { "2", "Manta", true });
 
             migrationBuilder.InsertData(
                 table: "Categories",
-                columns: new[] { "Id", "Name", "Status" },
+                columns: new[] { "CategoryId", "CategoryName", "CategoryStatus" },
                 values: new object[] { "3", "Nekustamais īpašums", true });
         }
 
@@ -26,17 +26,17 @@ namespace Bidding.Migrations
         {
             migrationBuilder.DeleteData(
                 table: "Categories",
-                keyColumn: "Id",
+                keyColumn: "CategoryId",
                 keyValue: 1);
 
             migrationBuilder.DeleteData(
                 table: "Categories",
-                keyColumn: "Id",
+                keyColumn: "CategoryId",
                 keyValue: 2);
 
             migrationBuilder.DeleteData(
                 table: "Categories",
-                keyColumn: "Id",
+                keyColumn: "CategoryId",
                 keyValue: 3);
         }
     }

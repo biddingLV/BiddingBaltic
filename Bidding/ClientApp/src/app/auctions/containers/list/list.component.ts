@@ -81,11 +81,10 @@ export class AuctionListComponent implements OnInit, OnDestroy {
     }
   }
 
-
   private setupAuctionRequest(): void {
     this.request = {
-      auctionStartDate: moment().subtract(365, 'days').format('DD/MM/YYYY 00:00:01'),
-      auctionEndDate: moment().format('DD/MM/YYYY 23:59:59'),
+      auctionStartDate: moment().subtract(365, 'days').format('DD/MM/YYYY'),
+      auctionEndDate: moment().format('DD/MM/YYYY'),
       sizeOfPage: this.numberRows,
       currentPage: this.currentPage,
       sortByColumn: 'AuctionName', // by default sort by auction name

@@ -23,23 +23,22 @@ export class AuctionsTableComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
-
+  ngOnInit(): void {
   }
 
-  onPageChange(page) {
+  onPageChange(page): void {
     this.pageChange.emit(page);
   }
 
-  onSortChange(event) {
+  onSortChange(event): void {
     this.sortChange.emit(event);
   }
 
-  onDetailsClick() {
+  onDetailsClick(): void {
     this.detailsClick.emit();
   }
 
-  onSelect({ selected }) {
+  onSelect({ selected }): void {
     console.log('Select Event', selected, this.selected);
 
     this.selected.splice(0, this.selected.length);

@@ -47,19 +47,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\20181001163510_AddEstateCategoryToNewsletter.cs" />
-    <Compile Remove="Migrations\20181001163510_AddEstateCategoryToNewsletter.Designer.cs" />
-    <Compile Remove="Migrations\20181101191507_TestingDbQueries.cs" />
-    <Compile Remove="Migrations\20181101191507_TestingDbQueries.Designer.cs" />
-    <Compile Remove="Migrations\20181105190509_UpdateCategoriesTable.cs" />
-    <Compile Remove="Migrations\20181105190509_UpdateCategoriesTable.Designer.cs" />
-    <Compile Remove="Migrations\20181105190551_AddNameAndStatusToCategoriesTable.cs" />
-    <Compile Remove="Migrations\20181105190551_AddNameAndStatusToCategoriesTable.Designer.cs" />
-    <Compile Remove="Migrations\20181115194232_ImproveAuctionDetailsTable.cs" />
-    <Compile Remove="Migrations\20181115194232_ImproveAuctionDetailsTable.Designer.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="ClientApp\src\app\admin\containers\" />
     <Folder Include="ClientApp\src\app\admin\services\" />
     <Folder Include="ClientApp\src\app\auth\components\404-page-not-found\" />

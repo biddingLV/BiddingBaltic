@@ -16,6 +16,7 @@ namespace BiddingAPI.Models.DatabaseModels
         {
         }
 
+        // Note: DbSets structurized also by connections
         public virtual DbSet<AuctionDetail> AuctionDetails { get; set; }
         public virtual DbSet<Auction> Auctions { get; set; }
         public virtual DbSet<AuctionCategory> AuctionCategories { get; set; }
