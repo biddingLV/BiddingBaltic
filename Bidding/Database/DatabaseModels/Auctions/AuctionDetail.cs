@@ -7,7 +7,7 @@ namespace BiddingAPI.Models.DatabaseModels.Bidding
 {
     public class AuctionDetail
     {
-        // kke: WIP!
+        // todo: kke: improve naming here!
         public int Id { get; set; }
         public int AuctionId { get; set; }
         public string VehicleRegistrationNumber { get; set; }
