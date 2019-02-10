@@ -59,13 +59,13 @@ namespace BiddingAPI.Repositories.Auctions
                 .Where(auct => auct.AuctionId == request.AuctionId)
                 .Select(auct => new AuctionDetailsResponseModel
                 {
-                    Id = auct.Id,
-                    AuctionId = auct.AuctionId,
-                    VRN = auct.VehicleRegistrationNumber,
-                    VIN = auct.VehicleIdentificationNumber,
-                    Year = auct.Year,
-                    Evaluation = auct.Evaluation,
-                    AuctionType = auct.AuctionType
+                    Id = auct.AuctionDetailsId,
+                    //AuctionId = auct.AuctionId,
+                    //VRN = auct.VehicleRegistrationNumber,
+                    //VIN = auct.VehicleIdentificationNumber,
+                    //Year = auct.Year,
+                    //Evaluation = auct.Evaluation,
+                    //AuctionType = auct.AuctionType
                 });
         }
 

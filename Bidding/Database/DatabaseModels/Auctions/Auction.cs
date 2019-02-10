@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bidding.Database.DatabaseModels.Auctions;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -33,9 +34,9 @@ namespace BiddingAPI.Models.DatabaseModels.Bidding
         [DataType(DataType.Date)]
         public DateTime AuctionEndDate { get; set; }
 
-        // todo: kke: add auction creator id?
+        public AuctionDetails Details { get; set; }
 
-        [ForeignKey("AuctionId")] // todo: kke: do I need to specify this here?
+        [ForeignKey("AuctionId")]
         public ICollection<AuctionCategory> AuctionCategories { get; set; }
     }
 }

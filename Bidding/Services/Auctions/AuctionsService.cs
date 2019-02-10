@@ -36,10 +36,15 @@ namespace BiddingAPI.Services.Auctions
             int startFrom = Math.Max(startFromThisItem - 1, 0) * takeUntilThisItem;
             int endAt = startFrom + takeUntilThisItem;
 
+            // todo: kke: remove after testing done!
+            string dateInString = "01/12/2018";
+            DateTime startDate = DateTime.Parse(dateInString);
+            DateTime expiryDate = startDate.AddDays(365);
+
             AuctionListResponseModel auctionsResponse = new AuctionListResponseModel()
             {
                 Auctions = m_auctionsRepository.ListWithSearch(request, startFrom, endAt).ToList(),
-                ItemCount = m_auctionsRepository.TotalAuctionCount(DateTime.Now, DateTime.Now).Count()
+                ItemCount = m_auctionsRepository.TotalAuctionCount(startDate, expiryDate).Count()
             };
 
             int totalPages = 0;

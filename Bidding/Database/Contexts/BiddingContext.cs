@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Bidding.Database.DatabaseModels.Auctions;
 using Bidding.Models.DatabaseModels.Bidding;
 using Bidding.Models.DatabaseModels.Bidding.Subscribe;
 using Bidding.Models.ViewModels.Bidding.Filters;
@@ -17,7 +18,8 @@ namespace BiddingAPI.Models.DatabaseModels
         }
 
         // Note: DbSets structurized also by connections
-        public virtual DbSet<AuctionDetail> AuctionDetails { get; set; }
+        public virtual DbSet<AuctionDetails> AuctionDetails { get; set; }
+        public virtual DbSet<AuctionStatus> AuctionStatuses { get; set; }
         public virtual DbSet<Auction> Auctions { get; set; }
         public virtual DbSet<AuctionCategory> AuctionCategories { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
@@ -39,5 +41,14 @@ namespace BiddingAPI.Models.DatabaseModels
 
         // Database Queries for stored procedures / views
         public DbQuery<TopCategoryFilterModel> TopCategoryFilter { get; set; }
+
+        // todo: kke: do we need this here?
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<AuctionDetails>()
+                .HasOne(p => p.AuctionStatus)
+                .WithOne(i => i.AuctionDetails)
+                .HasForeignKey<AuctionStatus>(b => b.AuctionForeignKey);
+        }
     }
 }
