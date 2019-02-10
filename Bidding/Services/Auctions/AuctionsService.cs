@@ -88,7 +88,8 @@ namespace BiddingAPI.Services.Auctions
         {
             return new AuctionFilterModel()
             {
-                TopCategories = m_auctionsRepository.LoadTopCategories().ToList()
+                TopCategories = m_auctionsRepository.LoadTopCategories().ToList(),
+                SubCategories = m_auctionsRepository.LoadSubCategories().ToList()
             };
         }
 

@@ -32,11 +32,6 @@ export class AuctionMainComponent implements OnInit {
     this.loadFilters(); // todo: kke: maybe load this after auction list load done?
   }
 
-  // Filters
-  onTopCategoryChange(topCategoryId: number): void {
-    console.log('id: ', topCategoryId)
-  }
-
   // load filter values
   private loadFilters(): void {
     this.filtersSub = this.auctionApi.getFilters$()

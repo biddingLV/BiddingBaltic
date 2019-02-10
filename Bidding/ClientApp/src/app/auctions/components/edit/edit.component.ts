@@ -115,12 +115,12 @@ export class AuctionEditComponent implements OnInit {
 
   private setAddRequest() {
     this.auctionEditRequest = {
-      AuctionId: 1,
-      AuctionName: this.auctionEditForm.value.auctionName,
-      Description: this.auctionEditForm.value.description,
-      StartingPrice: this.auctionEditForm.value.startingPrice,
+      auctionId: 1,
+      auctionName: this.auctionEditForm.value.auctionName,
+      description: this.auctionEditForm.value.description,
+      startingPrice: this.auctionEditForm.value.startingPrice,
       // StartDate: this.auctionAddForm.value.startDate,
-      Creator: this.auctionEditForm.value.creator
+      creator: this.auctionEditForm.value.creator
     };
   }
 }

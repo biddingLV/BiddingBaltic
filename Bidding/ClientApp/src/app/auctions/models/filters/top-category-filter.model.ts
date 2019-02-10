@@ -1,5 +1,5 @@
 export interface TopCategoryFilterModel {
-  CategoryId: number;
-  CategoryName: string;
+  categoryId: number;
+  categoryName: string;
   categoryTotalCount: number;
 }

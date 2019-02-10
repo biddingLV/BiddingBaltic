@@ -1,5 +1,7 @@
 import { TopCategoryFilterModel } from "./top-category-filter.model";
+import { SubCategoryFilterModel } from "./sub-category-filter.model";
 
 export class AuctionFilterModel {
-  TopCategories: TopCategoryFilterModel[];
+  topCategories: TopCategoryFilterModel[];
+  subCategories: SubCategoryFilterModel[];
 }

@@ -18,8 +18,8 @@ namespace BiddingAPI.Models.DatabaseModels
         }
 
         // Note: DbSets structurized also by connections
-        public virtual DbSet<AuctionDetails> AuctionDetails { get; set; }
         public virtual DbSet<AuctionStatus> AuctionStatuses { get; set; }
+        public virtual DbSet<AuctionDetails> AuctionDetails { get; set; }
         public virtual DbSet<Auction> Auctions { get; set; }
         public virtual DbSet<AuctionCategory> AuctionCategories { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
@@ -41,6 +41,7 @@ namespace BiddingAPI.Models.DatabaseModels
 
         // Database Queries for stored procedures / views
         public DbQuery<TopCategoryFilterModel> TopCategoryFilter { get; set; }
+        public DbQuery<SubCategoryFilterModel> SubCategoryFilter { get; set; }
 
         // todo: kke: do we need this here?
         protected override void OnModelCreating(ModelBuilder modelBuilder)

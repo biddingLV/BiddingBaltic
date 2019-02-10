@@ -9,5 +9,6 @@ namespace Bidding.Models.ViewModels.Bidding.Filters
     public class AuctionFilterModel
     {
         public List<TopCategoryFilterModel> TopCategories { get; set; }
+        public List<SubCategoryFilterModel> SubCategories { get; set; }
     }
 }

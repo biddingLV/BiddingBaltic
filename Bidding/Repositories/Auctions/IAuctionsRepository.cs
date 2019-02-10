@@ -26,6 +26,12 @@ namespace BiddingAPI.Repositories.Auctions
         /// <returns></returns>
         IEnumerable<TopCategoryFilterModel> LoadTopCategories();
 
+        /// <summary>
+        /// Loads sub-categories with total count
+        /// </summary>
+        /// <returns></returns>
+        IEnumerable<SubCategoryFilterModel> LoadSubCategories();
+
         IEnumerable<AuctionDetailsResponseModel> Details(AuctionDetailsRequestModel request);
 
         bool Update(AuctionEditRequestModel request);

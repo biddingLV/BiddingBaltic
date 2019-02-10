@@ -53,6 +53,15 @@ namespace BiddingAPI.Repositories.Auctions
             return m_context.TopCategoryFilter.FromSql("GetTopCategoriesWithCount");
         }
 
+        /// <summary>
+        /// Loads sub-categories with total count
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<SubCategoryFilterModel> LoadSubCategories()
+        {
+            return m_context.SubCategoryFilter.FromSql("GetSubCategoriesWithCount");
+        }
+
         public IEnumerable<AuctionDetailsResponseModel> Details(AuctionDetailsRequestModel request)
         {
             return m_context.AuctionDetails
