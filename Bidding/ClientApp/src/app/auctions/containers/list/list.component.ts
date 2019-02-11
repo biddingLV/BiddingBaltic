@@ -1,5 +1,5 @@
 // angular
-import { Component, OnInit, OnDestroy, AfterViewInit, Output, EventEmitter, Input } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit, Output, EventEmitter, Input, SimpleChanges } from '@angular/core';
 
 // 3rd lib
 import { Subscription } from 'rxjs';
@@ -20,8 +20,12 @@ import { NotificationsService } from 'ClientApp/src/app/core/services/notificati
 export class AuctionListComponent implements OnInit, OnDestroy {
   // pass to child component and
   // pass back to parent component selected array for table
-  @Input() selected?: any[] = []; // todo: kke: specify correct type!
+  @Input() selected?: any[] = []; // todo: kke: specify correct type! // note: kke: is this even needed here?
   @Output() selectedChange = new EventEmitter<any>(); // todo: kke: specify correct type!
+
+  // filters - optional
+  @Input() categoryIds?: number[];
+  @Input() typeIds?: number[];
 
   // table
   auctionsSub: Subscription;
@@ -41,6 +45,7 @@ export class AuctionListComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
+    this.setupInitialAuctionRequest();
     this.getAuctions();
   }
 
@@ -67,6 +72,7 @@ export class AuctionListComponent implements OnInit, OnDestroy {
     this.getAuctions();
   }
 
+  // todo: kke: is this even needed here?
   onSelectedChange(event): void {
     this.selectedChange.emit(event);
   }
@@ -75,13 +81,31 @@ export class AuctionListComponent implements OnInit, OnDestroy {
     console.log('yay, someone just clicked on the details page!')
   }
 
+  // handle filter changes
+  // top-category & sub-category
+  ngOnChanges(changes: SimpleChanges): void {
+    for (const property in changes) {
+      switch (!changes[property].firstChange && property) {
+        case 'categoryIds':
+          this.request.topCategoryIds = changes[property].currentValue;
+          this.getAuctions();
+          break;
+        case 'typeIds':
+          console.log('tids');
+          break;
+        default:
+          break;
+      }
+    }
+  }
+
   ngOnDestroy(): void {
     if (this.auctionsSub) {
       this.auctionsSub.unsubscribe();
     }
   }
 
-  private setupAuctionRequest(): void {
+  private setupInitialAuctionRequest(): void {
     this.request = {
       auctionStartDate: moment().subtract(365, 'days').format('DD/MM/YYYY'),
       auctionEndDate: moment().format('DD/MM/YYYY'),
@@ -94,8 +118,7 @@ export class AuctionListComponent implements OnInit, OnDestroy {
   }
 
   private getAuctions(): void {
-    this.setupAuctionRequest();
-
+    console.log(this.request)
     this.auctionsSub = this.auctionApi
       .getAuctions$(this.request)
       .subscribe(

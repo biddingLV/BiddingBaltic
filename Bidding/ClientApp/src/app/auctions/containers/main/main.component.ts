@@ -21,15 +21,27 @@ export class AuctionMainComponent implements OnInit {
   filtersSub: Subscription;
 
   // filters
+  // filter - model
   filters: AuctionFilterModel;
+
+  // used to pass selected filter values to the auction list component
+  selectedCategoryIds: number[];
 
   constructor(
     private auctionApi: AuctionsService,
     private notification: NotificationsService
   ) { }
 
+  // todo: kke: maybe load this after auction list load done?
+  // todo: kke: maybe something like a flag from child list component and only then initialize filter load?
+  // todo: so-so improvement - ms?
   ngOnInit(): void {
-    this.loadFilters(); // todo: kke: maybe load this after auction list load done?
+    this.loadFilters();
+  }
+
+  // on top category change - select
+  onCategoryChange(categoryIds: number[]): void {
+    this.selectedCategoryIds = categoryIds;
   }
 
   // load filter values
