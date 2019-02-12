@@ -27,10 +27,11 @@ namespace BiddingAPI.Repositories.Auctions
             m_context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public IEnumerable<Auction> ListWithSearch(AuctionListRequestModel request, int start, int end)
+        public IEnumerable<Auction> ListWithSearch(AuctionListRequestModel request, int startFrom, int endAt)
         {
+            // todo: kke: how to pass list with ids here?
             return m_context.Execute<Auction>
-                ($"EXEC dbo.[GetAuctions] @startDate = {request.AuctionStartDate}, @endDate = {request.AuctionEndDate}, @start = {start}, @end = {end}, @sortByColumn = {request.SortByColumn}, @sortingDirection = {request.SortingDirection}");
+                ($"GetAuctions @startDate = {request.AuctionStartDate}, @endDate = {request.AuctionEndDate}, @start = {startFrom}, @end = {endAt}, @sortByColumn = {request.SortByColumn}, @sortingDirection = {request.SortingDirection}");
         }
 
         /// <summary>

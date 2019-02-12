@@ -158,6 +158,27 @@ namespace BiddingAPI.Services.Auctions
             //}
 
             // todo: kke: validate start date and end date and convert string to date time
+
+            // validate top category ids only if specified in the request
+            if (request.TopCategoryIds.IsNotSpecified() == false)
+            {
+                List<int> topCategoryIdsList = new List<int>();
+
+                foreach (string orgId in request.TopCategoryIds.Split(','))
+                {
+                    // convert from string to int
+                    if (int.TryParse(orgId, out int convertedId))
+                    {
+                        // add id to the array
+                        topCategoryIdsList.Add(convertedId);
+                    }
+                    else
+                    {
+                        // Something is wrong with specified top category id
+                        throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.TopCategoryIdsNotCorrect);
+                    }
+                }
+            }
         }
 
         private void ValidateAuctionCreate(AuctionAddRequestModel request)

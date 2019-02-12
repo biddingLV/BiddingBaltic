@@ -28,7 +28,6 @@ export class AuctionsService {
   getAuctions$(request: AuctionListRequest): Observable<AuctionModel> {
     const url = '/api/auctions/search'
 
-    // todo: kke: how to pass Array[number] to api?
     const params = new HttpParams({
       fromObject: {
         startDate: request.auctionStartDate.toString(),
