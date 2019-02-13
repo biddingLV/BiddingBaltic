@@ -25,7 +25,7 @@
         <label>Types:</label>
         <ng-select [clearable]="false" [virtualScroll]="true" [multiple]="true" [closeOnSelect]="false"
           placeholder="Select type">
-          <ng-option *ngFor="let typ of filters.subCategories; let i = index" [value]="typ.typeId">
+          <ng-option *ngFor="let typ of auctionTypes; let i = index" [value]="typ.typeId">
             {{typ.typeName}} ({{typ.typeTotalCount}})
           </ng-option>
         </ng-select>

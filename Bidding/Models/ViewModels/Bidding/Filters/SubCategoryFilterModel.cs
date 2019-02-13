@@ -13,6 +13,7 @@ namespace Bidding.Models.ViewModels.Bidding.Filters
     /// </summary>
     public class SubCategoryFilterModel
     {
+        public int CategoryId { get; set; }
         public int TypeId { get; set; }
         public string TypeName { get; set; }
         public int TypeTotalCount { get; set; }
