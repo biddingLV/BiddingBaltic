@@ -28,6 +28,7 @@ export class AuctionMainComponent implements OnInit {
 
   // used to pass selected filter values to the auction list component
   selectedCategoryIds: number[];
+  selectedTypeIds: number[];
 
   constructor(
     private auctionApi: AuctionsService,
@@ -47,11 +48,15 @@ export class AuctionMainComponent implements OnInit {
 
     if (categoryIds.length > 0) {
       // filter out based on selected category ids
-      this.auctionTypes = this.filters.subCategories.filter(item => categoryIds.indexOf(item.categoryId) < 0); // todo: kke: not working as needed still!
+      this.auctionTypes = this.filters.subCategories.filter(item => { return categoryIds.includes(item.categoryId) });
     } else {
       // nothing selected show the full list
       this.auctionTypes = this.filters.subCategories;
     }
+  }
+
+  onTypeChange(typeIds: number[]): void {
+    this.selectedTypeIds = typeIds;
   }
 
   // load filter values
@@ -60,7 +65,6 @@ export class AuctionMainComponent implements OnInit {
       .pipe(startWith(new AuctionFilterModel()))
       .subscribe(
         (result: AuctionFilterModel) => {
-          console.log('res: ', result)
           this.filters = result;
           this.auctionTypes = result.subCategories;
         },

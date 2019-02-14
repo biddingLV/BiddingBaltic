@@ -24,7 +24,7 @@
       <div class="form-group">
         <label>Types:</label>
         <ng-select [clearable]="false" [virtualScroll]="true" [multiple]="true" [closeOnSelect]="false"
-          placeholder="Select type">
+          placeholder="Select type" (change)="onTypeChange($event)">
           <ng-option *ngFor="let typ of auctionTypes; let i = index" [value]="typ.typeId">
             {{typ.typeName}} ({{typ.typeTotalCount}})
           </ng-option>
@@ -36,7 +36,7 @@
   <!-- List/Table -->
   <div class="row">
     <div class="col-12">
-      <app-auction-list [(categoryIds)]="selectedCategoryIds"></app-auction-list>
+      <app-auction-list [(categoryIds)]="selectedCategoryIds" [(typeIds)]="selectedTypeIds"></app-auction-list>
     </div>
   </div>
 </div>

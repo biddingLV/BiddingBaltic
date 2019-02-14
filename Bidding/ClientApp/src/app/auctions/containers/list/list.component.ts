@@ -91,7 +91,8 @@ export class AuctionListComponent implements OnInit, OnDestroy {
           this.getAuctions();
           break;
         case 'typeIds':
-          console.log('tids');
+          this.request.typeIds = changes[property].currentValue;
+          this.getAuctions();
           break;
         default:
           break;
@@ -118,7 +119,6 @@ export class AuctionListComponent implements OnInit, OnDestroy {
   }
 
   private getAuctions(): void {
-    console.log(this.request)
     this.auctionsSub = this.auctionApi
       .getAuctions$(this.request)
       .subscribe(

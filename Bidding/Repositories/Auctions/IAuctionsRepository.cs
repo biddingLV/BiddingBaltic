@@ -10,7 +10,16 @@ namespace BiddingAPI.Repositories.Auctions
 {
     public interface IAuctionsRepository
     {
-        IEnumerable<Auction> ListWithSearch(AuctionListRequestModel request, int startFrom, int endAt);
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="startFrom">pagination start from</param>
+        /// <param name="endAt"> pagination end at</param>
+        /// <param name="categoryIds">top category ids</param>
+        /// <param name="typeIds">sub-category ids</param>
+        /// <returns></returns>
+        IEnumerable<Auction> ListWithSearch(AuctionListRequestModel request, int startFrom, int endAt, List<int> categoryIds, List<int> typeIds);
 
         /// <summary>
         /// Gets total auction count based on specific date/time range for pagination

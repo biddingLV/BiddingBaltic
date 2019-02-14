@@ -10,6 +10,7 @@ namespace BiddingAPI.Models.ViewModels.Bidding.Auctions
     {
         public string AuctionStartDate { get; set; }
         public string AuctionEndDate { get; set; }
-        public string TopCategoryIds { get; set; } // optional - ids for filter changes
+        public string TopCategoryIds { get; set; } // top category filter ids
+        public string TypeIds { get; set; } // type filter / sub-category filter ids
     }
 }

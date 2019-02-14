@@ -30,6 +30,12 @@ namespace BiddingAPI.Services.Auctions
             // validate required inputs
             ValidateAuctionListWithSearch(request);
 
+            // validate top category ids only if specified in the request
+            List<int> categoryIds = ValidateAndConvertIds(request.TopCategoryIds);
+
+            // validate top category ids only if specified in the request
+            List<int> typeIds = ValidateAndConvertIds(request.TypeIds);
+
             // pagination assignments
             int startFromThisItem = request.OffsetStart;
             int takeUntilThisItem = request.OffsetEnd;
@@ -43,7 +49,7 @@ namespace BiddingAPI.Services.Auctions
 
             AuctionListResponseModel auctionsResponse = new AuctionListResponseModel()
             {
-                Auctions = m_auctionsRepository.ListWithSearch(request, startFrom, endAt).ToList(),
+                Auctions = m_auctionsRepository.ListWithSearch(request, startFrom, endAt, categoryIds, typeIds).ToList(),
                 ItemCount = m_auctionsRepository.TotalAuctionCount(startDate, expiryDate).Count()
             };
 
@@ -97,8 +103,6 @@ namespace BiddingAPI.Services.Auctions
         {
             return m_auctionsRepository.Details(request);
         }
-
-
 
         public bool Update(AuctionEditRequestModel request)
         {
@@ -158,19 +162,21 @@ namespace BiddingAPI.Services.Auctions
             //}
 
             // todo: kke: validate start date and end date and convert string to date time
+        }
 
-            // validate top category ids only if specified in the request
-            if (request.TopCategoryIds.IsNotSpecified() == false)
+        private List<int> ValidateAndConvertIds(string ids)
+        {
+            List<int> listWithIds = new List<int>();
+
+            if (ids.IsNotSpecified() == false)
             {
-                List<int> topCategoryIdsList = new List<int>();
-
-                foreach (string orgId in request.TopCategoryIds.Split(','))
+                foreach (string orgId in ids.Split(','))
                 {
                     // convert from string to int
                     if (int.TryParse(orgId, out int convertedId))
                     {
                         // add id to the array
-                        topCategoryIdsList.Add(convertedId);
+                        listWithIds.Add(convertedId);
                     }
                     else
                     {
@@ -179,6 +185,8 @@ namespace BiddingAPI.Services.Auctions
                     }
                 }
             }
+
+            return listWithIds;
         }
 
         private void ValidateAuctionCreate(AuctionAddRequestModel request)

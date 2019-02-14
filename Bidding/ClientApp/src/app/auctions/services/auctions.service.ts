@@ -38,7 +38,8 @@ export class AuctionsService {
         offsetStart: request.currentPage.toString(),
         searchValue: request.searchValue.toString(),
         currentPage: request.currentPage.toString(),
-        topCategoryIds: request.topCategoryIds === undefined ? '' : request.topCategoryIds.toString()
+        topCategoryIds: request.topCategoryIds === undefined ? '' : request.topCategoryIds.toString(),
+        typeIds: request.typeIds === undefined ? '' : request.typeIds.toString()
       }
     });
 
