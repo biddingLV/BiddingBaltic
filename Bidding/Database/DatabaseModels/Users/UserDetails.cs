@@ -3,13 +3,12 @@ using System.Collections.Generic;
 
 namespace BiddingAPI.Models.DatabaseModels
 {
-    public partial class UserRole
+    public partial class UserDetails
     {
-        public int Id { get; set; }
+        // todo: kke: maybe make primary key as a foreign key?
+        public int UserDetailsId { get; set; }
         public int UserId { get; set; }
-        public int RoleId { get; set; }
 
-        public Role Role { get; set; }
         public User User { get; set; }
     }
 }

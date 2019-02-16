@@ -49,6 +49,8 @@
   <ItemGroup>
     <Compile Remove="Migrations\20190210115754_test.cs" />
     <Compile Remove="Migrations\20190210115754_test.Designer.cs" />
+    <Compile Remove="Migrations\20190216121357_test.cs" />
+    <Compile Remove="Migrations\20190216121357_test.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -56,7 +58,6 @@
     <Folder Include="ClientApp\src\app\admin\services\" />
     <Folder Include="ClientApp\src\app\auth\components\404-page-not-found\" />
     <Folder Include="ClientApp\src\app\shared\components\callback\" />
-    <Folder Include="Database\DatabaseModels\Users\" />
     <Folder Include="Shared\ErrorHandling\Validators\" />
   </ItemGroup>
 
