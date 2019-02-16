@@ -21,11 +21,12 @@ namespace BiddingAPI.Models.DatabaseModels
         public virtual DbSet<AuctionStatus> AuctionStatuses { get; set; }
         public virtual DbSet<AuctionDetails> AuctionDetails { get; set; }
         public virtual DbSet<Auction> Auctions { get; set; }
-        public virtual DbSet<AuctionCategory> AuctionCategories { get; set; }
+        public virtual DbSet<AuctionCategory> AuctionCategories { get; set; } // intermediary table
+        public virtual DbSet<AuctionType> AuctionTypes { get; set; } // intermediary table
         public virtual DbSet<Category> Categories { get; set; }
-        public virtual DbSet<CategoryType> CategoryTypes { get; set; }
+        public virtual DbSet<CategoryType> CategoryTypes { get; set; } // intermediary table
         public virtual DbSet<Type> Types { get; set; }
-        public virtual DbSet<TypeProduct> TypeProducts { get; set; }
+        public virtual DbSet<TypeProduct> TypeProducts { get; set; } // intermediary table
         public virtual DbSet<Product> Products { get; set; }
 
         // Users

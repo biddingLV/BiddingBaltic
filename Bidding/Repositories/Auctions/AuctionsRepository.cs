@@ -29,10 +29,45 @@ namespace BiddingAPI.Repositories.Auctions
 
         public IEnumerable<Auction> ListWithSearch(AuctionListRequestModel request, int startFrom, int endAt, List<int> categoryIds, List<int> typeIds)
         {
-            // todo: kke: how to pass list with ids here?
-            // todo: kke: improve connection between auction - cat - sub-cat
-            return m_context.Execute<Auction>
-                ($"GetAuctions @startDate = {request.AuctionStartDate}, @endDate = {request.AuctionEndDate}, @start = {startFrom}, @end = {endAt}, @sortByColumn = {request.SortByColumn}, @sortingDirection = {request.SortingDirection}");
+            try
+            {
+                SqlParameter categories = new SqlParameter
+                {
+                    ParameterName = "selectedCategoryIds",
+                    Direction = ParameterDirection.Input,
+                    Value = CreateIdTable(categoryIds),
+                    TypeName = "[dbo].OrganizationIdArray",
+                    SqlDbType = SqlDbType.Structured
+                };
+
+                SqlParameter types = new SqlParameter
+                {
+                    ParameterName = "selectedTypeIds",
+                    Direction = ParameterDirection.Input,
+                    Value = CreateIdTable(typeIds),
+                    TypeName = "[dbo].OrganizationIdArray",
+                    SqlDbType = SqlDbType.Structured
+                };
+
+                return m_context.Execute<Auction>
+                    ($"GetAuctions @startDate = {request.AuctionStartDate}, @endDate = {request.AuctionEndDate}, @start = {startFrom}, @end = {endAt}, @sortByColumn = {request.SortByColumn}, @sortingDirection = {request.SortingDirection}");
+            }
+            catch (Exception ex)
+            {
+                // todo: kke: improve error message!
+                throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.CouldNotCreateAuction, ex);
+            }
+        }
+
+        private DataTable CreateIdTable(IEnumerable<int> ids)
+        {
+            DataTable table = new DataTable();
+            table.Columns.Add("OrganizationId", typeof(int));
+            foreach (int id in ids)
+            {
+                table.Rows.Add(id);
+            }
+            return table;
         }
 
         /// <summary>

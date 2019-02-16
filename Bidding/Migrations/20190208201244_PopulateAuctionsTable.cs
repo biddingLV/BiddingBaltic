@@ -79,7 +79,7 @@ namespace Bidding.Migrations
             migrationBuilder.InsertData(
                 table: "Auctions",
                 columns: new[] { "AuctionId", "AuctionName", "AuctionStartingPrice", "AuctionStartDate", "AuctionEndDate" },
-                values: new object[] { 14, "Īpašums Bulduros - zeme + māja", 5550, startDate, expiryDate });
+                values: new object[] { 14, "Īpašums Bulduros", 5550, startDate, expiryDate });
 
             migrationBuilder.InsertData(
                 table: "Auctions",
