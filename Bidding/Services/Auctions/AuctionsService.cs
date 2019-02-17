@@ -30,11 +30,20 @@ namespace BiddingAPI.Services.Auctions
             // validate required inputs
             ValidateAuctionListWithSearch(request);
 
-            // validate top category ids only if specified in the request
-            List<int> categoryIds = ValidateAndConvertIds(request.TopCategoryIds);
+            List<int> categoryIds = new List<int>();
+            List<int> typeIds = new List<int>();
 
             // validate top category ids only if specified in the request
-            List<int> typeIds = ValidateAndConvertIds(request.TypeIds);
+            if (request.TopCategoryIds.IsNotSpecified() == false)
+            {
+                categoryIds = ValidateAndConvertIds(request.TopCategoryIds);
+            }
+
+            // validate top category ids only if specified in the request
+            if (request.TypeIds.IsNotSpecified() == false)
+            {
+                typeIds = ValidateAndConvertIds(request.TypeIds);
+            }
 
             // pagination assignments
             int startFromThisItem = request.OffsetStart;
@@ -168,21 +177,18 @@ namespace BiddingAPI.Services.Auctions
         {
             List<int> listWithIds = new List<int>();
 
-            if (ids.IsNotSpecified() == false)
+            foreach (string orgId in ids.Split(','))
             {
-                foreach (string orgId in ids.Split(','))
+                // convert from string to int
+                if (int.TryParse(orgId, out int convertedId))
                 {
-                    // convert from string to int
-                    if (int.TryParse(orgId, out int convertedId))
-                    {
-                        // add id to the array
-                        listWithIds.Add(convertedId);
-                    }
-                    else
-                    {
-                        // Something is wrong with specified top category id
-                        throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.TopCategoryIdsNotCorrect);
-                    }
+                    // add id to the array
+                    listWithIds.Add(convertedId);
+                }
+                else
+                {
+                    // Something is wrong with specified top category id
+                    throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.TopCategoryIdsNotCorrect);
                 }
             }
 

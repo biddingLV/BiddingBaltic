@@ -7,9 +7,11 @@ using System.Net;
 using System.Threading.Tasks;
 using Bidding.Models.ViewModels.Bidding.Auctions;
 using Bidding.Models.ViewModels.Bidding.Auctions.Details;
+using Bidding.Models.ViewModels.Bidding.Auctions.List;
 using Bidding.Models.ViewModels.Bidding.Filters;
 using Bidding.Shared.ErrorHandling.Errors;
 using Bidding.Shared.Exceptions;
+using Bidding.Shared.Utility;
 using BiddingAPI.Models.DatabaseModels;
 using BiddingAPI.Models.DatabaseModels.Bidding;
 using BiddingAPI.Models.ViewModels.Bidding.Auctions;
@@ -27,30 +29,48 @@ namespace BiddingAPI.Repositories.Auctions
             m_context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public IEnumerable<Auction> ListWithSearch(AuctionListRequestModel request, int startFrom, int endAt, List<int> categoryIds, List<int> typeIds)
+        public IEnumerable<AuctionListModel> ListWithSearch(AuctionListRequestModel request, int startFrom, int endAt, List<int> selectedCategoryIds, List<int> selectedTypeIds)
         {
+            // todo: kke: add OrganizationIdArray as a migration!
             try
             {
+                // todo: kke: move this to the stored procedure as a case / if
+                if (selectedCategoryIds.IsNotSpecified())
+                {
+                    selectedCategoryIds = m_context.Categories.Select(cat => cat.CategoryId).ToList();
+                }
+
+                // todo: kke: move this to the stored procedure as a case / if
+                if (selectedTypeIds.IsNotSpecified())
+                {
+                    selectedTypeIds = m_context.Types.Select(typ => typ.TypeId).ToList();
+                }
+
                 SqlParameter categories = new SqlParameter
                 {
-                    ParameterName = "selectedCategoryIds",
+                    ParameterName = "selectedCategories",
                     Direction = ParameterDirection.Input,
-                    Value = CreateIdTable(categoryIds),
+                    Value = CreateIdTable(selectedCategoryIds, "OrganizationId"),
                     TypeName = "[dbo].OrganizationIdArray",
                     SqlDbType = SqlDbType.Structured
                 };
 
                 SqlParameter types = new SqlParameter
                 {
-                    ParameterName = "selectedTypeIds",
+                    ParameterName = "selectedTypes",
                     Direction = ParameterDirection.Input,
-                    Value = CreateIdTable(typeIds),
+                    Value = CreateIdTable(selectedTypeIds, "OrganizationId"),
                     TypeName = "[dbo].OrganizationIdArray",
                     SqlDbType = SqlDbType.Structured
                 };
 
-                return m_context.Execute<Auction>
-                    ($"GetAuctions @startDate = {request.AuctionStartDate}, @endDate = {request.AuctionEndDate}, @start = {startFrom}, @end = {endAt}, @sortByColumn = {request.SortByColumn}, @sortingDirection = {request.SortingDirection}");
+                // todo: kke: remove after pagination fixed!
+                //return m_context.Query<AuctionListModel>()
+                //    .FromSql($"GetAuctions @startDate = {request.AuctionStartDate}, @endDate = {request.AuctionEndDate}, @start = {startFrom}, @end = {endAt}, @sortByColumn = {request.SortByColumn}, @sortingDirection = {request.SortingDirection}, @categories = {categoryIds}")
+                //    .ToList();
+
+                return m_context.Query<AuctionListModel>()
+                    .FromSql($"GetAuctions @selectedCategories, @selectedTypes", categories, types);
             }
             catch (Exception ex)
             {
@@ -59,14 +79,16 @@ namespace BiddingAPI.Repositories.Auctions
             }
         }
 
-        private DataTable CreateIdTable(IEnumerable<int> ids)
+        private DataTable CreateIdTable(IEnumerable<int> ids, string nameOfId)
         {
             DataTable table = new DataTable();
-            table.Columns.Add("OrganizationId", typeof(int));
+            table.Columns.Add(nameOfId, typeof(int));
+
             foreach (int id in ids)
             {
                 table.Rows.Add(id);
             }
+
             return table;
         }
 

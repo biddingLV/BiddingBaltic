@@ -4,6 +4,8 @@ using Bidding.Database.DatabaseModels.Auctions;
 using Bidding.Database.DatabaseModels.Users;
 using Bidding.Models.DatabaseModels.Bidding;
 using Bidding.Models.DatabaseModels.Bidding.Subscribe;
+using Bidding.Models.ViewModels.Bidding.Auctions;
+using Bidding.Models.ViewModels.Bidding.Auctions.List;
 using Bidding.Models.ViewModels.Bidding.Filters;
 using Bidding.Shared.Database;
 using BiddingAPI.Models.DatabaseModels.Bidding;
@@ -44,8 +46,10 @@ namespace BiddingAPI.Models.DatabaseModels
         //public virtual DbSet<AuctionCreator> AuctionCreators { get; set; }
 
         // Database Queries for stored procedures / views
-        public DbQuery<TopCategoryFilterModel> TopCategoryFilter { get; set; }
-        public DbQuery<SubCategoryFilterModel> SubCategoryFilter { get; set; }
+        public virtual DbQuery<TopCategoryFilterModel> TopCategoryFilter { get; set; }
+        public virtual DbQuery<SubCategoryFilterModel> SubCategoryFilter { get; set; }
+        public virtual DbQuery<AuctionListModel> AuctionList { get; set; }
+
 
         // todo: kke: do we need this here?
         protected override void OnModelCreating(ModelBuilder modelBuilder)

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Bidding.Models.ViewModels.Bidding.Auctions.Details;
+using Bidding.Models.ViewModels.Bidding.Auctions.List;
 using Bidding.Models.ViewModels.Bidding.Filters;
 using BiddingAPI.Models.DatabaseModels;
 using BiddingAPI.Models.DatabaseModels.Bidding;
@@ -19,7 +20,7 @@ namespace BiddingAPI.Repositories.Auctions
         /// <param name="categoryIds">top category ids</param>
         /// <param name="typeIds">sub-category ids</param>
         /// <returns></returns>
-        IEnumerable<Auction> ListWithSearch(AuctionListRequestModel request, int startFrom, int endAt, List<int> categoryIds, List<int> typeIds);
+        IEnumerable<AuctionListModel> ListWithSearch(AuctionListRequestModel request, int startFrom, int endAt, List<int> categoryIds, List<int> typeIds);
 
         /// <summary>
         /// Gets total auction count based on specific date/time range for pagination

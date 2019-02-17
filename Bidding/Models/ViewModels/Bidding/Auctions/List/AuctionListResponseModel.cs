@@ -1,4 +1,5 @@
-﻿using BiddingAPI.Models.DatabaseModels.Bidding;
+﻿using Bidding.Models.ViewModels.Bidding.Auctions.List;
+using BiddingAPI.Models.DatabaseModels.Bidding;
 using BiddingAPI.Models.ViewModels.BaseModels;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,6 @@ namespace Bidding.Models.ViewModels.Bidding.Auctions
 {
     public class AuctionListResponseModel : BaseListResponseModel
     {
-        public List<Auction> Auctions { get; set; }
+        public List<AuctionListModel> Auctions { get; set; }
     }
 }
