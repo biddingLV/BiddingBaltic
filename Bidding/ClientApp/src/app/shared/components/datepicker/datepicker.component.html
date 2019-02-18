@@ -1,0 +1,11 @@
+<!-- todo: kke: example -->
+<div class="input-group mb-3">
+  <input type="text" class="form-control" [(ngModel)]="date" [bsConfig]="bsConfig" bsDatepicker
+         (ngModelChange)="onDateChange($event)" #dp="bsDatepicker">
+  <!--(bsValueChange)="onDateChange($event)"-->
+  <div class="input-group-append">
+    <button class="btn btn-outline-primary" type="button" (click)="dp.show()">
+      <!-- <fa-icon [icon]="['fas', 'calendar-alt']"></fa-icon> -->
+    </button>
+  </div>
+</div>

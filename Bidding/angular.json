@@ -23,6 +23,8 @@
               "ClientApp/src/assets"
             ],
             "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
               "ClientApp/src/sass/styles.scss",
               "node_modules/@swimlane/ngx-datatable/release/index.css",
               "node_modules/@swimlane/ngx-datatable/release/assets/icons.css",
@@ -75,6 +77,8 @@
             "tsConfig": "ClientApp/src/tsconfig.spec.json",
             "karmaConfig": "ClientApp/src/karma.conf.js",
             "styles": [
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
               "ClientApp/src/styles.css"
             ],
             "scripts": [],

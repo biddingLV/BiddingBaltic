@@ -31,6 +31,10 @@ export class AuctionAddComponent implements OnInit {
     creator: ''
   };
 
+  // todo: kke: example
+  startDate: string;
+  endDate: string;
+
   // API
   auctionAddRequest: AuctionAddRequest;
 
@@ -47,6 +51,10 @@ export class AuctionAddComponent implements OnInit {
 
   ngOnInit() {
     this.buildForm();
+
+    // TODO: KKE: example
+    this.startDate = ''; //moment().subtract(7, 'days').format('YYYY-MM-DD 00:00:01');
+    this.endDate = '';// moment().format('YYYY-MM-DD 23:59:59');
   }
 
   onSubmit() {
@@ -79,6 +87,11 @@ export class AuctionAddComponent implements OnInit {
     if (this.auctionAddForm.invalid) {
       return;
     }
+  }
+
+  // todo: kke: example
+  updateRequest(property: string, event) {
+
   }
 
   private buildForm() {

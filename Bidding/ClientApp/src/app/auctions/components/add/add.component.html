@@ -9,7 +9,8 @@
     <div class="form-group">
       <p>todo:</p>
       <label class="required">Auction Name:</label>
-      <input type="text" formControlName="auctionName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.auctionName.errors }" />
+      <input type="text" formControlName="auctionName" class="form-control"
+        [ngClass]="{ 'is-invalid': submitted && f.auctionName.errors }" />
       <div *ngIf="submitted && formErrors.auctionName" class="invalid-feedback">
         {{formErrors.auctionName}}
       </div>
@@ -17,7 +18,8 @@
 
     <div class="form-group">
       <label class="required">Description:</label>
-      <input type="text" formControlName="description" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.description.errors }" />
+      <input type="text" formControlName="description" class="form-control"
+        [ngClass]="{ 'is-invalid': submitted && f.description.errors }" />
       <div *ngIf="submitted && formErrors.description" class="invalid-feedback">
         {{formErrors.description}}
       </div>
@@ -25,7 +27,8 @@
 
     <div class="form-group">
       <label class="required">Starting Price:</label>
-      <input type="text" formControlName="startingPrice" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.startingPrice.errors }" />
+      <input type="text" formControlName="startingPrice" class="form-control"
+        [ngClass]="{ 'is-invalid': submitted && f.startingPrice.errors }" />
       <div *ngIf="submitted && formErrors.startingPrice" class="invalid-feedback">
         {{formErrors.startingPrice}}
       </div>
@@ -33,7 +36,8 @@
 
     <div class="form-group">
       <label>Start Date:</label>
-      <input type="text" formControlName="startDate" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.startDate.errors }" />
+      <input type="text" formControlName="startDate" class="form-control"
+        [ngClass]="{ 'is-invalid': submitted && f.startDate.errors }" />
       <div *ngIf="submitted && formErrors.startDate" class="invalid-feedback">
         {{formErrors.startDate}}
       </div>
@@ -41,10 +45,18 @@
 
     <div class="form-group">
       <label class="required">Creator:</label>
-      <input type="text" formControlName="creator" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.creator.errors }" />
+      <input type="text" formControlName="creator" class="form-control"
+        [ngClass]="{ 'is-invalid': submitted && f.creator.errors }" />
       <div *ngIf="submitted && formErrors.creator" class="invalid-feedback">
         {{formErrors.creator}}
       </div>
+    </div>
+
+    <div class="form-group">
+      <label for="dateFrom">From:</label>
+      <app-date-picker></app-date-picker>
+      <!-- <app-date-picker (dateChange)="updateRequest('StartDate', $event)" [date]="startDate" id="dateFrom">
+      </app-date-picker> -->
     </div>
 
     <div class="form-group">

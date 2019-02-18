@@ -6,9 +6,11 @@ import { FormsModule } from '@angular/forms';
 // third-libraries
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 // components
 import { AuctionsTableComponent } from './components/table/auctions/auctions.component';
+import { DatepickerComponent } from './components/datepicker/datepicker.component';
 
 // filter components
 import { ArrayDropdownComponent } from './components/dropdowns/array/array.component';
@@ -21,7 +23,8 @@ import { SearchComponent } from './components/search/search.component';
     RouterModule,
     NgSelectModule,
     FormsModule,
-    NgxDatatableModule
+    NgxDatatableModule,
+    BsDatepickerModule.forRoot()
   ],
   exports: [
     AuctionsTableComponent,
@@ -29,13 +32,15 @@ import { SearchComponent } from './components/search/search.component';
     ArrayDropdownComponent,
     ObjectDropdownComponent,
     FormsModule,
-    NgSelectModule
+    NgSelectModule,
+    DatepickerComponent
   ],
   declarations: [
     AuctionsTableComponent,
     SearchComponent,
     ArrayDropdownComponent,
-    ObjectDropdownComponent
+    ObjectDropdownComponent,
+    DatepickerComponent,
   ],
   providers: [
 
