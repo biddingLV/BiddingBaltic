@@ -54,10 +54,10 @@ namespace BiddingAPI.Models.DatabaseModels
         // todo: kke: do we need this here?
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<AuctionDetails>()
-                .HasOne(p => p.AuctionStatus)
-                .WithOne(i => i.AuctionDetails)
-                .HasForeignKey<AuctionStatus>(b => b.AuctionForeignKey);
+            //modelBuilder.Entity<AuctionDetails>()
+            //    .HasOne(p => p.AuctionStatus)
+            //    .WithOne(i => i.AuctionDetails)
+            //    .HasForeignKey<AuctionStatus>(b => b.AuctionForeignKey);
         }
     }
 }

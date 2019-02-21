@@ -108,9 +108,11 @@ namespace BiddingAPI.Services.Auctions
             };
         }
 
-        public IEnumerable<AuctionDetailsResponseModel> Details(AuctionDetailsRequestModel request)
+        public AuctionDetailsResponseModel Details(AuctionDetailsRequestModel request)
         {
-            return m_auctionsRepository.Details(request);
+            if (request.AuctionId.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.IncorrectAuction); }
+
+            return m_auctionsRepository.Details(request).FirstOrDefault();
         }
 
         public bool Update(AuctionEditRequestModel request)

@@ -9,4 +9,5 @@ export interface AuctionItem {
   auctionStartingPrice: number;
   auctionStartDate: Date;
   auctionEndDate: Date;
+  auctionStatusName: string;
 }

@@ -14,7 +14,10 @@ namespace Bidding.Shared.ErrorHandling.Errors
         [Description("Could not create auction.")]
         CouldNotCreateAuction,
 
-        [Description("Top category ids are incorrect")]
+        [Description("Top category ids are incorrect.")]
         TopCategoryIdsNotCorrect,
+
+        [Description("Incorrect auction or doesn't exist.")]
+        IncorrectAuction
     }
 }

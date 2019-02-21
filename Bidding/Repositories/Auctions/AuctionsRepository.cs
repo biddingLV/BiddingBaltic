@@ -123,18 +123,32 @@ namespace BiddingAPI.Repositories.Auctions
 
         public IEnumerable<AuctionDetailsResponseModel> Details(AuctionDetailsRequestModel request)
         {
-            return m_context.AuctionDetails
-                .Where(auct => auct.AuctionId == request.AuctionId)
-                .Select(auct => new AuctionDetailsResponseModel
-                {
-                    Id = auct.AuctionDetailsId,
-                    //AuctionId = auct.AuctionId,
-                    //VRN = auct.VehicleRegistrationNumber,
-                    //VIN = auct.VehicleIdentificationNumber,
-                    //Year = auct.Year,
-                    //Evaluation = auct.Evaluation,
-                    //AuctionType = auct.AuctionType
-                });
+            // check if even auction exists and only then do the join
+            bool auctionExists = m_context.Auctions.Any(auct => auct.AuctionId == request.AuctionId);
+
+            if (auctionExists)
+            {
+                // get auction details
+                return from auct in m_context.Auctions
+                       join acat in m_context.AuctionCategories on auct.AuctionId equals acat.AuctionId
+                       join atyp in m_context.AuctionTypes on auct.AuctionId equals atyp.AuctionId
+                       join cat in m_context.Categories on acat.CategoryId equals cat.CategoryId
+                       join typ in m_context.Types on atyp.TypeId equals typ.TypeId
+                       where auct.AuctionId == request.AuctionId
+                       select new AuctionDetailsResponseModel()
+                       {
+                           AuctionName = auct.AuctionName,
+                           CategoryName = cat.CategoryName,
+                           TypeName = typ.TypeName,
+                           AuctionStartingPrice = auct.AuctionStartingPrice,
+                           AuctionStartDate = auct.AuctionStartDate,
+                           AuctionEndDate = auct.AuctionEndDate
+                       };
+            }
+            else
+            {
+                throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.IncorrectAuction);
+            }
         }
 
         public bool Update(AuctionEditRequestModel request)

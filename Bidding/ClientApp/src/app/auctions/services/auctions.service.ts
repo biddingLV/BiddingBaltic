@@ -54,7 +54,7 @@ export class AuctionsService {
       .pipe(catchError(this.exception.errorHandler));
   }
 
-  getAuctionDetails$(auctionId: string): Observable<AuctionDetailsModel> {
+  getAuctionDetails$(auctionId: number): Observable<AuctionDetailsModel> {
     const url = `api/auctions/details?auctionId=${auctionId}`;
 
     return this.http.get<AuctionDetailsModel>(url)

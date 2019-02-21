@@ -1,3 +1,8 @@
 export interface AuctionDetailsModel {
-  id: number;
+  auctionName: string;
+  auctionStartDate: Date;
+  auctionEndDate: Date;
+  auctionStartingPrice: number;
+  categoryName: string;
+  typeName: string;
 }

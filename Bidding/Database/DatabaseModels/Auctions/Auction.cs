@@ -34,6 +34,10 @@ namespace BiddingAPI.Models.DatabaseModels.Bidding
         [DataType(DataType.Date)]
         public DateTime AuctionEndDate { get; set; }
 
+        [Required]
+        [Range(1, 10000)]
+        public int AuctionStatusId { get; set; } // todo: kke: this needs to be fKey or constraint based on auction statuses table!
+
         public AuctionDetails Details { get; set; }
 
         [ForeignKey("AuctionId")]

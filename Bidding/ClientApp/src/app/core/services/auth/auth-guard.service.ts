@@ -20,7 +20,7 @@ export class AuthGuard implements CanActivate {
         this.authService.redirectUri = state.url;
       }
 
-      this.router.navigate(['']);
+      // this.router.navigate(['/auctions']); todo: kke: this is wrong!
       return false;
     }
   }

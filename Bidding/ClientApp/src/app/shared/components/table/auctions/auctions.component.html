@@ -6,20 +6,21 @@
   [selectAllRowsOnPage]="false">
 
   <!-- column definition -->
+  <!-- todo: kke: hide checkboxes! -->
   <ngx-datatable-column [width]="30" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false"
     [headerCheckboxable]="true" [checkboxable]="true">
   </ngx-datatable-column>
   <ngx-datatable-column [width]="50" prop="auctionName" name="Nosaukums / modelis" [sortable]="true"></ngx-datatable-column>
   <ngx-datatable-column [width]="50" prop="auctionStartingPrice" name="Izsoles sākumcena" [sortable]="true"></ngx-datatable-column>
   <ngx-datatable-column [width]="50" prop="auctionEndDate" name="Jāpiesakās izsolei" [sortable]="true"></ngx-datatable-column>
-  <ngx-datatable-column [width]="50" prop="" name="Izsoles statuss" [sortable]="true"></ngx-datatable-column>
+  <ngx-datatable-column [width]="50" prop="auctionStatusName" name="Izsoles statuss" [sortable]="true"></ngx-datatable-column>
   <!-- todo: kke: add auction creator when permission implemented -->
   <!-- <ngx-datatable-column [width]="50" prop="creator" name="Izsoles statuss" [sortable]="true"></ngx-datatable-column> -->
 
   <!-- todo: kke: this is not working! -->
   <ngx-datatable-column [width]="60" name="Details" prop="id">
     <ng-template let-row="row" ngx-datatable-cell-template>
-      <a (click)="onDetailsClick()" [routerLink]="['/auction', row.id]">details</a>
+      <a (click)="onDetailsClick()" [routerLink]="['/auction', row.auctionId]">details</a>
     </ng-template>
   </ngx-datatable-column>
 

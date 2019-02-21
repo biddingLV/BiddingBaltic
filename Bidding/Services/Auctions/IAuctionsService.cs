@@ -17,7 +17,7 @@ namespace BiddingAPI.Services.Auctions
 
         AuctionFilterModel Filters();
 
-        IEnumerable<AuctionDetailsResponseModel> Details(AuctionDetailsRequestModel request);
+        AuctionDetailsResponseModel Details(AuctionDetailsRequestModel request);
 
         bool Update(AuctionEditRequestModel request);
 
