@@ -1,5 +1,5 @@
 // angular
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output, ViewChild } from '@angular/core';
 
 // internal
 import { AuctionModel } from 'ClientApp/src/app/auctions/models/list/auction.model';
@@ -20,6 +20,8 @@ export class AuctionsTableComponent implements OnInit {
   @Output() sortChange = new EventEmitter<boolean>();
   @Output() detailsClick = new EventEmitter<boolean>();
   @Output() selectedChange = new EventEmitter<any>();
+
+  @ViewChild('myTable') table: any;
 
   constructor() { }
 
@@ -46,5 +48,14 @@ export class AuctionsTableComponent implements OnInit {
 
     console.log('selected: ', selected)
     this.selectedChange.emit(selected);
+  }
+
+  toggleExpandRow(row) {
+    console.log('Toggled Expand Row!', row);
+    this.table.rowDetail.toggleExpandRow(row);
+  }
+
+  onDetailToggle(event) {
+    console.log('Detail Toggled', event);
   }
 }

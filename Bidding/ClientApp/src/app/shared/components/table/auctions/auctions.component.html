@@ -1,19 +1,33 @@
 <!-- header definition -->
-<ngx-datatable class="bootstrap" [rows]="auctionTable.auctions" [columnMode]="'force'" [headerHeight]="50"
+<ngx-datatable #myTable class="bootstrap" [rows]="auctionTable.auctions" [columnMode]="'force'" [headerHeight]="50"
   [footerHeight]="50" [rowHeight]="'auto'" [externalSorting]="true" [externalPaging]="true"
   [count]="auctionTable.itemCount" [offset]="auctionTable.currentPage" [selectionType]="'checkbox'" [limit]="numberRows"
   (sort)="onSortChange($event)" (select)='onSelect($event)' [sorts]="[{prop: 'name', dir: 'asc'}]" [selected]="selected"
   [selectAllRowsOnPage]="false">
+
+  <!-- Row Detail Template -->
+  <ngx-datatable-row-detail [rowHeight]="100" #myDetailRow (toggle)="onDetailToggle($event)">
+    <ng-template let-row="row" let-expanded="expanded" ngx-datatable-row-detail-template>
+      <div style="padding-left:35px;">
+        <div><strong>Address</strong></div>
+        <div>Magic</div>
+      </div>
+    </ng-template>
+  </ngx-datatable-row-detail>
 
   <!-- column definition -->
   <!-- todo: kke: hide checkboxes! -->
   <ngx-datatable-column [width]="30" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false"
     [headerCheckboxable]="true" [checkboxable]="true">
   </ngx-datatable-column>
-  <ngx-datatable-column [width]="50" prop="auctionName" name="Nosaukums / modelis" [sortable]="true"></ngx-datatable-column>
-  <ngx-datatable-column [width]="50" prop="auctionStartingPrice" name="Izsoles sākumcena" [sortable]="true"></ngx-datatable-column>
-  <ngx-datatable-column [width]="50" prop="auctionEndDate" name="Jāpiesakās izsolei" [sortable]="true"></ngx-datatable-column>
-  <ngx-datatable-column [width]="50" prop="auctionStatusName" name="Izsoles statuss" [sortable]="true"></ngx-datatable-column>
+  <ngx-datatable-column [width]="50" prop="auctionName" name="Nosaukums / modelis" [sortable]="true">
+  </ngx-datatable-column>
+  <ngx-datatable-column [width]="50" prop="auctionStartingPrice" name="Izsoles sākumcena" [sortable]="true">
+  </ngx-datatable-column>
+  <ngx-datatable-column [width]="50" prop="auctionEndDate" name="Jāpiesakās izsolei" [sortable]="true">
+  </ngx-datatable-column>
+  <ngx-datatable-column [width]="50" prop="auctionStatusName" name="Izsoles statuss" [sortable]="true">
+  </ngx-datatable-column>
   <!-- todo: kke: add auction creator when permission implemented -->
   <!-- <ngx-datatable-column [width]="50" prop="creator" name="Izsoles statuss" [sortable]="true"></ngx-datatable-column> -->
 
@@ -21,6 +35,15 @@
   <ngx-datatable-column [width]="60" name="Details" prop="id">
     <ng-template let-row="row" ngx-datatable-cell-template>
       <a (click)="onDetailsClick()" [routerLink]="['/auction', row.auctionId]">details</a>
+    </ng-template>
+  </ngx-datatable-column>
+
+  <ngx-datatable-column [width]="50" [resizeable]="false" [sortable]="false" [draggable]="false"
+    [canAutoResize]="false">
+    <ng-template let-row="row" let-expanded="expanded" ngx-datatable-cell-template>
+      <a href="javascript:void(0)" [class.datatable-icon-right]="!expanded" [class.datatable-icon-down]="expanded"
+        title="Expand/Collapse Row" (click)="toggleExpandRow(row)">
+      </a>
     </ng-template>
   </ngx-datatable-column>
 

@@ -23,6 +23,7 @@
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.2" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="5.4.0" />
+    <PackageReference Include="WindowsAzure.Storage" Version="9.3.3" />
   </ItemGroup>
 
   <ItemGroup>
@@ -44,15 +45,6 @@
     <None Remove="ClientApp\src\app\auth\components\sign-in\**" />
     <None Remove="ClientApp\src\app\auth\models\**" />
     <None Remove="ClientApp\src\app\auth\services\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Remove="Migrations\20190210115754_test.cs" />
-    <Compile Remove="Migrations\20190210115754_test.Designer.cs" />
-    <Compile Remove="Migrations\20190216121357_test.cs" />
-    <Compile Remove="Migrations\20190216121357_test.Designer.cs" />
-    <Compile Remove="Migrations\20190220193318_test.cs" />
-    <Compile Remove="Migrations\20190220193318_test.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
