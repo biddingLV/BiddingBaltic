@@ -1,5 +1,11 @@
+using Bidding.Models.ViewModels.Bidding.Users.Add;
+using Bidding.Repositories.Users;
+using Bidding.Services.Users;
+using Bidding.Shared.Attributes;
 using Bidding.Shared.Authorization;
+using Bidding.Shared.ErrorHandling.Errors;
 using Bidding.Shared.Exceptions;
+using Bidding.Shared.Utility;
 using BiddingAPI.Models.ApplicationModels.Configuration;
 using BiddingAPI.Models.DatabaseModels;
 using BiddingAPI.Repositories.Auctions;
@@ -23,6 +29,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
 using System.IdentityModel.Tokens.Jwt;
+using System.Net;
 using System.Security.Principal;
 using System.Threading.Tasks;
 
@@ -30,20 +37,6 @@ namespace Bidding
 {
     public class Startup
     {
-        // TODO: Move this class.
-        public class AntiforgeryCookieResultFilterAttribute : Microsoft.AspNetCore.Mvc.Filters.ResultFilterAttribute
-        {
-            protected IAntiforgery Antiforgery { get; set; }
-            public AntiforgeryCookieResultFilterAttribute(IAntiforgery antiforgery) => this.Antiforgery = antiforgery;
-
-            public override void OnResultExecuting(Microsoft.AspNetCore.Mvc.Filters.ResultExecutingContext context)
-            {
-                // kke: you can see this in the cookie!
-                var tokens = this.Antiforgery.GetAndStoreTokens(context.HttpContext);
-                context.HttpContext.Response.Cookies.Append("XSRF-TOKEN", tokens.RequestToken, new CookieOptions() { HttpOnly = false });
-            }
-        }
-
         public Startup(IHostingEnvironment environment)
         {
             var builder = new ConfigurationBuilder()
@@ -56,7 +49,6 @@ namespace Bidding
         }
 
         public IConfiguration Configuration { get; }
-
         public IHostingEnvironment Environment { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
@@ -72,6 +64,7 @@ namespace Bidding
             ConfigureHttpContext(ref services);
             ConfigureAppConfigurationService(ref services);
             ConfigureAppServices(ref services);
+            ConfigureFluentApiValidators(ref services);
             ConfigureAuthentication(services);
             ConfigureAuthorization(ref services);
         }
@@ -173,7 +166,6 @@ namespace Bidding
 
         private void ConfigureAntiCSRF(ref IServiceCollection services)
         {
-            // kke: what is this magic?
             services.AddAntiforgery(options =>
             {
                 options.HeaderName = "X-XSRF-TOKEN";
@@ -256,7 +248,16 @@ namespace Bidding
             services.AddScoped<ISubscribeRepository, SubscribeRepository>();
             services.AddScoped<IAuctionsService, AuctionsService>();
             services.AddScoped<IAuctionsRepository, AuctionsRepository>();
+            services.AddScoped<IUsersService, UsersService>();
+            services.AddScoped<IUsersRepository, UsersRepository>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+        }
+
+        private void ConfigureFluentApiValidators(ref IServiceCollection services)
+        {
+            // todo: kke: add validators!
+            // In order for ASP.NET to discover your validators, they must be registered with the services collection.
+            //services.AddTransient<IValidator<TblOrganization>, OrganizationValidator>();
         }
 
         private void ConfigureAuthentication(IServiceCollection services)
@@ -274,11 +275,27 @@ namespace Bidding
             })
            .AddCookie(options =>
            {
-               options.Cookie.Name = "TXSESSION";
-               options.SlidingExpiration = true; // TODO: MJU: Should we do this? Usability vs. Security
+               options.Cookie.Name = Configuration["Cookies:Session"];
+               options.SlidingExpiration = true;
                options.Cookie.HttpOnly = true;
                options.Cookie.SameSite = SameSiteMode.Lax;
-               options.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;   // TODO: MJU: Remember for https!
+               options.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
+               options.LoginPath = "/sign-in";
+               options.Cookie.IsEssential = true;
+               options.Events = new CookieAuthenticationEvents()
+               {
+                   OnRedirectToLogin = (context) =>
+                   {
+                       if (context.Request.Path.StartsWithSegments("/api"))
+                       {
+                           context.Response.Clear();
+                           context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                           return Task.CompletedTask;
+                       }
+                       context.Response.Redirect(context.RedirectUri);
+                       return Task.CompletedTask;
+                   }
+               };
            })
            .AddOpenIdConnect(Configuration["Authentication:Scheme"], options =>
            {
@@ -309,10 +326,10 @@ namespace Bidding
                    // handle the logout redirection
                    OnRedirectToIdentityProviderForSignOut = (context) =>
                    {
-                       var logoutUri = $"https://{Configuration["Authentication:Domain"]}/v2/logout?client_id={Configuration["Authentication:ClientId"]}";
+                       string logoutUri = $"https://{Configuration["Authentication:Domain"]}/v2/logout?client_id={Configuration["Authentication:ClientId"]}";
+                       string postLogoutUri = context.Properties.RedirectUri;
 
-                       var postLogoutUri = context.Properties.RedirectUri;
-                       if (!string.IsNullOrEmpty(postLogoutUri))
+                       if (postLogoutUri.IsNotSpecified() == false)
                        {
                            if (postLogoutUri.StartsWith("/"))
                            {
@@ -332,55 +349,65 @@ namespace Bidding
                    {
                        JwtPayload payload = context.SecurityToken.Payload;
 
-                       // Check if we got token.
-                       if (payload == null) { return; }
+                       if (payload.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.Unauthorized, UserErrorMessages.CanNotSignIn); }
 
                        BiddingContext m_context = context.HttpContext.RequestServices.GetRequiredService<BiddingContext>();
-                       string isEmailVerified = context.SecurityToken.Payload["email_verified"].ToString();
 
-                       // Check if email is verified from identityprovider.
-                       bool couldParseEmailIsVerified = bool.TryParse(isEmailVerified, out var isEmailVerifiedResult);
+                       if (context.SecurityToken.Payload["email_verified"].IsNotSpecified()) { throw new WebApiException(HttpStatusCode.Unauthorized, UserErrorMessages.UsersEmailNotVerified); }
 
-                       // if email not verified - return
-                       if (!couldParseEmailIsVerified || !isEmailVerifiedResult) { return; }
+                       string usersIdentityId = context.SecurityToken.Payload["sub"].ToString();
+                       string usersEmail = context.SecurityToken.Payload["email"].ToString();
 
-                       string userIdentityId = context.SecurityToken.Payload["sub"].ToString();
-                       string userLoginEmail = context.SecurityToken.Payload["email"].ToString();
-
-                       // Check if payload has userId & login email
-                       if (!((userIdentityId != null || string.IsNullOrEmpty(userIdentityId)) && (userLoginEmail != null || string.IsNullOrEmpty(userLoginEmail)))) // TODO: MJU: Check this logic!
+                       if (usersIdentityId.IsNotSpecified() == false && usersEmail.IsNotSpecified() == false)
                        {
-                           // missing email or provider|userId
-                           return;
+                           // todo: kke: 1. check if this is the first sign in for the user!
+                           // todo: kke: can we use auth0 for that?
+                           // 2. if user doesnt exist fetch and save all the information!
+
+                           if (services.BuildServiceProvider().GetService<IUsersService>().UserExists(usersEmail))
+                           {
+                               // load user details
+                               //var userDetails = services.BuildServiceProvider().GetService<IUsersService>().UserDetails(usersEmail);
+                           }
+                           else
+                           {
+                               var y = context.SecurityToken.Payload;
+                               var x = new UserAddRequestModel()
+                               {
+                                   //UserFirstName = y["sub"].ToString(),
+                                   //UserLastName = request.UserLastName,
+                                   UserEmail = y["email"].ToString(),
+                                   UserUniqueIdentifier = y["sub"].ToString()
+                               };
+
+                               services.BuildServiceProvider().GetService<IUsersService>().Create(x);
+                           }
+
+
+                           // validate user details
+                           //ValidateUserDetails(userDetails, userIdentityId, m_context);
+
+                           // setup user claims
+                           //context.Principal.AddIdentity(SetupUserClaims(userDetails));
+
+                           // setup profile cookie
+                           //string userProfileCookieJSON = SetupUserProfileCookie(userDetails);
+
+                           // setup profile cookie options
+                           //CookieOptions userProfileCookieOptions = SetupUserProfileCookieOptions();
+
+                           //context.Response.Cookies.Append("TXPROFILE", userProfileCookieJSON, userProfileCookieOptions);
+
+                           // TODO: MJU: Create XSRF-TOKEN cookie for angular csrf protection.
                        }
-
-                       // load user details
-                       //UserProfileResponseModel userDetails = LoadUserDetails(ref services, userLoginEmail);
-
-                       // validate user details
-                       //ValidateUserDetails(userDetails, userIdentityId, m_context);
-
-                       // setup user claims
-                       //context.Principal.AddIdentity(SetupUserClaims(userDetails));
-
-                       // setup profile cookie
-                       //string userProfileCookieJSON = SetupUserProfileCookie(userDetails);
-
-                       // setup profile cookie options
-                       //CookieOptions userProfileCookieOptions = SetupUserProfileCookieOptions();
-
-                       //context.Response.Cookies.Append("TXPROFILE", userProfileCookieJSON, userProfileCookieOptions);
-
-                       // TODO: MJU: Create XSRF-TOKEN cookie for angular csrf protection.
+                       else
+                       {
+                           throw new WebApiException(HttpStatusCode.Unauthorized, UserErrorMessages.CanNotSignIn);
+                       }
                    }
                };
            });
         }
-
-        //private UserProfileResponseModel LoadUserDetails(ref IServiceCollection services, string userLoginEmail)
-        //{
-        //    return services.BuildServiceProvider().GetService<IUsersService>().UserDetails(userLoginEmail);
-        //}
 
         //private string SetupUserProfileCookie(UserProfileResponseModel user)
         //{

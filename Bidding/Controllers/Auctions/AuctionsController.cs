@@ -16,7 +16,7 @@ namespace BiddingAPI.Controllers.Auctions
 {
     [Produces("application/json")]
     [Route("api/[Controller]/[action]")]
-    public class AuctionsController : Controller
+    public class AuctionsController : ControllerBase
     {
         public readonly IAuctionsService m_auctionsService;
 

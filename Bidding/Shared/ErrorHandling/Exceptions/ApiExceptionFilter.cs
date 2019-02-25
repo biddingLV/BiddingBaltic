@@ -10,14 +10,14 @@ namespace Bidding.Shared.Exceptions
 {
     public class ApiExceptionFilter : IExceptionFilter
     {
-        private ILogger m_logger;
+        private readonly ILogger m_logger;
 
         public ApiExceptionFilter(ILoggerFactory loggerFactory)
         {
             m_logger = loggerFactory.CreateLogger("Status");
         }
 
-        public void OnException(ExceptionContext context)
+        public async void OnException(ExceptionContext context)
         {
             Exception ex = context.Exception;
             if (ex is WebApiException wex) // handled exceptions
@@ -25,10 +25,18 @@ namespace Bidding.Shared.Exceptions
                 context.HttpContext.Response.Clear();
                 context.HttpContext.Response.StatusCode = wex.HttpStatusCode;
                 context.ExceptionHandled = true;
-                m_logger.LogError(wex.Message);
+
+                if (wex.InnerException != null)
+                {
+                    m_logger.LogError(wex, wex.Message);
+                }
+                else
+                {
+                    m_logger.LogError(wex.Message);
+                }
                 if (wex.UserMessage != null)
                 {
-                    context.HttpContext.Response.WriteAsync(wex.UserMessage).ConfigureAwait(false);
+                    await context.HttpContext.Response.WriteAsync(wex.UserMessage).ConfigureAwait(false);
                 }
             }
             else // unhandled exceptions: send an email (note that unhandled exceptions are automatically logged in the logger)

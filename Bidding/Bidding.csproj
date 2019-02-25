@@ -31,10 +31,12 @@
     <Compile Remove="ClientApp\src\app\auth\components\sign-in\**" />
     <Compile Remove="ClientApp\src\app\auth\models\**" />
     <Compile Remove="ClientApp\src\app\auth\services\**" />
+    <Compile Remove="Shared\ErrorHandling\Validators\**" />
     <Content Remove="$(SpaRoot)**" />
     <Content Remove="ClientApp\src\app\auth\components\sign-in\**" />
     <Content Remove="ClientApp\src\app\auth\models\**" />
     <Content Remove="ClientApp\src\app\auth\services\**" />
+    <Content Remove="Shared\ErrorHandling\Validators\**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
 
@@ -42,9 +44,16 @@
     <EmbeddedResource Remove="ClientApp\src\app\auth\components\sign-in\**" />
     <EmbeddedResource Remove="ClientApp\src\app\auth\models\**" />
     <EmbeddedResource Remove="ClientApp\src\app\auth\services\**" />
+    <EmbeddedResource Remove="Shared\ErrorHandling\Validators\**" />
     <None Remove="ClientApp\src\app\auth\components\sign-in\**" />
     <None Remove="ClientApp\src\app\auth\models\**" />
     <None Remove="ClientApp\src\app\auth\services\**" />
+    <None Remove="Shared\ErrorHandling\Validators\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20190224191947_test.cs" />
+    <Compile Remove="Migrations\20190224191947_test.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>
@@ -52,7 +61,8 @@
     <Folder Include="ClientApp\src\app\admin\services\" />
     <Folder Include="ClientApp\src\app\auth\components\404-page-not-found\" />
     <Folder Include="ClientApp\src\app\shared\components\callback\" />
-    <Folder Include="Shared\ErrorHandling\Validators\" />
+    <Folder Include="Models\ViewModels\Bidding\Users\Edit\" />
+    <Folder Include="Models\ViewModels\Bidding\Users\Delete\" />
   </ItemGroup>
 
   <ItemGroup>

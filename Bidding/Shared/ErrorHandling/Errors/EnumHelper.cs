@@ -27,6 +27,5 @@ namespace Bidding.Shared.ErrorHandling.Errors
         {
             return GetDescriptionFromName(typeof(T), value.ToString());
         }
-
     }
 }

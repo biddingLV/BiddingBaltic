@@ -4,14 +4,16 @@ using BiddingAPI.Models.DatabaseModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Bidding.Migrations
 {
     [DbContext(typeof(BiddingContext))]
-    partial class BiddingContextModelSnapshot : ModelSnapshot
+    [Migration("20190224102624_ImproveUserTable")]
+    partial class ImproveUserTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -274,23 +276,17 @@ namespace Bidding.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("UserEmail")
-                        .IsRequired()
-                        .HasMaxLength(50);
+                    b.Property<string>("UserEmail");
 
-                    b.Property<string>("UserFirstName")
-                        .HasMaxLength(50);
+                    b.Property<string>("UserFirstName");
 
-                    b.Property<string>("UserLastName")
-                        .HasMaxLength(50);
+                    b.Property<string>("UserLastName");
 
                     b.Property<int>("UserRoleId");
 
                     b.Property<bool>("UserStatus");
 
-                    b.Property<string>("UserUniqueIdentifier")
-                        .IsRequired()
-                        .HasMaxLength(100);
+                    b.Property<string>("UserUniqueIdentifier");
 
                     b.HasKey("UserId");
 
