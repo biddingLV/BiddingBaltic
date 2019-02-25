@@ -1,4 +1,5 @@
 using Bidding.Models.ViewModels.Bidding.Users.Add;
+using Bidding.Models.ViewModels.Bidding.Users.Shared;
 using Bidding.Repositories.Users;
 using Bidding.Services.Users;
 using Bidding.Shared.Attributes;
@@ -28,8 +29,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net;
+using System.Security.Claims;
 using System.Security.Principal;
 using System.Threading.Tasks;
 
@@ -353,10 +356,11 @@ namespace Bidding
 
                        BiddingContext m_context = context.HttpContext.RequestServices.GetRequiredService<BiddingContext>();
 
-                       if (context.SecurityToken.Payload["email_verified"].IsNotSpecified()) { throw new WebApiException(HttpStatusCode.Unauthorized, UserErrorMessages.UsersEmailNotVerified); }
+                       // todo: kke: fix this to not be object comparison!
+                       if (payload["email_verified"].IsNotSpecified()) { throw new WebApiException(HttpStatusCode.Unauthorized, UserErrorMessages.UsersEmailNotVerified); }
 
-                       string usersIdentityId = context.SecurityToken.Payload["sub"].ToString();
-                       string usersEmail = context.SecurityToken.Payload["email"].ToString();
+                       string usersIdentityId = payload["sub"].ToString();
+                       string usersEmail = payload["email"].ToString();
 
                        if (usersIdentityId.IsNotSpecified() == false && usersEmail.IsNotSpecified() == false)
                        {
@@ -364,41 +368,39 @@ namespace Bidding
                            // todo: kke: can we use auth0 for that?
                            // 2. if user doesnt exist fetch and save all the information!
 
-                           if (services.BuildServiceProvider().GetService<IUsersService>().UserExists(usersEmail))
+                           IUsersService usersServiceProvider = services.BuildServiceProvider().GetService<IUsersService>();
+                           UserProfileModel userDetails = new UserProfileModel();
+
+                           if (usersServiceProvider.UserExists(usersEmail))
                            {
-                               // load user details
-                               //var userDetails = services.BuildServiceProvider().GetService<IUsersService>().UserDetails(usersEmail);
+                               // load user details for the profile cookie
+                               userDetails = services.BuildServiceProvider().GetService<IUsersService>().UserDetails(usersEmail);
                            }
                            else
                            {
-                               var y = context.SecurityToken.Payload;
-                               var x = new UserAddRequestModel()
+                               UserAddRequestModel newUser = new UserAddRequestModel()
                                {
-                                   //UserFirstName = y["sub"].ToString(),
-                                   //UserLastName = request.UserLastName,
-                                   UserEmail = y["email"].ToString(),
-                                   UserUniqueIdentifier = y["sub"].ToString()
+                                   // todo: kke: what about social logins here? can we get full name?
+                                   UserEmail = payload["email"].ToString(),
+                                   UserUniqueIdentifier = payload["sub"].ToString()
                                };
 
-                               services.BuildServiceProvider().GetService<IUsersService>().Create(x);
+                               usersServiceProvider.Create(newUser);
                            }
 
-
                            // validate user details
-                           //ValidateUserDetails(userDetails, userIdentityId, m_context);
+                           ValidateUserDetails(userDetails, usersIdentityId, m_context);
 
                            // setup user claims
-                           //context.Principal.AddIdentity(SetupUserClaims(userDetails));
+                           context.Principal.AddIdentity(SetupUserClaims(userDetails));
 
                            // setup profile cookie
-                           //string userProfileCookieJSON = SetupUserProfileCookie(userDetails);
+                           string userProfileCookieJSON = SetupUserProfileCookie(userDetails);
 
                            // setup profile cookie options
-                           //CookieOptions userProfileCookieOptions = SetupUserProfileCookieOptions();
+                           CookieOptions userProfileCookieOptions = SetupUserProfileCookieOptions();
 
-                           //context.Response.Cookies.Append("TXPROFILE", userProfileCookieJSON, userProfileCookieOptions);
-
-                           // TODO: MJU: Create XSRF-TOKEN cookie for angular csrf protection.
+                           context.Response.Cookies.Append("TXPROFILE", userProfileCookieJSON, userProfileCookieOptions);
                        }
                        else
                        {
@@ -409,21 +411,16 @@ namespace Bidding
            });
         }
 
-        //private string SetupUserProfileCookie(UserProfileResponseModel user)
-        //{
-        //    // Create the profile cookie, used for displaying user information in the client.
-        //    UserProfileCookie userProfileCookie = new UserProfileCookie()
-        //    {
-        //        IsAuthenticated = true,
-        //        OrganizationId = (int)user.OrgId,
-        //        UserId = user.Id,
-        //        UserName = user.UserName,
-        //        Email = user.LoginEmail
-        //    };
-
-        //    // userProfileCookieJSON 
-        //    return Newtonsoft.Json.JsonConvert.SerializeObject(userProfileCookie);
-        //}
+        private string SetupUserProfileCookie(UserProfileModel userDetails)
+        {
+            // Create the profile cookie, used for displaying user information in the client.
+            return Newtonsoft.Json.JsonConvert.SerializeObject(new UserProfileCookie()
+            {
+                IsAuthenticated = true,
+                UserId = userDetails.UserId, // todo: kke: why do we setup here user id?
+                Email = userDetails.UserEmail
+            });
+        }
 
         private CookieOptions SetupUserProfileCookieOptions()
         {
@@ -434,55 +431,24 @@ namespace Bidding
             };
         }
 
-        //private void ValidateUserDetails(UserProfileResponseModel user, string payloadUserIdentityId, SelfServiceContext m_context)
-        //{
-        //    // it cant be possible that we dont have the user information in our Database
-        //    // At the moment: user can only be added to the system by invite.
-        //    if (user.IsEmpty()) { return; }
+        private void ValidateUserDetails(UserProfileModel userDetails, string payloadUserUniqueIdentifier, BiddingContext m_context)
+        {
+            // our database and auth0 user unique identifiers need to be the same
+            if (userDetails.UserUniqueIdentifier != payloadUserUniqueIdentifier) { throw new WebApiException(HttpStatusCode.Unauthorized, UserErrorMessages.CanNotSignIn); }
+        }
 
-        //    // our database and auth0 identity provider user ids must be the same
-        //    if (user.IdentityProviderUserId != payloadUserIdentityId) { return; }
+        private ClaimsIdentity SetupUserClaims(UserProfileModel userDetails)
+        {
+            // setup user id and organization id claims
+            List<Claim> claims = new List<Claim>
+            {
+                new Claim("UserId", userDetails.UserId.ToString(), ClaimValueTypes.Integer, "Bidding"),
+                new Claim(ClaimTypes.Role, userDetails.UserRole, ClaimValueTypes.String, "Bidding")
+            };
 
-        //    // if users loginEmail missing return
-        //    if (user.LoginEmail.IsEmpty()) { return; }    // NOTE: MJU: Should be almost impossible.
-
-        //    // return if user organization missing
-        //    if (user.OrgId.IsEmpty()) { return; }
-
-        //    // save the identity provider user id if it is missing for the user
-        //    if (user.IdentityProviderUserId.IsEmpty() || user.IdentityProviderUserId == "0" || user.IdentityProviderUserId == "auth0|0") // TODO: KKE: REMOVE LAST CHECK AFTER TESTING!
-        //    {
-        //        user.IdentityProviderUserId = payloadUserIdentityId;
-        //        m_context.Entry(user).Property("IdentityProviderUserId").IsModified = true; // Only updating one property instead of entity
-
-        //        m_context.SaveChanges();
-        //    }
-        //}
-
-        //private ClaimsIdentity SetupUserClaims(UserProfileResponseModel user)
-        //{
-        //    // setup user id and organization id claims
-        //    List<Claim> claims = new List<Claim>
-        //    {
-        //        new Claim("UserId", user.Id.ToString(), ClaimValueTypes.Integer, "Bidding"),
-        //        new Claim("OrganizationId", user.OrgId.ToString(), ClaimValueTypes.Integer, "Bidding")
-        //    };
-
-        //    // handle super admin claims
-        //    if (user.IsSuperAdmin)
-        //    {
-        //        claims.Add(new Claim(ClaimTypes.Role, "SuperAdmin"));
-        //    }
-        //    else
-        //    {
-        //        claims.Add(new Claim(ClaimTypes.Role, user.RoleName));
-        //    }
-
-        //    // setup claims identity
-        //    ClaimsIdentity appIdentity = new ClaimsIdentity(claims);
-
-        //    return appIdentity;
-        //}
+            // setup claims identity
+            return new ClaimsIdentity(claims);
+        }
 
         private void ConfigureAuthorization(ref IServiceCollection services)
         {

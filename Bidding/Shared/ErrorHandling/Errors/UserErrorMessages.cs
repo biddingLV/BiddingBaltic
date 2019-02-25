@@ -16,5 +16,8 @@ namespace Bidding.Shared.ErrorHandling.Errors
 
         [Description("Could not create the user.")]
         CouldNotCreateUser,
+
+        [Description("Please specify your e-mail!")]
+        EmailNotSpecified,
     }
 }

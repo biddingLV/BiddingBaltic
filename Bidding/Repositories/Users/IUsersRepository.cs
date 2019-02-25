@@ -1,4 +1,5 @@
 ﻿using Bidding.Models.ViewModels.Bidding.Users.Add;
+using Bidding.Models.ViewModels.Bidding.Users.Shared;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,7 +10,7 @@ namespace Bidding.Repositories.Users
     public interface IUsersRepository
     {
         bool UserExists(string email);
-
         bool Create(UserAddRequestModel request);
+        IEnumerable<UserProfileModel> UserDetails(string email);
     }
 }

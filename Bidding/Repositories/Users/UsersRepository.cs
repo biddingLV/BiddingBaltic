@@ -1,4 +1,5 @@
 ﻿using Bidding.Models.ViewModels.Bidding.Users.Add;
+using Bidding.Models.ViewModels.Bidding.Users.Shared;
 using Bidding.Shared.ErrorHandling.Errors;
 using Bidding.Shared.Exceptions;
 using Bidding.Shared.Utility;
@@ -63,6 +64,20 @@ namespace Bidding.Repositories.Users
             });
 
             return true;
+        }
+
+        public IEnumerable<UserProfileModel> UserDetails(string email)
+        {
+            return (from usr in m_context.Users
+                    join rol in m_context.Roles on usr.UserRoleId equals rol.RoleId
+                    where usr.UserEmail == email && usr.UserStatus == true
+                    select new UserProfileModel()
+                    {
+                        UserId = usr.UserId,
+                        UserEmail = usr.UserEmail,
+                        UserRole = rol.RoleName,
+                        UserUniqueIdentifier = usr.UserUniqueIdentifier
+                    });
         }
     }
 }
