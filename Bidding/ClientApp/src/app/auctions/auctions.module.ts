@@ -8,7 +8,7 @@ import { AuctionsRoutingModule } from './auctions-routing.module';
 
 // modules
 import { SharedModule } from '../shared/shared.module';
-
+import { DatetimePopupModule } from 'ngx-bootstrap-datetime-popup';
 // services
 import { AuctionsService } from './services/auctions.service';
 
@@ -25,6 +25,7 @@ import { AuctionDeleteComponent } from './components/delete/delete.component';
     CommonModule,
     SharedModule,
     ReactiveFormsModule,
+    DatetimePopupModule,
     AuctionsRoutingModule
   ],
   exports: [

@@ -1,6 +1,200 @@
 <div class="modal-header">
   <h3 class="modal-title pull-left">New Auction</h3>
   <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form [formGroup]="auctionAddForm" #Addauction='ngForm'>
+      <div class="form-group">
+          <label class="required">Nosaukums:<span class="reqAsterisk">&#42;</span></label>
+          <input type="text" formControlName="auctionName" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.auctionName.errors }" required />
+          <div *ngIf="submitted && formErrors.auctionName" class="invalid-feedback">
+              {{formErrors.auctionName}}
+          </div>
+      </div>
+      <div class="form-group">
+          <label>Izsoles veids:<span class="reqAsterisk">&#42;</span></label>
+          <ng-select [virtualScroll]="true" placeholder="Izvēlieties veidu">
+              <ng-option *ngFor="let typ of auctionType; let i = index" [value]="typ.Id" required>
+                  {{typ.type}}
+              </ng-option>
+          </ng-select>
+      </div>
+      <div class="form-group">
+      <label class="required">Sākumcena:<span class="reqAsterisk">&#42;</span></label>
+
+      <!-- <input type="text" formControlName="startingPrice" class="form-control" [(ngModel)]="abc.abc" (input)="inputValidator($event)" [ngClass]="{ 'is-invalid': submitted && f.startingPrice.errors }" required  />
+      <input type="text" formControlName="startingPrice" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.startingPrice.errors }" required /> -->
+      <!-- <input type="text"
+   [(ngModel)]="value | currency:'USD':true"
+   (ngModelChange)="value=currencyInputChanged($event)"> -->
+   <input [value]="auctionAddForm.get('startingPrice').value | currency:'EUR':'symbol':'1.2-2'" formControlName="startingPrice">
+      <div *ngIf="submitted && formErrors.startingPrice" class="invalid-feedback">
+          {{formErrors.startingPrice}}
+      </div>
+  </div>
+      <div class="form-group">
+          <label class="required">Izsoles sākums:<span class="reqAsterisk">&#42;</span></label>
+          <input type="text" class="form-control" formControlName="startDate" (click)="onTogglePicker()" />
+          <!-- <span class="input-group-btn">
+              <button class="btn btn-outline-secondary" (click)="onTogglePicker()">
+                  <i class="fa fa-calendar" aria-hidden="true"></i>
+              </button>
+          </span> -->
+          <datetime-popup [value]="startDate" (valueChange)="onValueChange($event)"
+                      [(showPopup)]="showPicker"
+                      [showDate]="showDate"
+                      [showTime]="showTime"
+                      [closeButton]="closeButton">
+          </datetime-popup>
+      </div>
+      <!--<div class="form-group">
+      <label class="required">Izsoles sākums:<span class="reqAsterisk">&#42;</span></label>
+      <datetime-popup [(value)]="myDate"></datetime-popup>
+      <div *ngIf="submitted && formErrors.startDate" class="invalid-feedback">
+          {{formErrors.startDate}}
+      </div>
+  </div>-->
+  <div class="form-group">
+          <label class="required">Izsoles noslēgums:<span class="reqAsterisk">&#42;</span></label>
+          <input type="text" class="form-control" formControlName="endDate" (click)="onTogglePicker()" />
+          <!-- <span class="input-group-btn">
+              <button class="btn btn-outline-secondary" (click)="onTogglePicker()">
+                  <i class="fa fa-calendar" aria-hidden="true"></i>
+              </button>
+          </span> -->
+          <datetime-popup [value]="endDate" (valueChange)="onValueChange($event)"
+                      [(showPopup)]="showPicker"
+                      [showDate]="showDate"
+                      [showTime]="showTime"
+                      [closeButton]="closeButton">
+          </datetime-popup>
+      </div>
+      <!-- <div class="form-group">
+    <label class="required">Izsoles noslēgums:<span class="reqAsterisk">&#42;</span></label>
+    <datetime-popup [(value)]="endDate"></datetime-popup>
+    <div *ngIf="submitted && formErrors.endDate" class="invalid-feedback">
+      {{formErrors.endDate}}
+  </div>
+  </div> -->
+      <div class="form-group">
+          <label class="required">Izsoles veidotājs:<span class="reqAsterisk">&#42;</span></label>
+          <input type="text" formControlName="creator" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.creator.errors }" required />
+          <div *ngIf="submitted && formErrors.creator" class="invalid-feedback">
+              {{formErrors.creator}}
+          </div>
+      </div>
+      <div class="form-group">
+              <label class="required">Pieteikties var līdz:</label>
+              <input type="text" class="form-control" formControlName="tillDate" (click)="onTogglePicker()" />
+              <!-- <span class="input-group-btn">
+                  <button class="btn btn-outline-secondary" (click)="onTogglePicker()">
+                      <i class="fa fa-calendar" aria-hidden="true"></i>
+                  </button>
+              </span> -->
+              <datetime-popup [value]="tillDate" (valueChange)="onValueChange($event)"
+                          [(showPopup)]="showPicker"
+                          [showDate]="showDate"
+                          [showTime]="showTime"
+                          [closeButton]="closeButton">
+              </datetime-popup>
+          </div>
+      <!-- <div class="form-group">
+    <label for="dateFrom">From:</label>
+    <app-date-picker></app-date-picker>
+    <app-date-picker (dateChange)="updateRequest('StartDate', $event)" [date]="startDate" id="dateFrom">
+    </app-date-picker>
+  </div> -->
+      <!-- <div class="form-group">
+    <label class="not-required">Pieteikties var līdz:</label>
+    <datetime-popup [(value)]="joinDate"></datetime-popup>
+    <div *ngIf="submitted && formErrors.joinDate" class="invalid-feedback">
+      {{formErrors.joinDate}}
+  </div>
+  </div> -->
+      <div class="form-group">
+          <label class="not-required">Izsoles apraksts:</label>
+          <input type="text" formControlName="description" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.description.errors }" />
+          <div *ngIf="submitted && formErrors.description" class="invalid-feedback">
+              {{formErrors.description}}
+          </div>
+      </div>
+      <div class="form-group">
+          <label class="not-required">Pievienot attēlu:</label>
+          <br>
+          <input type="file" (change)="onFileSelected($event)" id="fileUpload">
+      </div>
+      <button type="button" (click)="onUpload()">Upload</button>
+      <div class="form-group">
+          <br>
+          <button class="btn btn-primary" (click)="onSubmit()">Add</button>
+          <button class="btn btn-secondary" (click)="bsModalRef.hide()">Cancel</button>
+      </div>
+  </form>
+</div>
+
+
+
+
+<!-- Css for datetime-popup -->
+
+<style>
+datetime-popup > .dropdown .glyphicon {
+  display: inline-block;
+  font: normal normal normal 14px/1 FontAwesome;
+  font-size: inherit;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+datetime-popup > .dropdown timepicker {
+  display: flex;
+  justify-content: center;
+}
+
+datetime-popup > .dropdown .bg-faded {
+  border:0;
+  background-color: #fff;
+}
+
+datetime-popup > .dropdown datepicker .btn-secondary {
+  background-color: #fff;
+  border: 0;
+  color: #000;
+}
+
+datetime-popup > .dropdown datepicker button.active {
+  background-color: #ddd;
+}
+
+datetime-popup > .dropdown .glyphicon.glyphicon-remove-circle:before {
+  content: "\f05c";
+}
+
+datetime-popup > .dropdown .glyphicon.glyphicon-chevron-down:before {
+  content: "\f078";
+}
+
+datetime-popup > .dropdown .glyphicon.glyphicon-chevron-up:before {
+  content: "\f077";
+}
+
+datetime-popup > .dropdown .glyphicon.glyphicon-chevron-left:before {
+  content: "\f053";
+}
+
+datetime-popup > .dropdown .glyphicon.glyphicon-chevron-right:before {
+  content: "\f054";
+}
+
+datetime-popup > .dropdown .glyphicon.hidden {
+  display: none !important;
+}</style>
+<!-- <div class="modal-header">
+  <h3 class="modal-title pull-left">New Auction</h3>
+  <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
@@ -55,8 +249,8 @@
     <div class="form-group">
       <label for="dateFrom">From:</label>
       <app-date-picker></app-date-picker>
-      <!-- <app-date-picker (dateChange)="updateRequest('StartDate', $event)" [date]="startDate" id="dateFrom">
-      </app-date-picker> -->
+      <app-date-picker (dateChange)="updateRequest('StartDate', $event)" [date]="startDate" id="dateFrom">
+      </app-date-picker>
     </div>
 
     <div class="form-group">
@@ -64,4 +258,4 @@
       <button class="btn btn-secondary" (click)="bsModalRef.hide()">Cancel</button>
     </div>
   </form>
-</div>
+</div> -->
