@@ -49,7 +49,7 @@ export class AdminAuctionListComponent implements OnInit {
 
   addModal() {
     const initialState = {};
-    this.bsModalRef = this.modalService.show(AuctionAddComponent, { initialState });
+    this.bsModalRef = this.modalService.show(AuctionAddComponent, { initialState, class: 'modal-lg' });
     this.bsModalRef.content.closeBtnName = 'Close';
     this.modalService.onHide.subscribe(() => { }); // this.getAuctions();
   }
