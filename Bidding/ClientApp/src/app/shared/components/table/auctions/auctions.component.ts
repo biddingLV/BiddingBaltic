@@ -49,13 +49,4 @@ export class AuctionsTableComponent implements OnInit {
     console.log('selected: ', selected)
     this.selectedChange.emit(selected);
   }
-
-  toggleExpandRow(row) {
-    console.log('Toggled Expand Row!', row);
-    this.table.rowDetail.toggleExpandRow(row);
-  }
-
-  onDetailToggle(event) {
-    console.log('Detail Toggled', event);
-  }
 }
