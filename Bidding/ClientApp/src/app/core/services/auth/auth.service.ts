@@ -8,7 +8,7 @@ import { CookieService } from 'ngx-cookie-service/cookie-service/cookie.service'
 
 // internal
 import { environment } from '../../../../environments/environment';
-import { User } from '../../models/user.model';
+import { User } from '../../models/user/user.model';
 
 
 interface TxWindow extends Window {
@@ -19,16 +19,18 @@ interface TxWindow extends Window {
 
 @Injectable()
 export class AuthService {
-  userInfo: User;
+  userDetails: User;
   redirectUri: string;
 
-  constructor(public router: Router, private cookieService: CookieService) {
+  constructor(
+    public router: Router,
+    private cookieService: CookieService
+  ) {
     this.checkCookie();
   }
 
   login(): void {
-    // TODO: MJU: Better way to do this?
-    if (this.redirectUri !== undefined) {   // TODO: MJU: Better way to check null?
+    if (this.redirectUri !== undefined) {
       window.location.href = environment.authLoginUri + '?redirectPage=' + this.redirectUri;
     } else {
       window.location.href = environment.authLoginUri;
@@ -40,12 +42,12 @@ export class AuthService {
   }
 
   isAuthenticated(): boolean {
-    if (this.userInfo == null) {    // TODO: MJU: Best way to check for null?
+    if (this.userDetails == null) {
       this.checkCookie();
     }
-    // TODO: MJU: Add session expiration to profile cookie.
-    if (this.userInfo != null) {
-      return this.userInfo.IsAuthenticated;
+
+    if (this.userDetails != null) {
+      return this.userDetails.IsAuthenticated;
     } else {
       return false;
     }
@@ -54,16 +56,21 @@ export class AuthService {
   private checkCookie(): void {
     if (this.cookieService.check('TXPROFILE')) {
       const profileCookie = this.cookieService.get('TXPROFILE');
-      if (profileCookie !== undefined) {
-        const profile = JSON.parse(profileCookie);
-        this.userInfo = new User();
-        this.userInfo.IsAuthenticated = profile.IsAuthenticated;
-        this.userInfo.OrganizationId = profile.OrganizationId;
-        this.userInfo.UserId = profile.UserId;
-        this.userInfo.UserName = profile.UserName;
+      if (profileCookie) {
+        this.setUserDetails(profileCookie);
       }
     } else {
-      this.userInfo = null;
+      this.userDetails = null;
     }
+  }
+
+  private setUserDetails(profileCookie: string): void {
+    const profile = JSON.parse(profileCookie);
+    this.userDetails = new User();
+    this.userDetails.UserId = profile.UserId;
+    this.userDetails.IsAuthenticated = profile.IsAuthenticated;
+    this.userDetails.FirstName = profile.FirstName;
+    this.userDetails.LastName = profile.LastName;
+    this.userDetails.Email = profile.Email;
   }
 }

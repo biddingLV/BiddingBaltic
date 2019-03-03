@@ -1,15 +1,19 @@
-<div class="panel panel-default profile-area">
-  <div class="panel-heading"><h3>Profile</h3></div>
-  <div class="panel-body">
-    <img src="{{profile?.picture}}" class="avatar" alt="avatar">
-    <div>
-      <label><i class="glyphicon glyphicon-user"></i> Nickname</label>
-      <h3 class="nickname">{{ profile?.nickname }}</h3>
+<div class="container">
+  <div class="row">
+    <div class="col-6">
+      <ng-container *ngIf="userDetails">
+        <h1>{{fullName}}</h1>
+      </ng-container>
     </div>
-    <div>
-      <label><i class="glyphicon glyphicon-envelope"></i> Email</label>
-      <h3 class="email">{{ profile?.email }}</h3>
+
+    <div class="col-6">
+      <button value="Edit" type="button" (click)="editModal()" class="btn btn-primary">
+        Edit
+      </button>
     </div>
-    <pre class="full-profile">{{ profile | json }}</pre>
+  </div>
+
+  <div class="row">
+    <a routerLink="/auctions">Go Back to auction list!</a>
   </div>
 </div>

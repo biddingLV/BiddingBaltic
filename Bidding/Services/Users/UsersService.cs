@@ -1,4 +1,5 @@
 ﻿using Bidding.Models.ViewModels.Bidding.Users.Add;
+using Bidding.Models.ViewModels.Bidding.Users.Edit;
 using Bidding.Models.ViewModels.Bidding.Users.Shared;
 using Bidding.Repositories.Users;
 using Bidding.Shared.ErrorHandling.Errors;
@@ -32,6 +33,13 @@ namespace Bidding.Services.Users
         {
             //if (email.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, UserErrorMessages.IncorrectSignInEmail); }
             return m_userRepository.Create(request);
+        }
+
+        public UserDetailsModel UserDetails(int userId)
+        {
+            if (userId.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, UserErrorMessages.UserNotValid); }
+
+            return m_userRepository.UserDetails(userId).FirstOrDefault();
         }
 
         public UserProfileModel UserDetails(string email)
