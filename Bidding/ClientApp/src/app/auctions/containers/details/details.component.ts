@@ -29,6 +29,10 @@ export class AuctionDetailsComponent implements OnInit, OnDestroy {
   // API
   request: AuctionListRequest;
 
+  timer: any;
+
+  displayTime: any;
+
   constructor(
     private auctionApi: AuctionsService,
     private notification: NotificationsService,
@@ -37,12 +41,43 @@ export class AuctionDetailsComponent implements OnInit, OnDestroy {
 
   ngOnInit(): void {
     this.getAuctionDetails();
+
+    this.timer = setInterval(() => {
+      https://github.com/markpenaranda/ngx-countdown-timer/blob/master/src/countdown-timer.component.ts
+      // if (this.start) {
+      this.displayTime = this.getTimeDifference('3/4/2019 11:15');
+      // } else { 
+      //   this.displayTime = this.getTimeDifference(this.end);
+      // }
+    }, 1000);
   }
 
   ngOnDestroy(): void {
     if (this.auctionDetailsSub) {
       this.auctionDetailsSub.unsubscribe();
     }
+  }
+
+  getTimeDifference(datetime) {
+    datetime = new Date(datetime).getTime();
+    var now = new Date().getTime();
+
+    if (isNaN(datetime)) {
+      return "";
+    }
+
+    var milisec_diff = datetime - now;
+
+    var days = Math.floor(milisec_diff / 1000 / 60 / (60 * 24));
+    var date_diff = new Date(milisec_diff);
+    var day_string = (days) ? this.twoDigit(days) + ":" : "";
+    var day_hours = days * 24;
+
+
+    return day_string + this.twoDigit(date_diff.getUTCHours()) +
+      ":" + this.twoDigit(date_diff.getMinutes()) + ":"
+      + this.twoDigit(date_diff.getSeconds());
+
   }
 
   private getAuctionDetails(): void {
@@ -52,5 +87,9 @@ export class AuctionDetailsComponent implements OnInit, OnDestroy {
           this.auctionApi.getAuctionDetails$(Number(params.get('id'))))
       ).subscribe(response => { this.auctionDetails = response; },
         (error: string) => this.notification.error(error));
+  }
+
+  private twoDigit(number: number) {
+    return number > 9 ? "" + number : "0" + number;
   }
 }
