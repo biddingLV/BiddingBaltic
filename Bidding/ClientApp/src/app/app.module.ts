@@ -28,8 +28,6 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 // Services
 import { PreviousRouteService } from './shared/services/previous-route.service.ts/previous-route.service';
 
-
-
 @NgModule({
   declarations: [
     AppComponent

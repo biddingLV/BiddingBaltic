@@ -1,7 +1,8 @@
+// angular
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 // third-libraries
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
@@ -13,37 +14,34 @@ import { AuctionsTableComponent } from './components/table/auctions/auctions.com
 import { DatepickerComponent } from './components/datepicker/datepicker.component';
 
 // filter components
-import { ArrayDropdownComponent } from './components/dropdowns/array/array.component';
-import { ObjectDropdownComponent } from './components/dropdowns/object/object.component';
 import { SearchComponent } from './components/search/search.component';
+
+// Modules
+import { MinSharedModule } from './shared-min.module';
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule,
     NgSelectModule,
-    FormsModule,
     NgxDatatableModule,
-    BsDatepickerModule.forRoot()
+    BsDatepickerModule.forRoot(),
+    MinSharedModule,
+    FormsModule, // todo: kke: get rid of this module!
+    ReactiveFormsModule
   ],
   exports: [
     AuctionsTableComponent,
     SearchComponent,
-    ArrayDropdownComponent,
-    ObjectDropdownComponent,
-    FormsModule,
     NgSelectModule,
-    DatepickerComponent
+    DatepickerComponent,
+    FormsModule, // todo: kke: get rid of this module!
+    ReactiveFormsModule
   ],
   declarations: [
     AuctionsTableComponent,
     SearchComponent,
-    ArrayDropdownComponent,
-    ObjectDropdownComponent,
-    DatepickerComponent,
-  ],
-  providers: [
-
+    DatepickerComponent
   ]
 })
 export class SharedModule { }

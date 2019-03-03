@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 // 3rd lib
-import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalRef } from 'ngx-bootstrap/modal';
 import { Subscription } from 'rxjs';
 
 // internal
@@ -16,7 +16,7 @@ import { NotificationsService, FormService } from '../../../core';
   templateUrl: './edit.component.html',
   styles: []
 })
-export class UsersEditComponent implements OnInit {
+export class UserEditComponent implements OnInit {
   // info from parent component
   userId: number;
   userFirstName: string;
@@ -45,8 +45,7 @@ export class UsersEditComponent implements OnInit {
     private userApi: UsersService,
     private notification: NotificationsService,
     private fb: FormBuilder,
-    private formService: FormService,
-    private modalService: BsModalService
+    private formService: FormService
   ) { }
 
   ngOnInit(): void {

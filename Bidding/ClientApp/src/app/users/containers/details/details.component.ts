@@ -5,11 +5,13 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 // 3rd lib
 import { switchMap } from 'rxjs/operators';
 import { Subscription } from 'rxjs';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 // internal
 import { UsersService } from '../../services/users.service';
 import { NotificationsService } from 'ClientApp/src/app/core/services/notifications/notifications.service';
 import { UserDetailsModel } from '../../models/details/user-details.model';
+import { UserEditComponent } from '../../components/edit/edit.component';
 
 
 @Component({
@@ -24,10 +26,14 @@ export class UserDetailsComponent implements OnInit {
   // template
   fullName: string;
 
+  // modals
+  bsModalRef: BsModalRef;
+
   constructor(
     private userApi: UsersService,
     private activedRoute: ActivatedRoute,
     private notification: NotificationsService,
+    private modalService: BsModalService
   ) { }
 
   ngOnInit() {
@@ -41,13 +47,12 @@ export class UserDetailsComponent implements OnInit {
       userLastName: this.userDetails.userLastName
     };
 
-    // this.bsModalRef = this.modalService.show(UsersEditComponent, { initialState });
-    // this.bsModalRef.content.closeBtnName = 'Close';
-    // // TODO: MJU: Only reload if success.
-    // this.modalService.onHide.subscribe(() => {
-    //   this.loadUserInformation();
-    //   this.getActivities();
-    // });
+    this.bsModalRef = this.modalService.show(UserEditComponent, { initialState });
+
+    // TODO: MJU: Only reload if success.
+    this.modalService.onHide.subscribe(() => {
+      this.loadUserDetails();
+    });
   }
 
   /**
