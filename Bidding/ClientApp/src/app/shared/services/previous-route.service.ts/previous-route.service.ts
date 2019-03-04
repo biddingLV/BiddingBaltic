@@ -18,8 +18,6 @@ export class PreviousRouteService {
     this.previousUrl = undefined;
     this.router.events.subscribe(event => {
       if (event instanceof NavigationEnd) {
-        // TODO: MJU: Maybe store these in localstorage, 
-        //            then they will work if new tabs or windows are created.
         this.previousUrl = this.currentUrl;
         this.currentUrl = event.url;
       }

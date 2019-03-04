@@ -49,7 +49,6 @@ export class UserDetailsComponent implements OnInit {
 
     this.bsModalRef = this.modalService.show(UserEditComponent, { initialState });
 
-    // TODO: MJU: Only reload if success.
     this.modalService.onHide.subscribe(() => {
       this.loadUserDetails();
     });

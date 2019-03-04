@@ -94,7 +94,7 @@ namespace Bidding
             // Custom responses
             app.Use(next => context =>
             {
-                // TODO: MJU: use https: for everything!
+                // TODO: use https: for everything!
                 // TODO: Not working with live code editing in development.
                 if (!env.IsDevelopment())
                 {
@@ -210,7 +210,7 @@ namespace Bidding
                 // origins = new[] { "http://localhost:4200", "http://localhost:3000", "http://devup.azurewebsites.net" };
             }
 
-            // TODO: MJU: Check that these CORS settings are correct!
+            // TODO: Check that these CORS settings are correct!
             services.AddCors(
                 options => options.AddPolicy("Dev", builder =>
                 {

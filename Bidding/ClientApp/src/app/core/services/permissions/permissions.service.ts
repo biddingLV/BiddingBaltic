@@ -138,7 +138,7 @@ export class PermissionsService {
   //       switchMap(_ => this.getUserRolePermissionsFromServer()),
   //       shareReplay(1)
   //     );
-  //     // TODO: MJU: Can I avoid doing this? It looks like a hack.
+  //     // Can I avoid doing this? It looks like a hack.
   //     //            Without it, the first load does not get triggered,
   //     //            for some reason using an async pipe does not trigger a
   //     //            reload, but a subscription does?
@@ -160,7 +160,7 @@ export class PermissionsService {
   //   return this.getUserRolePermissions().pipe(map(selector));
   // }
 
-  /*    const timer$ = timer(0, 10000); // TODO: MJU: Use something else, only example to use timer.
+  /*    const timer$ = timer(0, 10000);
    this.userRolePermissions$ = timer$.pipe(
      switchMap(_ => this.getUserRolePermissionsFromServer()),
      shareReplay(1)
