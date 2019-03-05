@@ -20,7 +20,7 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 
 namespace BiddingAPI.Repositories.Auctions
 {
-    public class AuctionsRepository : IAuctionsRepository
+    public class AuctionsRepository
     {
         private readonly BiddingContext m_context;
 
@@ -29,6 +29,15 @@ namespace BiddingAPI.Repositories.Auctions
             m_context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="request"></param>
+        /// <param name="startFrom">pagination start from</param>
+        /// <param name="endAt"> pagination end at</param>
+        /// <param name="categoryIds">top category ids</param>
+        /// <param name="typeIds">sub-category ids</param>
+        /// <returns></returns>
         public IEnumerable<AuctionListModel> ListWithSearch(AuctionListRequestModel request, int startFrom, int endAt, List<int> selectedCategoryIds, List<int> selectedTypeIds)
         {
             // todo: kke: add OrganizationIdArray as a migration!

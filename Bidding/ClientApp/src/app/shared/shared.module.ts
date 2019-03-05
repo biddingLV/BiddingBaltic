@@ -18,6 +18,7 @@ import { SearchComponent } from './components/search/search.component';
 
 // Modules
 import { MinSharedModule } from './shared-min.module';
+import { FileUploaderComponent } from './components/file-uploader/file-uploader.component';
 
 @NgModule({
   imports: [
@@ -36,12 +37,14 @@ import { MinSharedModule } from './shared-min.module';
     NgSelectModule,
     DatepickerComponent,
     FormsModule, // todo: kke: get rid of this module!
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    FileUploaderComponent
   ],
   declarations: [
     AuctionsTableComponent,
     SearchComponent,
-    DatepickerComponent
+    DatepickerComponent,
+    FileUploaderComponent
   ]
 })
 export class SharedModule { }

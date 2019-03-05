@@ -16,11 +16,11 @@ using BiddingAPI.Repositories.Auctions;
 
 namespace BiddingAPI.Services.Auctions
 {
-    public class AuctionsService : IAuctionsService
+    public class AuctionsService
     {
-        private readonly IAuctionsRepository m_auctionsRepository;
+        private readonly AuctionsRepository m_auctionsRepository;
 
-        public AuctionsService(IAuctionsRepository auctionRepository)
+        public AuctionsService(AuctionsRepository auctionRepository)
         {
             m_auctionsRepository = auctionRepository ?? throw new ArgumentNullException(nameof(auctionRepository));
         }

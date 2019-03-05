@@ -249,8 +249,8 @@ namespace Bidding
             // if there is a problem with Cors, check if you have added service and repo here!
             services.AddScoped<ISubscribeService, SubscribeService>();
             services.AddScoped<ISubscribeRepository, SubscribeRepository>();
-            services.AddScoped<IAuctionsService, AuctionsService>();
-            services.AddScoped<IAuctionsRepository, AuctionsRepository>();
+            services.AddScoped<AuctionsService>();
+            services.AddScoped<AuctionsRepository>();
             services.AddScoped<IUsersService, UsersService>();
             services.AddScoped<IUsersRepository, UsersRepository>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
