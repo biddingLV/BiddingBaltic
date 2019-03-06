@@ -33,30 +33,58 @@ export class AuctionAddComponent implements OnInit {
     creator: '',
     auctionType: ''
   };
-  showPicker = false;
-  startDate: Date = null;
-  endDate: Date = null;
-  tillDate: Date = null;
+  showStartPicker = false;
+  showEndPicker = false;
+  showTillPicker = false;
+  startDate: Date = new Date();
+  endDate: Date = new Date();
+  tillDate: Date = new Date();
   showDate = true;
   showTime = true;
   closeButton: any = { show: true, label: 'Aizvērt', cssClass: 'btn btn-sm btn-primary' };
 
-  onTogglePicker() {
-      if (this.showPicker === false) {
-          this.showPicker = true;
+  onToggleStartPicker() {
+      if (this.showStartPicker === false) {
+          this.showStartPicker = true;
       }
   }
-
-  onValueChange(val: Date) {
-      this.startDate = val;
-      this.endDate = val;
-      this.tillDate = val;
+  onToggleEndPicker() {
+    if (this.showEndPicker === false) {
+        this.showEndPicker = true;
+    }
+  }
+  onToggleTillPicker() {
+    if (this.showTillPicker === false) {
+        this.showTillPicker = true;
+    }
   }
 
-  isValid(): boolean {
+  onStartValueChange(val: Date) {
+      this.startDate = val;
+      // this.endDate = val;
+      // this.tillDate = val;
+  }
+  onEndValueChange(val: Date) {
+    this.endDate = val;
+    // this.tillDate = val;
+  }
+  onTillValueChange(val: Date) {
+    this.tillDate = val;
+  }
+  isValidStartDate(): boolean {
     // this function is only here to stop the datepipe from erroring if someone types in value
       return this.startDate && (typeof this.startDate !== 'string') && !isNaN(this.startDate.getTime());
 
+  }
+  isValidEndDate(): boolean {
+    // this function is only here to stop the datepipe from erroring if someone types in value
+      return this.endDate && (typeof this.endDate !== 'string') && !isNaN(this.endDate.getTime());
+      
+  }
+  isValidTillDate(): boolean {
+    // this function is only here to stop the datepipe from erroring if someone types in value
+      return this.tillDate && (typeof this.tillDate !== 'string') && !isNaN(this.tillDate.getTime());
+      
   }
   // todo: kke: example
   // startDate: string;
@@ -78,20 +106,25 @@ export class AuctionAddComponent implements OnInit {
     private http: HttpClient,
     public bsModalRef: BsModalRef
   ) { }
-  public inputValidator(event: any) {
-    //console.log(event.target.value);
-    const pattern = /^[a-zA-Z0-9]*/;   
-    //let inputChar = String.fromCharCode(event.charCode)
-    if (!pattern.test(event.target.value)) {
-      event.target.value = event.target.value.replace(/[^a-zA-Z0-9]/g, "");
-      // invalid character, prevent input
+  // public inputValidator(event: any) {
+  //   //console.log(event.target.value);
+  //   const pattern = /^[a-zA-Z0-9]*/;   
+  //   //let inputChar = String.fromCharCode(event.charCode)
+  //   if (!pattern.test(event.target.value)) {
+  //     event.target.value = event.target.value.replace(/[^a-zA-Z0-9]/g, "");
+  //     // invalid character, prevent input
 
-    }
-  }
-  currencyInputChanged(value) {
-    var num = value.replace(/[€,]/g, "");
-    return Number(num);
-  }
+  //   }
+  // }
+  // item = { startingPrice: 1 };
+  // onStartingPriceChange(n: string) {
+  //   var num = n.replace(/[€,]/g, "");
+  //   this.item.startingPrice = Number(num);
+  // }
+  // currencyInputChanged(value) {
+  //   var num = value.replace(/[€,]/g, "");
+  //   return Number(num);
+  // }
   ngOnInit() {
     this.buildForm();
 
@@ -156,9 +189,10 @@ export class AuctionAddComponent implements OnInit {
   updateRequest(property: string, event) {
 
   }
-  
+ 
   private buildForm() {
     this.auctionAddForm = this.fb.group({
+      
       auctionName: ['', [
         Validators.maxLength(100)
       ]],
@@ -169,7 +203,7 @@ export class AuctionAddComponent implements OnInit {
         Validators.maxLength(100)
       ]],
       startingPrice: [, [
-        Validators.maxLength(100), Validators.required, 
+        Validators.maxLength(100), Validators.required,Validators.pattern('€[0-9]')
       ]],
       startDate: ['', [
         Validators.maxLength(100)

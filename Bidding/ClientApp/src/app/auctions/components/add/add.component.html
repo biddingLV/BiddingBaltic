@@ -29,25 +29,29 @@
       <!-- <input type="text"
    [(ngModel)]="value | currency:'USD':true"
    (ngModelChange)="value=currencyInputChanged($event)"> -->
-   <input [value]="auctionAddForm.get('startingPrice').value | currency:'EUR':'symbol':'1.2-2'" formControlName="startingPrice">
+   <!-- <input type="text" [value]="auctionAddForm.get('startingPrice').value | currency:'EUR'" (valueChange)="currencyInputChanged($event)"> -->
+   <input [value]="auctionAddForm.get('startingPrice').value | currency:'EUR'" formControlName="startingPrice">
       <div *ngIf="submitted && formErrors.startingPrice" class="invalid-feedback">
           {{formErrors.startingPrice}}
       </div>
   </div>
       <div class="form-group">
           <label class="required">Izsoles sākums:<span class="reqAsterisk">&#42;</span></label>
-          <input type="text" class="form-control" formControlName="startDate" (click)="onTogglePicker()" />
+          <input type="text" class="form-control" formControlName="startDate" [value]="startDate" (click)="onToggleStartPicker()" />
           <!-- <span class="input-group-btn">
               <button class="btn btn-outline-secondary" (click)="onTogglePicker()">
                   <i class="fa fa-calendar" aria-hidden="true"></i>
               </button>
           </span> -->
-          <datetime-popup [value]="startDate" (valueChange)="onValueChange($event)"
-                      [(showPopup)]="showPicker"
+          
+          <datetime-popup [value]="startDate" (valueChange)="onStartValueChange($event)"
+                      [(showPopup)]="showStartPicker"
                       [showDate]="showDate"
                       [showTime]="showTime"
                       [closeButton]="closeButton">
           </datetime-popup>
+          <!-- <div *ngIf="isValidStartDate()">{{ startDate }} 
+          </div> -->
       </div>
       <!--<div class="form-group">
       <label class="required">Izsoles sākums:<span class="reqAsterisk">&#42;</span></label>
@@ -58,18 +62,20 @@
   </div>-->
   <div class="form-group">
           <label class="required">Izsoles noslēgums:<span class="reqAsterisk">&#42;</span></label>
-          <input type="text" class="form-control" formControlName="endDate" (click)="onTogglePicker()" />
+          <input type="text" class="form-control" formControlName="endDate" [value]="endDate" (click)="onToggleEndPicker()" />
           <!-- <span class="input-group-btn">
               <button class="btn btn-outline-secondary" (click)="onTogglePicker()">
                   <i class="fa fa-calendar" aria-hidden="true"></i>
               </button>
           </span> -->
-          <datetime-popup [value]="endDate" (valueChange)="onValueChange($event)"
-                      [(showPopup)]="showPicker"
+          <datetime-popup [value]="endDate" (valueChange)="onEndValueChange($event)"
+                      [(showPopup)]="showEndPicker"
                       [showDate]="showDate"
                       [showTime]="showTime"
                       [closeButton]="closeButton">
           </datetime-popup>
+          <!-- <div *ngIf="isValidEndDate()">{{ endDate }} 
+            </div> -->
       </div>
       <!-- <div class="form-group">
     <label class="required">Izsoles noslēgums:<span class="reqAsterisk">&#42;</span></label>
@@ -87,18 +93,20 @@
       </div>
       <div class="form-group">
               <label class="required">Pieteikties var līdz:</label>
-              <input type="text" class="form-control" formControlName="tillDate" (click)="onTogglePicker()" />
+              <input type="text" class="form-control" formControlName="tillDate" [value]="tillDate" (click)="onToggleTillPicker()" />
               <!-- <span class="input-group-btn">
                   <button class="btn btn-outline-secondary" (click)="onTogglePicker()">
                       <i class="fa fa-calendar" aria-hidden="true"></i>
                   </button>
               </span> -->
-              <datetime-popup [value]="tillDate" (valueChange)="onValueChange($event)"
-                          [(showPopup)]="showPicker"
+              <datetime-popup [value]="tillDate" (valueChange)="onTillValueChange($event)"
+                          [(showPopup)]="showTillPicker"
                           [showDate]="showDate"
                           [showTime]="showTime"
                           [closeButton]="closeButton">
               </datetime-popup>
+              <!-- <div *ngIf="isValidTillDate()">{{ tillDate }} 
+                </div> -->
           </div>
       <!-- <div class="form-group">
     <label for="dateFrom">From:</label>
@@ -115,7 +123,7 @@
   </div> -->
       <div class="form-group">
           <label class="not-required">Izsoles apraksts:</label>
-          <input type="text" formControlName="description" class="form-control" [ngClass]="{ 'is-invalid': submitted && f.description.errors }" />
+          <input type="text" formControlName="description" class="form-control"  [ngClass]="{ 'is-invalid': submitted && f.description.errors }" />
           <div *ngIf="submitted && formErrors.description" class="invalid-feedback">
               {{formErrors.description}}
           </div>
