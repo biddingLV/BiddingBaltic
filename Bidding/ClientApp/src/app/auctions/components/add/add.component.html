@@ -14,6 +14,24 @@
           </div>
       </div>
       <div class="form-group">
+        <label class="required">Top-category:<span class="reqAsterisk">&#42;</span></label>
+        <ng-select [clearable]="false" [virtualScroll]="true" [multiple]="false" [closeOnSelect]="true"
+          placeholder="Select category" (change)="onCategoryChange($event)">
+          <ng-option *ngFor="let cat of filters.topCategories; let i = index" [value]="cat.categoryId">
+            {{cat.categoryName}}
+          </ng-option>
+        </ng-select>
+      </div>
+      <div class="form-group">
+          <label>Sub-category:<span class="reqAsterisk">&#42;</span></label>
+          <ng-select [clearable]="false" [virtualScroll]="true" [multiple]="false" [closeOnSelect]="true"
+            placeholder="Select type" (change)="onTypeChange($event)">
+            <ng-option *ngFor="let typ of auctionTypes; let i = index" [value]="typ.typeId">
+              {{typ.typeName}} 
+            </ng-option>
+          </ng-select>
+        </div>
+      <div class="form-group">
           <label>Izsoles veids:<span class="reqAsterisk">&#42;</span></label>
           <ng-select [virtualScroll]="true" placeholder="Izvēlieties veidu">
               <ng-option *ngFor="let typ of auctionType; let i = index" [value]="typ.Id" required>
@@ -121,6 +139,22 @@
       {{formErrors.joinDate}}
   </div>
   </div> -->
+  <div class="form-group">
+      <label>Mantas stāvoklis:</label>
+      <ng-select [virtualScroll]="true" placeholder="Izvēlieties mantas stāvokli">
+          <ng-option *ngFor="let typ of auctionItemCondition; let i = index" [value]="typ.conId" required>
+              {{typ.contype}}
+          </ng-option>
+      </ng-select>
+  </div>
+  <div class="form-group">
+      <label>Īpašuma stāvoklis:</label>
+      <ng-select [virtualScroll]="true" placeholder="Izvēlieties Īpašuma stāvokli">
+          <ng-option *ngFor="let typ of auctionPropertyCondition; let i = index" [value]="typ.propId" required>
+              {{typ.proptype}}
+          </ng-option>
+      </ng-select>
+  </div>
       <div class="form-group">
           <label class="not-required">Izsoles apraksts:</label>
           <input type="text" formControlName="description" class="form-control"  [ngClass]="{ 'is-invalid': submitted && f.description.errors }" />
@@ -141,7 +175,6 @@
       </div>
   </form>
 </div>
-
 
 
 

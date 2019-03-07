@@ -5,12 +5,15 @@ import {  HttpClient,HttpEventType } from '@angular/common/http';
 // 3rd party
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { DatetimePopupModule } from 'ngx-bootstrap-datetime-popup';
+import { Subscription } from 'rxjs';
+import { startWith } from 'rxjs/operators';
 // internal
 import { AuctionsService } from '../../services/auctions.service';
 import { FormService } from 'ClientApp/src/app/core/services/form/form.service';
 import { NotificationsService } from 'ClientApp/src/app/core/services/notifications/notifications.service';
 import { AuctionAddRequest } from '../../models/add/auction-add-request.model';
-
+import { AuctionFilterModel } from '../../models/filters/auction-filter.model';
+import { SubCategoryFilterModel } from '../../models/filters/sub-category-filter.model';
 // internal
 
 
@@ -22,6 +25,7 @@ import { AuctionAddRequest } from '../../models/add/auction-add-request.model';
 export class AuctionAddComponent implements OnInit {
   // form
   auctionAddForm: FormGroup;
+  filtersSub: Subscription;
   submitted = false;
   formErrors = {
     auctionName: '',
@@ -33,6 +37,48 @@ export class AuctionAddComponent implements OnInit {
     creator: '',
     auctionType: ''
   };
+  /////
+  /////
+  /////
+  // filters
+  // filter - model
+  filters: AuctionFilterModel;
+  auctionTypes: SubCategoryFilterModel[];
+  // used to pass selected filter values to the auction list component
+  selectedCategoryIds: number[];
+  selectedTypeIds: number[];
+
+
+  // on top category change - select
+  onCategoryChange(categoryIds: number[]): void {
+    this.selectedCategoryIds = categoryIds;
+
+    if (categoryIds.length > 0) {
+      // filter out based on selected category ids
+      this.auctionTypes = this.filters.subCategories.filter(item => { return categoryIds.includes(item.categoryId) });
+    } 
+    else {
+      // nothing selected show the full list
+      this.auctionTypes = this.filters.subCategories;
+    }
+  }
+  onTypeChange(typeIds: number[]): void {
+    this.selectedTypeIds = typeIds;
+  }
+  private loadFilters(): void {
+    this.filtersSub = this.auctionApi.getFilters$()
+      .pipe(startWith(new AuctionFilterModel()))
+      .subscribe(
+        (result: AuctionFilterModel) => {
+          this.filters = result;
+          this.auctionTypes = result.subCategories;
+        },
+        (error: string) => this.notification.error(error)
+      );
+  }
+  /////
+  /////
+  /////
   showStartPicker = false;
   showEndPicker = false;
   showTillPicker = false;
@@ -94,7 +140,10 @@ export class AuctionAddComponent implements OnInit {
   auctionAddRequest: AuctionAddRequest;
   // AuctionType
   auctionType = [{id: 1, type: 'Cenu aptauja'}, {id: 2, type: 'Izsole elektroniski'}, {id: 3, type: 'Izsole klātienē'}];
-
+  // AuctionItemCondition
+  auctionItemCondition = [{id: 1, contype: 'Lietota'}, {id: 2, contype: 'Jauna'}];
+  // AuctionPropertyCondition
+  auctionPropertyCondition = [{id: 1, proptype: 'Apdzīvots'}, {id: 2, proptype: 'Neapdzīvots'}, {id: 3, proptype: 'Nepieciešams remonts'}];
   // convenience getter for easy access to form fields
   get f() { return this.auctionAddForm.controls; }
 
@@ -125,8 +174,9 @@ export class AuctionAddComponent implements OnInit {
   //   var num = value.replace(/[€,]/g, "");
   //   return Number(num);
   // }
-  ngOnInit() {
+  ngOnInit(): void  {
     this.buildForm();
+    this.loadFilters();
 
     // TODO: KKE: example
     // this.startDate = ''; //moment().subtract(7, 'days').format('YYYY-MM-DD 00:00:01');
