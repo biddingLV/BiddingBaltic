@@ -28,8 +28,6 @@ import { DatetimePopupModule } from 'ngx-bootstrap-datetime-popup';
 // Services
 import { PreviousRouteService } from './shared/services/previous-route.service.ts/previous-route.service';
 
-
-
 @NgModule({
   declarations: [
     AppComponent

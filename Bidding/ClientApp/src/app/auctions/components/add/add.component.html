@@ -246,6 +246,16 @@ datetime-popup > .dropdown .glyphicon.hidden {
 </div>
 <div class="modal-body">
   <form [formGroup]="auctionAddForm">
+    <!-- wip -->
+    <div>
+      <div class="form-group">
+        <div class="col-md-10">
+          <file-uploader (fileUploaded)="onFileUploaded($event)" (fileRemoved)="onFileRemoved()"></file-uploader>
+        </div>
+      </div>
+    </div>
+    <!-- wip -->
+
     <div class="form-group">
       <p>todo:</p>
       <label class="required">Auction Name:</label>

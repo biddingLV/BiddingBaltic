@@ -5,7 +5,7 @@
   </div>
 
   <!-- Card body -->
-  <div>
+  <div *ngIf="auctionTable">
     <app-auctions-table *ngIf="auctionTable.auctions" [auctionTable]="auctionTable" [numberRows]="numberRows"
       [selected]="selected" (pageChange)="updateRequest('Page', $event)" (sortChange)="onSortChange($event)"
       (detailsClick)="onDetailsClick()" (selectedChange)="onSelectedChange($event)"></app-auctions-table>

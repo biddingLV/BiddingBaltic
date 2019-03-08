@@ -14,15 +14,19 @@ import { AuthService } from 'ClientApp/src/app/core/services/auth/auth.service';
   styleUrls: ['./navbar.component.scss']
 })
 export class NavbarComponent implements OnInit {
-  username = '';
+  fullName: string;
+  userDetails = this.auth.userDetails;
 
-  constructor(public auth: AuthService, private scrollToService: ScrollToService) {
-    if (auth.userInfo) {
-      this.username = this.auth.userInfo.UserName;
-    }
+  constructor(
+    private auth: AuthService,
+    private scrollToService: ScrollToService
+  ) {
+
   }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.setFullName();
+  }
 
   signIn(): void {
     this.auth.login();
@@ -38,5 +42,18 @@ export class NavbarComponent implements OnInit {
     };
 
     this.scrollToService.scrollTo(config);
+  }
+
+  /**
+   * Sets users full name.
+   * If first & last name exists then show full name.
+   * If first & last name doesnt exists show email as full name.
+   */
+  private setFullName(): void {
+    if (this.userDetails.FirstName && this.userDetails.LastName) {
+      this.fullName = this.userDetails.FirstName + ' ' + this.userDetails.LastName
+    } else {
+      this.fullName = this.userDetails.Email
+    }
   }
 }

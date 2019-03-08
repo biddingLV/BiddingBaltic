@@ -18,9 +18,9 @@ namespace BiddingAPI.Controllers.Auctions
     [Route("api/[Controller]/[action]")]
     public class AuctionsController : ControllerBase
     {
-        public readonly IAuctionsService m_auctionsService;
+        public readonly AuctionsService m_auctionsService;
 
-        public AuctionsController(IAuctionsService auctionsService)
+        public AuctionsController(AuctionsService auctionsService)
         {
             m_auctionsService = auctionsService ?? throw new ArgumentNullException(nameof(auctionsService));
         }

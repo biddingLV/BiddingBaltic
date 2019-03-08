@@ -1,6 +1,7 @@
 export class User {
   UserId: number;
-  OrganizationId: number;
   IsAuthenticated: boolean;
-  UserName: string;
+  FirstName: string;
+  LastName: string;
+  Email: string;
 }

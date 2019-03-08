@@ -1,21 +1,24 @@
 <nav class="navbar">
   <a class="navbar-brand" href="">
-    <img id="bidding-logo" src="../../../../assets/images/bidding-logo.png" alt="Bidding" class="img-responsive hidden-xs" />
+    <img id="bidding-logo" src="../../../../assets/images/bidding-logo.png" alt="Bidding"
+      class="img-responsive hidden-xs" />
   </a>
 
   <div>
     <ul class="navbar-nav justify-content-end w-100">
-      <li class="nav-item active">
-        <a class="nav-link" href=""><span>Sākumlapa</span></a>
+      <li *ngIf="!userDetails">
+        <a class="nav-link" href="">
+          <span>Sākumlapa</span>
+        </a>
       </li>
-      <li *ngIf="!this.auth.userInfo">
+      <li *ngIf="!userDetails">
         <a [routerLink]="" (click)="signIn()" class="nav-link pt-0 pb-0">Sign In</a>
       </li>
-      <li *ngIf="this.auth.userInfo">
-        <a [routerLink]="['/users/details', this.auth.userInfo.UserId ]" class="nav-link pt-0 pb-0">
-          {{this.auth.userInfo.UserName}}</a>
+      <li *ngIf="userDetails">
+        <a [routerLink]="['/users/details', userDetails.UserId ]" class="nav-link pt-0 pb-0">
+          {{fullName}}</a>
       </li>
-      <li *ngIf="this.auth.userInfo">
+      <li *ngIf="userDetails">
         <a [routerLink]="" (click)="signOut()" class="nav-link pt-0 pb-0">Sign Out</a>
       </li>
     </ul>

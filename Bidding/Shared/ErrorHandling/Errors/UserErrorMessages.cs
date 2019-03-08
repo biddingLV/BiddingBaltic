@@ -19,5 +19,8 @@ namespace Bidding.Shared.ErrorHandling.Errors
 
         [Description("Please specify your e-mail!")]
         EmailNotSpecified,
+
+        [Description("Not valid user!")]
+        UserNotValid,
     }
 }

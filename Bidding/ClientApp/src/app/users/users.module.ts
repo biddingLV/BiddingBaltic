@@ -1,17 +1,39 @@
+// angular
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+// internal
 import { UsersRoutingModule } from './users-routing.module';
-import { UsersDetailComponent } from './containers/details/details.component';
+import { UserDetailsComponent } from './containers/details/details.component';
+import { UsersService } from './services/users.service';
+import { UsersMainComponent } from './containers/main/main.component';
+import { UserEditComponent } from './components/edit/edit.component';
+import { SharedModule } from '../shared/shared.module';
+import { MinSharedModule } from '../shared/shared-min.module';
 
 
 @NgModule({
   imports: [
     CommonModule,
-    UsersRoutingModule
+    UsersRoutingModule,
+    SharedModule,
+    MinSharedModule
+  ],
+  exports: [
+    UserDetailsComponent,
+    UsersMainComponent,
+    UserEditComponent
   ],
   declarations: [
-    UsersDetailComponent
+    UserDetailsComponent,
+    UsersMainComponent,
+    UserEditComponent
+  ],
+  providers: [
+    UsersService
+  ],
+  entryComponents: [
+    UserEditComponent
   ]
 })
 export class UsersModule { }
