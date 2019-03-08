@@ -30,63 +30,17 @@ namespace Bidding.Controllers.Shared
         }
 
         [HttpPost]
-        public async Task<IActionResult> Upload([FromBody] List<IFormFile> files)
+        public async Task<IActionResult> Upload()
         {
-            //// based on this - https://docs.microsoft.com/en-us/azure/storage/blobs/storage-upload-process-images?tabs=dotnet
-            //// https://docs.microsoft.com/en-us/azure/storage/blobs/storage-quickstart-blobs-dotnet?tabs=windows
-            //// old -> https://social.technet.microsoft.com/wiki/contents/articles/51791.azure-storage-c-create-container-upload-and-download-blobs.aspx
-            //// example - https://github.com/Azure-Samples/storage-blobs-dotnet-webapp/blob/master/WebApp-Storage-DotNet/Controllers/HomeController.cs
-            //// Create Reference to Azure Storage Account
+            IFormFileCollection files = Request.Form.Files;
+            //// USE THIS - https://wakeupandcode.com/azure-blob-storage-from-asp-net-core-file-upload/
 
-            //// USER THIS - https://wakeupandcode.com/azure-blob-storage-from-asp-net-core-file-upload/
-            //String strorageconn = storageInfo;
-            //CloudStorageAccount storageacc = CloudStorageAccount.Parse(strorageconn);
+            await UploadToBlob(files);
 
-            ////Create Reference to Azure Blob
-            //CloudBlobClient blobClient = storageacc.CreateCloudBlobClient();
-
-            ////The next 2 lines create if not exists a container named "democontainer"
-            //CloudBlobContainer container = blobClient.GetContainerReference("auctionpictures");
-
-            //// todo: jrb: do we need this?
-            //await container.CreateIfNotExistsAsync();
-
-            ////The next 7 lines upload the file test.txt with the name DemoBlob on the container "democontainer"
-            //CloudBlockBlob blockBlob = container.GetBlockBlobReference("DemoBlob");
-            //using (var filestream = System.IO.File.OpenRead(@""))
-            //{
-
-            //    await blockBlob.UploadFromStreamAsync(filestream);
-
-            //}
-
-            //return Ok();
-
-            var uploadSuccess = false;
-
-            foreach (var formFile in files)
-            {
-                if (formFile.Length <= 0)
-                {
-                    continue;
-                }
-
-                // OPTION B: read directly from stream for blob upload      
-                using (var stream = formFile.OpenReadStream())
-                {
-                    uploadSuccess = await UploadToBlob(formFile.FileName, stream);
-                }
-
-            }
-
-            //if (uploadSuccess)
-            //    return View("UploadSuccess");
-            //else
-            //    return View("UploadError");
             return Ok();
         }
 
-        private async Task<bool> UploadToBlob(string filename, Stream stream = null)
+        private async Task<bool> UploadToBlob(IFormFileCollection files)
         {
             // Check whether the connection string can be parsed.
             if (CloudStorageAccount.TryParse(storageInfo, out CloudStorageAccount storageAccount))
@@ -107,17 +61,30 @@ namespace Bidding.Controllers.Shared
                     };
                     await cloudBlobContainer.SetPermissionsAsync(permissions);
 
-                    // Get a reference to the blob address, then upload the file to the blob.
-                    CloudBlockBlob cloudBlockBlob = cloudBlobContainer.GetBlockBlobReference(filename);
+                    foreach (var formFile in files)
+                    {
+                        // Get a reference to the blob address, then upload the file to the blob.
+                        CloudBlockBlob cloudBlockBlob = cloudBlobContainer.GetBlockBlobReference(formFile.FileName);
 
-                    if (stream != null)
-                    {
-                        // OPTION B: pass in memory stream directly
-                        await cloudBlockBlob.UploadFromStreamAsync(stream);
-                    }
-                    else
-                    {
-                        return false;
+                        if (formFile.Length <= 0)
+                        {
+                            continue;
+                        }
+
+                        // OPTION B: read directly from stream for blob upload      
+                        using (var stream = formFile.OpenReadStream())
+                        {
+                            if (stream != null)
+                            {
+                                //// OPTION B: pass in memory stream directly
+                                await cloudBlockBlob.UploadFromStreamAsync(stream);
+                            }
+                            else
+                            {
+                                return false;
+                            }
+                        }
+
                     }
 
                     return true;

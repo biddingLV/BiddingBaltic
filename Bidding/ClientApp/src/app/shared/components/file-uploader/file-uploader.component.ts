@@ -28,38 +28,39 @@ export class FileUploaderComponent {
     private exception: ExceptionsService
   ) { }
 
-  upload(files: File[]): void {
-    console.log('files', files)
-    // if (files.length === 0) {
-    //   return;
-    // }
+  upload(listWithFiles: FileList): void {
+    // https://www.youtube.com/watch?v=YkvqLNcJz3Y
+    console.log('files', listWithFiles)
+    if (listWithFiles.length === 0) {
+      return;
+    }
 
-    // this.fileName = files[0].name;
-    // this.fileIsUploaded = false;
+    const formData = new FormData();
 
-    // const formData = new FormData();
-    // formData.append(files[0].name, files[0]);
+    for (let i = 0; i < listWithFiles.length; i++) {
+      formData.append('fileArray', listWithFiles[i], listWithFiles[i].name);
+    }
 
-    // const uploadRequest = new HttpRequest('POST', 'api/imagestorage/upload', formData, {
-    //   reportProgress: true,
-    // });
+    const uploadRequest = new HttpRequest('POST', 'api/fileUploader/upload', formData, {
+      reportProgress: true,
+    });
 
-    // this.http.request(uploadRequest)
-    //   .pipe(catchError(this.exception.errorHandler))
-    //   .subscribe(event => {
-    //     if (event.type === HttpEventType.UploadProgress) {
-    //       this.progress = Math.round(100 * event.loaded / event.total);
-    //     } else if (event.type === HttpEventType.Response) {
-    //       if (event.body !== null) {
-    //         this.fileIsUploaded = true;
-    //         this.fileUploaded.emit(event.body.toString());
-    //       } else {
-    //         this.notification.error('Could not upload image.');
-    //       }
-    //     }
-    //   },
-    //     (error: string) => this.notification.error(error)
-    //   );
+    this.http.request(uploadRequest)
+      .pipe(catchError(this.exception.errorHandler))
+      .subscribe(event => {
+        if (event.type === HttpEventType.UploadProgress) {
+          this.progress = Math.round(100 * event.loaded / event.total);
+        } else if (event.type === HttpEventType.Response) {
+          if (event.body !== null) {
+            this.fileIsUploaded = true;
+            this.fileUploaded.emit(event.body.toString());
+          } else {
+            this.notification.error('Could not upload image.');
+          }
+        }
+      },
+        (error: string) => this.notification.error(error)
+      );
   }
 
   remove(): void {
