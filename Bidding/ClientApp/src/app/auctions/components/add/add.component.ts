@@ -82,11 +82,17 @@ export class AuctionAddComponent implements OnInit {
   showStartPicker = false;
   showEndPicker = false;
   showTillPicker = false;
+
   startDate: Date = new Date();
   endDate: Date = new Date();
   tillDate: Date = new Date();
+
   showDate = true;
   showTime = true;
+
+  showItemCondition = false;
+  showPropertyCondition = false;
+
   closeButton: any = { show: true, label: 'Aizvērt', cssClass: 'btn btn-sm btn-primary' };
 
   onToggleStartPicker() {

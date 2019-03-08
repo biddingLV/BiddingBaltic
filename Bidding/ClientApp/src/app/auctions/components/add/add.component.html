@@ -24,7 +24,7 @@
       </div>
       <div class="form-group">
           <label>Sub-category:<span class="reqAsterisk">&#42;</span></label>
-          <ng-select [clearable]="false" [virtualScroll]="true" [multiple]="false" [closeOnSelect]="true"
+          <ng-select [clearable]="false" [virtualScroll]="true"  [closeOnSelect]="true"
             placeholder="Select type" (change)="onTypeChange($event)">
             <ng-option *ngFor="let typ of auctionTypes; let i = index" [value]="typ.typeId">
               {{typ.typeName}} 
@@ -48,10 +48,11 @@
    [(ngModel)]="value | currency:'USD':true"
    (ngModelChange)="value=currencyInputChanged($event)"> -->
    <!-- <input type="text" [value]="auctionAddForm.get('startingPrice').value | currency:'EUR'" (valueChange)="currencyInputChanged($event)"> -->
-   <input [value]="auctionAddForm.get('startingPrice').value | currency:'EUR'" formControlName="startingPrice">
+   <!-- <input [value]="auctionAddForm.get('startingPrice').value | currency:'EUR'" formControlName="startingPrice">
       <div *ngIf="submitted && formErrors.startingPrice" class="invalid-feedback">
           {{formErrors.startingPrice}}
-      </div>
+      </div> -->
+      <input type="number" formControlName="startingPrice" [value]="startingPrice"><span> €</span>
   </div>
       <div class="form-group">
           <label class="required">Izsoles sākums:<span class="reqAsterisk">&#42;</span></label>
@@ -139,21 +140,25 @@
       {{formErrors.joinDate}}
   </div>
   </div> -->
-  <div class="form-group">
-      <label>Mantas stāvoklis:</label>
-      <ng-select [virtualScroll]="true" placeholder="Izvēlieties mantas stāvokli">
-          <ng-option *ngFor="let typ of auctionItemCondition; let i = index" [value]="typ.conId" required>
-              {{typ.contype}}
-          </ng-option>
-      </ng-select>
+  <div *ngIf="this.selectedCategoryIds === 1 || this.selectedCategoryIds === 2">
+    <div class="form-group itemCondition">
+        <label>Stāvoklis:</label>
+        <ng-select [virtualScroll]="true" placeholder="Izvēlieties mantas stāvokli">
+            <ng-option *ngFor="let typ of auctionItemCondition; let i = index" [value]="typ.conId" required>
+                {{typ.contype}}
+            </ng-option>
+        </ng-select>
+    </div>
   </div>
-  <div class="form-group">
-      <label>Īpašuma stāvoklis:</label>
-      <ng-select [virtualScroll]="true" placeholder="Izvēlieties Īpašuma stāvokli">
-          <ng-option *ngFor="let typ of auctionPropertyCondition; let i = index" [value]="typ.propId" required>
-              {{typ.proptype}}
-          </ng-option>
-      </ng-select>
+  <div *ngIf="this.selectedCategoryIds === 3">
+    <div class="form-group propertyCondition">
+        <label>Īpašuma stāvoklis:</label>
+        <ng-select [virtualScroll]="true" placeholder="Izvēlieties Īpašuma stāvokli">
+            <ng-option *ngFor="let typ of auctionPropertyCondition; let i = index" [value]="typ.propId" required>
+                {{typ.proptype}}
+            </ng-option>
+        </ng-select>
+    </div>
   </div>
       <div class="form-group">
           <label class="not-required">Izsoles apraksts:</label>
