@@ -30,6 +30,12 @@ namespace BiddingAPI.Models.DatabaseModels.Bidding
         [DataType(DataType.Date)]
         public DateTime AuctionStartDate { get; set; }
 
+        // todo: kke: does this needs to be required?
+        [Required]
+        [DataType(DataType.Date)]
+        public DateTime AuctionApplyDate { get; set; }
+
+        // todo: kke: does this needs to be required?
         [Required]
         [DataType(DataType.Date)]
         public DateTime AuctionEndDate { get; set; }

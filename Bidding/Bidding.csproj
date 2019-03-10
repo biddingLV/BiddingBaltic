@@ -14,6 +14,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="FluentValidation.AspNetCore" Version="8.1.3" />
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="2.2.0" />
@@ -31,12 +32,10 @@
     <Compile Remove="ClientApp\src\app\auth\components\sign-in\**" />
     <Compile Remove="ClientApp\src\app\auth\models\**" />
     <Compile Remove="ClientApp\src\app\auth\services\**" />
-    <Compile Remove="Shared\ErrorHandling\Validators\**" />
     <Content Remove="$(SpaRoot)**" />
     <Content Remove="ClientApp\src\app\auth\components\sign-in\**" />
     <Content Remove="ClientApp\src\app\auth\models\**" />
     <Content Remove="ClientApp\src\app\auth\services\**" />
-    <Content Remove="Shared\ErrorHandling\Validators\**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
 
@@ -44,11 +43,9 @@
     <EmbeddedResource Remove="ClientApp\src\app\auth\components\sign-in\**" />
     <EmbeddedResource Remove="ClientApp\src\app\auth\models\**" />
     <EmbeddedResource Remove="ClientApp\src\app\auth\services\**" />
-    <EmbeddedResource Remove="Shared\ErrorHandling\Validators\**" />
     <None Remove="ClientApp\src\app\auth\components\sign-in\**" />
     <None Remove="ClientApp\src\app\auth\models\**" />
     <None Remove="ClientApp\src\app\auth\services\**" />
-    <None Remove="Shared\ErrorHandling\Validators\**" />
   </ItemGroup>
 
   <ItemGroup>

@@ -5,14 +5,17 @@ using Bidding.Services.Users;
 using Bidding.Shared.Attributes;
 using Bidding.Shared.Authorization;
 using Bidding.Shared.ErrorHandling.Errors;
+using Bidding.Shared.ErrorHandling.Validators;
 using Bidding.Shared.Exceptions;
 using Bidding.Shared.Utility;
 using BiddingAPI.Models.ApplicationModels.Configuration;
 using BiddingAPI.Models.DatabaseModels;
+using BiddingAPI.Models.DatabaseModels.Bidding;
 using BiddingAPI.Repositories.Auctions;
 using BiddingAPI.Repositories.Subscribe;
 using BiddingAPI.Services.Auctions;
 using BiddingAPI.Services.Subscribe;
+using FluentValidation;
 using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
@@ -258,9 +261,8 @@ namespace Bidding
 
         private void ConfigureFluentApiValidators(ref IServiceCollection services)
         {
-            // todo: kke: add validators!
-            // In order for ASP.NET to discover your validators, they must be registered with the services collection.
-            //services.AddTransient<IValidator<TblOrganization>, OrganizationValidator>();
+            //In order for ASP.NET to discover your validators, they must be registered with the services collection.
+            services.AddTransient<IValidator<Auction>, AuctionValidator>();
         }
 
         private void ConfigureAuthentication(IServiceCollection services)

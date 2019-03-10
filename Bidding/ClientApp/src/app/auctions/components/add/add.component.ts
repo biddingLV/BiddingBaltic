@@ -28,11 +28,12 @@ export class AuctionAddComponent implements OnInit {
   auctionAddForm: FormGroup;
   filtersSub: Subscription;
   submitted = false;
+  // todo: jrb: fix  naming and add missing ones!
   formErrors = {
-    auctionName: '',
-    description: '',
-    startingPrice: '',
-    startDate: '',
+    auctionsName: '',
+    auctionsDescription: '',
+    auctionsStartingPrice: '',
+    auctionsStartDate: '',
     joinDate: '',
     endDarw: '',
     creator: '',
@@ -179,9 +180,11 @@ export class AuctionAddComponent implements OnInit {
     this.selectedTypeIds = typeIds;
   }
 
-  onSubmit() {
+  /**
+   * Called on form submit
+   */
+  onSubmit(): void {
     this.submitted = true;
-    let addSuccess: boolean;
 
     // mark all fields as touched
     this.formService.markFormGroupTouched(this.auctionAddForm);
@@ -190,9 +193,8 @@ export class AuctionAddComponent implements OnInit {
       this.setAddRequest();
 
       this.auctionApi.addAuction$(this.auctionAddRequest)
-        .subscribe((data: boolean) => {
-          addSuccess = data;
-          if (addSuccess) {
+        .subscribe((response: boolean) => {
+          if (response) {
             this.notification.success('Auction successfully added.');
             this.auctionAddForm.reset();
             this.bsModalRef.hide();
