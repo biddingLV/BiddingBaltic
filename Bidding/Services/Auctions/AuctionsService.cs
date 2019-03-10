@@ -7,12 +7,15 @@ using Bidding.Models.ViewModels.Bidding.Auctions;
 using Bidding.Models.ViewModels.Bidding.Auctions.Details;
 using Bidding.Models.ViewModels.Bidding.Filters;
 using Bidding.Shared.ErrorHandling.Errors;
+using Bidding.Shared.ErrorHandling.Validators;
 using Bidding.Shared.Exceptions;
 using Bidding.Shared.Utility;
 using BiddingAPI.Models.DatabaseModels;
 using BiddingAPI.Models.DatabaseModels.Bidding;
 using BiddingAPI.Models.ViewModels.Bidding.Auctions;
 using BiddingAPI.Repositories.Auctions;
+using FluentValidation;
+using FluentValidation.Results;
 
 namespace BiddingAPI.Services.Auctions
 {
@@ -127,8 +130,6 @@ namespace BiddingAPI.Services.Auctions
 
         public bool Create(AuctionAddRequestModel request)
         {
-            // todo: kke: add validate that the user is active!
-
             // validations & permission checks
             ValidateAuctionCreate(request);
 
@@ -197,9 +198,49 @@ namespace BiddingAPI.Services.Auctions
             return listWithIds;
         }
 
+        /// <summary>
+        /// Validates auction add input values
+        /// </summary>
+        /// <param name="request"></param>
         private void ValidateAuctionCreate(AuctionAddRequestModel request)
         {
-            if (request.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
+            // todo: kke: anything else required here?
+            if (request.AuctionName.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
+            if (request.AuctionTopCategoryId.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
+            if (request.AuctionSubCategoryId.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
+            if (request.AuctionStartingPrice.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
+            if (request.AuctionStartDate.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
+            if (request.AuctionCreatorId.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
+            if (request.AuctionTypeId.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
+
+            // setup auction object for the validation
+            Auction auction = new Auction()
+            {
+                AuctionName = request.AuctionName,
+                AuctionStartingPrice = request.AuctionStartingPrice,
+                AuctionStartDate = request.AuctionStartDate
+            };
+
+            ValidateAuction(auction);
+        }
+
+        private void ValidateAuction(Auction auction)
+        {
+            AuctionValidator validator = new AuctionValidator();
+            ValidationResult results = validator.Validate(auction);
+
+            bool success = results.IsValid;
+            IList<ValidationFailure> failures = results.Errors;
+
+            validator.ValidateAndThrow(auction);
+
+            if (results.IsValid == false)
+            {
+                foreach (ValidationFailure failure in results.Errors)
+                {
+                    throw new WebApiException(HttpStatusCode.BadRequest, failure.ErrorMessage);
+                }
+            }
         }
 
         private void ValidateAuctionUpdate(AuctionEditRequestModel request)

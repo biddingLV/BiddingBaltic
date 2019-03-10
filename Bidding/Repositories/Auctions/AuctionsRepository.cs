@@ -165,12 +165,21 @@ namespace BiddingAPI.Repositories.Auctions
             return true;
         }
 
+        /// <summary>
+        /// Adds a new auction
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         public bool Create(AuctionAddRequestModel request)
         {
             Auction auction = new Auction()
             {
                 AuctionName = request.AuctionName,
-                AuctionStartingPrice = request.StartingPrice
+                AuctionStartingPrice = request.AuctionStartingPrice,
+                AuctionStartDate = request.AuctionStartDate,
+                AuctionApplyDate = request.AuctionApplyDate,
+                AuctionEndDate = request.AuctionEndDate,
+                AuctionStatusId = request.AuctionStatusId
             };
 
             var strategy = m_context.Database.CreateExecutionStrategy();
@@ -180,17 +189,15 @@ namespace BiddingAPI.Repositories.Auctions
                 {
                     using (var transaction = m_context.Database.BeginTransaction())
                     {
-                        // save the auction
                         EntityEntry<Auction> newAuction = m_context.Add(auction);
-                        m_context.SaveChanges();
 
+                        m_context.SaveChanges();
                         transaction.Commit();
                     }
                 }
                 catch (Exception ex)
                 {
-                    // todo: kke: what about the inner exception here?
-                    throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.CouldNotCreateAuction);
+                    throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.CouldNotCreateAuction, ex);
                 }
             });
 
