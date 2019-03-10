@@ -18,6 +18,7 @@ import { AuctionFilterModel } from '../../models/filters/auction-filter.model';
 import { SubCategoryFilterModel } from '../../models/filters/sub-category-filter.model';
 
 
+
 @Component({
   selector: 'app-auction-add',
   templateUrl: './add.component.html',
@@ -28,14 +29,15 @@ export class AuctionAddComponent implements OnInit {
   auctionAddForm: FormGroup;
   filtersSub: Subscription;
   submitted = false;
+  // todo: jrb: fix  naming and add missing ones!
   formErrors = {
     auctionName: '',
-    description: '',
-    startingPrice: '',
-    startDate: '',
-    joinDate: '',
-    endDarw: '',
-    creator: '',
+    auctionDescription: '',
+    auctionStartingPrice: '',
+    auctionStartDate: '',
+    auctionJoinDate: '',
+    auctionEndDarw: '',
+    auctionCreator: '',
     auctionType: ''
   };
 
@@ -47,9 +49,9 @@ export class AuctionAddComponent implements OnInit {
   selectedCategoryIds: number[];
   selectedTypeIds: number[];
 
-  showStartPicker = false;
-  showEndPicker = false;
-  showTillPicker = false;
+  showStartPicker : boolean;
+  showEndPicker : boolean;
+  showTillPicker : boolean;
 
   startDate: Date = new Date();
   endDate: Date = new Date();
@@ -61,7 +63,7 @@ export class AuctionAddComponent implements OnInit {
   showItemCondition = false;
   showPropertyCondition = false;
 
-  closeButton: any = { show: true, label: 'Aizvērt', cssClass: 'btn btn-sm btn-primary' };
+  closeButton = { show: true, label: 'Aizvērt', cssClass: 'btn btn-sm btn-primary' };
 
   // API
   auctionAddRequest: AuctionAddRequest;
@@ -90,75 +92,53 @@ export class AuctionAddComponent implements OnInit {
     public bsModalRef: BsModalRef
   ) { }
 
-  // public inputValidator(event: any) {
-  //   //console.log(event.target.value);
-  //   const pattern = /^[a-zA-Z0-9]*/;   
-  //   //let inputChar = String.fromCharCode(event.charCode)
-  //   if (!pattern.test(event.target.value)) {
-  //     event.target.value = event.target.value.replace(/[^a-zA-Z0-9]/g, "");
-  //     // invalid character, prevent input
-
-  //   }
-  // }
-  // item = { startingPrice: 1 };
-  // onStartingPriceChange(n: string) {
-  //   var num = n.replace(/[€,]/g, "");
-  //   this.item.startingPrice = Number(num);
-  // }
-  // currencyInputChanged(value) {
-  //   var num = value.replace(/[€,]/g, "");
-  //   return Number(num);
-  // }
-
   ngOnInit(): void {
     this.buildForm();
     this.loadFilters();
   }
 
-  onToggleStartPicker() {
-    if (this.showStartPicker === false) {
+  onToggleStartPicker(): void  {
+    if (!this.showStartPicker) {
       this.showStartPicker = true;
     }
   }
 
-  onToggleEndPicker() {
-    if (this.showEndPicker === false) {
+  onToggleEndPicker(): void  {
+    if (!this.showEndPicker) {
       this.showEndPicker = true;
     }
   }
 
-  onToggleTillPicker() {
-    if (this.showTillPicker === false) {
+  onToggleTillPicker(): void  {
+    if (!this.showTillPicker) {
       this.showTillPicker = true;
     }
   }
 
-  onStartValueChange(val: Date) {
-    this.startDate = val;
-    // this.endDate = val;
-    // this.tillDate = val;
-  }
-  onEndValueChange(val: Date) {
-    this.endDate = val;
-    // this.tillDate = val;
-  }
-  onTillValueChange(val: Date) {
-    this.tillDate = val;
+  // onStartValueChange(startDate: Date) : void  {
+  //   this.startDate = startDate;
+  //   // this.endDate = endDate;
+  //   // this.tillDate = tillDate;
+  //   // this.endDate = val;
+  //   // this.tillDate = val;
+  // }
+
+  onValueChange(changedValue: Date) : void {
+  
+    if(this.showStartPicker === true){
+    this.startDate = changedValue;
+    }
+    if(this.showEndPicker === true){
+    this.endDate = changedValue;
+    }
+    if(this.showTillPicker === true){
+      this.tillDate = changedValue;
+      }
   }
 
-  isValidStartDate(): boolean {
+  isValidDate(verifyDate = (this.startDate || this.endDate || this.tillDate)): boolean {
     // this function is only here to stop the datepipe from erroring if someone types in value
-    return this.startDate && (typeof this.startDate !== 'string') && !isNaN(this.startDate.getTime());
-  }
-
-  isValidEndDate(): boolean {
-    // this function is only here to stop the datepipe from erroring if someone types in value
-    return this.endDate && (typeof this.endDate !== 'string') && !isNaN(this.endDate.getTime());
-  }
-
-  isValidTillDate(): boolean {
-    // this function is only here to stop the datepipe from erroring if someone types in value
-    return this.tillDate && (typeof this.tillDate !== 'string') && !isNaN(this.tillDate.getTime());
+    return verifyDate && (typeof verifyDate !== 'string') && !isNaN(verifyDate.getTime());
   }
 
   // on top category change - select
@@ -179,9 +159,11 @@ export class AuctionAddComponent implements OnInit {
     this.selectedTypeIds = typeIds;
   }
 
-  onSubmit() {
+  /**
+   * Called on form submit
+   */
+  onSubmit(): void {
     this.submitted = true;
-    let addSuccess: boolean;
 
     // mark all fields as touched
     this.formService.markFormGroupTouched(this.auctionAddForm);
@@ -190,9 +172,8 @@ export class AuctionAddComponent implements OnInit {
       this.setAddRequest();
 
       this.auctionApi.addAuction$(this.auctionAddRequest)
-        .subscribe((data: boolean) => {
-          addSuccess = data;
-          if (addSuccess) {
+        .subscribe((response: boolean) => {
+          if (response) {
             this.notification.success('Auction successfully added.');
             this.auctionAddForm.reset();
             this.bsModalRef.hide();
@@ -211,28 +192,28 @@ export class AuctionAddComponent implements OnInit {
     }
   }
 
-  private buildForm() {
+  private buildForm() : void {
     this.auctionAddForm = this.fb.group({
 
       auctionName: ['', [
         Validators.maxLength(100)
       ]],
-      description: ['', [
+      auctionDescription: ['', [
         Validators.maxLength(100)
       ]],
-      endDate: [, [
+      auctionEndDate: [, [
         Validators.maxLength(100)
       ]],
-      startingPrice: [, [
+      auctionStartingPrice: [, [
         Validators.maxLength(100), Validators.required, Validators.pattern('€[0-9]')
       ]],
-      startDate: ['', [
+      auctionStartDate: ['', [
         Validators.maxLength(100)
       ]],
-      tillDate: [, [
+      auctionTillDate: [, [
         Validators.maxLength(100)
       ]],
-      creator: ['', [
+      auctionCreator: ['', [
       ]],
       auctionType: ['', [
         Validators.required
@@ -259,7 +240,7 @@ export class AuctionAddComponent implements OnInit {
       );
   }
 
-  private setAddRequest() {
+  private setAddRequest() : void {
     this.auctionAddRequest = {
       auctionName: this.auctionAddForm.value.auctionName,
       description: this.auctionAddForm.value.description,
@@ -269,3 +250,63 @@ export class AuctionAddComponent implements OnInit {
     };
   }
 }
+
+  // public inputValidator(event: any) {
+  //   //console.log(event.target.value);
+  //   const pattern = /^[a-zA-Z0-9]*/;   
+  //   //let inputChar = String.fromCharCode(event.charCode)
+  //   if (!pattern.test(event.target.value)) {
+  //     event.target.value = event.target.value.replace(/[^a-zA-Z0-9]/g, "");
+  //     // invalid character, prevent input
+
+  //   }
+  // }
+  // item = { startingPrice: 1 };
+  // onStartingPriceChange(n: string) {
+  //   var num = n.replace(/[€,]/g, "");
+  //   this.item.startingPrice = Number(num);
+  // }
+  // currencyInputChanged(value) {
+  //   var num = value.replace(/[€,]/g, "");
+  //   return Number(num);
+  // }
+
+  // isValidStartDate(): boolean {
+  //   // this function is only here to stop the datepipe from erroring if someone types in value
+  //   return this.startDate && (typeof this.startDate !== 'string') && !isNaN(this.startDate.getTime());
+  // }
+
+  // isValidEndDate(): boolean {
+  //   // this function is only here to stop the datepipe from erroring if someone types in value
+  //   return this.endDate && (typeof this.endDate !== 'string') && !isNaN(this.endDate.getTime());
+  // }
+
+  // isValidTillDate(): boolean {
+  //   // this function is only here to stop the datepipe from erroring if someone types in value
+  //   return this.tillDate && (typeof this.tillDate !== 'string') && !isNaN(this.tillDate.getTime());
+  // }
+    // onTogglePicker() : void {
+  //   if (!this.showStartPicker && (this.showEndPicker || this.showTillPicker )) {
+  //     this.showStartPicker = true;
+  //     this.showEndPicker = false;
+  //     this.showTillPicker = false;
+  //   }
+  //   if (!this.showEndPicker && (this.showStartPicker || this.showTillPicker)) {
+  //     this.showEndPicker = true;
+  //     this.showStartPicker = false;
+  //     this.showTillPicker = false;
+  //   }
+  //   if (!this.showTillPicker && (this.showEndPicker || this.showStartPicker)) {
+  //     this.showTillPicker = true;
+  //     this.showStartPicker = false;
+  //     this.showEndPicker = false;
+  //   }
+  //   if(!this.showStartPicker && !this.showEndPicker && !this.showTillPicker ) {
+  //     this.showStartPicker = true;
+  //     this.showEndPicker = true;
+  //     this.showTillPicker = true;
+  //   }
+  // }
+  // onTillValueChange(val: Date) : void {
+  //   this.tillDate = val;
+  // }
