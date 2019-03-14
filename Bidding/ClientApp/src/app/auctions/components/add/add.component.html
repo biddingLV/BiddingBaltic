@@ -1,11 +1,11 @@
-<div class="modal-header">
+<div class="modal-header auction-add__header">
   <h3 class="modal-title pull-left">New Auction</h3>
   <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
 
-<div class="modal-body">
+<div class="modal-body auction-add__body">
   <form [formGroup]="auctionAddForm" #Addauction='ngForm'>
     <div class="form-group">
       <label for="auctName" class="required">Nosaukums:</label>
@@ -142,88 +142,8 @@
     </div>
 
     <div class="form-group">
-      <br>
       <button class="btn btn-primary" (click)="onSubmit()">Add</button>
       <button class="btn btn-secondary" (click)="bsModalRef.hide()">Cancel</button>
     </div>
   </form>
 </div>
-
-<!-- Css for datetime-popup -->
-
-<style>
-
-/* 
-Adds asterisk after required form control
-*/
-.required::after {
-    content: " *";
-    color: red;
-}
-
-/* 
-  Datetime-popup general customization - positioning etc
-*/
-
-  datetime-popup > .dropdown .glyphicon {
-    display: inline-block;
-    font: normal normal normal 14px/1 FontAwesome;
-    font-size: inherit;
-    text-rendering: auto;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-
-  datetime-popup > .dropdown timepicker {
-    display: flex;
-    justify-content: center;
-  }
-
-  /* 
-  Datetime-popup further customization - colors
-  */
-
-  datetime-popup > .dropdown .bg-faded {
-    border: 0;
-    background-color: #fff;
-  }
-
-  datetime-popup > .dropdown datepicker .btn-secondary {
-    background-color: #fff;
-    border: 0;
-    color: #000;
-  }
-
-  datetime-popup > .dropdown datepicker button.active {
-    background-color: #ddd;
-  }
-
-  /* 
-  Datetime-popup further customization - content change
-  */
-
-  datetime-popup > .dropdown .glyphicon.glyphicon-remove-circle:before {
-    content: "\f05c";
-  }
-
-  datetime-popup > .dropdown .glyphicon.glyphicon-chevron-down:before {
-    content: "\f078";
-  }
-
-  datetime-popup > .dropdown .glyphicon.glyphicon-chevron-up:before {
-    content: "\f077";
-  }
-
-  datetime-popup > .dropdown .glyphicon.glyphicon-chevron-left:before {
-    content: "\f053";
-  }
-
-  datetime-popup > .dropdown .glyphicon.glyphicon-chevron-right:before {
-    content: "\f054";
-  }
-
-  datetime-popup > .dropdown .glyphicon.hidden {
-    display: none !important;
-  }
-
-</style>
