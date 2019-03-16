@@ -60,8 +60,8 @@ export class AuctionAddComponent implements OnInit {
   showDate = true;
   showTime = true;
 
-  showItemCondition = false;
-  showPropertyCondition = false;
+  showItemCondition : boolean;
+  showPropertyCondition : boolean;
 
   closeButton = { show: true, label: 'Aizvērt', cssClass: 'btn btn-sm btn-primary' };
 
