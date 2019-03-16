@@ -23,6 +23,14 @@
       </li>
 
       <li class="nav-item" *ngIf="userDetails">
+        <a class="nav-link" [routerLinkActive]="['active-link']" [routerLink]="['/admin']">Admin</a>
+      </li>
+
+      <li class="nav-item" *ngIf="userDetails">
+        <a class="nav-link" [routerLinkActive]="['active-link']" [routerLink]="['/auctions']">Izsoles</a>
+      </li>
+
+      <li class="nav-item" *ngIf="userDetails">
         <a class="nav-link" [routerLink]="" (click)="signOut()" href="">Sign Out</a>
       </li>
     </ul>

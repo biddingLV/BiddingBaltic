@@ -3,105 +3,85 @@
 */
 
 .ngx-datatable.bootstrap {
-  // font-size: $font-size-base;
+  font-size: 16px; // todo: kke: make this as a variable!
   .datatable-header {
-    flex: 1 1 auto;
     .datatable-header-cell {
       font-weight: bold;
       border-bottom: none;
+      text-align: center;
     }
   }
   .datatable-body {
-    flex: 1 1 auto;
-    padding-bottom: 1.25rem;
+    padding-bottom: 20px;
     .datatable-body-row {
+      border: none;
+      margin-bottom: 20px;
+      border-radius: 5px;
       &.datatable-row-even {
-        // background-color: $white;
+        background-color: $gray;
       }
-      &.active {
-        &.datatable-row-odd {
-          // background-color: $white;
-        }
+      &.datatable-row-odd {
+        background-color: $gray;
       }
     }
     .datatable-body-cell {
       .datatable-body-cell-label {
-        // color: $gray-dark;
+        text-align: center;
+      }
+      border-right: 1px solid #D5D5D5;
+      &:last-child {
+        border-right: none;
       }
     }
   }
   .datatable-footer {
-    padding: 0.1rem 1.25rem;
-    // border-top: 1px solid $border-color;
-    // background-color: $gray-300;
-    // color: $gray-dark;
+    // padding: 0.1rem 1.25rem; // border-top: 1px solid $border-color;
+    background-color: $white; // color: $gray-dark;
     .pager-container {
-      text-align: center;
+      // text-align: center;
     }
     .datatable-pager {
-      margin: 0 10px;
-      vertical-align: top;
-      text-align: center;
-      flex-basis: 60%;
+      // margin: 0 10px;
+      // vertical-align: top;
+      // text-align: center;
+      // flex-basis: 60%;
       ul {
         li {
-          padding: 6px 1px;
-          margin-left: -1px;
-          // background-color: $white;
+          // padding: 6px 1px;
+          // margin-left: -1px; // background-color: $white;
           // border: 1px solid $border-color;
           &:not(.disabled) {
             &.active,
             &:hover {
-              z-index: 2;
-              // color: $primary;
-              text-decoration: none;
-              // background-color: $gray-200;
+              // z-index: 2; // color: $primary;
+              // text-decoration: none; // background-color: $gray-200;
               // border-color: $border-color;
               a {
                 // background-color: $gray-200;
-                font-weight: normal;
+                // font-weight: normal;
               }
             }
           }
         }
       }
       a {
-        color: $primary;
+        // color: $primary;
       }
       .datatable-icon-left,
       .datatable-icon-skip,
       .datatable-icon-right,
       .datatable-icon-prev {
-        font-size: 18px;
-        line-height: 27px;
-        padding: 0 3px;
+        // font-size: 18px;
+        // line-height: 27px;
+        // padding: 0 3px;
       }
     }
   } // Summary row styles
   .datatable-summary-row {
     .datatable-body-row {
       .datatable-body-cell {
-        font-weight: bold;
+        // font-weight: bold;
       }
     }
-  }
-}
-
-// fix page limit select width problem
-select.page-limit {
-  width: auto;
-}
-
-div.total-items-container {
-  span {
-    font-size: 0.9rem;
-  }
-}
-
-// license feature table - popover
-div.popover-content.popover-body {
-  ul#feature-list {
-    overflow-y: auto;
-    max-height: 170px;
   }
 }

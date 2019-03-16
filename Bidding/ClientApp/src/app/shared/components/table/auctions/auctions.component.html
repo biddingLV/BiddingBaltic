@@ -10,34 +10,39 @@
   <!-- <ngx-datatable-column [width]="30" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false"
     [headerCheckboxable]="true" [checkboxable]="true">
   </ngx-datatable-column> -->
-  <ngx-datatable-column [width]="50" prop="auctionName" name="Nosaukums" [sortable]="true">
+  <ngx-datatable-column prop="auctionName" name="Nosaukums" [sortable]="true">
     <ng-template let-row="row" ngx-datatable-cell-template>
       <a (click)="onDetailsClick()" [routerLink]="['/auction', row.auctionId]">{{row.auctionName}}</a>
     </ng-template>
   </ngx-datatable-column>
-  <ngx-datatable-column [width]="50" prop="auctionStartingPrice" name="Sākumcena" [sortable]="true">
-    <ng-template let-row="row" ngx-datatable-cell-template><span>€ {{row.auctionStartingPrice}}</span></ng-template>
+  <ngx-datatable-column prop="auctionStartingPrice" name="Sākumcena" [sortable]="true">
+    <ng-template let-row="row" ngx-datatable-cell-template><span>€
+        {{row.auctionStartingPrice | number : '1.2-2' }}</span>
+    </ng-template>
   </ngx-datatable-column>
-  <ngx-datatable-column [width]="50" prop="auctionEndDate" name="Jāpiesakās līdz" [sortable]="true">
+  <ngx-datatable-column prop="auctionEndDate" name="Jāpiesakās līdz" [sortable]="true">
+    <ng-template let-row="row" ngx-datatable-cell-template><span>{{row.auctionEndDate | date: 'dd/MM/yyyy'}}</span>
+    </ng-template>
   </ngx-datatable-column>
-  <ngx-datatable-column [width]="50" prop="auctionEndDate" name="Izsoles noslēgums" [sortable]="true">
+  <ngx-datatable-column prop="auctionEndDate" name="Izsoles noslēgums" [sortable]="true">
+    <ng-template let-row="row" ngx-datatable-cell-template><span>{{row.auctionEndDate | date: 'dd/MM/yyyy'}}</span>
+    </ng-template>
   </ngx-datatable-column>
-  <ngx-datatable-column [width]="50" prop="auctionStatusName" name="Statuss" [sortable]="true">
+  <ngx-datatable-column prop="auctionStatusName" name="Statuss" [sortable]="true"></ngx-datatable-column>
+  <ngx-datatable-column>
+    <ng-template let-row="row" ngx-datatable-cell-template><span>♥</span></ng-template>
   </ngx-datatable-column>
 
   <!-- footer definition -->
   <ngx-datatable-footer>
     <ng-template ngx-datatable-footer-template let-rowCount="page.size">
-      <div class="row-count-container" style="padding-left:10px">
-        <div>
-          <strong>Izsoļu skaits: </strong>{{auctionTable.itemCount}}
-        </div>
+      <div class="">
+        Kopējais izsoļu skaits: {{auctionTable.itemCount}}
       </div>
 
-      <datatable-pager style="text-align:center" [pagerLeftArrowIcon]="'datatable-icon-left'"
-        [pagerRightArrowIcon]="'datatable-icon-right'" [pagerPreviousIcon]="'datatable-icon-prev'"
-        [pagerNextIcon]="'datatable-icon-skip'" [size]="numberRows" [count]="auctionTable.itemCount"
-        (change)="onPageChange($event)">
+      <datatable-pager [pagerLeftArrowIcon]="'datatable-icon-left'" [pagerRightArrowIcon]="'datatable-icon-right'"
+        [pagerPreviousIcon]="'datatable-icon-prev'" [pagerNextIcon]="'datatable-icon-skip'" [size]="numberRows"
+        [count]="auctionTable.itemCount" (change)="onPageChange($event)">
       </datatable-pager>
     </ng-template>
   </ngx-datatable-footer>
