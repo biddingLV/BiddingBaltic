@@ -1,5 +1,5 @@
 <!-- header definition -->
-<ngx-datatable #myTable class="bootstrap" [rows]="auctionTable.auctions" [columnMode]="'force'" [headerHeight]="50"
+<ngx-datatable class="bootstrap" [rows]="auctionTable.auctions" [columnMode]="'force'" [headerHeight]="50"
   [footerHeight]="50" [rowHeight]="'auto'" [externalSorting]="true" [externalPaging]="true"
   [count]="auctionTable.itemCount" [offset]="auctionTable.currentPage" [selectionType]="'checkbox'" [limit]="numberRows"
   (sort)="onSortChange($event)" (select)='onSelect($event)' [sorts]="[{prop: 'name', dir: 'asc'}]" [selected]="selected"
@@ -7,19 +7,22 @@
 
   <!-- column definition -->
   <!-- todo: kke: hide checkboxes! -->
-  <ngx-datatable-column [width]="30" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false"
+  <!-- <ngx-datatable-column [width]="30" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false"
     [headerCheckboxable]="true" [checkboxable]="true">
-  </ngx-datatable-column>
-  <ngx-datatable-column [width]="50" prop="auctionName" name="Nosaukums / modelis" [sortable]="true">
+  </ngx-datatable-column> -->
+  <ngx-datatable-column [width]="50" prop="auctionName" name="Nosaukums" [sortable]="true">
     <ng-template let-row="row" ngx-datatable-cell-template>
       <a (click)="onDetailsClick()" [routerLink]="['/auction', row.auctionId]">{{row.auctionName}}</a>
     </ng-template>
   </ngx-datatable-column>
-  <ngx-datatable-column [width]="50" prop="auctionStartingPrice" name="Izsoles sākumcena" [sortable]="true">
+  <ngx-datatable-column [width]="50" prop="auctionStartingPrice" name="Sākumcena" [sortable]="true">
+    <ng-template let-row="row" ngx-datatable-cell-template><span>€ {{row.auctionStartingPrice}}</span></ng-template>
   </ngx-datatable-column>
-  <ngx-datatable-column [width]="50" prop="auctionEndDate" name="Jāpiesakās izsolei" [sortable]="true">
+  <ngx-datatable-column [width]="50" prop="auctionEndDate" name="Jāpiesakās līdz" [sortable]="true">
   </ngx-datatable-column>
-  <ngx-datatable-column [width]="50" prop="auctionStatusName" name="Izsoles statuss" [sortable]="true">
+  <ngx-datatable-column [width]="50" prop="auctionEndDate" name="Izsoles noslēgums" [sortable]="true">
+  </ngx-datatable-column>
+  <ngx-datatable-column [width]="50" prop="auctionStatusName" name="Statuss" [sortable]="true">
   </ngx-datatable-column>
 
   <!-- footer definition -->

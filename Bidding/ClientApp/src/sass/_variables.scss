@@ -40,13 +40,17 @@ $p-font-size: 1rem; // todo: kke: make this more - global?
 
 // Color definitions
 $purple: #6f5081;
+$pink: #863456;
 $red: #d84d3f;
 $yellow: #eab854;
 $green: #639c6d;
 $cyan: #56a5a2;
+$white: #FFFFFF;
+
 
 // Color assignments
 $primary: $purple;
+$secondary: $pink;
 $link-hover-color: $primary;
 $success: $green;
 $info: $cyan;

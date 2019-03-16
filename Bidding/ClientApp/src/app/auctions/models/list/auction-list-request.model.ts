@@ -1,4 +1,4 @@
-import { ListRequest } from '../../../shared/basemodels/list-request.model';
+import { ListRequest } from '../../../shared/models/list-request.model';
 
 export interface AuctionListRequest extends ListRequest {
   auctionStartDate: string;

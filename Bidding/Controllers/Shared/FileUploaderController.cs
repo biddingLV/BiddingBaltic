@@ -109,22 +109,20 @@ namespace Bidding.Controllers.Shared
 
         }
 
-        [AllowAnonymous]
         [HttpGet]
         public async Task<IActionResult> GetImages()
         {
-            String strorageconn = storageInfo;
+            string strorageconn = storageInfo;
             CloudStorageAccount storageacc = CloudStorageAccount.Parse(strorageconn);
 
             //Create Reference to Azure Blob
             CloudBlobClient blobClient = storageacc.CreateCloudBlobClient();
 
             //The next 2 lines create if not exists a container named "democontainer"
-            CloudBlobContainer container = blobClient.GetContainerReference("auctionpictures");
-
-            await container.CreateIfNotExistsAsync();
+            CloudBlobContainer container = blobClient.GetContainerReference("uploadblobcec43629-42ca-4f17-a2f2-14a9dce93c96");
 
             CloudBlockBlob blockBlob = container.GetBlockBlobReference("DemoBlob");
+
 
 
             // todo: jrb: this fails!

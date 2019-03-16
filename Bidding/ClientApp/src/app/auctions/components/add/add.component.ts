@@ -49,9 +49,9 @@ export class AuctionAddComponent implements OnInit {
   selectedCategoryIds: number[];
   selectedTypeIds: number[];
 
-  showStartPicker : boolean;
-  showEndPicker : boolean;
-  showTillPicker : boolean;
+  showStartPicker: boolean;
+  showEndPicker: boolean;
+  showTillPicker: boolean;
 
   startDate: Date = new Date();
   endDate: Date = new Date();
@@ -97,19 +97,19 @@ export class AuctionAddComponent implements OnInit {
     this.loadFilters();
   }
 
-  onToggleStartPicker(): void  {
+  onToggleStartPicker(): void {
     if (!this.showStartPicker) {
       this.showStartPicker = true;
     }
   }
 
-  onToggleEndPicker(): void  {
+  onToggleEndPicker(): void {
     if (!this.showEndPicker) {
       this.showEndPicker = true;
     }
   }
 
-  onToggleTillPicker(): void  {
+  onToggleTillPicker(): void {
     if (!this.showTillPicker) {
       this.showTillPicker = true;
     }
@@ -123,17 +123,17 @@ export class AuctionAddComponent implements OnInit {
   //   // this.tillDate = val;
   // }
 
-  onValueChange(changedValue: Date) : void {
-  
-    if(this.showStartPicker === true){
-    this.startDate = changedValue;
+  onValueChange(changedValue: Date): void {
+
+    if (this.showStartPicker === true) {
+      this.startDate = changedValue;
     }
-    if(this.showEndPicker === true){
-    this.endDate = changedValue;
+    if (this.showEndPicker === true) {
+      this.endDate = changedValue;
     }
-    if(this.showTillPicker === true){
+    if (this.showTillPicker === true) {
       this.tillDate = changedValue;
-      }
+    }
   }
 
   isValidDate(verifyDate = (this.startDate || this.endDate || this.tillDate)): boolean {
@@ -192,7 +192,7 @@ export class AuctionAddComponent implements OnInit {
     }
   }
 
-  private buildForm() : void {
+  private buildForm(): void {
     this.auctionAddForm = this.fb.group({
 
       auctionName: ['', [
@@ -240,7 +240,7 @@ export class AuctionAddComponent implements OnInit {
       );
   }
 
-  private setAddRequest() : void {
+  private setAddRequest(): void {
     this.auctionAddRequest = {
       auctionName: this.auctionAddForm.value.auctionName,
       description: this.auctionAddForm.value.description,

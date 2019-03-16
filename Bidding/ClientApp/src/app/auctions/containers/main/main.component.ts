@@ -59,6 +59,10 @@ export class AuctionMainComponent implements OnInit {
     this.selectedTypeIds = typeIds;
   }
 
+  onSearch(event) {
+    // todo: kke: implement this!
+  }
+
   // load filter values
   private loadFilters(): void {
     this.filtersSub = this.auctionApi.getFilters$()

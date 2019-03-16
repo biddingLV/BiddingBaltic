@@ -1,13 +1,5 @@
-<div class="table-card card">
-  <!-- Card header -->
-  <div class="card-header">
-    <app-search-bar (search)="updateRequest('Search', $event)"></app-search-bar>
-  </div>
-
-  <!-- Card body -->
-  <div *ngIf="auctionTable">
-    <app-auctions-table *ngIf="auctionTable.auctions" [auctionTable]="auctionTable" [numberRows]="numberRows"
-      [selected]="selected" (pageChange)="updateRequest('Page', $event)" (sortChange)="onSortChange($event)"
-      (detailsClick)="onDetailsClick()" (selectedChange)="onSelectedChange($event)"></app-auctions-table>
-  </div>
+<div *ngIf="auctionTable">
+  <app-auctions-table *ngIf="auctionTable.auctions" [auctionTable]="auctionTable" [numberRows]="numberRows"
+    [selected]="selected" (pageChange)="updateRequest('Page', $event)" (sortChange)="onSortChange($event)"
+    (detailsClick)="onDetailsClick()" (selectedChange)="onSelectedChange($event)"></app-auctions-table>
 </div>
