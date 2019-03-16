@@ -1,24 +1,24 @@
 <div class="container page-content">
   <!-- Page title -->
   <div class="row">
-    <div class="col-12 pb-2 mt-4 mb-2 d-flex justify-content-center">
+    <div class="col-12 mt-5 mb-5 d-flex justify-content-center">
       <h1 id="page-title"><strong>Izvēlies izsoli un aidā!</strong></h1>
     </div>
   </div>
 
   <div class="row">
-    <div class="col-3">
+    <div class="col-4 mt-5 mb-5">
       <app-search-bar (search)="onSearch($event)"></app-search-bar>
     </div>
   </div>
 
   <!-- Filters -->
-  <div class="row">
+  <div class="row mt-5 mb-5">
     <div class="col-6">
       <div class="form-group">
-        <label>Kategorija</label>
+        <label for="">Kategorija:</label>
         <ng-select [clearable]="false" [virtualScroll]="true" [multiple]="true" [closeOnSelect]="false"
-          placeholder="Select category" (change)="onCategoryChange($event)">
+          placeholder="Izvēlies kategoriju" (change)="onCategoryChange($event)">
           <ng-option *ngFor="let cat of filters.topCategories; let i = index" [value]="cat.categoryId">
             {{cat.categoryName}} ({{cat.categoryTotalCount}})
           </ng-option>
@@ -28,9 +28,9 @@
 
     <div class="col-6">
       <div class="form-group">
-        <label>Tips</label>
+        <label for="">Tips:</label>
         <ng-select [clearable]="false" [virtualScroll]="true" [multiple]="true" [closeOnSelect]="false"
-          placeholder="Select type" (change)="onTypeChange($event)">
+          placeholder="Izvēlies tipu" (change)="onTypeChange($event)">
           <ng-option *ngFor="let typ of auctionTypes; let i = index" [value]="typ.typeId">
             {{typ.typeName}} ({{typ.typeTotalCount}})
           </ng-option>

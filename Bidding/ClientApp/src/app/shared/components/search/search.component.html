@@ -1,15 +1,4 @@
-<input id="search" type="text" [(ngModel)]="searchText" (keydown.enter)="onSearch(searchText)"
-  placeholder="Meklē sev kāroto izsoli">
-
-<!-- todo: kke: move to the global scss file! -->
-<style>
-  input {
-    outline: 0;
-    border-width: 0 0 2px;
-    border-color: blue
-  }
-
-  input:focus {
-    border-color: green
-  }
-</style>
+<div class="auction-list__search input-group">
+  <input type="text" [(ngModel)]="searchText" (keydown.enter)="onSearch(searchText)"
+    placeholder="Meklē sev kāroto izsoli" class="form-control">
+</div>
