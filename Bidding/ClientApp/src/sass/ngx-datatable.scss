@@ -18,10 +18,10 @@
       margin-bottom: 20px;
       border-radius: 5px;
       &.datatable-row-even {
-        background-color: $gray;
+        background-color: $gray-200;
       }
       &.datatable-row-odd {
-        background-color: $gray;
+        background-color: $gray-200;
       }
     }
     .datatable-body-cell {
