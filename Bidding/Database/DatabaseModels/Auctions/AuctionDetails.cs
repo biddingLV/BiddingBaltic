@@ -31,5 +31,6 @@ namespace BiddingAPI.Models.DatabaseModels.Bidding
         public Auction Auction { get; set; }
 
         public AuctionStatus AuctionStatus { get; set; }
+
     }
 }

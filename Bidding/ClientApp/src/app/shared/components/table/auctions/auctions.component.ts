@@ -21,12 +21,9 @@ export class AuctionsTableComponent implements OnInit {
   @Output() detailsClick = new EventEmitter<boolean>();
   @Output() selectedChange = new EventEmitter<any>();
 
-  @ViewChild('myTable') table: any;
-
   constructor() { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void { }
 
   onPageChange(page): void {
     this.pageChange.emit(page);

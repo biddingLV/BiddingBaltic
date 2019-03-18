@@ -1,4 +1,4 @@
-import { IListResponse } from "ClientApp/src/app/shared/basemodels/list-response.model";
+import { IListResponse } from "ClientApp/src/app/shared/models/list-response.model";
 
 
 // tslint:disable-next-line:no-empty-interface

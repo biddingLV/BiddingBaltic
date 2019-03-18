@@ -23,10 +23,10 @@
               "ClientApp/src/assets"
             ],
             "styles": [
-              "ClientApp/src/sass/styles.scss",
               "node_modules/@swimlane/ngx-datatable/release/index.css",
               "node_modules/@swimlane/ngx-datatable/release/assets/icons.css",
               "node_modules/@swimlane/ngx-datatable/release/themes/bootstrap.css",
+              "ClientApp/src/sass/styles.scss",
               "node_modules/ngx-bootstrap/datepicker/bs-datepicker.css"
             ],
             "scripts": []

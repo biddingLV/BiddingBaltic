@@ -1,5 +1,7 @@
 // Custom variables
 @import "variables";
+@import "ngx-datatable.scss";
+@import "ng-select.scss";
 
 // bootstrap main
 @import "~node_modules/bootstrap/scss/bootstrap";
@@ -9,6 +11,29 @@
 
 // ng-select theme
 @import "~@ng-select/ng-select/scss/default.theme.scss";
+
+/*
+*
+* Our own custom styles!
+*
+*/
+
+/*
+* List
+*/
+
+.auction-list__search {
+  input {
+    outline: 0;
+    border-width: 0 0 2px;
+    border-radius: 0;
+    background-color: $gray-100;
+    &:focus {
+      border-color: $primary;
+      box-shadow: none;
+    }
+  }
+}
 
 /*
 * Form
@@ -25,6 +50,7 @@
 */
 
 // General/Global styles for modals
+
 
 // Specific styles for specific modal
 

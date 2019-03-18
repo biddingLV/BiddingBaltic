@@ -33,6 +33,7 @@ $font-family-base: 'Source Sans Pro', $font-family-sans-serif;
 
 // Font size assignments
 $p-font-size: 1rem; // todo: kke: make this more - global?
+// $headings-color: $gray-dark;
 
 /*
 * Colors
@@ -40,17 +41,20 @@ $p-font-size: 1rem; // todo: kke: make this more - global?
 
 // Color definitions
 $purple: #6f5081;
-$red: #d84d3f;
-$yellow: #eab854;
-$green: #639c6d;
-$cyan: #56a5a2;
+$dark-pink: #863456;
+$red: #f8435f;
+$green: #acceb2;
+$white: #FFFFFF;
+$gray-100: #FCFCFC;
+$gray-200: #F7F7F7;
+$gray-700: #707070;
+$gray-950: #363636;
+$purple-gray: #D3CAD8;
 
 // Color assignments
 $primary: $purple;
 $link-hover-color: $primary;
 $success: $green;
-$info: $cyan;
-$warning: $yellow;
 $danger: $red;
 
 /*
@@ -60,12 +64,12 @@ $danger: $red;
 // Grid definition
 $grid-breakpoints: ( xs: 0, sm: 576px, md: 768px, lg: 992px, xl: 1200px);
 
-// todo: kke: cleanup this junk!!!
+// Global assignments
+$body-bg: $gray-100;
+$link-hover-decoration: underline;
 
-// $headings-color: $gray-dark;
-// $body-bg: $light;
+// todo: kke: clean-up
 // $body-color: $gray-dark;
-// $link-hover-decoration: underline;
 // $transition-base: all .2s ease-in-out;
 // $enable-rounded: false;
 // $border-color: $gray-300;
@@ -74,12 +78,6 @@ $grid-breakpoints: ( xs: 0, sm: 576px, md: 768px, lg: 992px, xl: 1200px);
 // $input-color: $gray-dark;
 
 // old
-// // add asterisk symbol to required form fields
-// .required::after {
-//   content: " *";
-//   color: red;
-// }
-
 // // define global heading styles
 // $h5-font-size: 1rem;
 // @media only screen and (min-width: map-get($grid-breakpoints, xs)) {
