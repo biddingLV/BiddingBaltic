@@ -9,9 +9,23 @@ namespace BiddingAPI.Models.ViewModels.Bidding.Auctions
     public class AuctionAddRequestModel
     {
         public string AuctionName { get; set; }
-        public string Description { get; set; }
-        public int StartingPrice { get; set; }
-        //public string StartDate { get; set; }
-        public string Creator { get; set; }
+        public int AuctionTopCategoryId { get; set; }
+        public int AuctionSubCategoryId { get; set; }
+        public int AuctionTypeId { get; set; }
+        public int AuctionStartingPrice { get; set; }
+        public DateTime AuctionStartDate { get; set; }
+        /// <summary>
+        /// Need to apply date/until
+        /// </summary>
+        public DateTime AuctionApplyDate { get; set; }
+        public DateTime AuctionEndDate { get; set; }
+        public string AuctionCreatorId { get; set; }
+        /// <summary>
+        /// Auction status for AuctionStatuses table
+        /// </summary>
+        public int AuctionStatusId { get; set; }
+        public int AuctionConditionId { get; set; }
+        public string AuctionDescription { get; set; }
+        // todo: kke: also add image prop here!
     }
 }

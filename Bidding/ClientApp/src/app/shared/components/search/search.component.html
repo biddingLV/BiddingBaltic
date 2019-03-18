@@ -1,9 +1,22 @@
-<div class="search input-group mb-3">
-  <div class="input-group-prepend">
-    <div class="input-group-text">Search</div>
-  </div>
-  <input id="search" type="text" class="form-control" [(ngModel)]="searchText" (keydown.enter)="onSearch(searchText)">
-  <span class="input-group-append">
-    <button class="btn btn-danger"  [disabled]="!searchText">&times;</button>
+<div class="auction-list__search input-group">
+  <span>
+    <fa-icon [icon]="['fas', 'search']" size="lg"></fa-icon>
   </span>
+  <input type="search" [(ngModel)]="searchText" (keydown.enter)="onSearch(searchText)"
+    placeholder="Meklē sev kāroto izsoli" class="form-control">
 </div>
+
+<!-- todo: kke: not sure if this is the best solution here! -->
+<!-- todo: kke: move to the global scss file! -->
+<style>
+  span {
+    position: absolute;
+    z-index: 20;
+    top: 7px;
+  }
+
+  input {
+    padding-left: 25px;
+    z-index: 10;
+  }
+</style>

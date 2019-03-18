@@ -1,72 +1,141 @@
-<div class="modal-header">
+<div class="modal-header auction-add__header">
   <h3 class="modal-title pull-left">New Auction</h3>
   <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
-<div class="modal-body">
-  <form [formGroup]="auctionAddForm">
-    <!-- wip -->
-    <div>
-      <div class="form-group">
-        <div class="col-md-10">
-          <file-uploader (fileUploaded)="onFileUploaded($event)" (fileRemoved)="onFileRemoved()"></file-uploader>
-        </div>
-      </div>
-    </div>
-    <!-- wip -->
 
+<div class="modal-body auction-add__body">
+  <form [formGroup]="auctionAddForm" #Addauction='ngForm'>
     <div class="form-group">
-      <p>todo:</p>
-      <label class="required">Auction Name:</label>
-      <input type="text" formControlName="auctionName" class="form-control"
-        [ngClass]="{ 'is-invalid': submitted && f.auctionName.errors }" />
+      <label for="auctName" class="required">Nosaukums:</label>
+      <input type="text" formControlName="auctionName" class="form-control" id="auctName" name=""
+        [ngClass]="{ 'is-invalid': submitted && f.auctionName.errors }" required />
       <div *ngIf="submitted && formErrors.auctionName" class="invalid-feedback">
         {{formErrors.auctionName}}
       </div>
     </div>
 
     <div class="form-group">
-      <label class="required">Description:</label>
-      <input type="text" formControlName="description" class="form-control"
-        [ngClass]="{ 'is-invalid': submitted && f.description.errors }" />
-      <div *ngIf="submitted && formErrors.description" class="invalid-feedback">
-        {{formErrors.description}}
+      <label class="required">Top-category:</label>
+      <ng-select [clearable]="false" [virtualScroll]="true" [multiple]="false" [closeOnSelect]="true"
+        placeholder="Select category" (change)="onCategoryChange($event)">
+        <ng-option *ngFor="let cat of filters.topCategories; let i = index" [value]="cat.categoryId">
+          {{cat.categoryName}}
+        </ng-option>
+      </ng-select>
+    </div>
+
+    <div class="form-group">
+      <label class="required">Sub-category:</label>
+      <ng-select [clearable]="false" [virtualScroll]="true" [closeOnSelect]="true" placeholder="Select type"
+        (change)="onTypeChange($event)">
+        <ng-option *ngFor="let typ of auctionTypes; let i = index" [value]="typ.typeId">
+          {{typ.typeName}}
+        </ng-option>
+      </ng-select>
+    </div>
+
+    <div class="form-group">
+      <label class="required">Izsoles veids:</label>
+      <ng-select [virtualScroll]="true" placeholder="Izvēlieties veidu">
+        <ng-option *ngFor="let typ of auctionType; let i = index" [value]="typ.Id" required>
+          {{typ.type}}
+        </ng-option>
+      </ng-select>
+    </div>
+
+    <div class="form-group">
+      <label for="auctStartingPrice" class="required">Sākumcena:</label>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text">€</span>
+        </div>
+        <input type="number" class="form-control" formControlName="auctionStartingPrice" id="auctStartingPrice" name="auctStartingPrice">
       </div>
     </div>
 
     <div class="form-group">
-      <label class="required">Starting Price:</label>
-      <input type="text" formControlName="startingPrice" class="form-control"
-        [ngClass]="{ 'is-invalid': submitted && f.startingPrice.errors }" />
-      <div *ngIf="submitted && formErrors.startingPrice" class="invalid-feedback">
-        {{formErrors.startingPrice}}
-      </div>
+      <label for="auctStart" class="required">Izsoles sākums:</label>
+      <input type="text" class="form-control" formControlName="auctionStartDate" [value]="this.auctionAddForm.get('auctionStartDatepicker').enable()"
+        (click)="onToggleStartPicker()" id="auctStart" name="auctStart"/>
+      <datetime-popup (valueChange)="onValueChange($event)" formControlName="auctionStartDatepicker" [(showPopup)]="showStartPicker"
+        [showDate]="showDate" [showTime]="showTime" [closeButton]="closeButton">
+      </datetime-popup>
+      <!-- <div *ngIf="isValidStartDate()">{{ startDate }} 
+          </div> -->
     </div>
 
     <div class="form-group">
-      <label>Start Date:</label>
-      <input type="text" formControlName="startDate" class="form-control"
-        [ngClass]="{ 'is-invalid': submitted && f.startDate.errors }" />
-      <div *ngIf="submitted && formErrors.startDate" class="invalid-feedback">
-        {{formErrors.startDate}}
-      </div>
+      <label for="auctEnd" class="required">Izsoles noslēgums:</label>
+      <input type="text" class="form-control" formControlName="auctionEndDate" [value]="endDate"
+        (click)="onToggleEndPicker()" id="auctEnd" name="auctEnd" />
+      <datetime-popup [value]="endDate" (valueChange)="onValueChange($event)" [(showPopup)]="showEndPicker"
+        [showDate]="showDate" [showTime]="showTime" [closeButton]="closeButton">
+      </datetime-popup>
+      <!-- <div *ngIf="isValidEndDate()">{{ endDate }} 
+            </div> -->
     </div>
 
     <div class="form-group">
-      <label class="required">Creator:</label>
-      <input type="text" formControlName="creator" class="form-control"
-        [ngClass]="{ 'is-invalid': submitted && f.creator.errors }" />
-      <div *ngIf="submitted && formErrors.creator" class="invalid-feedback">
+      <label for="auctCreator" class="required">Izsoles veidotājs:</label>
+      <input type="text" formControlName="auctionCreator" class="form-control"
+        [ngClass]="{ 'is-invalid': submitted && f.auctionCreator.errors }" required 
+        id="auctCreator" name="auctCreator" />
+      <div *ngIf="submitted && formErrors.auctionCreator" class="invalid-feedback">
         {{formErrors.creator}}
       </div>
     </div>
 
     <div class="form-group">
-      <label for="dateFrom">From:</label>
-      <app-date-picker></app-date-picker>
-      <!-- <app-date-picker (dateChange)="updateRequest('StartDate', $event)" [date]="startDate" id="dateFrom">
-      </app-date-picker> -->
+      <label for="auctTill">Pieteikties var līdz:</label>
+      <input type="text" class="form-control" formControlName="auctionTillDate" [value]="tillDate"
+        (click)="onToggleTillPicker()" id="auctTill" name="auctTill" />
+      <datetime-popup [value]="tillDate" (valueChange)="onValueChange($event)" [(showPopup)]="showTillPicker"
+        [showDate]="showDate" [showTime]="showTime" [closeButton]="closeButton">
+      </datetime-popup>
+      <!-- <div *ngIf="isValidTillDate()">{{ tillDate }} 
+                </div> -->
+    </div>
+
+    <div *ngIf="this.selectedCategoryIds === 1 || this.selectedCategoryIds === 2">
+      <div class="form-group itemCondition">
+        <label>Stāvoklis:</label>
+        <ng-select [virtualScroll]="true" placeholder="Izvēlieties mantas stāvokli">
+          <ng-option *ngFor="let typ of auctionItemCondition; let i = index" [value]="typ.conId" required>
+            {{typ.contype}}
+          </ng-option>
+        </ng-select>
+      </div>
+    </div>
+
+    <div *ngIf="this.selectedCategoryIds === 3">
+      <div class="form-group propertyCondition">
+        <label>Īpašuma stāvoklis:</label>
+        <ng-select [virtualScroll]="true" placeholder="Izvēlieties Īpašuma stāvokli">
+          <ng-option *ngFor="let typ of auctionPropertyCondition; let i = index" [value]="typ.propId" required>
+            {{typ.proptype}}
+          </ng-option>
+        </ng-select>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="auctDesc" class="not-required">Izsoles apraksts:</label>
+      <!-- <input type="text" formControlName="auctionDescription" class="form-control"
+        [ngClass]="{ 'is-invalid': submitted && f.description.errors }"
+        id="auctDesc" name="auctDesc" /> -->
+      <textarea name="auctDesc" id="auctDesc" cols="30" rows="10" formControlName="auctionDescription" class="form-control"
+        [ngClass]="{ 'is-invalid': submitted && f.description.errors }"></textarea>
+      <div *ngIf="submitted && formErrors.auctionDescription" class="invalid-feedback">
+        {{formErrors.description}}
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group col-md-12">
+        <file-uploader (fileUploaded)="onFileUploaded($event)" (fileRemoved)="onFileRemoved()"></file-uploader>
+      </div>
     </div>
 
     <div class="form-group">

@@ -22,50 +22,62 @@ export class FileUploaderComponent {
   fileName = '';
   fileIsUploaded = false;
 
+  urls = [];
+
   constructor(
     private http: HttpClient,
     private notification: NotificationsService,
     private exception: ExceptionsService
   ) { }
 
-  upload(listWithFiles: FileList): void {
-    // https://www.youtube.com/watch?v=YkvqLNcJz3Y
-    console.log('files', listWithFiles)
-    if (listWithFiles.length === 0) {
+  upload(event): void {
+    if (event.target.files.length === 0) {
       return;
+    }
+
+    if (event.target.files && event.target.files[0]) {
+      var filesAmount = event.target.files.length;
+      for (let i = 0; i < filesAmount; i++) {
+        const fileReader: FileReader = new FileReader();
+
+        fileReader.onload = (event: Event) => {
+          // event.target.result; // This is not working - 3/11/2019 TypeScript problem
+          this.urls.push(fileReader.result);
+        }
+
+        fileReader.readAsDataURL(event.target.files[i]);
+      }
     }
 
     const formData = new FormData();
 
-    for (let i = 0; i < listWithFiles.length; i++) {
-      formData.append('fileArray', listWithFiles[i], listWithFiles[i].name);
+    for (let i = 0; i < event.target.files.length; i++) {
+      formData.append('fileArray', event.target.files[i], event.target.files[i].name);
     }
 
     const uploadRequest = new HttpRequest('POST', 'api/fileUploader/upload', formData, {
       reportProgress: true,
     });
 
-    this.http.request(uploadRequest)
-      .pipe(catchError(this.exception.errorHandler))
-      .subscribe(event => {
-        if (event.type === HttpEventType.UploadProgress) {
-          this.progress = Math.round(100 * event.loaded / event.total);
-        } else if (event.type === HttpEventType.Response) {
-          if (event.body !== null) {
-            this.fileIsUploaded = true;
-            this.fileUploaded.emit(event.body.toString());
-          } else {
-            this.notification.error('Could not upload image.');
-          }
-        }
-      },
-        (error: string) => this.notification.error(error)
-      );
+    // this.http.request(uploadRequest)
+    //   .pipe(catchError(this.exception.errorHandler))
+    //   .subscribe(event => {
+    //     if (event.type === HttpEventType.UploadProgress) {
+    //       this.progress = Math.round(100 * event.loaded / event.total);
+    //     } else if (event.type === HttpEventType.Response) {
+    //       if (event.body !== null) {
+    //         this.fileIsUploaded = true;
+    //         this.fileUploaded.emit(event.body.toString());
+    //       } else {
+    //         this.notification.error('Could not upload image.');
+    //       }
+    //     }
+    //   },
+    //     (error: string) => this.notification.error(error)
+    //   );
   }
 
-  remove(): void {
-    this.fileIsUploaded = false;
-    this.fileName = '';
-    this.fileRemoved.emit();
+  onItemRemove(index: number): void {
+    this.urls.splice(index, 1);
   }
 }

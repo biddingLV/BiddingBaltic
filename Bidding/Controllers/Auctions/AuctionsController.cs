@@ -31,6 +31,7 @@ namespace BiddingAPI.Controllers.Auctions
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpGet]
+        //[Authorize(Roles = "User")]
         public IActionResult Search([FromQuery] AuctionListRequestModel request)
         {
             // todo: kke: refactor filter ids to be list<int> in AuctionListRequestModel!
@@ -42,6 +43,7 @@ namespace BiddingAPI.Controllers.Auctions
         /// </summary>
         /// <returns></returns>
         [HttpGet]
+        //[Authorize(Roles = "User")]
         public IActionResult Filters()
         {
             return Ok(m_auctionsService.Filters());
@@ -53,9 +55,21 @@ namespace BiddingAPI.Controllers.Auctions
         /// <param name="auctionId"></param>
         /// <returns></returns>
         [HttpGet]
+        //[Authorize(Roles = "User")]
         public IActionResult Details([FromQuery] AuctionDetailsRequestModel request)
         {
             return Ok(m_auctionsService.Details(request));
+        }
+
+        /// <summary>
+        /// Used to fetch details for add auction modal
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        //[Authorize(Roles = "Admin")]
+        public IActionResult CreateDetails()
+        {
+            return Ok();
         }
 
         /// <summary>
@@ -64,12 +78,21 @@ namespace BiddingAPI.Controllers.Auctions
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpPost]
+        //[Authorize(Roles = "Admin")]
         public IActionResult Create([FromBody] AuctionAddRequestModel request)
         {
             return Ok(m_auctionsService.Create(request));
         }
 
+        [HttpGet]
+        //[Authorize(Roles = "Admin")]
+        public IActionResult EditDetails()
+        {
+            return Ok();
+        }
+
         [HttpPut]
+        //[Authorize(Roles = "Admin")]
         public IActionResult Edit([FromBody] AuctionEditRequestModel request)
         {
             return Ok(m_auctionsService.Update(request));
@@ -77,6 +100,7 @@ namespace BiddingAPI.Controllers.Auctions
 
         // toodo: kke: it can be from fromUrl for delete!
         [HttpDelete]
+        //[Authorize(Roles = "Admin")]
         public IActionResult Delete([FromBody] AuctionDeleteRequestModel request)
         {
             return Ok(m_auctionsService.Delete(request));
