@@ -4,14 +4,16 @@ using BiddingAPI.Models.DatabaseModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace Bidding.Migrations
 {
     [DbContext(typeof(BiddingContext))]
-    partial class BiddingContextModelSnapshot : ModelSnapshot
+    [Migration("20190317154912_JanisTestMigration")]
+    partial class JanisTestMigration
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -164,9 +166,9 @@ namespace Bidding.Migrations
 
                     b.Property<int>("AuctionId");
 
-                    b.Property<int?>("AuctionItemStateName");
+                    // b.Property<int?>("AuctionItemStateName");
 
-                    b.Property<int?>("AuctionPropertyStateName");
+                    // b.Property<int?>("AuctionPropertyStateName");
 
                     b.Property<int>("AuctionStatusId");
 
@@ -175,9 +177,9 @@ namespace Bidding.Migrations
                     b.HasIndex("AuctionId")
                         .IsUnique();
 
-                    b.HasIndex("AuctionItemStateName");
+                    // b.HasIndex("AuctionItemStateName");
 
-                    b.HasIndex("AuctionPropertyStateName");
+                    // b.HasIndex("AuctionPropertyStateName");
 
                     b.HasIndex("AuctionStatusId");
 
@@ -435,13 +437,13 @@ namespace Bidding.Migrations
                         .HasForeignKey("BiddingAPI.Models.DatabaseModels.Bidding.AuctionDetails", "AuctionId")
                         .OnDelete(DeleteBehavior.Cascade);
 
-                    b.HasOne("Bidding.Database.DatabaseModels.Auctions.AuctionItemState", "AuctionItemStateName")
-                        .WithMany()
-                        .HasForeignKey("AuctionItemStateName");
+                    // b.HasOne("Bidding.Database.DatabaseModels.Auctions.AuctionItemState", "AuctionItemStateName")
+                    //     .WithMany()
+                    //     .HasForeignKey("AuctionItemStateName");
 
-                    b.HasOne("Bidding.Database.DatabaseModels.Auctions.AuctionPropertyState", "AuctionPropertyStateName")
-                        .WithMany()
-                        .HasForeignKey("AuctionPropertyStateName");
+                    // b.HasOne("Bidding.Database.DatabaseModels.Auctions.AuctionPropertyState", "AuctionPropertyStateName")
+                    //     .WithMany()
+                    //     .HasForeignKey("AuctionPropertyStateName");
 
                     b.HasOne("Bidding.Database.DatabaseModels.Auctions.AuctionStatus", "AuctionStatus")
                         .WithMany()

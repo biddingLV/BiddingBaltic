@@ -17,6 +17,7 @@ import { AuctionAddRequest } from '../../models/add/auction-add-request.model';
 import { AuctionFilterModel } from '../../models/filters/auction-filter.model';
 import { SubCategoryFilterModel } from '../../models/filters/sub-category-filter.model';
 
+import { DatetimePopupComponent } from 'ClientApp/src/app/shared/components/datetimepopup/datetimepopup.component';
 
 
 @Component({
