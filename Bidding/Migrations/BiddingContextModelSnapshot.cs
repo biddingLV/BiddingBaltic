@@ -19,46 +19,6 @@ namespace Bidding.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("Bidding.Database.DatabaseModels.Auctions.AuctionItemState", b =>
-                {
-                    b.Property<int>("AuctionItemStateId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("AuctionId");
-
-                    b.Property<int>("ItemStateId");
-
-                    b.HasKey("AuctionItemStateId");
-
-                    b.HasIndex("AuctionId");
-
-                    b.HasIndex("ItemStateId");
-
-                    b.ToTable("AuctionItemState");
-                });
-
-            modelBuilder.Entity("Bidding.Database.DatabaseModels.Auctions.AuctionPropertyState", b =>
-                {
-                    b.Property<int>("AuctionItemStateId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("AuctionId");
-
-                    b.Property<int>("ItemStateId");
-
-                    b.Property<int?>("PropertyStateID");
-
-                    b.HasKey("AuctionItemStateId");
-
-                    b.HasIndex("AuctionId");
-
-                    b.HasIndex("PropertyStateID");
-
-                    b.ToTable("AuctionPropertyState");
-                });
-
             modelBuilder.Entity("Bidding.Database.DatabaseModels.Auctions.AuctionStatus", b =>
                 {
                     b.Property<int>("AuctionStatusId")
@@ -164,20 +124,12 @@ namespace Bidding.Migrations
 
                     b.Property<int>("AuctionId");
 
-                    b.Property<int?>("AuctionItemStateName");
-
-                    b.Property<int?>("AuctionPropertyStateName");
-
                     b.Property<int>("AuctionStatusId");
 
                     b.HasKey("AuctionDetailsId");
 
                     b.HasIndex("AuctionId")
                         .IsUnique();
-
-                    b.HasIndex("AuctionItemStateName");
-
-                    b.HasIndex("AuctionPropertyStateName");
 
                     b.HasIndex("AuctionStatusId");
 
@@ -231,21 +183,6 @@ namespace Bidding.Migrations
                     b.ToTable("Feature");
                 });
 
-            modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.ItemState", b =>
-                {
-                    b.Property<int>("ItemStateID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("ItemStateName")
-                        .IsRequired()
-                        .HasMaxLength(50);
-
-                    b.HasKey("ItemStateID");
-
-                    b.ToTable("ItemState");
-                });
-
             modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.Product", b =>
                 {
                     b.Property<int>("ProductId")
@@ -278,21 +215,6 @@ namespace Bidding.Migrations
                     b.HasIndex("ProductId");
 
                     b.ToTable("ProductDetail");
-                });
-
-            modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.PropertyState", b =>
-                {
-                    b.Property<int>("PropertyStateID")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("PropertyStateName")
-                        .IsRequired()
-                        .HasMaxLength(50);
-
-                    b.HasKey("PropertyStateID");
-
-                    b.ToTable("PropertyState");
                 });
 
             modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.Role", b =>
@@ -377,31 +299,6 @@ namespace Bidding.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Bidding.Database.DatabaseModels.Auctions.AuctionItemState", b =>
-                {
-                    b.HasOne("BiddingAPI.Models.DatabaseModels.Bidding.Auction", "Auction")
-                        .WithMany()
-                        .HasForeignKey("AuctionId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("BiddingAPI.Models.DatabaseModels.ItemState", "ItemState")
-                        .WithMany()
-                        .HasForeignKey("ItemStateId")
-                        .OnDelete(DeleteBehavior.Cascade);
-                });
-
-            modelBuilder.Entity("Bidding.Database.DatabaseModels.Auctions.AuctionPropertyState", b =>
-                {
-                    b.HasOne("BiddingAPI.Models.DatabaseModels.Bidding.Auction", "Auction")
-                        .WithMany()
-                        .HasForeignKey("AuctionId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("BiddingAPI.Models.DatabaseModels.PropertyState", "PropertyState")
-                        .WithMany()
-                        .HasForeignKey("PropertyStateID");
-                });
-
             modelBuilder.Entity("Bidding.Database.DatabaseModels.Auctions.AuctionType", b =>
                 {
                     b.HasOne("BiddingAPI.Models.DatabaseModels.Bidding.Auction", "Auction")
@@ -434,14 +331,6 @@ namespace Bidding.Migrations
                         .WithOne("Details")
                         .HasForeignKey("BiddingAPI.Models.DatabaseModels.Bidding.AuctionDetails", "AuctionId")
                         .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Bidding.Database.DatabaseModels.Auctions.AuctionItemState", "AuctionItemStateName")
-                        .WithMany()
-                        .HasForeignKey("AuctionItemStateName");
-
-                    b.HasOne("Bidding.Database.DatabaseModels.Auctions.AuctionPropertyState", "AuctionPropertyStateName")
-                        .WithMany()
-                        .HasForeignKey("AuctionPropertyStateName");
 
                     b.HasOne("Bidding.Database.DatabaseModels.Auctions.AuctionStatus", "AuctionStatus")
                         .WithMany()
