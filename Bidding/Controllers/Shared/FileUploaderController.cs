@@ -17,20 +17,19 @@ namespace Bidding.Controllers.Shared
     [Route("api/[Controller]/[action]")]
     public class FileUploaderController : ControllerBase
     {
-        private readonly string storageInfo;
+        private readonly string _containerName = "";
+        private readonly string _connectionString;
 
         private readonly IConfiguration m_configuration;
 
         public FileUploaderController(IConfiguration configuration)
         {
             m_configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
-
-            // Configuration
-            storageInfo = configuration["StorageInfo"];
+            _connectionString = configuration["StorageInfo"];
         }
 
         [HttpPost]
-        public async Task<IActionResult> Upload()
+        public async Task<IActionResult> UploadImages()
         {
             IFormFileCollection files = Request.Form.Files;
             //// USE THIS - https://wakeupandcode.com/azure-blob-storage-from-asp-net-core-file-upload/
@@ -43,7 +42,7 @@ namespace Bidding.Controllers.Shared
         private async Task<bool> UploadToBlob(IFormFileCollection files)
         {
             // Check whether the connection string can be parsed.
-            if (CloudStorageAccount.TryParse(storageInfo, out CloudStorageAccount storageAccount))
+            if (CloudStorageAccount.TryParse(_connectionString, out CloudStorageAccount storageAccount))
             {
                 try
                 {
@@ -112,7 +111,7 @@ namespace Bidding.Controllers.Shared
         [HttpGet]
         public async Task<IActionResult> GetImages()
         {
-            string strorageconn = storageInfo;
+            string strorageconn = _connectionString;
             CloudStorageAccount storageacc = CloudStorageAccount.Parse(strorageconn);
 
             //Create Reference to Azure Blob

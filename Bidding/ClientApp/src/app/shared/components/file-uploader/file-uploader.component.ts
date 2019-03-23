@@ -11,7 +11,7 @@ import { ExceptionsService } from '../../../core/services/exceptions/exceptions.
 
 
 @Component({
-  selector: 'file-uploader',
+  selector: 'app-file-uploader',
   templateUrl: './file-uploader.component.html'
 })
 export class FileUploaderComponent {
@@ -36,14 +36,14 @@ export class FileUploaderComponent {
     }
 
     if (event.target.files && event.target.files[0]) {
-      var filesAmount = event.target.files.length;
+      const filesAmount = event.target.files.length;
       for (let i = 0; i < filesAmount; i++) {
         const fileReader: FileReader = new FileReader();
 
         fileReader.onload = (event: Event) => {
           // event.target.result; // This is not working - 3/11/2019 TypeScript problem
           this.urls.push(fileReader.result);
-        }
+        };
 
         fileReader.readAsDataURL(event.target.files[i]);
       }

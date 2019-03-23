@@ -6,11 +6,11 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace Bidding.Controllers.Shared
 {
-    public class PermissionsController : Controller
+    public class PermissionsController : ControllerBase
     {
         public IActionResult Index()
         {
-            return View();
+            return Ok();
         }
     }
 }

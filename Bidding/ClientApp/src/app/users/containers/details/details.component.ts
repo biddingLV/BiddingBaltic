@@ -72,9 +72,9 @@ export class UserDetailsComponent implements OnInit {
 
   private setFullName(): void {
     if (this.userDetails.userFirstName && this.userDetails.userLastName) {
-      this.fullName = this.userDetails.userFirstName + ' ' + this.userDetails.userLastName
+      this.fullName = this.userDetails.userFirstName + ' ' + this.userDetails.userLastName;
     } else {
-      this.fullName = this.userDetails.userEmail
+      this.fullName = this.userDetails.userEmail;
     }
   }
 }

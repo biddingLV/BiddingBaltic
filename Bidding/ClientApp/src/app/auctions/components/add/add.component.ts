@@ -60,8 +60,8 @@ export class AuctionAddComponent implements OnInit {
   showDate = true;
   showTime = true;
 
-  showItemCondition : boolean;
-  showPropertyCondition : boolean;
+  showItemCondition: boolean;
+  showPropertyCondition: boolean;
 
   closeButton = { show: true, label: 'Aizvērt', cssClass: 'btn btn-sm btn-primary' };
 
@@ -147,9 +147,8 @@ export class AuctionAddComponent implements OnInit {
 
     if (categoryIds.length > 0) {
       // filter out based on selected category ids
-      this.auctionTypes = this.filters.subCategories.filter(item => { return categoryIds.includes(item.categoryId) });
-    }
-    else {
+      this.auctionTypes = this.filters.subCategories.filter(item => categoryIds.includes(item.categoryId));
+    } else {
       // nothing selected show the full list
       this.auctionTypes = this.filters.subCategories;
     }
@@ -253,7 +252,7 @@ export class AuctionAddComponent implements OnInit {
 
   // public inputValidator(event: any) {
   //   //console.log(event.target.value);
-  //   const pattern = /^[a-zA-Z0-9]*/;   
+  //   const pattern = /^[a-zA-Z0-9]*/;
   //   //let inputChar = String.fromCharCode(event.charCode)
   //   if (!pattern.test(event.target.value)) {
   //     event.target.value = event.target.value.replace(/[^a-zA-Z0-9]/g, "");

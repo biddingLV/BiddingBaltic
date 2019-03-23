@@ -33,11 +33,11 @@ export class PreviousRouteService {
   }
 
   public navigateToPreviousUrl(defaultUrl?: string) {
-    var prev = this.getPreviousUrl();
-    if (prev != undefined) {
+    const prev = this.getPreviousUrl();
+    if (prev !== undefined) {
       this.router.navigate([prev]);
     } else {
-      if (defaultUrl != undefined) {
+      if (defaultUrl !== undefined) {
         this.router.navigate([defaultUrl]);
       } else {
         this.router.navigate([this.indexUrl]);

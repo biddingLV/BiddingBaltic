@@ -62,9 +62,9 @@ export class FormService {
   * note: check_dirty true will only emit errors if the field is touched
   * note: check_dirty false will check all fields independent of
   * being touched or not. Use this as the last check before submitting
-   * @param formElement 
-   * @param formErrors 
-   * @param checkDirty 
+   * @param formElement
+   * @param formErrors
+   * @param checkDirty
    */
   validateForm(formElement: FormGroup | AbstractControl, formErrors: any, checkDirty?: boolean) {
     const form = formElement;

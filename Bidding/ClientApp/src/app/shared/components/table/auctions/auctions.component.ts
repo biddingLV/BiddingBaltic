@@ -38,12 +38,10 @@ export class AuctionsTableComponent implements OnInit {
   }
 
   onSelect({ selected }): void {
-    console.log('Select Event', selected, this.selected);
 
     this.selected.splice(0, this.selected.length);
     this.selected.push(...selected);
 
-    console.log('selected: ', selected)
     this.selectedChange.emit(selected);
   }
 }

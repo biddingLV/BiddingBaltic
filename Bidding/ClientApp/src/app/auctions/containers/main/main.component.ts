@@ -48,7 +48,7 @@ export class AuctionMainComponent implements OnInit {
 
     if (categoryIds.length > 0) {
       // filter out based on selected category ids
-      this.auctionTypes = this.filters.subCategories.filter(item => { return categoryIds.includes(item.categoryId) });
+      this.auctionTypes = this.filters.subCategories.filter(item => categoryIds.includes(item.categoryId));
     } else {
       // nothing selected show the full list
       this.auctionTypes = this.filters.subCategories;
