@@ -8,11 +8,11 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
-
+import { DatetimePopupModule } from 'ngx-bootstrap-datetime-popup';
 // components
 import { AuctionsTableComponent } from './components/table/auctions/auctions.component';
 import { DatepickerComponent } from './components/datepicker/datepicker.component';
-
+// import { DatetimePopupComponent } from './components/datetimepopup/datetimepopup.component';
 // filter components
 import { SearchComponent } from './components/search/search.component';
 
@@ -27,6 +27,7 @@ import { FileUploaderComponent } from './components/file-uploader/file-uploader.
     NgSelectModule,
     NgxDatatableModule,
     BsDatepickerModule.forRoot(),
+    // DatetimePopupModule,
     MinSharedModule,
     FormsModule, // todo: kke: get rid of this module!
     ReactiveFormsModule
@@ -44,6 +45,7 @@ import { FileUploaderComponent } from './components/file-uploader/file-uploader.
     AuctionsTableComponent,
     SearchComponent,
     DatepickerComponent,
+    // DatetimePopupComponent,
     FileUploaderComponent
   ]
 })

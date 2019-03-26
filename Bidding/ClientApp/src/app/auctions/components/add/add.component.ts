@@ -33,13 +33,15 @@ export class AuctionAddComponent implements OnInit {
   // todo: jrb: fix  naming and add missing ones!
   formErrors = {
     auctionName: '',
+    auctionTopCategoryId: '',
+    auctionSubCategoryId: '',
     auctionDescription: '',
     auctionStartingPrice: '',
     auctionStartDate: '',
-    auctionJoinDate: '',
-    auctionEndDarw: '',
+    auctionTillDate: '',
+    auctionEndDate: '',
     auctionCreator: '',
-    auctionType: ''
+    auctionFormat: ''
   };
 
   // filters
@@ -70,7 +72,7 @@ export class AuctionAddComponent implements OnInit {
   auctionAddRequest: AuctionAddRequest;
 
   // AuctionType
-  auctionType = [{ id: 1, type: 'Cenu aptauja' }, { id: 2, type: 'Izsole elektroniski' }, { id: 3, type: 'Izsole klātienē' }];
+  auctionFormatsss = [{ id: 1, type: 'Cenu aptauja' }, { id: 2, type: 'Izsole elektroniski' }, { id: 3, type: 'Izsole klātienē' }];
 
   // AuctionItemCondition
   auctionItemCondition = [{ id: 1, contype: 'Lietota' }, { id: 2, contype: 'Jauna' }];
@@ -126,13 +128,13 @@ export class AuctionAddComponent implements OnInit {
 
   onValueChange(changedValue: Date): void {
 
-    if (this.showStartPicker === true) {
+    if ('sakums') {
       this.startDate = changedValue;
     }
-    if (this.showEndPicker === true) {
+    if (!'sakums' && !'lidz' && 'beigas') {
       this.endDate = changedValue;
     }
-    if (this.showTillPicker === true) {
+    if ('lidz' && !'beigas' && !'sakums') {
       this.tillDate = changedValue;
     }
   }
@@ -197,26 +199,33 @@ export class AuctionAddComponent implements OnInit {
     this.auctionAddForm = this.fb.group({
 
       auctionName: ['', [
-        Validators.maxLength(100)
+        Validators.maxLength(100),Validators.required
+      ]],
+      auctionTopCategoryId: ['', [
+        Validators.required
+      ]],
+      auctionSubCategoryId: ['', [
+        Validators.required
       ]],
       auctionDescription: ['', [
         Validators.maxLength(100)
       ]],
+      auctionStartDate: ['', [
+        Validators.maxLength(100),Validators.required
+      ]],
+      auctionTillDate: [, [
+        Validators.maxLength(100),Validators.required
+      ]],
       auctionEndDate: [, [
-        Validators.maxLength(100)
+        Validators.maxLength(100),Validators.required
       ]],
       auctionStartingPrice: [, [
         Validators.maxLength(100), Validators.required, Validators.pattern('€[0-9]')
       ]],
-      auctionStartDate: ['', [
-        Validators.maxLength(100)
-      ]],
-      auctionTillDate: [, [
-        Validators.maxLength(100)
-      ]],
       auctionCreator: ['', [
+        Validators.required
       ]],
-      auctionType: ['', [
+      auctionFormatId: ['1', [
         Validators.required
       ]]
     });
@@ -244,10 +253,15 @@ export class AuctionAddComponent implements OnInit {
   private setAddRequest(): void {
     this.auctionAddRequest = {
       auctionName: this.auctionAddForm.value.auctionName,
-      description: this.auctionAddForm.value.description,
-      startingPrice: this.auctionAddForm.value.startingPrice,
-      // StartDate: this.auctionAddForm.value.startDate,
-      creator: this.auctionAddForm.value.creator
+      auctionTopCategoryId: this.auctionAddForm.value.auctionTopCategoryId,
+      auctionSubCategoryId: this.auctionAddForm.value.auctionSubCategoryId,
+      auctionDescription: this.auctionAddForm.value.auctionDescription,
+      auctionStartingPrice: this.auctionAddForm.value.auctionStartingPrice,
+      auctionStartDate: this.auctionAddForm.value.auctionStartDate,
+      auctionEndDate: this.auctionAddForm.value.auctionEndDate,
+      auctionTillDate: this.auctionAddForm.value.auctionTillDate,
+      auctionCreator: this.auctionAddForm.value.auctionCreator,
+      auctionFormatId: this.auctionAddForm.value.auctionFormatId
     };
   }
 }
