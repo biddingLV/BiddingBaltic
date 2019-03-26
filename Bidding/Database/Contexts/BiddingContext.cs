@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using Bidding.Database.Contexts;
 using Bidding.Database.DatabaseModels.Auctions;
 using Bidding.Database.DatabaseModels.Users;
 using Bidding.Models.DatabaseModels.Bidding;
@@ -50,14 +52,14 @@ namespace BiddingAPI.Models.DatabaseModels
         public virtual DbQuery<SubCategoryFilterModel> SubCategoryFilter { get; set; }
         public virtual DbQuery<AuctionListModel> AuctionList { get; set; }
 
-
-        // todo: kke: do we need this here?
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //modelBuilder.Entity<AuctionDetails>()
-            //    .HasOne(p => p.AuctionStatus)
-            //    .WithOne(i => i.AuctionDetails)
-            //    .HasForeignKey<AuctionStatus>(b => b.AuctionForeignKey);
+            // todo: kke: is this right?
+            //if (Debugger.IsAttached)
+            //{
+            // debugger is attached
+            modelBuilder.Seed();
+            //}
         }
     }
 }

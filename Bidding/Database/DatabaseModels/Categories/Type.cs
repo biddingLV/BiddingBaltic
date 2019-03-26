@@ -21,8 +21,14 @@ namespace BiddingAPI.Models.DatabaseModels
         [MaxLength(50)]
         public string TypeName { get; set; }
 
-        [Required]
-        public bool TypeStatus { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime CreatedAt { get; set; }
+        public int CreatedBy { get; set; }
+
+        [DataType(DataType.Date)]
+        public DateTime? LastUpdatedAt { get; set; }
+        public int? LastUpdatedBy { get; set; }
+        public bool? Deleted { get; set; }
 
         public ICollection<CategoryType> CategoryTypes { get; set; }
         public ICollection<TypeProduct> TypeProducts { get; set; }

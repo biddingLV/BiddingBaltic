@@ -11,7 +11,6 @@ import { CookieService } from 'ngx-cookie-service';
 // Services
 import { AuthGuard, PermissionsService, AuthService, NotificationsService, ExceptionsService, FormService } from './services';
 
-
 @NgModule({
   imports: [
     CommonModule,

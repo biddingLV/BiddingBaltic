@@ -18,7 +18,13 @@ namespace Bidding.Database.DatabaseModels.Auctions
         [MaxLength(50)]
         public string AuctionStatusName { get; set; }
 
-        [Required]
-        public bool Status { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime CreatedAt { get; set; }
+        public int CreatedBy { get; set; }
+
+        [DataType(DataType.Date)]
+        public DateTime LastUpdatedAt { get; set; }
+        public int LastUpdatedBy { get; set; }
+        public bool Deleted { get; set; }
     }
 }

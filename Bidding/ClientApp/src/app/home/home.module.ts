@@ -1,3 +1,4 @@
+// angular
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -15,7 +16,6 @@ import { SubscribeWhatsappComponent } from './components/coming-soon/subscribe/w
 
 // Services
 import { HomeService } from './services/home.service';
-import { ReactiveFormsModule } from '@angular/forms';
 import { NewsletterFormService } from './services/newsletter-form.service';
 import { BlogWidgetComponent } from '../auth/components/blog/containers/widget/widget.component';
 
@@ -23,7 +23,6 @@ import { BlogWidgetComponent } from '../auth/components/blog/containers/widget/w
   imports: [
     CommonModule,
     SharedModule,
-    ReactiveFormsModule,
     HomeRoutingModule
   ],
   exports: [

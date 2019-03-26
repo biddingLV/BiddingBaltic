@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BiddingAPI.Models.DatabaseModels.Bidding;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -7,12 +8,6 @@ namespace BiddingAPI.Models.DatabaseModels
 {
     public partial class User
     {
-        public User()
-        {
-            //UserDetails = new HashSet<UserDetails>();
-            //UserOrganizations = new HashSet<UserOrganization>();
-        }
-
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int UserId { get; set; }
@@ -28,9 +23,6 @@ namespace BiddingAPI.Models.DatabaseModels
         public string UserEmail { get; set; }
 
         [Required]
-        public bool UserStatus { get; set; }
-
-        [Required]
         public int UserRoleId { get; set; } // todo: kke: this needs to be fKey or constraint based on role table!
 
         /// <summary>
@@ -40,7 +32,16 @@ namespace BiddingAPI.Models.DatabaseModels
         [MaxLength(100)]
         public string UserUniqueIdentifier { get; set; }
 
-        //public ICollection<UserDetails> UserDetails { get; set; }
-        //public ICollection<UserOrganization> UserOrganizations { get; set; }
+        [Required]
+        [DataType(DataType.Date)]
+        public DateTime CreatedAt { get; set; }
+
+        [Required]
+        public int CreatedBy { get; set; } // todo: kke: add foreign key to users table
+
+        [DataType(DataType.Date)]
+        public DateTime? LastUpdatedAt { get; set; }
+        public int? LastUpdatedBy { get; set; } // todo: kke: add foreign key to users table
+        public bool Deleted { get; set; }
     }
 }

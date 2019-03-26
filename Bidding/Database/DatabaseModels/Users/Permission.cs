@@ -16,9 +16,10 @@ namespace Bidding.Database.DatabaseModels.Users
         [Required]
         [MaxLength(50)]
         public string PermissionName { get; set; }
-
-        [Required]
-        public bool PermissionStatus { get; set; }
-        // todo: kke: add foreign key!
+        public DateTime CreatedAt { get; set; }
+        public int CreatedBy { get; set; }
+        public DateTime LastUpdatedAt { get; set; }
+        public int LastUpdatedBy { get; set; }
+        public bool Deleted { get; set; }
     }
 }
