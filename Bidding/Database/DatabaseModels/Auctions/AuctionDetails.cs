@@ -28,8 +28,17 @@ namespace BiddingAPI.Models.DatabaseModels.Bidding
 
         [Required]
         public int AuctionId { get; set; }
-        public Auction Auction { get; set; }
 
+        [Required]
+        public int AuctionFormatId { get; set; }
+
+        public int AuctionConditionId { get; set; }
+
+        public string AuctionDescription { get; set;}
+
+        public AuctionFormat AuctionFormat { get; set; }
+        public AuctionCondition AuctionCondition { get; set; }
+        public Auction Auction { get; set; }
         public AuctionStatus AuctionStatus { get; set; }
 
     }

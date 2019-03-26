@@ -11,15 +11,15 @@ namespace BiddingAPI.Models.ViewModels.Bidding.Auctions
         public string AuctionName { get; set; }
         public int AuctionTopCategoryId { get; set; }
         public int AuctionSubCategoryId { get; set; }
-        public int AuctionTypeId { get; set; }
+        public int AuctionFormatId { get; set; }
         public int AuctionStartingPrice { get; set; }
         public DateTime AuctionStartDate { get; set; }
         /// <summary>
         /// Need to apply date/until
         /// </summary>
-        public DateTime AuctionApplyDate { get; set; }
+        public DateTime AuctionTillDate { get; set; }
         public DateTime AuctionEndDate { get; set; }
-        public string AuctionCreatorId { get; set; }
+        public int AuctionCreatorId { get; set; }
         /// <summary>
         /// Auction status for AuctionStatuses table
         /// </summary>

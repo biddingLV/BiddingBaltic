@@ -151,6 +151,7 @@ namespace BiddingAPI.Repositories.Auctions
                            TypeName = typ.TypeName,
                            AuctionStartingPrice = auct.AuctionStartingPrice,
                            AuctionStartDate = auct.AuctionStartDate,
+                           AuctionTillDate = auct.AuctionTillDate,
                            AuctionEndDate = auct.AuctionEndDate
                        };
             }
@@ -175,9 +176,14 @@ namespace BiddingAPI.Repositories.Auctions
             Auction auction = new Auction()
             {
                 AuctionName = request.AuctionName,
+                AuctionCategories = request.AuctionTopCategoryId,
+                TypeId = request.AuctionSubCategoryId,
+                AuctionFormatId = request.AuctionFormatId,
+                AuctionConditionId = request.AuctionConditionId,
                 AuctionStartingPrice = request.AuctionStartingPrice,
                 AuctionStartDate = request.AuctionStartDate,
-                AuctionApplyDate = request.AuctionApplyDate,
+                AuctionTillDate = request.AuctionTillDate,
+                AuctionDescription = request.AuctionDescription,
                 AuctionEndDate = request.AuctionEndDate,
                 AuctionStatusId = request.AuctionStatusId
             };

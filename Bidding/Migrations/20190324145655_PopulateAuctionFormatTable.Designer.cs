@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Bidding.Migrations
 {
     [DbContext(typeof(BiddingContext))]
-    [Migration("20190319144349_AddItemStateTable")]
-    partial class AddItemStateTable
+    [Migration("20190324145655_PopulateAuctionFormatTable")]
+    partial class PopulateAuctionFormatTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -377,38 +377,6 @@ namespace Bidding.Migrations
                         .WithMany("TypeProducts")
                         .HasForeignKey("TypeId")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-                 modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.Condition.ItemState", b =>
-                {
-                    b.Property<int>("ItemStateId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("ItemStateName")
-                        .IsRequired()
-                        .HasMaxLength(50);
-
-                    b.HasKey("ItemStateId");
-
-                    b.ToTable("ItemStates");
-                });
-            modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.Bidding.AuctionItemState", b =>
-                {
-                    b.Property<int>("AuctionItemStateId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("AuctionId");
-
-                    b.Property<int>("ItemStateId");
-
-                    b.HasKey("AuctionItemStateId");
-
-                    b.HasIndex("AuctionId");
-
-                    b.HasIndex("ItemStateId");
-
-                    b.ToTable("AuctionItemStates");
                 });
 #pragma warning restore 612, 618
         }

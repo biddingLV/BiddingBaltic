@@ -1,4 +1,3 @@
-using BiddingAPI.Models.DatabaseModels.Bidding;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -6,16 +5,15 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Bidding.Database.DatabaseModels.Auctions
+namespace BiddingAPI.Models.DatabaseModels.Bidding
 {
-    public class AuctionFormType
+    public partial class AuctionFormat
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int AuctionFormTypeId { get; set; }
-       
+        public int AuctionFormatId { get; set; }
+
         [Required]
-        [MaxLength(50)]
-        public string AuctionFormTypeName { get; set; }
+        public string AuctionFormatName { get; set; }
     }
 }

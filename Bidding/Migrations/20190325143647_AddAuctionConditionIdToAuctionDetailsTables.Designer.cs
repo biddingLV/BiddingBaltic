@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Bidding.Migrations
 {
     [DbContext(typeof(BiddingContext))]
-    [Migration("20190319170651_AddPropertyStateTable")]
-    partial class AddPropertyStateTable
+    [Migration("20190325143647_AddAuctionConditionIdToAuctionDetailsTables")]
+    partial class AddAuctionConditionIdToAuctionDetailsTables
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -377,20 +377,6 @@ namespace Bidding.Migrations
                         .WithMany("TypeProducts")
                         .HasForeignKey("TypeId")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-                modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.Condition.PropertyState", b =>
-                {
-                    b.Property<int>("PropertyStateId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("PropertyStateName")
-                        .IsRequired()
-                        .HasMaxLength(50);
-
-                    b.HasKey("PropertyStateId");
-
-                    b.ToTable("PropertyStates");
                 });
 #pragma warning restore 612, 618
         }

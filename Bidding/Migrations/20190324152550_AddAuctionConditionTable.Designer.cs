@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Bidding.Migrations
 {
     [DbContext(typeof(BiddingContext))]
-    [Migration("20190319171452_PopulateItemStateTable")]
-    partial class PopulateItemStateTable
+    [Migration("20190324152550_AddAuctionConditionTable")]
+    partial class AddAuctionConditionTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {

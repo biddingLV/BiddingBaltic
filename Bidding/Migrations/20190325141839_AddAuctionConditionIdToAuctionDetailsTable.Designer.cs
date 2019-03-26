@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Bidding.Migrations
 {
     [DbContext(typeof(BiddingContext))]
-    [Migration("20190319175658_PopulateAuctionFormTypesTable")]
-    partial class PopulateAuctionFormTypesTable
+    [Migration("20190325141839_AddAuctionConditionIdToAuctionDetailsTable")]
+    partial class AddAuctionConditionIdToAuctionDetailsTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -337,6 +337,14 @@ namespace Bidding.Migrations
                     b.HasOne("Bidding.Database.DatabaseModels.Auctions.AuctionStatus", "AuctionStatus")
                         .WithMany()
                         .HasForeignKey("AuctionStatusId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                        b.HasOne("Bidding.Database.DatabaseModels.Auctions.AuctionFormats", "AuctionFormats")
+                        .WithMany()
+                        .HasForeignKey("AuctionFormatId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                        b.HasOne("Bidding.Database.DatabaseModels.Auctions.AuctionConditions", "AuctionConditions")
+                        .WithMany()
+                        .HasForeignKey("AuctionConditionId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

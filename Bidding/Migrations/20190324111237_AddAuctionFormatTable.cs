@@ -3,28 +3,28 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 namespace Bidding.Migrations
 {
-    public partial class AddAuctionFormTypeTable : Migration
+    public partial class AddAuctionFormatTable : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
                 migrationBuilder.CreateTable(
-                name: "AuctionFormTypes",
+                name: "AuctionFormats",
                 columns: table => new
                 {
-                    AuctionFormTypeId = table.Column<int>(nullable: false)
+                    AuctionFormatId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    AuctionFormTypeName = table.Column<string>(maxLength: 50, nullable: false),
+                    AuctionFormatName = table.Column<string>(maxLength: 50, nullable: false),
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AuctionFormTypes", x => x.AuctionFormTypeId);
+                    table.PrimaryKey("PK_AuctionFormats", x => x.AuctionFormatId);
                 });
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
                 migrationBuilder.DropTable(
-                name: "AuctionFormTypes");
+                name: "AuctionFormats");
         }
     }
 }

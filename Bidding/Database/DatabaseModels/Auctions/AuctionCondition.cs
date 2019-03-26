@@ -1,4 +1,3 @@
-using Bidding.Database.DatabaseModels.Auctions;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -6,17 +5,15 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BiddingAPI.Models.DatabaseModels
+namespace BiddingAPI.Models.DatabaseModels.Bidding
 {
-    public partial class PropertyState
+    public partial class AuctionCondition
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-
-        public int PropertyStateID { get; set; }
+        public int AuctionConditionId { get; set; }
 
         [Required]
-        [MaxLength(50)]
-        public string PropertyStateName { get; set; }
+        public string AuctionConditionName { get; set; }
     }
 }

@@ -210,15 +210,20 @@ namespace BiddingAPI.Services.Auctions
             if (request.AuctionSubCategoryId.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
             if (request.AuctionStartingPrice.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
             if (request.AuctionStartDate.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
+            if (request.AuctionTillDate.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
+            if (request.AuctionEndDate.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
             if (request.AuctionCreatorId.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
-            if (request.AuctionTypeId.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
+            if (request.AuctionFormatId.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
 
             // setup auction object for the validation
             Auction auction = new Auction()
             {
                 AuctionName = request.AuctionName,
                 AuctionStartingPrice = request.AuctionStartingPrice,
-                AuctionStartDate = request.AuctionStartDate
+                AuctionStartDate = request.AuctionStartDate,
+                AuctionTillDate = request.AuctionTillDate,
+                AuctionEndDate = request.AuctionEndDate,
+
             };
 
             ValidateAuction(auction);

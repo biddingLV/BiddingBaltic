@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Bidding.Migrations
 {
     [DbContext(typeof(BiddingContext))]
-    [Migration("20190319172823_AddAuctionFormTypeTable")]
-    partial class AddAuctionFormTypeTable
+    [Migration("20190325141122_AddAuctionFormatIdToAuctionDetails")]
+    partial class AddAuctionFormatIdToAuctionDetails
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -128,12 +128,16 @@ namespace Bidding.Migrations
 
                     b.Property<int>("AuctionStatusId");
 
+                    b.Property<int>("AuctionFormatId");
+
                     b.HasKey("AuctionDetailsId");
 
                     b.HasIndex("AuctionId")
                         .IsUnique();
 
                     b.HasIndex("AuctionStatusId");
+
+                    b.HasIndex("AuctionFormatId");
 
                     b.ToTable("AuctionDetails");
                 });
@@ -338,6 +342,10 @@ namespace Bidding.Migrations
                         .WithMany()
                         .HasForeignKey("AuctionStatusId")
                         .OnDelete(DeleteBehavior.Cascade);
+                    b.HasOne("Bidding.Database.DatabaseModels.Auctions.AuctionFormats", "AuctionFormats")
+                        .WithMany()
+                        .HasForeignKey("AuctionFormatId")
+                        .OnDelete(DeleteBehavior.Cascade);
                 });
 
             modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.CategoryType", b =>
@@ -377,22 +385,6 @@ namespace Bidding.Migrations
                         .WithMany("TypeProducts")
                         .HasForeignKey("TypeId")
                         .OnDelete(DeleteBehavior.Cascade);
-                });
-                    modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.Bidding.AuctionFormType", b =>
-                {
-                    b.Property<int>("AuctionFormTypeId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("AuctionFormTypeName");
-
-                    b.Property<int>("AuctionId");
-
-                    b.HasKey("AuctionFormTypeId");
-
-                    b.HasIndex("AuctionId");
-
-                    b.ToTable("AuctionFormTypes");
                 });
 #pragma warning restore 612, 618
         }
