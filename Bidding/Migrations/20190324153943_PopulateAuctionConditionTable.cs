@@ -26,6 +26,10 @@ namespace Bidding.Migrations
                 table: "AuctionConditions",
                 columns: new[] { "AuctionConditionId", "AuctionConditionName"},
                 values: new object[] { "5", "Nepieciešams remonts"});
+            migrationBuilder.InsertData(
+                table: "AuctionConditions",
+                columns: new[] { "AuctionConditionId", "AuctionConditionName"},
+                values: new object[] { "6", " "});
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -50,6 +54,10 @@ namespace Bidding.Migrations
                 table: "AuctionConditions",
                 keyColumn: "AuctionConditionId",
                 keyValue: 5);
+            migrationBuilder.DeleteData(
+                table: "AuctionConditions",
+                keyColumn: "AuctionConditionId",
+                keyValue: 6);
         }
     }
 }

@@ -37,7 +37,20 @@ namespace Bidding.Migrations
 
                     b.ToTable("AuctionStatuses");
                 });
+                 modelBuilder.Entity("Bidding.Database.DatabaseModels.Auctions.AuctionFormat", b =>
+                {
+                    b.Property<int>("AuctionFormatId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("AuctionFormatName")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.HasKey("AuctionFormatId");
+
+                    b.ToTable("AuctionFormats");
+                });
             modelBuilder.Entity("Bidding.Database.DatabaseModels.Auctions.AuctionType", b =>
                 {
                     b.Property<int>("AuctionTypeId")
@@ -304,7 +317,13 @@ namespace Bidding.Migrations
 
                     b.ToTable("Users");
                 });
-
+            modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.Bidding.Auction", b =>
+                {
+                    b.HasOne("Bidding.Database.DatabaseModels.Auctions.AuctionStatus", "AuctionStatus")
+                        .WithOne("AuctionStatus")
+                        .HasForeignKey("BiddingAPI.Models.DatabaseModels.Bidding.Auction", "AuctionStatusId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
             modelBuilder.Entity("Bidding.Database.DatabaseModels.Auctions.AuctionType", b =>
                 {
                     b.HasOne("BiddingAPI.Models.DatabaseModels.Bidding.Auction", "Auction")
@@ -339,12 +358,13 @@ namespace Bidding.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Bidding.Database.DatabaseModels.Auctions.AuctionStatus", "AuctionStatus")
-                        .WithMany()
-                        .HasForeignKey("AuctionStatusId")
+                        .WithOne("Details")
+                        .HasForeignKey("BiddingAPI.Models.DatabaseModels.Bidding.AuctionDetails" ,"AuctionStatusId")
                         .OnDelete(DeleteBehavior.Cascade);
-                    b.HasOne("Bidding.Database.DatabaseModels.Auctions.AuctionFormats", "AuctionFormats")
-                        .WithMany()
-                        .HasForeignKey("AuctionFormatId")
+                        
+                    b.HasOne("Bidding.Database.DatabaseModels.Auctions.AuctionFormat", "AuctionFormat")
+                        .WithOne("Details")
+                        .HasForeignKey("BiddingAPI.Models.DatabaseModels.Bidding.AuctionDetails" , "AuctionFormatId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

@@ -56,6 +56,13 @@ namespace Bidding.Migrations
 
                     b.ToTable("AuctionTypes");
                 });
+            modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.Bidding.Auction", b =>
+                {
+                    b.HasOne("Bidding.Database.DatabaseModels.Auctions.AuctionStatus", "AuctionStatus")
+                        .WithOne("AuctionStatus")
+                        .HasForeignKey("BiddingAPI.Models.DatabaseModels.Bidding.Auction", "AuctionStatusId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
 
             modelBuilder.Entity("Bidding.Database.DatabaseModels.Users.Permission", b =>
                 {
@@ -133,7 +140,7 @@ namespace Bidding.Migrations
                     b.HasIndex("AuctionId")
                         .IsUnique();
 
-                    b.HasIndex("AuctionStatusId");
+                    // b.HasIndex("AuctionStatusId");
 
                     b.ToTable("AuctionDetails");
                 });
@@ -301,6 +308,14 @@ namespace Bidding.Migrations
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.Bidding.Auction", b =>
+                {
+                    b.HasOne("Bidding.Database.DatabaseModels.Auctions.AuctionStatus", "AuctionStatus")
+                        .WithOne("AuctionStatus")
+                        .HasForeignKey("BiddingAPI.Models.DatabaseModels.Bidding.Auction", "AuctionStatusId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
             modelBuilder.Entity("Bidding.Database.DatabaseModels.Auctions.AuctionType", b =>
                 {
                     b.HasOne("BiddingAPI.Models.DatabaseModels.Bidding.Auction", "Auction")
@@ -335,7 +350,7 @@ namespace Bidding.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Bidding.Database.DatabaseModels.Auctions.AuctionStatus", "AuctionStatus")
-                        .WithMany()
+                        .WithMany("Details")
                         .HasForeignKey("AuctionStatusId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

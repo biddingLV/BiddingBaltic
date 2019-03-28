@@ -15,5 +15,8 @@ namespace BiddingAPI.Models.DatabaseModels.Bidding
 
         [Required]
         public string AuctionFormatName { get; set; }
+
+        [ForeignKey("AuctionFormatId")]
+        public AuctionDetails AuctionDetails { get; set; }
     }
 }

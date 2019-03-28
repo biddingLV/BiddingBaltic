@@ -27,8 +27,6 @@ namespace Bidding.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("AuctionForeignKey");
-
                     b.Property<string>("AuctionStatusName")
                         .IsRequired()
                         .HasMaxLength(50);
@@ -36,9 +34,6 @@ namespace Bidding.Migrations
                     b.Property<bool>("Status");
 
                     b.HasKey("AuctionStatusId");
-
-                    b.HasIndex("AuctionForeignKey")
-                        .IsUnique();
 
                     b.ToTable("AuctionStatuses");
                 });
@@ -99,6 +94,8 @@ namespace Bidding.Migrations
 
                     b.HasKey("AuctionId");
 
+                    
+
                     b.ToTable("Auctions");
                 });
 
@@ -133,6 +130,8 @@ namespace Bidding.Migrations
 
                     b.HasKey("AuctionDetailsId");
 
+                    b.HasIndex("AuctionStatusId");
+                    
                     b.HasIndex("AuctionId")
                         .IsUnique();
 
@@ -284,11 +283,11 @@ namespace Bidding.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("Bidding.Database.DatabaseModels.Auctions.AuctionStatus", b =>
+            modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.Bidding.Auction", b =>
                 {
-                    b.HasOne("BiddingAPI.Models.DatabaseModels.Bidding.AuctionDetails", "AuctionDetails")
+                    b.HasOne("Bidding.Database.DatabaseModels.Auctions.AuctionStatus", "AuctionStatus")
                         .WithOne("AuctionStatus")
-                        .HasForeignKey("Bidding.Database.DatabaseModels.Auctions.AuctionStatus", "AuctionForeignKey")
+                        .HasForeignKey("BiddingAPI.Models.DatabaseModels.Bidding.Auction", "AuctionStatusId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -323,6 +322,10 @@ namespace Bidding.Migrations
                     b.HasOne("BiddingAPI.Models.DatabaseModels.Bidding.Auction", "Auction")
                         .WithOne("Details")
                         .HasForeignKey("BiddingAPI.Models.DatabaseModels.Bidding.AuctionDetails", "AuctionId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                    b.HasOne("Bidding.Database.DatabaseModels.Auctions.AuctionStatus", "AuctionStatus")
+                        .WithOne("AuctionStatus")
+                        .HasForeignKey("BiddingAPI.Models.DatabaseModels.Bidding.AuctionDetails", "AuctionStatusId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

@@ -176,7 +176,7 @@ namespace BiddingAPI.Repositories.Auctions
             Auction auction = new Auction()
             {
                 AuctionName = request.AuctionName,
-                AuctionCategories = request.AuctionTopCategoryId,
+                // AuctionCategories = request.AuctionCategoryId,
                 TypeId = request.AuctionSubCategoryId,
                 AuctionFormatId = request.AuctionFormatId,
                 AuctionConditionId = request.AuctionConditionId,

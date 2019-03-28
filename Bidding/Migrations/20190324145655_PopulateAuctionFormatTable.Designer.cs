@@ -21,6 +21,20 @@ namespace Bidding.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                modelBuilder.Entity("Bidding.Database.DatabaseModels.Auctions.AuctionFormat", b =>
+                {
+                    b.Property<int>("AuctionFormatId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("AuctionFormatName")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.HasKey("AuctionFormatId");
+
+                    b.ToTable("AuctionFormats");
+                });
             modelBuilder.Entity("Bidding.Database.DatabaseModels.Auctions.AuctionStatus", b =>
                 {
                     b.Property<int>("AuctionStatusId")
@@ -300,7 +314,13 @@ namespace Bidding.Migrations
 
                     b.ToTable("Users");
                 });
-
+            modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.Bidding.Auction", b =>
+                {
+                    b.HasOne("Bidding.Database.DatabaseModels.Auctions.AuctionStatus", "AuctionStatus")
+                        .WithOne("AuctionStatus")
+                        .HasForeignKey("BiddingAPI.Models.DatabaseModels.Bidding.Auction", "AuctionStatusId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
             modelBuilder.Entity("Bidding.Database.DatabaseModels.Auctions.AuctionType", b =>
                 {
                     b.HasOne("BiddingAPI.Models.DatabaseModels.Bidding.Auction", "Auction")
@@ -335,7 +355,7 @@ namespace Bidding.Migrations
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Bidding.Database.DatabaseModels.Auctions.AuctionStatus", "AuctionStatus")
-                        .WithMany()
+                        .WithMany("Details")
                         .HasForeignKey("AuctionStatusId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

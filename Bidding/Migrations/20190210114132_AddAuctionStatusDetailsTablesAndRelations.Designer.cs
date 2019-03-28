@@ -220,7 +220,7 @@ namespace Bidding.Migrations
                 {
                     b.HasOne("BiddingAPI.Models.DatabaseModels.Bidding.AuctionDetails", "AuctionDetails")
                         .WithOne("AuctionStatus")
-                        .HasForeignKey("Bidding.Database.DatabaseModels.Auctions.AuctionStatus", "AuctionForeignKey")
+                        .HasForeignKey("Bidding.Database.DatabaseModels.Auctions.AuctionStatus", "AuctionStatusId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

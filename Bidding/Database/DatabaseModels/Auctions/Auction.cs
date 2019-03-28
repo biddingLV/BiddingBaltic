@@ -10,10 +10,10 @@ namespace BiddingAPI.Models.DatabaseModels.Bidding
 {
     public partial class Auction
     {
-        public Auction()
-        {
-            AuctionCategories = new HashSet<AuctionCategory>();
-        }
+        // public Auction()
+        // {
+        //     AuctionCategories = new HashSet<AuctionCategory>();
+        // }
 
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -47,17 +47,19 @@ namespace BiddingAPI.Models.DatabaseModels.Bidding
         [Required]
         public int AuctionFormatId { get; set;}
         [Required]
-        public int TypeId { get; set;}
-
+        public int TypeId { get; set; }
+        [Required]
+        public int AuctionCategoryId { get; set; }
+        [Required]
         public int AuctionConditionId { get; set;}
 
         public string AuctionDescription { get; set;}
 
-        public AuctionDetails Details { get; set; }
+        public AuctionDetails AuctionDetails { get; set; }
 
         public CategoryType Type { get; set;}
 
         [ForeignKey("AuctionId")]
-        public ICollection<AuctionCategory> AuctionCategories { get; set; }
+        public AuctionCategory AuctionCategories { get; set; }
     }
 }

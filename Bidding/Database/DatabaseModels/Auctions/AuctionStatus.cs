@@ -20,5 +20,10 @@ namespace Bidding.Database.DatabaseModels.Auctions
 
         [Required]
         public bool Status { get; set; }
+
+        [ForeignKey("AuctionStatusId")]
+        public AuctionDetails AuctionDetails { get; set; }
+
+        public Auction Auctions { get; set; }
     }
 }

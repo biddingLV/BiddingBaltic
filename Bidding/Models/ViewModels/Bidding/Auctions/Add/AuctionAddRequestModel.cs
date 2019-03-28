@@ -9,7 +9,7 @@ namespace BiddingAPI.Models.ViewModels.Bidding.Auctions
     public class AuctionAddRequestModel
     {
         public string AuctionName { get; set; }
-        public int AuctionTopCategoryId { get; set; }
+        public int AuctionCategoryId { get; set; }
         public int AuctionSubCategoryId { get; set; }
         public int AuctionFormatId { get; set; }
         public int AuctionStartingPrice { get; set; }
