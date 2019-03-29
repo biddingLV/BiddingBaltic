@@ -28,7 +28,7 @@ namespace BiddingAPI.Models.DatabaseModels
         [DataType(DataType.Date)]
         public DateTime? LastUpdatedAt { get; set; }
         public int? LastUpdatedBy { get; set; }
-        public bool? Deleted { get; set; }
+        public bool Deleted { get; set; }
 
         public ICollection<CategoryType> CategoryTypes { get; set; }
         public ICollection<TypeProduct> TypeProducts { get; set; }

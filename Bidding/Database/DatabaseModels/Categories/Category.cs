@@ -25,9 +25,9 @@ namespace BiddingAPI.Models.DatabaseModels
         public int CreatedBy { get; set; }
 
         [DataType(DataType.Date)]
-        public DateTime LastUpdatedAt { get; set; }
-        public int LastUpdatedBy { get; set; }
-        public bool? Deleted { get; set; }
+        public DateTime? LastUpdatedAt { get; set; }
+        public int? LastUpdatedBy { get; set; }
+        public bool Deleted { get; set; }
 
         public ICollection<CategoryType> CategoryTypes { get; set; }
     }

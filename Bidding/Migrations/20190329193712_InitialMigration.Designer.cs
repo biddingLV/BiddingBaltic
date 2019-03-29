@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Bidding.Migrations
 {
     [DbContext(typeof(BiddingContext))]
-    [Migration("20190217200538_ImproveGetAuctionsStoredProcedureForFilters")]
-    partial class ImproveGetAuctionsStoredProcedureForFilters
+    [Migration("20190329193712_InitialMigration")]
+    partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -27,20 +27,49 @@ namespace Bidding.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<int>("AuctionForeignKey");
-
                     b.Property<string>("AuctionStatusName")
                         .IsRequired()
                         .HasMaxLength(50);
 
-                    b.Property<bool>("Status");
+                    b.Property<DateTime>("CreatedAt");
+
+                    b.Property<int>("CreatedBy");
+
+                    b.Property<bool>("Deleted");
+
+                    b.Property<DateTime?>("LastUpdatedAt");
+
+                    b.Property<int?>("LastUpdatedBy");
 
                     b.HasKey("AuctionStatusId");
 
-                    b.HasIndex("AuctionForeignKey")
-                        .IsUnique();
-
                     b.ToTable("AuctionStatuses");
+
+                    b.HasData(
+                        new
+                        {
+                            AuctionStatusId = 1,
+                            AuctionStatusName = "Aktīva",
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = 1,
+                            Deleted = false
+                        },
+                        new
+                        {
+                            AuctionStatusId = 2,
+                            AuctionStatusName = "Pārtraukta",
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = 1,
+                            Deleted = false
+                        },
+                        new
+                        {
+                            AuctionStatusId = 3,
+                            AuctionStatusName = "Beigusies",
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = 1,
+                            Deleted = false
+                        });
                 });
 
             modelBuilder.Entity("Bidding.Database.DatabaseModels.Auctions.AuctionType", b =>
@@ -62,28 +91,13 @@ namespace Bidding.Migrations
                     b.ToTable("AuctionTypes");
                 });
 
-            modelBuilder.Entity("Bidding.Database.DatabaseModels.Users.Permission", b =>
-                {
-                    b.Property<int>("PermissionId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<string>("PermissionName")
-                        .IsRequired()
-                        .HasMaxLength(50);
-
-                    b.Property<bool>("PermissionStatus");
-
-                    b.HasKey("PermissionId");
-
-                    b.ToTable("Permissions");
-                });
-
             modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.Bidding.Auction", b =>
                 {
                     b.Property<int>("AuctionId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("AuctionApplyDate");
 
                     b.Property<DateTime>("AuctionEndDate");
 
@@ -95,9 +109,62 @@ namespace Bidding.Migrations
 
                     b.Property<int>("AuctionStartingPrice");
 
+                    b.Property<int>("AuctionStatusId");
+
+                    b.Property<DateTime>("CreatedAt");
+
+                    b.Property<int>("CreatedBy");
+
+                    b.Property<bool>("Deleted");
+
+                    b.Property<DateTime?>("LastUpdatedAt");
+
+                    b.Property<int?>("LastUpdatedBy");
+
                     b.HasKey("AuctionId");
 
                     b.ToTable("Auctions");
+
+                    b.HasData(
+                        new
+                        {
+                            AuctionId = 1,
+                            AuctionApplyDate = new DateTime(2019, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AuctionEndDate = new DateTime(2019, 7, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AuctionName = "Tesla Model 3",
+                            AuctionStartDate = new DateTime(2019, 2, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AuctionStartingPrice = 15000,
+                            AuctionStatusId = 1,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = 1,
+                            Deleted = false
+                        },
+                        new
+                        {
+                            AuctionId = 2,
+                            AuctionApplyDate = new DateTime(2019, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AuctionEndDate = new DateTime(2019, 7, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AuctionName = "Penthouse tipa dzīvoklis Vecrīgas sirdī",
+                            AuctionStartDate = new DateTime(2019, 2, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AuctionStartingPrice = 50000,
+                            AuctionStatusId = 1,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = 1,
+                            Deleted = false
+                        },
+                        new
+                        {
+                            AuctionId = 3,
+                            AuctionApplyDate = new DateTime(2019, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AuctionEndDate = new DateTime(2019, 7, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AuctionName = "Vīna skapis",
+                            AuctionStartDate = new DateTime(2019, 2, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AuctionStartingPrice = 900,
+                            AuctionStatusId = 1,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = 1,
+                            Deleted = false
+                        });
                 });
 
             modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.Bidding.AuctionCategory", b =>
@@ -117,6 +184,26 @@ namespace Bidding.Migrations
                     b.HasIndex("CategoryId");
 
                     b.ToTable("AuctionCategories");
+
+                    b.HasData(
+                        new
+                        {
+                            AuctionCategoryId = 1,
+                            AuctionId = 1,
+                            CategoryId = 1
+                        },
+                        new
+                        {
+                            AuctionCategoryId = 2,
+                            AuctionId = 2,
+                            CategoryId = 3
+                        },
+                        new
+                        {
+                            AuctionCategoryId = 3,
+                            AuctionId = 3,
+                            CategoryId = 2
+                        });
                 });
 
             modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.Bidding.AuctionDetails", b =>
@@ -134,6 +221,8 @@ namespace Bidding.Migrations
                     b.HasIndex("AuctionId")
                         .IsUnique();
 
+                    b.HasIndex("AuctionStatusId");
+
                     b.ToTable("AuctionDetails");
                 });
 
@@ -147,11 +236,45 @@ namespace Bidding.Migrations
                         .IsRequired()
                         .HasMaxLength(50);
 
-                    b.Property<bool>("CategoryStatus");
+                    b.Property<DateTime>("CreatedAt");
+
+                    b.Property<int>("CreatedBy");
+
+                    b.Property<bool>("Deleted");
+
+                    b.Property<DateTime?>("LastUpdatedAt");
+
+                    b.Property<int?>("LastUpdatedBy");
 
                     b.HasKey("CategoryId");
 
                     b.ToTable("Categories");
+
+                    b.HasData(
+                        new
+                        {
+                            CategoryId = 1,
+                            CategoryName = "Transports",
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = 1,
+                            Deleted = false
+                        },
+                        new
+                        {
+                            CategoryId = 2,
+                            CategoryName = "Manta",
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = 1,
+                            Deleted = false
+                        },
+                        new
+                        {
+                            CategoryId = 3,
+                            CategoryName = "Nekustamais īpašums",
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = 1,
+                            Deleted = false
+                        });
                 });
 
             modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.CategoryType", b =>
@@ -171,6 +294,26 @@ namespace Bidding.Migrations
                     b.HasIndex("TypeId");
 
                     b.ToTable("CategoryTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            CategoryTypeId = 1,
+                            CategoryId = 1,
+                            TypeId = 1
+                        },
+                        new
+                        {
+                            CategoryTypeId = 2,
+                            CategoryId = 2,
+                            TypeId = 2
+                        },
+                        new
+                        {
+                            CategoryTypeId = 3,
+                            CategoryId = 3,
+                            TypeId = 3
+                        });
                 });
 
             modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.Feature", b =>
@@ -196,7 +339,7 @@ namespace Bidding.Migrations
 
                     b.HasKey("ProductId");
 
-                    b.ToTable("Products");
+                    b.ToTable("Product");
                 });
 
             modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.ProductDetail", b =>
@@ -224,15 +367,41 @@ namespace Bidding.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<DateTime>("CreatedAt");
+
+                    b.Property<int>("CreatedBy");
+
+                    b.Property<bool>("Deleted");
+
+                    b.Property<DateTime?>("LastUpdatedAt");
+
+                    b.Property<int?>("LastUpdatedBy");
+
                     b.Property<string>("RoleName")
                         .IsRequired()
                         .HasMaxLength(50);
 
-                    b.Property<bool>("RoleStatus");
-
                     b.HasKey("RoleId");
 
                     b.ToTable("Roles");
+
+                    b.HasData(
+                        new
+                        {
+                            RoleId = 1,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = 1,
+                            Deleted = false,
+                            RoleName = "User"
+                        },
+                        new
+                        {
+                            RoleId = 2,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = 1,
+                            Deleted = false,
+                            RoleName = "Admin"
+                        });
                 });
 
             modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.Type", b =>
@@ -241,15 +410,49 @@ namespace Bidding.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<DateTime>("CreatedAt");
+
+                    b.Property<int>("CreatedBy");
+
+                    b.Property<bool>("Deleted");
+
+                    b.Property<DateTime?>("LastUpdatedAt");
+
+                    b.Property<int?>("LastUpdatedBy");
+
                     b.Property<string>("TypeName")
                         .IsRequired()
                         .HasMaxLength(50);
 
-                    b.Property<bool>("TypeStatus");
-
                     b.HasKey("TypeId");
 
                     b.ToTable("Types");
+
+                    b.HasData(
+                        new
+                        {
+                            TypeId = 1,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = 1,
+                            Deleted = false,
+                            TypeName = "Vieglais transports līdz 3,5t"
+                        },
+                        new
+                        {
+                            TypeId = 2,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = 1,
+                            Deleted = false,
+                            TypeName = "Cita manta"
+                        },
+                        new
+                        {
+                            TypeId = 3,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = 1,
+                            Deleted = false,
+                            TypeName = "Dzīvoklis"
+                        });
                 });
 
             modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.TypeProduct", b =>
@@ -268,7 +471,7 @@ namespace Bidding.Migrations
 
                     b.HasIndex("TypeId");
 
-                    b.ToTable("TypeProducts");
+                    b.ToTable("TypeProduct");
                 });
 
             modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.User", b =>
@@ -277,17 +480,61 @@ namespace Bidding.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<DateTime>("CreatedAt");
+
+                    b.Property<int>("CreatedBy");
+
+                    b.Property<bool>("Deleted");
+
+                    b.Property<DateTime?>("LastUpdatedAt");
+
+                    b.Property<int?>("LastUpdatedBy");
+
+                    b.Property<string>("UserEmail")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.Property<string>("UserFirstName")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("UserLastName")
+                        .HasMaxLength(50);
+
+                    b.Property<int>("UserRoleId");
+
+                    b.Property<string>("UserUniqueIdentifier")
+                        .IsRequired()
+                        .HasMaxLength(100);
+
                     b.HasKey("UserId");
 
                     b.ToTable("Users");
-                });
 
-            modelBuilder.Entity("Bidding.Database.DatabaseModels.Auctions.AuctionStatus", b =>
-                {
-                    b.HasOne("BiddingAPI.Models.DatabaseModels.Bidding.AuctionDetails", "AuctionDetails")
-                        .WithOne("AuctionStatus")
-                        .HasForeignKey("Bidding.Database.DatabaseModels.Auctions.AuctionStatus", "AuctionForeignKey")
-                        .OnDelete(DeleteBehavior.Cascade);
+                    b.HasData(
+                        new
+                        {
+                            UserId = 2,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = 1,
+                            Deleted = false,
+                            UserEmail = "dummyuser@bidding.lv",
+                            UserFirstName = "Dummy",
+                            UserLastName = "User",
+                            UserRoleId = 1,
+                            UserUniqueIdentifier = ""
+                        },
+                        new
+                        {
+                            UserId = 1,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = 1,
+                            Deleted = false,
+                            UserEmail = "dummyadmin@bidding.lv",
+                            UserFirstName = "Dummy",
+                            UserLastName = "Admin",
+                            UserRoleId = 2,
+                            UserUniqueIdentifier = ""
+                        });
                 });
 
             modelBuilder.Entity("Bidding.Database.DatabaseModels.Auctions.AuctionType", b =>
@@ -321,6 +568,11 @@ namespace Bidding.Migrations
                     b.HasOne("BiddingAPI.Models.DatabaseModels.Bidding.Auction", "Auction")
                         .WithOne("Details")
                         .HasForeignKey("BiddingAPI.Models.DatabaseModels.Bidding.AuctionDetails", "AuctionId")
+                        .OnDelete(DeleteBehavior.Cascade);
+
+                    b.HasOne("Bidding.Database.DatabaseModels.Auctions.AuctionStatus", "AuctionStatus")
+                        .WithMany()
+                        .HasForeignKey("AuctionStatusId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 

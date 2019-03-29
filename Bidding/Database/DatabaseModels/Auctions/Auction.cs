@@ -49,16 +49,13 @@ namespace BiddingAPI.Models.DatabaseModels.Bidding
         public DateTime CreatedAt { get; set; }
 
         [Required]
-        public int CreatedBy { get; set; }
+        public int CreatedBy { get; set; } // todo: kke: FKey
 
         [DataType(DataType.Date)]
         public DateTime? LastUpdatedAt { get; set; }
         public int? LastUpdatedBy { get; set; }
         public bool Deleted { get; set; }
-
         public AuctionDetails Details { get; set; }
-
-        public User CreatedByUser { get; set; }
 
         [ForeignKey("AuctionId")]
         public ICollection<AuctionCategory> AuctionCategories { get; set; }

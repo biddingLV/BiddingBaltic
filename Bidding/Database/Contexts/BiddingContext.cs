@@ -30,13 +30,13 @@ namespace BiddingAPI.Models.DatabaseModels
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<CategoryType> CategoryTypes { get; set; } // intermediary table
         public virtual DbSet<Type> Types { get; set; }
-        public virtual DbSet<TypeProduct> TypeProducts { get; set; } // intermediary table
-        public virtual DbSet<Product> Products { get; set; }
+        //public virtual DbSet<TypeProduct> TypeProducts { get; set; } // intermediary table
+        //public virtual DbSet<Product> Products { get; set; }
 
         // Users
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
-        public virtual DbSet<Permission> Permissions { get; set; }
+        // public virtual DbSet<Permission> Permissions { get; set; }
         //public virtual DbSet<Feature> Features { get; set; }
         //public virtual DbSet<Images> Images { get; set; }
         //public virtual DbSet<Organization> Organizations { get; set; }
@@ -54,12 +54,7 @@ namespace BiddingAPI.Models.DatabaseModels
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            // todo: kke: is this right?
-            //if (Debugger.IsAttached)
-            //{
-            // debugger is attached
             modelBuilder.Seed();
-            //}
         }
     }
 }

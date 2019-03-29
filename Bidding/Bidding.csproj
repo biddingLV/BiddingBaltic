@@ -49,17 +49,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Compile Remove="Migrations\20190224191947_test.cs" />
-    <Compile Remove="Migrations\20190224191947_test.Designer.cs" />
-    <Compile Remove="Migrations\20190226072251_test.cs" />
-    <Compile Remove="Migrations\20190226072251_test.Designer.cs" />
-    <Compile Remove="Migrations\20190324114901_AddAndRemoveStatusColumnsToAllTables.cs" />
-    <Compile Remove="Migrations\20190324114901_AddAndRemoveStatusColumnsToAllTables.Designer.cs" />
-    <Compile Remove="Migrations\20190324142240_Test.cs" />
-    <Compile Remove="Migrations\20190324142240_Test.Designer.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Folder Include="ClientApp\src\app\admin\containers\" />
     <Folder Include="ClientApp\src\app\admin\services\" />
     <Folder Include="ClientApp\src\app\auth\components\404-page-not-found\" />

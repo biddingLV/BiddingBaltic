@@ -16,8 +16,8 @@ namespace BiddingAPI.Models.DatabaseModels
         public string RoleName { get; set; }
         public DateTime CreatedAt { get; set; }
         public int CreatedBy { get; set; }
-        public DateTime LastUpdatedAt { get; set; }
-        public int LastUpdatedBy { get; set; }
+        public DateTime? LastUpdatedAt { get; set; }
+        public int? LastUpdatedBy { get; set; }
         public bool Deleted { get; set; }
     }
 }
