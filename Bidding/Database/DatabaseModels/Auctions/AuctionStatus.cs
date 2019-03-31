@@ -1,4 +1,5 @@
-﻿using BiddingAPI.Models.DatabaseModels.Bidding;
+﻿using BiddingAPI.Models.DatabaseModels;
+using BiddingAPI.Models.DatabaseModels.Bidding;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -22,9 +23,6 @@ namespace Bidding.Database.DatabaseModels.Auctions
         [DataType(DataType.Date)]
         public DateTime CreatedAt { get; set; }
 
-        [Required]
-        public int CreatedBy { get; set; }
-
         [DataType(DataType.Date)]
         public DateTime? LastUpdatedAt { get; set; }
         public int? LastUpdatedBy { get; set; }
@@ -32,5 +30,9 @@ namespace Bidding.Database.DatabaseModels.Auctions
 
         // Relationship definitions
         public List<Auction> Auctions { get; set; }
+
+        [Required]
+        public int CreatedBy { get; set; }
+        public User User { get; set; }
     }
 }

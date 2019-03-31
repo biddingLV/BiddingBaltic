@@ -54,6 +54,31 @@ namespace BiddingAPI.Models.DatabaseModels
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
+            {
+                relationship.DeleteBehavior = DeleteBehavior.Restrict;
+            }
+
+            modelBuilder.Entity<Auction>()
+                .HasOne(p => p.User)
+                .WithMany(b => b.Auctions)
+                .HasForeignKey(p => p.CreatedBy);
+
+            modelBuilder.Entity<AuctionStatus>()
+                .HasOne(p => p.User)
+                .WithMany(b => b.AuctionStatuses)
+                .HasForeignKey(p => p.CreatedBy);
+
+            modelBuilder.Entity<Category>()
+                .HasOne(p => p.User)
+                .WithMany(b => b.Categories)
+                .HasForeignKey(p => p.CreatedBy);
+
+            modelBuilder.Entity<Type>()
+                .HasOne(p => p.User)
+                .WithMany(b => b.Types)
+                .HasForeignKey(p => p.CreatedBy);
+
             modelBuilder.Seed();
         }
     }

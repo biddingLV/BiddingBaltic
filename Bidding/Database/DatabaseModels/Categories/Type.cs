@@ -18,7 +18,6 @@ namespace BiddingAPI.Models.DatabaseModels
 
         [DataType(DataType.Date)]
         public DateTime CreatedAt { get; set; }
-        public int CreatedBy { get; set; }
 
         [DataType(DataType.Date)]
         public DateTime? LastUpdatedAt { get; set; }
@@ -28,5 +27,9 @@ namespace BiddingAPI.Models.DatabaseModels
         // Relationship definitions
         public List<AuctionType> AuctionTypes { get; set; }
         public List<CategoryType> CategoryTypes { get; set; }
+
+        [Required]
+        public int CreatedBy { get; set; }
+        public User User { get; set; }
     }
 }

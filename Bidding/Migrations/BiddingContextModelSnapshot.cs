@@ -41,6 +41,8 @@ namespace Bidding.Migrations
 
                     b.HasKey("AuctionStatusId");
 
+                    b.HasIndex("CreatedBy");
+
                     b.ToTable("AuctionStatuses");
 
                     b.HasData(
@@ -119,13 +121,11 @@ namespace Bidding.Migrations
 
                     b.Property<int>("StartingPrice");
 
-                    b.Property<int?>("UserId");
-
                     b.HasKey("AuctionId");
 
                     b.HasIndex("AuctionStatusId");
 
-                    b.HasIndex("UserId");
+                    b.HasIndex("CreatedBy");
 
                     b.ToTable("Auctions");
 
@@ -227,6 +227,8 @@ namespace Bidding.Migrations
                         .HasMaxLength(50);
 
                     b.HasKey("CategoryId");
+
+                    b.HasIndex("CreatedBy");
 
                     b.ToTable("Categories");
 
@@ -341,6 +343,8 @@ namespace Bidding.Migrations
 
                     b.HasKey("TypeId");
 
+                    b.HasIndex("CreatedBy");
+
                     b.ToTable("Types");
 
                     b.HasData(
@@ -434,17 +438,25 @@ namespace Bidding.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Bidding.Database.DatabaseModels.Auctions.AuctionStatus", b =>
+                {
+                    b.HasOne("BiddingAPI.Models.DatabaseModels.User", "User")
+                        .WithMany("AuctionStatuses")
+                        .HasForeignKey("CreatedBy")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
             modelBuilder.Entity("Bidding.Database.DatabaseModels.Auctions.AuctionType", b =>
                 {
                     b.HasOne("BiddingAPI.Models.DatabaseModels.Bidding.Auction", "Auction")
                         .WithMany("AuctionTypes")
                         .HasForeignKey("AuctionId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("BiddingAPI.Models.DatabaseModels.Type", "Type")
                         .WithMany("AuctionTypes")
                         .HasForeignKey("TypeId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.Bidding.Auction", b =>
@@ -452,11 +464,12 @@ namespace Bidding.Migrations
                     b.HasOne("Bidding.Database.DatabaseModels.Auctions.AuctionStatus", "AuctionStatus")
                         .WithMany("Auctions")
                         .HasForeignKey("AuctionStatusId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("BiddingAPI.Models.DatabaseModels.User", "User")
                         .WithMany("Auctions")
-                        .HasForeignKey("UserId");
+                        .HasForeignKey("CreatedBy")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.Bidding.AuctionCategory", b =>
@@ -464,12 +477,12 @@ namespace Bidding.Migrations
                     b.HasOne("BiddingAPI.Models.DatabaseModels.Bidding.Auction", "Auction")
                         .WithMany("AuctionCategories")
                         .HasForeignKey("AuctionId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("BiddingAPI.Models.DatabaseModels.Category", "Category")
                         .WithMany("AuctionCategories")
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.Bidding.AuctionDetails", b =>
@@ -477,7 +490,15 @@ namespace Bidding.Migrations
                     b.HasOne("BiddingAPI.Models.DatabaseModels.Bidding.Auction", "Auction")
                         .WithOne("AuctionDetails")
                         .HasForeignKey("BiddingAPI.Models.DatabaseModels.Bidding.AuctionDetails", "AuctionId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.Category", b =>
+                {
+                    b.HasOne("BiddingAPI.Models.DatabaseModels.User", "User")
+                        .WithMany("Categories")
+                        .HasForeignKey("CreatedBy")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.CategoryType", b =>
@@ -485,12 +506,20 @@ namespace Bidding.Migrations
                     b.HasOne("BiddingAPI.Models.DatabaseModels.Category", "Category")
                         .WithMany("CategoryTypes")
                         .HasForeignKey("CategoryId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("BiddingAPI.Models.DatabaseModels.Type", "Type")
                         .WithMany("CategoryTypes")
                         .HasForeignKey("TypeId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.Type", b =>
+                {
+                    b.HasOne("BiddingAPI.Models.DatabaseModels.User", "User")
+                        .WithMany("Types")
+                        .HasForeignKey("CreatedBy")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.User", b =>
@@ -498,7 +527,7 @@ namespace Bidding.Migrations
                     b.HasOne("BiddingAPI.Models.DatabaseModels.Role", "Role")
                         .WithMany("Users")
                         .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Cascade);
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 #pragma warning restore 612, 618
         }

@@ -1,4 +1,5 @@
-﻿using BiddingAPI.Models.DatabaseModels.Bidding;
+﻿using Bidding.Database.DatabaseModels.Auctions;
+using BiddingAPI.Models.DatabaseModels.Bidding;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -42,6 +43,10 @@ namespace BiddingAPI.Models.DatabaseModels
 
         // Relationship definitions
         public List<Auction> Auctions { get; set; }
+        public List<AuctionStatus> AuctionStatuses { get; set; }
+        public List<Category> Categories { get; set; }
+        public List<Type> Types { get; set; }
+
         public int RoleId { get; set; }
         public Role Role { get; set; }
     }

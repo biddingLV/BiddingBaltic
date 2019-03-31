@@ -45,7 +45,8 @@ namespace BiddingAPI.Models.DatabaseModels.Bidding
         // Relationship definitions
         [Required]
         public int CreatedBy { get; set; }
-        public User User { get; set; } // todo: kke: how to define here that the FKey is createdBy -> User.UserId?
+        public User User { get; set; }
+
         public AuctionDetails AuctionDetails { get; set; }
         public int AuctionStatusId { get; set; }
         public AuctionStatus AuctionStatus { get; set; }
