@@ -10,54 +10,49 @@ namespace BiddingAPI.Models.DatabaseModels.Bidding
 {
     public partial class Auction
     {
-        public Auction()
-        {
-            AuctionCategories = new HashSet<AuctionCategory>();
-        }
-
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int AuctionId { get; set; }
 
         [Required]
         [MaxLength(50)]
-        public string AuctionName { get; set; }
+        public string Name { get; set; }
 
         [Range(0, 1000000)]
-        public int AuctionStartingPrice { get; set; }
+        public int StartingPrice { get; set; }
 
         [Required]
         [DataType(DataType.Date)]
-        public DateTime AuctionStartDate { get; set; }
+        public DateTime StartDate { get; set; }
 
-        // todo: kke: does this needs to be required?
         [Required]
         [DataType(DataType.Date)]
-        public DateTime AuctionApplyDate { get; set; }
+        public DateTime ApplyDate { get; set; }
 
-        // todo: kke: does this needs to be required?
         [Required]
         [DataType(DataType.Date)]
-        public DateTime AuctionEndDate { get; set; }
+        public DateTime EndDate { get; set; }
 
         [Required]
         [Range(1, 10000)]
-        public int AuctionStatusId { get; set; } // todo: kke: this needs to be fKey or constraint based on auction statuses table!
+        public int StatusId { get; set; }
 
         [Required]
         [DataType(DataType.Date)]
         public DateTime CreatedAt { get; set; }
 
-        [Required]
-        public int CreatedBy { get; set; } // todo: kke: FKey
-
         [DataType(DataType.Date)]
         public DateTime? LastUpdatedAt { get; set; }
         public int? LastUpdatedBy { get; set; }
         public bool Deleted { get; set; }
-        public AuctionDetails Details { get; set; }
 
-        [ForeignKey("AuctionId")]
-        public ICollection<AuctionCategory> AuctionCategories { get; set; }
+        // Relationship definitions
+        [Required]
+        public int CreatedBy { get; set; }
+        public User User { get; set; }
+        public AuctionDetails AuctionDetails { get; set; }
+        public AuctionStatus AuctionStatus { get; set; }
+        public List<AuctionCategory> AuctionCategories { get; set; }
+        public List<AuctionType> AuctionTypes { get; set; }
     }
 }

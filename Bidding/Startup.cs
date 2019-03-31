@@ -383,8 +383,8 @@ namespace Bidding
                                UserAddRequestModel newUser = new UserAddRequestModel()
                                {
                                    // todo: kke: what about social logins here? can we get full name?
-                                   UserEmail = payload["email"].ToString(),
-                                   UserUniqueIdentifier = payload["sub"].ToString()
+                                   Email = payload["email"].ToString(),
+                                   UniqueIdentifier = payload["sub"].ToString()
                                };
 
                                usersServiceProvider.Create(newUser);

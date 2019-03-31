@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bidding.Database.DatabaseModels.Auctions;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -7,19 +8,13 @@ namespace BiddingAPI.Models.DatabaseModels
 {
     public partial class Type
     {
-        public Type()
-        {
-            CategoryTypes = new HashSet<CategoryType>();
-            TypeProducts = new HashSet<TypeProduct>();
-        }
-
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int TypeId { get; set; }
 
         [Required]
         [MaxLength(50)]
-        public string TypeName { get; set; }
+        public string Name { get; set; }
 
         [DataType(DataType.Date)]
         public DateTime CreatedAt { get; set; }
@@ -30,7 +25,10 @@ namespace BiddingAPI.Models.DatabaseModels
         public int? LastUpdatedBy { get; set; }
         public bool Deleted { get; set; }
 
-        public ICollection<CategoryType> CategoryTypes { get; set; }
-        public ICollection<TypeProduct> TypeProducts { get; set; }
+        // Relationship definitions
+        public int CategoryId { get; set; }
+        public Category Category { get; set; }
+        public List<AuctionType> AuctionTypes { get; set; }
+        public List<CategoryType> CategoryTypes { get; set; }
     }
 }

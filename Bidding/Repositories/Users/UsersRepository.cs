@@ -31,7 +31,7 @@ namespace Bidding.Repositories.Users
         public bool UserExists(string email)
         {
             return
-                m_context.Users.Any(usr => usr.UserEmail == email && usr.Deleted == false);
+                m_context.Users.Any(usr => usr.Email == email && usr.Deleted == false);
         }
 
         /// <summary>
@@ -42,16 +42,16 @@ namespace Bidding.Repositories.Users
         public bool Create(UserAddRequestModel request)
         {
             // by default create user with User Role!
-            Role defaultUserRole = m_context.Roles.FirstOrDefault(rol => rol.RoleName == "User");
+            Role defaultUserRole = m_context.Roles.FirstOrDefault(rol => rol.Name == "User");
 
             User newUser = new User()
             {
-                UserFirstName = request.UserFirstName,
-                UserLastName = request.UserLastName,
-                UserEmail = request.UserEmail.ToLower(),
+                FirstName = request.FirstName,
+                LastName = request.LastName,
+                Email = request.Email.ToLower(),
                 Deleted = false,
-                UserRoleId = defaultUserRole.RoleId, // User
-                UserUniqueIdentifier = request.UserUniqueIdentifier,
+                RoleId = defaultUserRole.RoleId, // User
+                UniqueIdentifier = request.UniqueIdentifier,
                 CreatedAt = DateTime.UtcNow,
                 CreatedBy = 1 // todo: kke: this needs to be null!
             };
@@ -84,23 +84,23 @@ namespace Bidding.Repositories.Users
                     select new UserDetailsModel()
                     {
                         UserId = usr.UserId,
-                        UserFirstName = usr.UserFirstName,
-                        UserLastName = usr.UserLastName,
-                        UserEmail = usr.UserEmail
+                        UserFirstName = usr.FirstName,
+                        UserLastName = usr.LastName,
+                        UserEmail = usr.Email
                     });
         }
 
         public IEnumerable<UserProfileModel> UserDetails(string email)
         {
             return (from usr in m_context.Users
-                    join rol in m_context.Roles on usr.UserRoleId equals rol.RoleId
-                    where usr.UserEmail == email && usr.Deleted == false
+                    join rol in m_context.Roles on usr.RoleId equals rol.RoleId
+                    where usr.Email == email && usr.Deleted == false
                     select new UserProfileModel()
                     {
                         UserId = usr.UserId,
-                        UserEmail = usr.UserEmail,
-                        UserRole = rol.RoleName,
-                        UserUniqueIdentifier = usr.UserUniqueIdentifier
+                        UserEmail = usr.Email,
+                        UserRole = rol.Name,
+                        UserUniqueIdentifier = usr.UniqueIdentifier
                     });
         }
     }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using Bidding.Database.Contexts;
 using Bidding.Database.DatabaseModels.Auctions;
 using Bidding.Database.DatabaseModels.Users;
@@ -55,6 +56,21 @@ namespace BiddingAPI.Models.DatabaseModels
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Seed();
+
+            // todo: kke: do I need this?
+            var cascadeFKs = modelBuilder.Model.GetEntityTypes()
+                .SelectMany(t => t.GetForeignKeys())
+                .Where(fk => !fk.IsOwnership && fk.DeleteBehavior == DeleteBehavior.Cascade);
+
+            foreach (var fk in cascadeFKs)
+                fk.DeleteBehavior = DeleteBehavior.Restrict;
+
+            modelBuilder.Entity<User>()
+                .HasOne(p => p.Auction)
+                .WithOne(i => i.User)
+                .HasForeignKey<Auction>(b => b.CreatedBy);
+
+            base.OnModelCreating(modelBuilder);
         }
     }
 }

@@ -216,9 +216,9 @@ namespace BiddingAPI.Services.Auctions
             // setup auction object for the validation
             Auction auction = new Auction()
             {
-                AuctionName = request.AuctionName,
-                AuctionStartingPrice = request.AuctionStartingPrice,
-                AuctionStartDate = request.AuctionStartDate
+                Name = request.AuctionName,
+                StartingPrice = request.AuctionStartingPrice,
+                StartDate = request.AuctionStartDate
             };
 
             ValidateAuction(auction);

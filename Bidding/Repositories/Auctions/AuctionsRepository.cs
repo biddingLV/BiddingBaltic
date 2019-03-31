@@ -109,7 +109,7 @@ namespace BiddingAPI.Repositories.Auctions
         /// <returns></returns>
         public IEnumerable<Auction> TotalAuctionCount(DateTime auctionStartDate, DateTime auctionEndDate)
         {
-            return m_context.Auctions.Where(auct => auct.AuctionStartDate >= auctionStartDate && auct.AuctionEndDate <= auctionEndDate);
+            return m_context.Auctions.Where(auct => auct.StartDate >= auctionStartDate && auct.EndDate <= auctionEndDate);
         }
 
         /// <summary>
@@ -146,12 +146,12 @@ namespace BiddingAPI.Repositories.Auctions
                        where auct.AuctionId == request.AuctionId
                        select new AuctionDetailsResponseModel()
                        {
-                           AuctionName = auct.AuctionName,
-                           CategoryName = cat.CategoryName,
-                           TypeName = typ.TypeName,
-                           AuctionStartingPrice = auct.AuctionStartingPrice,
-                           AuctionStartDate = auct.AuctionStartDate,
-                           AuctionEndDate = auct.AuctionEndDate
+                           AuctionName = auct.Name,
+                           CategoryName = cat.Name,
+                           TypeName = typ.Name,
+                           AuctionStartingPrice = auct.StartingPrice,
+                           AuctionStartDate = auct.StartDate,
+                           AuctionEndDate = auct.EndDate
                        };
             }
             else
@@ -174,12 +174,12 @@ namespace BiddingAPI.Repositories.Auctions
         {
             Auction auction = new Auction()
             {
-                AuctionName = request.AuctionName,
-                AuctionStartingPrice = request.AuctionStartingPrice,
-                AuctionStartDate = request.AuctionStartDate,
-                AuctionApplyDate = request.AuctionApplyDate,
-                AuctionEndDate = request.AuctionEndDate,
-                AuctionStatusId = request.AuctionStatusId
+                Name = request.AuctionName,
+                StartingPrice = request.AuctionStartingPrice,
+                StartDate = request.AuctionStartDate,
+                ApplyDate = request.AuctionApplyDate,
+                EndDate = request.AuctionEndDate,
+                StatusId = request.AuctionStatusId
             };
 
             var strategy = m_context.Database.CreateExecutionStrategy();

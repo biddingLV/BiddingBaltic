@@ -12,6 +12,7 @@ namespace Bidding.Database.Contexts
 {
     public static class ModelBuilderExtensions
     {
+        // https://wildermuth.com/2018/08/12/Seeding-Related-Entities-in-EF-Core-2-1-s-HasData()
         private static DateTime CreatedAtDateTime = DateTime.Parse("01/01/2019");
 
         public static void Seed(this ModelBuilder modelBuilder)
@@ -29,8 +30,8 @@ namespace Bidding.Database.Contexts
         private static void PopulateRoles(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Role>().HasData(
-                new Role { RoleId = 1, RoleName = "User", CreatedAt = CreatedAtDateTime, CreatedBy = 1, LastUpdatedAt = null, LastUpdatedBy = null, Deleted = false },
-                new Role { RoleId = 2, RoleName = "Admin", CreatedAt = CreatedAtDateTime, CreatedBy = 1, LastUpdatedAt = null, LastUpdatedBy = null, Deleted = false }
+                new Role { RoleId = 1, Name = "User", CreatedAt = CreatedAtDateTime, CreatedBy = 1, LastUpdatedAt = null, LastUpdatedBy = null, Deleted = false },
+                new Role { RoleId = 2, Name = "Admin", CreatedAt = CreatedAtDateTime, CreatedBy = 1, LastUpdatedAt = null, LastUpdatedBy = null, Deleted = false }
             );
         }
 
@@ -40,12 +41,12 @@ namespace Bidding.Database.Contexts
                 new User
                 {
                     UserId = 2,
-                    UserFirstName = "Dummy",
-                    UserLastName = "User",
-                    UserEmail = "dummyuser@bidding.lv",
-                    UserRoleId = 1,
+                    FirstName = "Dummy",
+                    LastName = "User",
+                    Email = "dummyuser@bidding.lv",
+                    // RoleId = 1,
                     Deleted = false,
-                    UserUniqueIdentifier = "",
+                    UniqueIdentifier = "",
                     CreatedAt = CreatedAtDateTime,
                     CreatedBy = 1,
                     LastUpdatedAt = null,
@@ -54,12 +55,12 @@ namespace Bidding.Database.Contexts
                 new User
                 {
                     UserId = 1,
-                    UserFirstName = "Dummy",
-                    UserLastName = "Admin",
-                    UserEmail = "dummyadmin@bidding.lv",
-                    UserRoleId = 2,
+                    FirstName = "Dummy",
+                    LastName = "Admin",
+                    Email = "dummyadmin@bidding.lv",
+                    // RoleId = 2,
                     Deleted = false,
-                    UserUniqueIdentifier = "",
+                    UniqueIdentifier = "",
                     CreatedAt = CreatedAtDateTime,
                     CreatedBy = 1,
                     LastUpdatedAt = null,
@@ -71,9 +72,9 @@ namespace Bidding.Database.Contexts
         private static void PopulateAuctionStatuses(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<AuctionStatus>().HasData(
-                new AuctionStatus { AuctionStatusId = 1, AuctionStatusName = "Aktīva", CreatedAt = CreatedAtDateTime, CreatedBy = 1, LastUpdatedAt = null, LastUpdatedBy = null, Deleted = false },
-                new AuctionStatus { AuctionStatusId = 2, AuctionStatusName = "Pārtraukta", CreatedAt = CreatedAtDateTime, CreatedBy = 1, LastUpdatedAt = null, LastUpdatedBy = null, Deleted = false },
-                new AuctionStatus { AuctionStatusId = 3, AuctionStatusName = "Beigusies", CreatedAt = CreatedAtDateTime, CreatedBy = 1, LastUpdatedAt = null, LastUpdatedBy = null, Deleted = false }
+                new AuctionStatus { AuctionStatusId = 1, Name = "Aktīva", CreatedAt = CreatedAtDateTime, CreatedBy = 1, LastUpdatedAt = null, LastUpdatedBy = null, Deleted = false },
+                new AuctionStatus { AuctionStatusId = 2, Name = "Pārtraukta", CreatedAt = CreatedAtDateTime, CreatedBy = 1, LastUpdatedAt = null, LastUpdatedBy = null, Deleted = false },
+                new AuctionStatus { AuctionStatusId = 3, Name = "Beigusies", CreatedAt = CreatedAtDateTime, CreatedBy = 1, LastUpdatedAt = null, LastUpdatedBy = null, Deleted = false }
             );
         }
 
@@ -83,12 +84,12 @@ namespace Bidding.Database.Contexts
                 new Auction
                 {
                     AuctionId = 1,
-                    AuctionName = "Tesla Model 3",
-                    AuctionStartingPrice = 15000,
-                    AuctionStartDate = CreatedAtDateTime.AddMonths(1),
-                    AuctionEndDate = CreatedAtDateTime.AddMonths(6),
-                    AuctionStatusId = 1,
-                    AuctionApplyDate = CreatedAtDateTime.AddMonths(5),
+                    Name = "Tesla Model 3",
+                    StartingPrice = 15000,
+                    StartDate = CreatedAtDateTime.AddMonths(1),
+                    EndDate = CreatedAtDateTime.AddMonths(6),
+                    StatusId = 1,
+                    ApplyDate = CreatedAtDateTime.AddMonths(5),
                     CreatedAt = CreatedAtDateTime,
                     CreatedBy = 1,
                     Deleted = false,
@@ -98,12 +99,12 @@ namespace Bidding.Database.Contexts
                 new Auction
                 {
                     AuctionId = 2,
-                    AuctionName = "Penthouse tipa dzīvoklis Vecrīgas sirdī",
-                    AuctionStartingPrice = 50000,
-                    AuctionStartDate = CreatedAtDateTime.AddMonths(1),
-                    AuctionEndDate = CreatedAtDateTime.AddMonths(6),
-                    AuctionStatusId = 1,
-                    AuctionApplyDate = CreatedAtDateTime.AddMonths(5),
+                    Name = "Penthouse tipa dzīvoklis Vecrīgas sirdī",
+                    StartingPrice = 50000,
+                    StartDate = CreatedAtDateTime.AddMonths(1),
+                    EndDate = CreatedAtDateTime.AddMonths(6),
+                    StatusId = 1,
+                    ApplyDate = CreatedAtDateTime.AddMonths(5),
                     CreatedAt = CreatedAtDateTime,
                     CreatedBy = 1,
                     Deleted = false,
@@ -113,12 +114,12 @@ namespace Bidding.Database.Contexts
                 new Auction
                 {
                     AuctionId = 3,
-                    AuctionName = "Vīna skapis",
-                    AuctionStartingPrice = 900,
-                    AuctionStartDate = CreatedAtDateTime.AddMonths(1),
-                    AuctionEndDate = CreatedAtDateTime.AddMonths(6),
-                    AuctionStatusId = 1,
-                    AuctionApplyDate = CreatedAtDateTime.AddMonths(5),
+                    Name = "Vīna skapis",
+                    StartingPrice = 900,
+                    StartDate = CreatedAtDateTime.AddMonths(1),
+                    EndDate = CreatedAtDateTime.AddMonths(6),
+                    StatusId = 1,
+                    ApplyDate = CreatedAtDateTime.AddMonths(5),
                     CreatedAt = CreatedAtDateTime,
                     CreatedBy = 1,
                     Deleted = false,
@@ -135,7 +136,7 @@ namespace Bidding.Database.Contexts
                 new Category
                 {
                     CategoryId = 1,
-                    CategoryName = "Transports",
+                    Name = "Transports",
                     CreatedAt = CreatedAtDateTime,
                     CreatedBy = 1,
                     Deleted = false,
@@ -145,7 +146,7 @@ namespace Bidding.Database.Contexts
                 new Category
                 {
                     CategoryId = 2,
-                    CategoryName = "Manta",
+                    Name = "Manta",
                     CreatedAt = CreatedAtDateTime,
                     CreatedBy = 1,
                     Deleted = false,
@@ -155,7 +156,7 @@ namespace Bidding.Database.Contexts
                 new Category
                 {
                     CategoryId = 3,
-                    CategoryName = "Nekustamais īpašums",
+                    Name = "Nekustamais īpašums",
                     CreatedAt = CreatedAtDateTime,
                     CreatedBy = 1,
                     Deleted = false,
@@ -171,7 +172,7 @@ namespace Bidding.Database.Contexts
                 new Type
                 {
                     TypeId = 1,
-                    TypeName = "Vieglais transports līdz 3,5t",
+                    Name = "Vieglais transports līdz 3,5t",
                     CreatedAt = CreatedAtDateTime,
                     CreatedBy = 1,
                     Deleted = false,
@@ -181,7 +182,7 @@ namespace Bidding.Database.Contexts
                 new Type
                 {
                     TypeId = 2,
-                    TypeName = "Cita manta",
+                    Name = "Cita manta",
                     CreatedAt = CreatedAtDateTime,
                     CreatedBy = 1,
                     Deleted = false,
@@ -191,7 +192,7 @@ namespace Bidding.Database.Contexts
                 new Type
                 {
                     TypeId = 3,
-                    TypeName = "Dzīvoklis",
+                    Name = "Dzīvoklis",
                     CreatedAt = CreatedAtDateTime,
                     CreatedBy = 1,
                     Deleted = false,

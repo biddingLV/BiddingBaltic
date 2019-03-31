@@ -13,35 +13,37 @@ namespace BiddingAPI.Models.DatabaseModels
         public int UserId { get; set; }
 
         [MaxLength(50)]
-        public string UserFirstName { get; set; }
+        public string FirstName { get; set; }
 
         [MaxLength(50)]
-        public string UserLastName { get; set; }
+        public string LastName { get; set; }
 
         [Required]
         [MaxLength(50)]
-        public string UserEmail { get; set; }
-
-        [Required]
-        public int UserRoleId { get; set; } // todo: kke: this needs to be fKey or constraint based on role table!
+        public string Email { get; set; }
 
         /// <summary>
         /// format: (identity provider)|(unique id in the provider)
         /// </summary>
         [Required]
         [MaxLength(100)]
-        public string UserUniqueIdentifier { get; set; }
+        public string UniqueIdentifier { get; set; }
 
         [Required]
         [DataType(DataType.Date)]
         public DateTime CreatedAt { get; set; }
 
         [Required]
-        public int CreatedBy { get; set; } // todo: kke: add foreign key to users table
+        public int CreatedBy { get; set; }
 
         [DataType(DataType.Date)]
         public DateTime? LastUpdatedAt { get; set; }
-        public int? LastUpdatedBy { get; set; } // todo: kke: add foreign key to users table
+        public int? LastUpdatedBy { get; set; }
         public bool Deleted { get; set; }
+
+        // Relationship definitions
+        public Auction Auction { get; set; }
+        public int RoleId { get; set; }
+        //public Role Role { get; set; }
     }
 }
