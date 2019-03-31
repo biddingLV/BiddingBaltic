@@ -26,8 +26,6 @@ namespace BiddingAPI.Models.DatabaseModels
         public bool Deleted { get; set; }
 
         // Relationship definitions
-        public int CategoryId { get; set; }
-        public Category Category { get; set; }
         public List<AuctionType> AuctionTypes { get; set; }
         public List<CategoryType> CategoryTypes { get; set; }
     }

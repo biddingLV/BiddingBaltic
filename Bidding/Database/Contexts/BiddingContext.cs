@@ -20,8 +20,7 @@ namespace BiddingAPI.Models.DatabaseModels
     {
         public BiddingContext(DbContextOptions<BiddingContext> options)
             : base(options)
-        {
-        }
+        { }
 
         public virtual DbSet<AuctionStatus> AuctionStatuses { get; set; }
         public virtual DbSet<AuctionDetails> AuctionDetails { get; set; }
@@ -56,21 +55,6 @@ namespace BiddingAPI.Models.DatabaseModels
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             modelBuilder.Seed();
-
-            // todo: kke: do I need this?
-            var cascadeFKs = modelBuilder.Model.GetEntityTypes()
-                .SelectMany(t => t.GetForeignKeys())
-                .Where(fk => !fk.IsOwnership && fk.DeleteBehavior == DeleteBehavior.Cascade);
-
-            foreach (var fk in cascadeFKs)
-                fk.DeleteBehavior = DeleteBehavior.Restrict;
-
-            modelBuilder.Entity<User>()
-                .HasOne(p => p.Auction)
-                .WithOne(i => i.User)
-                .HasForeignKey<Auction>(b => b.CreatedBy);
-
-            base.OnModelCreating(modelBuilder);
         }
     }
 }

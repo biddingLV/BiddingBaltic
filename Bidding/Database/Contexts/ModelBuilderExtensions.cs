@@ -12,7 +12,6 @@ namespace Bidding.Database.Contexts
 {
     public static class ModelBuilderExtensions
     {
-        // https://wildermuth.com/2018/08/12/Seeding-Related-Entities-in-EF-Core-2-1-s-HasData()
         private static DateTime CreatedAtDateTime = DateTime.Parse("01/01/2019");
 
         public static void Seed(this ModelBuilder modelBuilder)
@@ -23,8 +22,8 @@ namespace Bidding.Database.Contexts
             PopulateAuctions(modelBuilder);
             PopulateCategories(modelBuilder);
             PopulateTypes(modelBuilder);
-            PopulateAuctionCategories(modelBuilder);
-            PopulateCategoryTypes(modelBuilder);
+            //PopulateAuctionCategories(modelBuilder);
+            //PopulateCategoryTypes(modelBuilder);
         }
 
         private static void PopulateRoles(ModelBuilder modelBuilder)
@@ -40,25 +39,25 @@ namespace Bidding.Database.Contexts
             modelBuilder.Entity<User>().HasData(
                 new User
                 {
-                    UserId = 2,
+                    UserId = 1,
                     FirstName = "Dummy",
-                    LastName = "User",
-                    Email = "dummyuser@bidding.lv",
-                    // RoleId = 1,
+                    LastName = "Admin",
+                    Email = "dummyadmin@bidding.lv",
+                    RoleId = 2,
                     Deleted = false,
                     UniqueIdentifier = "",
                     CreatedAt = CreatedAtDateTime,
-                    CreatedBy = 1,
+                    CreatedBy = null,
                     LastUpdatedAt = null,
                     LastUpdatedBy = null
                 },
                 new User
                 {
-                    UserId = 1,
+                    UserId = 2,
                     FirstName = "Dummy",
-                    LastName = "Admin",
-                    Email = "dummyadmin@bidding.lv",
-                    // RoleId = 2,
+                    LastName = "User",
+                    Email = "dummyuser@bidding.lv",
+                    RoleId = 1,
                     Deleted = false,
                     UniqueIdentifier = "",
                     CreatedAt = CreatedAtDateTime,
@@ -88,13 +87,13 @@ namespace Bidding.Database.Contexts
                     StartingPrice = 15000,
                     StartDate = CreatedAtDateTime.AddMonths(1),
                     EndDate = CreatedAtDateTime.AddMonths(6),
-                    StatusId = 1,
                     ApplyDate = CreatedAtDateTime.AddMonths(5),
                     CreatedAt = CreatedAtDateTime,
                     CreatedBy = 1,
                     Deleted = false,
                     LastUpdatedAt = null,
-                    LastUpdatedBy = null
+                    LastUpdatedBy = null,
+                    AuctionStatusId = 1
                 },
                 new Auction
                 {
@@ -103,13 +102,13 @@ namespace Bidding.Database.Contexts
                     StartingPrice = 50000,
                     StartDate = CreatedAtDateTime.AddMonths(1),
                     EndDate = CreatedAtDateTime.AddMonths(6),
-                    StatusId = 1,
                     ApplyDate = CreatedAtDateTime.AddMonths(5),
                     CreatedAt = CreatedAtDateTime,
                     CreatedBy = 1,
                     Deleted = false,
                     LastUpdatedAt = null,
-                    LastUpdatedBy = null
+                    LastUpdatedBy = null,
+                    AuctionStatusId = 1,
                 },
                 new Auction
                 {
@@ -118,13 +117,13 @@ namespace Bidding.Database.Contexts
                     StartingPrice = 900,
                     StartDate = CreatedAtDateTime.AddMonths(1),
                     EndDate = CreatedAtDateTime.AddMonths(6),
-                    StatusId = 1,
                     ApplyDate = CreatedAtDateTime.AddMonths(5),
                     CreatedAt = CreatedAtDateTime,
                     CreatedBy = 1,
                     Deleted = false,
                     LastUpdatedAt = null,
-                    LastUpdatedBy = null
+                    LastUpdatedBy = null,
+                    AuctionStatusId = 1
                 }
             );
         }

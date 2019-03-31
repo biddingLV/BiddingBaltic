@@ -21,7 +21,6 @@ namespace BiddingAPI.Models.DatabaseModels
         public bool Deleted { get; set; }
 
         // Relationship definitions
-        //public int UserId { get; set; }
-        //public User User { get; set; }
+        public List<User> Users { get; set; }
     }
 }

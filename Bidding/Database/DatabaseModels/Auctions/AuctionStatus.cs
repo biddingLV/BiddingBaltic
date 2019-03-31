@@ -31,7 +31,6 @@ namespace Bidding.Database.DatabaseModels.Auctions
         public bool Deleted { get; set; }
 
         // Relationship definitions
-        public int AuctionId { get; set; }
-        public Auction Auction { get; set; }
+        public List<Auction> Auctions { get; set; }
     }
 }

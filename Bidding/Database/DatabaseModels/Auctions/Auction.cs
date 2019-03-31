@@ -34,10 +34,6 @@ namespace BiddingAPI.Models.DatabaseModels.Bidding
         public DateTime EndDate { get; set; }
 
         [Required]
-        [Range(1, 10000)]
-        public int StatusId { get; set; }
-
-        [Required]
         [DataType(DataType.Date)]
         public DateTime CreatedAt { get; set; }
 
@@ -49,8 +45,9 @@ namespace BiddingAPI.Models.DatabaseModels.Bidding
         // Relationship definitions
         [Required]
         public int CreatedBy { get; set; }
-        public User User { get; set; }
+        public User User { get; set; } // todo: kke: how to define here that the FKey is createdBy -> User.UserId?
         public AuctionDetails AuctionDetails { get; set; }
+        public int AuctionStatusId { get; set; }
         public AuctionStatus AuctionStatus { get; set; }
         public List<AuctionCategory> AuctionCategories { get; set; }
         public List<AuctionType> AuctionTypes { get; set; }

@@ -33,8 +33,7 @@ namespace BiddingAPI.Models.DatabaseModels
         [DataType(DataType.Date)]
         public DateTime CreatedAt { get; set; }
 
-        [Required]
-        public int CreatedBy { get; set; }
+        public int? CreatedBy { get; set; }
 
         [DataType(DataType.Date)]
         public DateTime? LastUpdatedAt { get; set; }
@@ -42,8 +41,8 @@ namespace BiddingAPI.Models.DatabaseModels
         public bool Deleted { get; set; }
 
         // Relationship definitions
-        public Auction Auction { get; set; }
+        public List<Auction> Auctions { get; set; }
         public int RoleId { get; set; }
-        //public Role Role { get; set; }
+        public Role Role { get; set; }
     }
 }

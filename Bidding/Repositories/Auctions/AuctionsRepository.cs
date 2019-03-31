@@ -178,8 +178,8 @@ namespace BiddingAPI.Repositories.Auctions
                 StartingPrice = request.AuctionStartingPrice,
                 StartDate = request.AuctionStartDate,
                 ApplyDate = request.AuctionApplyDate,
-                EndDate = request.AuctionEndDate,
-                StatusId = request.AuctionStatusId
+                EndDate = request.AuctionEndDate
+                // AuctionStatusId = request.AuctionStatusId
             };
 
             var strategy = m_context.Database.CreateExecutionStrategy();
