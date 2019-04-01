@@ -39,7 +39,7 @@
     <div class="form-group">
       <label class="required">Izsoles veids:</label>
       <ng-select [virtualScroll]="true" placeholder="Izvēlieties veidu">
-        <ng-option *ngFor="let typ of auctionType; let i = index" [value]="typ.Id" required>
+        <ng-option *ngFor="let typ of auctionFormat; let i = index" [value]="typ.Id" required>
           {{typ.type}}
         </ng-option>
       </ng-select>
@@ -64,7 +64,7 @@
       <label for="auctStart" class="required">Izsoles sākums:</label>
       <input type="text" class="form-control"  [value]="startDate"
         (click)="onToggleStartPicker()" id="auctStart" name="auctStart"/>
-      <datetime-popup (valueChange)="onValueChange($event)" [(showPopup)]="showStartPicker"
+      <datetime-popup [value]="startDate" (valueChange)="onValueChange('sakums',$event)" [(showPopup)]="showStartPicker"
         [showDate]="showDate" [showTime]="showTime" [closeButton]="closeButton">
       </datetime-popup>
       <!-- <div *ngIf="isValidStartDate()">{{ startDate }} 
@@ -75,7 +75,7 @@
       <label for="auctEnd" class="required">Izsoles noslēgums:</label>
       <input type="text" class="form-control" formControlName="auctionEndDate" [value]="endDate"
         (click)="onToggleEndPicker()" id="auctEnd" name="auctEnd" />
-      <datetime-popup [value]="endDate" (valueChange)="onValueChange($event)" [(showPopup)]="showEndPicker"
+      <datetime-popup [value]="endDate" (valueChange)="onValueChange('beigas',$event)" [(showPopup)]="showEndPicker"
         [showDate]="showDate" [showTime]="showTime" [closeButton]="closeButton">
       </datetime-popup>
       <!-- <div *ngIf="isValidEndDate()">{{ endDate }} 
@@ -96,7 +96,7 @@
       <label for="auctTill">Pieteikties var līdz:</label>
       <input type="text" class="form-control" formControlName="auctionTillDate" [value]="tillDate"
         (click)="onToggleTillPicker()" id="auctTill" name="auctTill" />
-      <datetime-popup [value]="tillDate" (valueChange)="onValueChange($event)" [(showPopup)]="showTillPicker"
+      <datetime-popup [value]="tillDate" (valueChange)="onValueChange('lidz',$event)" [(showPopup)]="showTillPicker"
         [showDate]="showDate" [showTime]="showTime" [closeButton]="closeButton">
       </datetime-popup>
       <!-- <div *ngIf="isValidTillDate()">{{ tillDate }} 

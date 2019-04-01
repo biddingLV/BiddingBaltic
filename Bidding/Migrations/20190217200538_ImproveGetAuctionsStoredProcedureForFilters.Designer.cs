@@ -127,8 +127,6 @@ namespace Bidding.Migrations
 
                     b.Property<int>("AuctionId");
 
-                    b.Property<int>("AuctionStatusId");
-
                     b.HasKey("AuctionDetailsId");
 
                     b.HasIndex("AuctionId")
@@ -285,7 +283,7 @@ namespace Bidding.Migrations
             modelBuilder.Entity("Bidding.Database.DatabaseModels.Auctions.AuctionStatus", b =>
                 {
                     b.HasOne("BiddingAPI.Models.DatabaseModels.Bidding.AuctionDetails", "AuctionDetails")
-                        .WithOne("AuctionStatus")
+                        .WithMany("Auctions")
                         .HasForeignKey("Bidding.Database.DatabaseModels.Auctions.AuctionStatus", "AuctionForeignKey")
                         .OnDelete(DeleteBehavior.Cascade);
                 });

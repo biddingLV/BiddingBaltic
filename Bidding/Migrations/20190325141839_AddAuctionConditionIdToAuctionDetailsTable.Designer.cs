@@ -153,8 +153,6 @@ namespace Bidding.Migrations
 
                     b.Property<int>("AuctionId");
 
-                    b.Property<int>("AuctionStatusId");
-
                     b.Property<int>("AuctionFormatId");
 
                     b.Property<int>("AuctionConditionId");
@@ -163,8 +161,6 @@ namespace Bidding.Migrations
 
                     b.HasIndex("AuctionId")
                         .IsUnique();
-
-                    b.HasIndex("AuctionStatusId");
 
                     b.HasIndex("AuctionFormatId");
 
@@ -339,7 +335,7 @@ namespace Bidding.Migrations
             modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.Bidding.Auction", b =>
                 {
                     b.HasOne("Bidding.Database.DatabaseModels.Auctions.AuctionStatus", "AuctionStatus")
-                        .WithOne("AuctionStatus")
+                        .WithMany("Auctions")
                         .HasForeignKey("BiddingAPI.Models.DatabaseModels.Bidding.Auction", "AuctionStatusId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
@@ -374,13 +370,7 @@ namespace Bidding.Migrations
                 {
                     b.HasOne("BiddingAPI.Models.DatabaseModels.Bidding.Auction", "Auction")
                         .WithOne("Details")
-
                         .HasForeignKey("BiddingAPI.Models.DatabaseModels.Bidding.AuctionDetails", "AuctionId")
-                        .OnDelete(DeleteBehavior.Cascade);
-
-                    b.HasOne("Bidding.Database.DatabaseModels.Auctions.AuctionStatus", "AuctionStatus")
-                        .WithOne("Details")
-                        .HasForeignKey("BiddingAPI.Models.DatabaseModels.Bidding.AuctionDetails" ,"AuctionStatusId")
                         .OnDelete(DeleteBehavior.Cascade);
 
                     b.HasOne("Bidding.Database.DatabaseModels.Auctions.AuctionFormat", "AuctionFormat")
