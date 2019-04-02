@@ -4,21 +4,21 @@ import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
-// third-libraries
+// 3rd lib
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { DatetimePopupModule } from 'ngx-bootstrap-datetime-popup';
-// components
-import { AuctionsTableComponent } from './components/table/auctions/auctions.component';
-import { DatepickerComponent } from './components/datepicker/datepicker.component';
 // import { DatetimePopupComponent } from './components/datetimepopup/datetimepopup.component';
 // filter components
-import { SearchComponent } from './components/search/search.component';
+import { GalleryModule } from '@ngx-gallery/core';
 
-// Modules
+// internal
+import { AuctionsTableComponent } from './components/table/auctions/auctions.component';
+import { SearchComponent } from './components/search/search.component';
 import { MinSharedModule } from './shared-min.module';
 import { FileUploaderComponent } from './components/file-uploader/file-uploader.component';
+import { ImageGalleryComponent } from './components/image-gallery/image-gallery.component';
 
 @NgModule({
   imports: [
@@ -26,27 +26,25 @@ import { FileUploaderComponent } from './components/file-uploader/file-uploader.
     RouterModule,
     NgSelectModule,
     NgxDatatableModule,
-    BsDatepickerModule.forRoot(),
-    // DatetimePopupModule,
     MinSharedModule,
-    FormsModule, // todo: kke: get rid of this module!
-    ReactiveFormsModule
+    FormsModule,
+    ReactiveFormsModule,
+    GalleryModule
   ],
   exports: [
     AuctionsTableComponent,
     SearchComponent,
     NgSelectModule,
-    DatepickerComponent,
-    FormsModule, // todo: kke: get rid of this module!
+    FormsModule,
     ReactiveFormsModule,
-    FileUploaderComponent
+    FileUploaderComponent,
+    ImageGalleryComponent
   ],
   declarations: [
     AuctionsTableComponent,
     SearchComponent,
-    DatepickerComponent,
-    // DatetimePopupComponent,
-    FileUploaderComponent
+    FileUploaderComponent,
+    ImageGalleryComponent
   ]
 })
 export class SharedModule { }

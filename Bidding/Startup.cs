@@ -254,8 +254,8 @@ namespace Bidding
             services.AddScoped<ISubscribeRepository, SubscribeRepository>();
             services.AddScoped<AuctionsService>();
             services.AddScoped<AuctionsRepository>();
-            services.AddScoped<IUsersService, UsersService>();
-            services.AddScoped<IUsersRepository, UsersRepository>();
+            services.AddScoped<UsersService>();
+            services.AddScoped<UsersRepository>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }
 
@@ -370,21 +370,21 @@ namespace Bidding
                            // todo: kke: can we use auth0 for that?
                            // 2. if user doesnt exist fetch and save all the information!
 
-                           IUsersService usersServiceProvider = services.BuildServiceProvider().GetService<IUsersService>();
+                           UsersService usersServiceProvider = services.BuildServiceProvider().GetService<UsersService>();
                            UserProfileModel userDetails = new UserProfileModel();
 
                            if (usersServiceProvider.UserExists(usersEmail))
                            {
                                // load user details for the profile cookie
-                               userDetails = services.BuildServiceProvider().GetService<IUsersService>().UserDetails(usersEmail);
+                               userDetails = services.BuildServiceProvider().GetService<UsersService>().UserDetails(usersEmail);
                            }
                            else
                            {
                                UserAddRequestModel newUser = new UserAddRequestModel()
                                {
                                    // todo: kke: what about social logins here? can we get full name?
-                                   UserEmail = payload["email"].ToString(),
-                                   UserUniqueIdentifier = payload["sub"].ToString()
+                                   Email = payload["email"].ToString(),
+                                   UniqueIdentifier = payload["sub"].ToString()
                                };
 
                                usersServiceProvider.Create(newUser);

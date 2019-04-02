@@ -87,20 +87,6 @@ export class ComingSoonSurveyComponent {
   }
 
   private submitRequest() {
-    let surveySuccess: boolean;
 
-    // this.homeApi.submitSurvey(this.surveyRequest)
-    //   .subscribe(
-    //     (data: boolean) => {
-    //       surveySuccess = data;
-
-    //       if (surveySuccess) {
-    //         this.notification.success('Succesfully subscribed!');
-    //       } else {
-    //         this.notification.error('N-Succesfully subscribed!');
-    //       }
-    //     },
-    //     (error: string) => this.notification.error(error)
-    //   );
   }
 }

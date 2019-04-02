@@ -1,5 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Linq;
+using Bidding.Database.Contexts;
 using Bidding.Database.DatabaseModels.Auctions;
 using Bidding.Database.DatabaseModels.Users;
 using Bidding.Models.DatabaseModels.Bidding;
@@ -17,8 +20,7 @@ namespace BiddingAPI.Models.DatabaseModels
     {
         public BiddingContext(DbContextOptions<BiddingContext> options)
             : base(options)
-        {
-        }
+        { }
 
         public virtual DbSet<AuctionStatus> AuctionStatuses { get; set; }
         public virtual DbSet<AuctionDetails> AuctionDetails { get; set; }
@@ -28,13 +30,13 @@ namespace BiddingAPI.Models.DatabaseModels
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<CategoryType> CategoryTypes { get; set; } // intermediary table
         public virtual DbSet<Type> Types { get; set; }
-        public virtual DbSet<TypeProduct> TypeProducts { get; set; } // intermediary table
-        public virtual DbSet<Product> Products { get; set; }
+        //public virtual DbSet<TypeProduct> TypeProducts { get; set; } // intermediary table
+        //public virtual DbSet<Product> Products { get; set; }
 
         // Users
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
-        public virtual DbSet<Permission> Permissions { get; set; }
+        // public virtual DbSet<Permission> Permissions { get; set; }
         //public virtual DbSet<Feature> Features { get; set; }
         //public virtual DbSet<Images> Images { get; set; }
         //public virtual DbSet<Organization> Organizations { get; set; }
@@ -50,14 +52,54 @@ namespace BiddingAPI.Models.DatabaseModels
         public virtual DbQuery<SubCategoryFilterModel> SubCategoryFilter { get; set; }
         public virtual DbQuery<AuctionListModel> AuctionList { get; set; }
 
-
-        // todo: kke: do we need this here?
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
-            //modelBuilder.Entity<AuctionDetails>()
-            //    .HasOne(p => p.AuctionStatus)
-            //    .WithOne(i => i.AuctionDetails)
-            //    .HasForeignKey<AuctionStatus>(b => b.AuctionForeignKey);
+            foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
+            {
+                relationship.DeleteBehavior = DeleteBehavior.Restrict;
+            }
+
+            modelBuilder.Entity<Auction>()
+                .HasOne(p => p.User)
+                .WithMany(b => b.Auctions)
+                .HasForeignKey(p => p.CreatedBy);
+
+            modelBuilder.Entity<AuctionDetails>()
+                .HasOne(p => p.Auction)
+                .WithOne(b => b.AuctionDetails)
+                .HasForeignKey(p => p.CreatedBy);
+
+            modelBuilder.Entity<AuctionStatus>()
+                .HasOne(p => p.User)
+                .WithMany(b => b.AuctionStatuses)
+                .HasForeignKey(p => p.CreatedBy);
+
+            modelBuilder.Entity<Auction>()
+                .HasOne(p => p.AuctionStatus)
+                .WithMany(b => b.Auctions)
+                .HasForeignKey(p => p.AuctionStatusId);
+
+            modelBuilder.Entity<Auction>()
+                .HasOne(p => p.AuctionFormat)
+                .WithMany(b => b.Auctions)
+                .HasForeignKey(p => p.AuctionFormatId);
+
+            modelBuilder.Entity<Auction>()
+                .HasOne(p => p.AuctionCondition)
+                .WithMany(b => b.Auctions)
+                .HasForeignKey(p => p.AuctionConditionId);
+
+            modelBuilder.Entity<Category>()
+                .HasOne(p => p.User)
+                .WithMany(b => b.Categories)
+                .HasForeignKey(p => p.CreatedBy);
+
+            modelBuilder.Entity<Type>()
+                .HasOne(p => p.User)
+                .WithMany(b => b.Types)
+                .HasForeignKey(p => p.CreatedBy);
+
+            modelBuilder.Seed();
         }
     }
 }

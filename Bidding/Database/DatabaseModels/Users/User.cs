@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Bidding.Database.DatabaseModels.Auctions;
+using BiddingAPI.Models.DatabaseModels.Bidding;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -7,40 +9,45 @@ namespace BiddingAPI.Models.DatabaseModels
 {
     public partial class User
     {
-        public User()
-        {
-            //UserDetails = new HashSet<UserDetails>();
-            //UserOrganizations = new HashSet<UserOrganization>();
-        }
-
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int UserId { get; set; }
 
         [MaxLength(50)]
-        public string UserFirstName { get; set; }
+        public string FirstName { get; set; }
 
         [MaxLength(50)]
-        public string UserLastName { get; set; }
+        public string LastName { get; set; }
 
         [Required]
         [MaxLength(50)]
-        public string UserEmail { get; set; }
-
-        [Required]
-        public bool UserStatus { get; set; }
-
-        [Required]
-        public int UserRoleId { get; set; } // todo: kke: this needs to be fKey or constraint based on role table!
+        public string Email { get; set; }
 
         /// <summary>
         /// format: (identity provider)|(unique id in the provider)
         /// </summary>
         [Required]
         [MaxLength(100)]
-        public string UserUniqueIdentifier { get; set; }
+        public string UniqueIdentifier { get; set; }
 
-        //public ICollection<UserDetails> UserDetails { get; set; }
-        //public ICollection<UserOrganization> UserOrganizations { get; set; }
+        [Required]
+        [DataType(DataType.Date)]
+        public DateTime CreatedAt { get; set; }
+
+        public int? CreatedBy { get; set; }
+
+        [DataType(DataType.Date)]
+        public DateTime? LastUpdatedAt { get; set; }
+        public int? LastUpdatedBy { get; set; }
+        public bool Deleted { get; set; }
+
+        // Relationship definitions
+        public List<Auction> Auctions { get; set; }
+        public List<AuctionStatus> AuctionStatuses { get; set; }
+        public List<Category> Categories { get; set; }
+        public List<Type> Types { get; set; }
+
+        public int RoleId { get; set; }
+        public Role Role { get; set; }
     }
 }

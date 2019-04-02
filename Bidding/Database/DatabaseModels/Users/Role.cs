@@ -13,10 +13,14 @@ namespace BiddingAPI.Models.DatabaseModels
 
         [Required]
         [MaxLength(50)]
-        public string RoleName { get; set; }
+        public string Name { get; set; }
+        public DateTime CreatedAt { get; set; }
+        public int CreatedBy { get; set; }
+        public DateTime? LastUpdatedAt { get; set; }
+        public int? LastUpdatedBy { get; set; }
+        public bool Deleted { get; set; }
 
-        [Required]
-        public bool RoleStatus { get; set; }
-        // todo: kke: add foreign key!
+        // Relationship definitions
+        public List<User> Users { get; set; }
     }
 }

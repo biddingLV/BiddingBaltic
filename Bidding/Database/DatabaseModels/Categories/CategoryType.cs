@@ -13,11 +13,10 @@ namespace BiddingAPI.Models.DatabaseModels
 
         [Required]
         public int CategoryId { get; set; }
+        public Category Category { get; set; }
 
         [Required]
         public int TypeId { get; set; }
-
-        public Category Category { get; set; }
         public Type Type { get; set; }
     }
 }

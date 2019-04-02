@@ -43,10 +43,10 @@ export class AuctionDetailsComponent implements OnInit, OnDestroy {
     this.getAuctionDetails();
 
     this.timer = setInterval(() => {
-      https://github.com/markpenaranda/ngx-countdown-timer/blob/master/src/countdown-timer.component.ts
+      // github.com/markpenaranda/ngx-countdown-timer/blob/master/src/countdown-timer.component.ts
       // if (this.start) {
       this.displayTime = this.getTimeDifference('3/4/2019 11:15');
-      // } else { 
+      // } else {
       //   this.displayTime = this.getTimeDifference(this.end);
       // }
     }, 1000);
@@ -60,22 +60,22 @@ export class AuctionDetailsComponent implements OnInit, OnDestroy {
 
   getTimeDifference(datetime) {
     datetime = new Date(datetime).getTime();
-    var now = new Date().getTime();
+    const now = new Date().getTime();
 
     if (isNaN(datetime)) {
-      return "";
+      return '';
     }
 
-    var milisec_diff = datetime - now;
+    const milisec_diff = datetime - now;
 
-    var days = Math.floor(milisec_diff / 1000 / 60 / (60 * 24));
-    var date_diff = new Date(milisec_diff);
-    var day_string = (days) ? this.twoDigit(days) + ":" : "";
-    var day_hours = days * 24;
+    const days = Math.floor(milisec_diff / 1000 / 60 / (60 * 24));
+    const date_diff = new Date(milisec_diff);
+    const day_string = (days) ? this.twoDigit(days) + ':' : '';
+    const day_hours = days * 24;
 
 
     return day_string + this.twoDigit(date_diff.getUTCHours()) +
-      ":" + this.twoDigit(date_diff.getMinutes()) + ":"
+      ':' + this.twoDigit(date_diff.getMinutes()) + ':'
       + this.twoDigit(date_diff.getSeconds());
 
   }
@@ -90,6 +90,6 @@ export class AuctionDetailsComponent implements OnInit, OnDestroy {
   }
 
   private twoDigit(number: number) {
-    return number > 9 ? "" + number : "0" + number;
+    return number > 9 ? '' + number : '0' + number;
   }
 }

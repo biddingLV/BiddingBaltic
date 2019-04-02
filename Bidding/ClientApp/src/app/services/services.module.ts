@@ -1,5 +1,8 @@
+// angular
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+
+// internal
 import { SharedModule } from '../shared/shared.module';
 import { ServicesListComponent } from './components/list/list.component';
 import { ServicesRoutingModule } from './services-routing.module';

@@ -1,5 +1,5 @@
 // angular
-import { Component, OnInit, OnDestroy, AfterViewInit, Output, EventEmitter, Input, SimpleChanges } from '@angular/core';
+import { Component, OnInit, OnDestroy, AfterViewInit, Output, EventEmitter, Input, SimpleChanges, OnChanges } from '@angular/core';
 
 // 3rd lib
 import { Subscription } from 'rxjs';
@@ -17,7 +17,7 @@ import { NotificationsService } from 'ClientApp/src/app/core/services/notificati
   templateUrl: './list.component.html',
   styleUrls: []
 })
-export class AuctionListComponent implements OnInit, OnDestroy {
+export class AuctionListComponent implements OnInit, OnDestroy, OnChanges {
   // pass to child component and
   // pass back to parent component selected array for table
   @Input() selected?: any[] = []; // todo: kke: specify correct type! // note: kke: is this even needed here?
@@ -32,9 +32,9 @@ export class AuctionListComponent implements OnInit, OnDestroy {
   auctionTable: AuctionModel;
 
   // pagination || form
-  numberRows: number = 15;
-  searchValue: string = '';
-  currentPage: number = 1;
+  numberRows = 15;
+  searchValue = '';
+  currentPage = 1;
 
   // API
   request: AuctionListRequest;
@@ -78,7 +78,7 @@ export class AuctionListComponent implements OnInit, OnDestroy {
   }
 
   onDetailsClick(): void {
-    console.log('yay, someone just clicked on the details page!')
+    console.log('yay, someone just clicked on the details page!');
   }
 
   // handle filter changes

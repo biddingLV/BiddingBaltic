@@ -25,6 +25,7 @@ import { AuthModule } from './auth/auth.module';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { DatetimePopupModule } from 'ngx-bootstrap-datetime-popup';
+
 // Services
 import { PreviousRouteService } from './shared/services/previous-route.service.ts/previous-route.service';
 

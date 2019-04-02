@@ -59,9 +59,9 @@ export class NavbarComponent implements OnInit {
   private setNavBarUserInformation(): void {
     if (this.userDetails) {
       if (this.userDetails.FirstName && this.userDetails.LastName) {
-        this.fullName = this.userDetails.FirstName + ' ' + this.userDetails.LastName
+        this.fullName = this.userDetails.FirstName + ' ' + this.userDetails.LastName;
       } else {
-        this.fullName = this.userDetails.Email
+        this.fullName = this.userDetails.Email;
       }
     }
   }

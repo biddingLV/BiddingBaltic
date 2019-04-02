@@ -26,7 +26,7 @@ export class AuctionsService {
   ) { }
 
   getAuctions$(request: AuctionListRequest): Observable<AuctionModel> {
-    const url = '/api/auctions/search'
+    const url = '/api/auctions/search';
 
     const params = new HttpParams({
       fromObject: {
@@ -48,7 +48,7 @@ export class AuctionsService {
   }
 
   getFilters$(): Observable<AuctionFilterModel> {
-    const url = '/api/auctions/filters'
+    const url = '/api/auctions/filters';
 
     return this.http.get<AuctionFilterModel>(url)
       .pipe(catchError(this.exception.errorHandler));

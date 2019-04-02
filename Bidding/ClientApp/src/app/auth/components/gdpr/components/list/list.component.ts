@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'gdpr-list',
+  selector: 'app-gdpr-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss']
 })

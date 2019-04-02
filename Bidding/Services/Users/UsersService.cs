@@ -13,11 +13,11 @@ using System.Threading.Tasks;
 
 namespace Bidding.Services.Users
 {
-    public class UsersService : IUsersService
+    public class UsersService
     {
-        private readonly IUsersRepository m_userRepository;
+        private readonly UsersRepository m_userRepository;
 
-        public UsersService(IUsersRepository userRepository)
+        public UsersService(UsersRepository userRepository)
         {
             m_userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
         }
@@ -29,6 +29,11 @@ namespace Bidding.Services.Users
             return m_userRepository.UserExists(email);
         }
 
+        /// <summary>
+        /// Used in startup.cs file to add a new user to our internal DB, called on the first time sign-in!
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         public bool Create(UserAddRequestModel request)
         {
             //if (email.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, UserErrorMessages.IncorrectSignInEmail); }

@@ -9,15 +9,12 @@ import { UsersService } from './services/users.service';
 import { UsersMainComponent } from './containers/main/main.component';
 import { UserEditComponent } from './components/edit/edit.component';
 import { SharedModule } from '../shared/shared.module';
-import { MinSharedModule } from '../shared/shared-min.module';
-
 
 @NgModule({
   imports: [
     CommonModule,
     UsersRoutingModule,
-    SharedModule,
-    MinSharedModule
+    SharedModule
   ],
   exports: [
     UserDetailsComponent,

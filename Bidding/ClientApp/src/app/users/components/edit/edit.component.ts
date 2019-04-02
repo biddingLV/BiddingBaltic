@@ -1,5 +1,5 @@
 // angular
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 // 3rd lib
@@ -16,7 +16,7 @@ import { NotificationsService, FormService } from '../../../core';
   templateUrl: './edit.component.html',
   styles: []
 })
-export class UserEditComponent implements OnInit {
+export class UserEditComponent implements OnInit, OnDestroy {
   // info from parent component
   userId: number;
   userFirstName: string;
@@ -35,7 +35,7 @@ export class UserEditComponent implements OnInit {
     usersLastName: ''
   };
 
-  disableButton: boolean = true;
+  disableButton = true;
 
   // convenience getter for easy access to form fields
   get f() { return this.userEditForm.controls; }
@@ -54,7 +54,6 @@ export class UserEditComponent implements OnInit {
 
   onSubmit(): void {
     this.submitted = true;
-    let deleteSuccess: boolean;
 
     // mark all fields as touched
     this.formService.markFormGroupTouched(this.userEditForm);

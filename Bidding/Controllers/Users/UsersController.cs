@@ -8,9 +8,9 @@ namespace BiddingAPI.Controllers.Users
     [Route("api/[Controller]/[action]")]
     public class UsersController : ControllerBase
     {
-        private readonly IUsersService m_userService;
+        private readonly UsersService m_userService;
 
-        public UsersController(IUsersService userService)
+        public UsersController(UsersService userService)
         {
             m_userService = userService ?? throw new ArgumentNullException(nameof(userService));
         }
