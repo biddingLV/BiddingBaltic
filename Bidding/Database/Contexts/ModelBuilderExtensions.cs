@@ -22,9 +22,8 @@ namespace Bidding.Database.Contexts
             PopulateAuctions(modelBuilder);
             PopulateCategories(modelBuilder);
             PopulateTypes(modelBuilder);
-            PopulateAuctionFormats(modelbuilder);
-            PopulateAuctionConditions(modelbuilder);
-            PopulateAuctionDetails(modelbuilder);
+            PopulateAuctionFormats(modelBuilder);
+            PopulateAuctionConditions(modelBuilder);
             //PopulateAuctionCategories(modelBuilder);
             //PopulateCategoryTypes(modelBuilder);
         }

@@ -1,4 +1,6 @@
 ﻿using Bidding.Database.DatabaseModels.Auctions;
+using BiddingAPI.Models.DatabaseModels;
+using BiddingAPI.Models.DatabaseModels.Bidding;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -48,10 +50,10 @@ namespace BiddingAPI.Models.DatabaseModels.Bidding
         public User User { get; set; }
 
         public int AuctionStatusId { get; set; }
-        public AuctionDetails AuctionDetails { get; set; }
-
         public AuctionStatus AuctionStatus { get; set; }
+
         public List<AuctionCategory> AuctionCategories { get; set; }
         public List<AuctionType> AuctionTypes { get; set; }
+        public AuctionDetails AuctionDetails { get; set; }
     }
 }

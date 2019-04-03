@@ -1,4 +1,6 @@
 ﻿using Bidding.Database.DatabaseModels.Auctions;
+using BiddingAPI.Models.DatabaseModels;
+using BiddingAPI.Models.DatabaseModels.Bidding;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -16,9 +18,11 @@ namespace BiddingAPI.Models.DatabaseModels.Bidding
         public string AuctionDescription { get; set;}
 
         // Relationship definitions
-        [Required]
-        public int AuctionId { get; set; }
+
+        // [ForeignKey("Auction")]
+        public int AuctionId {get;set;}
         public Auction Auction { get; set; }
+ 
 
         [Required]
         public int AuctionFormatId { get; set; }
@@ -26,6 +30,8 @@ namespace BiddingAPI.Models.DatabaseModels.Bidding
 
         public int AuctionConditionId { get; set; }
         public AuctionCondition AuctionCondition { get; set; }
+
+
 
     }
 }

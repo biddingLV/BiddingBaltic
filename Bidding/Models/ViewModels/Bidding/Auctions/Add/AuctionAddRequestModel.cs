@@ -17,7 +17,7 @@ namespace BiddingAPI.Models.ViewModels.Bidding.Auctions
         /// <summary>
         /// Need to apply date/until
         /// </summary>
-        public DateTime AuctionTillDate { get; set; }
+        public DateTime AuctionApplyDate { get; set; }
         public DateTime AuctionEndDate { get; set; }
         public int AuctionCreatorId { get; set; }
         /// <summary>

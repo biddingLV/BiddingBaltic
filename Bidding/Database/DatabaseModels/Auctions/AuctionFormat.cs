@@ -1,3 +1,6 @@
+using Bidding.Database.DatabaseModels.Auctions;
+using BiddingAPI.Models.DatabaseModels;
+using BiddingAPI.Models.DatabaseModels.Bidding;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -16,6 +19,7 @@ namespace BiddingAPI.Models.DatabaseModels.Bidding
         [Required]
         public string AuctionFormatName { get; set; }
 
-        public AuctionDetails AuctionDetails { get; set; }
+        public List<AuctionDetails> AuctionDetails { get; set; }
+
     }
 }
