@@ -18,20 +18,14 @@ namespace BiddingAPI.Models.DatabaseModels.Bidding
         public string AuctionDescription { get; set;}
 
         // Relationship definitions
-
-        // [ForeignKey("Auction")]
         public int AuctionId {get;set;}
         public Auction Auction { get; set; }
- 
-
+        
         [Required]
         public int AuctionFormatId { get; set; }
         public AuctionFormat AuctionFormat { get; set; }
 
         public int AuctionConditionId { get; set; }
         public AuctionCondition AuctionCondition { get; set; }
-
-
-
     }
 }

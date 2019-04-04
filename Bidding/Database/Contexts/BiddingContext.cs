@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
 using Bidding.Database.Contexts;
-using BiddingAPI.Models.DatabaseModels;
 using Bidding.Database.DatabaseModels.Auctions;
 using Bidding.Database.DatabaseModels.Users;
 using Bidding.Models.DatabaseModels.Bidding;
