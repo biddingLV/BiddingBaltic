@@ -22,8 +22,9 @@ namespace Bidding.Database.Contexts
             PopulateAuctions(modelBuilder);
             PopulateCategories(modelBuilder);
             PopulateTypes(modelBuilder);
-            //PopulateAuctionCategories(modelBuilder);
-            //PopulateCategoryTypes(modelBuilder);
+            PopulateAuctionCategories(modelBuilder);
+            PopulateCategoryTypes(modelBuilder);
+            PopulateAuctionTypes(modelBuilder);
         }
 
         private static void PopulateRoles(ModelBuilder modelBuilder)
@@ -216,6 +217,15 @@ namespace Bidding.Database.Contexts
                 new CategoryType { CategoryTypeId = 1, CategoryId = 1, TypeId = 1 },
                 new CategoryType { CategoryTypeId = 2, CategoryId = 2, TypeId = 2 },
                 new CategoryType { CategoryTypeId = 3, CategoryId = 3, TypeId = 3 }
+            );
+        }
+
+        private static void PopulateAuctionTypes(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<AuctionType>().HasData(
+                new AuctionType { AuctionTypeId = 1, TypeId = 1, AuctionId = 1 },
+                new AuctionType { AuctionTypeId = 2, TypeId = 3, AuctionId = 2 },
+                new AuctionType { AuctionTypeId = 3, TypeId = 2, AuctionId = 3 }
             );
         }
     }

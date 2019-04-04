@@ -11,6 +11,9 @@ namespace Bidding.Shared.ErrorHandling.Errors
         [Description("Auctions information missing.")]
         MissingAuctionsInformation,
 
+        [Description("Could not fetch auction list")]
+        CouldNotFetchAuctionList,
+
         [Description("Could not create auction.")]
         CouldNotCreateAuction,
 

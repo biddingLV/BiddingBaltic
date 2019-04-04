@@ -12,7 +12,7 @@ namespace Bidding.Migrations
                 BEGIN
 	                SELECT
 		                cat.CategoryId,
-		                cat.Name,
+		                cat.Name as CategoryName,
 		                SUM(CASE
 			                WHEN acat.CategoryId = cat.CategoryId THEN 1
 			                ELSE 0
