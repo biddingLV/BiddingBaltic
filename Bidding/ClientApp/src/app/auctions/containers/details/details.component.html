@@ -1,10 +1,33 @@
 <div class="container">
   <div class="row">
-    <div class="col-12">
-      <h1>Auction Details</h1>
+    <div class="col-lg-12">
+      <div class="text-uppercase">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Sākumlapa</a></li>
+            <li class="breadcrumb-item"><a href="#">Izsoles</a></li>
+            <li class="breadcrumb-item active">{{auctionDetails.auctionName}}</li>
+          </ol>
+      </nav>
+      </div>
     </div>
   </div>
-
+  <div class="row">
+    <div class="auction-header col-lg-12 text-uppercase text-center">
+        <h1 class="auction-title"><strong>{{auctionDetails.auctionName}}</strong></h1>
+        <h4 class="auction-startingprice"><strong>Sākumcena {{auctionDetails.auctionStartingPrice}}</strong></h4>
+    </div>
+  </div>
+  <div class="row">
+    <div class="image-gallery col-lg-6">
+      <app-image-gallery></app-image-gallery>
+    </div>
+  </div>
+  <div class="row">
+    <button type="button" class="apply-button"><strong>Pieteikties izsolei</strong></button>
+  </div>
+</div>
+<div class="container">
   <div class="row">
     <ng-container *ngIf="auctionDetails">
       <div class="col-4">
@@ -41,10 +64,6 @@
 
   <div class="row">
     <p>Countdown example: {{ displayTime }}</p>
-  </div>
-
-  <div class="row">
-    <app-image-gallery></app-image-gallery>
   </div>
 
   <div class="row">
