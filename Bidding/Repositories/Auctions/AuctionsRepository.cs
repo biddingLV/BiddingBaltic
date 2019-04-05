@@ -40,7 +40,6 @@ namespace BiddingAPI.Repositories.Auctions
         /// <returns></returns>
         public IEnumerable<AuctionListModel> ListWithSearch(AuctionListRequestModel request, int startFrom, int endAt, List<int> selectedCategoryIds, List<int> selectedTypeIds)
         {
-            // todo: kke: add OrganizationIdArray as a migration!
             try
             {
                 // todo: kke: move this to the stored procedure as a case / if
@@ -59,8 +58,8 @@ namespace BiddingAPI.Repositories.Auctions
                 {
                     ParameterName = "selectedCategories",
                     Direction = ParameterDirection.Input,
-                    Value = CreateIdTable(selectedCategoryIds, "OrganizationId"),
-                    TypeName = "[dbo].OrganizationIdArray",
+                    Value = CreateIdTable(selectedCategoryIds, "CategoryId"),
+                    TypeName = "CategoryIdArray",
                     SqlDbType = SqlDbType.Structured
                 };
 
@@ -68,23 +67,17 @@ namespace BiddingAPI.Repositories.Auctions
                 {
                     ParameterName = "selectedTypes",
                     Direction = ParameterDirection.Input,
-                    Value = CreateIdTable(selectedTypeIds, "OrganizationId"),
-                    TypeName = "[dbo].OrganizationIdArray",
+                    Value = CreateIdTable(selectedTypeIds, "TypeId"),
+                    TypeName = "TypeIdArray",
                     SqlDbType = SqlDbType.Structured
                 };
 
-                // todo: kke: remove after pagination fixed!
-                //return m_context.Query<AuctionListModel>()
-                //    .FromSql($"GetAuctions @startDate = {request.AuctionStartDate}, @endDate = {request.AuctionEndDate}, @start = {startFrom}, @end = {endAt}, @sortByColumn = {request.SortByColumn}, @sortingDirection = {request.SortingDirection}, @categories = {categoryIds}")
-                //    .ToList();
-
                 return m_context.Query<AuctionListModel>()
-                    .FromSql($"GetAuctions @selectedCategories, @selectedTypes", categories, types);
+                    .FromSql("GetAuctions @selectedCategories, @selectedTypes", categories, types);
             }
             catch (Exception ex)
             {
-                // todo: kke: improve error message!
-                throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.CouldNotCreateAuction, ex);
+                throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.CouldNotFetchAuctionList, ex);
             }
         }
 

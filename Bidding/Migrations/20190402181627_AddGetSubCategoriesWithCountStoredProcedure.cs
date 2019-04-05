@@ -13,7 +13,7 @@ namespace Bidding.Migrations
 	                SELECT
 		                ctyp.CategoryId,
 		                typ.TypeId,
-		                typ.Name,
+		                typ.Name as TypeName,
 		                SUM(CASE
 			                WHEN ctyp.TypeId = typ.TypeId THEN 1
 			                ELSE 0

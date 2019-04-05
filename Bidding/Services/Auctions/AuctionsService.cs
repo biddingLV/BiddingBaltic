@@ -55,9 +55,10 @@ namespace BiddingAPI.Services.Auctions
             int endAt = startFrom + takeUntilThisItem;
 
             // todo: kke: remove after testing done!
-            string dateInString = "01/12/2018";
+            string dateInString = "2018-01-01";
             DateTime startDate = DateTime.Parse(dateInString);
-            DateTime expiryDate = startDate.AddDays(365);
+            DateTime expiryDate = startDate.AddYears(5);
+            // todo: kke: remove after testing done!
 
             AuctionListResponseModel auctionsResponse = new AuctionListResponseModel()
             {
