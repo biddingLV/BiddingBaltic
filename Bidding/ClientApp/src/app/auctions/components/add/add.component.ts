@@ -118,14 +118,6 @@ export class AuctionAddComponent implements OnInit {
     }
   }
 
-  // onStartValueChange(startDate: Date) : void  {
-  //   this.startDate = startDate;
-  //   // this.endDate = endDate;
-  //   // this.tillDate = tillDate;
-  //   // this.endDate = val;
-  //   // this.tillDate = val;
-  // }
-
   onValueChange(changedValue: Date): void {
 
     if ('sakums') {
@@ -229,9 +221,6 @@ export class AuctionAddComponent implements OnInit {
       ]]
     });
 
-    // on each value change we call the validateForm function
-    // We only validate form controls that are dirty, meaning they are touched
-    // the result is passed to the formErrors object
     this.auctionAddForm.valueChanges.subscribe((data) => {
       this.formErrors = this.formService.validateForm(this.auctionAddForm, this.formErrors, true);
     });
@@ -264,63 +253,3 @@ export class AuctionAddComponent implements OnInit {
     };
   }
 }
-
-  // public inputValidator(event: any) {
-  //   //console.log(event.target.value);
-  //   const pattern = /^[a-zA-Z0-9]*/;
-  //   //let inputChar = String.fromCharCode(event.charCode)
-  //   if (!pattern.test(event.target.value)) {
-  //     event.target.value = event.target.value.replace(/[^a-zA-Z0-9]/g, "");
-  //     // invalid character, prevent input
-
-  //   }
-  // }
-  // item = { startingPrice: 1 };
-  // onStartingPriceChange(n: string) {
-  //   var num = n.replace(/[€,]/g, "");
-  //   this.item.startingPrice = Number(num);
-  // }
-  // currencyInputChanged(value) {
-  //   var num = value.replace(/[€,]/g, "");
-  //   return Number(num);
-  // }
-
-  // isValidStartDate(): boolean {
-  //   // this function is only here to stop the datepipe from erroring if someone types in value
-  //   return this.startDate && (typeof this.startDate !== 'string') && !isNaN(this.startDate.getTime());
-  // }
-
-  // isValidEndDate(): boolean {
-  //   // this function is only here to stop the datepipe from erroring if someone types in value
-  //   return this.endDate && (typeof this.endDate !== 'string') && !isNaN(this.endDate.getTime());
-  // }
-
-  // isValidTillDate(): boolean {
-  //   // this function is only here to stop the datepipe from erroring if someone types in value
-  //   return this.tillDate && (typeof this.tillDate !== 'string') && !isNaN(this.tillDate.getTime());
-  // }
-    // onTogglePicker() : void {
-  //   if (!this.showStartPicker && (this.showEndPicker || this.showTillPicker )) {
-  //     this.showStartPicker = true;
-  //     this.showEndPicker = false;
-  //     this.showTillPicker = false;
-  //   }
-  //   if (!this.showEndPicker && (this.showStartPicker || this.showTillPicker)) {
-  //     this.showEndPicker = true;
-  //     this.showStartPicker = false;
-  //     this.showTillPicker = false;
-  //   }
-  //   if (!this.showTillPicker && (this.showEndPicker || this.showStartPicker)) {
-  //     this.showTillPicker = true;
-  //     this.showStartPicker = false;
-  //     this.showEndPicker = false;
-  //   }
-  //   if(!this.showStartPicker && !this.showEndPicker && !this.showTillPicker ) {
-  //     this.showStartPicker = true;
-  //     this.showEndPicker = true;
-  //     this.showTillPicker = true;
-  //   }
-  // }
-  // onTillValueChange(val: Date) : void {
-  //   this.tillDate = val;
-  // }
