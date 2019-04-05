@@ -22,6 +22,8 @@ namespace Bidding.Database.Contexts
             PopulateAuctions(modelBuilder);
             PopulateCategories(modelBuilder);
             PopulateTypes(modelBuilder);
+            PopulateAuctionFormats(modelBuilder);
+            PopulateAuctionConditions(modelBuilder);
             PopulateAuctionCategories(modelBuilder);
             PopulateCategoryTypes(modelBuilder);
             PopulateAuctionTypes(modelBuilder);
@@ -34,7 +36,25 @@ namespace Bidding.Database.Contexts
                 new Role { RoleId = 2, Name = "Admin", CreatedAt = CreatedAtDateTime, CreatedBy = 1, LastUpdatedAt = null, LastUpdatedBy = null, Deleted = false }
             );
         }
-
+        private static void PopulateAuctionFormats(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<AuctionFormat>().HasData(
+                new AuctionFormat { AuctionFormatId = 1, AuctionFormatName = "Cenu aptauja" },
+                new AuctionFormat { AuctionFormatId = 2, AuctionFormatName = "Izsole elektroniski" },
+                new AuctionFormat { AuctionFormatId = 3, AuctionFormatName = "Izsole klātienē" }
+            );
+        }
+        private static void PopulateAuctionConditions(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<AuctionCondition>().HasData(
+                new AuctionCondition { AuctionConditionId = 1, AuctionConditionName = "Lietota" },
+                new AuctionCondition { AuctionConditionId = 2, AuctionConditionName = "Jauna" },
+                new AuctionCondition { AuctionConditionId = 3, AuctionConditionName = "Apdzīvots" },
+                new AuctionCondition { AuctionConditionId = 4, AuctionConditionName = "Neapdzīvots" },
+                new AuctionCondition { AuctionConditionId = 5, AuctionConditionName = "Nepieciešams remonts" },
+                new AuctionCondition { AuctionConditionId = 6, AuctionConditionName = "" }
+            );
+        }
         private static void PopulateUsers(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>().HasData(

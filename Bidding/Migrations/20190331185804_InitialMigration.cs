@@ -212,14 +212,42 @@ namespace Bidding.Migrations
                         principalColumn: "CategoryId",
                         onDelete: ReferentialAction.Restrict);
                 });
+            migrationBuilder.CreateTable(
+                name: "AuctionFormats",
+                columns: table => new
+                {
+                    AuctionFormatId = table.Column<int>(nullable: false)
+                    .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                table.PrimaryKey("PK_AuctionFormats", x => x.AuctionFormatId);
 
+                });
+            migrationBuilder.CreateTable(
+                name: "AuctionConditions",
+                columns: table => new
+                {
+                    AuctionConditionId = table.Column<int>(nullable: false)
+                    .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AuctionConditions", x => x.AuctionConditionId);
+
+                });
             migrationBuilder.CreateTable(
                 name: "AuctionDetails",
                 columns: table => new
                 {
                     AuctionDetailsId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    AuctionId = table.Column<int>(nullable: false)
+                    AuctionId = table.Column<int>(nullable: false),
+                    AuctionFormatId = table.Column<int>(nullable: false),
+                    AuctionConditionId = table.Column<int>(nullable: false)
+
                 },
                 constraints: table =>
                 {
@@ -229,6 +257,18 @@ namespace Bidding.Migrations
                         column: x => x.AuctionId,
                         principalTable: "Auctions",
                         principalColumn: "AuctionId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_AuctionDetails_AuctionFormats_AuctionFormatId",
+                        column: x => x.AuctionFormatId,
+                        principalTable: "AuctionFormats",
+                        principalColumn: "AuctionFormatId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_AuctionDetails_AuctionConditions_AuctionConditionId",
+                        column: x => x.AuctionConditionId,
+                        principalTable: "AuctionConditions",
+                        principalColumn: "AuctionConditionId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -257,7 +297,6 @@ namespace Bidding.Migrations
                         principalColumn: "TypeId",
                         onDelete: ReferentialAction.Restrict);
                 });
-
             migrationBuilder.InsertData(
                 table: "Roles",
                 columns: new[] { "RoleId", "CreatedAt", "CreatedBy", "Deleted", "LastUpdatedAt", "LastUpdatedBy", "Name" },
@@ -388,6 +427,22 @@ namespace Bidding.Migrations
                 name: "IX_Users_RoleId",
                 table: "Users",
                 column: "RoleId");
+            migrationBuilder.CreateIndex(
+                name: "IX_AuctionFormats_AuctionFormatId",
+                table: "AuctionFormats",
+                column: "AuctionFormatId");
+            migrationBuilder.CreateIndex(
+                name: "IX_AuctionConditions_AuctionConditionId",
+                table: "AuctionConditions",
+                column: "AuctionConditionId");
+            migrationBuilder.CreateIndex(
+                name: "IX_AuctionDetails_AuctionFormatId",
+                table: "AuctionDetails",
+                column: "AuctionFormatId");
+            migrationBuilder.CreateIndex(
+                name: "IX_AuctionDetails_AuctionConditionId",
+                table: "AuctionDetails",
+                column: "AuctionConditionId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

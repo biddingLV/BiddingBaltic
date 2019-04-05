@@ -8,5 +8,9 @@ namespace Bidding.Models.ViewModels.Bidding.Auctions.Details
     public class AuctionDetailsRequestModel
     {
         public int AuctionId { get; set; }
+
+        public int AuctionFormatId { get; set; }
+
+        public int AuctionConditionId { get; set; }
     }
 }

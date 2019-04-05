@@ -9,9 +9,9 @@ namespace BiddingAPI.Models.ViewModels.Bidding.Auctions
     public class AuctionAddRequestModel
     {
         public string AuctionName { get; set; }
-        public int AuctionTopCategoryId { get; set; }
+        public int AuctionCategoryId { get; set; }
         public int AuctionSubCategoryId { get; set; }
-        public int AuctionTypeId { get; set; }
+        public int AuctionFormatId { get; set; }
         public int AuctionStartingPrice { get; set; }
         public DateTime AuctionStartDate { get; set; }
         /// <summary>
@@ -19,7 +19,7 @@ namespace BiddingAPI.Models.ViewModels.Bidding.Auctions
         /// </summary>
         public DateTime AuctionApplyDate { get; set; }
         public DateTime AuctionEndDate { get; set; }
-        public string AuctionCreatorId { get; set; }
+        public int AuctionCreatorId { get; set; }
         /// <summary>
         /// Auction status for AuctionStatuses table
         /// </summary>

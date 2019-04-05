@@ -1,0 +1,24 @@
+<!-- <div class="form-group">
+<input type="text" class="form-control" formControlName="auctionDate" [value]="Date"
+        (click)="onTogglePicker()" id="auct" name="auct" />
+<datetime-popup [value]="Date" (valueChange)="onValueChange($event)" [(showPopup)]="showPicker"
+[showDate]="showDate" [showTime]="showTime" [closeButton]="closeButton">
+</datetime-popup>
+</div> -->
+<div class="row form-group">
+        <div class="col-md-6">
+            <div class="input-group">
+                <input class="form-control" [(ngModel)]="myDate" />
+            </div>
+            <datetime-popup [value]="myDate" (valueChange)="onValueChange($event)"
+                            [(showPopup)]="showPicker"
+                            [showDate]="showDate"
+                            [showTime]="showTime"
+                            [closeButton]="closeButton"
+                            ></datetime-popup>
+        </div>
+    </div>
+    <div *ngIf="isValid()">
+        Formatted with pipe: {{ myDate | date: 'dd-MM-yyyy HH:mm:ss' }}    
+    </div>
+`

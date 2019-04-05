@@ -60,89 +60,55 @@
 
 // todo: jrb: make this more BEM style!
 
-datetime-popup > .dropdown .glyphicon {
-  display: inline-block;
-  font: normal normal normal 14px/1 FontAwesome;
-  font-size: inherit;
-  text-rendering: auto;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-datetime-popup > .dropdown timepicker {
-  display: flex;
-  justify-content: center;
-}
-
-datetime-popup > .dropdown .bg-faded {
-  border: 0;
-  background-color: #fff;
-}
-
-datetime-popup > .dropdown datepicker .btn-secondary {
-  background-color: #fff;
-  border: 0;
-  color: #000;
-}
-
-datetime-popup > .dropdown datepicker button.active {
-  background-color: #ddd;
-}
-
-datetime-popup > .dropdown .glyphicon.glyphicon-remove-circle:before {
-  content: "\f05c";
-}
-
-datetime-popup > .dropdown .glyphicon.glyphicon-chevron-down:before {
-  content: "\f078";
-}
-
-datetime-popup > .dropdown .glyphicon.glyphicon-chevron-up:before {
-  content: "\f077";
-}
-
-datetime-popup > .dropdown .glyphicon.glyphicon-chevron-left:before {
-  content: "\f053";
-}
-
-datetime-popup > .dropdown .glyphicon.glyphicon-chevron-right:before {
-  content: "\f054";
-}
-
-datetime-popup > .dropdown .glyphicon.hidden {
-  display: none !important;
-}
-
-/*
-* Shared
-*/
-
-// Header
-.shared-page__header {
-  background-color: $dark-pink;
-}
-
-// NavBar
-.shared-page__navBar {
-  ul li a.nav-link {
-    color: $white !important; // todo: kke: is it possible to get rid of this !important?
+datetime-popup > .dropdown {
+  .glyphicon {
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
-
-  @media only screen and (min-width: map-get($grid-breakpoints, xs)) {
-    #bidding-logo {
-      height: 35px;
+  timepicker {
+    display: flex;
+    justify-content: center;
+  }
+  .bg-faded {
+    border: 0;
+    background-color: #fff;
+  }
+  datepicker {
+    .btn-secondary {
+      background-color: #fff;
+      border: 0;
+      color: #000;
+    }
+    button.active {
+      background-color: #ddd;
     }
   }
-  
-  @media only screen and (min-width: map-get($grid-breakpoints, md)) {
-    #bidding-logo {
-      height: 35px;
+  .glyphicon {
+    &.glyphicon-remove-circle:before {
+      content: "\f05c";
+    }
+    &.glyphicon-chevron-down:before {
+      content: "\f078";
+    }
+    &.glyphicon-chevron-up:before {
+      content: "\f077";
+    }
+    &.glyphicon-chevron-left:before {
+      content: "\f053";
+    }
+    &.glyphicon-chevron-right:before {
+      content: "\f054";
+    }
+    &.hidden {
+      display: none !important;
     }
   }
-  
-  @media only screen and (min-width: map-get($grid-breakpoints, lg)) {
-    #bidding-logo {
-      height: 56px;
-    }
-  }
+}
+.currency-input::-webkit-inner-spin-button, ::-webkit-outer-spin-button { 
+  -webkit-appearance: none; 
+  margin: 0; 
 }

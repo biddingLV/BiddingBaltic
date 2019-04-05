@@ -47,8 +47,10 @@
     "ngx-cookie-service": "^2.1.0",
     "ngx-moment": "^3.4.0",
     "ngx-toastr": "^9.2.0",
+    "npm": "^6.9.0",
     "popper.js": "^1.14.7",
     "rxjs": "^6.4.0",
+    "update": "^0.7.4",
     "zone.js": "^0.8.29"
   },
   "devDependencies": {
