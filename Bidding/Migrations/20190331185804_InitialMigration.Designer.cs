@@ -200,11 +200,19 @@ namespace Bidding.Migrations
 
                     b.Property<int>("AuctionId");
 
+                    b.Property<int>("AuctionFormatId");
+
+                    b.Property<int>("AuctionConditionId");
+
                     b.HasKey("AuctionDetailsId");
 
                     b.HasIndex("AuctionId")
                         .IsUnique();
 
+                    b.HasIndex("AuctionFormatId");
+
+                    b.HasIndex("AuctionConditionId");
+                       
                     b.ToTable("AuctionDetails");
                 });
 

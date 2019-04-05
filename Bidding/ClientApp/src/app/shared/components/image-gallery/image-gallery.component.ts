@@ -2,7 +2,7 @@
 import { Component, OnInit } from '@angular/core';
 
 // 3rd lib
-import { GalleryItem,ImageItem } from '@ngx-gallery/core';
+import { GalleryItem, ImageItem } from '@ngx-gallery/core';
 
 @Component({
   selector: 'app-image-gallery',
@@ -19,6 +19,7 @@ export class ImageGalleryComponent implements OnInit {
       new ImageItem({ src: 'https://preview.ibb.co/jrsA6R/img12.jpg', thumb: 'https://preview.ibb.co/jrsA6R/img12.jpg' }),
       new ImageItem({ src: 'https://preview.ibb.co/jrsA6R/img12.jpg', thumb: 'https://preview.ibb.co/jrsA6R/img12.jpg' })
     ];
+    
 
   }
 }

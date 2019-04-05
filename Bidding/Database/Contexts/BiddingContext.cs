@@ -23,6 +23,8 @@ namespace BiddingAPI.Models.DatabaseModels
         { }
 
         public virtual DbSet<AuctionStatus> AuctionStatuses { get; set; }
+        public virtual DbSet<AuctionFormat> AuctionFormats { get; set; }
+        public virtual DbSet<AuctionCondition> AuctionConditions { get; set; }
         public virtual DbSet<AuctionDetails> AuctionDetails { get; set; }
         public virtual DbSet<Auction> Auctions { get; set; }
         public virtual DbSet<AuctionCategory> AuctionCategories { get; set; } // intermediary table
@@ -63,11 +65,32 @@ namespace BiddingAPI.Models.DatabaseModels
                 .HasOne(p => p.User)
                 .WithMany(b => b.Auctions)
                 .HasForeignKey(p => p.CreatedBy);
+               
 
-            modelBuilder.Entity<AuctionStatus>()
+            modelBuilder.Entity<AuctionDetails>()
+            .HasOne(s => s.Auction)
+            .WithOne(ad => ad.AuctionDetails);
+
+
+        modelBuilder.Entity<AuctionStatus>()
                 .HasOne(p => p.User)
                 .WithMany(b => b.AuctionStatuses)
                 .HasForeignKey(p => p.CreatedBy);
+
+            modelBuilder.Entity<Auction>()
+                .HasOne(p => p.AuctionStatus)
+                .WithMany(b => b.Auctions)
+                .HasForeignKey(p => p.AuctionStatusId);
+
+            modelBuilder.Entity<AuctionDetails>()
+                .HasOne(p => p.AuctionFormat)
+                .WithMany(b => b.AuctionDetails)
+                .HasForeignKey(p => p.AuctionFormatId);
+
+            modelBuilder.Entity<AuctionDetails>()
+                .HasOne(p => p.AuctionCondition)
+                .WithMany(b => b.AuctionDetails)
+                .HasForeignKey(p => p.AuctionConditionId);
 
             modelBuilder.Entity<Category>()
                 .HasOne(p => p.User)

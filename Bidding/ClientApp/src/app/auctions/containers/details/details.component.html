@@ -1,4 +1,4 @@
-<div class="container">
+<div class="head-container">
   <div class="row">
     <div class="col-lg-12">
       <div class="text-uppercase">
@@ -24,11 +24,15 @@
     </div>
   </div>
   <div class="row">
-    <button type="button" class="apply-button"><strong>Pieteikties izsolei</strong></button>
+    <div class="col-lg-12 text-center">
+      <button type="button" class="apply-button"><strong>Pieteikties izsolei</strong></button>
+    </div>
   </div>
 </div>
-<div class="container">
+
+<div class="main-container">
   <div class="row">
+    <div class=" box-shadow">
     <ng-container *ngIf="auctionDetails">
       <div class="col-4">
         <h5>izsoles priekšmets:</h5>
@@ -60,6 +64,7 @@
         </p>
       </div>
     </ng-container>
+    </div>
   </div>
 
   <div class="row">
