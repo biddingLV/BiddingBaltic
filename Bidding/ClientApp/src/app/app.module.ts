@@ -24,7 +24,6 @@ import { AuthModule } from './auth/auth.module';
 // 3rd party modules
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import { ModalModule } from 'ngx-bootstrap/modal';
-import { DatetimePopupModule } from 'ngx-bootstrap-datetime-popup';
 
 // Services
 import { PreviousRouteService } from './shared/services/previous-route.service.ts/previous-route.service';
@@ -42,7 +41,6 @@ import { PreviousRouteService } from './shared/services/previous-route.service.t
     MinSharedModule,
     SharedModule,
     HomeModule,
-    DatetimePopupModule,
     ScrollToModule.forRoot(),
     AuctionsModule,
     CoreModule.forRoot(),
