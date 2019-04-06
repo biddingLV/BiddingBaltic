@@ -46,6 +46,8 @@ namespace BiddingAPI.Models.DatabaseModels
         public List<AuctionStatus> AuctionStatuses { get; set; }
         public List<Category> Categories { get; set; }
         public List<Type> Types { get; set; }
+        public List<AuctionCondition> AuctionConditions { get; set; }
+        public List<AuctionFormat> AuctionFormats { get; set; }
 
         public int RoleId { get; set; }
         public Role Role { get; set; }

@@ -2,7 +2,7 @@
 
 namespace Bidding.Migrations
 {
-    public partial class AddGetTopCategoriesWithCount : Migration
+    public partial class AddGetTopCategoriesWithCountStoredProcedure : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

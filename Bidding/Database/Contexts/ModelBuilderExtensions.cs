@@ -36,25 +36,7 @@ namespace Bidding.Database.Contexts
                 new Role { RoleId = 2, Name = "Admin", CreatedAt = CreatedAtDateTime, CreatedBy = 1, LastUpdatedAt = null, LastUpdatedBy = null, Deleted = false }
             );
         }
-        private static void PopulateAuctionFormats(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<AuctionFormat>().HasData(
-                new AuctionFormat { AuctionFormatId = 1, AuctionFormatName = "Cenu aptauja" },
-                new AuctionFormat { AuctionFormatId = 2, AuctionFormatName = "Izsole elektroniski" },
-                new AuctionFormat { AuctionFormatId = 3, AuctionFormatName = "Izsole klātienē" }
-            );
-        }
-        private static void PopulateAuctionConditions(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<AuctionCondition>().HasData(
-                new AuctionCondition { AuctionConditionId = 1, AuctionConditionName = "Lietota" },
-                new AuctionCondition { AuctionConditionId = 2, AuctionConditionName = "Jauna" },
-                new AuctionCondition { AuctionConditionId = 3, AuctionConditionName = "Apdzīvots" },
-                new AuctionCondition { AuctionConditionId = 4, AuctionConditionName = "Neapdzīvots" },
-                new AuctionCondition { AuctionConditionId = 5, AuctionConditionName = "Nepieciešams remonts" },
-                new AuctionCondition { AuctionConditionId = 6, AuctionConditionName = "" }
-            );
-        }
+
         private static void PopulateUsers(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<User>().HasData(
@@ -151,7 +133,6 @@ namespace Bidding.Database.Contexts
 
         private static void PopulateCategories(ModelBuilder modelBuilder)
         {
-            // Categories
             modelBuilder.Entity<Category>().HasData(
                 new Category
                 {
@@ -213,6 +194,98 @@ namespace Bidding.Database.Contexts
                 {
                     TypeId = 3,
                     Name = "Dzīvoklis",
+                    CreatedAt = CreatedAtDateTime,
+                    CreatedBy = 1,
+                    Deleted = false,
+                    LastUpdatedAt = null,
+                    LastUpdatedBy = null
+                }
+            );
+        }
+
+        private static void PopulateAuctionFormats(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<AuctionFormat>().HasData(
+                new AuctionFormat
+                {
+                    AuctionFormatId = 1,
+                    Name = "Cenu aptauja",
+                    CreatedAt = CreatedAtDateTime,
+                    CreatedBy = 1,
+                    Deleted = false,
+                    LastUpdatedAt = null,
+                    LastUpdatedBy = null
+                },
+                new AuctionFormat
+                {
+                    AuctionFormatId = 2,
+                    Name = "Izsole elektroniski",
+                    CreatedAt = CreatedAtDateTime,
+                    CreatedBy = 1,
+                    Deleted = false,
+                    LastUpdatedAt = null,
+                    LastUpdatedBy = null
+                },
+                new AuctionFormat
+                {
+                    AuctionFormatId = 3,
+                    Name = "Izsole klātienē",
+                    CreatedAt = CreatedAtDateTime,
+                    CreatedBy = 1,
+                    Deleted = false,
+                    LastUpdatedAt = null,
+                    LastUpdatedBy = null
+                }
+            );
+        }
+
+        private static void PopulateAuctionConditions(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<AuctionCondition>().HasData(
+                new AuctionCondition
+                {
+                    AuctionConditionId = 1,
+                    Name = "Lietota",
+                    CreatedAt = CreatedAtDateTime,
+                    CreatedBy = 1,
+                    Deleted = false,
+                    LastUpdatedAt = null,
+                    LastUpdatedBy = null
+                },
+                new AuctionCondition
+                {
+                    AuctionConditionId = 2,
+                    Name = "Jauna",
+                    CreatedAt = CreatedAtDateTime,
+                    CreatedBy = 1,
+                    Deleted = false,
+                    LastUpdatedAt = null,
+                    LastUpdatedBy = null
+                },
+                new AuctionCondition
+                {
+                    AuctionConditionId = 3,
+                    Name = "Apdzīvots",
+                    CreatedAt = CreatedAtDateTime,
+                    CreatedBy = 1,
+                    Deleted = false,
+                    LastUpdatedAt = null,
+                    LastUpdatedBy = null
+                },
+                new AuctionCondition
+                {
+                    AuctionConditionId = 4,
+                    Name = "Neapdzīvots",
+                    CreatedAt = CreatedAtDateTime,
+                    CreatedBy = 1,
+                    Deleted = false,
+                    LastUpdatedAt = null,
+                    LastUpdatedBy = null
+                },
+                new AuctionCondition
+                {
+                    AuctionConditionId = 5,
+                    Name = "Nepieciešams remonts",
                     CreatedAt = CreatedAtDateTime,
                     CreatedBy = 1,
                     Deleted = false,

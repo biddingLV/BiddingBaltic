@@ -1,5 +1,3 @@
-using Bidding.Database.DatabaseModels.Auctions;
-using BiddingAPI.Models.DatabaseModels.Bidding;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -16,9 +14,23 @@ namespace BiddingAPI.Models.DatabaseModels.Bidding
         public int AuctionConditionId { get; set; }
 
         [Required]
-        public string AuctionConditionName { get; set; }
+        [MaxLength(50)]
+        public string Name { get; set; }
+
+        [Required]
+        [DataType(DataType.Date)]
+        public DateTime CreatedAt { get; set; }
+
+        [DataType(DataType.Date)]
+        public DateTime? LastUpdatedAt { get; set; }
+        public int? LastUpdatedBy { get; set; }
+        public bool Deleted { get; set; }
+
+        // Relationship definitions
+        [Required]
+        public int CreatedBy { get; set; }
+        public User User { get; set; }
 
         public List<AuctionDetails> AuctionDetails { get; set; }
-
     }
 }

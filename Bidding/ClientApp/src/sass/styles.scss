@@ -108,7 +108,42 @@ datetime-popup > .dropdown {
     }
   }
 }
+
 .currency-input::-webkit-inner-spin-button, ::-webkit-outer-spin-button { 
   -webkit-appearance: none; 
   margin: 0; 
+}
+
+/*
+* Shared
+*/
+
+// Header
+.shared-page__header {
+  background-color: $dark-pink;
+}
+
+// NavBar
+.shared-page__navBar {
+  ul li a.nav-link {
+    color: $white !important; // todo: kke: is it possible to get rid of this !important?
+  }
+
+  @media only screen and (min-width: map-get($grid-breakpoints, xs)) {
+    #bidding-logo {
+      height: 35px;
+    }
+  }
+  
+  @media only screen and (min-width: map-get($grid-breakpoints, md)) {
+    #bidding-logo {
+      height: 35px;
+    }
+  }
+  
+  @media only screen and (min-width: map-get($grid-breakpoints, lg)) {
+    #bidding-logo {
+      height: 56px;
+    }
+  }
 }
