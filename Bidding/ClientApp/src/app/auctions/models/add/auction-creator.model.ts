@@ -1,4 +1,4 @@
-import { AuctionCreatorItemModel } from "./auction-creator-item.model";
+import { AuctionCreatorItemModel } from './auction-creator-item.model';
 
 export class AuctionCreatorModel {
   creators: AuctionCreatorItemModel[];
