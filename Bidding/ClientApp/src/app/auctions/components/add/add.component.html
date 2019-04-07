@@ -12,9 +12,9 @@
         <label class="required" for="auctionName">Nosaukums:</label>
         <input type="text" formControlName="auctionName" class="form-control" id="auctionName" name="auctionName"
           [ngClass]="{ 'is-invalid': submitted && f.auctionName.errors }" />
-        <!-- <div *ngIf="submitted && formErrors.auctionName" class="invalid-feedback">
+        <div *ngIf="submitted && formErrors.auctionName" class="invalid-feedback">
           {{formErrors.auctionName}}
-        </div> -->
+        </div>
       </div>
 
       <div class="form-group col-6">
@@ -60,55 +60,54 @@
     <div class="form-row">
       <div class="form-group col-6">
         <label for="auctionStartDate" class="required">Izsoles sākums:</label>
-        <input type="text" class="form-control" [value]="startDate" (click)="onToggleStartPicker()"
-          formControlName="auctionTillDate" id="auctionStartDate" name="auctionStartDate" />
+        <input type="text" class="form-control" placeholder="Please select start date" bsDatepicker
+          [bsConfig]="bsConfig" formControlName="auctionStartDate" id="auctionStartDate" name="auctionStartDate" />
       </div>
 
-      <div class="form-group">
-        <label for="auctTill">Pieteikties var līdz:</label>
-        <!-- <input type="text" class="form-control" formControlName="auctionTillDate" [value]="tillDate"
-          (click)="onToggleTillPicker()" id="auctTill" name="auctTill" />-->
+      <div class="form-group col-6">
+        <label for="auctionApplyTillDate">Pieteikties var līdz:</label>
+        <input type="text" class="form-control" placeholder="Please select apply till date" bsDatepicker
+          [bsConfig]="bsConfig" formControlName="auctionApplyTillDate" id="auctionApplyTillDate"
+          name="auctionApplyTillDate" />
       </div>
     </div>
 
     <div class="form-row">
       <div class="form-group col-6">
-        <label for="auctEnd">Izsoles noslēgums:</label>
-        <!-- <input type="text" class="form-control" formControlName="auctionEndDate" [value]="endDate"
-          (click)="onToggleEndPicker()" id="auctEnd" name="auctEnd" />
-        <datetime-popup [value]="endDate" (valueChange)="onValueChange('beigas',$event)" [(showPopup)]="showEndPicker"
-          [showDate]="showDate" [showTime]="showTime" [closeButton]="closeButton">
-        </datetime-popup> -->
+        <label for="auctionEndDate">Izsoles noslēgums:</label>
+        <input type="text" class="form-control" placeholder="Please select end date" bsDatepicker [bsConfig]="bsConfig"
+          formControlName="auctionEndDate" id="auctionEndDate" name="auctionEndDate" />
       </div>
 
       <div class="form-group col-6">
-        <label for="auctDesc" class="not-required">Izsoles apraksts:</label>
-        <!-- <textarea name="auctDesc" id="auctDesc" cols="15" rows="10" formControlName="auctionDescription"
-          class="form-control" [ngClass]="{ 'is-invalid': submitted && f.description.errors }"></textarea>
-        <div *ngIf="submitted && formErrors.auctionDescription" class="invalid-feedback">
-          {{formErrors.description}}
-        </div> -->
+        <label for="auctionDescription" class="not-required">Izsoles apraksts:</label>
+        <textarea name="auctionDescription" id="auctionDescription" rows="2" formControlName="auctionDescription"
+          class="form-control"></textarea>
       </div>
     </div>
 
-    <!-- <div class="form-group">
-      <label class="required">Izsoles veids:</label>
-      <ng-select [virtualScroll]="true" placeholder="Izvēlieties veidu">
-        <ng-option *ngFor="let typ of auctionFormat; let i = index" [value]="typ.Id" required>
-          {{typ.type}}
-        </ng-option>
-      </ng-select>
-    </div> -->
-
-    <!-- <div class="form-group">
-      <label for="auctCreator" class="required">Izsoles veidotājs:</label>
-      <input type="text" formControlName="auctionCreator" class="form-control"
-        [ngClass]="{ 'is-invalid': submitted && f.auctionCreator.errors }" required id="auctCreator"
-        name="auctCreator" />
-      <div *ngIf="submitted && formErrors.auctionCreator" class="invalid-feedback">
-        {{formErrors.creator}}
+    <div class="form-row">
+      <div class="form-group col-6">
+        <label class="required" for="auctionCreator">Izsoles veidotājs:</label>
+        <ng-select #auctionCreatorSelect formControlName="auctionCreator" [clearable]="false" [virtualScroll]="true"
+          [multiple]="false" [closeOnSelect]="true" placeholder="Select auction creator">
+          <ng-option *ngFor="let crea of auctionCreators.creators; let i = index" [value]="crea.auctionCreatorId">
+            <!-- todo: kke: how to support middle name? -->
+            {{crea.firstName + ' ' + crea.lastName}}
+          </ng-option>
+        </ng-select>
       </div>
-    </div> -->
+
+      <div class="form-group col-6">
+        <label class="required" for="auctionFormat">Izsoles veids:</label>
+        <ng-select #auctionFormatSelect formControlName="auctionFormat" [clearable]="false" [virtualScroll]="true"
+          [multiple]="false" [closeOnSelect]="true" placeholder="Select auction format">
+          <ng-option *ngFor="let format of auctionFormats.formats; let i = index" [value]="format.auctionFormatId">
+            {{format.auctionFormatName}}
+          </ng-option>
+        </ng-select>
+      </div>
+    </div>
 
     <!-- <div *ngIf="this.selectedCategoryIds === 1 || this.selectedCategoryIds === 2">
       <div class="form-group itemCondition">

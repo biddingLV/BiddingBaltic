@@ -6,6 +6,8 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { BsModalRef } from 'ngx-bootstrap/modal';
 import { Subscription } from 'rxjs';
 import { startWith } from 'rxjs/operators';
+import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker/bs-datepicker.config';
+import * as moment from 'moment-mini';
 
 // internal
 import { AuctionsService } from '../../services/auctions.service';
@@ -14,6 +16,8 @@ import { NotificationsService } from 'ClientApp/src/app/core/services/notificati
 import { AuctionAddRequest } from '../../models/add/auction-add-request.model';
 import { AuctionFilterModel } from '../../models/filters/auction-filter.model';
 import { SubCategoryFilterModel } from '../../models/filters/sub-category-filter.model';
+import { AuctionFormatModel } from '../../models/add/auction-format.model';
+import { AuctionCreatorModel } from '../../models/add/auction-creator.model';
 
 
 @Component({
@@ -27,26 +31,31 @@ export class AuctionAddComponent implements OnInit {
   submitted = false;
 
   formErrors = {
-    // todo: kke: check and fix naming?
     auctionName: '',
     auctionTopCategory: '',
     auctionSubCategory: '',
-    // auctionDescription: '',
     auctionStartingPrice: '',
-    // auctionStartDate: '',
-    // auctionTillDate: '',
-    // auctionEndDate: '',
-    // auctionCreator: '',
-    // auctionFormat: ''
+    auctionStartDate: '',
+    auctionApplyTillDate: '',
+    auctionEndDate: '',
+    auctionDescription: '',
+    auctionCreator: '',
+    auctionFormat: ''
   };
 
   // filters
   filters: AuctionFilterModel;
   auctionTypes: SubCategoryFilterModel[];
 
+  auctionFormats: AuctionFormatModel;
+  auctionCreators: AuctionCreatorModel;
+
   // selected Values
   selectedTopCategoryIds: number[];
   selectedSubCategoryIds: number[];
+
+  /** Date format for dates */
+  dateFormat = 'DD/MM/YYYY';
 
   // API
   auctionAddRequest: AuctionAddRequest;
@@ -54,9 +63,7 @@ export class AuctionAddComponent implements OnInit {
   // convenience getter for easy access to form fields
   get f() { return this.auctionAddForm.controls; }
 
-  // wip
-  showStartPicker: boolean = false;
-  // wip
+  bsConfig: Partial<BsDatepickerConfig>;
 
   constructor(
     private auctionApi: AuctionsService,
@@ -64,47 +71,18 @@ export class AuctionAddComponent implements OnInit {
     private fb: FormBuilder,
     private formService: FormService,
     public bsModalRef: BsModalRef
-  ) { }
+  ) {
+    this.bsConfig = {
+      dateInputFormat: 'DD/MM/YYYY',
+      showWeekNumbers: true,
+      minDate: new Date(2000, 1, 1),
+      maxDate: new Date(9999, 12, 31)
+    };
+  }
 
   ngOnInit(): void {
     this.buildForm();
   }
-
-  onToggleStartPicker(): void {
-    if (!this.showStartPicker) {
-      this.showStartPicker = true;
-    }
-  }
-
-  // onToggleEndPicker(): void {
-  //   if (!this.showEndPicker) {
-  //     this.showEndPicker = true;
-  //   }
-  // }
-
-  // onToggleTillPicker(): void {
-  //   if (!this.showTillPicker) {
-  //     this.showTillPicker = true;
-  //   }
-  // }
-
-  // onValueChange(changedValue: Date): void {
-
-  //   if ('sakums') {
-  //     this.startDate = changedValue;
-  //   }
-  //   if (!'sakums' && !'lidz' && 'beigas') {
-  //     this.endDate = changedValue;
-  //   }
-  //   if ('lidz' && !'beigas' && !'sakums') {
-  //     this.tillDate = changedValue;
-  //   }
-  // }
-
-  // isValidDate(verifyDate = (this.startDate || this.endDate || this.tillDate)): boolean {
-  //   // this function is only here to stop the datepipe from erroring if someone types in value
-  //   return verifyDate && (typeof verifyDate !== 'string') && !isNaN(verifyDate.getTime());
-  // }
 
   onTopCategoryChange(categoryIds: number[]): void {
     this.selectedTopCategoryIds = categoryIds;
@@ -123,44 +101,30 @@ export class AuctionAddComponent implements OnInit {
     this.selectedSubCategoryIds = typeIds;
   }
 
-  /**
-   * Called on form submit
-   */
   onSubmit(): void {
-    // this.submitted = true;
+    this.submitted = true;
 
-    // // mark all fields as touched
-    // this.formService.markFormGroupTouched(this.auctionAddForm);
+    // mark all fields as touched
+    this.formService.markFormGroupTouched(this.auctionAddForm);
 
-    // if (this.auctionAddForm.valid) {
-    //   this.setAddRequest();
+    if (this.auctionAddForm.valid) {
+      this.setAddRequest();
+      this.makeRequest();
+    } else {
+      this.formErrors = this.formService.validateForm(this.auctionAddForm, this.formErrors, false);
+    }
 
-    //   this.auctionApi.addAuction$(this.auctionAddRequest)
-    //     .subscribe((response: boolean) => {
-    //       if (response) {
-    //         this.notification.success('Auction successfully added.');
-    //         this.auctionAddForm.reset();
-    //         this.bsModalRef.hide();
-    //       } else {
-    //         this.notification.error('Could not add auction.');
-    //       }
-    //     },
-    //       (error: string) => this.notification.error(error));
-    // } else {
-    //   this.formErrors = this.formService.validateForm(this.auctionAddForm, this.formErrors, false);
-    // }
-
-    // // stop here if form is invalid
-    // if (this.auctionAddForm.invalid) {
-    //   return;
-    // }
+    // stop here if form is invalid
+    if (this.auctionAddForm.invalid) {
+      return;
+    }
   }
 
   private buildForm(): void {
     // todo: kke: check whats required here and max lengths?
     this.auctionAddForm = this.fb.group({
       auctionName: ['', [
-        // Validators.maxLength(100),
+        Validators.maxLength(100),
         Validators.required
       ]],
       auctionTopCategory: ['', [
@@ -176,23 +140,25 @@ export class AuctionAddComponent implements OnInit {
       auctionStartDate: ['', [
         Validators.required
       ]],
-      auctionTillDate: ['', []],
+      auctionApplyTillDate: ['', []],
       auctionEndDate: ['', []],
       auctionDescription: ['', [
         Validators.maxLength(100)
       ]],
-      // auctionCreator: ['', [
-      //   Validators.required
-      // ]],
-      // auctionFormatId: ['1', [
-      //   Validators.required
-      // ]]
+      auctionCreator: ['', [
+        Validators.required
+      ]],
+      auctionFormat: ['', [
+        Validators.required
+      ]]
     });
 
-    this.loadTopWithSubCategories();
+    this.loadTopAndSubCategories();
+    this.loadAuctionCreators();
+    this.loadAuctionFormats();
   }
 
-  private loadTopWithSubCategories(): void {
+  private loadTopAndSubCategories(): void {
     this.auctionAddSub = this.auctionApi.getFilters$()
       .pipe(startWith(new AuctionFilterModel()))
       .subscribe(
@@ -204,18 +170,54 @@ export class AuctionAddComponent implements OnInit {
       );
   }
 
-  // private setAddRequest(): void {
-  //   this.auctionAddRequest = {
-  //     auctionName: this.auctionAddForm.value.auctionName,
-  //     auctionTopCategoryId: this.auctionAddForm.value.auctionTopCategoryId,
-  //     auctionSubCategoryId: this.auctionAddForm.value.auctionSubCategoryId,
-  //     auctionDescription: this.auctionAddForm.value.auctionDescription,
-  //     auctionStartingPrice: this.auctionAddForm.value.auctionStartingPrice,
-  //     auctionStartDate: this.auctionAddForm.value.auctionStartDate,
-  //     auctionEndDate: this.auctionAddForm.value.auctionEndDate,
-  //     auctionTillDate: this.auctionAddForm.value.auctionTillDate,
-  //     auctionCreator: this.auctionAddForm.value.auctionCreator,
-  //     auctionFormatId: this.auctionAddForm.value.auctionFormatId
-  //   };
-  // }
+  private loadAuctionCreators(): void {
+    this.auctionAddSub = this.auctionApi.getAuctionCreators$()
+      .pipe(startWith(new AuctionCreatorModel()))
+      .subscribe(
+        (result: AuctionCreatorModel) => {
+          this.auctionCreators = result;
+        },
+        (error: string) => this.notification.error(error)
+      );
+  }
+
+  private loadAuctionFormats(): void {
+    this.auctionAddSub = this.auctionApi.getAuctionFormats$()
+      .pipe(startWith(new AuctionFormatModel()))
+      .subscribe(
+        (result: AuctionFormatModel) => {
+          this.auctionFormats = result;
+        },
+        (error: string) => this.notification.error(error)
+      );
+  }
+
+  private setAddRequest(): void {
+    this.auctionAddRequest = {
+      auctionName: this.auctionAddForm.value.auctionName,
+      auctionTopCategoryIds: this.auctionAddForm.value.auctionTopCategory,
+      auctionSubCategoryIds: this.auctionAddForm.value.auctionSubCategory,
+      auctionStartingPrice: this.auctionAddForm.value.auctionStartingPrice,
+      auctionStartDate: moment(this.auctionAddForm.value.auctionStartDate).format(this.dateFormat),
+      auctionApplyTillDate: moment(this.auctionAddForm.value.auctionApplyTillDate).format(this.dateFormat),
+      auctionEndDate: moment(this.auctionAddForm.value.auctionEndDate).format(this.dateFormat),
+      auctionDescription: this.auctionAddForm.value.auctionDescription,
+      auctionCreatorId: this.auctionAddForm.value.auctionCreator,
+      auctionFormatId: this.auctionAddForm.value.auctionFormat
+    };
+  }
+
+  private makeRequest(): void {
+    this.auctionApi.addAuction$(this.auctionAddRequest)
+      .subscribe((response: boolean) => {
+        if (response) {
+          this.notification.success('Auction successfully added.');
+          this.auctionAddForm.reset();
+          this.bsModalRef.hide();
+        } else {
+          this.notification.error('Could not add auction.');
+        }
+      },
+        (error: string) => this.notification.error(error));
+  }
 }

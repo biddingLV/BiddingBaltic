@@ -1,12 +1,12 @@
 export interface AuctionAddRequest {
   auctionName: string;
-  auctionTopCategoryId: string;
-  auctionSubCategoryId: string;
-  auctionFormatId: string,
-  auctionDescription: string;
-  auctionStartingPrice: string;
+  auctionTopCategoryIds: number[];
+  auctionSubCategoryIds: number[];
+  auctionStartingPrice: number;
   auctionStartDate: string;
+  auctionApplyTillDate: string;
   auctionEndDate: string;
-  auctionTillDate: string;
-  auctionCreator: string;
+  auctionDescription: string;
+  auctionCreatorId: number;
+  auctionFormatId: number;
 }
