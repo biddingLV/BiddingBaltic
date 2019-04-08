@@ -85,7 +85,6 @@ datetime-popup > .dropdown {
     }
   }
 }
-
 //AuctionDetails style
 
 //BreadCrumbs
@@ -116,14 +115,16 @@ datetime-popup > .dropdown {
   .auction-startingprice {
     padding-top: 10px;
   }
+// Auction images
 }
 .image-gallery {
   margin-top: 10px;
   width: 500px;
   height: 290px;
 }
+// Auction Apply buttons
 .apply-button {
-  margin-top:25px; 
+  margin-top: 75px; 
   width: 220px;
   height: 45px;
   background-color: $primary;
@@ -131,10 +132,15 @@ datetime-popup > .dropdown {
   font-family: $font-family-base;
   font-size: 16px;
 }
-.background-shadow {
-  box-shadow: 2px 2px 2px grey;
-}
+// Auction main information
+.main-container {
+  margin-top: 50px;
+  box-shadow: 0 7px 14px 0 rgba(0, 0, 0, 0.2);
 
+  .main-content {
+    padding-top: 50px;
+  }
+}
 /*
 * Shared
 */
@@ -198,5 +204,22 @@ datetime-popup > .dropdown {
 .currency-input::-webkit-inner-spin-button, ::-webkit-outer-spin-button { 
   -webkit-appearance: none; 
   margin: 0;
+}
+@media only screen and (min-width: map-get($grid-breakpoints, xs)) {
+  #bidding-logo {
+    height: 35px;
+  }
+}
+
+@media only screen and (min-width: map-get($grid-breakpoints, md)) {
+  #bidding-logo {
+    height: 35px;
+  }
+}
+
+@media only screen and (min-width: map-get($grid-breakpoints, lg)) {
+  #bidding-logo {
+    height: 56px;
+  }
 }
 }

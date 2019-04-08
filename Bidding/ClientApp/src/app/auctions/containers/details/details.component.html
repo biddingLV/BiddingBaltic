@@ -1,4 +1,4 @@
-<div class="head-container">
+<div class="container">
   <div class="row">
     <div class="col-lg-12">
       <div class="text-uppercase">
@@ -29,12 +29,10 @@
     </div>
   </div>
 </div>
-
-<div class="main-container">
-  <div class="row">
-    <div class=" box-shadow">
-    <ng-container *ngIf="auctionDetails">
-      <div class="col-4">
+<div class="container">
+  <div class="row main-container">
+    <ng-container class="main-content" *ngIf="auctionDetails">
+      <div class="col-4 main-content">
         <h5>izsoles priekšmets:</h5>
         <p>{{auctionDetails.auctionName}}</p>
         <h5>kategorija:</h5>
@@ -43,7 +41,7 @@
         <p>{{auctionDetails.typeName}}</p>
       </div>
 
-      <div class="col-4">
+      <div class="col-4 main-content">
         <h4>izsoles apraksts:</h4>
         <p>Whats this?</p>
         <h5>izsoles sakuma cena:</h5>
@@ -54,7 +52,7 @@
         <p>{{auctionDetails.auctionEndDate}}</p>
       </div>
 
-      <div class="col-4">
+      <div class="col-4 main-content">
         <h4>bilde(s):</h4>
         <p>None</p>
         <h4>izsoles apraksts:</h4>
@@ -64,7 +62,6 @@
         </p>
       </div>
     </ng-container>
-    </div>
   </div>
 
   <div class="row">
