@@ -154,94 +154,6 @@ datetime-popup > .dropdown {
 .shared-page__navBar {
   ul li a.nav-link {
     color: $white !important; // todo: kke: is it possible to get rid of this !important?
-  .glyphicon {
-    display: inline-block;
-    font: normal normal normal 14px/1 FontAwesome;
-    font-size: inherit;
-    text-rendering: auto;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-  }
-  timepicker {
-    display: flex;
-    justify-content: center;
-  }
-  .bg-faded {
-    border: 0;
-    background-color: #fff;
-  }
-  datepicker {
-    .btn-secondary {
-      background-color: #fff;
-      border: 0;
-      color: #000;
-    }
-    button.active {
-      background-color: #ddd;
-    }
-  }
-  .glyphicon {
-    &.glyphicon-remove-circle:before {
-      content: "\f05c";
-    }
-    &.glyphicon-chevron-down:before {
-      content: "\f078";
-    }
-    &.glyphicon-chevron-up:before {
-      content: "\f077";
-    }
-    &.glyphicon-chevron-left:before {
-      content: "\f053";
-    }
-    &.glyphicon-chevron-right:before {
-      content: "\f054";
-    }
-    &.hidden {
-      display: none !important;
-    }
-  }
-}
-
-.currency-input::-webkit-inner-spin-button, ::-webkit-outer-spin-button { 
-  -webkit-appearance: none; 
-<<<<<<< HEAD
-  margin: 0;
-}
-@media only screen and (min-width: map-get($grid-breakpoints, xs)) {
-  #bidding-logo {
-    height: 35px;
-  }
-}
-
-@media only screen and (min-width: map-get($grid-breakpoints, md)) {
-  #bidding-logo {
-    height: 35px;
-  }
-}
-
-@media only screen and (min-width: map-get($grid-breakpoints, lg)) {
-  #bidding-logo {
-    height: 56px;
-  }
-}
-}
-=======
-  margin: 0; 
-}
-
-/*
-* Shared
-*/
-
-// Header
-.shared-page__header {
-  background-color: $dark-pink;
-}
-
-// NavBar
-.shared-page__navBar {
-  ul li a.nav-link {
-    color: $white !important; // todo: kke: is it possible to get rid of this !important?
   }
 
   @media only screen and (min-width: map-get($grid-breakpoints, xs)) {
@@ -262,4 +174,3 @@ datetime-popup > .dropdown {
     }
   }
 }
->>>>>>> master
