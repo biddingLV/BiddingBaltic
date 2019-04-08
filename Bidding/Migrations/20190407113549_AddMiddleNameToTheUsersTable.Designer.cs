@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Bidding.Migrations
 {
     [DbContext(typeof(BiddingContext))]
-    [Migration("20190404175744_SeedAuctionAndFilterMappingTables")]
-    partial class SeedAuctionAndFilterMappingTables
+    [Migration("20190407113549_AddMiddleNameToTheUsersTable")]
+    partial class AddMiddleNameToTheUsersTable
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -232,20 +232,153 @@ namespace Bidding.Migrations
                         });
                 });
 
+            modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.Bidding.AuctionCondition", b =>
+                {
+                    b.Property<int>("AuctionConditionId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedAt");
+
+                    b.Property<int>("CreatedBy");
+
+                    b.Property<bool>("Deleted");
+
+                    b.Property<DateTime?>("LastUpdatedAt");
+
+                    b.Property<int?>("LastUpdatedBy");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.HasKey("AuctionConditionId");
+
+                    b.HasIndex("CreatedBy");
+
+                    b.ToTable("AuctionConditions");
+
+                    b.HasData(
+                        new
+                        {
+                            AuctionConditionId = 1,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = 1,
+                            Deleted = false,
+                            Name = "Lietota"
+                        },
+                        new
+                        {
+                            AuctionConditionId = 2,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = 1,
+                            Deleted = false,
+                            Name = "Jauna"
+                        },
+                        new
+                        {
+                            AuctionConditionId = 3,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = 1,
+                            Deleted = false,
+                            Name = "Apdzīvots"
+                        },
+                        new
+                        {
+                            AuctionConditionId = 4,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = 1,
+                            Deleted = false,
+                            Name = "Neapdzīvots"
+                        },
+                        new
+                        {
+                            AuctionConditionId = 5,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = 1,
+                            Deleted = false,
+                            Name = "Nepieciešams remonts"
+                        });
+                });
+
             modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.Bidding.AuctionDetails", b =>
                 {
                     b.Property<int>("AuctionDetailsId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<int>("AuctionConditionId");
+
+                    b.Property<int>("AuctionFormatId");
+
                     b.Property<int>("AuctionId");
 
+                    b.Property<string>("Description")
+                        .HasMaxLength(50);
+
                     b.HasKey("AuctionDetailsId");
+
+                    b.HasIndex("AuctionConditionId");
+
+                    b.HasIndex("AuctionFormatId");
 
                     b.HasIndex("AuctionId")
                         .IsUnique();
 
                     b.ToTable("AuctionDetails");
+                });
+
+            modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.Bidding.AuctionFormat", b =>
+                {
+                    b.Property<int>("AuctionFormatId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedAt");
+
+                    b.Property<int>("CreatedBy");
+
+                    b.Property<bool>("Deleted");
+
+                    b.Property<DateTime?>("LastUpdatedAt");
+
+                    b.Property<int?>("LastUpdatedBy");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.HasKey("AuctionFormatId");
+
+                    b.HasIndex("CreatedBy");
+
+                    b.ToTable("AuctionFormats");
+
+                    b.HasData(
+                        new
+                        {
+                            AuctionFormatId = 1,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = 1,
+                            Deleted = false,
+                            Name = "Cenu aptauja"
+                        },
+                        new
+                        {
+                            AuctionFormatId = 2,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = 1,
+                            Deleted = false,
+                            Name = "Izsole elektroniski"
+                        },
+                        new
+                        {
+                            AuctionFormatId = 3,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = 1,
+                            Deleted = false,
+                            Name = "Izsole klātienē"
+                        });
                 });
 
             modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.Category", b =>
@@ -462,6 +595,9 @@ namespace Bidding.Migrations
 
                     b.Property<int?>("LastUpdatedBy");
 
+                    b.Property<string>("MiddleName")
+                        .HasMaxLength(50);
+
                     b.Property<int>("RoleId");
 
                     b.Property<string>("UniqueIdentifier")
@@ -547,11 +683,37 @@ namespace Bidding.Migrations
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
+            modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.Bidding.AuctionCondition", b =>
+                {
+                    b.HasOne("BiddingAPI.Models.DatabaseModels.User", "User")
+                        .WithMany("AuctionConditions")
+                        .HasForeignKey("CreatedBy")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
             modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.Bidding.AuctionDetails", b =>
                 {
+                    b.HasOne("BiddingAPI.Models.DatabaseModels.Bidding.AuctionCondition", "AuctionCondition")
+                        .WithMany("AuctionDetails")
+                        .HasForeignKey("AuctionConditionId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("BiddingAPI.Models.DatabaseModels.Bidding.AuctionFormat", "AuctionFormat")
+                        .WithMany("AuctionDetails")
+                        .HasForeignKey("AuctionFormatId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.HasOne("BiddingAPI.Models.DatabaseModels.Bidding.Auction", "Auction")
                         .WithOne("AuctionDetails")
                         .HasForeignKey("BiddingAPI.Models.DatabaseModels.Bidding.AuctionDetails", "AuctionId")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("BiddingAPI.Models.DatabaseModels.Bidding.AuctionFormat", b =>
+                {
+                    b.HasOne("BiddingAPI.Models.DatabaseModels.User", "User")
+                        .WithMany("AuctionFormats")
+                        .HasForeignKey("CreatedBy")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 

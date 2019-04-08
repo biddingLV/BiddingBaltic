@@ -49,6 +49,20 @@ namespace BiddingAPI.Controllers.Auctions
             return Ok(m_auctionsService.Filters());
         }
 
+        [HttpGet]
+        //[Authorize(Roles = "User")]
+        public IActionResult Creators()
+        {
+            return Ok(m_auctionsService.Creators());
+        }
+
+        [HttpGet]
+        //[Authorize(Roles = "User")]
+        public IActionResult Formats()
+        {
+            return Ok(m_auctionsService.Formats());
+        }
+
         /// <summary>
         /// Gets specific auction details
         /// </summary>

@@ -16,6 +16,7 @@ namespace BiddingAPI.Models.DatabaseModels
         [MaxLength(50)]
         public string Name { get; set; }
 
+        [Required]
         [DataType(DataType.Date)]
         public DateTime CreatedAt { get; set; }
 
@@ -25,11 +26,11 @@ namespace BiddingAPI.Models.DatabaseModels
         public bool Deleted { get; set; }
 
         // Relationship definitions
-        public List<AuctionCategory> AuctionCategories { get; set; }
-        public List<CategoryType> CategoryTypes { get; set; }
-
         [Required]
         public int CreatedBy { get; set; }
         public User User { get; set; }
+
+        public List<AuctionCategory> AuctionCategories { get; set; }
+        public List<CategoryType> CategoryTypes { get; set; }
     }
 }

@@ -14,6 +14,8 @@ import { ExceptionsService } from '../../core/services/exceptions/exceptions.ser
 import { AuctionAddRequest } from '../models/add/auction-add-request.model';
 import { AuctionEditRequest } from '../models/edit/auction-edit-request.model';
 import { AuctionFilterModel } from '../models/filters/auction-filter.model';
+import { AuctionCreatorModel } from '../models/add/auction-creator-item.model';
+import { AuctionFormatModel } from '../models/add/auction-format.model';
 
 
 @Injectable({
@@ -51,6 +53,20 @@ export class AuctionsService {
     const url = '/api/auctions/filters';
 
     return this.http.get<AuctionFilterModel>(url)
+      .pipe(catchError(this.exception.errorHandler));
+  }
+
+  getAuctionCreators$(): Observable<AuctionCreatorModel[]> {
+    const url = '/api/auctions/creators';
+
+    return this.http.get<AuctionCreatorModel[]>(url)
+      .pipe(catchError(this.exception.errorHandler));
+  }
+
+  getAuctionFormats$(): Observable<AuctionFormatModel[]> {
+    const url = '/api/auctions/formats';
+
+    return this.http.get<AuctionFormatModel[]>(url)
       .pipe(catchError(this.exception.errorHandler));
   }
 

@@ -4,10 +4,6 @@ using System.Diagnostics;
 using System.Linq;
 using Bidding.Database.Contexts;
 using Bidding.Database.DatabaseModels.Auctions;
-using Bidding.Database.DatabaseModels.Users;
-using Bidding.Models.DatabaseModels.Bidding;
-using Bidding.Models.DatabaseModels.Bidding.Subscribe;
-using Bidding.Models.ViewModels.Bidding.Auctions;
 using Bidding.Models.ViewModels.Bidding.Auctions.List;
 using Bidding.Models.ViewModels.Bidding.Filters;
 using Bidding.Shared.Database;
@@ -18,9 +14,7 @@ namespace BiddingAPI.Models.DatabaseModels
 {
     public partial class BiddingContext : DbContextBase<BiddingContext>
     {
-        public BiddingContext(DbContextOptions<BiddingContext> options)
-            : base(options)
-        { }
+        public BiddingContext(DbContextOptions<BiddingContext> options) : base(options) { }
 
         public virtual DbSet<AuctionStatus> AuctionStatuses { get; set; }
         public virtual DbSet<AuctionFormat> AuctionFormats { get; set; }
@@ -65,14 +59,12 @@ namespace BiddingAPI.Models.DatabaseModels
                 .HasOne(p => p.User)
                 .WithMany(b => b.Auctions)
                 .HasForeignKey(p => p.CreatedBy);
-               
 
             modelBuilder.Entity<AuctionDetails>()
-            .HasOne(s => s.Auction)
-            .WithOne(ad => ad.AuctionDetails);
+                .HasOne(s => s.Auction)
+                .WithOne(ad => ad.AuctionDetails);
 
-
-        modelBuilder.Entity<AuctionStatus>()
+            modelBuilder.Entity<AuctionStatus>()
                 .HasOne(p => p.User)
                 .WithMany(b => b.AuctionStatuses)
                 .HasForeignKey(p => p.CreatedBy);
@@ -100,6 +92,16 @@ namespace BiddingAPI.Models.DatabaseModels
             modelBuilder.Entity<Type>()
                 .HasOne(p => p.User)
                 .WithMany(b => b.Types)
+                .HasForeignKey(p => p.CreatedBy);
+
+            modelBuilder.Entity<AuctionFormat>()
+                .HasOne(p => p.User)
+                .WithMany(b => b.AuctionFormats)
+                .HasForeignKey(p => p.CreatedBy);
+
+            modelBuilder.Entity<AuctionCondition>()
+                .HasOne(p => p.User)
+                .WithMany(b => b.AuctionConditions)
                 .HasForeignKey(p => p.CreatedBy);
 
             modelBuilder.Seed();

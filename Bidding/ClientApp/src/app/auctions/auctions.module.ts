@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 // 3rd lib
-import { DatetimePopupModule } from 'ngx-bootstrap-datetime-popup';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 // internal
 import { AuctionListComponent } from './containers/list/list.component';
@@ -20,8 +20,8 @@ import { AuctionsService } from './services/auctions.service';
   imports: [
     CommonModule,
     SharedModule,
-    DatetimePopupModule,
-    AuctionsRoutingModule
+    AuctionsRoutingModule,
+    BsDatepickerModule.forRoot()
   ],
   exports: [
     AuctionListComponent

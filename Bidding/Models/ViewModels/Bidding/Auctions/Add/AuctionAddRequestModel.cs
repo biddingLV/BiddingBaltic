@@ -9,23 +9,20 @@ namespace BiddingAPI.Models.ViewModels.Bidding.Auctions
     public class AuctionAddRequestModel
     {
         public string AuctionName { get; set; }
-        public int AuctionCategoryId { get; set; }
-        public int AuctionSubCategoryId { get; set; }
-        public int AuctionFormatId { get; set; }
+        public List<int> AuctionTopCategoryIds { get; set; }
+        public List<int> AuctionSubCategoryIds { get; set; }
         public int AuctionStartingPrice { get; set; }
         public DateTime AuctionStartDate { get; set; }
-        /// <summary>
-        /// Need to apply date/until
-        /// </summary>
-        public DateTime AuctionApplyDate { get; set; }
-        public DateTime AuctionEndDate { get; set; }
-        public int AuctionCreatorId { get; set; }
-        /// <summary>
-        /// Auction status for AuctionStatuses table
-        /// </summary>
-        public int AuctionStatusId { get; set; }
-        public int AuctionConditionId { get; set; }
+        public DateTime? AuctionApplyTillDate { get; set; }
+        public DateTime? AuctionEndDate { get; set; }
         public string AuctionDescription { get; set; }
+        public int AuctionCreatorId { get; set; }
+        public int AuctionFormatId { get; set; }
+
+
+        //public int AuctionStatusId { get; set; } // todo: kke: not needed because aktive always?
+        //public int AuctionConditionId { get; set; }
+
         // todo: kke: also add image prop here!
     }
 }

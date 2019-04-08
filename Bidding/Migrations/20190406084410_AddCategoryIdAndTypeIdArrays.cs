@@ -2,7 +2,7 @@
 
 namespace Bidding.Migrations
 {
-    public partial class AddCategoryIdArrayAndTypeIdArray : Migration
+    public partial class AddCategoryIdAndTypeIdArrays : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {

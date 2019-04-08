@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using Bidding.Models.ViewModels.Bidding.Auctions;
+using Bidding.Models.ViewModels.Bidding.Auctions.Add;
 using Bidding.Models.ViewModels.Bidding.Auctions.Details;
 using Bidding.Models.ViewModels.Bidding.Auctions.List;
 using Bidding.Models.ViewModels.Bidding.Filters;
@@ -81,19 +82,6 @@ namespace BiddingAPI.Repositories.Auctions
             }
         }
 
-        private DataTable CreateIdTable(IEnumerable<int> ids, string nameOfId)
-        {
-            DataTable table = new DataTable();
-            table.Columns.Add(nameOfId, typeof(int));
-
-            foreach (int id in ids)
-            {
-                table.Rows.Add(id);
-            }
-
-            return table;
-        }
-
         /// <summary>
         /// Gets total auction count based on specific date/time range
         /// </summary>
@@ -121,6 +109,45 @@ namespace BiddingAPI.Repositories.Auctions
         public IEnumerable<SubCategoryFilterModel> LoadSubCategories()
         {
             return m_context.SubCategoryFilter.FromSql("GetSubCategoriesWithCount");
+        }
+
+        /// <summary>
+        /// Loads all active auction creators
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<AuctionCreatorItemModel> Creators()
+        {
+            int adminRoleId = m_context.Roles
+                .Where(rol => rol.Name == "Admin" && rol.Deleted == false)
+                .Select(rol => rol.RoleId).FirstOrDefault();
+
+            if (adminRoleId.IsNotSpecified())
+            {
+                throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.CouldNotFetchAuctionCreatorList);
+            }
+            else
+            {
+                return m_context.Users
+                    .Where(usr => usr.Deleted == false && usr.RoleId == adminRoleId)
+                    .Select(usr => new AuctionCreatorItemModel
+                    {
+                        AuctionCreatorId = usr.UserId,
+                        FirstName = usr.FirstName,
+                        MiddleName = usr.MiddleName,
+                        LastName = usr.LastName
+                    });
+            }
+        }
+
+        /// <summary>
+        /// Loads all active auction formats
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<AuctionFormatItemModel> Formats()
+        {
+            return m_context.AuctionFormats
+                .Where(afor => afor.Deleted == false)
+                .Select(afor => new AuctionFormatItemModel { AuctionFormatId = afor.AuctionFormatId, AuctionFormatName = afor.Name });
         }
 
         public IEnumerable<AuctionDetailsResponseModel> Details(AuctionDetailsRequestModel request)
@@ -168,10 +195,10 @@ namespace BiddingAPI.Repositories.Auctions
             Auction auction = new Auction()
             {
                 Name = request.AuctionName,
-                StartingPrice = request.AuctionStartingPrice,
-                StartDate = request.AuctionStartDate,
-                ApplyDate = request.AuctionApplyDate,
-                EndDate = request.AuctionEndDate
+                //StartingPrice = request.AuctionStartingPrice,
+                //StartDate = request.AuctionStartDate,
+                //ApplyDate = request.AuctionApplyDate,
+                //EndDate = request.AuctionEndDate
                 // AuctionStatusId = request.AuctionStatusId
             };
 
@@ -200,6 +227,19 @@ namespace BiddingAPI.Repositories.Auctions
         public bool Delete(AuctionDeleteRequestModel request)
         {
             return true;
+        }
+
+        private DataTable CreateIdTable(IEnumerable<int> ids, string nameOfId)
+        {
+            DataTable table = new DataTable();
+            table.Columns.Add(nameOfId, typeof(int));
+
+            foreach (int id in ids)
+            {
+                table.Rows.Add(id);
+            }
+
+            return table;
         }
     }
 }
