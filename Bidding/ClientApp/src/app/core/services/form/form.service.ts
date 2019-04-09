@@ -99,17 +99,20 @@ export class FormService {
   * @param fieldName - form control name
   */
   private getRequiredMessage(fieldName: string): string {
-    // note: kke: if possible create different error messages for domains
-    // for example, organizations email & users email, result could be two different error messages!
-    // so we can easily change them in future if they are different!
     const messages = {
       // auction
-      auctionsName: 'Auction name',
+      auctionName: 'Nosaukums',
+      auctionTopCategory: 'Pamatkategorija',
+      auctionSubCategory: 'Apakškategorija',
+      auctionStartingPrice: 'Sākumcena',
+      auctionStartDate: 'Izsoles sākuma datums',
+      auctionCreator: 'Izsoles veidotājs',
+      auctionFormat: 'Izsoles veids',
       // user
-      usersFirstName: 'First name',
-      usersLastName: 'Last name',
-      usersEmail: 'E-mail',
-      usersPhone: 'Phone'
+      userFirstName: 'First name',
+      userLastName: 'Last name',
+      userEmail: 'E-mail',
+      userPhone: 'Phone'
     };
 
     return messages[fieldName];

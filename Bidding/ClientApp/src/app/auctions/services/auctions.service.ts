@@ -14,8 +14,8 @@ import { ExceptionsService } from '../../core/services/exceptions/exceptions.ser
 import { AuctionAddRequest } from '../models/add/auction-add-request.model';
 import { AuctionEditRequest } from '../models/edit/auction-edit-request.model';
 import { AuctionFilterModel } from '../models/filters/auction-filter.model';
-import { AuctionCreatorModel } from '../models/add/auction-creator-item.model';
 import { AuctionFormatModel } from '../models/add/auction-format.model';
+import { AuctionCreatorModel } from '../models/add/auction-creator.model';
 
 
 @Injectable({

@@ -25,10 +25,10 @@
           </div>
           <input type="number" class="form-control currency-input" formControlName="auctionStartingPrice"
             id="auctionStartingPrice" name="auctionStartingPrice"
-            [ngClass]="{ 'is-invalid': submitted && f.auctionName.errors }">
-          <!-- <div *ngIf="submitted && formErrors.auctionName" class="invalid-feedback">
-          {{formErrors.auctionName}}
-        </div> -->
+            [ngClass]="{ 'is-invalid': submitted && f.auctionStartingPrice.errors }">
+          <div *ngIf="submitted && formErrors.auctionStartingPrice" class="invalid-feedback">
+            {{formErrors.auctionStartingPrice}}
+          </div>
         </div>
       </div>
     </div>
@@ -109,33 +109,21 @@
       </div>
     </div>
 
-    <!-- <div *ngIf="this.selectedCategoryIds === 1 || this.selectedCategoryIds === 2">
-      <div class="form-group itemCondition">
-        <label class="required">Stāvoklis:</label>
-        <ng-select [virtualScroll]="true" placeholder="Izvēlieties mantas stāvokli">
-          <ng-option *ngFor="let typ of auctionItemCondition; let i = index" [value]="typ.conId" required>
-            {{typ.contype}}
+    <div class="form-row">
+      <div class="form-group col-6">
+        <label class="required" for="auctionFormat">Izsoles veids2:</label>
+        <!-- <ng-select #auctionFormatSelect formControlName="auctionFormat" [clearable]="false" [virtualScroll]="true"
+          [multiple]="false" [closeOnSelect]="true" placeholder="Select auction format">
+          <ng-option *ngFor="let format of auctionFormats.formats; let i = index" [value]="format.auctionFormatId">
+            {{format.auctionFormatName}}
           </ng-option>
-        </ng-select>
+        </ng-select> -->
       </div>
-    </div> -->
 
-    <!-- <div *ngIf="this.selectedCategoryIds === 3">
-      <div class="form-group propertyCondition">
-        <label class="required">Īpašuma stāvoklis:</label>
-        <ng-select [virtualScroll]="true" placeholder="Izvēlieties Īpašuma stāvokli">
-          <ng-option *ngFor="let typ of auctionPropertyCondition; let i = index" [value]="typ.propId" required>
-            {{typ.proptype}}
-          </ng-option>
-        </ng-select>
-      </div>
-    </div> -->
-
-    <!-- <div class="form-row">
-      <div class="form-group col-md-12">
+      <div class="form-group col-md-6">
         <app-file-uploader (fileUploaded)="onFileUploaded($event)" (fileRemoved)="onFileRemoved()"></app-file-uploader>
       </div>
-    </div> -->
+    </div>
 
     <div class="form-row">
       <div class="form-group">
