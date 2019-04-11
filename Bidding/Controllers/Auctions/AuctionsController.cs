@@ -26,12 +26,12 @@ namespace BiddingAPI.Controllers.Auctions
         }
 
         /// <summary>
-        /// Gets Auction list and also used for to search for auction
+        /// Gets Auction list and also used for to search for specific auction
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpGet]
-        //[Authorize(Roles = "User")]
+        [Authorize(Roles = "User, Admin")]
         public IActionResult Search([FromQuery] AuctionListRequestModel request)
         {
             // todo: kke: refactor filter ids to be list<int> in AuctionListRequestModel!
@@ -43,21 +43,29 @@ namespace BiddingAPI.Controllers.Auctions
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        //[Authorize(Roles = "User")]
+        [Authorize(Roles = "User, Admin")]
         public IActionResult Filters()
         {
             return Ok(m_auctionsService.Filters());
         }
 
+        /// <summary>
+        /// Fetch auction creator list for auction add modal
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
-        //[Authorize(Roles = "User")]
+        [Authorize(Roles = "Admin")]
         public IActionResult Creators()
         {
             return Ok(m_auctionsService.Creators());
         }
 
+        /// <summary>
+        /// Fetch auction format list for auction add modal
+        /// </summary>
+        /// <returns></returns>
         [HttpGet]
-        //[Authorize(Roles = "User")]
+        [Authorize(Roles = "Admin")]
         public IActionResult Formats()
         {
             return Ok(m_auctionsService.Formats());
@@ -69,21 +77,10 @@ namespace BiddingAPI.Controllers.Auctions
         /// <param name="auctionId"></param>
         /// <returns></returns>
         [HttpGet]
-        //[Authorize(Roles = "User")]
+        [Authorize(Roles = "User, Admin")]
         public IActionResult Details([FromQuery] AuctionDetailsRequestModel request)
         {
             return Ok(m_auctionsService.Details(request));
-        }
-
-        /// <summary>
-        /// Used to fetch details for add auction modal
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet]
-        //[Authorize(Roles = "Admin")]
-        public IActionResult CreateDetails()
-        {
-            return Ok();
         }
 
         /// <summary>
@@ -92,17 +89,10 @@ namespace BiddingAPI.Controllers.Auctions
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpPost]
-        //[Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Admin")]
         public IActionResult Create([FromBody] AuctionAddRequestModel request)
         {
             return Ok(m_auctionsService.Create(request));
-        }
-
-        [HttpGet]
-        //[Authorize(Roles = "Admin")]
-        public IActionResult EditDetails()
-        {
-            return Ok();
         }
 
         [HttpPut]
