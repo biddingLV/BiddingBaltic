@@ -1,1 +1,1 @@
-﻿dotnet ef migrations script --output $path --context $dbContext 
+﻿dotnet ef migrations script --output $path --context $dbContext
