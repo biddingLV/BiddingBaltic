@@ -24,6 +24,16 @@
     </div>
   </div>
   <div class="row">
+    <div class="countdown col-lg-6">
+      <div class='tiles'></div>
+        <div class="labels">
+          <span><li>Dienas</li></span>
+          <span><li>Stundas</li></span>
+          <span><li>Minūtes</li></span>
+        </div>
+    </div>
+  </div>
+  <div class="row">
     <div class="col-lg-12 text-center">
       <button type="button" class="apply-button"><strong>Pieteikties izsolei</strong></button>
     </div>
@@ -33,29 +43,29 @@
   <div class="row main-container">
     <ng-container class="main-content" *ngIf="auctionDetails">
       <div class="col-4 main-content">
-        <h5>izsoles priekšmets:</h5>
+        <h5>Izsoles priekšmets:</h5>
         <p>{{auctionDetails.auctionName}}</p>
-        <h5>kategorija:</h5>
+        <h5>Kategorija:</h5>
         <p>{{auctionDetails.categoryName}}</p>
-        <h5>apakškategorija:</h5>
+        <h5>Apakškategorija:</h5>
         <p>{{auctionDetails.typeName}}</p>
       </div>
 
       <div class="col-4 main-content">
-        <h4>izsoles apraksts:</h4>
+        <h4>Izsoles apraksts:</h4>
         <p>Whats this?</p>
-        <h5>izsoles sakuma cena:</h5>
+        <h5>Izsoles sākumcena:</h5>
         <p>{{auctionDetails.auctionStartingPrice}}</p>
-        <h5>izsoles sākuma laiks:</h5>
+        <h5>Izsoles sākuma laiks:</h5>
         <p>{{auctionDetails.auctionStartDate}}</p>
-        <h5>izsoles beigu pieteikšanās laiks:</h5>
+        <h5>Izsoles beigu pieteikšanās laiks:</h5>
         <p>{{auctionDetails.auctionEndDate}}</p>
       </div>
 
       <div class="col-4 main-content">
-        <h4>bilde(s):</h4>
+        <h4>Bilde(s):</h4>
         <p>None</p>
-        <h4>izsoles apraksts:</h4>
+        <h4>Izsoles apraksts:</h4>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam purus sem, lacinia a aliquet eget, feugiat
           quis lectus. Cras vitae maximus felis, sit amet posuere mauris. Vestibulum venenatis venenatis porta. Nam
           porta urna sit amet risus fermentum, non facilisis tellus hendrerit. Cras vulputate sem in rhoncus tincidunt.
