@@ -5,6 +5,7 @@ using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using Bidding.Database.DatabaseModels.Auctions;
 using Bidding.Models.ViewModels.Bidding.Auctions;
 using Bidding.Models.ViewModels.Bidding.Auctions.Add;
 using Bidding.Models.ViewModels.Bidding.Auctions.Details;
@@ -171,7 +172,7 @@ namespace BiddingAPI.Repositories.Auctions
                            TypeName = typ.Name,
                            AuctionStartingPrice = auct.StartingPrice,
                            AuctionStartDate = auct.StartDate,
-                           AuctionEndDate = auct.EndDate
+                           AuctionEndDate = auct.EndDate ?? auct.EndDate.Value
                        };
             }
             else
@@ -192,15 +193,41 @@ namespace BiddingAPI.Repositories.Auctions
         /// <returns></returns>
         public bool Create(AuctionAddRequestModel request)
         {
+            // todo: kke: get the loggedInUser here!
+
+            // todo: kke: normal naming!
+            var status = m_context.AuctionStatuses.Where(sta => sta.Name == "Aktīva").FirstOrDefault();
+
             Auction auction = new Auction()
             {
                 Name = request.AuctionName,
-                //StartingPrice = request.AuctionStartingPrice,
-                //StartDate = request.AuctionStartDate,
-                //ApplyDate = request.AuctionApplyDate,
-                //EndDate = request.AuctionEndDate
-                // AuctionStatusId = request.AuctionStatusId
+                StartingPrice = request.AuctionStartingPrice,
+                StartDate = request.AuctionStartDate,
+                ApplyDate = request.AuctionApplyTillDate ?? request.AuctionApplyTillDate.Value,
+                EndDate = request.AuctionEndDate ?? request.AuctionEndDate.Value,
+                CreatedAt = DateTime.UtcNow,
+                CreatedBy = 1, // needs to be loggedInUser
+                Deleted = false,
+                AuctionStatusId = status.AuctionStatusId,
+                AuctionCategories = new List<AuctionCategory>()
+                {
+                    new AuctionCategory { CategoryId = request.AuctionTopCategoryIds.First() } // needs to support multiple cat in one go!
+                },
+                AuctionTypes = new List<AuctionType>()
+                {
+                    new AuctionType { TypeId = request.AuctionTopCategoryIds.First() } // needs to support multiple cat in one go!
+                }
             };
+
+            // todo: kke: does this make sense?
+            // that auction id also in auction details table?
+            // and and auction details id missing from auction table?
+            //AuctionDetails auctionDetails = new AuctionDetails()
+            //{
+            //    AuctionId = auction.AuctionId,
+            //    AuctionFormatId = request.AuctionFormatId
+            //    // AuctionConditionId
+            //};
 
             var strategy = m_context.Database.CreateExecutionStrategy();
             strategy.Execute(() =>

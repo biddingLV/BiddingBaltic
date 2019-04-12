@@ -1,6 +1,8 @@
 using Bidding.Models.ViewModels.Bidding.Users.Add;
 using Bidding.Models.ViewModels.Bidding.Users.Shared;
+using Bidding.Repositories.Shared;
 using Bidding.Repositories.Users;
+using Bidding.Services.Shared.Permissions;
 using Bidding.Services.Users;
 using Bidding.Shared.Attributes;
 using Bidding.Shared.Authorization;
@@ -252,6 +254,8 @@ namespace Bidding
             // if there is a problem with Cors, check if you have added service and repo here!
             services.AddScoped<ISubscribeService, SubscribeService>();
             services.AddScoped<ISubscribeRepository, SubscribeRepository>();
+            services.AddScoped<PermissionService>();
+            services.AddScoped<PermissionRepository>();
             services.AddScoped<AuctionsService>();
             services.AddScoped<AuctionsRepository>();
             services.AddScoped<UsersService>();
@@ -402,7 +406,7 @@ namespace Bidding
                            // setup profile cookie options
                            CookieOptions userProfileCookieOptions = SetupUserProfileCookieOptions();
 
-                           context.Response.Cookies.Append("TXPROFILE", userProfileCookieJSON, userProfileCookieOptions);
+                           context.Response.Cookies.Append("BIDPROFILE", userProfileCookieJSON, userProfileCookieOptions);
                        }
                        else
                        {

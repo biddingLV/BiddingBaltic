@@ -28,11 +28,11 @@ namespace BiddingAPI.Models.DatabaseModels.Bidding
 
         [Required]
         [DataType(DataType.Date)]
-        public DateTime ApplyDate { get; set; }
+        public DateTime? ApplyDate { get; set; } // todo: kke: is this right?
 
         [Required]
         [DataType(DataType.Date)]
-        public DateTime EndDate { get; set; }
+        public DateTime? EndDate { get; set; } // todo: kke: is this right?
 
         [Required]
         [DataType(DataType.Date)]

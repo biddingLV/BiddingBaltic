@@ -54,8 +54,8 @@ export class AuthService {
   }
 
   private checkCookie(): void {
-    if (this.cookieService.check('TXPROFILE')) {
-      const profileCookie = this.cookieService.get('TXPROFILE');
+    if (this.cookieService.check('BIDPROFILE')) {
+      const profileCookie = this.cookieService.get('BIDPROFILE');
       if (profileCookie) {
         this.setUserDetails(profileCookie);
       }

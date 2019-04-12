@@ -22,5 +22,8 @@ namespace Bidding.Shared.ErrorHandling.Errors
 
         [Description("Not valid user!")]
         UserNotValid,
+
+        [Description("User is not active anymore")]
+        UserNotActive
     }
 }
