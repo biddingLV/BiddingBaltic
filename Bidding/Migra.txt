@@ -1,1 +1,2 @@
 ﻿dotnet ef migrations script --output $path --context $dbContext 
+ one more test case
