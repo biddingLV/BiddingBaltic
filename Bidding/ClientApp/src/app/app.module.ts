@@ -24,6 +24,7 @@ import { AuthModule } from './auth/auth.module';
 // 3rd party modules
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 // Services
 import { PreviousRouteService } from './shared/services/previous-route.service.ts/previous-route.service';
@@ -38,6 +39,7 @@ import { PreviousRouteService } from './shared/services/previous-route.service.t
     FormsModule,
     HttpClientModule,
     ModalModule.forRoot(),
+    BsDatepickerModule.forRoot(),
     MinSharedModule,
     SharedModule,
     HomeModule,

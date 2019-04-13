@@ -7,7 +7,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // 3rd lib
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 // filter components
 import { GalleryModule } from '@ngx-gallery/core';
@@ -28,8 +27,7 @@ import { ImageGalleryComponent } from './components/image-gallery/image-gallery.
     MinSharedModule,
     FormsModule,
     ReactiveFormsModule,
-    GalleryModule,
-    BsDatepickerModule.forRoot(),
+    GalleryModule
   ],
   exports: [
     AuctionsTableComponent,
@@ -38,8 +36,7 @@ import { ImageGalleryComponent } from './components/image-gallery/image-gallery.
     FormsModule,
     ReactiveFormsModule,
     FileUploaderComponent,
-    ImageGalleryComponent,
-    BsDatepickerModule
+    ImageGalleryComponent
   ],
   declarations: [
     AuctionsTableComponent,
