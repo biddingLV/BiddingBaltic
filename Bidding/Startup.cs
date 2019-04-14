@@ -391,7 +391,9 @@ namespace Bidding
                                    UniqueIdentifier = payload["sub"].ToString()
                                };
 
+                               // todo: kke: maybe merge these two in one call so we dont call db two times?
                                usersServiceProvider.Create(newUser);
+                               userDetails = services.BuildServiceProvider().GetService<UsersService>().UserDetails(usersEmail);
                            }
 
                            // validate user details

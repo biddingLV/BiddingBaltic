@@ -158,7 +158,9 @@ namespace BiddingAPI.Services.Auctions
         {
             ValidateAuctionCreate(request);
 
-            return m_auctionsRepository.Create(request);
+            int? loggedInUserId = m_permissionService.GetUserIdFromClaimsPrincipal();
+
+            return m_auctionsRepository.Create(request, loggedInUserId.Value);
         }
 
         public bool Delete(AuctionDeleteRequestModel request)
@@ -228,7 +230,7 @@ namespace BiddingAPI.Services.Auctions
         /// <param name="request"></param>
         private void ValidateAuctionCreate(AuctionAddRequestModel request)
         {
-            // todo: kke: anything else required here?
+            if (request.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
             if (request.AuctionName.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
             if (request.AuctionTopCategoryIds.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
             if (request.AuctionSubCategoryIds.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
@@ -240,6 +242,9 @@ namespace BiddingAPI.Services.Auctions
             if (request.AuctionFormatId.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
 
             m_permissionService.IsLoggedInUserActive();
+
+            // todo: kke: save all dates to be UTC Format
+            // todo: kke: validate all required fields to be specified + max lenghts / min leghts and regular expressions
 
             // setup auction object for the validation
             //Auction auction = new Auction()

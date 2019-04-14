@@ -29,7 +29,7 @@ import { ImageGalleryComponent } from './components/image-gallery/image-gallery.
     FormsModule,
     ReactiveFormsModule,
     GalleryModule,
-    BsDatepickerModule.forRoot(),
+    BsDatepickerModule.forRoot()
   ],
   exports: [
     AuctionsTableComponent,

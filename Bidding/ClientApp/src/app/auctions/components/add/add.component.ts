@@ -55,7 +55,7 @@ export class AuctionAddComponent implements OnInit {
   selectedSubCategoryIds: number[];
 
   /** Date format for dates */
-  dateFormat = 'DD/MM/YYYY';
+  dateFormat = 'YYYY-MM-DD';
 
   // API
   auctionAddRequest: AuctionAddRequest;
@@ -134,7 +134,6 @@ export class AuctionAddComponent implements OnInit {
         Validators.required
       ]],
       auctionStartingPrice: ['', [
-        // Validators.maxLength(100),
         Validators.required
       ]],
       auctionStartDate: ['', [
@@ -142,9 +141,7 @@ export class AuctionAddComponent implements OnInit {
       ]],
       auctionApplyTillDate: ['', []],
       auctionEndDate: ['', []],
-      auctionDescription: ['', [
-        Validators.maxLength(100)
-      ]],
+      auctionDescription: ['', []],
       auctionCreator: ['', [
         Validators.required
       ]],
