@@ -45,7 +45,7 @@ namespace Bidding.Services.Shared.Permissions
         /// Checks if claim principal has user id
         /// </summary>
         /// <returns></returns>
-        private int? GetUserIdFromClaimsPrincipal()
+        public int? GetUserIdFromClaimsPrincipal()
         {
             if (m_claimPrincipal?.FindFirst("UserId") != null && int.TryParse(m_claimPrincipal?.FindFirst("UserId").Value.ToLower(), out int userId))
             {

@@ -24,6 +24,9 @@ namespace Bidding.Shared.ErrorHandling.Errors
         TopCategoryIdsNotCorrect,
 
         [Description("Incorrect auction or doesn't exist.")]
-        IncorrectAuction
+        IncorrectAuction,
+
+        [Description("Incorrect auction status or doesn't exist.")]
+        MissingRequiredAuctionStatus
     }
 }

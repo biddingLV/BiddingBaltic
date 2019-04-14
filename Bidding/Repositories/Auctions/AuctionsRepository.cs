@@ -191,28 +191,22 @@ namespace BiddingAPI.Repositories.Auctions
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public bool Create(AuctionAddRequestModel request)
+        public bool Create(AuctionAddRequestModel request, int loggedInUserId)
         {
-            // todo: kke: get the loggedInUser here!
+            int defaultAuctionStatusId = ValidateAndFetchAuctionStatus();
 
-            // todo: kke: normal naming!
-            var status = m_context.AuctionStatuses.Where(sta => sta.Name == "Aktīva").FirstOrDefault();
-
-            Auction auction = new Auction()
+            Auction newAuction = new Auction()
             {
                 Name = request.AuctionName,
                 StartingPrice = request.AuctionStartingPrice,
                 StartDate = request.AuctionStartDate,
                 ApplyDate = request.AuctionApplyTillDate ?? request.AuctionApplyTillDate.Value,
                 EndDate = request.AuctionEndDate ?? request.AuctionEndDate.Value,
-                CreatedAt = DateTime.UtcNow,
-                CreatedBy = 1, // needs to be loggedInUser
+                CreatedAt = DateTime.UtcNow, // utc time always
+                CreatedBy = loggedInUserId,
                 Deleted = false,
-                AuctionStatusId = status.AuctionStatusId,
-                AuctionCategories = new List<AuctionCategory>()
-                {
-                    new AuctionCategory { CategoryId = request.AuctionTopCategoryIds.First() } // needs to support multiple cat in one go!
-                },
+                AuctionStatusId = defaultAuctionStatusId,
+                AuctionCategories = PopulateAuctionCategories(request.AuctionTopCategoryIds).ToList(),
                 AuctionTypes = new List<AuctionType>()
                 {
                     new AuctionType { TypeId = request.AuctionTopCategoryIds.First() } // needs to support multiple cat in one go!
@@ -236,8 +230,7 @@ namespace BiddingAPI.Repositories.Auctions
                 {
                     using (var transaction = m_context.Database.BeginTransaction())
                     {
-                        EntityEntry<Auction> newAuction = m_context.Add(auction);
-
+                        m_context.Add(newAuction);
                         m_context.SaveChanges();
                         transaction.Commit();
                     }
@@ -256,6 +249,12 @@ namespace BiddingAPI.Repositories.Auctions
             return true;
         }
 
+        /// <summary>
+        /// Creates Sql Server array table, used to pass list of ids to Sql Server
+        /// </summary>
+        /// <param name="ids">List with ids</param>
+        /// <param name="nameOfId">Name of the id column</param>
+        /// <returns></returns>
         private DataTable CreateIdTable(IEnumerable<int> ids, string nameOfId)
         {
             DataTable table = new DataTable();
@@ -267,6 +266,33 @@ namespace BiddingAPI.Repositories.Auctions
             }
 
             return table;
+        }
+
+        /// <summary>
+        /// Load default auction status id and also validate if it is still active in database
+        /// </summary>
+        /// <returns></returns>
+        private int ValidateAndFetchAuctionStatus()
+        {
+            int defaultAuctionStatusId =
+                m_context.AuctionStatuses.Where(sta => sta.Name == "Aktīva").Select(sta => sta.AuctionStatusId).FirstOrDefault();
+
+            if (defaultAuctionStatusId.IsNotSpecified())
+            {
+                throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingRequiredAuctionStatus);
+            }
+
+            return defaultAuctionStatusId;
+        }
+
+        /// <summary>
+        /// Populate AuctionCategories mapping / intermediary table
+        /// </summary>
+        /// <param name="selectedCategoryIds"></param>
+        /// <returns></returns>
+        private IEnumerable<AuctionCategory> PopulateAuctionCategories(List<int> selectedCategoryIds)
+        {
+            return selectedCategoryIds.Select(cat => new AuctionCategory() { CategoryId = cat });
         }
     }
 }
