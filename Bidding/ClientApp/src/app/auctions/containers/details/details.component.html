@@ -1,36 +1,71 @@
 <div class="container">
   <div class="row">
-    <div class="col-12">
-      <h1>Auction Details</h1>
+    <div class="col-lg-12">
+      <div class="text-uppercase">
+        <nav aria-label="breadcrumb">
+          <ol class="breadcrumb">
+            <li class="breadcrumb-item"><a href="#">Sākumlapa</a></li>
+            <li class="breadcrumb-item"><a href="#">Izsoles</a></li>
+            <li class="breadcrumb-item active">{{auctionDetails.auctionName}}</li>
+          </ol>
+      </nav>
+      </div>
     </div>
   </div>
-
   <div class="row">
-    <ng-container *ngIf="auctionDetails">
-      <div class="col-4">
-        <h5>izsoles priekšmets:</h5>
+    <div class="auction-header col-lg-12 text-uppercase text-center">
+        <h1 class="auction-title"><strong>{{auctionDetails.auctionName}}</strong></h1>
+        <h4 class="auction-startingprice"><strong>Sākumcena {{auctionDetails.auctionStartingPrice}}</strong></h4>
+    </div>
+  </div>
+  <div class="row overall-info">
+    <div class="image-gallery col-lg-6">
+      <app-image-gallery></app-image-gallery>
+    </div>
+    <div class="countdown col-lg-6">
+      <h2 class="countdown-headline text-center">Līdz izsolei palicis</h2>
+      <div class='tiles'></div>
+        <div class="labels">
+          <span><li>Dienas</li></span>
+          <span><li>Stundas</li></span>
+          <span><li>Minūtes</li></span>
+        </div>
+    </div>
+    <svg xmlns="http://www.w3.org/2000/svg" class="social" width="13.668" height="26.508" viewBox="0 0 13.668 26.508"><defs><style>.a{fill:#6f5081;}</style></defs><path class="a" d="M3.971,26.508V14.652H0V9.94H3.971V6.228C3.971,2.2,6.435,0,10.034,0a33.339,33.339,0,0,1,3.634.186V4.4h-2.5c-1.957,0-2.335.932-2.335,2.294V9.94h4.416l-.606,4.711H8.838V26.508"/></svg>
+    <svg xmlns="http://www.w3.org/2000/svg" class="social" width="31.197" height="25.338" viewBox="0 0 31.197 25.338"><defs><style>.a{fill:#6f5081;}</style></defs><path class="a" d="M27.991,54.4c.02.277.02.554.02.831,0,8.453-6.433,18.192-18.192,18.192A18.069,18.069,0,0,1,0,70.55a13.227,13.227,0,0,0,1.544.079A12.805,12.805,0,0,0,9.482,67.9,6.405,6.405,0,0,1,3.5,63.463a8.064,8.064,0,0,0,1.208.1,6.763,6.763,0,0,0,1.683-.218,6.4,6.4,0,0,1-5.127-6.275V56.99a6.439,6.439,0,0,0,2.89.812,6.4,6.4,0,0,1-1.98-8.552,18.174,18.174,0,0,0,13.184,6.691,7.218,7.218,0,0,1-.158-1.465A6.4,6.4,0,0,1,26.268,50.1a12.588,12.588,0,0,0,4.058-1.544,6.377,6.377,0,0,1-2.811,3.524,12.818,12.818,0,0,0,3.682-.99A13.744,13.744,0,0,1,27.991,54.4Z" transform="translate(0 -48.082)"/></svg>
+    <div class="col-lg-12 text-center">
+      <button type="button" class="apply-button"><strong>Pieteikties izsolei</strong></button>
+    </div>
+  </div>
+</div>
+
+<div class="container">
+  <div class="row main-container">
+    <ng-container class="main-content" *ngIf="auctionDetails">
+      <div class="col-lg-4">
+        <h5>Izsoles priekšmets:</h5>
         <p>{{auctionDetails.auctionName}}</p>
-        <h5>kategorija:</h5>
+        <h5>Kategorija:</h5>
         <p>{{auctionDetails.categoryName}}</p>
-        <h5>apakškategorija:</h5>
+        <h5>Apakškategorija:</h5>
         <p>{{auctionDetails.typeName}}</p>
       </div>
 
-      <div class="col-4">
-        <h4>izsoles apraksts:</h4>
+      <div class="col-lg-4">
+        <h4>Izsoles apraksts:</h4>
         <p>Whats this?</p>
-        <h5>izsoles sakuma cena:</h5>
+        <h5>Izsoles sākumcena:</h5>
         <p>{{auctionDetails.auctionStartingPrice}}</p>
-        <h5>izsoles sākuma laiks:</h5>
+        <h5>Izsoles sākuma laiks:</h5>
         <p>{{auctionDetails.auctionStartDate}}</p>
-        <h5>izsoles beigu pieteikšanās laiks:</h5>
+        <h5>Izsoles beigu pieteikšanās laiks:</h5>
         <p>{{auctionDetails.auctionEndDate}}</p>
       </div>
 
-      <div class="col-4">
-        <h4>bilde(s):</h4>
+      <div class="col-lg-4">
+        <h4>Bilde(s):</h4>
         <p>None</p>
-        <h4>izsoles apraksts:</h4>
+        <h4>Izsoles apraksts:</h4>
         <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam purus sem, lacinia a aliquet eget, feugiat
           quis lectus. Cras vitae maximus felis, sit amet posuere mauris. Vestibulum venenatis venenatis porta. Nam
           porta urna sit amet risus fermentum, non facilisis tellus hendrerit. Cras vulputate sem in rhoncus tincidunt.
@@ -38,13 +73,33 @@
       </div>
     </ng-container>
   </div>
+</div>
 
+<div class="container">
+  <div class="row cards-container text-center">
+    <div class="card card-left mx-lg-3">
+      <h4 class="card-headline">Tev droši vien vajadzēs jaunas riepas</h4>
+      <h6 class="card-item">Vasaras riepas</h6>
+      <h6 class="card-item">Ziemas riepas</h6>
+      <h6 class="card-item">Vissezonas riepas</h6>
+        <button type="button" class="service-button"><strong>Gribu mainīt riepas</strong></button>
+    </div>
+    <div class="card card-middle mx-lg-3">
+        <h4 class="card-headline">Neaizmirsti apdrošināt savu jauno auto</h4>
+        <h6 class="card-item">OCTA</h6>
+        <h6 class="card-item">KASKO</h6>
+        <h6 class="card-item">ZELTA OCTA</h6>
+          <button type="button" class="service-button"><strong>Apdrošināt auto</strong></button>
+    </div>
+    <div class="card card-right mx-lg-3">
+        <h4 class="card-headline">Lai vienmēr tīrs auto</h4>
+        <h6 class="card-item">15% atlaide automazgātuve</h6>
+        <h6 class="card-item">"CARWASH"</h6>
+          <button type="button" class="service-button"><strong>Gribu atlaidi</strong></button>
+    </div>
+  </div>
   <div class="row">
     <p>Countdown example: {{ displayTime }}</p>
-  </div>
-
-  <div class="row">
-    <app-image-gallery></app-image-gallery>
   </div>
 
   <div class="row">
