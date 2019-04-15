@@ -18,6 +18,8 @@ import { SearchComponent } from './components/search/search.component';
 import { MinSharedModule } from './shared-min.module';
 import { FileUploaderComponent } from './components/file-uploader/file-uploader.component';
 import { ImageGalleryComponent } from './components/image-gallery/image-gallery.component';
+import { HasRoleDirective } from './directives/authorization/role/has-role.directive';
+
 
 @NgModule({
   imports: [
@@ -39,13 +41,15 @@ import { ImageGalleryComponent } from './components/image-gallery/image-gallery.
     ReactiveFormsModule,
     FileUploaderComponent,
     ImageGalleryComponent,
-    BsDatepickerModule
+    BsDatepickerModule,
+    HasRoleDirective
   ],
   declarations: [
     AuctionsTableComponent,
     SearchComponent,
     FileUploaderComponent,
-    ImageGalleryComponent
+    ImageGalleryComponent,
+    HasRoleDirective
   ]
 })
 export class SharedModule { }

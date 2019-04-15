@@ -1,8 +1,8 @@
 // angular
-import { Component, OnInit, Input, EventEmitter, Output, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 
 // internal
-import { AuctionModel } from 'ClientApp/src/app/auctions/models/list/auction.model';
+import { AuctionModel, AuctionItem } from 'ClientApp/src/app/auctions/models/list/auction.model';
 
 
 @Component({
@@ -25,11 +25,11 @@ export class AuctionsTableComponent implements OnInit {
 
   ngOnInit(): void { }
 
-  onPageChange(page): void {
+  onPageChange(page: number): void {
     this.pageChange.emit(page);
   }
 
-  onSortChange(event): void {
+  onSortChange(event: boolean): void {
     this.sortChange.emit(event);
   }
 
