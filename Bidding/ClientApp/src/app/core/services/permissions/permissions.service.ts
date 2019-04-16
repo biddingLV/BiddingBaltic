@@ -22,45 +22,45 @@ export class PermissionsService {
   getRole(): Observable<UserRoleModel> {
     return this.unpack(data => {
       return {
-        RoleId: data.RoleId,
-        RoleName: data.RoleName,
+        roleId: data.roleId,
+        roleName: data.roleName,
       };
     });
   }
 
   getRoleId(): Observable<number> {
     return this.unpack(data => {
-      return data.RoleId;
+      return data.roleId;
     });
   }
 
   getRoleName(): Observable<string> {
     return this.unpack(data => {
-      return data.RoleName;
+      return data.roleName;
     });
   }
 
   hasRoleId(roleId: number): Observable<boolean> {
     return this.unpack(data => {
-      return data.RoleId === roleId;
+      return data.roleId === roleId;
     });
   }
 
   hasRoleName(roleName: string): Observable<boolean> {
     return this.unpack(data => {
-      return data.RoleName === roleName;
+      return data.roleName == roleName;
     });
   }
 
   hasAdminRole(): Observable<boolean> {
     return this.unpack(data => {
-      return data.RoleId === 1;
+      return data.roleId === 1;
     });
   }
 
   hasUserRoleOrGreater(): Observable<boolean> {
     return this.unpack(data => {
-      return data.RoleId <= 2;
+      return data.roleId <= 2;
     });
   }
 
@@ -68,7 +68,7 @@ export class PermissionsService {
     return this.unpack(data => {
       let hasRole = false;
       for (const role of roles) {
-        if (data.RoleName === role) {
+        if (data.roleName === role) {
           hasRole = true;
           break;
         }

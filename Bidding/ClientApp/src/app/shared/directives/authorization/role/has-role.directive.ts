@@ -1,24 +1,24 @@
 // angular
-import { Directive, ElementRef, OnInit, Input } from '@angular/core';
+import { Directive, OnInit, Input, ViewContainerRef, TemplateRef } from '@angular/core';
 
 // internal
 import { PermissionsService } from '../../../../core/services';
 
-@Directive({
-  selector: '[hasRole]'
-})
+/** ATM only supports one role! */
+@Directive({ selector: '[hasRole]' })
 export class HasRoleDirective implements OnInit {
-  @Input('hasRole') roles: string;
+  @Input('hasRole') role: string;
 
-  constructor(private el: ElementRef, private permissionsService: PermissionsService) { }
+  constructor(private permissionsService: PermissionsService, private viewContainer: ViewContainerRef, private templateRef: TemplateRef<any>) { }
 
   ngOnInit(): void {
-    const roleArr: string[] = this.roles.split(',').map(str => str.trim());
-    this.permissionsService.hasRoles(roleArr).subscribe((data: boolean) => {
-      console.log('data: ', data)
-      if (!data) {
-        this.el.nativeElement.style.display = 'none';
-      }
-    });
+    this.permissionsService.hasRoleName(this.role).subscribe(
+      (data: boolean) => {
+        if (data) {
+          this.viewContainer.createEmbeddedView(this.templateRef);
+        } else {
+          this.viewContainer.clear();
+        }
+      });
   }
 }

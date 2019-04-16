@@ -4,11 +4,12 @@
     Edit
   </button>
 
-  <button *ngIf="selected.length === 1" value="Delete User" type="button" (click)="deleteModal()" class="btn btn-outline-danger">
+  <button *ngIf="selected.length === 1" value="Delete User" type="button" (click)="deleteModal()"
+    class="btn btn-outline-danger">
     Delete
   </button>
 
-  <button hasRole="Admin" value="Add User" type="button" (click)="addModal()" class="btn btn-primary">
+  <button *hasRole="'Admin'" value="Add User" type="button" (click)="addModal()" class="btn btn-primary">
     Add
   </button>
 </div>
