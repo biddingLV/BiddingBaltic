@@ -34,7 +34,6 @@ namespace BiddingAPI.Controllers.Auctions
         [Authorize(Roles = "User, Admin")]
         public IActionResult Search([FromQuery] AuctionListRequestModel request)
         {
-            // todo: kke: refactor filter ids to be list<int> in AuctionListRequestModel!
             return Ok(m_auctionsService.ListWithSearch(request));
         }
 

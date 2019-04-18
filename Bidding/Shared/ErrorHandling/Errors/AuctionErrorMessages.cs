@@ -8,7 +8,7 @@ namespace Bidding.Shared.ErrorHandling.Errors
 {
     public enum AuctionErrorMessages
     {
-        [Description("Auctions information missing.")]
+        [Description("Auctions information missing")]
         MissingAuctionsInformation,
 
         [Description("Could not fetch auction list")]
@@ -17,16 +17,16 @@ namespace Bidding.Shared.ErrorHandling.Errors
         [Description("Could not fetch auction creator list")]
         CouldNotFetchAuctionCreatorList,
 
-        [Description("Could not create auction.")]
+        [Description("Could not create auction")]
         CouldNotCreateAuction,
 
-        [Description("Top category ids are incorrect.")]
+        [Description("Top category ids are incorrect")]
         TopCategoryIdsNotCorrect,
 
-        [Description("Incorrect auction or doesn't exist.")]
+        [Description("Incorrect auction or doesn't exist")]
         IncorrectAuction,
 
-        [Description("Incorrect auction status or doesn't exist.")]
+        [Description("Incorrect auction status or doesn't exist")]
         MissingRequiredAuctionStatus
     }
 }

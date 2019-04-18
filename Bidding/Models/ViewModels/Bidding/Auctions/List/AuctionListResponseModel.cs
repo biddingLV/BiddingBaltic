@@ -10,5 +10,10 @@ namespace Bidding.Models.ViewModels.Bidding.Auctions
     public class AuctionListResponseModel : BaseListResponseModel
     {
         public List<AuctionListModel> Auctions { get; set; }
+
+        public override bool IsReponseEmpty()
+        {
+            return !Auctions.Any();
+        }
     }
 }

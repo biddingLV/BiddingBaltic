@@ -57,6 +57,8 @@
     <Compile Remove="Migrations\20190406082602_InitialMigration.Designer.cs" />
     <Compile Remove="Migrations\20190406083043_InitialMigration.cs" />
     <Compile Remove="Migrations\20190406083043_InitialMigration.Designer.cs" />
+    <Compile Remove="Migrations\20190418125228_AddOneInactiveAuctionToAuctionTable.cs" />
+    <Compile Remove="Migrations\20190418125228_AddOneInactiveAuctionToAuctionTable.Designer.cs" />
   </ItemGroup>
 
   <ItemGroup>

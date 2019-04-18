@@ -5,9 +5,12 @@ using System.Threading.Tasks;
 
 namespace BiddingAPI.Models.ViewModels.BaseModels
 {
-    public class BaseListResponseModel
+    public abstract class BaseListResponseModel
     {
         public int CurrentPage { get; set; }
         public int ItemCount { get; set; }
+        public int Offset { get; set; }
+        public int TotalPages { get; set; }
+        public abstract bool IsReponseEmpty();
     }
 }

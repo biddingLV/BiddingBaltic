@@ -1,2 +1,2 @@
-﻿dotnet ef migrations script --output $path --context $dbContext 
- one more test case
+﻿1. dotnet ef migrations script --output $path --context $dbContext 
+2. Update-Database -Migration 0

@@ -30,7 +30,7 @@ export class AuctionsService {
   getAuctions$(request: AuctionListRequest): Observable<AuctionModel> {
     const url = '/api/auctions/search';
 
-    const params = new HttpParams({
+    let params = new HttpParams({
       fromObject: {
         startDate: request.auctionStartDate.toString(),
         endDate: request.auctionEndDate.toString(),
@@ -39,11 +39,21 @@ export class AuctionsService {
         offsetEnd: request.sizeOfPage.toString(),
         offsetStart: request.currentPage.toString(),
         searchValue: request.searchValue.toString(),
-        currentPage: request.currentPage.toString(),
-        topCategoryIds: request.topCategoryIds === undefined ? '' : request.topCategoryIds.toString(),
-        typeIds: request.typeIds === undefined ? '' : request.typeIds.toString()
+        currentPage: request.currentPage.toString()
       }
     });
+
+    if (request.topCategoryIds !== undefined) {
+      for (const id of request.topCategoryIds) {
+        params = params.append('topCategoryIds', id.toString());
+      }
+    }
+
+    if (request.typeIds !== undefined) {
+      for (const id of request.typeIds) {
+        params = params.append('typeIds', id.toString());
+      }
+    }
 
     return this.http.get<AuctionModel>(url, { params })
       .pipe(catchError(this.exception.errorHandler));

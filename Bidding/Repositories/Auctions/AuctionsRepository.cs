@@ -74,8 +74,24 @@ namespace BiddingAPI.Repositories.Auctions
                     SqlDbType = SqlDbType.Structured
                 };
 
+                SqlParameter startPaginationFrom = new SqlParameter
+                {
+                    ParameterName = "start",
+                    Direction = ParameterDirection.Input,
+                    Value = startFrom,
+                    SqlDbType = SqlDbType.Int
+                };
+
+                SqlParameter endPaginationAt = new SqlParameter
+                {
+                    ParameterName = "end",
+                    Direction = ParameterDirection.Input,
+                    Value = endAt,
+                    SqlDbType = SqlDbType.Int
+                };
+
                 return m_context.Query<AuctionListModel>()
-                    .FromSql("GetAuctions @selectedCategories, @selectedTypes", categories, types);
+                    .FromSql("GetAuctions @selectedCategories, @selectedTypes, @start, @end", categories, types, startPaginationFrom, endPaginationAt);
             }
             catch (Exception ex)
             {
@@ -84,14 +100,12 @@ namespace BiddingAPI.Repositories.Auctions
         }
 
         /// <summary>
-        /// Gets total auction count based on specific date/time range
+        /// Gets total count of active auctions
         /// </summary>
-        /// <param name="startDate">Start date</param>
-        /// <param name="endDate">End date</param>
         /// <returns></returns>
-        public IEnumerable<Auction> TotalAuctionCount(DateTime auctionStartDate, DateTime auctionEndDate)
+        public IEnumerable<Auction> TotalAuctionCount()
         {
-            return m_context.Auctions.Where(auct => auct.StartDate >= auctionStartDate && auct.EndDate <= auctionEndDate);
+            return m_context.Auctions.Where(auct => auct.Deleted == false && auct.EndDate >= DateTime.Now.Date);
         }
 
         /// <summary>
