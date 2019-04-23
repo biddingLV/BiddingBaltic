@@ -71,6 +71,17 @@ namespace BiddingAPI.Controllers.Auctions
         }
 
         /// <summary>
+        /// Fetch auction status list for auction add modal
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public IActionResult Statuses()
+        {
+            return Ok(m_auctionsService.Statuses());
+        }
+
+        /// <summary>
         /// Gets specific auction details
         /// </summary>
         /// <param name="auctionId"></param>

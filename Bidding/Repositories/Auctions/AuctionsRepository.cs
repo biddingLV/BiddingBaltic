@@ -165,6 +165,17 @@ namespace BiddingAPI.Repositories.Auctions
                 .Select(afor => new AuctionFormatItemModel { AuctionFormatId = afor.AuctionFormatId, AuctionFormatName = afor.Name });
         }
 
+        /// <summary>
+        /// Loads all active auction statuses
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<AuctionStatusItemModel> Statuses()
+        {
+            return m_context.AuctionStatuses
+                .Where(asta => asta.Deleted == false)
+                .Select(asta => new AuctionStatusItemModel { AuctionStatusId = asta.AuctionStatusId, AuctionStatusName = asta.Name });
+        }
+
         public IEnumerable<AuctionDetailsResponseModel> Details(AuctionDetailsRequestModel request)
         {
             // check if even auction exists and only then do the join

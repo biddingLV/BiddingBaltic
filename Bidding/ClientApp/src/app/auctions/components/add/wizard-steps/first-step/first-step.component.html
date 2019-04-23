@@ -1,0 +1,39 @@
+<div class="form-check">
+  <input type="checkbox" class="form-check-input" id="exampleCheck1">
+  <label class="form-check-label" for="exampleCheck1">Viens prieksmets</label>
+</div>
+<div class="form-check">
+  <input type="checkbox" class="form-check-input" id="exampleCheck2">
+  <label class="form-check-label" for="exampleCheck2">Lietu kopums</label>
+</div>
+<form [formGroup]="auctionAddForm">
+  <div class="form-row" *ngIf="categories$ | async as categories">
+    <div class="form-group col-6">
+      <label class="required" for="auctionTopCategory">Top-category:</label>
+      <ng-select #auctionTopCategorySelect formControlName="auctionTopCategory" [clearable]="false"
+        [virtualScroll]="true" [multiple]="true" [closeOnSelect]="false" placeholder="Select top-category"
+        (change)="onTopCategoryChange($event)">
+        <ng-option *ngFor="let cat of categories.topCategories; let i = index" [value]="cat.categoryId">
+          {{cat.categoryName}}
+        </ng-option>
+      </ng-select>
+    </div>
+
+    <div class="form-group col-6">
+      <label class="required" for="auctionSubCategory">Sub-category:</label>
+      <ng-select #auctionSubCategorySelect formControlName="auctionSubCategory" [clearable]="false"
+        [virtualScroll]="true" [multiple]="true" [closeOnSelect]="false" placeholder="Select sub-category"
+        (change)="onSubCategoryChange($event)">
+        <ng-option *ngFor="let typ of auctionTypes$.subCategories; let i = index" [value]="typ.typeId">
+          {{typ.typeName}}
+        </ng-option>
+      </ng-select>
+    </div>
+  </div>
+
+  <div class="form-row float-right">
+    <div class="form-group modal-buttons">
+      <button type="button" class="btn btn-primary" awNextStep>Next</button>
+    </div>
+  </div>
+</form>

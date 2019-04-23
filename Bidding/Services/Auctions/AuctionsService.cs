@@ -27,6 +27,11 @@ namespace BiddingAPI.Services.Auctions
         private readonly PermissionService m_permissionService;
         private readonly AuctionsRepository m_auctionsRepository;
 
+        /// <summary>
+        /// Default page size for auction list
+        /// </summary>
+        private readonly int defaultPageSize = 15;
+
         public AuctionsService(AuctionsRepository auctionRepository, PermissionService permissionService)
         {
             m_permissionService = permissionService ?? throw new ArgumentNullException(nameof(permissionService));
@@ -35,8 +40,6 @@ namespace BiddingAPI.Services.Auctions
 
         public AuctionListResponseModel ListWithSearch(AuctionListRequestModel request)
         {
-            int defaultPageSize = 15;
-
             ValidateAuctionListWithSearch(request);
 
             (int startFrom, int endAt) = Pagination.GetStartAndEnd(request);
@@ -87,6 +90,16 @@ namespace BiddingAPI.Services.Auctions
             };
         }
 
+        public AuctionStatusModel Statuses()
+        {
+            m_permissionService.IsLoggedInUserActive();
+
+            return new AuctionStatusModel()
+            {
+                Statuses = m_auctionsRepository.Statuses().ToList()
+            };
+        }
+
         public AuctionDetailsResponseModel Details(AuctionDetailsRequestModel request)
         {
             if (request.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
@@ -132,22 +145,12 @@ namespace BiddingAPI.Services.Auctions
             if (request.OffsetStart < 0) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
             if (request.OffsetEnd.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
             if (request.CurrentPage < 0) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
+            if (request.SortingDirection != "asc" && request.SortingDirection != "desc") { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
+
+            List<string> allowedSortByColumns = new List<string> { "AuctionName", "AuctionStartingPrice", "AuctionStartDate", "AuctionEndDate" };
+            if (allowedSortByColumns.Contains(request.SortByColumn) == false) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
 
             m_permissionService.IsLoggedInUserActive();
-
-            // sorting direction can only be ascending || descending
-            //if (request.SortingDirection != "asc" || request.SortingDirection != "desc")
-            //{
-            //    throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation);
-            //}
-
-            // todo: kke: maybe use here enum?
-            //if (request.SortByColumn != "AuctionName" || request.SortByColumn != "AuctionStartingPrice" || request.SortByColumn != "AuctionStartDate" || request.SortByColumn != "AuctionEndDate")
-            //{
-            //    throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation);
-            //}
-
-            // todo: kke: validate start date and end date and convert string to date time
         }
 
         /// <summary>

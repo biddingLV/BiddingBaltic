@@ -2,7 +2,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 // routing
@@ -27,6 +27,8 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 
 // Services
 import { PreviousRouteService } from './shared/services/previous-route.service.ts/previous-route.service';
+import { CachingInterceptor } from './core/interceptors/caching/caching-interceptor';
+import { RequestCache } from './core/interceptors/caching/request-cache.service';
 
 @NgModule({
   declarations: [
@@ -49,6 +51,8 @@ import { PreviousRouteService } from './shared/services/previous-route.service.t
     AppRoutingModule
   ],
   providers: [
+    RequestCache,
+    { provide: HTTP_INTERCEPTORS, useClass: CachingInterceptor, multi: true },
     PreviousRouteService
   ],
   bootstrap: [

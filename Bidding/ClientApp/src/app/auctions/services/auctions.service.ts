@@ -16,6 +16,7 @@ import { AuctionEditRequest } from '../models/edit/auction-edit-request.model';
 import { AuctionFilterModel } from '../models/filters/auction-filter.model';
 import { AuctionFormatModel } from '../models/add/auction-format.model';
 import { AuctionCreatorModel } from '../models/add/auction-creator.model';
+import { AuctionStatusModel } from '../models/add/auction-status.model';
 
 
 @Injectable({
@@ -77,6 +78,13 @@ export class AuctionsService {
     const url = '/api/auctions/formats';
 
     return this.http.get<AuctionFormatModel[]>(url)
+      .pipe(catchError(this.exception.errorHandler));
+  }
+
+  getAuctionStatuses$(): Observable<AuctionStatusModel[]> {
+    const url = '/api/auctions/statuses';
+
+    return this.http.get<AuctionStatusModel[]>(url)
       .pipe(catchError(this.exception.errorHandler));
   }
 
