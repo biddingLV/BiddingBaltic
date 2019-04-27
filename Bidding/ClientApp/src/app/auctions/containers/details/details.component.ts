@@ -12,6 +12,7 @@ import { AuctionDetailsModel } from '../../models/details/auction-details.model'
 import { NotificationsService } from 'ClientApp/src/app/core/services/notifications/notifications.service';
 import { AuctionListRequest } from '../../models/list/auction-list-request.model';
 
+import { Config } from 'ngx-countdown';
 
 @Component({
   selector: 'app-auction-details',
@@ -30,6 +31,9 @@ export class AuctionDetailsComponent implements OnInit, OnDestroy {
   request: AuctionListRequest;
 
   timer: any;
+  config: Config = {
+    leftTime: 60 * 60 * 24 * 7,
+  }
 
   displayTime: any;
 
@@ -45,7 +49,7 @@ export class AuctionDetailsComponent implements OnInit, OnDestroy {
     this.timer = setInterval(() => {
       // github.com/markpenaranda/ngx-countdown-timer/blob/master/src/countdown-timer.component.ts
       // if (this.start) {
-      this.displayTime = this.getTimeDifference('3/4/2019 11:15');
+      this.displayTime = this.getTimeDifference('4/30/2019 11:15');
       // } else {
       //   this.displayTime = this.getTimeDifference(this.end);
       // }

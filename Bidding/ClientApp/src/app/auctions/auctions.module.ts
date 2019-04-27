@@ -12,12 +12,14 @@ import { AuctionDeleteComponent } from './components/delete/delete.component';
 import { AuctionsRoutingModule } from './auctions-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { AuctionsService } from './services/auctions.service';
+import { CountdownModule } from 'ngx-countdown';
 
 @NgModule({
   imports: [
     CommonModule,
     SharedModule,
-    AuctionsRoutingModule
+    AuctionsRoutingModule,
+    CountdownModule
   ],
   exports: [
     AuctionListComponent
