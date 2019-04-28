@@ -30,12 +30,16 @@ export class AuctionDetailsComponent implements OnInit, OnDestroy {
   // API
   request: AuctionListRequest;
 
-  timer: any;
-  config: Config = {
-    leftTime: 60 * 60 * 24 * 7,
-  }
+  //CountDown clock
 
+  timer: any;
   displayTime: any;
+  config: Config = {
+    template: `$!w!:$!d!:$!h!:$!m!`,
+    leftTime: 100 * 100 * 100 * 20,
+    // leftTime: Math.floor((this.auctionDetails.auctionEndDate.getTime() - new Date().getTime()) / 1000),
+    clock : ['w', 100, 2, 'd', 6, 1, 'h', 24, 2, 'm', 60, 2, 's', 60, 2, 'u', 10, 1]
+  }
 
   constructor(
     private auctionApi: AuctionsService,
@@ -49,7 +53,7 @@ export class AuctionDetailsComponent implements OnInit, OnDestroy {
     this.timer = setInterval(() => {
       // github.com/markpenaranda/ngx-countdown-timer/blob/master/src/countdown-timer.component.ts
       // if (this.start) {
-      this.displayTime = this.getTimeDifference('4/30/2019 11:15');
+      this.displayTime = this.getTimeDifference(this.auctionDetails.auctionEndDate);
       // } else {
       //   this.displayTime = this.getTimeDifference(this.end);
       // }
@@ -61,28 +65,33 @@ export class AuctionDetailsComponent implements OnInit, OnDestroy {
       this.auctionDetailsSub.unsubscribe();
     }
   }
-
   getTimeDifference(datetime) {
     datetime = new Date(datetime).getTime();
     const now = new Date().getTime();
-
-    if (isNaN(datetime)) {
-      return '';
-    }
-
     const milisec_diff = datetime - now;
-
-    const days = Math.floor(milisec_diff / 1000 / 60 / (60 * 24));
-    const date_diff = new Date(milisec_diff);
-    const day_string = (days) ? this.twoDigit(days) + ':' : '';
-    const day_hours = days * 24;
-
-
-    return day_string + this.twoDigit(date_diff.getUTCHours()) +
-      ':' + this.twoDigit(date_diff.getMinutes()) + ':'
-      + this.twoDigit(date_diff.getSeconds());
-
+    const countDownSeconds = Math.floor(milisec_diff / 1000);
   }
+  // getTimeDifference(datetime) {
+  //   datetime = new Date(datetime).getTime();
+  //   const now = new Date().getTime();
+
+  //   if (isNaN(datetime)) {
+  //     return '';
+  //   }
+
+  //   const milisec_diff = datetime - now;
+
+
+  //   const date_diff = new Date(milisec_diff);
+  //   const day_string = (days) ? this.twoDigit(days) + ':' : '';
+  //   const day_hours = days * 24;
+
+
+  //   return day_string + this.twoDigit(date_diff.getUTCHours()) +
+  //     ':' + this.twoDigit(date_diff.getMinutes()) + ':'
+  //     + this.twoDigit(date_diff.getSeconds());
+
+  // }
 
   private getAuctionDetails(): void {
     this.auctionDetailsSub =
