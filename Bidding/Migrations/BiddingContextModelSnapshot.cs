@@ -108,6 +108,12 @@ namespace Bidding.Migrations
                             AuctionTypeId = 3,
                             AuctionId = 3,
                             TypeId = 2
+                        },
+                        new
+                        {
+                            AuctionTypeId = 4,
+                            AuctionId = 4,
+                            TypeId = 1
                         });
                 });
 
@@ -117,7 +123,8 @@ namespace Bidding.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<DateTime>("ApplyDate");
+                    b.Property<DateTime?>("ApplyDate")
+                        .IsRequired();
 
                     b.Property<int>("AuctionStatusId");
 
@@ -127,7 +134,8 @@ namespace Bidding.Migrations
 
                     b.Property<bool>("Deleted");
 
-                    b.Property<DateTime>("EndDate");
+                    b.Property<DateTime?>("EndDate")
+                        .IsRequired();
 
                     b.Property<DateTime?>("LastUpdatedAt");
 
@@ -188,6 +196,19 @@ namespace Bidding.Migrations
                             Name = "Vīna skapis",
                             StartDate = new DateTime(2019, 2, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             StartingPrice = 900
+                        },
+                        new
+                        {
+                            AuctionId = 4,
+                            ApplyDate = new DateTime(2019, 2, 11, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            AuctionStatusId = 1,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = 1,
+                            Deleted = false,
+                            EndDate = new DateTime(2019, 3, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Name = "Audi A4",
+                            StartDate = new DateTime(2019, 2, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            StartingPrice = 350
                         });
                 });
 
@@ -227,6 +248,12 @@ namespace Bidding.Migrations
                             AuctionCategoryId = 3,
                             AuctionId = 3,
                             CategoryId = 2
+                        },
+                        new
+                        {
+                            AuctionCategoryId = 4,
+                            AuctionId = 4,
+                            CategoryId = 1
                         });
                 });
 

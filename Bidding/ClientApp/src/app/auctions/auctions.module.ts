@@ -2,6 +2,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
+// 3rd lib
+import { ArchwizardModule } from 'angular-archwizard';
+
 // internal
 import { AuctionListComponent } from './containers/list/list.component';
 import { AuctionDetailsComponent } from './containers/details/details.component';
@@ -12,17 +15,19 @@ import { AuctionDeleteComponent } from './components/delete/delete.component';
 import { AuctionsRoutingModule } from './auctions-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { AuctionsService } from './services/auctions.service';
-import { CountdownModule } from 'ngx-countdown';
+import { FirstStepComponent } from './components/add/wizard-steps/first-step/first-step.component';
+import { SecondStepComponent } from './components/add/wizard-steps/second-step/second-step.component';
 
 @NgModule({
   imports: [
     CommonModule,
     SharedModule,
     AuctionsRoutingModule,
-    CountdownModule
+    ArchwizardModule
   ],
   exports: [
-    AuctionListComponent
+    AuctionListComponent,
+    ArchwizardModule
   ],
   declarations: [
     AuctionListComponent,
@@ -30,7 +35,9 @@ import { CountdownModule } from 'ngx-countdown';
     AuctionMainComponent,
     AuctionAddComponent,
     AuctionEditComponent,
-    AuctionDeleteComponent
+    AuctionDeleteComponent,
+    FirstStepComponent,
+    SecondStepComponent
   ],
   providers: [
     AuctionsService

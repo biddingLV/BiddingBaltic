@@ -127,6 +127,21 @@ namespace Bidding.Database.Contexts
                     LastUpdatedAt = null,
                     LastUpdatedBy = null,
                     AuctionStatusId = 1
+                },
+                new Auction
+                {
+                    AuctionId = 4,
+                    Name = "Audi A4",
+                    StartingPrice = 350,
+                    StartDate = CreatedAtDateTime.AddMonths(1),
+                    EndDate = CreatedAtDateTime.AddMonths(2),
+                    ApplyDate = CreatedAtDateTime.AddMonths(1).AddDays(10),
+                    CreatedAt = CreatedAtDateTime,
+                    CreatedBy = 1,
+                    Deleted = false,
+                    LastUpdatedAt = null,
+                    LastUpdatedBy = null,
+                    AuctionStatusId = 1
                 }
             );
         }
@@ -300,7 +315,8 @@ namespace Bidding.Database.Contexts
             modelBuilder.Entity<AuctionCategory>().HasData(
                 new AuctionCategory { AuctionCategoryId = 1, CategoryId = 1, AuctionId = 1 },
                 new AuctionCategory { AuctionCategoryId = 2, CategoryId = 3, AuctionId = 2 },
-                new AuctionCategory { AuctionCategoryId = 3, CategoryId = 2, AuctionId = 3 }
+                new AuctionCategory { AuctionCategoryId = 3, CategoryId = 2, AuctionId = 3 },
+                new AuctionCategory { AuctionCategoryId = 4, CategoryId = 1, AuctionId = 4 }
             );
         }
 
@@ -318,7 +334,8 @@ namespace Bidding.Database.Contexts
             modelBuilder.Entity<AuctionType>().HasData(
                 new AuctionType { AuctionTypeId = 1, TypeId = 1, AuctionId = 1 },
                 new AuctionType { AuctionTypeId = 2, TypeId = 3, AuctionId = 2 },
-                new AuctionType { AuctionTypeId = 3, TypeId = 2, AuctionId = 3 }
+                new AuctionType { AuctionTypeId = 3, TypeId = 2, AuctionId = 3 },
+                new AuctionType { AuctionTypeId = 4, TypeId = 1, AuctionId = 4 }
             );
         }
     }

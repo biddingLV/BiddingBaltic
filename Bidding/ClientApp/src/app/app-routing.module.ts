@@ -12,6 +12,7 @@ const routes: Routes = [
   { path: 'auctions', loadChildren: './auctions/auctions.module#AuctionsModule' },
   { path: 'admin', loadChildren: './admin/admin.module#AdminModule' },
   { path: 'users', loadChildren: './users/users.module#UsersModule' },
+  { path: 'public_html', redirectTo: '', pathMatch: 'full' },
   { path: '**', canActivate: [AuthGuard], component: PageNotFoundComponent, data: { breadcrumb: 'Not Found', hideBreadcrumb: true, title: 'Not Found' } }
 ];
 

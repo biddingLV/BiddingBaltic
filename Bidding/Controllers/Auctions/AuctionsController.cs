@@ -34,7 +34,6 @@ namespace BiddingAPI.Controllers.Auctions
         [Authorize(Roles = "User, Admin")]
         public IActionResult Search([FromQuery] AuctionListRequestModel request)
         {
-            // todo: kke: refactor filter ids to be list<int> in AuctionListRequestModel!
             return Ok(m_auctionsService.ListWithSearch(request));
         }
 
@@ -69,6 +68,17 @@ namespace BiddingAPI.Controllers.Auctions
         public IActionResult Formats()
         {
             return Ok(m_auctionsService.Formats());
+        }
+
+        /// <summary>
+        /// Fetch auction status list for auction add modal
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public IActionResult Statuses()
+        {
+            return Ok(m_auctionsService.Statuses());
         }
 
         /// <summary>

@@ -9,4 +9,5 @@ export interface AuctionAddRequest {
   auctionDescription: string;
   auctionCreatorId: number;
   auctionFormatId: number;
+  auctionStatusId: number;
 }

@@ -18,18 +18,17 @@ import { AuctionFilterModel } from '../../models/filters/auction-filter.model';
 import { SubCategoryFilterModel } from '../../models/filters/sub-category-filter.model';
 import { AuctionFormatModel } from '../../models/add/auction-format.model';
 import { AuctionCreatorModel } from '../../models/add/auction-creator.model';
+import { AuctionStatusModel } from '../../models/add/auction-status.model';
 
 
 @Component({
-  templateUrl: './add.component.html',
-  styleUrls: []
+  templateUrl: './add.component.html'
 })
 export class AuctionAddComponent implements OnInit {
   // form
   auctionAddForm: FormGroup;
   auctionAddSub: Subscription;
   submitted = false;
-
   formErrors = {
     auctionName: '',
     auctionTopCategory: '',
@@ -40,7 +39,8 @@ export class AuctionAddComponent implements OnInit {
     auctionEndDate: '',
     auctionDescription: '',
     auctionCreator: '',
-    auctionFormat: ''
+    auctionFormat: '',
+    auctionStatus: ''
   };
 
   // filters
@@ -49,6 +49,7 @@ export class AuctionAddComponent implements OnInit {
 
   auctionFormats: AuctionFormatModel;
   auctionCreators: AuctionCreatorModel;
+  auctionStatuses: AuctionStatusModel;
 
   // selected Values
   selectedTopCategoryIds: number[];
@@ -147,12 +148,16 @@ export class AuctionAddComponent implements OnInit {
       ]],
       auctionFormat: ['', [
         Validators.required
+      ]],
+      auctionStatus: ['', [
+        Validators.required
       ]]
     });
 
     this.loadTopAndSubCategories();
     this.loadAuctionCreators();
     this.loadAuctionFormats();
+    this.loadAuctionStatuses();
   }
 
   private loadTopAndSubCategories(): void {
@@ -189,6 +194,17 @@ export class AuctionAddComponent implements OnInit {
       );
   }
 
+  private loadAuctionStatuses(): void {
+    this.auctionAddSub = this.auctionApi.getAuctionStatuses$()
+      .pipe(startWith(new AuctionStatusModel()))
+      .subscribe(
+        (result: AuctionStatusModel) => {
+          this.auctionStatuses = result;
+        },
+        (error: string) => this.notification.error(error)
+      );
+  }
+
   private setAddRequest(): void {
     this.auctionAddRequest = {
       auctionName: this.auctionAddForm.value.auctionName,
@@ -200,7 +216,8 @@ export class AuctionAddComponent implements OnInit {
       auctionEndDate: moment(this.auctionAddForm.value.auctionEndDate).format(this.dateFormat),
       auctionDescription: this.auctionAddForm.value.auctionDescription,
       auctionCreatorId: this.auctionAddForm.value.auctionCreator,
-      auctionFormatId: this.auctionAddForm.value.auctionFormat
+      auctionFormatId: this.auctionAddForm.value.auctionFormat,
+      auctionStatusId: this.auctionAddForm.value.auctionStatus
     };
   }
 

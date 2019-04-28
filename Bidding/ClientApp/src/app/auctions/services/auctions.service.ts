@@ -16,6 +16,7 @@ import { AuctionEditRequest } from '../models/edit/auction-edit-request.model';
 import { AuctionFilterModel } from '../models/filters/auction-filter.model';
 import { AuctionFormatModel } from '../models/add/auction-format.model';
 import { AuctionCreatorModel } from '../models/add/auction-creator.model';
+import { AuctionStatusModel } from '../models/add/auction-status.model';
 
 
 @Injectable({
@@ -30,7 +31,7 @@ export class AuctionsService {
   getAuctions$(request: AuctionListRequest): Observable<AuctionModel> {
     const url = '/api/auctions/search';
 
-    const params = new HttpParams({
+    let params = new HttpParams({
       fromObject: {
         startDate: request.auctionStartDate.toString(),
         endDate: request.auctionEndDate.toString(),
@@ -39,11 +40,21 @@ export class AuctionsService {
         offsetEnd: request.sizeOfPage.toString(),
         offsetStart: request.currentPage.toString(),
         searchValue: request.searchValue.toString(),
-        currentPage: request.currentPage.toString(),
-        topCategoryIds: request.topCategoryIds === undefined ? '' : request.topCategoryIds.toString(),
-        typeIds: request.typeIds === undefined ? '' : request.typeIds.toString()
+        currentPage: request.currentPage.toString()
       }
     });
+
+    if (request.topCategoryIds !== undefined) {
+      for (const id of request.topCategoryIds) {
+        params = params.append('topCategoryIds', id.toString());
+      }
+    }
+
+    if (request.typeIds !== undefined) {
+      for (const id of request.typeIds) {
+        params = params.append('typeIds', id.toString());
+      }
+    }
 
     return this.http.get<AuctionModel>(url, { params })
       .pipe(catchError(this.exception.errorHandler));
@@ -67,6 +78,13 @@ export class AuctionsService {
     const url = '/api/auctions/formats';
 
     return this.http.get<AuctionFormatModel[]>(url)
+      .pipe(catchError(this.exception.errorHandler));
+  }
+
+  getAuctionStatuses$(): Observable<AuctionStatusModel[]> {
+    const url = '/api/auctions/statuses';
+
+    return this.http.get<AuctionStatusModel[]>(url)
       .pipe(catchError(this.exception.errorHandler));
   }
 

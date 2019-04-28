@@ -33,6 +33,7 @@
     "@swimlane/ngx-datatable": "^14.0.0",
     "@types/auth0-js": "^8.11.12",
     "@types/jasmine": "^3.3.12",
+    "angular-archwizard": "^4.0.0",
     "auth0-js": "^9.10.1",
     "bootstrap": "^4.3.1",
     "core-js": "^2.6.5",
@@ -45,6 +46,7 @@
     "ngx-toastr": "^9.2.0",
     "popper.js": "^1.15.0",
     "rxjs": "^6.4.0",
+    "tslint-angular": "^1.1.2",
     "zone.js": "^0.8.29"
   },
   "devDependencies": {
@@ -55,7 +57,6 @@
     "@types/jasminewd2": "^2.0.6",
     "@types/lodash": "^4.14.123",
     "@types/node": "^10.14.4",
-    "codelyzer": "^4.5.0",
     "jasmine-core": "~3.3.0",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "^4.0.1",

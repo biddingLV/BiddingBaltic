@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using Bidding.Database.Contexts;
 using Bidding.Database.DatabaseModels.Auctions;
+using Bidding.Database.DatabaseModels.Auctions.Details;
 using Bidding.Models.ViewModels.Bidding.Auctions.List;
 using Bidding.Models.ViewModels.Bidding.Filters;
 using Bidding.Shared.Database;
@@ -19,6 +20,7 @@ namespace BiddingAPI.Models.DatabaseModels
         public virtual DbSet<AuctionStatus> AuctionStatuses { get; set; }
         public virtual DbSet<AuctionFormat> AuctionFormats { get; set; }
         public virtual DbSet<AuctionCondition> AuctionConditions { get; set; }
+        public virtual DbSet<AuctionVehicleDetails> AuctionVehicleDetails { get; set; }
         public virtual DbSet<AuctionDetails> AuctionDetails { get; set; }
         public virtual DbSet<Auction> Auctions { get; set; }
         public virtual DbSet<AuctionCategory> AuctionCategories { get; set; } // intermediary table
