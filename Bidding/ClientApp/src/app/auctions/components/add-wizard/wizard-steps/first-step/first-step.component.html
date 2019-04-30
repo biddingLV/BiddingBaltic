@@ -6,8 +6,8 @@
   <input type="checkbox" class="form-check-input" id="exampleCheck2">
   <label class="form-check-label" for="exampleCheck2">Lietu kopums</label>
 </div>
-<form [formGroup]="auctionAddForm">
-  <div class="form-row" *ngIf="categories$ | async as categories">
+<form [formGroup]="firstStepForm">
+  <div class="form-row" *ngIf="categories">
     <div class="form-group col-6">
       <label class="required" for="auctionTopCategory">Top-category:</label>
       <ng-select #auctionTopCategorySelect formControlName="auctionTopCategory" [clearable]="false"
@@ -24,7 +24,7 @@
       <ng-select #auctionSubCategorySelect formControlName="auctionSubCategory" [clearable]="false"
         [virtualScroll]="true" [multiple]="true" [closeOnSelect]="false" placeholder="Select sub-category"
         (change)="onSubCategoryChange($event)">
-        <ng-option *ngFor="let typ of auctionTypes$.subCategories; let i = index" [value]="typ.typeId">
+        <ng-option *ngFor="let typ of categories.subCategories; let i = index" [value]="typ.typeId">
           {{typ.typeName}}
         </ng-option>
       </ng-select>

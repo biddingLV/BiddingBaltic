@@ -7,8 +7,10 @@
 
 <div class="modal-body auction-add__body">
   <aw-wizard>
-    <app-first-step awWizardStep stepTitle="Steptitle 1"></app-first-step>
-    <app-second-step awWizardStep stepTitle="Steptitle 2"></app-second-step>
+    <app-first-auction-add-wizard-step awWizardStep stepTitle="Step 1" [categories]="categories"
+      (emitTopCategoryIds)="onTopCategoryChange($event)" (emitSubCategoryIds)="onSubCategoryChange($event)">
+    </app-first-auction-add-wizard-step>
+    <app-second-auction-add-wizard-step awWizardStep stepTitle="Step 2"></app-second-auction-add-wizard-step>
   </aw-wizard>
 </div>
 

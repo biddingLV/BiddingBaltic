@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+
+// 3rd lib
 import { Observable } from 'rxjs';
-import { environment } from '../../../environments/environment';
+import { catchError } from 'rxjs/operators';
+
+// internal
+import { ExceptionsService } from '../../core/services/exceptions/exceptions.service';
 import { IEmailSubscribeRequest } from '../models/email-subscribe-request.model';
-import { IEmailSubscribeResponse } from '../models/email-subscribe-response.model';
-import { catchError } from 'node_modules/rxjs/operators';
-import { ExceptionsService } from '../../core';
 import { IWhatsAppSubscribeRequest } from '../models/whatsapp-subscribe-request.model';
 
 
@@ -26,12 +28,4 @@ export class HomeService {
     return this.http.put(url, request)
       .pipe(catchError(this.exception.errorHandler));
   }
-
-  // not used - right now!
-  // public submitSurvey$(request: ISurveyRequest): Observable<Object> {
-  //   const url = this.baseUrl + '/subscribe/usingsurvey';
-
-  //   return this.http.put(url, request)
-  //     .pipe(catchError(this.exception.errorHandler));
-  // }
 }

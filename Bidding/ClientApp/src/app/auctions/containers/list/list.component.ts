@@ -1,5 +1,5 @@
 // angular
-import { Component, OnInit, OnDestroy, AfterViewInit, Output, EventEmitter, Input, SimpleChanges, OnChanges } from '@angular/core';
+import { Component, OnInit, OnDestroy, Output, EventEmitter, Input, SimpleChanges, OnChanges } from '@angular/core';
 
 // 3rd lib
 import { Subscription } from 'rxjs';
@@ -18,14 +18,17 @@ import { NotificationsService } from 'ClientApp/src/app/core/services/notificati
   styleUrls: []
 })
 export class AuctionListComponent implements OnInit, OnDestroy, OnChanges {
-  // pass to child component and
-  // pass back to parent component selected array for table
   @Input() selected?: any[] = []; // todo: kke: specify correct type! // note: kke: is this even needed here?
   @Output() selectedChange = new EventEmitter<any>(); // todo: kke: specify correct type!
 
-  // filters - optional
+  /** Top-category filter */
   @Input() categoryIds?: number[];
+
+  /** Sub-category filter */
   @Input() typeIds?: number[];
+
+  /** Search bar text */
+  @Input() searchText = '';
 
   // table
   auctionsSub: Subscription;
@@ -33,7 +36,6 @@ export class AuctionListComponent implements OnInit, OnDestroy, OnChanges {
 
   // pagination || form
   numberRows = 15;
-  searchValue = '';
   currentPage = 1;
 
   // API
@@ -78,11 +80,13 @@ export class AuctionListComponent implements OnInit, OnDestroy, OnChanges {
   }
 
   onDetailsClick(): void {
-    console.log('yay, someone just clicked on the details page!');
+
   }
 
-  // handle filter changes
-  // top-category & sub-category
+  /**
+   * Handle filter changes for top-category & sub-category
+   * @param changes
+   */
   ngOnChanges(changes: SimpleChanges): void {
     for (const property in changes) {
       switch (!changes[property].firstChange && property) {
@@ -92,6 +96,10 @@ export class AuctionListComponent implements OnInit, OnDestroy, OnChanges {
           break;
         case 'typeIds':
           this.request.typeIds = changes[property].currentValue;
+          this.getAuctions();
+          break;
+        case 'searchText':
+          this.request.searchValue = changes[property].currentValue;
           this.getAuctions();
           break;
         default:
@@ -114,7 +122,7 @@ export class AuctionListComponent implements OnInit, OnDestroy, OnChanges {
       currentPage: this.currentPage,
       sortByColumn: 'AuctionName', // by default sort by auction name
       sortingDirection: 'asc', // by default ascending
-      searchValue: this.searchValue
+      searchValue: this.searchText
     };
   }
 

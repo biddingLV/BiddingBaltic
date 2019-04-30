@@ -39,7 +39,7 @@ export class AuctionsService {
         sortingDirection: request.sortingDirection.toString(),
         offsetEnd: request.sizeOfPage.toString(),
         offsetStart: request.currentPage.toString(),
-        searchValue: request.searchValue.toString(),
+        searchValue: request.searchValue === undefined ? '' : request.searchValue.toString(),
         currentPage: request.currentPage.toString()
       }
     });

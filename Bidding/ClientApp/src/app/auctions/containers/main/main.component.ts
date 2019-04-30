@@ -21,8 +21,6 @@ export class AuctionMainComponent implements OnInit {
   // API
   filtersSub: Subscription;
 
-  // filters
-  // filter - model
   filters: AuctionFilterModel;
   auctionTypes: SubCategoryFilterModel[];
 
@@ -30,14 +28,14 @@ export class AuctionMainComponent implements OnInit {
   selectedCategoryIds: number[];
   selectedTypeIds: number[];
 
+  /** Search bar - specified text */
+  searchText: string;
+
   constructor(
     private auctionApi: AuctionsService,
     private notification: NotificationsService
   ) { }
 
-  // todo: kke: maybe load this after auction list load done?
-  // todo: kke: maybe something like a flag from child list component and only then initialize filter load?
-  // todo: so-so improvement - ms?
   ngOnInit(): void {
     this.loadFilters();
   }
@@ -59,11 +57,12 @@ export class AuctionMainComponent implements OnInit {
     this.selectedTypeIds = typeIds;
   }
 
-  onSearch(event) {
-    // todo: kke: implement this!
+  /** Called on auction search event */
+  onAuctionSearch(searchText: string) {
+    this.searchText = searchText;
   }
 
-  // load filter values
+  /** Load top & sub categories */
   private loadFilters(): void {
     this.filtersSub = this.auctionApi.getFilters$()
       .pipe(startWith(new AuctionFilterModel()))

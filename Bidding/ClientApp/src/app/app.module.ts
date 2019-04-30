@@ -51,8 +51,8 @@ import { RequestCache } from './core/interceptors/caching/request-cache.service'
     AppRoutingModule
   ],
   providers: [
-    RequestCache,
-    { provide: HTTP_INTERCEPTORS, useClass: CachingInterceptor, multi: true },
+    // RequestCache, // todo: kke: test this!
+    // { provide: HTTP_INTERCEPTORS, useClass: CachingInterceptor, multi: true }, // todo: kke: test this!
     PreviousRouteService
   ],
   bootstrap: [

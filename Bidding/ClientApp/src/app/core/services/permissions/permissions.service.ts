@@ -48,7 +48,7 @@ export class PermissionsService {
 
   hasRoleName(roleName: string): Observable<boolean> {
     return this.unpack(data => {
-      return data.roleName == roleName;
+      return data.roleName === roleName;
     });
   }
 
@@ -98,7 +98,7 @@ export class PermissionsService {
   }
 
   private getUserRolePermissionsFromServer(): Observable<UserRoleModel> {
-    let url = 'api/Permissions/UserRole';
+    const url = 'api/Permissions/UserRole';
 
     return this.http.get<UserRoleModel>(url);
   }
