@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 
 // 3rd lib
 import { ArchwizardModule } from 'angular-archwizard';
-
+import { CountdownModule } from 'ngx-countdown';
 // internal
 import { AuctionListComponent } from './containers/list/list.component';
 import { AuctionDetailsComponent } from './containers/details/details.component';
@@ -23,7 +23,8 @@ import { AuctionAddSecondWizardStepComponent } from './components/add-wizard/wiz
     CommonModule,
     SharedModule,
     AuctionsRoutingModule,
-    ArchwizardModule
+    ArchwizardModule,
+    CountdownModule
   ],
   exports: [
     AuctionListComponent,
