@@ -3,12 +3,12 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 // internal
-import { GdprRulesComponent } from './shared/components/footer/static-components/gdpr/gdpr-rules.component';
+import { GdprRulesComponent } from './shared/components/footer/static-components/gdpr-rules/gdpr-rules.component';
 import { AuthGuard } from './core/services/auth/auth-guard.service';
 import { PageNotFoundComponent } from './auth/components/404-page-not-found/404-page-not-found.component';
-import { PartnerRulesComponent } from './shared/components/footer/static-components/partners/partner-rules.component';
-import { RulesListComponent } from './shared/components/footer/static-components/rules/rules-list.component';
-import { ServiceRulesComponent } from './shared/components/footer/static-components/services/service-rules.component';
+import { PartnerRulesComponent } from './shared/components/footer/static-components/partner-rules/partner-rules.component';
+import { RulesListComponent } from './shared/components/footer/static-components/rules-list/rules-list.component';
+import { ServiceRulesComponent } from './shared/components/footer/static-components/service-rules/service-rules.component';
 
 
 const routes: Routes = [

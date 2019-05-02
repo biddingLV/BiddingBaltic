@@ -65,10 +65,13 @@
 .auction-add__body.modal-body {
   min-height: 800px;
 }
-//AuctionDetails style
 
-//BreadCrumbs
-.breadcrumb{
+/*
+* Auction Details
+*/
+
+// BreadCrumbs
+.breadcrumb {
   padding-top: 98px;
   background-color: transparent;
 
@@ -82,21 +85,24 @@
   }
 }
 
-//Auctiondetail title and header
+// Auction details title and header
 .auction-header {
-
   strong {
     font-family: $font-family-base;
     color: $black;
   }
+
   .auction-title {
     padding-top: 30px;
   }
+
   .auction-startingprice {
     padding-top: 10px;
   }
-// Auction images
+
+  // Auction images
 }
+
 .overall-info {
   margin-top: 65px;
 
@@ -214,6 +220,7 @@
     box-shadow: 0px 6px 6px rgba(0, 0, 0, 0.16);
   }
 }
+
 // Auction main information
 .main-container {
   margin-top: 70px;
@@ -228,8 +235,8 @@
     margin-right: auto;
   }
 }
-// Cards for services
 
+// Cards for services
 .cards-container {
   margin-top: 400px;
 
@@ -241,16 +248,20 @@
     box-shadow: 0 6px 6px rgba(0, 0, 0, 0.16);
     color: rgba(0, 0, 0, 0.16);
   }
-  .card-left{
+
+  .card-left {
     float: left;
   }
+
   .card-middle {
     float: left;
     margin-top: -250px;
   }
+
   .card-right {
     float: left;
   }
+
   .card-headline {
     margin-top: 80px;
     margin-left: 40px;
@@ -264,6 +275,7 @@
     letter-spacing: 1px;
     color: $primary;
   }
+
   .card-item {
     // width: 208px;
     // height: 22px;
@@ -272,20 +284,68 @@
     font-weight: bold;
     color: $black;
   }
-    // Auction Apply buttons
-    .service-button {
-      margin-top: 65px; 
-      margin-left: auto;
-      margin-right: auto;
-      width: 220px;
-      height: 75px;
-      background-color: $primary;
-      color: $white;
-      font-family: $font-family-base;
-      font-size: 16px;
-      font-weight: bold;
-      border-radius: 10px;
-    }
+
+  // Auction Apply buttons
+  .service-button {
+    margin-top: 65px;
+    margin-left: auto;
+    margin-right: auto;
+    width: 220px;
+    height: 75px;
+    background-color: $primary;
+    color: $white;
+    font-family: $font-family-base;
+    font-size: 16px;
+    font-weight: bold;
+    border-radius: 10px;
+  }
+}
+
+/*
+* Footer
+*/
+
+// Static pages
+.footer-static-page__header {
+  text-align: center;
+  font-weight: 600;
+}
+
+.footer-static-page__body-heading {
+  font-weight: 600;
+}
+
+@media only screen and (min-width: map-get($grid-breakpoints, xs)) {
+  .footer-static-page__body {
+    margin-bottom: 30px;
+  }
+
+  .footer-static-page__header {
+    margin-bottom: 30px;
+    margin-top: 30px;
+  }
+}
+
+@media only screen and (min-width: map-get($grid-breakpoints, md)) {
+  .footer-static-page__body {
+    margin-bottom: 40px;
+  }
+
+  .footer-static-page__header {
+    margin-bottom: 40px;
+    margin-top: 40px;
+  }
+}
+
+@media only screen and (min-width: map-get($grid-breakpoints, lg)) {
+  .footer-static-page__body {
+    margin-bottom: 50px;
+  }
+
+  .footer-static-page__header {
+    margin-bottom: 50px;
+    margin-top: 50px;
+  }
 }
 
 /*
@@ -308,13 +368,13 @@
       height: 35px;
     }
   }
-  
+
   @media only screen and (min-width: map-get($grid-breakpoints, md)) {
     #bidding-logo {
       height: 35px;
     }
   }
-  
+
   @media only screen and (min-width: map-get($grid-breakpoints, lg)) {
     #bidding-logo {
       height: 56px;

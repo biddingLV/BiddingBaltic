@@ -25,10 +25,10 @@ import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { CallbackComponent } from './components/callback/callback.component';
 import { HeaderComponent } from './components/header/header.component';
-import { GdprRulesComponent } from './components/footer/static-components/gdpr/gdpr-rules.component';
-import { PartnerRulesComponent } from './components/footer/static-components/partners/partner-rules.component';
-import { RulesListComponent } from './components/footer/static-components/rules/rules-list.component';
-import { ServiceRulesComponent } from './components/footer/static-components/services/service-rules.component';
+import { GdprRulesComponent } from './components/footer/static-components/gdpr-rules/gdpr-rules.component';
+import { PartnerRulesComponent } from './components/footer/static-components/partner-rules/partner-rules.component';
+import { RulesListComponent } from './components/footer/static-components/rules-list/rules-list.component';
+import { ServiceRulesComponent } from './components/footer/static-components/service-rules/service-rules.component';
 
 
 @NgModule({

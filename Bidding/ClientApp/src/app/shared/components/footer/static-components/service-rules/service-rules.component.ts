@@ -4,7 +4,6 @@ import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-service-rules',
-  templateUrl: './service-rules.component.html',
-  styleUrls: ['./service-rules.component.scss']
+  templateUrl: './service-rules.component.html'
 })
 export class ServiceRulesComponent { }
