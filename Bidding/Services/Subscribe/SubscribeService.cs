@@ -27,7 +27,7 @@ namespace BiddingAPI.Services.Subscribe
             if (request.Email.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, "Incorrect email"); }
             if (request.Name.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, "Incorrect name"); }
 
-            ValidateCategories(request.Categories);
+            // ValidateCategories(request.Categories);
 
             return m_subscribeRepository.UsingEmail(request);
         }
@@ -38,7 +38,7 @@ namespace BiddingAPI.Services.Subscribe
             if (request.Phone.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, "Incorrect phone"); }
             if (request.Name.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, "Incorrect name"); }
 
-            ValidateCategories(request.Categories);
+            // ValidateCategories(request.Categories);
 
             return m_subscribeRepository.UsingWhatsApp(request);
         }

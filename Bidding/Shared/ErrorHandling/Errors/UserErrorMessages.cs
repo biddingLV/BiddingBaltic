@@ -8,13 +8,13 @@ namespace Bidding.Shared.ErrorHandling.Errors
 {
     public enum UserErrorMessages
     {
-        [Description("You can not sign-in.")]
+        [Description("You can not sign-in")]
         CanNotSignIn,
 
-        [Description("Please verify your e-mail.")]
+        [Description("Please verify your e-mail")]
         UsersEmailNotVerified,
 
-        [Description("Could not create the user.")]
+        [Description("Could not create the user")]
         CouldNotCreateUser,
 
         [Description("Please specify your e-mail!")]
@@ -24,6 +24,12 @@ namespace Bidding.Shared.ErrorHandling.Errors
         UserNotValid,
 
         [Description("User is not active anymore")]
-        UserNotActive
+        UserNotActive,
+
+        [Description("Could not subscribe to newsletter using email approach")]
+        SubscribeEmailFails,
+
+        [Description("Could not subscribe to newsletter using whatsapp approach")]
+        SubscribWhatsAppFails
     }
 }
