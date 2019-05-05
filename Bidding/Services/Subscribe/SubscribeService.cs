@@ -43,19 +43,9 @@ namespace BiddingAPI.Services.Subscribe
             return m_subscribeRepository.UsingWhatsApp(request);
         }
 
-        public bool UsingSurvey(SurveyRequestModel request)
-        {
-            // todo: kke: check request params!
-            //if (request.Categories.IsEmpty()) { throw new WebApiException(HttpStatusCode.BadRequest, "Incorrect categories"); }
-            //if (request.Phone.IsEmpty()) { throw new WebApiException(HttpStatusCode.BadRequest, "Incorrect phone"); }
-            //if (request.Name.IsEmpty()) { throw new WebApiException(HttpStatusCode.BadRequest, "Incorrect name"); }
-
-            return m_subscribeRepository.UsingSurvey(request);
-        }
-
         private bool ValidateCategories(List<string> categories)
         {
-            List<string> validCategories = new List<string>(new string[] { "vehicles", "items", "companies", "estate", "brands" });
+            List<string> validCategories = new List<string>(new string[] { "vehicles", "items", "estate" });
 
             foreach (string category in categories)
             {

@@ -15,8 +15,7 @@ import { SubscribeWhatsappComponent } from './components/coming-soon/subscribe/w
 
 // Services
 import { HomeService } from './services/home.service';
-import { NewsletterFormService } from './services/newsletter-form.service';
-import { BlogWidgetComponent } from '../auth/components/blog/containers/widget/widget.component';
+
 
 @NgModule({
   imports: [
@@ -26,7 +25,6 @@ import { BlogWidgetComponent } from '../auth/components/blog/containers/widget/w
   ],
   exports: [],
   declarations: [
-    BlogWidgetComponent,
     ComingSoonListComponent,
     ComingSoonSurveyComponent,
     WelcomeHeaderComponent,
@@ -34,8 +32,7 @@ import { BlogWidgetComponent } from '../auth/components/blog/containers/widget/w
     SubscribeWhatsappComponent
   ],
   providers: [
-    HomeService,
-    NewsletterFormService
+    HomeService
   ]
 })
 export class HomeModule { }

@@ -11,7 +11,5 @@ namespace BiddingAPI.Repositories.Subscribe
         bool UsingEmail(EmailRequestModel request);
 
         bool UsingWhatsApp(WhatsAppRequestModel request);
-
-        bool UsingSurvey(SurveyRequestModel request);
     }
 }

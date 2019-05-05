@@ -23,11 +23,9 @@ namespace BiddingAPI.Repositories.Subscribe
 
         public bool UsingEmail(EmailRequestModel request)
         {
-            bool categoryVehicles = (request.Categories.Contains("vehicles")) ? true : false;
-            bool categoryItems = (request.Categories.Contains("items")) ? true : false;
-            bool categoryCompanies = (request.Categories.Contains("companies")) ? true : false;
-            bool categoryEstate = (request.Categories.Contains("estate")) ? true : false;
-            bool categoryBrands = (request.Categories.Contains("brands")) ? true : false;
+            bool categoryVehicles = request.Categories.Contains("vehicles") ? true : false;
+            bool categoryItems = request.Categories.Contains("items") ? true : false;
+            bool categoryEstate = request.Categories.Contains("estate") ? true : false;
 
             Newsletter newsletter = new Newsletter()
             {
@@ -35,10 +33,7 @@ namespace BiddingAPI.Repositories.Subscribe
                 Email = request.Email,
                 Vehicles = categoryVehicles,
                 Items = categoryItems,
-                Companies = categoryCompanies,
-                Estate = categoryEstate,
-                Brands = categoryBrands,
-                CreatedDate = DateTime.Now
+                Estate = categoryEstate
             };
 
             m_context.Add(newsletter);
@@ -47,11 +42,9 @@ namespace BiddingAPI.Repositories.Subscribe
 
         public bool UsingWhatsApp(WhatsAppRequestModel request)
         {
-            bool categoryVehicles = (request.Categories.Contains("vehicles")) ? true : false;
-            bool categoryItems = (request.Categories.Contains("items")) ? true : false;
-            bool categoryCompanies = (request.Categories.Contains("companies")) ? true : false;
-            bool categoryEstate = (request.Categories.Contains("estate")) ? true : false;
-            bool categoryBrands = (request.Categories.Contains("brands")) ? true : false;
+            bool categoryVehicles = request.Categories.Contains("vehicles") ? true : false;
+            bool categoryItems = request.Categories.Contains("items") ? true : false;
+            bool categoryEstate = request.Categories.Contains("estate") ? true : false;
 
             Newsletter newsletter = new Newsletter()
             {
@@ -59,19 +52,11 @@ namespace BiddingAPI.Repositories.Subscribe
                 Phone = request.Phone,
                 Vehicles = categoryVehicles,
                 Items = categoryItems,
-                Companies = categoryCompanies,
-                Estate = categoryEstate,
-                Brands = categoryBrands,
-                CreatedDate = DateTime.Now
+                Estate = categoryEstate
             };
 
             m_context.Add(newsletter);
             return m_context.SaveChanges() == 1;
-        }
-
-        public bool UsingSurvey(SurveyRequestModel request)
-        {
-            return true;
         }
     }
 }
