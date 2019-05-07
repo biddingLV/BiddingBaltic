@@ -1,117 +1,148 @@
 <div class="container">
-  <div class="row">
-    <div class="col-lg-12">
-      <div class="text-uppercase">
-        <nav aria-label="breadcrumb">
-          <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="#">Sākumlapa</a></li>
-            <li class="breadcrumb-item"><a href="#">Izsoles</a></li>
-            <li class="breadcrumb-item active">{{auctionDetails.auctionName}}</li>
-          </ol>
-      </nav>
-      </div>
-    </div>
-  </div>
-  <div class="row">
-    <div class="auction-header col-lg-12 text-uppercase text-center">
-        <h1 class="auction-title"><strong>{{auctionDetails.auctionName}}</strong></h1>
-        <h4 class="auction-startingprice"><strong>Sākumcena {{auctionDetails.auctionStartingPrice}}</strong></h4>
-    </div>
-  </div>
-  <div class="row overall-info">
-    <div class="image-gallery col-lg-6">
-      <app-image-gallery></app-image-gallery>
-    </div>
-    <div class="countdown col-lg-6">
-      <h2 class="countdown-headline text-center">Līdz izsolei palicis</h2>
-      <countdown [config]="config" class="flip-cd">
-        <div class='tiles'>
-            <span><span class="time">$!w!</span><li class="labels">Nedēļas</li></span>
-            <span><span class="time">$!d!</span><li class="labels">Dienas</li></span>
-            <span><span class="time">$!h!</span><li class="labels">Stundas</li></span>
-            <span><span class="time">$!m!</span><li class="labels">Minūtes</li></span>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-12">
+        <div class="text-uppercase">
+          <nav aria-label="breadcrumb">
+            <ol class="breadcrumb">
+              <li class="breadcrumb-item"><a href="#">Sākumlapa</a></li>
+              <li class="breadcrumb-item"><a href="#">Izsoles</a></li>
+              <li class="breadcrumb-item active">{{auctionDetails.auctionName}}</li>
+            </ol>
+        </nav>
         </div>
-    </countdown>
+      </div>
     </div>
-    <div class="social col-lg-6">
-      <svg xmlns="http://www.w3.org/2000/svg" class="social-item"  width="13.668" height="26.508" viewBox="0 0 13.668 26.508"><defs><style>.a{fill:#6f5081;}</style></defs><path class="a" d="M3.971,26.508V14.652H0V9.94H3.971V6.228C3.971,2.2,6.435,0,10.034,0a33.339,33.339,0,0,1,3.634.186V4.4h-2.5c-1.957,0-2.335.932-2.335,2.294V9.94h4.416l-.606,4.711H8.838V26.508"/></svg>
-      <svg xmlns="http://www.w3.org/2000/svg" class="social-item" width="31.197" height="25.338" viewBox="0 0 31.197 25.338"><defs><style>.a{fill:#6f5081;}</style></defs><path class="a" d="M27.991,54.4c.02.277.02.554.02.831,0,8.453-6.433,18.192-18.192,18.192A18.069,18.069,0,0,1,0,70.55a13.227,13.227,0,0,0,1.544.079A12.805,12.805,0,0,0,9.482,67.9,6.405,6.405,0,0,1,3.5,63.463a8.064,8.064,0,0,0,1.208.1,6.763,6.763,0,0,0,1.683-.218,6.4,6.4,0,0,1-5.127-6.275V56.99a6.439,6.439,0,0,0,2.89.812,6.4,6.4,0,0,1-1.98-8.552,18.174,18.174,0,0,0,13.184,6.691,7.218,7.218,0,0,1-.158-1.465A6.4,6.4,0,0,1,26.268,50.1a12.588,12.588,0,0,0,4.058-1.544,6.377,6.377,0,0,1-2.811,3.524,12.818,12.818,0,0,0,3.682-.99A13.744,13.744,0,0,1,27.991,54.4Z" transform="translate(0 -48.082)"/></svg>
-      <svg xmlns="http://www.w3.org/2000/svg" class="social-item" width="25.508" height="25.508" viewBox="0 0 25.508 25.508"><defs><style>.a{fill:#6f5081;}</style></defs><path class="a" d="M21.687,35.707A12.644,12.644,0,0,0,1.794,50.96L0,57.508l6.7-1.759a12.6,12.6,0,0,0,6.041,1.537h.006a12.56,12.56,0,0,0,8.939-21.579Zm-8.939,19.45A10.487,10.487,0,0,1,7.4,53.693l-.381-.228L3.04,54.507,4.1,50.63l-.251-.4a10.526,10.526,0,1,1,19.524-5.586A10.623,10.623,0,0,1,12.748,55.156Zm5.762-7.869c-.313-.159-1.868-.922-2.158-1.025s-.5-.159-.712.159-.814,1.025-1,1.241-.37.239-.683.08a8.6,8.6,0,0,1-4.3-3.758c-.325-.558.325-.518.928-1.725a.585.585,0,0,0-.028-.552c-.08-.159-.712-1.714-.974-2.346-.256-.615-.518-.53-.712-.541s-.393-.011-.6-.011a1.17,1.17,0,0,0-.843.393,3.549,3.549,0,0,0-1.1,2.636,6.187,6.187,0,0,0,1.287,3.268A14.114,14.114,0,0,0,13,49.878c2,.865,2.79.939,3.792.791a3.235,3.235,0,0,0,2.129-1.5,2.642,2.642,0,0,0,.182-1.5C19.034,47.521,18.824,47.441,18.51,47.288Z" transform="translate(0 -32)"/></svg>
-      <svg xmlns="http://www.w3.org/2000/svg" class="social-item" width="31.765" height="25.572" viewBox="0 0 31.765 25.572"><defs><style>.a{fill:#6f5081;fill-rule:evenodd;}</style></defs><g transform="translate(-69.38 -0.79)"><path class="a" d="M92.049,7.879c5.692.072,9.01,3.563,5.242,8.342a19.145,19.145,0,0,1-8.56,5.774l-.562.191c-.364.119-.732.232-1.09.341-.841.238-1.669.45-2.466.606-.852.174-1.676.3-2.473.392-.569.055-1.121.092-1.652.1-3.628.092-6.36-.9-7.249-3.008-1.073-2.538,1.1-6.077,5.45-8.771-3.222,1.277-9.064,4.343-9.31,8.69v.552a5.706,5.706,0,0,0,.255,1.363c.927,2.936,5.3,4.3,10.856,3.815.542-.048,1.09-.109,1.652-.191.8-.119,1.632-.286,2.473-.477s1.632-.422,2.466-.681c.184-.065.368-.119.552-.181.375-.119.743-.249,1.1-.385,4.82-1.751,8.4-4.088,10.485-6.758a8.332,8.332,0,0,0,1.925-4.217v-.961C100.814,9.234,97.1,7.364,92.049,7.879Zm-3.7-1.567a1.638,1.638,0,0,0,.378-.048c.8-.2,1.2-1.063,1.237-2.081.037-1.08-.341-1.979-1.237-2.109a1.093,1.093,0,0,0-.238,0A1.475,1.475,0,0,0,87.079,3.12a3.362,3.362,0,0,0-.2,1.08,2.929,2.929,0,0,0,.2,1.267,1.325,1.325,0,0,0,1.274.845Zm-.027.341a3.9,3.9,0,0,0-.927.1l.075.1.136.249.109.255.092.266.065.276.048.273.027.286V9.32l-.017.286-.037.283-.037.283-.055.286-.055.283-.058.276-.061.276-.055.266-.065.255-.065.249-.065.238-.055.228-.055.221-.027.136-.037.157-.037.164-.027.174-.037.184-.027.157v.037l-.037.2-.034.2-.027.211-.037.221-.027.218-.037.221-.027.228-.037.221-.027.228-.027.228-.027.228h0c.055.661.1,1.219.129,1.54a1.662,1.662,0,0,0,.218.807,1.039,1.039,0,0,0,.862.4,1.284,1.284,0,0,0,.79-.286,1.56,1.56,0,0,0,.364-.916c.146-.944.569-4.043.937-5.372.521-1.914,1.778-5.4-1.3-5.665a3.014,3.014,0,0,0-.405-.024Zm-3.747-.981h0c1.192,0,1.751-1.1,1.751-2.439S85.806.8,84.613.79h0c-1.226,0-1.785,1.093-1.785,2.456s.559,2.432,1.768,2.432Zm-2.456,5.655c.109.467.218.9.31,1.284.378,1.529.743,5.089.882,6.159s.511,1.311,1.281,1.386c.763-.075,1.148-.3,1.274-1.386s.521-4.622.889-6.152c.092-.385.211-.818.32-1.284.341-1.4.613-3.066,0-4.115a3.268,3.268,0,0,0-4.939,0c-.627,1.063-.341,2.711,0,4.115ZM80.492,6.254a1.635,1.635,0,0,0,.375.048,1.328,1.328,0,0,0,1.277-.862,3.209,3.209,0,0,0,.2-1.267,3.665,3.665,0,0,0-.2-1.08A1.485,1.485,0,0,0,80.73,2.047a1.094,1.094,0,0,0-.238,0c-.889.129-1.274,1.022-1.237,2.109C79.279,5.191,79.684,6.053,80.492,6.254Zm-.364,11.459a1.478,1.478,0,0,0,.364.916,1.284,1.284,0,0,0,.79.286,1.056,1.056,0,0,0,.862-.4,1.928,1.928,0,0,0,.218-.807c.027-.32.075-.879.129-1.529v-.02l-.027-.228-.027-.228-.037-.228-.027-.221-.027-.228-.037-.221-.027-.218-.037-.221-.048-.221-.027-.2-.034-.2v-.027l-.027-.167-.037-.184-.037-.174L82,13.029l-.037-.157-.037-.136-.044-.221-.065-.228-.054-.238L81.7,11.8l-.065-.255-.065-.266-.058-.266-.065-.276-.055-.283-.044-.286-.037-.283L81.275,9.6l-.027-.286V8.465l.027-.286.048-.273.065-.276.082-.266.119-.255.136-.249.075-.1a3.962,3.962,0,0,0-.927-.1,3.014,3.014,0,0,0-.4.017c-3.066.266-1.822,3.747-1.3,5.665.378,1.328.8,4.428.947,5.372Z" transform="translate(0 0)"/></g></svg>
+    <div class="row">
+      <div class="Hero_header col-lg-12 text-uppercase text-center">
+          <h1 class="auction_title"><strong>{{auctionDetails.auctionName}}</strong></h1>
+          <h4 class="auction_startingprice"><strong>Sākumcena &euro; {{auctionDetails.auctionStartingPrice}}</strong></h4>
+      </div>
     </div>
-    <div class="col-lg-12 text-center">
-      <button type="button" class="apply-button"><strong>Pieteikties izsolei</strong></button>
+    <div class="row visual_info">
+      <div class="image-gallery col-lg-6">
+        <app-image-gallery></app-image-gallery>
+      </div>
+      <div class="countdown col-lg-6">
+        <h2 class="countdown_headline text-center">Līdz izsolei palicis</h2>
+        <countdown [config]="config" class="flip-cd">
+          <div class='countdown_tiles'>
+              <span><span class="countdown_time">$!w!</span><li>Nedēļas</li></span>
+              <span><span class="countdown_time">$!d!</span><li>Dienas</li></span>
+              <span><span class="countdown_time">$!h!</span><li>Stundas</li></span>
+              <span><span class="countdown_time">$!m!</span><li>Minūtes</li></span>
+          </div>
+      </countdown>
+      </div>
+      <div class="social col-lg-6">
+        <svg xmlns="http://www.w3.org/2000/svg" class="social-item"  width="13.668" height="26.508" viewBox="0 0 13.668 26.508"><defs><style>.a{fill:#6f5081;}</style></defs><path class="a" d="M3.971,26.508V14.652H0V9.94H3.971V6.228C3.971,2.2,6.435,0,10.034,0a33.339,33.339,0,0,1,3.634.186V4.4h-2.5c-1.957,0-2.335.932-2.335,2.294V9.94h4.416l-.606,4.711H8.838V26.508"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" class="social-item" width="31.197" height="25.338" viewBox="0 0 31.197 25.338"><defs><style>.a{fill:#6f5081;}</style></defs><path class="a" d="M27.991,54.4c.02.277.02.554.02.831,0,8.453-6.433,18.192-18.192,18.192A18.069,18.069,0,0,1,0,70.55a13.227,13.227,0,0,0,1.544.079A12.805,12.805,0,0,0,9.482,67.9,6.405,6.405,0,0,1,3.5,63.463a8.064,8.064,0,0,0,1.208.1,6.763,6.763,0,0,0,1.683-.218,6.4,6.4,0,0,1-5.127-6.275V56.99a6.439,6.439,0,0,0,2.89.812,6.4,6.4,0,0,1-1.98-8.552,18.174,18.174,0,0,0,13.184,6.691,7.218,7.218,0,0,1-.158-1.465A6.4,6.4,0,0,1,26.268,50.1a12.588,12.588,0,0,0,4.058-1.544,6.377,6.377,0,0,1-2.811,3.524,12.818,12.818,0,0,0,3.682-.99A13.744,13.744,0,0,1,27.991,54.4Z" transform="translate(0 -48.082)"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" class="social-item" width="25.508" height="25.508" viewBox="0 0 25.508 25.508"><defs><style>.a{fill:#6f5081;}</style></defs><path class="a" d="M21.687,35.707A12.644,12.644,0,0,0,1.794,50.96L0,57.508l6.7-1.759a12.6,12.6,0,0,0,6.041,1.537h.006a12.56,12.56,0,0,0,8.939-21.579Zm-8.939,19.45A10.487,10.487,0,0,1,7.4,53.693l-.381-.228L3.04,54.507,4.1,50.63l-.251-.4a10.526,10.526,0,1,1,19.524-5.586A10.623,10.623,0,0,1,12.748,55.156Zm5.762-7.869c-.313-.159-1.868-.922-2.158-1.025s-.5-.159-.712.159-.814,1.025-1,1.241-.37.239-.683.08a8.6,8.6,0,0,1-4.3-3.758c-.325-.558.325-.518.928-1.725a.585.585,0,0,0-.028-.552c-.08-.159-.712-1.714-.974-2.346-.256-.615-.518-.53-.712-.541s-.393-.011-.6-.011a1.17,1.17,0,0,0-.843.393,3.549,3.549,0,0,0-1.1,2.636,6.187,6.187,0,0,0,1.287,3.268A14.114,14.114,0,0,0,13,49.878c2,.865,2.79.939,3.792.791a3.235,3.235,0,0,0,2.129-1.5,2.642,2.642,0,0,0,.182-1.5C19.034,47.521,18.824,47.441,18.51,47.288Z" transform="translate(0 -32)"/></svg>
+        <svg xmlns="http://www.w3.org/2000/svg" class="social-item" width="31.765" height="25.572" viewBox="0 0 31.765 25.572"><defs><style>.a{fill:#6f5081;fill-rule:evenodd;}</style></defs><g transform="translate(-69.38 -0.79)"><path class="a" d="M92.049,7.879c5.692.072,9.01,3.563,5.242,8.342a19.145,19.145,0,0,1-8.56,5.774l-.562.191c-.364.119-.732.232-1.09.341-.841.238-1.669.45-2.466.606-.852.174-1.676.3-2.473.392-.569.055-1.121.092-1.652.1-3.628.092-6.36-.9-7.249-3.008-1.073-2.538,1.1-6.077,5.45-8.771-3.222,1.277-9.064,4.343-9.31,8.69v.552a5.706,5.706,0,0,0,.255,1.363c.927,2.936,5.3,4.3,10.856,3.815.542-.048,1.09-.109,1.652-.191.8-.119,1.632-.286,2.473-.477s1.632-.422,2.466-.681c.184-.065.368-.119.552-.181.375-.119.743-.249,1.1-.385,4.82-1.751,8.4-4.088,10.485-6.758a8.332,8.332,0,0,0,1.925-4.217v-.961C100.814,9.234,97.1,7.364,92.049,7.879Zm-3.7-1.567a1.638,1.638,0,0,0,.378-.048c.8-.2,1.2-1.063,1.237-2.081.037-1.08-.341-1.979-1.237-2.109a1.093,1.093,0,0,0-.238,0A1.475,1.475,0,0,0,87.079,3.12a3.362,3.362,0,0,0-.2,1.08,2.929,2.929,0,0,0,.2,1.267,1.325,1.325,0,0,0,1.274.845Zm-.027.341a3.9,3.9,0,0,0-.927.1l.075.1.136.249.109.255.092.266.065.276.048.273.027.286V9.32l-.017.286-.037.283-.037.283-.055.286-.055.283-.058.276-.061.276-.055.266-.065.255-.065.249-.065.238-.055.228-.055.221-.027.136-.037.157-.037.164-.027.174-.037.184-.027.157v.037l-.037.2-.034.2-.027.211-.037.221-.027.218-.037.221-.027.228-.037.221-.027.228-.027.228-.027.228h0c.055.661.1,1.219.129,1.54a1.662,1.662,0,0,0,.218.807,1.039,1.039,0,0,0,.862.4,1.284,1.284,0,0,0,.79-.286,1.56,1.56,0,0,0,.364-.916c.146-.944.569-4.043.937-5.372.521-1.914,1.778-5.4-1.3-5.665a3.014,3.014,0,0,0-.405-.024Zm-3.747-.981h0c1.192,0,1.751-1.1,1.751-2.439S85.806.8,84.613.79h0c-1.226,0-1.785,1.093-1.785,2.456s.559,2.432,1.768,2.432Zm-2.456,5.655c.109.467.218.9.31,1.284.378,1.529.743,5.089.882,6.159s.511,1.311,1.281,1.386c.763-.075,1.148-.3,1.274-1.386s.521-4.622.889-6.152c.092-.385.211-.818.32-1.284.341-1.4.613-3.066,0-4.115a3.268,3.268,0,0,0-4.939,0c-.627,1.063-.341,2.711,0,4.115ZM80.492,6.254a1.635,1.635,0,0,0,.375.048,1.328,1.328,0,0,0,1.277-.862,3.209,3.209,0,0,0,.2-1.267,3.665,3.665,0,0,0-.2-1.08A1.485,1.485,0,0,0,80.73,2.047a1.094,1.094,0,0,0-.238,0c-.889.129-1.274,1.022-1.237,2.109C79.279,5.191,79.684,6.053,80.492,6.254Zm-.364,11.459a1.478,1.478,0,0,0,.364.916,1.284,1.284,0,0,0,.79.286,1.056,1.056,0,0,0,.862-.4,1.928,1.928,0,0,0,.218-.807c.027-.32.075-.879.129-1.529v-.02l-.027-.228-.027-.228-.037-.228-.027-.221-.027-.228-.037-.221-.027-.218-.037-.221-.048-.221-.027-.2-.034-.2v-.027l-.027-.167-.037-.184-.037-.174L82,13.029l-.037-.157-.037-.136-.044-.221-.065-.228-.054-.238L81.7,11.8l-.065-.255-.065-.266-.058-.266-.065-.276-.055-.283-.044-.286-.037-.283L81.275,9.6l-.027-.286V8.465l.027-.286.048-.273.065-.276.082-.266.119-.255.136-.249.075-.1a3.962,3.962,0,0,0-.927-.1,3.014,3.014,0,0,0-.4.017c-3.066.266-1.822,3.747-1.3,5.665.378,1.328.8,4.428.947,5.372Z" transform="translate(0 0)"/></g></svg>
+      </div>
+      <div class="col-lg-12 text-center">
+        <button type="button" class="apply_button"><strong>Pieteikties izsolei</strong></button>
+      </div>
     </div>
   </div>
-</div>
 
-<div class="container">
-  <div class="row main-container">
-    <ng-container class="main-content" *ngIf="auctionDetails">
-      <div class="col-lg-4">
-        <h5>Izsoles priekšmets:</h5>
-        <p>{{auctionDetails.auctionName}}</p>
-        <h5>Kategorija:</h5>
-        <p>{{auctionDetails.categoryName}}</p>
-        <h5>Apakškategorija:</h5>
-        <p>{{auctionDetails.typeName}}</p>
+  <div class="container">
+    <div class="row main_container">
+      <ng-container class="main_content" *ngIf="auctionDetails">
+        <div class="col-lg-4">
+          <h5>Izsoles priekšmets:</h5>
+          <p>{{auctionDetails.auctionName}}</p>
+          <h5>Kategorija:</h5>
+          <p>{{auctionDetails.categoryName}}</p>
+          <h5>Apakškategorija:</h5>
+          <p>{{auctionDetails.typeName}}</p>
+        </div>
+
+        <div class="col-lg-4">
+          <h4>Izsoles apraksts:</h4>
+          <p>Whats this?</p>
+          <h5>Izsoles sākumcena:</h5>
+          <p>{{auctionDetails.auctionStartingPrice}}</p>
+          <h5>Izsoles sākuma laiks:</h5>
+          <p>{{auctionDetails.auctionStartDate}}</p>
+          <h5>Izsoles beigu pieteikšanās laiks:</h5>
+          <p>{{auctionDetails.auctionEndDate}}</p>
+        </div>
+
+        <div class="col-lg-4">
+          <h4>Bilde(s):</h4>
+          <p>None</p>
+          <h4>Izsoles apraksts:</h4>
+          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam purus sem, lacinia a aliquet eget, feugiat
+            quis lectus. Cras vitae maximus felis, sit amet posuere mauris. Vestibulum venenatis venenatis porta. Nam
+            porta urna sit amet risus fermentum, non facilisis tellus hendrerit. Cras vulputate sem in rhoncus tincidunt.
+          </p>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+
+  <div class="container">
+    <div class="row cards_container text-center">
+      <div class="card card_left mx-lg-3">
+        <h4 class="card_headline">Tev droši vien vajadzēs jaunas riepas</h4>
+        <h6 class="card_item">Vasaras riepas</h6>
+        <h6 class="card_item">Ziemas riepas</h6>
+        <h6 class="card_item">Vissezonas riepas</h6>
+          <button type="button" class="service_button"><strong>Gribu mainīt riepas</strong></button>
+      </div>
+      <div class="card card_middle mx-lg-3">
+          <h4 class="card_headline">Neaizmirsti apdrošināt savu jauno auto</h4>
+          <h6 class="card_item">OCTA</h6>
+          <h6 class="card_item">KASKO</h6>
+          <h6 class="card_item">ZELTA OCTA</h6>
+            <button type="button" class="service_button"><strong>Apdrošināt auto</strong></button>
+      </div>
+      <div class="card card-right mx-lg-3">
+          <h4 class="card_headline">Lai vienmēr tīrs auto</h4>
+          <h6 class="card_item">15% atlaide automazgātuve</h6>
+          <h6 class="card_item">"CARWASH"</h6>
+            <button type="button" class="service_button"><strong>Gribu atlaidi</strong></button>
+      </div>
+    </div>
+    <div class="row">
+      <p>Countdown example: {{ displayTime }}</p>
+    </div>
+
+    <div class="row">
+        <br>
+        <countdown [config]="{leftTime: 10000 * 10}">$!d!:$!h!:$!m!:$!s!</countdown>
+        <br>
+        <a routerLink="/auctions">Go Back to auction list!</a>
+    </div>
+  </div>
+  <div class="date_info">
+    <button type="button" class="date_info_button text-uppercase">Svarīgie Datumi</button>
+    <div class="card date_info_card">
+      <div class="card-body date_info_card_body text-center">
+        <div class="card-group date_info_card_components">
+          <div class="card date_info_card_component">
+            <div class="card-body date_info_card_component_body">
+              <svg xmlns="http://www.w3.org/2000/svg" width="29.936" height="29.564" viewBox="0 0 29.936 29.564"><defs><style>.a{fill:#6f5081;}</style></defs><g transform="translate(-4.53 -8)"><g transform="translate(4.905 8)"><g transform="translate(0)"><path class="a" d="M28.818,9.3a2.6,2.6,0,0,0-3.675,0l-2.606,2.608V5.048a2.581,2.581,0,0,0-.761-1.837L19.327.761A2.581,2.581,0,0,0,17.489,0H2.616a2.6,2.6,0,0,0-2.6,2.6V26.965a2.6,2.6,0,0,0,2.6,2.6H19.939a2.6,2.6,0,0,0,2.6-2.6v-7.7l6.281-6.286A2.6,2.6,0,0,0,28.818,9.3ZM17.341,1.732a.945.945,0,0,1,.761.254l2.45,2.45a.945.945,0,0,1,.254.761H17.341Zm3.464,25.233a.867.867,0,0,1-.866.866H2.616a.867.867,0,0,1-.866-.866V2.6a.867.867,0,0,1,.866-.866H15.608V6.063a.866.866,0,0,0,.866.866h4.331v6.717L18.25,16.2l-1.224,1.224a.866.866,0,0,0-.209.339l-1.225,3.675a.866.866,0,0,0,1.1,1.1l3.675-1.225A.865.865,0,0,0,20.7,21.1L20.805,21ZM18.863,18.04l1.225,1.225-.468.468-1.837.612.612-1.837Zm2.45,0-1.225-1.225,4.163-4.167,1.225,1.225Zm6.281-6.286-.893.894-1.225-1.225.893-.894a.866.866,0,1,1,1.225,1.225Z" transform="translate(-0.018)"/></g></g><g transform="translate(4.53 10.519)"><path class="a" d="M73.01,150H60.884a.866.866,0,1,0,0,1.732H73.01a.866.866,0,1,0,0-1.732Z" transform="translate(-60.018 -150)"/></g><g transform="translate(4.53 13.984)"><path class="a" d="M69.545,210H60.884a.866.866,0,1,0,0,1.732h8.661a.866.866,0,1,0,0-1.732Z" transform="translate(-60.018 -210)"/></g><g transform="translate(4.53 17.448)"><path class="a" d="M69.545,270H60.884a.866.866,0,0,0,0,1.732h8.661a.866.866,0,0,0,0-1.732Z" transform="translate(-60.018 -270)"/></g><g transform="translate(4.53 20.913)"><path class="a" d="M69.545,330H60.884a.866.866,0,0,0,0,1.732h8.661a.866.866,0,0,0,0-1.732Z" transform="translate(-60.018 -330)"/></g><g transform="translate(11.459 26.225)"><path class="a" d="M186.081,422h-5.2a.866.866,0,1,0,0,1.732h5.2a.866.866,0,0,0,0-1.732Z" transform="translate(-180.018 -422)"/></g></g></svg>
+              <p><strong>Pieteikties līdz</strong></p>
+            </div>
+          </div>
+          <div class="card date_info_card_component">
+              <div class="card-body date_info_card_component_body">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32"><defs><style>.a{fill:#6f5081;}</style></defs><g transform="translate(0 -0.001)"><g transform="translate(6.294 10.715)"><path class="a" d="M101.771,171.6a.625.625,0,1,0,0,.884A.625.625,0,0,0,101.771,171.6Z" transform="translate(-100.704 -171.42)"/></g><g transform="translate(0 24.5)"><path class="a" d="M15.825,395.47a2.188,2.188,0,0,0-1.763-3.483H3.437a2.186,2.186,0,0,0-1.762,3.482A3.127,3.127,0,0,0,0,398.237v.625a.625.625,0,0,0,.625.625h16.25a.625.625,0,0,0,.625-.625v-.625A3.127,3.127,0,0,0,15.825,395.47ZM2.774,393.511a.931.931,0,0,1,.663-.274H14.062a.937.937,0,1,1,0,1.875H3.437a.938.938,0,0,1-.663-1.6ZM1.25,398.237a1.877,1.877,0,0,1,1.875-1.875h11.25a1.877,1.877,0,0,1,1.875,1.875Z" transform="translate(0 -391.987)"/></g><g transform="translate(0.001 0.001)"><g transform="translate(0 0)"><path class="a" d="M31.438,26.259a3.936,3.936,0,0,0-.753-.865l-2.92-2.547a.62.62,0,0,0-.249-.217L25.75,21.09l-8.174-7.131a1.872,1.872,0,0,0-.549-2.985l.756-.756A2.5,2.5,0,0,0,20.2,9.572a2.5,2.5,0,0,0,0-3.536l-5.3-5.3a2.5,2.5,0,0,0-4.182,2.413L3.167,10.692a2.515,2.515,0,0,0-.647-.085A2.5,2.5,0,0,0,.752,14.875l5.3,5.3a2.5,2.5,0,0,0,4.182-2.413l.755-.755a1.875,1.875,0,0,0,2.986.548l8.707,10a.628.628,0,0,0,.085.106c.011.011.023.021.035.032L25.4,30.68c.064.076.133.151.2.223A3.717,3.717,0,0,0,28.245,32a3.836,3.836,0,0,0,.526-.036,3.782,3.782,0,0,0,2.79-1.932A3.7,3.7,0,0,0,31.438,26.259ZM12.242,1.617a1.25,1.25,0,0,1,1.768,0l5.3,5.3a1.25,1.25,0,0,1-1.767,1.768l-5.3-5.3h0A1.251,1.251,0,0,1,12.242,1.617ZM8.707,19.294a1.252,1.252,0,0,1-1.768,0l-5.3-5.3A1.25,1.25,0,0,1,3.4,12.223l5.3,5.3A1.251,1.251,0,0,1,8.707,19.294Zm2.631-4.4L9.591,16.643l-5.3-5.3,7.071-7.071,5.3,5.3-1.751,1.751-.017.017L11.36,14.873Zm2.232,1.3,0,0-.44.44a.625.625,0,0,1-.892-.876l3.55-3.55a.625.625,0,0,1,1.06.449.619.619,0,0,1-.183.442l-.438.438-.009.009Zm1.294.473,1.827-1.827,7.734,6.746L21.6,24.414Zm7.561,8.687,2.944-2.944.944.824L23.248,26.3Zm8.046,4.063a2.542,2.542,0,0,1-1.871,1.3,2.483,2.483,0,0,1-2.113-.708c-.048-.048-.094-.1-.137-.149l-.006-.007L24.07,27.25l3.187-3.187,2.609,2.276.006.005a2.691,2.691,0,0,1,.516.593A2.468,2.468,0,0,1,30.471,29.422Z" transform="translate(-0.021 -0.001)"/></g></g><g transform="translate(8.062 6.295)"><path class="a" d="M132.7,100.89a.625.625,0,0,0-.884,0l-2.652,2.652a.625.625,0,0,0,.884.884l2.652-2.652A.625.625,0,0,0,132.7,100.89Z" transform="translate(-128.985 -100.707)"/></g></g></svg>
+                  <p><strong>Izsoles datums</strong></p>
+              </div>
+          </div>
+          <div class="card date_info_card_component">
+              <div class="card-body date_info_card_component_body">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="31.505" height="31.506" viewBox="0 0 31.505 31.506"><defs><style>.a{fill:#6f5081;}</style></defs><g transform="translate(-0.007)"><g transform="translate(4.191 27.814)"><path class="a" d="M69.053,452.181a.615.615,0,1,0,.18.435A.62.62,0,0,0,69.053,452.181Z" transform="translate(-68.003 -452.001)"/></g><g transform="translate(27.848 11.077)"><path class="a" d="M453.5,180.188a.614.614,0,1,0,.181.435A.619.619,0,0,0,453.5,180.188Z" transform="translate(-452.454 -180.008)"/></g><g transform="translate(0.007)"><path class="a" d="M31.332.18A.616.616,0,0,0,30.9,0H15.759a.615.615,0,0,0-.615.615v1.76L9.311,3.939a.615.615,0,0,0-.435.754L11.9,15.974,9.284,18.59a1.845,1.845,0,0,0-1.524-.806H1.853A1.848,1.848,0,0,0,.007,19.63V29.66a1.848,1.848,0,0,0,1.846,1.846H7.76a1.849,1.849,0,0,0,1.792-1.4l.732.638a3.1,3.1,0,0,0,2.038.764H30.9a.615.615,0,0,0,.615-.615V.615A.616.616,0,0,0,31.332.18ZM8.375,29.66a.616.616,0,0,1-.615.615H1.853a.616.616,0,0,1-.615-.615V19.63a.616.616,0,0,1,.615-.615H4.191V26.1a.615.615,0,0,0,1.231,0V19.015H7.76a.616.616,0,0,1,.615.615V29.66ZM10.224,4.968l4.92-1.318V5.93l-.412.111a.615.615,0,0,0-.435.754,1.659,1.659,0,0,1-1.172,2.029.615.615,0,0,0-.435.755l2.4,8.882H13.854l-.636-2.49a.614.614,0,0,0-.1-.216Zm4.92,3.784v5.192L14.022,9.789A2.883,2.883,0,0,0,15.144,8.752Zm8.84,21.523H12.321a1.87,1.87,0,0,1-1.229-.461l-1.486-1.3V20.008l2.686-2.686.487,1.906a.615.615,0,0,0,.6.463h12.1a.861.861,0,0,1,0,1.723h-6.2a.615.615,0,1,0,0,1.231H27.4a.861.861,0,0,1,0,1.723H19.275a.615.615,0,1,0,0,1.231h6.808a.861.861,0,1,1,0,1.723H19.275a.615.615,0,1,0,0,1.231h4.709a.861.861,0,1,1,0,1.723Zm6.3,0H25.89a2.085,2.085,0,0,0,0-1.723h.193a2.091,2.091,0,0,0,1.87-3.029,2.09,2.09,0,0,0,1.126-3.264v-7.8a.615.615,0,0,0-1.231,0v7a2.093,2.093,0,0,0-.449-.049h-.02a2.091,2.091,0,0,0-1.906-2.954h-.989a2.945,2.945,0,1,0-2.314,0H18.807V6.76a2.9,2.9,0,0,0,2.206-2.206h4.629A2.9,2.9,0,0,0,27.848,6.76V8.674a.615.615,0,1,0,1.231,0V6.211a.615.615,0,0,0-.615-.615,1.659,1.659,0,0,1-1.657-1.657.615.615,0,0,0-.615-.615H20.464a.615.615,0,0,0-.615.615A1.659,1.659,0,0,1,18.192,5.6a.615.615,0,0,0-.615.615v12.25h-1.2V1.231H30.281ZM23.328,17.467a1.714,1.714,0,1,1,1.714-1.714A1.716,1.716,0,0,1,23.328,17.467Z" transform="translate(-0.007)"/></g></g></svg>
+                  <p><strong>Izsoles noslēgums</strong></p>
+              </div>
+          </div>
+        </div>
+          <h1>{{auctionDetails.auctionStartDate}}</h1>
       </div>
 
-      <div class="col-lg-4">
-        <h4>Izsoles apraksts:</h4>
-        <p>Whats this?</p>
-        <h5>Izsoles sākumcena:</h5>
-        <p>{{auctionDetails.auctionStartingPrice}}</p>
-        <h5>Izsoles sākuma laiks:</h5>
-        <p>{{auctionDetails.auctionStartDate}}</p>
-        <h5>Izsoles beigu pieteikšanās laiks:</h5>
-        <p>{{auctionDetails.auctionEndDate}}</p>
-      </div>
-
-      <div class="col-lg-4">
-        <h4>Bilde(s):</h4>
-        <p>None</p>
-        <h4>Izsoles apraksts:</h4>
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aliquam purus sem, lacinia a aliquet eget, feugiat
-          quis lectus. Cras vitae maximus felis, sit amet posuere mauris. Vestibulum venenatis venenatis porta. Nam
-          porta urna sit amet risus fermentum, non facilisis tellus hendrerit. Cras vulputate sem in rhoncus tincidunt.
-        </p>
-      </div>
-    </ng-container>
-  </div>
-</div>
-
-<div class="container">
-  <div class="row cards-container text-center">
-    <div class="card card-left mx-lg-3">
-      <h4 class="card-headline">Tev droši vien vajadzēs jaunas riepas</h4>
-      <h6 class="card-item">Vasaras riepas</h6>
-      <h6 class="card-item">Ziemas riepas</h6>
-      <h6 class="card-item">Vissezonas riepas</h6>
-        <button type="button" class="service-button"><strong>Gribu mainīt riepas</strong></button>
     </div>
-    <div class="card card-middle mx-lg-3">
-        <h4 class="card-headline">Neaizmirsti apdrošināt savu jauno auto</h4>
-        <h6 class="card-item">OCTA</h6>
-        <h6 class="card-item">KASKO</h6>
-        <h6 class="card-item">ZELTA OCTA</h6>
-          <button type="button" class="service-button"><strong>Apdrošināt auto</strong></button>
-    </div>
-    <div class="card card-right mx-lg-3">
-        <h4 class="card-headline">Lai vienmēr tīrs auto</h4>
-        <h6 class="card-item">15% atlaide automazgātuve</h6>
-        <h6 class="card-item">"CARWASH"</h6>
-          <button type="button" class="service-button"><strong>Gribu atlaidi</strong></button>
-    </div>
-  </div>
-  <div class="row">
-    <p>Countdown example: {{ displayTime }}</p>
-  </div>
-
-  <div class="row">
-      <br>
-      <countdown [config]="{leftTime: 10000 * 10}">$!d!:$!h!:$!m!:$!s!</countdown>
-      <br>
-      <a routerLink="/auctions">Go Back to auction list!</a>
   </div>
 </div>

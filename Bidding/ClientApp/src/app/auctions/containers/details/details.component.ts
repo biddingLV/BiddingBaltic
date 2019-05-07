@@ -36,6 +36,7 @@ export class AuctionDetailsComponent implements OnInit, OnDestroy {
   displayTime: any;
   config: Config = {
     template: `$!w!:$!d!:$!h!:$!m!`,
+    // need to find a fix
     leftTime: 100 * 100 * 100 * 20,
     // leftTime: Math.floor((this.auctionDetails.auctionEndDate.getTime() - new Date().getTime()) / 1000),
     clock : ['w', 100, 2, 'd', 6, 1, 'h', 24, 2, 'm', 60, 2, 's', 60, 2, 'u', 10, 1]
@@ -71,28 +72,6 @@ export class AuctionDetailsComponent implements OnInit, OnDestroy {
     const milisec_diff = datetime - now;
     const countDownSeconds = Math.floor(milisec_diff / 1000);
   }
-  // getTimeDifference(datetime) {
-  //   datetime = new Date(datetime).getTime();
-  //   const now = new Date().getTime();
-
-  //   if (isNaN(datetime)) {
-  //     return '';
-  //   }
-
-  //   const milisec_diff = datetime - now;
-
-
-  //   const date_diff = new Date(milisec_diff);
-  //   const day_string = (days) ? this.twoDigit(days) + ':' : '';
-  //   const day_hours = days * 24;
-
-
-  //   return day_string + this.twoDigit(date_diff.getUTCHours()) +
-  //     ':' + this.twoDigit(date_diff.getMinutes()) + ':'
-  //     + this.twoDigit(date_diff.getSeconds());
-
-  // }
-
   private getAuctionDetails(): void {
     this.auctionDetailsSub =
       this.route.paramMap.pipe(
