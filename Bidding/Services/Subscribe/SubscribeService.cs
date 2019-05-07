@@ -27,7 +27,7 @@ namespace BiddingAPI.Services.Subscribe
             if (request.Email.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, "Incorrect email"); }
             if (request.Name.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, "Incorrect name"); }
 
-            ValidateCategories(request.Categories);
+            // ValidateCategories(request.Categories);
 
             return m_subscribeRepository.UsingEmail(request);
         }
@@ -38,24 +38,14 @@ namespace BiddingAPI.Services.Subscribe
             if (request.Phone.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, "Incorrect phone"); }
             if (request.Name.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, "Incorrect name"); }
 
-            ValidateCategories(request.Categories);
+            // ValidateCategories(request.Categories);
 
             return m_subscribeRepository.UsingWhatsApp(request);
         }
 
-        public bool UsingSurvey(SurveyRequestModel request)
-        {
-            // todo: kke: check request params!
-            //if (request.Categories.IsEmpty()) { throw new WebApiException(HttpStatusCode.BadRequest, "Incorrect categories"); }
-            //if (request.Phone.IsEmpty()) { throw new WebApiException(HttpStatusCode.BadRequest, "Incorrect phone"); }
-            //if (request.Name.IsEmpty()) { throw new WebApiException(HttpStatusCode.BadRequest, "Incorrect name"); }
-
-            return m_subscribeRepository.UsingSurvey(request);
-        }
-
         private bool ValidateCategories(List<string> categories)
         {
-            List<string> validCategories = new List<string>(new string[] { "vehicles", "items", "companies", "estate", "brands" });
+            List<string> validCategories = new List<string>(new string[] { "vehicles", "items", "estate" });
 
             foreach (string category in categories)
             {

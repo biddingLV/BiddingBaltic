@@ -5,6 +5,7 @@ using System.Linq;
 using Bidding.Database.Contexts;
 using Bidding.Database.DatabaseModels.Auctions;
 using Bidding.Database.DatabaseModels.Auctions.Details;
+using Bidding.Models.DatabaseModels.Bidding.Subscribe;
 using Bidding.Models.ViewModels.Bidding.Auctions.List;
 using Bidding.Models.ViewModels.Bidding.Filters;
 using Bidding.Shared.Database;
@@ -42,7 +43,7 @@ namespace BiddingAPI.Models.DatabaseModels
         //public virtual DbSet<UserDetail> UserDetails { get; set; }
         //public virtual DbSet<UserOrganization> UserOrganizations { get; set; }
         //public virtual DbSet<UserRole> UserRoles { get; set; }
-        //public virtual DbSet<Newsletter> Newsletters { get; set; }
+        public virtual DbSet<Newsletter> Newsletters { get; set; }
         //public virtual DbSet<AuctionCreator> AuctionCreators { get; set; }
 
         // Database Queries for stored procedures / views

@@ -12,25 +12,23 @@ import { NotificationsService } from '../../../../../core';
 })
 export class SubscribeWhatsappComponent {
   // API
-  public whatsAppSubRequest: IWhatsAppSubscribeRequest;
+  whatsAppSubRequest: IWhatsAppSubscribeRequest;
 
   // form
-  public model: any = {};
-  public checkboxFlag = true;
-  public selectedCategories: string[];
+  model: any = {};
+  checkboxFlag = true;
+  selectedCategories: string[];
 
   // form checkboxes
-  public checkboxes = [
+  checkboxes = [
     { category: 'vehicles', name: 'Transportlīdzekļi', checked: false },
     { category: 'items', name: 'Mantas', checked: false },
-    { category: 'companies', name: 'Uzņēmumu iegāde', checked: false },
-    { category: 'estate', name: 'Nekustamie īpašumi', checked: false },
-    { category: 'brands', name: 'Preču zīmes / domēna vārdi', checked: false }
+    { category: 'estate', name: 'Nekustamie īpašumi', checked: false }
   ];
 
   constructor(public bsModalRef: BsModalRef, private homeApi: HomeService, private notification: NotificationsService) { }
 
-  public onSubmit(form: NgForm) {
+  onSubmit(form: NgForm) {
     // filtered categories
     const selectedCategories = this.filterOutCategories();
 

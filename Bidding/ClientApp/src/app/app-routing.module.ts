@@ -13,16 +13,15 @@ import { ServiceRulesComponent } from './shared/components/footer/static-compone
 
 const routes: Routes = [
   { path: '', loadChildren: './home/home.module#HomeModule' },
-  { path: 'home', loadChildren: './home/home.module#HomeModule' },
-  { path: 'auctions', loadChildren: './auctions/auctions.module#AuctionsModule' },
-  { path: 'admin', loadChildren: './admin/admin.module#AdminModule' },
-  { path: 'users', loadChildren: './users/users.module#UsersModule' },
+  // { path: 'auctions', loadChildren: './auctions/auctions.module#AuctionsModule' },
+  // { path: 'admin', loadChildren: './admin/admin.module#AdminModule' },
+  // { path: 'users', loadChildren: './users/users.module#UsersModule' },
   { path: 'public_html', redirectTo: '', pathMatch: 'full' },
   { path: 'noteikumi-un-nosacijumi', component: RulesListComponent },
   { path: 'gdpr', component: GdprRulesComponent },
   { path: 'pakalpojumi', component: ServiceRulesComponent },
   { path: 'sadarbibas-partneru-piedavajumi', component: PartnerRulesComponent },
-  { path: '**', canActivate: [AuthGuard], component: PageNotFoundComponent, data: { breadcrumb: 'Not Found', hideBreadcrumb: true, title: 'Not Found' } }
+  { path: '**', component: PageNotFoundComponent }
 ];
 
 @NgModule({

@@ -8,11 +8,11 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Bidding.Controllers
+namespace Bidding.Controllers.Subscribe
 {
-    [Route("api/[controller]/[action]")]
-    [ApiController]
-    public class SubscribeController : Controller
+    [Produces("application/json")]
+    [Route("api/[Controller]/[action]")]
+    public class SubscribeController : ControllerBase
     {
         public readonly ISubscribeService m_subscribeService;
 
@@ -21,22 +21,18 @@ namespace Bidding.Controllers
             m_subscribeService = subscribeService ?? throw new ArgumentNullException(nameof(subscribeService));
         }
 
+        [AllowAnonymous]
         [HttpPut]
         public IActionResult UsingEmail([FromBody] EmailRequestModel request)
         {
             return Ok(m_subscribeService.UsingEmail(request));
         }
 
+        [AllowAnonymous]
         [HttpPut]
         public IActionResult UsingWhatsApp([FromBody] WhatsAppRequestModel request)
         {
             return Ok(m_subscribeService.UsingWhatsApp(request));
-        }
-
-        [HttpPut]
-        public IActionResult UsingSurvey([FromBody] SurveyRequestModel request)
-        {
-            return Ok(m_subscribeService.UsingSurvey(request));
         }
     }
 }

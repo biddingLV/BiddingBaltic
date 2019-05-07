@@ -12,14 +12,19 @@ namespace Bidding.Models.DatabaseModels.Bidding.Subscribe
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
+
+        [Required]
+        [MaxLength(100)]
         public string Name { get; set; }
+
+        [MaxLength(100)]
         public string Email { get; set; }
+
+        [MaxLength(100)]
         public string Phone { get; set; }
         public bool Vehicles { get; set; }
         public bool Items { get; set; }
-        public bool Companies { get; set; }
         public bool Estate { get; set; }
-        public bool Brands { get; set; }
-        public DateTime CreatedDate { get; set; }
+        public DateTime CreatedDate { get; set; } = DateTime.UtcNow;
     }
 }
