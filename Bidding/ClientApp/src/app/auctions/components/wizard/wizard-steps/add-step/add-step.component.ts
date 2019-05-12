@@ -15,10 +15,26 @@ export class AuctionAddAddWizardStepComponent implements OnInit {
   /** Form what used in the template */
   addStepForm: FormGroup;
 
+  submitted = false;
+
   /** Form error object */
   formErrors = {
-
+    make: '',
+    model: '',
+    manufacturingDate: '',
+    vehicleRegistrationNumber: '',
+    vehicleIdentificationNumber: '',
+    vehicleInspectionActive: '',
+    power: '',
+    engineSize: '',
+    fuelType: '',
+    transmission: '',
+    gearbox: '',
+    evaluation: ''
   };
+
+  /** Convenience getter for easy access to form fields */
+  get f() { return this.addStepForm.controls; }
 
   constructor(
     private fb: FormBuilder
