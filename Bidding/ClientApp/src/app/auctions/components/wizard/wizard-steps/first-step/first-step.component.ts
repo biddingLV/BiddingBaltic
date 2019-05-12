@@ -8,7 +8,7 @@ import { SubCategoryFilterModel } from 'ClientApp/src/app/auctions/models/filter
 
 
 @Component({
-  selector: 'app-first-auction-add-wizard-step',
+  selector: 'app-auction-add-first-wizard-step',
   templateUrl: './first-step.component.html'
 })
 export class AuctionAddFirstWizardStepComponent implements OnInit {

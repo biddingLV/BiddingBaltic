@@ -5,7 +5,8 @@ import { CommonModule } from '@angular/common';
 // 3rd lib
 import { ArchwizardModule } from 'angular-archwizard';
 import { CountdownModule } from 'ngx-countdown';
-// internal
+
+// internal 
 import { AuctionListComponent } from './containers/list/list.component';
 import { AuctionDetailsComponent } from './containers/details/details.component';
 import { AuctionMainComponent } from './containers/main/main.component';
@@ -14,9 +15,11 @@ import { AuctionDeleteComponent } from './components/delete/delete.component';
 import { AuctionsRoutingModule } from './auctions-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { AuctionsService } from './services/auctions.service';
-import { AuctionAddWizardComponent } from './components/add-wizard/add-wizard.component';
-import { AuctionAddFirstWizardStepComponent } from './components/add-wizard/wizard-steps/first-step/first-step.component';
-import { AuctionAddSecondWizardStepComponent } from './components/add-wizard/wizard-steps/second-step/second-step.component';
+import { AuctionAddMainWizardComponent } from './containers/wizard/main/main.component';
+import { AuctionAddFirstWizardStepComponent } from './components/wizard/wizard-steps/first-step/first-step.component';
+import { AuctionAddLastWizardStepComponent } from './components/wizard/wizard-steps/last-step/last-step.component';
+import { AuctionAddAddWizardStepComponent } from './components/wizard/wizard-steps/add-step/add-step.component';
+
 
 @NgModule({
   imports: [
@@ -34,21 +37,23 @@ import { AuctionAddSecondWizardStepComponent } from './components/add-wizard/wiz
     AuctionListComponent,
     AuctionDetailsComponent,
     AuctionMainComponent,
-    AuctionAddWizardComponent,
+    AuctionAddMainWizardComponent,
     AuctionEditComponent,
     AuctionDeleteComponent,
     AuctionAddFirstWizardStepComponent,
-    AuctionAddSecondWizardStepComponent
+    AuctionAddAddWizardStepComponent,
+    AuctionAddLastWizardStepComponent
   ],
   providers: [
     AuctionsService
   ],
   entryComponents: [
-    AuctionAddWizardComponent,
+    AuctionAddMainWizardComponent,
     AuctionEditComponent,
     AuctionDeleteComponent,
     AuctionAddFirstWizardStepComponent,
-    AuctionAddSecondWizardStepComponent
+    AuctionAddAddWizardStepComponent,
+    AuctionAddLastWizardStepComponent
   ]
 })
 export class AuctionsModule { }

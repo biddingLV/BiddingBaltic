@@ -1,5 +1,5 @@
 // angular
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 // 3rd party
@@ -10,21 +10,22 @@ import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker/bs-datepicker.confi
 import * as moment from 'moment-mini';
 
 // internal
-import { AuctionsService } from '../../services/auctions.service';
+import { AuctionsService } from '../../../services/auctions.service';
 import { FormService } from 'ClientApp/src/app/core/services/form/form.service';
 import { NotificationsService } from 'ClientApp/src/app/core/services/notifications/notifications.service';
-import { AuctionAddRequest } from '../../models/add/auction-add-request.model';
-import { AuctionFilterModel } from '../../models/filters/auction-filter.model';
-import { SubCategoryFilterModel } from '../../models/filters/sub-category-filter.model';
-import { AuctionFormatModel } from '../../models/add/auction-format.model';
-import { AuctionCreatorModel } from '../../models/add/auction-creator.model';
-import { AuctionStatusModel } from '../../models/add/auction-status.model';
+import { AuctionAddRequest } from '../../../models/add/auction-add-request.model';
+import { AuctionFilterModel } from '../../../models/filters/auction-filter.model';
+import { SubCategoryFilterModel } from '../../../models/filters/sub-category-filter.model';
+import { AuctionFormatModel } from '../../../models/add/auction-format.model';
+import { AuctionCreatorModel } from '../../../models/add/auction-creator.model';
+import { AuctionStatusModel } from '../../../models/add/auction-status.model';
+import { WizardComponent } from 'angular-archwizard';
 
 
 @Component({
-  templateUrl: './add-wizard.component.html'
+  templateUrl: './main.component.html'
 })
-export class AuctionAddWizardComponent implements OnInit {
+export class AuctionAddMainWizardComponent implements OnInit {
   // form
   auctionAddForm: FormGroup;
   auctionAddSub: Subscription;
@@ -62,6 +63,12 @@ export class AuctionAddWizardComponent implements OnInit {
 
   bsConfig: Partial<BsDatepickerConfig>;
 
+  steps = [0];
+  step = 0;
+
+  @ViewChild(WizardComponent)
+  wizard: WizardComponent;
+
   constructor(
     private auctionApi: AuctionsService,
     private notification: NotificationsService,
@@ -75,6 +82,13 @@ export class AuctionAddWizardComponent implements OnInit {
       minDate: new Date(2000, 1, 1),
       maxDate: new Date(9999, 12, 31)
     };
+  }
+
+  /** Adds additional add-wizard step to the whole wizard flow */
+  addWizardStep(event: boolean) {
+    this.step++;
+    this.steps.push(this.step);
+    // this.wizard.navigation.goToStep(this.step);
   }
 
   ngOnInit(): void {

@@ -1,0 +1,22 @@
+<div class="modal-header auction-add__header">
+  <h3 class="modal-title pull-left">New Auction</h3>
+  <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+
+<div class="modal-body auction-add__body">
+  <aw-wizard #wizard [navBarLayout]="'large-empty-symbols'">
+    <app-auction-add-first-wizard-step awWizardStep [stepTitle]="'Kategorija'" [categories]="categories"
+      (emitTopCategoryIds)="onTopCategoryChange($event)" (emitSubCategoryIds)="onSubCategoryChange($event)">
+    </app-auction-add-first-wizard-step>
+
+    <ng-container *ngFor="let i of steps">
+      <app-auction-add-add-wizard-step awWizardStep stepTitle="Izsoles detalas {{i}}"
+        (emitAddWizardStep)="addWizardStep($event)"></app-auction-add-add-wizard-step>
+    </ng-container>
+
+    <app-auction-add-last-wizard-step awWizardStep [stepTitle]="'Rikotajs un norise'">
+    </app-auction-add-last-wizard-step>
+  </aw-wizard>
+</div>

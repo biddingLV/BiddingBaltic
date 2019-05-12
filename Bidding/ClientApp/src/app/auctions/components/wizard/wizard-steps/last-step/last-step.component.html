@@ -1,0 +1,68 @@
+<form [formGroup]="lastStepForm">
+  <div class="form-row">
+    <div class="form-group col-6">
+      <label class="required" for="auctionCreator">Izsoles veidotājs:</label>
+      <!-- <ng-select #auctionCreatorSelect formControlName="auctionCreator" [clearable]="false" [virtualScroll]="true"
+        [multiple]="false" [closeOnSelect]="true" placeholder="Select auction creator">
+        <ng-option *ngFor="let crea of auctionCreators.creators; let i = index" [value]="crea.auctionCreatorId">
+          {{crea.firstName + ' ' + crea.lastName}}
+        </ng-option>
+      </ng-select> -->
+    </div>
+
+    <!-- adresse -->
+    <!-- email -->
+    <!-- telefona nr -->
+    <div class="form-group col-6">
+      <label class="required" for="auctionFormat">Izsoles veids:</label>
+      <!-- <ng-select #auctionFormatSelect formControlName="auctionFormat" [clearable]="false" [virtualScroll]="true"
+        [multiple]="false" [closeOnSelect]="true" placeholder="Select auction format">
+        <ng-option *ngFor="let format of auctionFormats.formats; let i = index" [value]="format.auctionFormatId">
+          {{format.auctionFormatName}}
+        </ng-option>
+      </ng-select> -->
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group col-6">
+      <label for="auctionStartDate" class="required">Izsoles sākums:</label>
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="01/01/2019" bsDatepicker [bsConfig]="bsConfig"
+          formControlName="auctionStartDate" id="auctionStartDate" name="auctionStartDate" />
+        <div class="input-group-append">
+          <button class="btn btn-outline-primary" type="button" [disabled]="disableDatepicker">
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group col-6">
+      <label for="auctionApplyTillDate">Pieteikties var līdz:</label>
+      <input type="text" class="form-control" placeholder="01/01/2019" bsDatepicker [bsConfig]="bsConfig"
+        formControlName="auctionApplyTillDate" id="auctionApplyTillDate" name="auctionApplyTillDate" />
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group col-6">
+      <label for="auctionEndDate">Izsoles noslēgums:</label>
+      <input type="text" class="form-control" placeholder="01/01/2019" bsDatepicker [bsConfig]="bsConfig"
+        formControlName="auctionEndDate" id="auctionEndDate" name="auctionEndDate" />
+    </div>
+  </div>
+
+  <div class="form-row">
+    <!-- nodrosinajuma nauda -->
+    <!-- bankas konta nr -->
+    <!-- izsoles dalibas maksa -->
+    <!-- citi maksajumi -->
+  </div>
+
+  <div class="form-row">
+    <div class="form-group">
+      <button class="btn btn-primary" [disabled]="false" (click)="onSubmit()">Add</button>
+      <button class="btn btn-secondary" (click)="bsModalRef.hide()">Cancel</button>
+    </div>
+  </div>
+</form>

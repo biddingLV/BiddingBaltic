@@ -14,9 +14,9 @@
         <a class="nav-link" [routerLink]="['']">Sākumlapa</a>
       </li>
 
-      <!-- <li class="nav-item" *ngIf="!userDetails">
+      <li class="nav-item" *ngIf="!userDetails">
         <a class="nav-link" href="" [routerLink]="" (click)="signIn()">Sign In</a>
-      </li> -->
+      </li>
 
       <li class="nav-item" *ngIf="userDetails">
         <a class="nav-link" [routerLink]="['/users/details', userDetails.UserId]" href="">{{fullName}}</a>

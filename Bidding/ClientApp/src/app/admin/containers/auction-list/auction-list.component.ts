@@ -7,7 +7,7 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 // internal
 import { NotificationsService } from 'ClientApp/src/app/core/services/notifications/notifications.service';
 import { AuctionEditComponent } from 'ClientApp/src/app/auctions/components/edit/edit.component';
-import { AuctionAddWizardComponent } from 'ClientApp/src/app/auctions/components/add-wizard/add-wizard.component';
+import { AuctionAddMainWizardComponent } from 'ClientApp/src/app/auctions/containers/wizard/main/main.component';
 
 
 @Component({
@@ -49,7 +49,7 @@ export class AdminAuctionListComponent implements OnInit {
 
   addModal() {
     const initialState = {};
-    this.bsModalRef = this.modalService.show(AuctionAddWizardComponent, { initialState, class: 'modal-lg' });
+    this.bsModalRef = this.modalService.show(AuctionAddMainWizardComponent, { initialState, class: 'modal-lg' });
     this.bsModalRef.content.closeBtnName = 'Close';
     this.modalService.onHide.subscribe(() => { }); // this.getAuctions();
   }
