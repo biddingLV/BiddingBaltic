@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 
 // 3rd lib
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
+import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
   faSearch
@@ -29,13 +30,15 @@ import { GdprRulesComponent } from './components/footer/static-components/gdpr-r
 import { PartnerRulesComponent } from './components/footer/static-components/partner-rules/partner-rules.component';
 import { RulesListComponent } from './components/footer/static-components/rules-list/rules-list.component';
 import { ServiceRulesComponent } from './components/footer/static-components/service-rules/service-rules.component';
+import { FAQPageComponent } from './components/footer/static-components/faq-page/faq-page.component';
 
 
 @NgModule({
   imports: [
     CommonModule,
     RouterModule,
-    FontAwesomeModule
+    FontAwesomeModule,
+    AccordionModule
   ],
   exports: [
     HeaderComponent,
@@ -45,6 +48,7 @@ import { ServiceRulesComponent } from './components/footer/static-components/ser
     PartnerRulesComponent,
     RulesListComponent,
     ServiceRulesComponent,
+    FAQPageComponent,
     CallbackComponent,
     FontAwesomeModule
   ],
@@ -56,6 +60,7 @@ import { ServiceRulesComponent } from './components/footer/static-components/ser
     PartnerRulesComponent,
     RulesListComponent,
     ServiceRulesComponent,
+    FAQPageComponent,
     CallbackComponent
   ]
 })

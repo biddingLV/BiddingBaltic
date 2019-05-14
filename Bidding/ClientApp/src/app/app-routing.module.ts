@@ -4,11 +4,11 @@ import { Routes, RouterModule } from '@angular/router';
 
 // internal
 import { GdprRulesComponent } from './shared/components/footer/static-components/gdpr-rules/gdpr-rules.component';
-import { AuthGuard } from './core/services/auth/auth-guard.service';
 import { PageNotFoundComponent } from './auth/components/404-page-not-found/404-page-not-found.component';
 import { PartnerRulesComponent } from './shared/components/footer/static-components/partner-rules/partner-rules.component';
 import { RulesListComponent } from './shared/components/footer/static-components/rules-list/rules-list.component';
 import { ServiceRulesComponent } from './shared/components/footer/static-components/service-rules/service-rules.component';
+import { FAQPageComponent } from './shared/components/footer/static-components/faq-page/faq-page.component';
 
 
 const routes: Routes = [
@@ -21,6 +21,7 @@ const routes: Routes = [
   { path: 'gdpr', component: GdprRulesComponent },
   { path: 'pakalpojumi', component: ServiceRulesComponent },
   { path: 'sadarbibas-partneru-piedavajumi', component: PartnerRulesComponent },
+  { path: 'faq', component:  FAQPageComponent},
   { path: '**', component: PageNotFoundComponent }
 ];
 

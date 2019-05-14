@@ -24,11 +24,13 @@ import { AuthModule } from './auth/auth.module';
 // 3rd party modules
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { AccordionModule } from 'ngx-bootstrap/accordion';
 
 // Services
 import { PreviousRouteService } from './shared/services/previous-route.service.ts/previous-route.service';
 import { CachingInterceptor } from './core/interceptors/caching/caching-interceptor';
 import { RequestCache } from './core/interceptors/caching/request-cache.service';
+
 
 @NgModule({
   declarations: [
@@ -40,6 +42,7 @@ import { RequestCache } from './core/interceptors/caching/request-cache.service'
     FormsModule,
     HttpClientModule,
     ModalModule.forRoot(),
+    AccordionModule.forRoot(),
     MinSharedModule,
     SharedModule,
     HomeModule,
