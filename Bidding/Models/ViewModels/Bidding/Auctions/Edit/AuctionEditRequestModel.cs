@@ -8,6 +8,7 @@ namespace BiddingAPI.Models.ViewModels.Bidding.Auctions
 {
     public class AuctionEditRequestModel
     {
-        public int Id { get; set; }
+        public int AuctionId { get; set; }
+        public string AuctionName { get; set; }
     }
 }

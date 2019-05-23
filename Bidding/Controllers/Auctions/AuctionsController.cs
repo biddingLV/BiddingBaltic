@@ -106,7 +106,6 @@ namespace BiddingAPI.Controllers.Auctions
         }
 
         [HttpPut]
-        //[Authorize(Roles = "Admin")]
         public IActionResult Edit([FromBody] AuctionEditRequestModel request)
         {
             return Ok(m_auctionsService.Update(request));
@@ -114,7 +113,6 @@ namespace BiddingAPI.Controllers.Auctions
 
         // toodo: kke: it can be from fromUrl for delete!
         [HttpDelete]
-        //[Authorize(Roles = "Admin")]
         public IActionResult Delete([FromBody] AuctionDeleteRequestModel request)
         {
             return Ok(m_auctionsService.Delete(request));

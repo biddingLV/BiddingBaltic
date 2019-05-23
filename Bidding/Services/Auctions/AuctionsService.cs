@@ -212,6 +212,7 @@ namespace BiddingAPI.Services.Auctions
         private void ValidateAuctionUpdate(AuctionEditRequestModel request)
         {
             if (request.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
+            if (request.AuctionId.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
 
             m_permissionService.IsLoggedInUserActive();
         }
@@ -219,6 +220,7 @@ namespace BiddingAPI.Services.Auctions
         private void ValidateAuctionDelete(AuctionDeleteRequestModel request)
         {
             if (request.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
+            if (request.AuctionId.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
 
             m_permissionService.IsLoggedInUserActive();
         }

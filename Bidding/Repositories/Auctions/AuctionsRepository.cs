@@ -207,6 +207,38 @@ namespace BiddingAPI.Repositories.Auctions
 
         public bool Update(AuctionEditRequestModel request)
         {
+            var strategy = m_context.Database.CreateExecutionStrategy();
+            strategy.Execute(() =>
+            {
+                try
+                {
+                    using (var transaction = m_context.Database.BeginTransaction())
+                    {
+                        Auction auctionForUpdate = m_context.Auctions.FirstOrDefault(auct => auct.AuctionId == request.AuctionId);
+
+                        if (auctionForUpdate.IsNotSpecified() == false)
+                        {
+                            auctionForUpdate.Name = request.AuctionName;
+                            //auctionForUpdate.Lastname = request.LastName;
+                            //auctionForUpdate.ContactEmail = request.ContactEmail.ToLower();
+                            //auctionForUpdate.Phone = request.Phone;
+                            //auctionForUpdate.RoleId = request.RoleId;
+
+                            m_context.SaveChanges();
+                            transaction.Commit();
+                        }
+                        else
+                        {
+                            throw new WebApiException(HttpStatusCode.BadRequest, UserErrorMessages.UserNotActive);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw new WebApiException(HttpStatusCode.BadRequest, UserErrorMessages.UserNotActive, ex);
+                }
+            });
+
             return true;
         }
 
@@ -270,6 +302,34 @@ namespace BiddingAPI.Repositories.Auctions
 
         public bool Delete(AuctionDeleteRequestModel request)
         {
+            var strategy = m_context.Database.CreateExecutionStrategy();
+            strategy.Execute(() =>
+            {
+                try
+                {
+                    using (var transaction = m_context.Database.BeginTransaction())
+                    {
+                        Auction auctionForDelete = m_context.Auctions.FirstOrDefault(auct => auct.AuctionId == request.AuctionId);
+
+                        if (auctionForDelete.IsNotSpecified() == false)
+                        {
+                            m_context.Auctions.Remove(auctionForDelete);
+
+                            m_context.SaveChanges();
+                            transaction.Commit();
+                        }
+                        else
+                        {
+                            throw new WebApiException(HttpStatusCode.BadRequest, UserErrorMessages.UserNotActive);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw new WebApiException(HttpStatusCode.BadRequest, UserErrorMessages.UserNotActive, ex);
+                }
+            });
+
             return true;
         }
 
