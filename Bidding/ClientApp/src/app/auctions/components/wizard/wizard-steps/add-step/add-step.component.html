@@ -1,4 +1,10 @@
-<form [formGroup]="addStepForm">
+<!-- cat 1 -->
+<!-- cat 2 -->
+<!-- cat 3 -->
+<div *ngIf="showVehicleTemplate">vehicle</div>
+<div *ngIf="showItemTemplate">item</div>
+<div *ngIf="showEstateTemplate">estate</div>
+<!-- <form [formGroup]="addStepForm">
   <div class="form-row">
     <div class="form-group col-6">
       <label class="required" for="make">make:</label>
@@ -123,23 +129,12 @@
 
   <div class="form-row">
     <div class="form-group col-md-6">
-      <!-- <app-file-uploader (fileUploaded)="onFileUploaded($event)" (fileRemoved)="onFileRemoved()">
-      </app-file-uploader> -->
+
     </div>
 
     <div class="form-group col-6">
       <label for="auctionStartingPrice" class="required">Sākumcena:</label>
-      <!-- <div class="input-group mb-3">
-        <div class="input-group-prepend">
-          <span class="input-group-text">€</span>
-        </div>
-        <input type="number" class="form-control currency-input" formControlName="auctionStartingPrice"
-          id="auctionStartingPrice" name="auctionStartingPrice"
-          [ngClass]="{ 'is-invalid': submitted && f.auctionStartingPrice.errors }">
-        <div *ngIf="submitted && formErrors.auctionStartingPrice" class="invalid-feedback">
-          {{formErrors.auctionStartingPrice}}
-        </div>
-      </div> -->
+
     </div>
   </div>
 
@@ -149,4 +144,4 @@
       <button type="button" class="btn btn-primary" awNextStep>Next</button>
     </div>
   </div>
-</form>
+</form> -->

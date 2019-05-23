@@ -15,11 +15,11 @@ export class AuctionAddFirstWizardStepComponent implements OnInit {
   /** Top-categories with sub-categories */
   @Input() categories: AuctionFilterModel;
 
-  /** Selected auction top-category ids */
-  @Output() emitTopCategoryIds = new EventEmitter<number[]>();
+  /** Selected auction top-category id */
+  @Output() emitTopCategoryId = new EventEmitter<number>();
 
-  /** Selected auction sub-category ids / types */
-  @Output() emitSubCategoryIds = new EventEmitter<number[]>();
+  /** Selected auction sub-category id / type */
+  @Output() emitSubCategoryId = new EventEmitter<number>();
 
   /** Auction sub-categories / types used for template only */
   auctionTypes: SubCategoryFilterModel[];
@@ -42,21 +42,21 @@ export class AuctionAddFirstWizardStepComponent implements OnInit {
   }
 
   /** On top-category change filter out sub-categories based on top-level category id */
-  onTopCategoryChange(categoryIds: number[]): void {
-    this.emitTopCategoryIds.emit(categoryIds);
+  onTopCategoryChange(categoryId: number): void {
+    this.emitTopCategoryId.emit(categoryId);
 
-    if (categoryIds.length > 0) {
+    if (categoryId) {
       this.firstStepForm.get('auctionSubCategory').enable();
       this.firstStepForm.get('auctionSubCategory').reset();
-      this.auctionTypes = this.categories.subCategories.filter(item => categoryIds.includes(item.categoryId));
+      this.auctionTypes = this.categories.subCategories.filter(item => item.categoryId == categoryId);
     } else {
       this.firstStepForm.get('auctionSubCategory').disable();
       this.auctionTypes = this.categories.subCategories;
     }
   }
 
-  onSubCategoryChange(typeIds: number[]): void {
-    this.emitSubCategoryIds.emit(typeIds);
+  onSubCategoryChange(typeId: number): void {
+    this.emitSubCategoryId.emit(typeId);
   }
 
   /** Build auction add first wizard step form object*/

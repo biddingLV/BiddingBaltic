@@ -3,8 +3,7 @@
     <div class="form-group col-6">
       <label class="required" for="auctionTopCategory">Top-category:</label>
       <ng-select #auctionTopCategorySelect formControlName="auctionTopCategory" [clearable]="false"
-        [virtualScroll]="true" [multiple]="true" [closeOnSelect]="false" placeholder="Select top-category"
-        (change)="onTopCategoryChange($event)">
+        [virtualScroll]="true" placeholder="Select top-category" (change)="onTopCategoryChange($event)">
         <ng-option *ngFor="let cat of categories.topCategories; let i = index" [value]="cat.categoryId">
           {{cat.categoryName}}
         </ng-option>
@@ -14,8 +13,7 @@
     <div class="form-group col-6">
       <label class="required" for="auctionSubCategory">Sub-category:</label>
       <ng-select #auctionSubCategorySelect formControlName="auctionSubCategory" [clearable]="false"
-        [virtualScroll]="true" [multiple]="true" [closeOnSelect]="false" placeholder="Select sub-category"
-        (change)="onSubCategoryChange($event)">
+        [virtualScroll]="true" placeholder="Select sub-category" (change)="onSubCategoryChange($event)">
         <ng-option *ngFor="let typ of categories.subCategories; let i = index" [value]="typ.typeId">
           {{typ.typeName}}
         </ng-option>

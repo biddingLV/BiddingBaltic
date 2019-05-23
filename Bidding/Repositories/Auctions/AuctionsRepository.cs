@@ -178,12 +178,11 @@ namespace BiddingAPI.Repositories.Auctions
 
         public IEnumerable<AuctionDetailsResponseModel> Details(AuctionDetailsRequestModel request)
         {
-            // check if even auction exists and only then do the join
+            // check if even auction exists and only then do the full join
             bool auctionExists = m_context.Auctions.Any(auct => auct.AuctionId == request.AuctionId);
 
             if (auctionExists)
             {
-                // get auction details
                 return from auct in m_context.Auctions
                        join acat in m_context.AuctionCategories on auct.AuctionId equals acat.AuctionId
                        join atyp in m_context.AuctionTypes on auct.AuctionId equals atyp.AuctionId

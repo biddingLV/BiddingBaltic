@@ -58,6 +58,9 @@ export class AuctionAddMainWizardComponent implements OnInit {
   // API
   auctionAddRequest: AuctionAddRequest;
 
+  selectedTopCategoryId: number;
+  selectedSubCategoryId: number;
+
   // convenience getter for easy access to form fields
   get f() { return this.auctionAddForm.controls; }
 
@@ -95,12 +98,14 @@ export class AuctionAddMainWizardComponent implements OnInit {
     this.loadTopAndSubCategories();
   }
 
-  onTopCategoryChange(categoryIds: number[]): void {
-    console.log('categoryIds: ', categoryIds);
+  onTopCategoryChange(categoryId: number): void {
+    this.selectedTopCategoryId = categoryId;
+    console.log('categoryIds: ', categoryId);
   }
 
-  onSubCategoryChange(typeIds: number[]): void {
-    console.log('typeIds: ', typeIds);
+  onSubCategoryChange(typeId: number): void {
+    this.selectedSubCategoryId = typeId;
+    console.log('typeIds: ', typeId);
   }
 
   onSubmit(): void {

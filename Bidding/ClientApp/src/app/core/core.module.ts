@@ -11,6 +11,10 @@ import { CookieService } from 'ngx-cookie-service';
 // Services
 import { AuthGuard, PermissionsService, AuthService, NotificationsService, ExceptionsService, FormService } from './services';
 
+// Constants
+import { CategoryConstants } from './constants';
+
+
 @NgModule({
   imports: [
     CommonModule,
@@ -25,7 +29,8 @@ import { AuthGuard, PermissionsService, AuthService, NotificationsService, Excep
     ExceptionsService,
     FormService,
     CookieService,
-    HttpClientModule
+    HttpClientModule,
+    CategoryConstants
   ],
   exports: [
     HttpClientModule,
