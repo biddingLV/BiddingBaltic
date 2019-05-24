@@ -1,7 +1,15 @@
+// angular
 import { Component, OnInit } from '@angular/core';
-import { BsModalRef } from 'ngx-bootstrap/modal';
-import { FormGroup } from '@angular/forms';
+import { FormGroup, FormBuilder } from '@angular/forms';
+
+// 3rd lib
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
+
+// internal
 import { AuctionsService } from '../../services/auctions.service';
+import { AuctionDeleteRequest } from '../../models/delete/auction-delete-request.model';
+import { FormService } from 'ClientApp/src/app/core/services/form/form.service';
+import { NotificationsService } from 'ClientApp/src/app/core/services/notifications/notifications.service';
 
 
 @Component({
@@ -11,22 +19,22 @@ import { AuctionsService } from '../../services/auctions.service';
 export class AuctionDeleteComponent implements OnInit {
   // info from parent component
   auctionId: number;
+  auctionName: string;
 
   // form
-  userDeleteForm: FormGroup;
+  auctionDeleteForm: FormGroup;
   submitted = false;
 
   formErrors = {
-    auctionId: ''
+    auctionId: '',
+    auctionName: ''
   };
 
   // API
-  organizationUsersRequest: OrganizationUsersRequest;
-  deleteRequest: IUserDeleteRequest;
-  organizationUsers$: Observable<OrganizationUsersResponse>;
+  deleteRequest: AuctionDeleteRequest;
 
   // convenience getter for easy access to form fields
-  get f() { return this.userDeleteForm.controls; }
+  get f() { return this.auctionDeleteForm.controls; }
 
   constructor(
     public bsModalRef: BsModalRef,
@@ -34,7 +42,6 @@ export class AuctionDeleteComponent implements OnInit {
     private notification: NotificationsService,
     private fb: FormBuilder,
     private formService: FormService,
-    private router: Router,
     private modalService: BsModalService
   ) { }
 
@@ -46,36 +53,36 @@ export class AuctionDeleteComponent implements OnInit {
     this.submitted = true;
 
     // mark all fields as touched
-    this.formService.markFormGroupTouched(this.userDeleteForm);
+    this.formService.markFormGroupTouched(this.auctionDeleteForm);
 
-    if (this.userDeleteForm.valid) {
+    if (this.auctionDeleteForm.valid) {
       this.makeRequest();
     } else {
-      this.formErrors = this.formService.validateForm(this.userDeleteForm, this.formErrors, false);
+      this.formErrors = this.formService.validateForm(this.auctionDeleteForm, this.formErrors, false);
     }
 
     // stop here if form is invalid
-    if (this.userDeleteForm.invalid) {
+    if (this.auctionDeleteForm.invalid) {
       return;
     }
   }
 
   private buildForm(): void {
-    this.userDeleteForm = this.fb.group({
-      fullName: [, []]
+    this.auctionDeleteForm = this.fb.group({
+      auctionName: ['', []]
     });
 
     // on each value change we call the validateForm function
     // We only validate form controls that are dirty, meaning they are touched
     // the result is passed to the formErrors object
-    this.userDeleteForm.valueChanges.subscribe((data) => {
-      this.formErrors = this.formService.validateForm(this.userDeleteForm, this.formErrors, true);
+    this.auctionDeleteForm.valueChanges.subscribe((data) => {
+      this.formErrors = this.formService.validateForm(this.auctionDeleteForm, this.formErrors, true);
     });
   }
 
   private setupDeleteRequest(): void {
     this.deleteRequest = {
-      NewContactPersonId: this.contactPersonId
+      auctionId: this.auctionId
     };
   }
 
@@ -88,12 +95,12 @@ export class AuctionDeleteComponent implements OnInit {
 
         deleteSuccess = data;
         if (deleteSuccess) {
-          this.notification.success('User successfully deleted.');
-          this.userDeleteForm.reset();
+          this.notification.success('Auction successfully deleted.');
+          this.auctionDeleteForm.reset();
           this.bsModalRef.hide();
-          this.formService.specifyDismissReason(this.modalService);
+          this.modalService.setDismissReason('Delete');
         } else {
-          this.notification.error('Could not delete user.');
+          this.notification.error('Could not delete auction.');
         }
       },
         (error: string) => this.notification.error(error));

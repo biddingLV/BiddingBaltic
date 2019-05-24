@@ -55,7 +55,8 @@ export class AdminAuctionListComponent implements OnInit {
 
   deleteModal() {
     const initialState = {
-      auctionId: 1 // this.selected[0]
+      auctionId: 1, // this.selected[0]
+      auctionName: 'test auction'
     };
 
     this.bsModalRef = this.modalService.show(AuctionDeleteComponent, { initialState });

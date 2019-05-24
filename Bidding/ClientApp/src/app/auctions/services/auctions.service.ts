@@ -17,6 +17,7 @@ import { AuctionFilterModel } from '../models/filters/auction-filter.model';
 import { AuctionFormatModel } from '../models/add/auction-format.model';
 import { AuctionCreatorModel } from '../models/add/auction-creator.model';
 import { AuctionStatusModel } from '../models/add/auction-status.model';
+import { AuctionDeleteRequest } from '../models/delete/auction-delete-request.model';
 
 
 @Injectable({
@@ -106,6 +107,17 @@ export class AuctionsService {
     const url = '/api/auctions/edit';
 
     return this.http.put<boolean>(url, request)
+      .pipe(catchError(this.exception.errorHandler));
+  }
+
+  deleteAuction$(request: AuctionDeleteRequest): Observable<boolean> {
+    const url = '/api/auctions/delete';
+    const options = {
+      headers: {},
+      body: request
+    };
+
+    return this.http.delete<boolean>(url, options)
       .pipe(catchError(this.exception.errorHandler));
   }
 }
