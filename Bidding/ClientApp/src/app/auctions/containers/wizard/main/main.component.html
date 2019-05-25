@@ -8,7 +8,8 @@
 <div class="modal-body auction-add__body">
   <aw-wizard #wizard [navBarLayout]="'large-empty-symbols'">
     <app-auction-add-first-wizard-step awWizardStep [stepTitle]="'Kategorija'" [categories]="categories"
-      (emitTopCategoryId)="onTopCategoryChange($event)" (emitSubCategoryId)="onSubCategoryChange($event)">
+      [canExit]="moveDirectionFirstStep" (emitTopCategoryId)="onTopCategoryChange($event)"
+      (emitSubCategoryId)="onSubCategoryChange($event)">
     </app-auction-add-first-wizard-step>
 
     <ng-container *ngFor="let i of steps">

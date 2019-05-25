@@ -51,11 +51,14 @@ export class AuctionAddAddWizardStepComponent implements OnInit, OnChanges {
   ) { }
 
   ngOnInit(): void {
+    console.log('selectedTopCategoryId: ', this.selectedTopCategoryId)
+    console.log('selectedSubCategoryId: ', this.selectedSubCategoryId)
     this.buildForm();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
     for (const property in changes) {
+      console.log('prop: ', property)
       switch (!changes[property].firstChange && property) {
         case 'selectedTopCategoryId':
           let selectedTopCategoryId: number = changes[property].currentValue;
@@ -73,6 +76,7 @@ export class AuctionAddAddWizardStepComponent implements OnInit, OnChanges {
   }
 
   handleStepTemplate(selectedTopCategoryId: number) {
+    console.log('selectedTopCategoryId: ', selectedTopCategoryId)
     switch (selectedTopCategoryId) {
       case CategoryConstants.VEHICLE_CATEGORY: {
         this.showVehicleTemplate = true;

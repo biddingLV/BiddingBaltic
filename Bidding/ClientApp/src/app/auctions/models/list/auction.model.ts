@@ -1,14 +1,7 @@
-export interface AuctionItem {
-  auctionId: number;
-  auctionName: string;
-  auctionStartingPrice: number;
-  auctionStartDate: Date;
-  auctionEndDate: Date;
-  auctionStatusName: string;
-}
+import { AuctionItemModel } from "../shared/auction-item.model";
 
-export interface AuctionModel extends AuctionItem {
-  auctions: AuctionItem[];
+export interface AuctionModel {
+  auctions: AuctionItemModel[];
   currentPage: number;
   itemCount: number;
 }

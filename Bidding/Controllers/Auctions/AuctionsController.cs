@@ -105,14 +105,25 @@ namespace BiddingAPI.Controllers.Auctions
             return Ok(m_auctionsService.Create(request));
         }
 
+        /// <summary>
+        /// Updates 1 auction in go
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [HttpPut]
+        [Authorize(Roles = "Admin")]
         public IActionResult Edit([FromBody] AuctionEditRequestModel request)
         {
             return Ok(m_auctionsService.Update(request));
         }
 
-        // toodo: kke: it can be from fromUrl for delete!
+        /// <summary>
+        /// Can be deleted 1+ auctions, deleted means column "Deleted" to be set true(soft delete)
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [HttpDelete]
+        [Authorize(Roles = "Admin")]
         public IActionResult Delete([FromBody] AuctionDeleteRequestModel request)
         {
             return Ok(m_auctionsService.Delete(request));

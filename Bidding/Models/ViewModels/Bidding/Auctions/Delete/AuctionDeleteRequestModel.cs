@@ -8,6 +8,6 @@ namespace BiddingAPI.Models.ViewModels.Bidding.Auctions
 {
     public class AuctionDeleteRequestModel
     {
-        public int AuctionId { get; set; }
+        public List<int> AuctionIds { get; set; }
     }
 }

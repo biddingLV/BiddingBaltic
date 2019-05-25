@@ -110,13 +110,6 @@ namespace BiddingAPI.Services.Auctions
             return m_auctionsRepository.Details(request).FirstOrDefault();
         }
 
-        public bool Update(AuctionEditRequestModel request)
-        {
-            ValidateAuctionUpdate(request);
-
-            return m_auctionsRepository.Update(request);
-        }
-
         public bool Create(AuctionAddRequestModel request)
         {
             ValidateAuctionCreate(request);
@@ -126,11 +119,22 @@ namespace BiddingAPI.Services.Auctions
             return m_auctionsRepository.Create(request, loggedInUserId.Value);
         }
 
+        public bool Update(AuctionEditRequestModel request)
+        {
+            ValidateAuctionUpdate(request);
+
+            int? loggedInUserId = m_permissionService.GetUserIdFromClaimsPrincipal();
+
+            return m_auctionsRepository.Update(request, loggedInUserId.Value);
+        }
+
         public bool Delete(AuctionDeleteRequestModel request)
         {
             ValidateAuctionDelete(request);
 
-            return m_auctionsRepository.Delete(request);
+            int? loggedInUserId = m_permissionService.GetUserIdFromClaimsPrincipal();
+
+            return m_auctionsRepository.Delete(request, loggedInUserId.Value);
         }
 
         /// <summary>
@@ -214,13 +218,16 @@ namespace BiddingAPI.Services.Auctions
             if (request.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
             if (request.AuctionId.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
 
+            // todo: kke: add missing validation checks!
+
             m_permissionService.IsLoggedInUserActive();
         }
 
         private void ValidateAuctionDelete(AuctionDeleteRequestModel request)
         {
             if (request.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
-            if (request.AuctionId.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
+            if (request.AuctionIds.IsNotSpecified()) throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation);
+            if (request.AuctionIds.Any(s => s.IsNotSpecified())) throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation);
 
             m_permissionService.IsLoggedInUserActive();
         }

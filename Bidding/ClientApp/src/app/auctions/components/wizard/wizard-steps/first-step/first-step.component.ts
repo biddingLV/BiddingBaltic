@@ -5,6 +5,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 // internal
 import { AuctionFilterModel } from 'ClientApp/src/app/auctions/models/filters/auction-filter.model';
 import { SubCategoryFilterModel } from 'ClientApp/src/app/auctions/models/filters/sub-category-filter.model';
+import { FormService } from 'ClientApp/src/app/core/services/form/form.service';
 
 
 @Component({
@@ -27,14 +28,17 @@ export class AuctionAddFirstWizardStepComponent implements OnInit {
   /** Form what used in the template */
   firstStepForm: FormGroup;
 
-  /** Form error object */
+  /** Form error object for template */
   formErrors = {
     auctionTopCategory: '',
     auctionSubCategory: ''
   };
 
+  submitted = false;
+
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private formService: FormService,
   ) { }
 
   ngOnInit(): void {
@@ -55,24 +59,33 @@ export class AuctionAddFirstWizardStepComponent implements OnInit {
     }
   }
 
+  /** Return sub-category id to the parent component */
   onSubCategoryChange(typeId: number): void {
     this.emitSubCategoryId.emit(typeId);
   }
 
-  /** Build auction add first wizard step form object*/
+  /** On Next click validate if all the required values are specified */
+  onNext(): void {
+    this.submitted = true;
+
+    // mark all fields as touched
+    this.formService.markFormGroupTouched(this.firstStepForm);
+
+    if (this.firstStepForm.valid == false) {
+      this.formErrors = this.formService.validateForm(this.firstStepForm, this.formErrors, false);
+    }
+
+    // stop here if form is invalid
+    if (this.firstStepForm.invalid) {
+      return;
+    }
+  }
+
+  /** Build auction add first wizard step form group */
   private buildForm(): void {
     this.firstStepForm = this.fb.group({
-      auctionTopCategory: ['',
-        [
-          Validators.required
-        ]
-      ],
-      auctionSubCategory: [
-        { value: '', disabled: true },
-        [
-          Validators.required
-        ]
-      ]
+      auctionTopCategory: ['', [Validators.required]],
+      auctionSubCategory: [{ value: '', disabled: true }, [Validators.required]]
     });
   }
 }

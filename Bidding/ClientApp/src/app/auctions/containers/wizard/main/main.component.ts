@@ -1,5 +1,5 @@
 // angular
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 // 3rd party
@@ -19,13 +19,14 @@ import { SubCategoryFilterModel } from '../../../models/filters/sub-category-fil
 import { AuctionFormatModel } from '../../../models/add/auction-format.model';
 import { AuctionCreatorModel } from '../../../models/add/auction-creator.model';
 import { AuctionStatusModel } from '../../../models/add/auction-status.model';
-import { WizardComponent } from 'angular-archwizard';
+import { WizardComponent, MovingDirection } from 'angular-archwizard';
+import { AuctionAddFirstWizardStepComponent } from '../../../components/wizard/wizard-steps/first-step/first-step.component';
 
 
 @Component({
   templateUrl: './main.component.html'
 })
-export class AuctionAddMainWizardComponent implements OnInit {
+export class AuctionAddMainWizardComponent implements OnInit, AfterViewInit {
   // form
   auctionAddForm: FormGroup;
   auctionAddSub: Subscription;
@@ -61,6 +62,8 @@ export class AuctionAddMainWizardComponent implements OnInit {
   selectedTopCategoryId: number;
   selectedSubCategoryId: number;
 
+  @ViewChild(AuctionAddFirstWizardStepComponent) child;
+
   // convenience getter for easy access to form fields
   get f() { return this.auctionAddForm.controls; }
 
@@ -72,11 +75,11 @@ export class AuctionAddMainWizardComponent implements OnInit {
   @ViewChild(WizardComponent)
   wizard: WizardComponent;
 
+  firstStepForm: FormGroup;
+
   constructor(
     private auctionApi: AuctionsService,
     private notification: NotificationsService,
-    private fb: FormBuilder,
-    private formService: FormService,
     public bsModalRef: BsModalRef
   ) {
     this.bsConfig = {
@@ -87,15 +90,27 @@ export class AuctionAddMainWizardComponent implements OnInit {
     };
   }
 
+  ngOnInit(): void {
+    this.loadTopAndSubCategories();
+  }
+
+  ngAfterViewInit() {
+    this.firstStepForm = this.child.firstStepForm;
+  }
+
+  moveDirectionFirstStep = (direction: MovingDirection): boolean => {
+    return this.moveDirection(this.firstStepForm, direction);
+  }
+
+  moveDirection = (formOfStep: FormGroup, direction: MovingDirection): boolean => {
+    return direction === MovingDirection.Backwards ? true : formOfStep.valid;
+  }
+
   /** Adds additional add-wizard step to the whole wizard flow */
   addWizardStep(event: boolean) {
     this.step++;
     this.steps.push(this.step);
     // this.wizard.navigation.goToStep(this.step);
-  }
-
-  ngOnInit(): void {
-    this.loadTopAndSubCategories();
   }
 
   onTopCategoryChange(categoryId: number): void {

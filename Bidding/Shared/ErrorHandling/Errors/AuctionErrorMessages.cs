@@ -20,6 +20,12 @@ namespace Bidding.Shared.ErrorHandling.Errors
         [Description("Could not create auction")]
         CouldNotCreateAuction,
 
+        [Description("Could not update auction")]
+        CouldNotUpdateAuction,
+
+        [Description("Could not delete auction")]
+        CouldNotDeleteAuction,
+
         [Description("Top category ids are incorrect")]
         TopCategoryIdsNotCorrect,
 

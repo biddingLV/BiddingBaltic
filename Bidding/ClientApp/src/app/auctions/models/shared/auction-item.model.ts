@@ -1,4 +1,4 @@
-export interface AuctionEditRequest {
+export interface AuctionItemModel {
   auctionId: number;
   auctionName: string;
   auctionStartingPrice: number;

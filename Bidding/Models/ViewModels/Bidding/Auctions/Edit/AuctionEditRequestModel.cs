@@ -10,5 +10,9 @@ namespace BiddingAPI.Models.ViewModels.Bidding.Auctions
     {
         public int AuctionId { get; set; }
         public string AuctionName { get; set; }
+        public int AuctionStartingPrice { get; set; }
+        public DateTime AuctionStartDate { get; set; }
+        public DateTime AuctionEndDate { get; set; }
+        public string AuctionStatusName { get; set; }
     }
 }

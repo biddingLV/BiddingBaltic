@@ -2,7 +2,7 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 
 // internal
-import { AuctionModel, AuctionItem } from 'ClientApp/src/app/auctions/models/list/auction.model';
+import { AuctionModel } from 'ClientApp/src/app/auctions/models/list/auction.model';
 
 
 @Component({

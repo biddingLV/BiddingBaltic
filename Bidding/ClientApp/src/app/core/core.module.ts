@@ -9,10 +9,10 @@ import { ToastrModule } from 'ngx-toastr';
 import { CookieService } from 'ngx-cookie-service';
 
 // Services
-import { AuthGuard, PermissionsService, AuthService, NotificationsService, ExceptionsService, FormService } from './services';
+import { AuthGuard, PermissionsService, AuthService, NotificationsService, ExceptionsService, FormService, ModalService } from './services';
 
 // Constants
-import { CategoryConstants } from './constants';
+import { CategoryConstants, RoleConstants } from './constants';
 
 
 @NgModule({
@@ -30,7 +30,9 @@ import { CategoryConstants } from './constants';
     FormService,
     CookieService,
     HttpClientModule,
-    CategoryConstants
+    CategoryConstants, // todo: kke: is this correct?
+    RoleConstants, // todo: kke: is this correct?
+    ModalService
   ],
   exports: [
     HttpClientModule,

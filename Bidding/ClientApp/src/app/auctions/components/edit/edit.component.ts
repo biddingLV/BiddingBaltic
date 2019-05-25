@@ -10,31 +10,26 @@ import { AuctionsService } from '../../services/auctions.service';
 import { FormService } from 'ClientApp/src/app/core/services/form/form.service';
 import { NotificationsService } from 'ClientApp/src/app/core/services/notifications/notifications.service';
 import { AuctionEditRequest } from '../../models/edit/auction-edit-request.model';
+import { AuctionItemModel } from '../../models/shared/auction-item.model';
 
 
 @Component({
   selector: 'app-auction-edit',
-  templateUrl: './edit.component.html',
-  styleUrls: []
+  templateUrl: './edit.component.html'
 })
 export class AuctionEditComponent implements OnInit {
-  // info from parent component passed from initialState object
-  auctionId: number; // todo: kke: add this to the parent component!
-  auctionName: string;
-  auctionPrice: number;
-  auctionStartDate: string; // todo: kke: can this be a date?
-  auctionEndDate: string; // todo: kke: can this be a date?
-  auctionDescription: string;
+  /** Passed from parent component */
+  selectedAuction: AuctionItemModel;
 
   // form
   auctionEditForm: FormGroup;
   submitted = false;
   formErrors = {
     auctionName: '',
-    description: '',
-    startingPrice: '',
-    startDate: '',
-    creator: ''
+    auctionStartingPrice: '',
+    auctionStartDate: '',
+    auctionEndDate: '',
+    auctionStatusName: ''
   };
 
   // API
@@ -44,39 +39,25 @@ export class AuctionEditComponent implements OnInit {
   get f() { return this.auctionEditForm.controls; }
 
   constructor(
-    private auctionApi: AuctionsService,
-    private notification: NotificationsService,
+    private auctionService: AuctionsService,
+    private notificationService: NotificationsService,
     private fb: FormBuilder,
     private formService: FormService,
     public bsModalRef: BsModalRef
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.buildForm();
   }
 
-  onSubmit() {
+  onSubmit(): void {
     this.submitted = true;
-    let addSuccess: boolean;
 
     // mark all fields as touched
     this.formService.markFormGroupTouched(this.auctionEditForm);
 
     if (this.auctionEditForm.valid) {
-      this.setAddRequest();
-
-      this.auctionApi.editAuction$(this.auctionEditRequest)
-        .subscribe((data: boolean) => {
-          addSuccess = data;
-          if (addSuccess) {
-            this.notification.success('Auction successfully updated.');
-            this.auctionEditForm.reset();
-            this.bsModalRef.hide();
-          } else {
-            this.notification.error('Could not update auction.');
-          }
-        },
-          (error: string) => this.notification.error(error));
+      this.makeRequest();
     } else {
       this.formErrors = this.formService.validateForm(this.auctionEditForm, this.formErrors, false);
     }
@@ -87,21 +68,22 @@ export class AuctionEditComponent implements OnInit {
     }
   }
 
-  private buildForm() {
+  private buildForm(): void {
     this.auctionEditForm = this.fb.group({
-      auctionName: [this.auctionName, [
+      auctionName: [this.selectedAuction.auctionName, [
         Validators.maxLength(100)
       ]],
-      description: [this.auctionDescription, [
+      auctionStartingPrice: [this.selectedAuction.auctionStartingPrice, [
         Validators.maxLength(100)
       ]],
-      startingPrice: [this.auctionPrice, [
+      auctionStartDate: [this.selectedAuction.auctionStartDate, [
         Validators.maxLength(100)
       ]],
-      startDate: [this.auctionStartDate, [
+      auctionEndDate: [this.selectedAuction.auctionEndDate, [
         Validators.maxLength(100)
       ]],
-      creator: ['', [
+      auctionStatusName: [this.selectedAuction.auctionEndDate, [
+        Validators.maxLength(100)
       ]]
     });
 
@@ -113,14 +95,31 @@ export class AuctionEditComponent implements OnInit {
     });
   }
 
-  private setAddRequest() {
+  private setEditRequest(): void {
     this.auctionEditRequest = {
-      auctionId: 1,
+      auctionId: this.selectedAuction.auctionId,
       auctionName: this.auctionEditForm.value.auctionName,
-      description: this.auctionEditForm.value.description,
-      startingPrice: this.auctionEditForm.value.startingPrice,
-      // StartDate: this.auctionAddForm.value.startDate,
-      creator: this.auctionEditForm.value.creator
+      auctionStartingPrice: this.auctionEditForm.value.auctionStartingPrice,
+      auctionStartDate: this.auctionEditForm.value.auctionStartDate,
+      auctionEndDate: this.auctionEditForm.value.auctionEndDate,
+      auctionStatusName: this.auctionEditForm.value.auctionStatusName
     };
+  }
+
+  private makeRequest(): void {
+    this.setEditRequest();
+
+    this.auctionService.editAuction$(this.auctionEditRequest)
+      .subscribe((data: boolean) => {
+        let editSuccess = data;
+        if (editSuccess) {
+          this.notificationService.success('Auction successfully updated.');
+          this.auctionEditForm.reset();
+          this.bsModalRef.hide();
+        } else {
+          this.notificationService.error('Could not update auction.');
+        }
+      },
+        (error: string) => this.notificationService.error(error));
   }
 }

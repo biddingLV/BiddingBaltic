@@ -1,17 +1,22 @@
 <!-- Modals -->
 <div>
-  <button *ngIf="selected.length === 1" value="Edit User" type="button" (click)="editModal()" class="btn btn-primary">
-    Edit
-  </button>
+  <ng-container *ngIf="selected.length === 1">
+    <button *hasRole="'Admin'" value="Edit User" type="button" (click)="editModal()" class="btn btn-primary">
+      Edit
+    </button>
+  </ng-container>
 
-  <button *ngIf="selected.length === 1" value="Delete User" type="button" (click)="deleteModal()"
-    class="btn btn-outline-danger">
-    Delete
-  </button>
+  <ng-container *ngIf="selected.length > 0">
+    <button *hasRole="'Admin'" value="Delete User" type="button" (click)="deleteModal()" class="btn btn-outline-danger">
+      Delete
+    </button>
+  </ng-container>
 
-  <button *hasRole="'Admin'" value="Add User" type="button" (click)="addModal()" class="btn btn-primary">
-    Add
-  </button>
+  <ng-container *ngIf="selected.length === 0">
+    <button *hasRole="'Admin'" value="Add User" type="button" (click)="addModal()" class="btn btn-primary">
+      Add
+    </button>
+  </ng-container>
 </div>
 
 <!-- List -->

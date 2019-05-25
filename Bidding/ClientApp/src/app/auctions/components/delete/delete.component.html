@@ -12,8 +12,8 @@
         <p>
           <strong>You are about to delete the following auction:</strong>
         </p>
-        <ul>
-          <li>{{auctionName}}</li>
+        <ul *ngFor="let auction of selectedAuctions; let i = index">
+          <li>{{auction.auctionName}}</li>
         </ul>
       </div>
     </div>

@@ -10,16 +10,15 @@ import { AuctionsService } from '../../services/auctions.service';
 import { AuctionDeleteRequest } from '../../models/delete/auction-delete-request.model';
 import { FormService } from 'ClientApp/src/app/core/services/form/form.service';
 import { NotificationsService } from 'ClientApp/src/app/core/services/notifications/notifications.service';
+import { AuctionItemModel } from '../../models/shared/auction-item.model';
 
 
 @Component({
-  templateUrl: './delete.component.html',
-  styleUrls: []
+  templateUrl: './delete.component.html'
 })
 export class AuctionDeleteComponent implements OnInit {
-  // info from parent component
-  auctionId: number;
-  auctionName: string;
+  /** Passed from parent component */
+  selectedAuctions: AuctionItemModel[];
 
   // form
   auctionDeleteForm: FormGroup;
@@ -68,9 +67,7 @@ export class AuctionDeleteComponent implements OnInit {
   }
 
   private buildForm(): void {
-    this.auctionDeleteForm = this.fb.group({
-      auctionName: ['', []]
-    });
+    this.auctionDeleteForm = this.fb.group({});
 
     // on each value change we call the validateForm function
     // We only validate form controls that are dirty, meaning they are touched
@@ -82,7 +79,7 @@ export class AuctionDeleteComponent implements OnInit {
 
   private setupDeleteRequest(): void {
     this.deleteRequest = {
-      auctionId: this.auctionId
+      auctionIds: this.selectedAuctions.map(auct => auct.auctionId)
     };
   }
 
@@ -91,16 +88,13 @@ export class AuctionDeleteComponent implements OnInit {
 
     this.auctionService.deleteAuction$(this.deleteRequest)
       .subscribe((data: boolean) => {
-        let deleteSuccess: boolean;
-
-        deleteSuccess = data;
+        let deleteSuccess = data;
         if (deleteSuccess) {
-          this.notification.success('Auction successfully deleted.');
-          this.auctionDeleteForm.reset();
+          this.notification.success('Auction(s) successfully deleted.');
           this.bsModalRef.hide();
           this.modalService.setDismissReason('Delete');
         } else {
-          this.notification.error('Could not delete auction.');
+          this.notification.error('Could not delete auction(s).');
         }
       },
         (error: string) => this.notification.error(error));

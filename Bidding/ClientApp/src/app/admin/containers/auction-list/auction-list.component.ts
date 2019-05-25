@@ -5,10 +5,10 @@ import { Component, OnInit } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 
 // internal
-import { NotificationsService } from 'ClientApp/src/app/core/services/notifications/notifications.service';
 import { AuctionEditComponent } from 'ClientApp/src/app/auctions/components/edit/edit.component';
 import { AuctionAddMainWizardComponent } from 'ClientApp/src/app/auctions/containers/wizard/main/main.component';
 import { AuctionDeleteComponent } from 'ClientApp/src/app/auctions/components/delete/delete.component';
+import { ModalService } from 'ClientApp/src/app/core/services/modal/modal.service';
 
 
 @Component({
@@ -24,43 +24,39 @@ export class AdminAuctionListComponent implements OnInit {
   bsModalRef: BsModalRef;
 
   constructor(
-    private notification: NotificationsService,
-    private modalService: BsModalService
+    private modalService: BsModalService,
+    private internalModalService: ModalService
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void { }
 
-  }
-
-  // Modals
-  editModal() {
-
-    const initialState = {
-      auctionName: this.selected[0].name,
-      auctionPrice: this.selected[0].price,
-      auctionStartDate: this.selected[0].startDate,
-      auctionEndDate: this.selected[0].endDate,
-      auctionDescription: this.selected[0].description
-    };
-
-    this.bsModalRef = this.modalService.show(AuctionEditComponent, { initialState });
-    this.modalService.onHide.subscribe(() => { }); // this.getAuctions();
-  }
-
-  addModal() {
+  addModal(): void {
     const initialState = {};
-    this.bsModalRef = this.modalService.show(AuctionAddMainWizardComponent, { initialState, class: 'modal-lg' });
-    this.modalService.onHide.subscribe(() => { }); // this.getAuctions();
+    const modalConfig = { ...this.internalModalService.defaultModalOptions, ...{ initialState: initialState, class: 'modal-lg' } };
+    this.bsModalRef = this.modalService.show(AuctionAddMainWizardComponent, modalConfig);
+
+    // todo: kke: add subscription magic!
   }
 
-  deleteModal() {
+  editModal(): void {
     const initialState = {
-      auctionId: 1, // this.selected[0]
-      auctionName: 'test auction'
+      selectedAuction: this.selected[0]
     };
 
-    this.bsModalRef = this.modalService.show(AuctionDeleteComponent, { initialState });
-    // this.selected = [];
-    // this.modalService.onHide.subscribe(() => { this.getUsers(); });
+    const modalConfig = { ...this.internalModalService.defaultModalOptions, ...{ initialState: initialState, class: 'modal-lg' } };
+    this.bsModalRef = this.modalService.show(AuctionEditComponent, modalConfig);
+
+    // todo: kke: add subscription magic!
+  }
+
+  deleteModal(): void {
+    const initialState = {
+      selectedAuctions: this.selected
+    };
+
+    const modalConfig = { ...this.internalModalService.defaultModalOptions, ...{ initialState: initialState, class: 'modal-lg' } };
+    this.bsModalRef = this.modalService.show(AuctionDeleteComponent, modalConfig);
+
+    // todo: kke: add subscription magic!
   }
 }
