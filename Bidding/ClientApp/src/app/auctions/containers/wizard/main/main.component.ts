@@ -115,12 +115,10 @@ export class AuctionAddMainWizardComponent implements OnInit, AfterViewInit {
 
   onTopCategoryChange(categoryId: number): void {
     this.selectedTopCategoryId = categoryId;
-    console.log('categoryIds: ', categoryId);
   }
 
   onSubCategoryChange(typeId: number): void {
     this.selectedSubCategoryId = typeId;
-    console.log('typeIds: ', typeId);
   }
 
   onSubmit(): void {

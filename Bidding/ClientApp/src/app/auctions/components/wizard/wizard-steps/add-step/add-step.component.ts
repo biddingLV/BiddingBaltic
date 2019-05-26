@@ -11,7 +11,7 @@ import { NotificationsService } from 'ClientApp/src/app/core/services/notificati
   selector: 'app-auction-add-add-wizard-step',
   templateUrl: './add-step.component.html'
 })
-export class AuctionAddAddWizardStepComponent implements OnInit, OnChanges {
+export class AuctionAddAddWizardStepComponent implements OnInit {
   @Input() selectedTopCategoryId: number;
   @Input() selectedSubCategoryId: number;
 
@@ -46,50 +46,37 @@ export class AuctionAddAddWizardStepComponent implements OnInit, OnChanges {
   get f() { return this.addStepForm.controls; }
 
   constructor(
-    private fb: FormBuilder,
-    private notificationService: NotificationsService
+    private fb: FormBuilder
   ) { }
 
-  ngOnInit(): void {
-    console.log('selectedTopCategoryId: ', this.selectedTopCategoryId)
-    console.log('selectedSubCategoryId: ', this.selectedSubCategoryId)
-    this.buildForm();
-  }
+  ngOnInit(): void { }
 
   ngOnChanges(changes: SimpleChanges): void {
     for (const property in changes) {
-      console.log('prop: ', property)
       switch (!changes[property].firstChange && property) {
         case 'selectedTopCategoryId':
-          let selectedTopCategoryId: number = changes[property].currentValue;
-          console.log('selectedTopCategoryId: ', selectedTopCategoryId)
-          this.handleStepTemplate(selectedTopCategoryId);
+          this.selectedTopCategoryId = changes[property].currentValue;
+          this.handleStepTemplate();
           break;
-        // case 'organizationName':
-        //   this.request.companyName = changes[property].currentValue;
-        //   this.getLicenses();
-        //   break;
         default:
           break;
       }
     }
   }
 
-  handleStepTemplate(selectedTopCategoryId: number) {
-    console.log('selectedTopCategoryId: ', selectedTopCategoryId)
-    switch (selectedTopCategoryId) {
-      case CategoryConstants.VEHICLE_CATEGORY: {
-        this.showVehicleTemplate = true;
-      }
-      case CategoryConstants.ITEM_CATEGORY: {
-        this.showItemTemplate = true;
-      }
-      case CategoryConstants.ESTATE_CATEGORY: {
-        this.showEstateTemplate = true;
-      }
-      default: {
-        this.notificationService.error('Wrong top category passed to the component!')
-      }
+  handleStepTemplate() { // todo: kke: naming!
+    if (this.selectedTopCategoryId == CategoryConstants.ESTATE_CATEGORY) {
+      this.showVehicleTemplate = false;
+      this.showItemTemplate = false;
+      this.showEstateTemplate = true;
+    } else if (this.selectedTopCategoryId == CategoryConstants.ITEM_CATEGORY) {
+      this.showVehicleTemplate = false;
+      this.showItemTemplate = true;
+      this.showEstateTemplate = false;
+    } else {
+      this.showVehicleTemplate = true;
+      this.showItemTemplate = false;
+      this.showEstateTemplate = false;
     }
   }
 

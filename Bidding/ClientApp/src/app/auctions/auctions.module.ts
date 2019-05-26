@@ -19,6 +19,9 @@ import { AuctionAddMainWizardComponent } from './containers/wizard/main/main.com
 import { AuctionAddFirstWizardStepComponent } from './components/wizard/wizard-steps/first-step/first-step.component';
 import { AuctionAddLastWizardStepComponent } from './components/wizard/wizard-steps/last-step/last-step.component';
 import { AuctionAddAddWizardStepComponent } from './components/wizard/wizard-steps/add-step/add-step.component';
+import { AuctionAddWizardVehicleComponent } from './components/wizard/wizard-steps/add-step/categories/vehicle/vehicle-category.component';
+import { AuctionAddWizardItemComponent } from './components/wizard/wizard-steps/add-step/categories/item/item-category.component';
+import { AuctionAddWizardEstateComponent } from './components/wizard/wizard-steps/add-step/categories/estate/estate-category.component';
 
 
 @NgModule({
@@ -42,7 +45,10 @@ import { AuctionAddAddWizardStepComponent } from './components/wizard/wizard-ste
     AuctionDeleteComponent,
     AuctionAddFirstWizardStepComponent,
     AuctionAddAddWizardStepComponent,
-    AuctionAddLastWizardStepComponent
+    AuctionAddLastWizardStepComponent,
+    AuctionAddWizardVehicleComponent,
+    AuctionAddWizardItemComponent,
+    AuctionAddWizardEstateComponent
   ],
   providers: [
     AuctionsService
