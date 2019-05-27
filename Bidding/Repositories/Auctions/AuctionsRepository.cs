@@ -188,6 +188,7 @@ namespace BiddingAPI.Repositories.Auctions
                        join atyp in m_context.AuctionTypes on auct.AuctionId equals atyp.AuctionId
                        join cat in m_context.Categories on acat.CategoryId equals cat.CategoryId
                        join typ in m_context.Types on atyp.TypeId equals typ.TypeId
+                       join adet in m_context.AuctionDetails on auct.AuctionId equals adet.AuctionId
                        where auct.AuctionId == request.AuctionId
                        select new AuctionDetailsResponseModel()
                        {
@@ -196,7 +197,8 @@ namespace BiddingAPI.Repositories.Auctions
                            TypeName = typ.Name,
                            AuctionStartingPrice = auct.StartingPrice,
                            AuctionStartDate = auct.StartDate,
-                           AuctionEndDate = auct.EndDate ?? auct.EndDate.Value
+                           AuctionEndDate = auct.EndDate ?? auct.EndDate.Value,
+                           AuctionDescription = adet.Description
                        };
             }
             else
@@ -217,18 +219,18 @@ namespace BiddingAPI.Repositories.Auctions
             Auction newAuction = new Auction()
             {
                 Name = request.AuctionName,
-                StartingPrice = request.AuctionStartingPrice,
-                StartDate = request.AuctionStartDate,
-                ApplyDate = request.AuctionApplyTillDate ?? request.AuctionApplyTillDate.Value,
-                EndDate = request.AuctionEndDate ?? request.AuctionEndDate.Value,
+                StartingPrice = 500, // request.AuctionStartingPrice,
+                StartDate = DateTime.UtcNow, // request.AuctionStartDate,
+                ApplyDate = DateTime.UtcNow,// request.AuctionApplyTillDate ?? request.AuctionApplyTillDate.Value,
+                EndDate = DateTime.UtcNow, // request.AuctionEndDate ?? request.AuctionEndDate.Value,
                 CreatedAt = DateTime.UtcNow, // utc time always
                 CreatedBy = loggedInUserId,
                 Deleted = false,
                 AuctionStatusId = defaultAuctionStatusId,
-                AuctionCategories = PopulateAuctionCategories(request.AuctionTopCategoryIds).ToList(),
+                AuctionCategories = PopulateAuctionCategories(new List<int>(new int[] { 1 })).ToList(),
                 AuctionTypes = new List<AuctionType>()
                 {
-                    new AuctionType { TypeId = request.AuctionTopCategoryIds.First() } // needs to support multiple cat in one go!
+                    new AuctionType { TypeId = 1 } // needs to support multiple cat in one go!
                 }
             };
 
@@ -249,8 +251,21 @@ namespace BiddingAPI.Repositories.Auctions
                 {
                     using (var transaction = m_context.Database.BeginTransaction())
                     {
-                        m_context.Add(newAuction);
+                        m_context.Auctions.Add(newAuction);
                         m_context.SaveChanges();
+
+                        var auctionDetails = new AuctionDetails()
+                        {
+                            Description = "janis rox",
+                            AuctionFormatId = 1,
+                            AuctionConditionId = 1,
+                            AuctionId = newAuction.AuctionId
+                        };
+
+                        // newAuction.AuctionDetails = auctionDetails;
+                        m_context.AuctionDetails.Add(auctionDetails);
+                        m_context.SaveChanges();
+
                         transaction.Commit();
                     }
                 }

@@ -16,6 +16,6 @@ namespace Bidding.Models.ViewModels.Bidding.Auctions.Details
         public DateTime AuctionStartDate { get; set; }
         public DateTime AuctionTillDate { get; set; }
         public DateTime AuctionEndDate { get; set; }
-        public string Description { get; set; }
+        public string AuctionDescription { get; set; }
     }
 }

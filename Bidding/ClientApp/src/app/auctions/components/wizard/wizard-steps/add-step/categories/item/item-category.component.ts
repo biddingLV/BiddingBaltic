@@ -17,18 +17,12 @@ export class AuctionAddWizardItemComponent implements OnInit {
 
   /** Form error object */
   formErrors = {
-    make: '',
-    model: '',
-    manufacturingDate: '',
-    vehicleRegistrationNumber: '',
-    vehicleIdentificationNumber: '',
-    vehicleInspectionActive: '',
-    power: '',
-    engineSize: '',
-    fuelType: '',
-    transmission: '',
-    gearbox: '',
-    evaluation: ''
+    itemName: '',
+    itemModel: '',
+    itemManufacturingDate: '',
+    itemCondition: '',
+    evaluation: '',
+    itemStartingPrice: ''
   };
 
   /** Convenience getter for easy access to form fields */
@@ -44,18 +38,12 @@ export class AuctionAddWizardItemComponent implements OnInit {
 
   private buildForm(): void {
     this.addItemForm = this.fb.group({
-      make: ['', []],
-      model: ['', []],
-      manufacturingDate: ['', []],
-      vehicleRegistrationNumber: ['', []],
-      vehicleIdentificationNumber: ['', []],
-      vehicleInspectionActive: ['', []],
-      power: ['', []],
-      engineSize: ['', []],
-      fuelType: ['', []],
-      transmission: ['', []],
-      gearbox: ['', []],
-      evaluation: ['', []]
+      itemName: ['', []],
+      itemModel: ['', []],
+      itemManufacturingDate: ['', []],
+      itemCondition: ['', []],
+      evaluation: ['', []],
+      itemStartingPrice: ['', []]
     });
   }
 }

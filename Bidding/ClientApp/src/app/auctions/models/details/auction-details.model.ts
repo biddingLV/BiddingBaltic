@@ -5,4 +5,5 @@ export interface AuctionDetailsModel {
   auctionStartingPrice: number;
   categoryName: string;
   typeName: string;
+  auctionDescription: string;
 }

@@ -9,6 +9,7 @@ import { AuctionEditComponent } from 'ClientApp/src/app/auctions/components/edit
 import { AuctionAddMainWizardComponent } from 'ClientApp/src/app/auctions/containers/wizard/main/main.component';
 import { AuctionDeleteComponent } from 'ClientApp/src/app/auctions/components/delete/delete.component';
 import { ModalService } from 'ClientApp/src/app/core/services/modal/modal.service';
+import { AuctionAdd2Component } from 'ClientApp/src/app/auctions/components/add/add.component';
 
 
 @Component({
@@ -33,8 +34,7 @@ export class AdminAuctionListComponent implements OnInit {
   addModal(): void {
     const initialState = {};
     const modalConfig = { ...this.internalModalService.defaultModalOptions, ...{ initialState: initialState, class: 'modal-lg' } };
-    this.bsModalRef = this.modalService.show(AuctionAddMainWizardComponent, modalConfig);
-
+    this.bsModalRef = this.modalService.show(AuctionAdd2Component, modalConfig);
     // todo: kke: add subscription magic!
   }
 

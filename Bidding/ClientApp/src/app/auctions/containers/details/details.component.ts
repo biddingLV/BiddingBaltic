@@ -5,6 +5,7 @@ import { ActivatedRoute, ParamMap } from '@angular/router';
 // rxjs
 import { Subscription } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
+import { Config } from 'ngx-countdown';
 
 // internal
 import { AuctionsService } from '../../services/auctions.service';
@@ -12,12 +13,10 @@ import { AuctionDetailsModel } from '../../models/details/auction-details.model'
 import { NotificationsService } from 'ClientApp/src/app/core/services/notifications/notifications.service';
 import { AuctionListRequest } from '../../models/list/auction-list-request.model';
 
-import { Config } from 'ngx-countdown';
 
 @Component({
   selector: 'app-auction-details',
-  templateUrl: './details.component.html',
-  styleUrls: []
+  templateUrl: './details.component.html'
 })
 export class AuctionDetailsComponent implements OnInit, OnDestroy {
   // details
@@ -39,7 +38,7 @@ export class AuctionDetailsComponent implements OnInit, OnDestroy {
     // need to find a fix
     leftTime: 100 * 100 * 100 * 20,
     // leftTime: Math.floor((this.auctionDetails.auctionEndDate.getTime() - new Date().getTime()) / 1000),
-    clock : ['w', 100, 2, 'd', 6, 1, 'h', 24, 2, 'm', 60, 2, 's', 60, 2, 'u', 10, 1]
+    clock: ['w', 100, 2, 'd', 6, 1, 'h', 24, 2, 'm', 60, 2, 's', 60, 2, 'u', 10, 1]
   }
 
   constructor(
@@ -66,18 +65,20 @@ export class AuctionDetailsComponent implements OnInit, OnDestroy {
       this.auctionDetailsSub.unsubscribe();
     }
   }
+
   getTimeDifference(datetime) {
     datetime = new Date(datetime).getTime();
     const now = new Date().getTime();
     const milisec_diff = datetime - now;
     const countDownSeconds = Math.floor(milisec_diff / 1000);
   }
+
   private getAuctionDetails(): void {
     this.auctionDetailsSub =
       this.route.paramMap.pipe(
         switchMap((params: ParamMap) =>
           this.auctionApi.getAuctionDetails$(Number(params.get('id'))))
-      ).subscribe(response => { this.auctionDetails = response; },
+      ).subscribe(response => { this.auctionDetails = response; console.log('response: ', response) },
         (error: string) => this.notification.error(error));
   }
 

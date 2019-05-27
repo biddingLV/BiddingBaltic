@@ -18,6 +18,7 @@ import { AuctionFormatModel } from '../models/add/auction-format.model';
 import { AuctionCreatorModel } from '../models/add/auction-creator.model';
 import { AuctionStatusModel } from '../models/add/auction-status.model';
 import { AuctionDeleteRequest } from '../models/delete/auction-delete-request.model';
+import { AuctionAdd2Request } from '../models/add/auction-add2-request.model';
 
 
 @Injectable({
@@ -96,7 +97,7 @@ export class AuctionsService {
       .pipe(catchError(this.exception.errorHandler));
   }
 
-  addAuction$(request: AuctionAddRequest): Observable<boolean> {
+  addAuction$(request: AuctionAdd2Request): Observable<boolean> {
     const url = '/api/auctions/create';
 
     return this.http.post<boolean>(url, request)
