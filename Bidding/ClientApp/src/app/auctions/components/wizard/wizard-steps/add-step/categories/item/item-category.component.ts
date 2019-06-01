@@ -1,8 +1,9 @@
 // angular
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 // internal
+import { FormService } from 'ClientApp/src/app/core/services/form/form.service';
 
 
 @Component({
@@ -20,8 +21,7 @@ export class AuctionAddWizardItemComponent implements OnInit {
     itemName: '',
     itemModel: '',
     itemManufacturingDate: '',
-    itemCondition: '',
-    evaluation: '',
+    itemEvaluation: '',
     itemStartingPrice: ''
   };
 
@@ -29,21 +29,39 @@ export class AuctionAddWizardItemComponent implements OnInit {
   get f() { return this.addItemForm.controls; }
 
   constructor(
-    private fb: FormBuilder
+    private formBuilder: FormBuilder,
+    private internalFormService: FormService
   ) { }
 
   ngOnInit(): void {
     this.buildForm();
   }
 
+  /** On Next click validate if all the required values are specified */
+  onNext(): void {
+    this.submitted = true;
+
+    // mark all fields as touched
+    this.internalFormService.markFormGroupTouched(this.addItemForm);
+
+    if (this.addItemForm.valid == false) {
+      this.formErrors = this.internalFormService.validateForm(this.addItemForm, this.formErrors, false);
+    }
+
+    // stop here if form is invalid
+    if (this.addItemForm.invalid) {
+      return;
+    }
+  }
+
   private buildForm(): void {
-    this.addItemForm = this.fb.group({
-      itemName: ['', []],
-      itemModel: ['', []],
-      itemManufacturingDate: ['', []],
-      itemCondition: ['', []],
-      evaluation: ['', []],
-      itemStartingPrice: ['', []]
+    this.addItemForm = this.formBuilder.group({
+      itemName: ['Jauns Audi', [Validators.required]],
+      itemModel: ['A4', [Validators.required]],
+      itemManufacturingDate: ['2017', []],
+      itemCondition: ['Lietots', []],
+      itemEvaluation: ['5000', [Validators.required]],
+      itemStartingPrice: ['1500', []]
     });
   }
 }

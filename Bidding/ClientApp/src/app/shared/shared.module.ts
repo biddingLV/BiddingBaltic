@@ -7,7 +7,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // 3rd lib
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 // filter components
 import { GalleryModule } from '@ngx-gallery/core';
@@ -30,8 +29,7 @@ import { HasRoleDirective } from './directives/authorization/role/has-role.direc
     MinSharedModule,
     FormsModule,
     ReactiveFormsModule,
-    GalleryModule,
-    BsDatepickerModule.forRoot()
+    GalleryModule
   ],
   exports: [
     AuctionsTableComponent,
@@ -41,7 +39,6 @@ import { HasRoleDirective } from './directives/authorization/role/has-role.direc
     ReactiveFormsModule,
     FileUploaderComponent,
     ImageGalleryComponent,
-    BsDatepickerModule,
     HasRoleDirective
   ],
   declarations: [

@@ -49,7 +49,9 @@ export class AuctionAddAddWizardStepComponent implements OnInit {
     private fb: FormBuilder
   ) { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+    this.buildForm();
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     for (const property in changes) {
@@ -86,18 +88,18 @@ export class AuctionAddAddWizardStepComponent implements OnInit {
 
   private buildForm(): void {
     this.addStepForm = this.fb.group({
-      make: ['', []],
-      model: ['', []],
-      manufacturingDate: ['', []],
-      vehicleRegistrationNumber: ['', []],
-      vehicleIdentificationNumber: ['', []],
-      vehicleInspectionActive: ['', []],
-      power: ['', []],
-      engineSize: ['', []],
-      fuelType: ['', []],
-      transmission: ['', []],
-      gearbox: ['', []],
-      evaluation: ['', []]
+      // make: ['', []],
+      // model: ['', []],
+      // manufacturingDate: ['', []],
+      // vehicleRegistrationNumber: ['', []],
+      // vehicleIdentificationNumber: ['', []],
+      // vehicleInspectionActive: ['', []],
+      // power: ['', []],
+      // engineSize: ['', []],
+      // fuelType: ['', []],
+      // transmission: ['', []],
+      // gearbox: ['', []],
+      // evaluation: ['', []]
     });
   }
 }

@@ -38,6 +38,9 @@ export class AuctionAddLastWizardStepComponent implements OnInit {
   private buildForm(): void {
     this.lastStepForm = this.fb.group({
       auctionCreator: ['', []],
+      auctionAddress: ['', []],
+      auctionCreatorEmail: ['', []],
+      auctionCreatorPhone: ['', []],
       auctionFormat: ['', []],
       auctionStartDate: ['', []],
       auctionApplyTillDate: ['', []],

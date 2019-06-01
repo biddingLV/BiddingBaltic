@@ -7,15 +7,16 @@
 
 <div class="modal-body auction-add__body">
   <aw-wizard #wizard [navBarLayout]="'large-empty-symbols'">
-    <app-auction-add-first-wizard-step awWizardStep [stepTitle]="'Kategorija'" [categories]="categories"
-      [canExit]="moveDirectionFirstStep" (emitTopCategoryId)="onTopCategoryChange($event)"
+    <app-auction-add-first-wizard-step style="width: 100%;" awWizardStep [stepTitle]="'Kategorija'"
+      [categories]="categories" [canExit]="moveDirectionCategoryStep" (emitTopCategoryId)="onTopCategoryChange($event)"
       (emitSubCategoryId)="onSubCategoryChange($event)">
     </app-auction-add-first-wizard-step>
 
     <ng-container *ngFor="let i of steps">
-      <app-auction-add-add-wizard-step awWizardStep stepTitle="Izsoles detalas {{i}}"
-        [selectedTopCategoryId]="selectedTopCategoryId" [selectedSubCategoryId]="selectedSubCategoryId"
-        (emitAddWizardStep)="addWizardStep($event)"></app-auction-add-add-wizard-step>
+      <app-auction-add-add-wizard-step style="width: 100%;" awWizardStep stepTitle="Izsoles detalas {{i}}"
+        [canExit]="moveDirectionAddStep" [selectedTopCategoryId]="selectedTopCategoryId"
+        [selectedSubCategoryId]="selectedSubCategoryId" (emitAddWizardStep)="addWizardStep($event)">
+      </app-auction-add-add-wizard-step>
     </ng-container>
 
     <app-auction-add-last-wizard-step awWizardStep [stepTitle]="'Rikotajs un norise'">

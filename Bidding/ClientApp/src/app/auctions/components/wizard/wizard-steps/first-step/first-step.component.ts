@@ -26,7 +26,7 @@ export class AuctionAddFirstWizardStepComponent implements OnInit {
   auctionTypes: SubCategoryFilterModel[];
 
   /** Form what used in the template */
-  firstStepForm: FormGroup;
+  categoryStepForm: FormGroup;
 
   /** Form error object for template */
   formErrors = {
@@ -50,11 +50,11 @@ export class AuctionAddFirstWizardStepComponent implements OnInit {
     this.emitTopCategoryId.emit(categoryId);
 
     if (categoryId) {
-      this.firstStepForm.get('auctionSubCategory').enable();
-      this.firstStepForm.get('auctionSubCategory').reset();
+      this.categoryStepForm.get('auctionSubCategory').enable();
+      this.categoryStepForm.get('auctionSubCategory').reset();
       this.auctionTypes = this.categories.subCategories.filter(item => item.categoryId == categoryId);
     } else {
-      this.firstStepForm.get('auctionSubCategory').disable();
+      this.categoryStepForm.get('auctionSubCategory').disable();
       this.auctionTypes = this.categories.subCategories;
     }
   }
@@ -69,21 +69,21 @@ export class AuctionAddFirstWizardStepComponent implements OnInit {
     this.submitted = true;
 
     // mark all fields as touched
-    this.formService.markFormGroupTouched(this.firstStepForm);
+    this.formService.markFormGroupTouched(this.categoryStepForm);
 
-    if (this.firstStepForm.valid == false) {
-      this.formErrors = this.formService.validateForm(this.firstStepForm, this.formErrors, false);
+    if (this.categoryStepForm.valid == false) {
+      this.formErrors = this.formService.validateForm(this.categoryStepForm, this.formErrors, false);
     }
 
     // stop here if form is invalid
-    if (this.firstStepForm.invalid) {
+    if (this.categoryStepForm.invalid) {
       return;
     }
   }
 
   /** Build auction add first wizard step form group */
   private buildForm(): void {
-    this.firstStepForm = this.fb.group({
+    this.categoryStepForm = this.fb.group({
       auctionTopCategory: ['', [Validators.required]],
       auctionSubCategory: [{ value: '', disabled: true }, [Validators.required]]
     });

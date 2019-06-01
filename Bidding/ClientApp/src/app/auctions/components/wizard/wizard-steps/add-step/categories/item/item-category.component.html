@@ -1,74 +1,90 @@
 <pre>{{ addItemForm.value | json }}</pre>
-<form [formGroup]="addItemForm">
-  <div class="form-row">
-    <div class="form-group col-6">
-      <label for="itemName">Nosaukums:</label>
-      <input type="text" formControlName="itemName" class="form-control" id="itemName" name="itemName"
-        [ngClass]="{ 'is-invalid': submitted && f.itemName.errors }" />
-      <div *ngIf="submitted && formErrors.itemName" class="invalid-feedback">
-        {{formErrors.itemName}}
-      </div>
-    </div>
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <form [formGroup]="addItemForm">
+        <div class="form-row">
+          <div class="form-group col-6">
+            <label for="itemName">Nosaukums:</label>
+            <input type="text" formControlName="itemName" class="form-control" id="itemName" name="itemName"
+              [ngClass]="{ 'is-invalid': submitted && f.itemName.errors }" maxlength="100" />
 
-    <div class="form-group col-6">
-      <label for="itemModel">Modelis:</label>
-      <input type="text" formControlName="itemModel" class="form-control" id="itemModel" name="itemModel"
-        [ngClass]="{ 'is-invalid': submitted && f.itemModel.errors }" />
-      <div *ngIf="submitted && formErrors.itemModel" class="invalid-feedback">
-        {{formErrors.itemModel}}
-      </div>
+            <div *ngIf="submitted && formErrors.itemName" class="invalid-feedback">
+              {{formErrors.itemName}}
+            </div>
+          </div>
+
+          <div class="form-group col-6">
+            <label for="itemModel">Modelis:</label>
+            <input type="text" formControlName="itemModel" class="form-control" id="itemModel" name="itemModel"
+              [ngClass]="{ 'is-invalid': submitted && f.itemModel.errors }" maxlength="100" />
+
+            <div *ngIf="submitted && formErrors.itemModel" class="invalid-feedback">
+              {{formErrors.itemModel}}
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-6">
+            <label for="itemManufacturingDate">Gads:</label>
+            <input type="text" maxlength="10" formControlName="itemManufacturingDate" class="form-control"
+              id="itemManufacturingDate" name="itemManufacturingDate"
+              [ngClass]="{ 'is-invalid': submitted && f.itemManufacturingDate.errors }" />
+
+            <div *ngIf="submitted && formErrors.itemManufacturingDate" class="invalid-feedback">
+              {{formErrors.itemManufacturingDate}}
+            </div>
+          </div>
+
+          <div class="form-group col-6">
+            <label>Stavoklis:</label>
+            <ng-select #itemConditionSelect formControlName="itemCondition" [clearable]="false" [virtualScroll]="true"
+              id="itemCondition" name="itemCondition">
+              <!-- <ng-option *ngFor="let cond of itemConditions; let i = index" [value]="cond.ConditionId">
+                {{cond.ConditionName}}
+              </ng-option> -->
+            </ng-select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-6">
+            <label for="itemEvaluation">Novertejums:</label>
+            <textarea class="form-control" formControlName="itemEvaluation" rows="2" id="itemEvaluation"
+              name="itemEvaluation" [ngClass]="{ 'is-invalid': submitted && f.itemEvaluation.errors }"
+              maxlength="1000"></textarea>
+
+            <div *ngIf="submitted && formErrors.itemEvaluation" class="invalid-feedback">
+              {{formErrors.itemEvaluation}}
+            </div>
+          </div>
+
+          <div class="form-group col-6">
+            <label for="itemStartingPrice">Minimum cena:</label>
+            <input type="text" maxlength="10" formControlName="itemStartingPrice" class="form-control"
+              id="itemStartingPrice" name="itemStartingPrice"
+              [ngClass]="{ 'is-invalid': submitted && f.itemStartingPrice.errors }" />
+
+            <div *ngIf="submitted && formErrors.itemStartingPrice" class="invalid-feedback">
+              {{formErrors.itemStartingPrice}}
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-6">
+            <label for="vehicleInspectionActive">Bildes:</label>
+
+          </div>
+        </div>
+
+        <div class="form-row float-right">
+          <div class="form-group modal-buttons">
+            <button type="button" class="btn btn-primary" (click)="onNext()" awNextStep>Next</button>
+          </div>
+        </div>
+      </form>
     </div>
   </div>
-
-  <div class="form-row">
-    <div class="form-group col-6">
-      <label for="itemManufacturingDate">Gads:</label>
-      <!-- <input type="text" formControlName="itemManufacturingDate" class="form-control" id="itemManufacturingDate"
-        name="itemManufacturingDate" [ngClass]="{ 'is-invalid': submitted && f.itemManufacturingDate.errors }" />
-      <div *ngIf="submitted && formErrors.itemManufacturingDate" class="invalid-feedback">
-        {{formErrors.itemManufacturingDate}}
-      </div> -->
-    </div>
-
-    <div class="form-group col-6">
-      <label for="itemCondition">Stavoklis:</label>
-      <div class="btn-group" btnRadioGroup formControlName="itemCondition">
-        <label btnRadio="Jauna" class="btn btn-primary" tabindex="0" role="button">Jauna</label>
-        <label btnRadio="Lietota" class="btn btn-primary" tabindex="0" role="button">Lietota</label>
-      </div>
-    </div>
-  </div>
-
-  <div class="form-row">
-    <div class="form-group col-6">
-      <label for="evaluation">Novertejums:</label>
-      <input type="text" formControlName="evaluation" class="form-control" id="evaluation" name="evaluation"
-        [ngClass]="{ 'is-invalid': submitted && f.evaluation.errors }" />
-      <div *ngIf="submitted && formErrors.evaluation" class="invalid-feedback">
-        {{formErrors.evaluation}}
-      </div>
-    </div>
-
-    <div class="form-group col-6">
-      <label for="itemStartingPrice">Min. cena:</label>
-      <input type="text" formControlName="itemStartingPrice" class="form-control" id="itemStartingPrice"
-        name="itemStartingPrice" [ngClass]="{ 'is-invalid': submitted && f.itemStartingPrice.errors }" />
-      <div *ngIf="submitted && formErrors.itemStartingPrice" class="invalid-feedback">
-        {{formErrors.itemStartingPrice}}
-      </div>
-    </div>
-  </div>
-
-  <div class="form-row">
-    <div class="form-group col-6">
-      <label for="vehicleInspectionActive">Bildes:</label>
-
-    </div>
-  </div>
-
-  <div class="form-row float-right">
-    <div class="form-group modal-buttons">
-      <button type="button" class="btn btn-primary" awNextStep>Next</button>
-    </div>
-  </div>
-</form>
+</div>

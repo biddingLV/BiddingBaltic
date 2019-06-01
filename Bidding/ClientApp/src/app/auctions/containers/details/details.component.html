@@ -13,35 +13,22 @@
         </div>
       </div>
     </div>
+
     <div class="row">
       <div class="Hero_header col-lg-12 text-uppercase text-center">
         <h1 class="auction_title"><strong>{{auctionDetails.auctionName}}</strong></h1>
         <h4 class="auction_startingprice"><strong>Sākumcena &euro; {{auctionDetails.auctionStartingPrice}}</strong></h4>
       </div>
     </div>
+
     <div class="row visual_info">
       <div class="image-gallery col-lg-6">
         <app-image-gallery></app-image-gallery>
       </div>
-      <div class="countdown col-lg-6">
-        <h2 class="countdown_headline text-center">Līdz izsolei palicis</h2>
-        <countdown [config]="config" class="flip-cd">
-          <div class='countdown_tiles'>
-            <span><span class="countdown_time">$!w!</span>
-              <li>Nedēļas</li>
-            </span>
-            <span><span class="countdown_time">$!d!</span>
-              <li>Dienas</li>
-            </span>
-            <span><span class="countdown_time">$!h!</span>
-              <li>Stundas</li>
-            </span>
-            <span><span class="countdown_time">$!m!</span>
-              <li>Minūtes</li>
-            </span>
-          </div>
-        </countdown>
-      </div>
+
+      <!-- Auction details countdown -->
+      <app-auction-details-countdown [auctionDetails]="auctionDetails"></app-auction-details-countdown>
+
       <div class="social col-lg-6">
         <svg xmlns="http://www.w3.org/2000/svg" class="social-item" width="13.668" height="26.508"
           viewBox="0 0 13.668 26.508">
@@ -98,6 +85,7 @@
           </g>
         </svg>
       </div>
+      
       <div class="col-lg-12 text-center">
         <button type="button" class="apply_button"><strong>Pieteikties izsolei</strong></button>
       </div>
@@ -158,18 +146,9 @@
         <button type="button" class="service_button"><strong>Gribu atlaidi</strong></button>
       </div>
     </div>
-    <div class="row">
-      <p>Countdown example: {{ displayTime }}</p>
-    </div>
-
-    <div class="row">
-      <br>
-      <countdown [config]="{leftTime: 10000 * 10}">$!d!:$!h!:$!m!:$!s!</countdown>
-      <br>
-      <a routerLink="/auctions">Go Back to auction list!</a>
-    </div>
   </div>
-  <div class="date_info">
+
+  <!-- <div class="date_info">
     <button type="button" class="date_info_button text-uppercase">Svarīgie Datumi</button>
     <div class="card date_info_card">
       <div class="card-body date_info_card_body text-center">
@@ -288,5 +267,5 @@
       </div>
 
     </div>
-  </div>
+  </div> -->
 </div>

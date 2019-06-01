@@ -21,6 +21,7 @@ import { AuctionCreatorModel } from '../../../models/add/auction-creator.model';
 import { AuctionStatusModel } from '../../../models/add/auction-status.model';
 import { WizardComponent, MovingDirection } from 'angular-archwizard';
 import { AuctionAddFirstWizardStepComponent } from '../../../components/wizard/wizard-steps/first-step/first-step.component';
+import { AuctionAddAddWizardStepComponent } from '../../../components/wizard/wizard-steps/add-step/add-step.component';
 
 
 @Component({
@@ -62,7 +63,11 @@ export class AuctionAddMainWizardComponent implements OnInit, AfterViewInit {
   selectedTopCategoryId: number;
   selectedSubCategoryId: number;
 
-  @ViewChild(AuctionAddFirstWizardStepComponent) child;
+  /** Category step component */
+  @ViewChild(AuctionAddFirstWizardStepComponent) categoryStep: { categoryStepForm: FormGroup; };
+
+  /** Add step component */
+  @ViewChild(AuctionAddAddWizardStepComponent) addStep;
 
   // convenience getter for easy access to form fields
   get f() { return this.auctionAddForm.controls; }
@@ -72,45 +77,40 @@ export class AuctionAddMainWizardComponent implements OnInit, AfterViewInit {
   steps = [0];
   step = 0;
 
-  @ViewChild(WizardComponent)
-  wizard: WizardComponent;
-
-  firstStepForm: FormGroup;
+  categoryStepForm: FormGroup;
+  addStepForm: FormGroup;
 
   constructor(
     private auctionApi: AuctionsService,
     private notification: NotificationsService,
     public bsModalRef: BsModalRef
-  ) {
-    this.bsConfig = {
-      dateInputFormat: 'DD/MM/YYYY',
-      showWeekNumbers: true,
-      minDate: new Date(2000, 1, 1),
-      maxDate: new Date(9999, 12, 31)
-    };
-  }
+  ) { }
 
   ngOnInit(): void {
     this.loadTopAndSubCategories();
   }
 
-  ngAfterViewInit() {
-    this.firstStepForm = this.child.firstStepForm;
+  ngAfterViewInit(): void {
+    this.categoryStepForm = this.categoryStep.categoryStepForm;
+
   }
 
-  moveDirectionFirstStep = (direction: MovingDirection): boolean => {
-    return this.moveDirection(this.firstStepForm, direction);
+  /** Validates if wizard's category step form is valid */
+  moveDirectionCategoryStep = (direction: MovingDirection): boolean => {
+    return this.moveDirection(this.categoryStepForm, direction);
   }
 
-  moveDirection = (formOfStep: FormGroup, direction: MovingDirection): boolean => {
-    return direction === MovingDirection.Backwards ? true : formOfStep.valid;
+  /** Validates if wizard's add step form is valid */
+  moveDirectionAddStep = (direction: MovingDirection): boolean => {
+    this.addStepForm = this.addStep.addStepForm;
+    console.log('this.addStep: ', this.addStep)
+    return this.moveDirection(this.addStepForm, direction);
   }
 
   /** Adds additional add-wizard step to the whole wizard flow */
   addWizardStep(event: boolean) {
     this.step++;
     this.steps.push(this.step);
-    // this.wizard.navigation.goToStep(this.step);
   }
 
   onTopCategoryChange(categoryId: number): void {
@@ -138,6 +138,10 @@ export class AuctionAddMainWizardComponent implements OnInit, AfterViewInit {
     // if (this.auctionAddForm.invalid) {
     //   return;
     // }
+  }
+
+  private moveDirection = (formOfStep: FormGroup, direction: MovingDirection): boolean => {
+    return direction === MovingDirection.Backwards ? true : formOfStep.valid;
   }
 
   private loadTopAndSubCategories(): void {

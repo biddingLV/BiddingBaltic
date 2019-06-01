@@ -1,30 +1,61 @@
 <form [formGroup]="lastStepForm">
   <div class="form-row">
     <div class="form-group col-6">
-      <label class="required" for="auctionCreator">Izsoles veidotājs:</label>
-      <!-- <ng-select #auctionCreatorSelect formControlName="auctionCreator" [clearable]="false" [virtualScroll]="true"
+      <label for="auctionCreator">Izsoles veidotājs:</label>
+      <ng-select #auctionCreatorSelect formControlName="auctionCreator" [clearable]="false" [virtualScroll]="true"
         [multiple]="false" [closeOnSelect]="true" placeholder="Select auction creator">
-        <ng-option *ngFor="let crea of auctionCreators.creators; let i = index" [value]="crea.auctionCreatorId">
+        <!-- <ng-option *ngFor="let crea of auctionCreators.creators; let i = index" [value]="crea.auctionCreatorId">
           {{crea.firstName + ' ' + crea.lastName}}
-        </ng-option>
-      </ng-select> -->
+        </ng-option> -->
+      </ng-select>
     </div>
 
-    <!-- adresse -->
-    <!-- email -->
-    <!-- telefona nr -->
     <div class="form-group col-6">
-      <label class="required" for="auctionFormat">Izsoles veids:</label>
-      <!-- <ng-select #auctionFormatSelect formControlName="auctionFormat" [clearable]="false" [virtualScroll]="true"
-        [multiple]="false" [closeOnSelect]="true" placeholder="Select auction format">
-        <ng-option *ngFor="let format of auctionFormats.formats; let i = index" [value]="format.auctionFormatId">
-          {{format.auctionFormatName}}
-        </ng-option>
-      </ng-select> -->
+      <label for="auctionAddress">Adrese:</label>
+      <input type="text" formControlName="auctionAddress" class="form-control" id="auctionAddress" name="auctionAddress"
+        [ngClass]="{ 'is-invalid': submitted && f.auctionAddress.errors }" maxlength="100" />
+
+      <!-- <div *ngIf="submitted && formErrors.auctionAddress" class="invalid-feedback">
+        {{formErrors.auctionAddress}}
+      </div> -->
     </div>
   </div>
 
   <div class="form-row">
+    <div class="form-group col-6">
+      <label for="auctionCreatorEmail">Email:</label>
+      <input type="text" formControlName="auctionCreatorEmail" class="form-control" id="auctionCreatorEmail"
+        name="auctionCreatorEmail" [ngClass]="{ 'is-invalid': submitted && f.auctionCreatorEmail.errors }"
+        maxlength="100" />
+
+      <!-- <div *ngIf="submitted && formErrors.auctionAddress" class="invalid-feedback">
+            {{formErrors.auctionAddress}}
+          </div> -->
+    </div>
+
+    <div class="form-group col-6">
+      <label for="auctionCreatorPhone">Phone:</label>
+      <input type="text" formControlName="auctionCreatorPhone" class="form-control" id="auctionCreatorPhone"
+        name="auctionCreatorPhone" [ngClass]="{ 'is-invalid': submitted && f.auctionCreatorPhone.errors }"
+        maxlength="100" />
+
+      <!-- <div *ngIf="submitted && formErrors.auctionAddress" class="invalid-feedback">
+              {{formErrors.auctionAddress}}
+            </div> -->
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group col-6">
+      <label class="required" for="auctionFormat">Izsoles veids:</label>
+      <!-- <ng-select #auctionFormatSelect formControlName="auctionFormat" [clearable]="false" [virtualScroll]="true"
+            [multiple]="false" [closeOnSelect]="true" placeholder="Select auction format">
+            <ng-option *ngFor="let format of auctionFormats.formats; let i = index" [value]="format.auctionFormatId">
+              {{format.auctionFormatName}}
+            </ng-option>
+          </ng-select> -->
+    </div>
+
     <div class="form-group col-6">
       <label for="auctionStartDate" class="required">Izsoles sākums:</label>
       <div class="input-group">
@@ -36,15 +67,15 @@
         </div>
       </div>
     </div>
+  </div>
 
+  <div class="form-row">
     <div class="form-group col-6">
       <label for="auctionApplyTillDate">Pieteikties var līdz:</label>
       <input type="text" class="form-control" placeholder="01/01/2019" bsDatepicker [bsConfig]="bsConfig"
         formControlName="auctionApplyTillDate" id="auctionApplyTillDate" name="auctionApplyTillDate" />
     </div>
-  </div>
 
-  <div class="form-row">
     <div class="form-group col-6">
       <label for="auctionEndDate">Izsoles noslēgums:</label>
       <input type="text" class="form-control" placeholder="01/01/2019" bsDatepicker [bsConfig]="bsConfig"
@@ -53,6 +84,7 @@
   </div>
 
   <div class="form-row">
+    <!-- TODO! -->
     <!-- nodrosinajuma nauda -->
     <!-- bankas konta nr -->
     <!-- izsoles dalibas maksa -->

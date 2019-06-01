@@ -108,6 +108,10 @@ export class FormService {
       auctionStartDate: 'Izsoles sākuma datums',
       auctionCreator: 'Izsoles veidotājs',
       auctionFormat: 'Izsoles veids',
+      // auction - item category
+      itemName: 'Nosaukums',
+      itemModel: 'Modelis',
+      itemEvaluation: 'Novērtējums',
       // user
       userFirstName: 'First name',
       userLastName: 'Last name',

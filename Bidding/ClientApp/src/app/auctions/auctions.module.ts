@@ -4,7 +4,7 @@ import { CommonModule } from '@angular/common';
 
 // 3rd lib
 import { ArchwizardModule } from 'angular-archwizard';
-import { CountdownModule } from 'ngx-countdown';
+import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 // internal 
 import { AuctionListComponent } from './containers/list/list.component';
@@ -22,7 +22,8 @@ import { AuctionAddAddWizardStepComponent } from './components/wizard/wizard-ste
 import { AuctionAddWizardVehicleComponent } from './components/wizard/wizard-steps/add-step/categories/vehicle/vehicle-category.component';
 import { AuctionAddWizardItemComponent } from './components/wizard/wizard-steps/add-step/categories/item/item-category.component';
 import { AuctionAddWizardEstateComponent } from './components/wizard/wizard-steps/add-step/categories/estate/estate-category.component';
-import { AuctionAdd2Component } from './components/add/add.component';
+import { AuctionDetailsCountdownComponent } from './components/details/countdown/countdown.component';
+
 
 
 @NgModule({
@@ -31,11 +32,12 @@ import { AuctionAdd2Component } from './components/add/add.component';
     SharedModule,
     AuctionsRoutingModule,
     ArchwizardModule,
-    CountdownModule
+    BsDatepickerModule.forRoot()
   ],
   exports: [
     AuctionListComponent,
-    ArchwizardModule
+    ArchwizardModule,
+    BsDatepickerModule
   ],
   declarations: [
     AuctionListComponent,
@@ -50,7 +52,7 @@ import { AuctionAdd2Component } from './components/add/add.component';
     AuctionAddWizardVehicleComponent,
     AuctionAddWizardItemComponent,
     AuctionAddWizardEstateComponent,
-    AuctionAdd2Component
+    AuctionDetailsCountdownComponent
   ],
   providers: [
     AuctionsService
@@ -61,8 +63,7 @@ import { AuctionAdd2Component } from './components/add/add.component';
     AuctionDeleteComponent,
     AuctionAddFirstWizardStepComponent,
     AuctionAddAddWizardStepComponent,
-    AuctionAddLastWizardStepComponent,
-    AuctionAdd2Component
+    AuctionAddLastWizardStepComponent
   ]
 })
 export class AuctionsModule { }
