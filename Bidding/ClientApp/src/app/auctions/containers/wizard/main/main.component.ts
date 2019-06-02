@@ -20,8 +20,8 @@ import { AuctionFormatModel } from '../../../models/add/auction-format.model';
 import { AuctionCreatorModel } from '../../../models/add/auction-creator.model';
 import { AuctionStatusModel } from '../../../models/add/auction-status.model';
 import { WizardComponent, MovingDirection } from 'angular-archwizard';
-import { AuctionAddFirstWizardStepComponent } from '../../../components/wizard/wizard-steps/first-step/first-step.component';
 import { AuctionAddAddWizardStepComponent } from '../../../components/wizard/wizard-steps/add-step/add-step.component';
+import { AuctionAddCategoryWizardStepComponent } from '../../../components/wizard/wizard-steps/category-step/category-step.component';
 
 
 @Component({
@@ -54,9 +54,6 @@ export class AuctionAddMainWizardComponent implements OnInit, AfterViewInit {
   auctionCreators: AuctionCreatorModel;
   auctionStatuses: AuctionStatusModel;
 
-  /** Date format for dates */
-  dateFormat = 'YYYY-MM-DD';
-
   // API
   auctionAddRequest: AuctionAddRequest;
 
@@ -64,7 +61,7 @@ export class AuctionAddMainWizardComponent implements OnInit, AfterViewInit {
   selectedSubCategoryId: number;
 
   /** Category step component */
-  @ViewChild(AuctionAddFirstWizardStepComponent) categoryStep: { categoryStepForm: FormGroup; };
+  @ViewChild(AuctionAddCategoryWizardStepComponent) categoryStep: { categoryStepForm: FormGroup; };
 
   /** Add step component */
   @ViewChild(AuctionAddAddWizardStepComponent) addStep;

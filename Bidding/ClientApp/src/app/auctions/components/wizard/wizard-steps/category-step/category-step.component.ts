@@ -9,10 +9,10 @@ import { FormService } from 'ClientApp/src/app/core/services/form/form.service';
 
 
 @Component({
-  selector: 'app-auction-add-first-wizard-step',
-  templateUrl: './first-step.component.html'
+  selector: 'app-auction-add-category-wizard-step',
+  templateUrl: './category-step.component.html'
 })
-export class AuctionAddFirstWizardStepComponent implements OnInit {
+export class AuctionAddCategoryWizardStepComponent implements OnInit {
   /** Top-categories with sub-categories */
   @Input() categories: AuctionFilterModel;
 
@@ -81,7 +81,7 @@ export class AuctionAddFirstWizardStepComponent implements OnInit {
     }
   }
 
-  /** Build auction add first wizard step form group */
+  /** Build auction add category wizard step form group */
   private buildForm(): void {
     this.categoryStepForm = this.fb.group({
       auctionTopCategory: ['', [Validators.required]],

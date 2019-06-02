@@ -1,4 +1,3 @@
-// Based on: https://auth0.com/docs/quickstart/spa/angular2/01-login
 // angular
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
@@ -31,14 +30,14 @@ export class AuthService {
 
   login(): void {
     if (this.redirectUri !== undefined) {
-      window.location.href = environment.authLoginUri + '?redirectPage=' + this.redirectUri;
+      window.location.href = '/start/auth/login?redirectPage=' + this.redirectUri;
     } else {
-      window.location.href = environment.authLoginUri;
+      window.location.href = '/start/auth/login';
     }
   }
 
   logout(): void {
-    window.location.href = environment.authLogoutUri;
+    window.location.href = '/start/auth/logout';
   }
 
   isAuthenticated(): boolean {

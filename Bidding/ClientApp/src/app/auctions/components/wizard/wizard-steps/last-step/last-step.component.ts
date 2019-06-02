@@ -17,10 +17,22 @@ export class AuctionAddLastWizardStepComponent implements OnInit {
 
   /** Form error object */
   formErrors = {
-
+    auctionCreator: '',
+    auctionAddress: '',
+    auctionCreatorEmail: '',
+    auctionCreatorPhone: '',
+    auctionFormat: '',
+    auctionStartDate: '',
+    auctionApplyTillDate: '',
+    auctionEndDate: ''
   };
 
   bsConfig: Partial<BsDatepickerConfig>;
+
+  submitted = false;
+
+  /** Convenience getter for easy access to form fields */
+  get f() { return this.lastStepForm.controls; }
 
   constructor(
     private fb: FormBuilder,
@@ -37,14 +49,14 @@ export class AuctionAddLastWizardStepComponent implements OnInit {
 
   private buildForm(): void {
     this.lastStepForm = this.fb.group({
-      auctionCreator: ['', []],
-      auctionAddress: ['', []],
-      auctionCreatorEmail: ['', []],
-      auctionCreatorPhone: ['', []],
+      auctionCreator: ['Peteris Priede', []],
+      auctionAddress: ['Lazdu iela 13', []],
+      auctionCreatorEmail: ['peteris@peteris.gg', []],
+      auctionCreatorPhone: ['256565656', []],
       auctionFormat: ['', []],
-      auctionStartDate: ['', []],
-      auctionApplyTillDate: ['', []],
-      auctionEndDate: ['', []]
+      auctionStartDate: ['02/06/2019', []],
+      auctionApplyTillDate: ['01/07/2019', []],
+      auctionEndDate: ['01/07/2019', []]
     });
   }
 }
