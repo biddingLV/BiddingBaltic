@@ -43,7 +43,7 @@ export class AuctionDetailsComponent implements OnInit, OnDestroy {
     this.auctionDetailsSub =
       this.route.paramMap
         .pipe(switchMap((params: ParamMap) => this.auctionApi.getAuctionDetails$(Number(params.get('id')))))
-        .subscribe(response => { this.auctionDetails = response; console.log('response: ', response) },
+        .subscribe(response => { this.auctionDetails = response; },
           (error: string) => this.notification.error(error));
   }
 }

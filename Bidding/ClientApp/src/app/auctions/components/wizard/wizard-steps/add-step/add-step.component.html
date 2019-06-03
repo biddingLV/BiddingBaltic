@@ -1,11 +1,12 @@
-<ng-container *ngIf="showVehicleTemplate">
+<ng-container *ngIf="selectedTopCategoryId == categoryConstants.VEHICLE_CATEGORY">
   <app-auction-add-wizard-vehicle-category></app-auction-add-wizard-vehicle-category>
 </ng-container>
 
-<ng-container *ngIf="showItemTemplate">
-  <app-auction-add-wizard-item-category></app-auction-add-wizard-item-category>
+<ng-container *ngIf="selectedTopCategoryId == categoryConstants.ITEM_CATEGORY">
+  <app-auction-add-wizard-item-category (returnAddWizardStepForm)="onClickNextReturnForm($event)">
+  </app-auction-add-wizard-item-category>
 </ng-container>
 
-<ng-container *ngIf="showEstateTemplate">
+<ng-container *ngIf="selectedTopCategoryId == categoryConstants.ESTATE_CATEGORY">
   <app-auction-add-wizard-estate-category></app-auction-add-wizard-estate-category>
 </ng-container>

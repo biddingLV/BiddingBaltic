@@ -1,5 +1,5 @@
 // angular
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 // internal
@@ -11,6 +11,8 @@ import { FormService } from 'ClientApp/src/app/core/services/form/form.service';
   templateUrl: './item-category.component.html'
 })
 export class AuctionAddWizardItemComponent implements OnInit {
+  @Output() returnAddWizardStepForm = new EventEmitter<FormGroup>();
+
   /** Form what used in the template */
   addItemForm: FormGroup;
 
@@ -52,6 +54,9 @@ export class AuctionAddWizardItemComponent implements OnInit {
     if (this.addItemForm.invalid) {
       return;
     }
+
+    // return form values back to parent component
+    this.returnAddWizardStepForm.emit(this.addItemForm);
   }
 
   private buildForm(): void {

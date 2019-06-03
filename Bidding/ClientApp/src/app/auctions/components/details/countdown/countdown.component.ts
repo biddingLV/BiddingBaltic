@@ -38,7 +38,7 @@ export class AuctionDetailsCountdownComponent implements OnInit, OnDestroy {
   }
 
   private setupCountdown(): void {
-    let eventTime = moment('01-06-2019 10:00:00', 'DD-MM-YYYY HH:mm:ss').unix();
+    let eventTime = moment('10-06-2019 10:00:00', 'DD-MM-YYYY HH:mm:ss').unix();
     let currentTime = moment().unix();
     let diffTime = eventTime - currentTime;
     let duration = moment.duration(diffTime * 1000, 'milliseconds')

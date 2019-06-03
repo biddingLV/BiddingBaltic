@@ -45,12 +45,12 @@
   <div class="form-row">
     <div class="form-group col-6">
       <label class="required" for="auctionFormat">Izsoles veids:</label>
-      <!-- <ng-select #auctionFormatSelect formControlName="auctionFormat" [clearable]="false" [virtualScroll]="true"
-            [multiple]="false" [closeOnSelect]="true" placeholder="Select auction format">
-            <ng-option *ngFor="let format of auctionFormats.formats; let i = index" [value]="format.auctionFormatId">
-              {{format.auctionFormatName}}
-            </ng-option>
-          </ng-select> -->
+      <ng-select #auctionFormatSelect formControlName="auctionFormat" [clearable]="false" [virtualScroll]="true"
+        [multiple]="false" [closeOnSelect]="true" placeholder="Select auction format">
+        <ng-option *ngFor="let format of auctionFormats.formats; let i = index" [value]="format.auctionFormatId">
+          {{format.auctionFormatName}}
+        </ng-option>
+      </ng-select>
     </div>
 
     <div class="form-group col-6">
@@ -90,8 +90,8 @@
 
   <div class="form-row">
     <div class="form-group">
+      <button type="button" class="btn btn-outline-dark" awPreviousStep>Back</button>
       <button class="btn btn-primary" [disabled]="false" (click)="onSubmit()">Add</button>
-      <button class="btn btn-secondary" (click)="bsModalRef.hide()">Cancel</button>
     </div>
   </div>
 </form>

@@ -14,12 +14,14 @@
 
     <ng-container *ngFor="let i of steps">
       <app-auction-add-add-wizard-step style="width: 100%;" awWizardStep stepTitle="Izsoles detalas {{i}}"
-        [canExit]="moveDirectionAddStep" [selectedTopCategoryId]="selectedTopCategoryId"
-        [selectedSubCategoryId]="selectedSubCategoryId" (emitAddWizardStep)="addWizardStep($event)">
+        [selectedTopCategoryId]="selectedTopCategoryId" [canExit]="moveDirectionAddStep"
+        [selectedSubCategoryId]="selectedSubCategoryId" (emitAddWizardStep)="addWizardStep($event)"
+        (returnAddWizardStepForm)="onClickNextReturnForm($event)">
       </app-auction-add-add-wizard-step>
     </ng-container>
 
-    <app-auction-add-last-wizard-step style="width: 100%;" awWizardStep [stepTitle]="'Rikotajs un norise'">
+    <app-auction-add-last-wizard-step style="width: 100%;" awWizardStep [stepTitle]="'Rikotajs un norise'"
+      (formValuesAreValid)="onSubmit($event)">
     </app-auction-add-last-wizard-step>
   </aw-wizard>
 </div>
