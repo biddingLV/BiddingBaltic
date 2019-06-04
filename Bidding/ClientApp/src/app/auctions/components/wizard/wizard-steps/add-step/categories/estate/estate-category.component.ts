@@ -1,8 +1,9 @@
 // angular
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 
 // internal
+import { FormService } from 'ClientApp/src/app/core/services/form/form.service';
 
 
 @Component({
@@ -10,32 +11,25 @@ import { FormGroup, FormBuilder } from '@angular/forms';
   templateUrl: './estate-category.component.html'
 })
 export class AuctionAddWizardEstateComponent implements OnInit {
+  @Output() returnAddWizardStepForm = new EventEmitter<FormGroup>();
+
   /** Form what used in the template */
-  addEstateForm: FormGroup;
+  addStepForm: FormGroup;
 
   submitted = false;
 
   /** Form error object */
   formErrors = {
-    make: '',
-    model: '',
-    manufacturingDate: '',
-    vehicleRegistrationNumber: '',
-    vehicleIdentificationNumber: '',
-    vehicleInspectionActive: '',
-    power: '',
-    engineSize: '',
-    fuelType: '',
-    transmission: '',
-    gearbox: '',
-    evaluation: ''
+    objectCoordinates: '',
+    objectRegion: ''
   };
 
   /** Convenience getter for easy access to form fields */
-  get f() { return this.addEstateForm.controls; }
+  get f() { return this.addStepForm.controls; }
 
   constructor(
-    private fb: FormBuilder
+    private formBuilder: FormBuilder,
+    private internalFormService: FormService
   ) { }
 
   ngOnInit(): void {
@@ -43,19 +37,9 @@ export class AuctionAddWizardEstateComponent implements OnInit {
   }
 
   private buildForm(): void {
-    this.addEstateForm = this.fb.group({
-      make: ['', []],
-      model: ['', []],
-      manufacturingDate: ['', []],
-      vehicleRegistrationNumber: ['', []],
-      vehicleIdentificationNumber: ['', []],
-      vehicleInspectionActive: ['', []],
-      power: ['', []],
-      engineSize: ['', []],
-      fuelType: ['', []],
-      transmission: ['', []],
-      gearbox: ['', []],
-      evaluation: ['', []]
+    this.addStepForm = this.formBuilder.group({
+      objectCoordinates: ['41 24.2028, 2 10.4418', []],
+      objectRegion: ['Midtjylland', []]
     });
   }
 }

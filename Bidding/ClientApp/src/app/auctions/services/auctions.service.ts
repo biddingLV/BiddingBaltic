@@ -11,14 +11,12 @@ import { AuctionModel } from '../models/list/auction.model';
 import { AuctionListRequest } from '../models/list/auction-list-request.model';
 import { AuctionDetailsModel } from '../models/details/auction-details.model';
 import { ExceptionsService } from '../../core/services/exceptions/exceptions.service';
-import { AuctionAddRequest } from '../models/add/auction-add-request.model';
 import { AuctionEditRequest } from '../models/edit/auction-edit-request.model';
 import { AuctionFilterModel } from '../models/filters/auction-filter.model';
 import { AuctionFormatModel } from '../models/add/auction-format.model';
 import { AuctionCreatorModel } from '../models/add/auction-creator.model';
 import { AuctionStatusModel } from '../models/add/auction-status.model';
 import { AuctionDeleteRequest } from '../models/delete/auction-delete-request.model';
-import { AuctionAdd2Request } from '../models/add/auction-add2-request.model';
 
 
 @Injectable({
@@ -97,7 +95,7 @@ export class AuctionsService {
       .pipe(catchError(this.exception.errorHandler));
   }
 
-  addAuction$(request: AuctionAdd2Request): Observable<boolean> {
+  addAuction$(request: any): Observable<boolean> {
     const url = '/api/auctions/create';
 
     return this.http.post<boolean>(url, request)

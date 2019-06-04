@@ -14,7 +14,7 @@ export class AuctionAddWizardItemComponent implements OnInit {
   @Output() returnAddWizardStepForm = new EventEmitter<FormGroup>();
 
   /** Form what used in the template */
-  addItemForm: FormGroup;
+  addStepForm: FormGroup;
 
   submitted = false;
 
@@ -28,7 +28,7 @@ export class AuctionAddWizardItemComponent implements OnInit {
   };
 
   /** Convenience getter for easy access to form fields */
-  get f() { return this.addItemForm.controls; }
+  get f() { return this.addStepForm.controls; }
 
   constructor(
     private formBuilder: FormBuilder,
@@ -44,23 +44,23 @@ export class AuctionAddWizardItemComponent implements OnInit {
     this.submitted = true;
 
     // mark all fields as touched
-    this.internalFormService.markFormGroupTouched(this.addItemForm);
+    this.internalFormService.markFormGroupTouched(this.addStepForm);
 
-    if (this.addItemForm.valid == false) {
-      this.formErrors = this.internalFormService.validateForm(this.addItemForm, this.formErrors, false);
+    if (this.addStepForm.valid == false) {
+      this.formErrors = this.internalFormService.validateForm(this.addStepForm, this.formErrors, false);
     }
 
     // stop here if form is invalid
-    if (this.addItemForm.invalid) {
+    if (this.addStepForm.invalid) {
       return;
     }
 
     // return form values back to parent component
-    this.returnAddWizardStepForm.emit(this.addItemForm);
+    this.returnAddWizardStepForm.emit(this.addStepForm);
   }
 
   private buildForm(): void {
-    this.addItemForm = this.formBuilder.group({
+    this.addStepForm = this.formBuilder.group({
       itemName: ['Jauns Audi', [Validators.required]],
       itemModel: ['A4', [Validators.required]],
       itemManufacturingDate: ['2017', []],
