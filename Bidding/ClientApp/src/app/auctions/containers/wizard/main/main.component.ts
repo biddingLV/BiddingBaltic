@@ -12,14 +12,14 @@ import { MovingDirection } from 'angular-archwizard';
 // internal
 import { AuctionsService } from '../../../services/auctions.service';
 import { NotificationsService } from 'ClientApp/src/app/core/services/notifications/notifications.service';
-import { AuctionItemAddRequestModel } from '../../../models/add/auction-item-add-request.model';
 import { AuctionFilterModel } from '../../../models/filters/auction-filter.model';
 import { SubCategoryFilterModel } from '../../../models/filters/sub-category-filter.model';
 import { AuctionAddCategoryWizardStepComponent } from '../../../components/wizard/wizard-steps/category-step/category-step.component';
 import { AuctionAddLastWizardStepComponent } from '../../../components/wizard/wizard-steps/last-step/last-step.component';
 import { CategoryConstants } from 'ClientApp/src/app/core/constants/categories/category-constants';
-import { AuctionVehicleAddRequestModel } from '../../../models/add/auction-vehicle-add-request.model';
-import { AuctionObjectAddRequestModel } from '../../../models/add/auction-object-add-request.model';
+import { AddItemAuctionRequestModel } from '../../../models/add/add-item-auction-request.model';
+import { AddVehicleAuctionRequestModel } from '../../../models/add/add-vehicle-auction-request.model';
+import { AddPropertyAuctionRequestModel } from '../../../models/add/add-property-auction-request.model';
 
 
 @Component({
@@ -34,9 +34,9 @@ export class AuctionAddMainWizardComponent implements OnInit, AfterViewInit {
   auctionTypes: SubCategoryFilterModel[];
 
   // API
-  auctionItemAddRequest: AuctionItemAddRequestModel;
-  auctionVehicleAddRequest: AuctionVehicleAddRequestModel;
-  auctionObjectAddRequest: AuctionObjectAddRequestModel;
+  addItemAuctionAddRequest: AddItemAuctionRequestModel;
+  addVehicleAuctionAddRequest: AddVehicleAuctionRequestModel;
+  addPropertyAuctionAddRequest: AddPropertyAuctionRequestModel;
 
   selectedTopCategoryId: number;
   selectedSubCategoryId: number;
@@ -104,7 +104,7 @@ export class AuctionAddMainWizardComponent implements OnInit, AfterViewInit {
     this.addStepForm = form;
   }
 
-  onSubmit(submitFlag: boolean): void {
+  onSubmit(): void {
     this.lastStepForm = this.lastStep.lastStepForm;
     console.log('this.categoryStepForm: ', this.categoryStepForm)
     console.log('this.addStepForm: ', this.addStepForm)
@@ -115,9 +115,7 @@ export class AuctionAddMainWizardComponent implements OnInit, AfterViewInit {
     } else if (this.selectedTopCategoryId == this.categoryConstants.VEHICLE_CATEGORY) {
       this.setVehicleAuctionAddRequest();
     } else if (this.selectedTopCategoryId == this.categoryConstants.OBJECT_CATEGORY) {
-      this.setObjectAuctionAddRequest();
-    } else {
-      console.log('something wrong!')
+      this.setPropertyAuctionAddRequest();
     }
   }
 
@@ -138,9 +136,9 @@ export class AuctionAddMainWizardComponent implements OnInit, AfterViewInit {
   }
 
   private setItemAuctionAddRequest(): void {
-    this.auctionItemAddRequest = {
-      topCategoryId: this.categoryStepForm.value.auctionTopCategory,
-      subCategoryId: this.categoryStepForm.value.auctionSubCategory,
+    this.addItemAuctionAddRequest = {
+      auctionTopCategoryId: this.categoryStepForm.value.auctionTopCategory,
+      auctionSubCategoryId: this.categoryStepForm.value.auctionSubCategory,
       itemName: this.addStepForm.value.itemName,
       itemModel: this.addStepForm.value.itemModel,
       itemManufacturingDate: this.addStepForm.value.itemManufacturingDate,
@@ -148,13 +146,13 @@ export class AuctionAddMainWizardComponent implements OnInit, AfterViewInit {
       itemStartingPrice: this.addStepForm.value.itemStartingPrice
     };
 
-    console.log('auctionItemAddRequest: ', this.auctionItemAddRequest)
+    console.log('addItemAuctionAddRequest: ', this.addItemAuctionAddRequest)
   }
 
   private setVehicleAuctionAddRequest(): void {
-    this.auctionVehicleAddRequest = {
-      topCategoryId: this.categoryStepForm.value.auctionTopCategory,
-      subCategoryId: this.categoryStepForm.value.auctionSubCategory,
+    this.addVehicleAuctionAddRequest = {
+      auctionTopCategoryId: this.categoryStepForm.value.auctionTopCategory,
+      auctionSubCategoryId: this.categoryStepForm.value.auctionSubCategory,
       vehicleMake: this.addStepForm.value.vehicleMake,
       vehicleModel: this.addStepForm.value.vehicleModel,
       vehicleManufacturingDate: this.addStepForm.value.vehicleManufacturingDate,
@@ -169,19 +167,19 @@ export class AuctionAddMainWizardComponent implements OnInit, AfterViewInit {
       vehicleEvaluation: this.addStepForm.value.vehicleEvaluation
     };
     // todo: kke: all of these values are undefined here! - pass form object back to main component!
-    console.log('auctionVehicleAddRequest: ', this.auctionVehicleAddRequest)
+    console.log('addVehicleAuctionAddRequest: ', this.addVehicleAuctionAddRequest)
   }
 
-  private setObjectAuctionAddRequest(): void {
-    this.auctionObjectAddRequest = {
-      topCategoryId: this.categoryStepForm.value.auctionTopCategory,
-      subCategoryId: this.categoryStepForm.value.auctionSubCategory,
-      objectCoordinates: this.addStepForm.value.objectCoordinates,
-      objectRegion: this.addStepForm.value.objectRegion
+  private setPropertyAuctionAddRequest(): void {
+    this.addPropertyAuctionAddRequest = {
+      auctionTopCategoryId: this.categoryStepForm.value.auctionTopCategory,
+      auctionSubCategoryId: this.categoryStepForm.value.auctionSubCategory,
+      propertyCoordinates: this.addStepForm.value.objectCoordinates,
+      propertyRegion: this.addStepForm.value.objectRegion
     };
 
     // todo: kke: all of these values are undefined here! - pass form object back to main component!
-    console.log('auctionObjectAddRequest: ', this.auctionObjectAddRequest)
+    console.log('addPropertyAuctionAddRequest: ', this.addPropertyAuctionAddRequest)
   }
 
   // private makeRequest(): void {

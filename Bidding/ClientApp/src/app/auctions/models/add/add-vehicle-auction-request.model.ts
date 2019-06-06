@@ -1,6 +1,6 @@
-export interface AuctionVehicleAddRequestModel {
-  topCategoryId: number;
-  subCategoryId: number;
+export interface AddVehicleAuctionRequestModel {
+  auctionTopCategoryId: number;
+  auctionSubCategoryId: number;
   vehicleMake: string;
   vehicleModel: string;
   vehicleManufacturingDate: string;

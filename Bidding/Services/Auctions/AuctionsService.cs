@@ -110,13 +110,31 @@ namespace BiddingAPI.Services.Auctions
             return m_auctionsRepository.Details(request).FirstOrDefault();
         }
 
-        public bool Create(AuctionAddRequestModel request)
+        public bool CreateItemAuction(AddItemAuctionRequestModel request)
         {
-            ValidateAuctionCreate(request);
+            // ValidateAuctionItemCreate(request);
 
-            int? loggedInUserId = m_permissionService.GetUserIdFromClaimsPrincipal();
+            // int? loggedInUserId = m_permissionService.GetUserIdFromClaimsPrincipal();
 
-            return m_auctionsRepository.Create(request, loggedInUserId.Value);
+            return m_auctionsRepository.CreateItemAuction(request);
+        }
+
+        public bool CreatePropertyAuction(AddPropertyAuctionRequestModel request)
+        {
+            // ValidateAuctionItemCreate(request);
+
+            // int? loggedInUserId = m_permissionService.GetUserIdFromClaimsPrincipal();
+
+            return m_auctionsRepository.CreatePropertyAuction(request);
+        }
+
+        public bool CreateVehicleAuction(AddVehicleAuctionRequestModel request)
+        {
+            // ValidateAuctionItemCreate(request);
+
+            // int? loggedInUserId = m_permissionService.GetUserIdFromClaimsPrincipal();
+
+            return m_auctionsRepository.CreateVehicleAuction(request);
         }
 
         public bool Update(AuctionEditRequestModel request)
@@ -157,14 +175,10 @@ namespace BiddingAPI.Services.Auctions
             m_permissionService.IsLoggedInUserActive();
         }
 
-        /// <summary>
-        /// Validate auction add permissions
-        /// </summary>
-        /// <param name="request"></param>
-        private void ValidateAuctionCreate(AuctionAddRequestModel request)
+        private void ValidateAuctionItemCreate(string request)
         {
-            if (request.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
-            if (request.AuctionName.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
+            // if (request.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
+            // if (request.AuctionName.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
             //if (request.AuctionTopCategoryIds.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
             //if (request.AuctionSubCategoryIds.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
             //if (request.AuctionStartingPrice.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }

@@ -23,7 +23,7 @@ import { FormService } from 'ClientApp/src/app/core/services/form/form.service';
 })
 export class AuctionAddLastWizardStepComponent implements OnInit {
   // todo: kke: name this emitter submitAllWizardSteps!
-  @Output() formValuesAreValid = new EventEmitter<boolean>();
+  @Output() formValuesAreValid = new EventEmitter<void>();
 
   auctionAddSub: Subscription;
 
@@ -81,7 +81,7 @@ export class AuctionAddLastWizardStepComponent implements OnInit {
     }
 
     // return form values back to parent component
-    this.formValuesAreValid.emit(true);
+    this.formValuesAreValid.emit();
   }
 
   private buildForm(): void {

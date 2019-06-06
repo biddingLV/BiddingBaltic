@@ -207,30 +207,26 @@ namespace BiddingAPI.Repositories.Auctions
             }
         }
 
-        /// <summary>
-        /// Adds a new auction
-        /// </summary>
-        /// <param name="request"></param>
-        /// <returns></returns>
-        public bool Create(AuctionAddRequestModel request, int loggedInUserId)
+        // This is only example!
+        public bool Create(string request)
         {
             int defaultAuctionStatusId = ValidateAndFetchAuctionStatus();
 
             Auction newAuction = new Auction()
             {
-                Name = request.AuctionName,
+                Name = request,
                 StartingPrice = 500, // request.AuctionStartingPrice,
                 StartDate = DateTime.UtcNow, // request.AuctionStartDate,
                 ApplyDate = DateTime.UtcNow,// request.AuctionApplyTillDate ?? request.AuctionApplyTillDate.Value,
                 EndDate = DateTime.UtcNow, // request.AuctionEndDate ?? request.AuctionEndDate.Value,
                 CreatedAt = DateTime.UtcNow, // utc time always
-                CreatedBy = loggedInUserId,
+                // CreatedBy = loggedInUserId,
                 Deleted = false,
                 AuctionStatusId = defaultAuctionStatusId,
                 AuctionCategories = PopulateAuctionCategories(new List<int>(new int[] { 1 })).ToList(),
                 AuctionTypes = new List<AuctionType>()
                 {
-                    new AuctionType { TypeId = 1 } // needs to support multiple cat in one go!
+                    new AuctionType { TypeId = 1 }
                 }
             };
 
@@ -275,6 +271,21 @@ namespace BiddingAPI.Repositories.Auctions
                 }
             });
 
+            return true;
+        }
+
+        public bool CreateItemAuction(AddItemAuctionRequestModel request)
+        {
+            return true;
+        }
+
+        public bool CreatePropertyAuction(AddPropertyAuctionRequestModel request)
+        {
+            return true;
+        }
+
+        public bool CreateVehicleAuction(AddVehicleAuctionRequestModel request)
+        {
             return true;
         }
 

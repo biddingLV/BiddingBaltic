@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Bidding.Models.ViewModels.Bidding.Auctions;
+using Bidding.Models.ViewModels.Bidding.Auctions.Add;
 using Bidding.Models.ViewModels.Bidding.Auctions.Details;
 using BiddingAPI.Models.DatabaseModels.Bidding;
 using BiddingAPI.Models.ViewModels.Bidding.Auctions;
@@ -94,15 +95,39 @@ namespace BiddingAPI.Controllers.Auctions
         }
 
         /// <summary>
-        /// Adds a new auction
+        /// Creates item auction
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpPost]
         [Authorize(Roles = "Admin")]
-        public IActionResult Create([FromBody] AuctionAddRequestModel request)
+        public IActionResult Create([FromBody] AddItemAuctionRequestModel request)
         {
-            return Ok(m_auctionsService.Create(request));
+            return Ok(m_auctionsService.CreateItemAuction(request));
+        }
+
+        /// <summary>
+        /// Creates property auction
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        public IActionResult Create([FromBody] AddPropertyAuctionRequestModel request)
+        {
+            return Ok(m_auctionsService.CreatePropertyAuction(request));
+        }
+
+        /// <summary>
+        /// Creates vehicle auction
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [HttpPost]
+        [Authorize(Roles = "Admin")]
+        public IActionResult Create([FromBody] AddVehicleAuctionRequestModel request)
+        {
+            return Ok(m_auctionsService.CreateVehicleAuction(request));
         }
 
         /// <summary>
