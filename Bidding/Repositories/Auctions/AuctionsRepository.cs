@@ -8,6 +8,7 @@ using System.Threading.Tasks;
 using Bidding.Database.DatabaseModels.Auctions;
 using Bidding.Models.ViewModels.Bidding.Auctions;
 using Bidding.Models.ViewModels.Bidding.Auctions.Add;
+using Bidding.Models.ViewModels.Bidding.Auctions.Add.Categories;
 using Bidding.Models.ViewModels.Bidding.Auctions.Details;
 using Bidding.Models.ViewModels.Bidding.Auctions.List;
 using Bidding.Models.ViewModels.Bidding.Filters;
@@ -208,7 +209,7 @@ namespace BiddingAPI.Repositories.Auctions
         }
 
         // This is only example!
-        public bool Create(string request)
+        public bool CreateEXAMPLE(string request)
         {
             int defaultAuctionStatusId = ValidateAndFetchAuctionStatus();
 
@@ -274,17 +275,78 @@ namespace BiddingAPI.Repositories.Auctions
             return true;
         }
 
-        public bool CreateItemAuction(AddItemAuctionRequestModel request)
+        public bool CreateItemAuction(ItemAuctionModel request)
+        {
+            // int defaultAuctionStatusId = ValidateAndFetchAuctionStatus();
+
+            Auction newAuction = new Auction()
+            {
+                Name = "",
+                StartingPrice = 500, // request.AuctionStartingPrice,
+                StartDate = DateTime.UtcNow, // request.AuctionStartDate,
+                ApplyDate = DateTime.UtcNow,// request.AuctionApplyTillDate ?? request.AuctionApplyTillDate.Value,
+                EndDate = DateTime.UtcNow, // request.AuctionEndDate ?? request.AuctionEndDate.Value,
+                CreatedAt = DateTime.UtcNow, // utc time always
+                // CreatedBy = loggedInUserId,
+                Deleted = false,
+                AuctionStatusId = 1,//defaultAuctionStatusId,
+                AuctionCategories = PopulateAuctionCategories(new List<int>(new int[] { 1 })).ToList(),
+                AuctionTypes = new List<AuctionType>()
+                {
+                    new AuctionType { TypeId = 1 }
+                }
+            };
+
+            // todo: kke: does this make sense?
+            // that auction id also in auction details table?
+            // and and auction details id missing from auction table?
+            //AuctionDetails auctionDetails = new AuctionDetails()
+            //{
+            //    AuctionId = auction.AuctionId,
+            //    AuctionFormatId = request.AuctionFormatId
+            //    // AuctionConditionId
+            //};
+
+            var strategy = m_context.Database.CreateExecutionStrategy();
+            strategy.Execute(() =>
+            {
+                try
+                {
+                    using (var transaction = m_context.Database.BeginTransaction())
+                    {
+                        m_context.Auctions.Add(newAuction);
+                        m_context.SaveChanges();
+
+                        var auctionDetails = new AuctionDetails()
+                        {
+                            Description = "janis rox",
+                            AuctionFormatId = 1,
+                            AuctionConditionId = 1,
+                            AuctionId = newAuction.AuctionId
+                        };
+
+                        // newAuction.AuctionDetails = auctionDetails;
+                        m_context.AuctionDetails.Add(auctionDetails);
+                        m_context.SaveChanges();
+
+                        transaction.Commit();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.CouldNotCreateAuction, ex);
+                }
+            });
+
+            return true;
+        }
+
+        public bool CreatePropertyAuction(PropertyAuctionModel request)
         {
             return true;
         }
 
-        public bool CreatePropertyAuction(AddPropertyAuctionRequestModel request)
-        {
-            return true;
-        }
-
-        public bool CreateVehicleAuction(AddVehicleAuctionRequestModel request)
+        public bool CreateVehicleAuction(VehicleAuctionModel request)
         {
             return true;
         }

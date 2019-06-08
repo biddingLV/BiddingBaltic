@@ -4,9 +4,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using BiddingAPI.Models.ViewModels.BaseModels;
 
-namespace BiddingAPI.Models.ViewModels.Bidding.Auctions
+namespace Bidding.Models.ViewModels.Bidding.Auctions.Add.Categories
 {
-    public class AddItemAuctionRequestModel
+    public class ItemAuctionModel
     {
         public int AuctionTopCategoryId { get; set; }
         public int AuctionSubCategoryId { get; set; }

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Bidding.Models.ViewModels.Bidding.Auctions.Add
+namespace Bidding.Models.ViewModels.Bidding.Auctions.Add.Categories
 {
-    public class AddVehicleAuctionRequestModel
+    public class VehicleAuctionModel
     {
         public int AuctionTopCategoryId { get; set; }
         public int AuctionSubCategoryId { get; set; }

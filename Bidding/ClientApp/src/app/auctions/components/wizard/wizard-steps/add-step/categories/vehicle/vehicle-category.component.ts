@@ -68,18 +68,18 @@ export class AuctionAddWizardVehicleComponent implements OnInit {
 
   private buildForm(): void {
     this.addStepForm = this.formBuilder.group({
-      vehicleMake: ['', []],
-      vehicleModel: ['', []],
-      vehicleManufacturingDate: ['', []],
-      vehicleRegistrationNumber: ['', []],
-      vehicleIdentificationNumber: ['', []],
-      vehicleInspectionActive: ['', []],
-      vehiclePower: ['', []],
-      vehicleEngineSize: ['', []],
-      vehicleFuelType: ['', []],
-      vehicleTransmission: ['', []],
-      vehicleGearbox: ['', []],
-      vehicleEvaluation: ['', []]
+      vehicleMake: ['BMW', []],
+      vehicleModel: ['1-Series', []],
+      vehicleManufacturingDate: ['2019', []],
+      vehicleRegistrationNumber: ['LV-44HYU', []],
+      vehicleIdentificationNumber: ['KH-7777', []],
+      vehicleInspectionActive: ['Yes', []],
+      vehiclePower: ['93 bhp', []],
+      vehicleEngineSize: ['5', []],
+      vehicleFuelType: ['Diesel', []],
+      vehicleTransmission: ['Manual', []],
+      vehicleGearbox: ['6 Speed', []],
+      vehicleEvaluation: ['15000', []]
     });
   }
 }

@@ -5,6 +5,7 @@ using System.Net;
 using System.Threading.Tasks;
 using Bidding.Models.ViewModels.Bidding.Auctions;
 using Bidding.Models.ViewModels.Bidding.Auctions.Add;
+using Bidding.Models.ViewModels.Bidding.Auctions.Add.Categories;
 using Bidding.Models.ViewModels.Bidding.Auctions.Details;
 using Bidding.Models.ViewModels.Bidding.Filters;
 using Bidding.Services.Shared.Permissions;
@@ -110,33 +111,6 @@ namespace BiddingAPI.Services.Auctions
             return m_auctionsRepository.Details(request).FirstOrDefault();
         }
 
-        public bool CreateItemAuction(AddItemAuctionRequestModel request)
-        {
-            // ValidateAuctionItemCreate(request);
-
-            // int? loggedInUserId = m_permissionService.GetUserIdFromClaimsPrincipal();
-
-            return m_auctionsRepository.CreateItemAuction(request);
-        }
-
-        public bool CreatePropertyAuction(AddPropertyAuctionRequestModel request)
-        {
-            // ValidateAuctionItemCreate(request);
-
-            // int? loggedInUserId = m_permissionService.GetUserIdFromClaimsPrincipal();
-
-            return m_auctionsRepository.CreatePropertyAuction(request);
-        }
-
-        public bool CreateVehicleAuction(AddVehicleAuctionRequestModel request)
-        {
-            // ValidateAuctionItemCreate(request);
-
-            // int? loggedInUserId = m_permissionService.GetUserIdFromClaimsPrincipal();
-
-            return m_auctionsRepository.CreateVehicleAuction(request);
-        }
-
         public bool Update(AuctionEditRequestModel request)
         {
             ValidateAuctionUpdate(request);
@@ -153,6 +127,31 @@ namespace BiddingAPI.Services.Auctions
             int? loggedInUserId = m_permissionService.GetUserIdFromClaimsPrincipal();
 
             return m_auctionsRepository.Delete(request, loggedInUserId.Value);
+        }
+
+        public bool Create(AddAuctionRequestModel request)
+        {
+            bool status = false;
+
+            // todo: kke: maybe it makes more sense to use here selected top category not model definition?
+            if (request.ItemAuction.IsNotSpecified() == false)
+            {
+                status = CreateItemAuction(request.ItemAuction);
+            }
+            else if (request.VehicleAuction.IsNotSpecified() == false)
+            {
+                status = CreateVehicleAuction(request.VehicleAuction);
+            }
+            else if (request.PropertyAuction.IsNotSpecified() == false)
+            {
+                status = CreatePropertyAuction(request.PropertyAuction);
+            }
+            else
+            {
+                throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation);
+            }
+
+            return status;
         }
 
         /// <summary>
@@ -173,6 +172,33 @@ namespace BiddingAPI.Services.Auctions
             if (allowedSortByColumns.Contains(request.SortByColumn) == false) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
 
             m_permissionService.IsLoggedInUserActive();
+        }
+
+        private bool CreateItemAuction(ItemAuctionModel request)
+        {
+            // ValidateAuctionItemCreate(request);
+
+            // int? loggedInUserId = m_permissionService.GetUserIdFromClaimsPrincipal();
+
+            return m_auctionsRepository.CreateItemAuction(request);
+        }
+
+        private bool CreatePropertyAuction(PropertyAuctionModel request)
+        {
+            // ValidateAuctionItemCreate(request);
+
+            // int? loggedInUserId = m_permissionService.GetUserIdFromClaimsPrincipal();
+
+            return m_auctionsRepository.CreatePropertyAuction(request);
+        }
+
+        private bool CreateVehicleAuction(VehicleAuctionModel request)
+        {
+            // ValidateAuctionItemCreate(request);
+
+            // int? loggedInUserId = m_permissionService.GetUserIdFromClaimsPrincipal();
+
+            return m_auctionsRepository.CreateVehicleAuction(request);
         }
 
         private void ValidateAuctionItemCreate(string request)

@@ -95,39 +95,15 @@ namespace BiddingAPI.Controllers.Auctions
         }
 
         /// <summary>
-        /// Creates item auction
+        /// Creates auction
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpPost]
         [Authorize(Roles = "Admin")]
-        public IActionResult Create([FromBody] AddItemAuctionRequestModel request)
+        public IActionResult Create([FromBody] AddAuctionRequestModel request)
         {
-            return Ok(m_auctionsService.CreateItemAuction(request));
-        }
-
-        /// <summary>
-        /// Creates property auction
-        /// </summary>
-        /// <param name="request"></param>
-        /// <returns></returns>
-        [HttpPost]
-        [Authorize(Roles = "Admin")]
-        public IActionResult Create([FromBody] AddPropertyAuctionRequestModel request)
-        {
-            return Ok(m_auctionsService.CreatePropertyAuction(request));
-        }
-
-        /// <summary>
-        /// Creates vehicle auction
-        /// </summary>
-        /// <param name="request"></param>
-        /// <returns></returns>
-        [HttpPost]
-        [Authorize(Roles = "Admin")]
-        public IActionResult Create([FromBody] AddVehicleAuctionRequestModel request)
-        {
-            return Ok(m_auctionsService.CreateVehicleAuction(request));
+            return Ok(m_auctionsService.Create(request));
         }
 
         /// <summary>
