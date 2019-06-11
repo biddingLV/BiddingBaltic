@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using BiddingAPI.Models.ViewModels.BaseModels;
+using Bidding.Models.ViewModels.BaseModels;
 
 namespace Bidding.Models.ViewModels.Bidding.Auctions.Add.Categories
 {
@@ -10,10 +10,10 @@ namespace Bidding.Models.ViewModels.Bidding.Auctions.Add.Categories
     {
         public int AuctionTopCategoryId { get; set; }
         public int AuctionSubCategoryId { get; set; }
-        public string ItemName { get; set; }
+        public string ItemName { get; set; } // todo: kke: move to the global level?
         public string ItemModel { get; set; }
         public string ItemManufacturingDate { get; set; }
         public string ItemEvaluation { get; set; }
-        public string ItemStartingPrice { get; set; }
+        public int ItemStartingPrice { get; set; } // todo: kke: move to the global level?
     }
 }

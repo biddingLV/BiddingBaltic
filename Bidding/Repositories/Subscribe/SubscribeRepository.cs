@@ -9,11 +9,12 @@ using Bidding.Models.DatabaseModels.Bidding.Subscribe;
 using Bidding.Models.ViewModels.Bidding.Subscribe;
 using Bidding.Shared.ErrorHandling.Errors;
 using Bidding.Shared.Exceptions;
-using BiddingAPI.Models.DatabaseModels;
-using BiddingAPI.Repositories.Subscribe;
+using Bidding.Models.DatabaseModels;
+using Bidding.Repositories.Subscribe;
 using Microsoft.EntityFrameworkCore;
+using Bidding.Database.Contexts;
 
-namespace BiddingAPI.Repositories.Subscribe
+namespace Bidding.Repositories.Subscribe
 {
     public class SubscribeRepository : ISubscribeRepository
     {

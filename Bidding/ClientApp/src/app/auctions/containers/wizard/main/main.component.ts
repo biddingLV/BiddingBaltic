@@ -12,11 +12,11 @@ import { MovingDirection } from 'angular-archwizard';
 // internal
 import { AuctionsService } from '../../../services/auctions.service';
 import { NotificationsService } from 'ClientApp/src/app/core/services/notifications/notifications.service';
-import { AuctionFilterModel } from '../../../models/filters/auction-filter.model';
-import { SubCategoryFilterModel } from '../../../models/filters/sub-category-filter.model';
 import { AuctionAddCategoryWizardStepComponent } from '../../../components/wizard/wizard-steps/category-step/category-step.component';
 import { AuctionAddLastWizardStepComponent } from '../../../components/wizard/wizard-steps/last-step/last-step.component';
 import { CategoryConstants } from 'ClientApp/src/app/core/constants/categories/category-constants';
+import { CategoriesWithTypesModel } from '../../../models/add/categories-with-types.model';
+import { TypeModel } from '../../../models/shared/types/type.model';
 
 
 @Component({
@@ -27,8 +27,8 @@ export class AuctionAddMainWizardComponent implements OnInit, AfterViewInit {
   submitted = false;
 
   // filters
-  categories: AuctionFilterModel;
-  auctionTypes: SubCategoryFilterModel[];
+  categories: CategoriesWithTypesModel;
+  auctionTypes: TypeModel[];
 
   // API
   addAuctionRequest: Auctions.AddAuctionRequestModel;
@@ -119,10 +119,10 @@ export class AuctionAddMainWizardComponent implements OnInit, AfterViewInit {
   }
 
   private loadTopAndSubCategories(): void {
-    this.auctionAddSub = this.auctionApi.getFilters$()
-      .pipe(startWith(new AuctionFilterModel()))
+    this.auctionAddSub = this.auctionApi.categoriesWithTypes$()
+      .pipe(startWith(new CategoriesWithTypesModel()))
       .subscribe(
-        (result: AuctionFilterModel) => {
+        (result: CategoriesWithTypesModel) => {
           this.categories = result;
           this.auctionTypes = result.subCategories;
         },

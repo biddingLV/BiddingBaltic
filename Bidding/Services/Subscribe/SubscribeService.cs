@@ -6,11 +6,11 @@ using System.Threading.Tasks;
 using Bidding.Models.ViewModels.Bidding.Subscribe;
 using Bidding.Shared.Exceptions;
 using Bidding.Shared.Utility;
-using BiddingAPI.Models.ViewModels.Bidding.Auctions;
-using BiddingAPI.Repositories.Auctions;
-using BiddingAPI.Repositories.Subscribe;
+using Bidding.Models.ViewModels.Bidding.Auctions;
+using Bidding.Repositories.Auctions;
+using Bidding.Repositories.Subscribe;
 
-namespace BiddingAPI.Services.Subscribe
+namespace Bidding.Services.Subscribe
 {
     public class SubscribeService : ISubscribeService
     {

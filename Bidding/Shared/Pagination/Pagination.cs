@@ -1,4 +1,4 @@
-﻿using BiddingAPI.Models.ViewModels.BaseModels;
+﻿using Bidding.Models.ViewModels.BaseModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;

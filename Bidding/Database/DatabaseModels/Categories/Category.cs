@@ -1,10 +1,11 @@
-﻿using BiddingAPI.Models.DatabaseModels.Bidding;
+﻿using Bidding.Database.DatabaseModels.Auctions;
+using Bidding.Database.DatabaseModels.Users;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace BiddingAPI.Models.DatabaseModels
+namespace Bidding.Models.DatabaseModels
 {
     public partial class Category
     {
@@ -17,20 +18,20 @@ namespace BiddingAPI.Models.DatabaseModels
         public string Name { get; set; }
 
         [Required]
-        [DataType(DataType.Date)]
         public DateTime CreatedAt { get; set; }
 
-        [DataType(DataType.Date)]
-        public DateTime? LastUpdatedAt { get; set; }
-        public int? LastUpdatedBy { get; set; }
-        public bool Deleted { get; set; }
-
-        // Relationship definitions
         [Required]
         public int CreatedBy { get; set; }
         public User User { get; set; }
 
-        public List<AuctionCategory> AuctionCategories { get; set; }
-        public List<CategoryType> CategoryTypes { get; set; }
+        public DateTime LastUpdatedAt { get; set; }
+
+        public int LastUpdatedBy { get; set; }
+
+        public bool Deleted { get; set; }
+
+        public List<Auction> Auctions { get; set; }
+        public List<AuctionItem> AuctionItems { get; set; }
+        public List<Type> Types { get; set; }
     }
 }

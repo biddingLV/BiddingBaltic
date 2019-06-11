@@ -1,0 +1,1 @@
+﻿CREATE TYPE BID_TypeIdArray AS TABLE(TypeId INT NULL);

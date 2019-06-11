@@ -1,10 +1,11 @@
 ﻿using Bidding.Shared.ErrorHandling.Errors;
-using BiddingAPI.Models.DatabaseModels.Bidding;
+using Bidding.Models.DatabaseModels.Bidding;
 using FluentValidation;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Bidding.Database.DatabaseModels.Auctions;
 
 namespace Bidding.Shared.ErrorHandling.Validators
 {

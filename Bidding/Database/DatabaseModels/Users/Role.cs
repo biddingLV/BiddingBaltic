@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace BiddingAPI.Models.DatabaseModels
+namespace Bidding.Database.DatabaseModels.Users
 {
     public partial class Role
     {
@@ -14,13 +14,20 @@ namespace BiddingAPI.Models.DatabaseModels
         [Required]
         [MaxLength(50)]
         public string Name { get; set; }
+
+        [Required]
         public DateTime CreatedAt { get; set; }
+
+        [Required]
         public int CreatedBy { get; set; }
-        public DateTime? LastUpdatedAt { get; set; }
-        public int? LastUpdatedBy { get; set; }
+        public User User { get; set; }
+
+        public DateTime LastUpdatedAt { get; set; }
+
+        public int LastUpdatedBy { get; set; }
+
         public bool Deleted { get; set; }
 
-        // Relationship definitions
-        public List<User> Users { get; set; }
+        public ICollection<User> Users { get; set; }
     }
 }

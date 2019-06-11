@@ -1,5 +1,6 @@
 ﻿using Bidding.Database.DatabaseModels.Auctions;
-using BiddingAPI.Models.DatabaseModels.Bidding;
+using Bidding.Database.DatabaseModels.Users;
+using Bidding.Models.DatabaseModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -7,7 +8,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BiddingAPI.Models.DatabaseModels.Bidding
+namespace Bidding.Database.DatabaseModels.Auctions
 {
     public partial class Auction
     {
@@ -23,36 +24,39 @@ namespace BiddingAPI.Models.DatabaseModels.Bidding
         public int StartingPrice { get; set; }
 
         [Required]
-        [DataType(DataType.Date)]
         public DateTime StartDate { get; set; }
 
         [Required]
-        [DataType(DataType.Date)]
-        public DateTime? ApplyDate { get; set; } // todo: kke: is this right?
+        public DateTime ApplyTillDate { get; set; }
 
         [Required]
-        [DataType(DataType.Date)]
-        public DateTime? EndDate { get; set; } // todo: kke: is this right?
+        public DateTime EndDate { get; set; }
 
         [Required]
-        [DataType(DataType.Date)]
+        public int AuctionCategoryId { get; set; }
+        public Category Category { get; set; }
+
+        [Required]
+        public int AuctionTypeId { get; set; }
+        public Bidding.Models.DatabaseModels.Type Type { get; set; }
+
+        [Required]
+        public int AuctionStatusId { get; set; }
+        public AuctionStatus AuctionStatus { get; set; }
+
+        [Required]
         public DateTime CreatedAt { get; set; }
 
-        [DataType(DataType.Date)]
-        public DateTime? LastUpdatedAt { get; set; }
-        public int? LastUpdatedBy { get; set; }
-        public bool Deleted { get; set; }
-
-        // Relationship definitions
         [Required]
         public int CreatedBy { get; set; }
         public User User { get; set; }
 
-        public int AuctionStatusId { get; set; }
-        public AuctionStatus AuctionStatus { get; set; }
+        public DateTime LastUpdatedAt { get; set; }
 
-        public List<AuctionCategory> AuctionCategories { get; set; }
-        public List<AuctionType> AuctionTypes { get; set; }
-        public AuctionDetails AuctionDetails { get; set; }
+        public int LastUpdatedBy { get; set; }
+
+        public bool Deleted { get; set; }
+
+        public List<AuctionItem> AuctionItems { get; set; }
     }
 }

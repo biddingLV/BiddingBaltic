@@ -4,13 +4,15 @@ using Bidding.Models.ViewModels.Bidding.Users.Shared;
 using Bidding.Shared.ErrorHandling.Errors;
 using Bidding.Shared.Exceptions;
 using Bidding.Shared.Utility;
-using BiddingAPI.Models.DatabaseModels;
+using Bidding.Models.DatabaseModels;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
+using Bidding.Database.Contexts;
+using Bidding.Database.DatabaseModels.Users;
 
 namespace Bidding.Repositories.Users
 {

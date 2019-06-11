@@ -1,4 +1,5 @@
-﻿using BiddingAPI.Models.DatabaseModels;
+﻿using Bidding.Models.DatabaseModels;
+using Bidding.Models.ViewModels.Bidding.Shared.Types;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -11,11 +12,8 @@ namespace Bidding.Models.ViewModels.Bidding.Filters
     /// Used for sub-category filter in auction list
     /// type == sub-category
     /// </summary>
-    public class SubCategoryFilterModel
+    public class SubCategoryFilterModel : TypeModel
     {
-        public int CategoryId { get; set; }
-        public int TypeId { get; set; }
-        public string TypeName { get; set; }
         public int TypeTotalCount { get; set; }
     }
 }

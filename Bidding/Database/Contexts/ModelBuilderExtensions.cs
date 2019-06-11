@@ -1,12 +1,14 @@
 ﻿using Bidding.Database.DatabaseModels.Auctions;
-using BiddingAPI.Models.DatabaseModels;
-using BiddingAPI.Models.DatabaseModels.Bidding;
+using Bidding.Database.DatabaseModels.Auctions.Details;
+using Bidding.Database.DatabaseModels.Users;
+using Bidding.Models.DatabaseModels;
+using Bidding.Models.DatabaseModels.Bidding;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Type = BiddingAPI.Models.DatabaseModels.Type;
+using Type = Bidding.Models.DatabaseModels.Type;
 
 namespace Bidding.Database.Contexts
 {
@@ -20,21 +22,40 @@ namespace Bidding.Database.Contexts
             PopulateRoles(modelBuilder);
             PopulateUsers(modelBuilder);
             PopulateAuctionStatuses(modelBuilder);
-            PopulateAuctions(modelBuilder);
             PopulateCategories(modelBuilder);
             PopulateTypes(modelBuilder);
             PopulateAuctionFormats(modelBuilder);
             PopulateAuctionConditions(modelBuilder);
-            PopulateAuctionCategories(modelBuilder);
-            PopulateCategoryTypes(modelBuilder);
-            PopulateAuctionTypes(modelBuilder);
+            PopulateAuctions(modelBuilder);
+            PopulateAuctionItems(modelBuilder);
+            PopulateItemAuctionDetails(modelBuilder);
+            PopulatePropertyAuctionDetails(modelBuilder);
+            PopulateVehicleAuctionDetails(modelBuilder);
         }
 
         private static void PopulateRoles(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Role>().HasData(
-                new Role { RoleId = 1, Name = "User", CreatedAt = CreatedAtDateTime, CreatedBy = CreatedByBiddingAdmin, LastUpdatedAt = null, LastUpdatedBy = null, Deleted = false },
-                new Role { RoleId = 2, Name = "Admin", CreatedAt = CreatedAtDateTime, CreatedBy = CreatedByBiddingAdmin, LastUpdatedAt = null, LastUpdatedBy = null, Deleted = false }
+                new Role
+                {
+                    RoleId = 1,
+                    Name = "User",
+                    CreatedAt = CreatedAtDateTime,
+                    CreatedBy = CreatedByBiddingAdmin,
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin,
+                    Deleted = false
+                },
+                new Role
+                {
+                    RoleId = 2,
+                    Name = "Admin",
+                    CreatedAt = CreatedAtDateTime,
+                    CreatedBy = CreatedByBiddingAdmin,
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin,
+                    Deleted = false
+                }
             );
         }
 
@@ -44,30 +65,32 @@ namespace Bidding.Database.Contexts
                 new User
                 {
                     UserId = 1,
-                    FirstName = "Dummy",
-                    LastName = "Admin",
+                    FirstName = "Peteris",
+                    MiddleName = "Admin",
+                    LastName = "Liepins",
                     Email = "dummyadmin@bidding.lv",
                     RoleId = 2,
                     Deleted = false,
                     UniqueIdentifier = "",
                     CreatedAt = CreatedAtDateTime,
-                    CreatedBy = null,
-                    LastUpdatedAt = null,
-                    LastUpdatedBy = null
+                    CreatedBy = CreatedByBiddingAdmin,
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin
                 },
                 new User
                 {
                     UserId = 2,
-                    FirstName = "Dummy",
-                    LastName = "User",
+                    FirstName = "Peteris",
+                    MiddleName = "User",
+                    LastName = "Liepins",
                     Email = "dummyuser@bidding.lv",
                     RoleId = 1,
                     Deleted = false,
                     UniqueIdentifier = "",
                     CreatedAt = CreatedAtDateTime,
                     CreatedBy = CreatedByBiddingAdmin,
-                    LastUpdatedAt = null,
-                    LastUpdatedBy = null
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin
                 }
             );
         }
@@ -81,8 +104,8 @@ namespace Bidding.Database.Contexts
                     Name = "Aktīva",
                     CreatedAt = CreatedAtDateTime,
                     CreatedBy = CreatedByBiddingAdmin,
-                    LastUpdatedAt = null,
-                    LastUpdatedBy = null,
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin,
                     Deleted = false
                 },
                 new AuctionStatus
@@ -91,8 +114,8 @@ namespace Bidding.Database.Contexts
                     Name = "Pārtraukta",
                     CreatedAt = CreatedAtDateTime,
                     CreatedBy = CreatedByBiddingAdmin,
-                    LastUpdatedAt = null,
-                    LastUpdatedBy = null,
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin,
                     Deleted = false
                 },
                 new AuctionStatus
@@ -101,75 +124,9 @@ namespace Bidding.Database.Contexts
                     Name = "Beigusies",
                     CreatedAt = CreatedAtDateTime,
                     CreatedBy = CreatedByBiddingAdmin,
-                    LastUpdatedAt = null,
-                    LastUpdatedBy = null,
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin,
                     Deleted = false
-                }
-            );
-        }
-
-        private static void PopulateAuctions(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Auction>().HasData(
-                new Auction
-                {
-                    AuctionId = 1,
-                    Name = "Tesla Model 3",
-                    StartingPrice = 15000,
-                    StartDate = CreatedAtDateTime.AddMonths(1),
-                    EndDate = CreatedAtDateTime.AddMonths(6),
-                    ApplyDate = CreatedAtDateTime.AddMonths(5),
-                    CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
-                    Deleted = false,
-                    LastUpdatedAt = null,
-                    LastUpdatedBy = null,
-                    AuctionStatusId = 1
-                },
-                new Auction
-                {
-                    AuctionId = 2,
-                    Name = "Penthouse tipa dzīvoklis Vecrīgas sirdī",
-                    StartingPrice = 50000,
-                    StartDate = CreatedAtDateTime.AddMonths(1),
-                    EndDate = CreatedAtDateTime.AddMonths(6),
-                    ApplyDate = CreatedAtDateTime.AddMonths(5),
-                    CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
-                    Deleted = false,
-                    LastUpdatedAt = null,
-                    LastUpdatedBy = null,
-                    AuctionStatusId = 1,
-                },
-                new Auction
-                {
-                    AuctionId = 3,
-                    Name = "Vīna skapis",
-                    StartingPrice = 900,
-                    StartDate = CreatedAtDateTime.AddMonths(1),
-                    EndDate = CreatedAtDateTime.AddMonths(6),
-                    ApplyDate = CreatedAtDateTime.AddMonths(5),
-                    CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
-                    Deleted = false,
-                    LastUpdatedAt = null,
-                    LastUpdatedBy = null,
-                    AuctionStatusId = 1
-                },
-                new Auction
-                {
-                    AuctionId = 4,
-                    Name = "Audi A4",
-                    StartingPrice = 350,
-                    StartDate = CreatedAtDateTime.AddMonths(1),
-                    EndDate = CreatedAtDateTime.AddMonths(2),
-                    ApplyDate = CreatedAtDateTime.AddMonths(1).AddDays(10),
-                    CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
-                    Deleted = false,
-                    LastUpdatedAt = null,
-                    LastUpdatedBy = null,
-                    AuctionStatusId = 1
                 }
             );
         }
@@ -184,8 +141,8 @@ namespace Bidding.Database.Contexts
                     CreatedAt = CreatedAtDateTime,
                     CreatedBy = CreatedByBiddingAdmin,
                     Deleted = false,
-                    LastUpdatedAt = null,
-                    LastUpdatedBy = null
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin
                 },
                 new Category
                 {
@@ -194,8 +151,8 @@ namespace Bidding.Database.Contexts
                     CreatedAt = CreatedAtDateTime,
                     CreatedBy = CreatedByBiddingAdmin,
                     Deleted = false,
-                    LastUpdatedAt = null,
-                    LastUpdatedBy = null
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin
                 },
                 new Category
                 {
@@ -204,8 +161,8 @@ namespace Bidding.Database.Contexts
                     CreatedAt = CreatedAtDateTime,
                     CreatedBy = CreatedByBiddingAdmin,
                     Deleted = false,
-                    LastUpdatedAt = null,
-                    LastUpdatedBy = null
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin
                 }
             );
         }
@@ -217,141 +174,166 @@ namespace Bidding.Database.Contexts
                 {
                     TypeId = 1,
                     Name = "Vieglais transports līdz 3,5t",
+                    AuctionCategoryId = 1,
                     CreatedAt = CreatedAtDateTime,
                     CreatedBy = CreatedByBiddingAdmin,
                     Deleted = false,
-                    LastUpdatedAt = null,
-                    LastUpdatedBy = null
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin
                 },
                 new Type
                 {
                     TypeId = 2,
                     Name = "Traktortehnika",
+                    AuctionCategoryId = 1,
                     CreatedAt = CreatedAtDateTime,
                     CreatedBy = CreatedByBiddingAdmin,
                     Deleted = false,
-                    LastUpdatedAt = null,
-                    LastUpdatedBy = null
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin
                 },
                 new Type
                 {
                     TypeId = 3,
                     Name = "Kravas auto",
+                    AuctionCategoryId = 1,
                     CreatedAt = CreatedAtDateTime,
                     CreatedBy = CreatedByBiddingAdmin,
                     Deleted = false,
-                    LastUpdatedAt = null,
-                    LastUpdatedBy = null
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin
                 },
                 new Type
                 {
                     TypeId = 4,
                     Name = "Mototehnika",
+                    AuctionCategoryId = 1,
                     CreatedAt = CreatedAtDateTime,
                     CreatedBy = CreatedByBiddingAdmin,
                     Deleted = false,
-                    LastUpdatedAt = null,
-                    LastUpdatedBy = null
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin
                 },
                 new Type
                 {
                     TypeId = 5,
-                    Name = "Ūdens transports",
+                    Name = "Piekabes",
+                    AuctionCategoryId = 1,
                     CreatedAt = CreatedAtDateTime,
                     CreatedBy = CreatedByBiddingAdmin,
                     Deleted = false,
-                    LastUpdatedAt = null,
-                    LastUpdatedBy = null
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin
                 },
                 new Type
                 {
                     TypeId = 6,
-                    Name = "Cits transports",
+                    Name = "Ūdens transports",
+                    AuctionCategoryId = 1,
                     CreatedAt = CreatedAtDateTime,
                     CreatedBy = CreatedByBiddingAdmin,
                     Deleted = false,
-                    LastUpdatedAt = null,
-                    LastUpdatedBy = null
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin
                 },
                 new Type
                 {
                     TypeId = 7,
-                    Name = "Biroja tehnika",
+                    Name = "Cits transports",
+                    AuctionCategoryId = 1,
                     CreatedAt = CreatedAtDateTime,
                     CreatedBy = CreatedByBiddingAdmin,
                     Deleted = false,
-                    LastUpdatedAt = null,
-                    LastUpdatedBy = null
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin
                 },
                 new Type
                 {
                     TypeId = 8,
-                    Name = "Elektrotehnika",
+                    Name = "Biroja tehnika",
+                    AuctionCategoryId = 2,
                     CreatedAt = CreatedAtDateTime,
                     CreatedBy = CreatedByBiddingAdmin,
                     Deleted = false,
-                    LastUpdatedAt = null,
-                    LastUpdatedBy = null
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin
                 },
                 new Type
                 {
                     TypeId = 9,
-                    Name = "Rūpniecības tehnika",
+                    Name = "Elektrotehnika",
+                    AuctionCategoryId = 2,
                     CreatedAt = CreatedAtDateTime,
                     CreatedBy = CreatedByBiddingAdmin,
                     Deleted = false,
-                    LastUpdatedAt = null,
-                    LastUpdatedBy = null
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin
                 },
                 new Type
                 {
                     TypeId = 10,
-                    Name = "Instrumenti",
+                    Name = "Rūpniecības tehnika",
+                    AuctionCategoryId = 2,
                     CreatedAt = CreatedAtDateTime,
                     CreatedBy = CreatedByBiddingAdmin,
                     Deleted = false,
-                    LastUpdatedAt = null,
-                    LastUpdatedBy = null
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin
                 },
                 new Type
                 {
                     TypeId = 11,
-                    Name = "Cita manta",
+                    Name = "Instrumenti",
+                    AuctionCategoryId = 2,
                     CreatedAt = CreatedAtDateTime,
                     CreatedBy = CreatedByBiddingAdmin,
                     Deleted = false,
-                    LastUpdatedAt = null,
-                    LastUpdatedBy = null
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin
                 },
                 new Type
                 {
                     TypeId = 12,
-                    Name = "Dzīvoklis",
+                    Name = "Cita manta",
+                    AuctionCategoryId = 2,
                     CreatedAt = CreatedAtDateTime,
                     CreatedBy = CreatedByBiddingAdmin,
                     Deleted = false,
-                    LastUpdatedAt = null,
-                    LastUpdatedBy = null
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin
                 },
                 new Type
                 {
                     TypeId = 13,
-                    Name = "Māja",
+                    Name = "Dzīvoklis",
+                    AuctionCategoryId = 3,
                     CreatedAt = CreatedAtDateTime,
                     CreatedBy = CreatedByBiddingAdmin,
                     Deleted = false,
-                    LastUpdatedAt = null,
-                    LastUpdatedBy = null
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin
                 },
                 new Type
                 {
                     TypeId = 14,
-                    Name = "Zeme",
+                    Name = "Māja",
+                    AuctionCategoryId = 3,
                     CreatedAt = CreatedAtDateTime,
                     CreatedBy = CreatedByBiddingAdmin,
                     Deleted = false,
-                    LastUpdatedAt = null,
-                    LastUpdatedBy = null
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin
+                },
+                new Type
+                {
+                    TypeId = 15,
+                    Name = "Zeme",
+                    AuctionCategoryId = 3,
+                    CreatedAt = CreatedAtDateTime,
+                    CreatedBy = CreatedByBiddingAdmin,
+                    Deleted = false,
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin
                 }
             );
         }
@@ -366,8 +348,8 @@ namespace Bidding.Database.Contexts
                     CreatedAt = CreatedAtDateTime,
                     CreatedBy = CreatedByBiddingAdmin,
                     Deleted = false,
-                    LastUpdatedAt = null,
-                    LastUpdatedBy = null
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin
                 },
                 new AuctionFormat
                 {
@@ -376,8 +358,8 @@ namespace Bidding.Database.Contexts
                     CreatedAt = CreatedAtDateTime,
                     CreatedBy = CreatedByBiddingAdmin,
                     Deleted = false,
-                    LastUpdatedAt = null,
-                    LastUpdatedBy = null
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin
                 },
                 new AuctionFormat
                 {
@@ -386,8 +368,8 @@ namespace Bidding.Database.Contexts
                     CreatedAt = CreatedAtDateTime,
                     CreatedBy = CreatedByBiddingAdmin,
                     Deleted = false,
-                    LastUpdatedAt = null,
-                    LastUpdatedBy = null
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin
                 }
             );
         }
@@ -402,8 +384,8 @@ namespace Bidding.Database.Contexts
                     CreatedAt = CreatedAtDateTime,
                     CreatedBy = CreatedByBiddingAdmin,
                     Deleted = false,
-                    LastUpdatedAt = null,
-                    LastUpdatedBy = null
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin
                 },
                 new AuctionCondition
                 {
@@ -412,8 +394,8 @@ namespace Bidding.Database.Contexts
                     CreatedAt = CreatedAtDateTime,
                     CreatedBy = CreatedByBiddingAdmin,
                     Deleted = false,
-                    LastUpdatedAt = null,
-                    LastUpdatedBy = null
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin
                 },
                 new AuctionCondition
                 {
@@ -422,8 +404,8 @@ namespace Bidding.Database.Contexts
                     CreatedAt = CreatedAtDateTime,
                     CreatedBy = CreatedByBiddingAdmin,
                     Deleted = false,
-                    LastUpdatedAt = null,
-                    LastUpdatedBy = null
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin
                 },
                 new AuctionCondition
                 {
@@ -432,8 +414,8 @@ namespace Bidding.Database.Contexts
                     CreatedAt = CreatedAtDateTime,
                     CreatedBy = CreatedByBiddingAdmin,
                     Deleted = false,
-                    LastUpdatedAt = null,
-                    LastUpdatedBy = null
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin
                 },
                 new AuctionCondition
                 {
@@ -442,49 +424,166 @@ namespace Bidding.Database.Contexts
                     CreatedAt = CreatedAtDateTime,
                     CreatedBy = CreatedByBiddingAdmin,
                     Deleted = false,
-                    LastUpdatedAt = null,
-                    LastUpdatedBy = null
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin
                 }
             );
         }
 
-        private static void PopulateAuctionCategories(ModelBuilder modelBuilder)
+        private static void PopulateAuctions(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<AuctionCategory>().HasData(
-                new AuctionCategory { AuctionCategoryId = 1, CategoryId = 1, AuctionId = 1 },
-                new AuctionCategory { AuctionCategoryId = 2, CategoryId = 3, AuctionId = 2 },
-                new AuctionCategory { AuctionCategoryId = 3, CategoryId = 2, AuctionId = 3 },
-                new AuctionCategory { AuctionCategoryId = 4, CategoryId = 1, AuctionId = 4 }
+            modelBuilder.Entity<Auction>().HasData(
+                new Auction
+                {
+                    AuctionId = 1,
+                    Name = "Tesla Model 3",
+                    StartingPrice = 15000,
+                    StartDate = CreatedAtDateTime.AddMonths(1),
+                    ApplyTillDate = CreatedAtDateTime.AddMonths(5),
+                    EndDate = CreatedAtDateTime.AddMonths(12),
+                    AuctionCategoryId = 1,
+                    AuctionTypeId = 1,
+                    AuctionStatusId = 1,
+                    CreatedAt = CreatedAtDateTime,
+                    CreatedBy = CreatedByBiddingAdmin,
+                    Deleted = false,
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin
+                },
+                new Auction
+                {
+                    AuctionId = 2,
+                    Name = "Penthouse tipa dzīvoklis Vecrīgas sirdī",
+                    StartingPrice = 50000,
+                    StartDate = CreatedAtDateTime.AddMonths(1),
+                    ApplyTillDate = CreatedAtDateTime.AddMonths(5),
+                    EndDate = CreatedAtDateTime.AddMonths(12),
+                    AuctionCategoryId = 3,
+                    AuctionTypeId = 13,
+                    AuctionStatusId = 1,
+                    CreatedAt = CreatedAtDateTime,
+                    CreatedBy = CreatedByBiddingAdmin,
+                    Deleted = false,
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin
+                },
+                new Auction
+                {
+                    AuctionId = 3,
+                    Name = "Vīna skapis",
+                    StartingPrice = 900,
+                    StartDate = CreatedAtDateTime.AddMonths(1),
+                    ApplyTillDate = CreatedAtDateTime.AddMonths(5),
+                    EndDate = CreatedAtDateTime.AddMonths(12),
+                    AuctionCategoryId = 2,
+                    AuctionTypeId = 12,
+                    AuctionStatusId = 1,
+                    CreatedAt = CreatedAtDateTime,
+                    CreatedBy = CreatedByBiddingAdmin,
+                    Deleted = false,
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin
+                }
             );
         }
 
-        private static void PopulateCategoryTypes(ModelBuilder modelBuilder)
+        private static void PopulateAuctionItems(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<CategoryType>().HasData(
-                new CategoryType { CategoryTypeId = 1, CategoryId = 1, TypeId = 1 },
-                new CategoryType { CategoryTypeId = 2, CategoryId = 1, TypeId = 2 },
-                new CategoryType { CategoryTypeId = 3, CategoryId = 1, TypeId = 3 },
-                new CategoryType { CategoryTypeId = 4, CategoryId = 1, TypeId = 4 },
-                new CategoryType { CategoryTypeId = 5, CategoryId = 1, TypeId = 5 },
-                new CategoryType { CategoryTypeId = 6, CategoryId = 1, TypeId = 6 },
-                new CategoryType { CategoryTypeId = 7, CategoryId = 2, TypeId = 7 },
-                new CategoryType { CategoryTypeId = 8, CategoryId = 2, TypeId = 8 },
-                new CategoryType { CategoryTypeId = 9, CategoryId = 2, TypeId = 9 },
-                new CategoryType { CategoryTypeId = 10, CategoryId = 2, TypeId = 10 },
-                new CategoryType { CategoryTypeId = 11, CategoryId = 2, TypeId = 11 },
-                new CategoryType { CategoryTypeId = 12, CategoryId = 3, TypeId = 12 },
-                new CategoryType { CategoryTypeId = 13, CategoryId = 3, TypeId = 13 },
-                new CategoryType { CategoryTypeId = 14, CategoryId = 3, TypeId = 14 }
+            modelBuilder.Entity<AuctionItem>().HasData(
+                new AuctionItem
+                {
+                    AuctionItemId = 1,
+                    Name = "Tesla Model 3",
+                    AuctionId = 1,
+                    AuctionItemCategoryId = 1,
+                    AuctionItemTypeId = 1,
+                    CreatedAt = CreatedAtDateTime,
+                    CreatedBy = CreatedByBiddingAdmin,
+                    Deleted = false,
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin
+                },
+                new AuctionItem
+                {
+                    AuctionItemId = 2,
+                    Name = "Penthouse tipa dzīvoklis Vecrīgas sirdī",
+                    AuctionId = 2,
+                    AuctionItemCategoryId = 3,
+                    AuctionItemTypeId = 13,
+                    CreatedAt = CreatedAtDateTime,
+                    CreatedBy = CreatedByBiddingAdmin,
+                    Deleted = false,
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin
+                },
+                new AuctionItem
+                {
+                    AuctionItemId = 3,
+                    Name = "Vīna skapis",
+                    AuctionId = 3,
+                    AuctionItemCategoryId = 2,
+                    AuctionItemTypeId = 12,
+                    CreatedAt = CreatedAtDateTime,
+                    CreatedBy = CreatedByBiddingAdmin,
+                    Deleted = false,
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin
+                }
             );
         }
 
-        private static void PopulateAuctionTypes(ModelBuilder modelBuilder)
+        private static void PopulateItemAuctionDetails(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<AuctionType>().HasData(
-                new AuctionType { AuctionTypeId = 1, TypeId = 1, AuctionId = 1 },
-                new AuctionType { AuctionTypeId = 2, TypeId = 3, AuctionId = 2 },
-                new AuctionType { AuctionTypeId = 3, TypeId = 2, AuctionId = 3 },
-                new AuctionType { AuctionTypeId = 4, TypeId = 1, AuctionId = 4 }
+            modelBuilder.Entity<ItemAuctionDetails>().HasData(
+                new ItemAuctionDetails
+                {
+                    ItemAuctionDetailsId = 1,
+                    AuctionItemId = 3,
+                    Model = "In progress",
+                    ManufacturingDate = DateTime.UtcNow,
+                    Evaluation = "In progress",
+                    CreatedAt = CreatedAtDateTime,
+                    CreatedBy = CreatedByBiddingAdmin,
+                    Deleted = false,
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin
+                }
+            );
+        }
+
+        private static void PopulatePropertyAuctionDetails(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<PropertyAuctionDetails>().HasData(
+                new PropertyAuctionDetails
+                {
+                    PropertyAuctionDetailsId = 1,
+                    AuctionItemId = 2,
+                    CreatedAt = CreatedAtDateTime,
+                    CreatedBy = CreatedByBiddingAdmin,
+                    Deleted = false,
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin
+                }
+            );
+        }
+
+        private static void PopulateVehicleAuctionDetails(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<VehicleAuctionDetails>().HasData(
+                new VehicleAuctionDetails
+                {
+                    VehicleAuctionDetailsId = 1,
+                    AuctionItemId = 1,
+                    Make = "In progress",
+                    Model = "In progress",
+                    ManufacturingDate = DateTime.UtcNow,
+                    Evaluation = "In progress",
+                    CreatedAt = CreatedAtDateTime,
+                    CreatedBy = CreatedByBiddingAdmin,
+                    Deleted = false,
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin
+                }
             );
         }
     }

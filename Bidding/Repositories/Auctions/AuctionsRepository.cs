@@ -15,13 +15,17 @@ using Bidding.Models.ViewModels.Bidding.Filters;
 using Bidding.Shared.ErrorHandling.Errors;
 using Bidding.Shared.Exceptions;
 using Bidding.Shared.Utility;
-using BiddingAPI.Models.DatabaseModels;
-using BiddingAPI.Models.DatabaseModels.Bidding;
-using BiddingAPI.Models.ViewModels.Bidding.Auctions;
+using Bidding.Models.DatabaseModels;
+using Bidding.Models.DatabaseModels.Bidding;
+using Bidding.Models.ViewModels.Bidding.Auctions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Bidding.Database.Contexts;
+using Bidding.Database.DatabaseModels.Auctions.Details;
+using Bidding.Models.ViewModels.Bidding.Shared.Categories;
+using Bidding.Models.ViewModels.Bidding.Shared.Types;
 
-namespace BiddingAPI.Repositories.Auctions
+namespace Bidding.Repositories.Auctions
 {
     public class AuctionsRepository
     {
@@ -46,23 +50,23 @@ namespace BiddingAPI.Repositories.Auctions
             try
             {
                 // todo: kke: move this to the stored procedure as a case / if
-                if (selectedCategoryIds.IsNotSpecified())
-                {
-                    selectedCategoryIds = m_context.Categories.Select(cat => cat.CategoryId).ToList();
-                }
+                //if (selectedCategoryIds.IsNotSpecified())
+                //{
+                //    selectedCategoryIds = m_context.Categories.Select(cat => cat.CategoryId).ToList();
+                //}
 
                 // todo: kke: move this to the stored procedure as a case / if
-                if (selectedTypeIds.IsNotSpecified())
-                {
-                    selectedTypeIds = m_context.Types.Select(typ => typ.TypeId).ToList();
-                }
+                //if (selectedTypeIds.IsNotSpecified())
+                //{
+                //    selectedTypeIds = m_context.Types.Select(typ => typ.TypeId).ToList();
+                //}
 
                 SqlParameter categories = new SqlParameter
                 {
                     ParameterName = "selectedCategories",
                     Direction = ParameterDirection.Input,
                     Value = CreateIdTable(selectedCategoryIds, "CategoryId"),
-                    TypeName = "CategoryIdArray",
+                    TypeName = "BID_CategoryIdArray",
                     SqlDbType = SqlDbType.Structured
                 };
 
@@ -71,7 +75,7 @@ namespace BiddingAPI.Repositories.Auctions
                     ParameterName = "selectedTypes",
                     Direction = ParameterDirection.Input,
                     Value = CreateIdTable(selectedTypeIds, "TypeId"),
-                    TypeName = "TypeIdArray",
+                    TypeName = "BID_TypeIdArray",
                     SqlDbType = SqlDbType.Structured
                 };
 
@@ -92,7 +96,7 @@ namespace BiddingAPI.Repositories.Auctions
                 };
 
                 return m_context.Query<AuctionListModel>()
-                    .FromSql("GetAuctions @selectedCategories, @selectedTypes, @start, @end", categories, types, startPaginationFrom, endPaginationAt);
+                    .FromSql("BID_GetAuctions @selectedCategories, @selectedTypes, @start, @end", categories, types, startPaginationFrom, endPaginationAt);
             }
             catch (Exception ex)
             {
@@ -113,18 +117,49 @@ namespace BiddingAPI.Repositories.Auctions
         /// Loads top categories with total count
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<TopCategoryFilterModel> LoadTopCategories()
+        public IEnumerable<TopCategoryFilterModel> LoadActiveTopCategoriesWithCount()
         {
-            return m_context.TopCategoryFilter.FromSql("GetTopCategoriesWithCount");
+            // todo: kke: what about status here?
+            return m_context.TopCategoryFilter.FromSql("BID_GetTopCategoriesWithCount");
         }
 
         /// <summary>
         /// Loads sub-categories with total count
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<SubCategoryFilterModel> LoadSubCategories()
+        public IEnumerable<SubCategoryFilterModel> LoadActiveSubCategoriesWithCount()
         {
-            return m_context.SubCategoryFilter.FromSql("GetSubCategoriesWithCount");
+            // todo: kke: what about status here?
+            return m_context.SubCategoryFilter.FromSql("BID_GetSubCategoriesWithCount");
+        }
+
+        /// <summary>
+        /// Loads all active top-categories
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<CategoryModel> LoadTopCategories()
+        {
+            return m_context.Categories
+                .Select(cat => new CategoryModel
+                {
+                    CategoryId = cat.CategoryId,
+                    CategoryName = cat.Name
+                });
+        }
+
+        /// <summary>
+        /// Loads all active sub-categories / types with category connection
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<TypeModel> LoadSubCategories()
+        {
+            return m_context.Types
+                .Select(typ => new TypeModel
+                {
+                    CategoryId = typ.AuctionCategoryId,
+                    TypeId = typ.TypeId,
+                    TypeName = typ.Name
+                });
         }
 
         /// <summary>
@@ -185,21 +220,21 @@ namespace BiddingAPI.Repositories.Auctions
             if (auctionExists)
             {
                 return from auct in m_context.Auctions
-                       join acat in m_context.AuctionCategories on auct.AuctionId equals acat.AuctionId
-                       join atyp in m_context.AuctionTypes on auct.AuctionId equals atyp.AuctionId
-                       join cat in m_context.Categories on acat.CategoryId equals cat.CategoryId
-                       join typ in m_context.Types on atyp.TypeId equals typ.TypeId
-                       join adet in m_context.AuctionDetails on auct.AuctionId equals adet.AuctionId
+                           //join acat in m_context.AuctionCategories on auct.AuctionId equals acat.AuctionId
+                           //join atyp in m_context.AuctionTypes on auct.AuctionId equals atyp.AuctionId
+                           //join cat in m_context.Categories on acat.CategoryId equals cat.CategoryId
+                           //join typ in m_context.Types on atyp.TypeId equals typ.TypeId
+                           // join adet in m_context.AuctionDetails on auct.AuctionId equals adet.AuctionId
                        where auct.AuctionId == request.AuctionId
                        select new AuctionDetailsResponseModel()
                        {
                            AuctionName = auct.Name,
-                           CategoryName = cat.Name,
-                           TypeName = typ.Name,
+                           //CategoryName = cat.Name,
+                           //TypeName = typ.Name,
                            AuctionStartingPrice = auct.StartingPrice,
                            AuctionStartDate = auct.StartDate,
-                           AuctionEndDate = auct.EndDate ?? auct.EndDate.Value,
-                           AuctionDescription = adet.Description
+                           AuctionEndDate = auct.EndDate,
+                           AuctionDescription = "" // adet.Description
                        };
             }
             else
@@ -208,38 +243,25 @@ namespace BiddingAPI.Repositories.Auctions
             }
         }
 
-        // This is only example!
-        public bool CreateEXAMPLE(string request)
+        public bool CreateItemAuction(ItemAuctionModel request)
         {
             int defaultAuctionStatusId = ValidateAndFetchAuctionStatus();
 
             Auction newAuction = new Auction()
             {
-                Name = request,
-                StartingPrice = 500, // request.AuctionStartingPrice,
-                StartDate = DateTime.UtcNow, // request.AuctionStartDate,
-                ApplyDate = DateTime.UtcNow,// request.AuctionApplyTillDate ?? request.AuctionApplyTillDate.Value,
-                EndDate = DateTime.UtcNow, // request.AuctionEndDate ?? request.AuctionEndDate.Value,
-                CreatedAt = DateTime.UtcNow, // utc time always
-                // CreatedBy = loggedInUserId,
-                Deleted = false,
+                Name = request.ItemName,
+                StartingPrice = request.ItemStartingPrice,
+                StartDate = DateTime.UtcNow,
+                ApplyTillDate = DateTime.UtcNow,
+                EndDate = DateTime.UtcNow,
+                AuctionCategoryId = request.AuctionTopCategoryId,
+                AuctionTypeId = request.AuctionSubCategoryId,
                 AuctionStatusId = defaultAuctionStatusId,
-                AuctionCategories = PopulateAuctionCategories(new List<int>(new int[] { 1 })).ToList(),
-                AuctionTypes = new List<AuctionType>()
-                {
-                    new AuctionType { TypeId = 1 }
-                }
+                CreatedAt = DateTime.UtcNow,
+                CreatedBy = 1,
+                LastUpdatedAt = DateTime.UtcNow,
+                LastUpdatedBy = 1
             };
-
-            // todo: kke: does this make sense?
-            // that auction id also in auction details table?
-            // and and auction details id missing from auction table?
-            //AuctionDetails auctionDetails = new AuctionDetails()
-            //{
-            //    AuctionId = auction.AuctionId,
-            //    AuctionFormatId = request.AuctionFormatId
-            //    // AuctionConditionId
-            //};
 
             var strategy = m_context.Database.CreateExecutionStrategy();
             strategy.Execute(() =>
@@ -248,85 +270,40 @@ namespace BiddingAPI.Repositories.Auctions
                 {
                     using (var transaction = m_context.Database.BeginTransaction())
                     {
+                        // add Auction
                         m_context.Auctions.Add(newAuction);
                         m_context.SaveChanges();
 
-                        var auctionDetails = new AuctionDetails()
+                        AuctionItem newAuctionItem = new AuctionItem()
                         {
-                            Description = "janis rox",
-                            AuctionFormatId = 1,
-                            AuctionConditionId = 1,
-                            AuctionId = newAuction.AuctionId
+                            Name = request.ItemName,
+                            AuctionId = newAuction.AuctionId,
+                            AuctionItemCategoryId = request.AuctionTopCategoryId,
+                            AuctionItemTypeId = request.AuctionSubCategoryId,
+                            CreatedAt = DateTime.UtcNow,
+                            CreatedBy = 1,
+                            LastUpdatedAt = DateTime.UtcNow,
+                            LastUpdatedBy = 1
                         };
 
-                        // newAuction.AuctionDetails = auctionDetails;
-                        m_context.AuctionDetails.Add(auctionDetails);
+                        // add Auction Item
+                        m_context.AuctionItems.Add(newAuctionItem);
                         m_context.SaveChanges();
 
-                        transaction.Commit();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.CouldNotCreateAuction, ex);
-                }
-            });
-
-            return true;
-        }
-
-        public bool CreateItemAuction(ItemAuctionModel request)
-        {
-            // int defaultAuctionStatusId = ValidateAndFetchAuctionStatus();
-
-            Auction newAuction = new Auction()
-            {
-                Name = "",
-                StartingPrice = 500, // request.AuctionStartingPrice,
-                StartDate = DateTime.UtcNow, // request.AuctionStartDate,
-                ApplyDate = DateTime.UtcNow,// request.AuctionApplyTillDate ?? request.AuctionApplyTillDate.Value,
-                EndDate = DateTime.UtcNow, // request.AuctionEndDate ?? request.AuctionEndDate.Value,
-                CreatedAt = DateTime.UtcNow, // utc time always
-                // CreatedBy = loggedInUserId,
-                Deleted = false,
-                AuctionStatusId = 1,//defaultAuctionStatusId,
-                AuctionCategories = PopulateAuctionCategories(new List<int>(new int[] { 1 })).ToList(),
-                AuctionTypes = new List<AuctionType>()
-                {
-                    new AuctionType { TypeId = 1 }
-                }
-            };
-
-            // todo: kke: does this make sense?
-            // that auction id also in auction details table?
-            // and and auction details id missing from auction table?
-            //AuctionDetails auctionDetails = new AuctionDetails()
-            //{
-            //    AuctionId = auction.AuctionId,
-            //    AuctionFormatId = request.AuctionFormatId
-            //    // AuctionConditionId
-            //};
-
-            var strategy = m_context.Database.CreateExecutionStrategy();
-            strategy.Execute(() =>
-            {
-                try
-                {
-                    using (var transaction = m_context.Database.BeginTransaction())
-                    {
-                        m_context.Auctions.Add(newAuction);
-                        m_context.SaveChanges();
-
-                        var auctionDetails = new AuctionDetails()
+                        var itemAuctionDetails = new ItemAuctionDetails()
                         {
-                            Description = "janis rox",
-                            AuctionFormatId = 1,
-                            AuctionConditionId = 1,
-                            AuctionId = newAuction.AuctionId
+                            AuctionItemId = newAuctionItem.AuctionItemId,
+                            Model = request.ItemModel,
+                            ManufacturingDate = DateTime.UtcNow,
+                            Evaluation = request.ItemEvaluation,
+                            CreatedAt = DateTime.UtcNow,
+                            CreatedBy = 1,
+                            LastUpdatedAt = DateTime.UtcNow,
+                            LastUpdatedBy = 1
                         };
 
-                        // newAuction.AuctionDetails = auctionDetails;
-                        m_context.AuctionDetails.Add(auctionDetails);
+                        // add Auction item details
+                        m_context.ItemAuctionDetails.Add(itemAuctionDetails);
                         m_context.SaveChanges();
 
                         transaction.Commit();
@@ -432,9 +409,12 @@ namespace BiddingAPI.Repositories.Auctions
             DataTable table = new DataTable();
             table.Columns.Add(nameOfId, typeof(int));
 
-            foreach (int id in ids)
+            if (ids.IsNotSpecified() == false)
             {
-                table.Rows.Add(id);
+                foreach (int id in ids)
+                {
+                    table.Rows.Add(id);
+                }
             }
 
             return table;
@@ -446,6 +426,7 @@ namespace BiddingAPI.Repositories.Auctions
         /// <returns></returns>
         private int ValidateAndFetchAuctionStatus()
         {
+            // todo: kke: add to be constant!
             int defaultAuctionStatusId =
                 m_context.AuctionStatuses.Where(sta => sta.Name == "Aktīva").Select(sta => sta.AuctionStatusId).FirstOrDefault();
 
@@ -455,16 +436,6 @@ namespace BiddingAPI.Repositories.Auctions
             }
 
             return defaultAuctionStatusId;
-        }
-
-        /// <summary>
-        /// Populate AuctionCategories mapping / intermediary table
-        /// </summary>
-        /// <param name="selectedCategoryIds"></param>
-        /// <returns></returns>
-        private IEnumerable<AuctionCategory> PopulateAuctionCategories(List<int> selectedCategoryIds)
-        {
-            return selectedCategoryIds.Select(cat => new AuctionCategory() { CategoryId = cat });
         }
     }
 }

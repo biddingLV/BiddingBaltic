@@ -28,7 +28,10 @@ export class AuctionListComponent implements OnInit, OnDestroy, OnChanges {
   @Input() typeIds?: number[];
 
   /** Search bar text */
-  @Input() searchText = '';
+  @Input() searchText?: '';
+
+  /** Used to update auction list from parent components */
+  @Input() updateAuctionList?: false; // todo: kke: this is not working atm!
 
   // table
   auctionsSub: Subscription;
@@ -101,6 +104,9 @@ export class AuctionListComponent implements OnInit, OnDestroy, OnChanges {
         case 'searchText':
           this.request.searchValue = changes[property].currentValue;
           this.getAuctions();
+          break;
+        case 'updateAuctionList':
+          this.getAuctions(); // todo: kke: this is not working atm!
           break;
         default:
           break;

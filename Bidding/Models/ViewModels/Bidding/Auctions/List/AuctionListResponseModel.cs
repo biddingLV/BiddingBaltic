@@ -1,6 +1,6 @@
 ﻿using Bidding.Models.ViewModels.Bidding.Auctions.List;
-using BiddingAPI.Models.DatabaseModels.Bidding;
-using BiddingAPI.Models.ViewModels.BaseModels;
+using Bidding.Models.DatabaseModels.Bidding;
+using Bidding.Models.ViewModels.BaseModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;

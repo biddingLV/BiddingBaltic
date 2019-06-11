@@ -1,9 +1,10 @@
 ﻿using Bidding.Models.ViewModels.Bidding.Shared;
-using BiddingAPI.Models.DatabaseModels;
+using Bidding.Models.DatabaseModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Bidding.Database.Contexts;
 
 namespace Bidding.Repositories.Shared
 {

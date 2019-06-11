@@ -52,8 +52,10 @@ export class AuctionAddCategoryWizardStepComponent implements OnInit {
     if (categoryId) {
       this.categoryStepForm.get('auctionSubCategory').enable();
       this.categoryStepForm.get('auctionSubCategory').reset();
+
       this.auctionTypes = this.categories.subCategories.filter(item => item.categoryId == categoryId);
     } else {
+      // todo: kke: I think this is not really needed anymore, because you can only select one cat! cant de-select!
       this.categoryStepForm.get('auctionSubCategory').disable();
       this.auctionTypes = this.categories.subCategories;
     }

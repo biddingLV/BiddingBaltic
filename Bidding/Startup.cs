@@ -10,13 +10,13 @@ using Bidding.Shared.ErrorHandling.Errors;
 using Bidding.Shared.ErrorHandling.Validators;
 using Bidding.Shared.Exceptions;
 using Bidding.Shared.Utility;
-using BiddingAPI.Models.ApplicationModels.Configuration;
-using BiddingAPI.Models.DatabaseModels;
-using BiddingAPI.Models.DatabaseModels.Bidding;
-using BiddingAPI.Repositories.Auctions;
-using BiddingAPI.Repositories.Subscribe;
-using BiddingAPI.Services.Auctions;
-using BiddingAPI.Services.Subscribe;
+using Bidding.Models.ApplicationModels.Configuration;
+using Bidding.Models.DatabaseModels;
+using Bidding.Models.DatabaseModels.Bidding;
+using Bidding.Repositories.Auctions;
+using Bidding.Repositories.Subscribe;
+using Bidding.Services.Auctions;
+using Bidding.Services.Subscribe;
 using FluentValidation;
 using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -40,6 +40,8 @@ using System.Net;
 using System.Security.Claims;
 using System.Security.Principal;
 using System.Threading.Tasks;
+using Bidding.Database.Contexts;
+using Bidding.Database.DatabaseModels.Auctions;
 
 namespace Bidding
 {

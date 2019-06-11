@@ -17,6 +17,7 @@ import { AuctionFormatModel } from '../models/add/auction-format.model';
 import { AuctionCreatorModel } from '../models/add/auction-creator.model';
 import { AuctionStatusModel } from '../models/add/auction-status.model';
 import { AuctionDeleteRequest } from '../models/delete/auction-delete-request.model';
+import { CategoriesWithTypesModel } from '../models/add/categories-with-types.model';
 
 
 @Injectable({
@@ -60,10 +61,19 @@ export class AuctionsService {
       .pipe(catchError(this.exception.errorHandler));
   }
 
+  /** Loads filters for auction list */
   getFilters$(): Observable<AuctionFilterModel> {
     const url = '/api/auctions/filters';
 
     return this.http.get<AuctionFilterModel>(url)
+      .pipe(catchError(this.exception.errorHandler));
+  }
+
+  /** Fetch all top-categories with sub-categories / types for auction add wizard */
+  categoriesWithTypes$(): Observable<CategoriesWithTypesModel> {
+    const url = '/api/auctions/CategoriesWithTypes';
+
+    return this.http.get<CategoriesWithTypesModel>(url)
       .pipe(catchError(this.exception.errorHandler));
   }
 

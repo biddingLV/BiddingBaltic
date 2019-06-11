@@ -14,14 +14,15 @@ using Bidding.Shared.ErrorHandling.Validators;
 using Bidding.Shared.Exceptions;
 using Bidding.Shared.Pagination;
 using Bidding.Shared.Utility;
-using BiddingAPI.Models.DatabaseModels;
-using BiddingAPI.Models.DatabaseModels.Bidding;
-using BiddingAPI.Models.ViewModels.Bidding.Auctions;
-using BiddingAPI.Repositories.Auctions;
+using Bidding.Models.DatabaseModels;
+using Bidding.Models.DatabaseModels.Bidding;
+using Bidding.Models.ViewModels.Bidding.Auctions;
+using Bidding.Repositories.Auctions;
 using FluentValidation;
 using FluentValidation.Results;
+using Bidding.Database.DatabaseModels.Auctions;
 
-namespace BiddingAPI.Services.Auctions
+namespace Bidding.Services.Auctions
 {
     public class AuctionsService
     {
@@ -65,6 +66,17 @@ namespace BiddingAPI.Services.Auctions
             m_permissionService.IsLoggedInUserActive();
 
             return new AuctionFilterModel()
+            {
+                TopCategories = m_auctionsRepository.LoadActiveTopCategoriesWithCount().ToList(),
+                SubCategories = m_auctionsRepository.LoadActiveSubCategoriesWithCount().ToList()
+            };
+        }
+
+        public CategoriesWithTypesModel CategoriesWithTypes()
+        {
+            m_permissionService.IsLoggedInUserActive();
+
+            return new CategoriesWithTypesModel()
             {
                 TopCategories = m_auctionsRepository.LoadTopCategories().ToList(),
                 SubCategories = m_auctionsRepository.LoadSubCategories().ToList()
@@ -133,6 +145,7 @@ namespace BiddingAPI.Services.Auctions
         {
             bool status = false;
 
+            // todo: kke: this logic is now based only that you can create ONE Single auction in GO!
             // todo: kke: maybe it makes more sense to use here selected top category not model definition?
             if (request.ItemAuction.IsNotSpecified() == false)
             {

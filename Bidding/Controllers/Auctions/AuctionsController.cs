@@ -5,15 +5,13 @@ using System.Threading.Tasks;
 using Bidding.Models.ViewModels.Bidding.Auctions;
 using Bidding.Models.ViewModels.Bidding.Auctions.Add;
 using Bidding.Models.ViewModels.Bidding.Auctions.Details;
-using BiddingAPI.Models.DatabaseModels.Bidding;
-using BiddingAPI.Models.ViewModels.Bidding.Auctions;
-using BiddingAPI.Services.Auctions;
+using Bidding.Services.Auctions;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BiddingAPI.Controllers.Auctions
+namespace Bidding.Controllers.Auctions
 {
     [Produces("application/json")]
     [Route("api/[Controller]/[action]")]
@@ -47,6 +45,17 @@ namespace BiddingAPI.Controllers.Auctions
         public IActionResult Filters()
         {
             return Ok(m_auctionsService.Filters());
+        }
+
+        /// <summary>
+        /// Fetch all top-categories with sub-categories / types for auction add wizard
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Authorize(Roles = "User, Admin")]
+        public IActionResult CategoriesWithTypes()
+        {
+            return Ok(m_auctionsService.CategoriesWithTypes());
         }
 
         /// <summary>

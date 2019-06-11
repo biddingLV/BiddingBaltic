@@ -66,7 +66,7 @@ export class AuctionAddWizardItemComponent implements OnInit {
       itemManufacturingDate: ['2017', []],
       itemCondition: ['Lietots', []],
       itemEvaluation: ['5000', [Validators.required]],
-      itemStartingPrice: ['1500', []]
+      itemStartingPrice: [1500, []]
     });
   }
 }

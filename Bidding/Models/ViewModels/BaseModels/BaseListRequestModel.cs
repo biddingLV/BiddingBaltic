@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace BiddingAPI.Models.ViewModels.BaseModels
+namespace Bidding.Models.ViewModels.BaseModels
 {
     public class BaseListRequestModel
     {

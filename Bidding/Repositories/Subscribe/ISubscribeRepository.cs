@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Bidding.Models.ViewModels.Bidding.Subscribe;
 
-namespace BiddingAPI.Repositories.Subscribe
+namespace Bidding.Repositories.Subscribe
 {
     public interface ISubscribeRepository
     {

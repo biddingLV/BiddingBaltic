@@ -1,11 +1,13 @@
 ﻿using Bidding.Database.DatabaseModels.Auctions;
-using BiddingAPI.Models.DatabaseModels.Bidding;
+using Bidding.Database.DatabaseModels.Auctions.Details;
+using Bidding.Models.DatabaseModels;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using Type = Bidding.Models.DatabaseModels.Type;
 
-namespace BiddingAPI.Models.DatabaseModels
+namespace Bidding.Database.DatabaseModels.Users
 {
     public partial class User
     {
@@ -26,6 +28,9 @@ namespace BiddingAPI.Models.DatabaseModels
         [MaxLength(50)]
         public string Email { get; set; }
 
+        public int RoleId { get; set; }
+        public Role Role { get; set; }
+
         /// <summary>
         /// format: (identity provider)|(unique id in the provider)
         /// </summary>
@@ -34,25 +39,26 @@ namespace BiddingAPI.Models.DatabaseModels
         public string UniqueIdentifier { get; set; }
 
         [Required]
-        [DataType(DataType.Date)]
         public DateTime CreatedAt { get; set; }
 
-        public int? CreatedBy { get; set; }
+        [Required]
+        public int CreatedBy { get; set; }
 
-        [DataType(DataType.Date)]
-        public DateTime? LastUpdatedAt { get; set; }
-        public int? LastUpdatedBy { get; set; }
+        public DateTime LastUpdatedAt { get; set; }
+
+        public int LastUpdatedBy { get; set; }
+
         public bool Deleted { get; set; }
 
-        // Relationship definitions
         public List<Auction> Auctions { get; set; }
         public List<AuctionStatus> AuctionStatuses { get; set; }
         public List<Category> Categories { get; set; }
         public List<Type> Types { get; set; }
         public List<AuctionCondition> AuctionConditions { get; set; }
         public List<AuctionFormat> AuctionFormats { get; set; }
-
-        public int RoleId { get; set; }
-        public Role Role { get; set; }
+        public List<AuctionItem> AuctionItems { get; set; }
+        public List<ItemAuctionDetails> ItemAuctionDetails { get; set; }
+        public List<PropertyAuctionDetails> PropertyAuctionDetails { get; set; }
+        public List<VehicleAuctionDetails> VehicleAuctionDetails { get; set; }
     }
 }

@@ -2,9 +2,13 @@
 import { FormGroup, AbstractControl } from '@angular/forms';
 import { Injectable } from '@angular/core';
 
+// 3rd lib
+import { Subscription } from 'rxjs';
+
 
 @Injectable()
 export class FormService {
+  unsubscribeFlag = false;
 
   /**
   * Marks all controls in a form group as touched
@@ -92,6 +96,36 @@ export class FormService {
     }
 
     return formErrors;
+  }
+
+
+  /**
+  * On close, cancel & backdrop-click dont do anyhing,
+  * On submit clean selected values & update information - list/details(if needed)
+  * @param result - on Hide result event name
+  * @param subscriptions - all subscriptions array
+  */
+  onModalHide(result: string, subscriptions: Subscription[]): boolean {
+    this.unsubscribeFlag = false;
+
+    if (result !== null && result !== 'backdrop-click') {
+      this.unsubscribeFlag = true;
+      this.unsubscribe(subscriptions);
+    }
+
+    return this.unsubscribeFlag;
+  }
+
+  /**
+* Unsubscribes from subscriptions
+* @param subscriptions - all subscriptions array
+*/
+  private unsubscribe(subscriptions: Subscription[]): void {
+    subscriptions.forEach((subscription: Subscription) => {
+      subscription.unsubscribe();
+    });
+
+    subscriptions = [];
   }
 
   /**

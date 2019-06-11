@@ -6,6 +6,6 @@ namespace Auctions {
     itemModel: string;
     itemManufacturingDate: string;
     itemEvaluation: string;
-    itemStartingPrice: string;
+    itemStartingPrice: number;
   }
 }

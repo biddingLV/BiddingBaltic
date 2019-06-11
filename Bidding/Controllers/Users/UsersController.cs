@@ -2,7 +2,7 @@
 using Bidding.Services.Users;
 using Microsoft.AspNetCore.Mvc;
 
-namespace BiddingAPI.Controllers.Users
+namespace Bidding.Controllers.Users
 {
     [Produces("application/json")]
     [Route("api/[Controller]/[action]")]

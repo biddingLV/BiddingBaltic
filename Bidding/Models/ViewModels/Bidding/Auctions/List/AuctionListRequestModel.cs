@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using BiddingAPI.Models.ViewModels.BaseModels;
+using Bidding.Models.ViewModels.BaseModels;
 
-namespace BiddingAPI.Models.ViewModels.Bidding.Auctions
+namespace Bidding.Models.ViewModels.Bidding.Auctions
 {
     public class AuctionListRequestModel : BaseListRequestModel
     {
