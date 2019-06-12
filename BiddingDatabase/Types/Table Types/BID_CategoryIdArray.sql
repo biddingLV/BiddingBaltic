@@ -1,2 +1,1 @@
 ﻿CREATE TYPE BID_CategoryIdArray AS TABLE (CategoryId INT NULL);
-CREATE TYPE BID_TypeIdArray AS TABLE(TypeId INT NULL);

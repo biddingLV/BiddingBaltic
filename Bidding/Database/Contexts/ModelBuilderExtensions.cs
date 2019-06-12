@@ -65,9 +65,9 @@ namespace Bidding.Database.Contexts
                 new User
                 {
                     UserId = 1,
-                    FirstName = "Peteris",
-                    MiddleName = "Admin",
-                    LastName = "Liepins",
+                    FirstName = "Test",
+                    MiddleName = "",
+                    LastName = "Admin",
                     Email = "dummyadmin@bidding.lv",
                     RoleId = 2,
                     Deleted = false,
@@ -80,11 +80,71 @@ namespace Bidding.Database.Contexts
                 new User
                 {
                     UserId = 2,
-                    FirstName = "Peteris",
-                    MiddleName = "User",
-                    LastName = "Liepins",
+                    FirstName = "Test",
+                    MiddleName = "",
+                    LastName = "User",
                     Email = "dummyuser@bidding.lv",
                     RoleId = 1,
+                    Deleted = false,
+                    UniqueIdentifier = "",
+                    CreatedAt = CreatedAtDateTime,
+                    CreatedBy = CreatedByBiddingAdmin,
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin
+                },
+                new User
+                {
+                    UserId = 3,
+                    FirstName = "Zane",
+                    MiddleName = "",
+                    LastName = "",
+                    Email = "zanehaartman@gmail.com",
+                    RoleId = 2,
+                    Deleted = false,
+                    UniqueIdentifier = "",
+                    CreatedAt = CreatedAtDateTime,
+                    CreatedBy = CreatedByBiddingAdmin,
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin
+                },
+                new User
+                {
+                    UserId = 4,
+                    FirstName = "Kristaps",
+                    MiddleName = "",
+                    LastName = "",
+                    Email = "kristaps.kerpe@gmail.com",
+                    RoleId = 2,
+                    Deleted = false,
+                    UniqueIdentifier = "",
+                    CreatedAt = CreatedAtDateTime,
+                    CreatedBy = CreatedByBiddingAdmin,
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin
+                },
+                new User
+                {
+                    UserId = 5,
+                    FirstName = "Jānis",
+                    MiddleName = "",
+                    LastName = "J",
+                    Email = "j.jaunozols@gmail.com",
+                    RoleId = 2,
+                    Deleted = false,
+                    UniqueIdentifier = "",
+                    CreatedAt = CreatedAtDateTime,
+                    CreatedBy = CreatedByBiddingAdmin,
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin
+                },
+                new User
+                {
+                    UserId = 6,
+                    FirstName = "Jānis",
+                    MiddleName = "R",
+                    LastName = "B",
+                    Email = "janis.rihards.blazevics@gmail.com",
+                    RoleId = 2,
                     Deleted = false,
                     UniqueIdentifier = "",
                     CreatedAt = CreatedAtDateTime,

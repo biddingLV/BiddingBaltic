@@ -399,7 +399,7 @@ namespace Bidding
                            }
 
                            // validate user details
-                           ValidateUserDetails(userDetails, usersIdentityId, m_context);
+                           // ValidateUserDetails(userDetails, usersIdentityId, m_context);
 
                            // setup user claims
                            context.Principal.AddIdentity(SetupUserClaims(userDetails));
