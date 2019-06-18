@@ -1,5 +1,7 @@
 <ng-container *ngIf="selectedTopCategoryId == categoryConstants.VEHICLE_CATEGORY">
-  <app-auction-add-wizard-vehicle-category></app-auction-add-wizard-vehicle-category>
+  <app-auction-add-wizard-vehicle-category [selectedSubCategoryId]="selectedSubCategoryId"
+    (returnAddWizardStepForm)="onClickNextReturnForm($event)">
+  </app-auction-add-wizard-vehicle-category>
 </ng-container>
 
 <ng-container *ngIf="selectedTopCategoryId == categoryConstants.ITEM_CATEGORY">
@@ -8,5 +10,6 @@
 </ng-container>
 
 <ng-container *ngIf="selectedTopCategoryId == categoryConstants.OBJECT_CATEGORY">
-  <app-auction-add-wizard-estate-category></app-auction-add-wizard-estate-category>
+  <app-auction-add-wizard-property-category (returnAddWizardStepForm)="onClickNextReturnForm($event)">
+  </app-auction-add-wizard-property-category>
 </ng-container>

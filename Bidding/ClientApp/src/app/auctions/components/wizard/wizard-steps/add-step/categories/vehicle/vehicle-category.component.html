@@ -6,137 +6,90 @@
       <form [formGroup]="addStepForm">
         <div class="form-row">
           <div class="form-group col-6">
-            <label class="required" for="vehicleMake">make:</label>
+            <label for="vehicleMake">Marka:</label>
             <input type="text" formControlName="vehicleMake" class="form-control" id="vehicleMake" name="vehicleMake"
               [ngClass]="{ 'is-invalid': submitted && f.vehicleMake.errors }" />
-
-            <!-- <div *ngIf="submitted && formErrors.make" class="invalid-feedback">
-              {{formErrors.make}}
-            </div> -->
           </div>
 
           <div class="form-group col-6">
-            <label class="required" for="vehicleModel">model:</label>
+            <label for="vehicleModel">Modelis:</label>
             <input type="text" formControlName="vehicleModel" class="form-control" id="vehicleModel" name="vehicleModel"
               [ngClass]="{ 'is-invalid': submitted && f.vehicleModel.errors }" />
-
-            <!-- <div *ngIf="submitted && formErrors.model" class="invalid-feedback">
-              {{formErrors.model}}
-            </div> -->
           </div>
         </div>
 
         <div class="form-row">
           <div class="form-group col-6">
-            <label class="required" for="vehicleManufacturingDate">manufacturingDate:</label>
-            <input type="text" formControlName="vehicleManufacturingDate" class="form-control"
+            <label for="vehicleManufacturingDate">Ražošanas gads:</label>
+            <input type="number" formControlName="vehicleManufacturingDate" class="form-control"
               id="vehicleManufacturingDate" name="vehicleManufacturingDate"
               [ngClass]="{ 'is-invalid': submitted && f.vehicleManufacturingDate.errors }" />
-
-            <!-- <div *ngIf="submitted && formErrors.manufacturingDate" class="invalid-feedback">
-              {{formErrors.manufacturingDate}}
-            </div> -->
           </div>
 
           <div class="form-group col-6">
-            <label class="required" for="vehicleRegistrationNumber">vehicleRegistrationNumber:</label>
-            <input type="text" formControlName="vehicleRegistrationNumber" class="form-control"
+            <label for="vehicleRegistrationNumber">VRN:</label>
+            <input type="number" formControlName="vehicleRegistrationNumber" class="form-control"
               id="vehicleRegistrationNumber" name="vehicleRegistrationNumber"
               [ngClass]="{ 'is-invalid': submitted && f.vehicleRegistrationNumber.errors }" />
-
-            <!-- <div *ngIf="submitted && formErrors.vehicleRegistrationNumber" class="invalid-feedback">
-              {{formErrors.vehicleRegistrationNumber}}
-            </div> -->
           </div>
         </div>
 
         <div class="form-row">
           <div class="form-group col-6">
-            <label class="required" for="vehicleIdentificationNumber">vehicleIdentificationNumber:</label>
-            <input type="text" formControlName="vehicleIdentificationNumber" class="form-control"
+            <label for="vehicleIdentificationNumber">VIN:</label>
+            <input type="number" formControlName="vehicleIdentificationNumber" class="form-control"
               id="vehicleIdentificationNumber" name="vehicleIdentificationNumber"
               [ngClass]="{ 'is-invalid': submitted && f.vehicleIdentificationNumber.errors }" />
-
-            <!-- <div *ngIf="submitted && formErrors.vehicleIdentificationNumber" class="invalid-feedback">
-              {{formErrors.vehicleIdentificationNumber}}
-            </div> -->
           </div>
 
           <div class="form-group col-6">
-            <label class="required" for="vehicleInspectionActive">vehicleInspectionActive:</label>
-            <input type="text" formControlName="vehicleInspectionActive" class="form-control"
-              id="vehicleInspectionActive" name="vehicleInspectionActive"
-              [ngClass]="{ 'is-invalid': submitted && f.vehicleInspectionActive.errors }" />
-
-            <!-- <div *ngIf="submitted && formErrors.vehicleInspectionActive" class="invalid-feedback">
-              {{formErrors.vehicleInspectionActive}}
-            </div> -->
+            <label for="vehicleInspectionActive">Ir T/A:</label>
+            <input type="checkbox" formControlName="vehicleInspectionActive"
+              aria-label="Checkbox for following text input">
           </div>
         </div>
 
         <div class="form-row">
-          <div class="form-group col-6">
-            <label class="required" for="vehiclePower">power:</label>
-            <input type="text" formControlName="vehiclePower" class="form-control" id="vehiclePower" name="vehiclePower"
-              [ngClass]="{ 'is-invalid': submitted && f.vehiclePower.errors }" />
-
-            <!-- <div *ngIf="submitted && formErrors.power" class="invalid-feedback">
-              {{formErrors.power}}
-            </div> -->
+          <div class="form-group col-6" *ngIf="selectedSubCategoryId != typeConstants.TRAILER_TYPE">
+            <label for="vehicleTransmission">Ātrumkārba:</label>
+            <ng-select #transmissionSelect formControlName="vehicleTransmission" [clearable]="false"
+              [virtualScroll]="true">
+              <ng-option *ngFor="let typ of transmissionTypes; let i = index" [value]="typ.transmissionTypeId">
+                {{typ.transmissionTypeName}}
+              </ng-option>
+            </ng-select>
           </div>
 
-          <div class="form-group col-6">
-            <label class="required" for="vehicleEngineSize">engineSize:</label>
+          <div class="form-group col-6" *ngIf="selectedSubCategoryId != typeConstants.TRAILER_TYPE">
+            <label for="vehicleFuelType">Motors:</label>
+            <ng-select #fuelTypeSelect formControlName="vehicleFuelType" [clearable]="false" [virtualScroll]="true">
+              <ng-option *ngFor="let typ of fuelTypes; let i = index" [value]="typ.fuelTypeId">
+                {{typ.fuelTypeName}}
+              </ng-option>
+            </ng-select>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-6" *ngIf="selectedSubCategoryId != typeConstants.TRAILER_TYPE">
+            <label for="vehicleEngineSize">Motora tilpums:</label>
             <input type="text" formControlName="vehicleEngineSize" class="form-control" id="vehicleEngineSize"
               name="vehicleEngineSize" [ngClass]="{ 'is-invalid': submitted && f.vehicleEngineSize.errors }" />
-
-            <!-- <div *ngIf="submitted && formErrors.engineSize" class="invalid-feedback">
-              {{formErrors.engineSize}}
-            </div> -->
           </div>
         </div>
 
         <div class="form-row">
-          <div class="form-group col-6">
-            <label class="required" for="vehicleFuelType">fuelType:</label>
-            <input type="text" formControlName="vehicleFuelType" class="form-control" id="vehicleFuelType"
-              name="vehicleFuelType" [ngClass]="{ 'is-invalid': submitted && f.vehicleFuelType.errors }" />
-
-            <!-- <div *ngIf="submitted && formErrors.fuelType" class="invalid-feedback">
-              {{formErrors.fuelType}}
-            </div> -->
+          <div class="form-group col-6" *ngIf="selectedSubCategoryId != typeConstants.WATER_CARRIAGE_TYPE">
+            <label for="vehicleAxis">Asis:</label>
+            <input type="text" formControlName="vehicleAxis" class="form-control" id="vehicleAxis" name="vehicleAxis"
+              [ngClass]="{ 'is-invalid': submitted && f.vehicleAxis.errors }" />
           </div>
 
           <div class="form-group col-6">
-            <label class="required" for="vehicleTransmission">transmission:</label>
-            <input type="text" formControlName="vehicleTransmission" class="form-control" id="vehicleTransmission"
-              name="vehicleTransmission" [ngClass]="{ 'is-invalid': submitted && f.vehicleTransmission.errors }" />
-
-            <!-- <div *ngIf="submitted && formErrors.transmission" class="invalid-feedback">
-              {{formErrors.transmission}}
-            </div> -->
-          </div>
-        </div>
-
-        <div class="form-row">
-          <div class="form-group col-6">
-            <label class="required" for="vehicleGearbox">gearbox:</label>
-            <input type="text" formControlName="vehicleGearbox" class="form-control" id="vehicleGearbox"
-              name="vehicleGearbox" [ngClass]="{ 'is-invalid': submitted && f.vehicleGearbox.errors }" />
-
-            <!-- <div *ngIf="submitted && formErrors.gearbox" class="invalid-feedback">
-              {{formErrors.gearbox}}
-            </div> -->
-          </div>
-
-          <div class="form-group col-6">
-            <label class="required" for="vehicleEvaluation">evaluation:</label>
-            <input type="text" formControlName="vehicleEvaluation" class="form-control" id="vehicleEvaluation"
-              name="vehicleEvaluation" [ngClass]="{ 'is-invalid': submitted && f.vehicleEvaluation.errors }" />
-
-            <!-- <div *ngIf="submitted && formErrors.evaluation" class="invalid-feedback">
-              {{formErrors.evaluation}}
-            </div> -->
+            <label for="vehicleEvaluation">Apraksts / novērtējums:</label>
+            <textarea class="form-control" formControlName="vehicleEvaluation" rows="2" id="vehicleEvaluation"
+              name="vehicleEvaluation" [ngClass]="{ 'is-invalid': submitted && f.vehicleEvaluation.errors }"
+              maxlength="1000"></textarea>
           </div>
         </div>
 

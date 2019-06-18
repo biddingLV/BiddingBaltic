@@ -1,9 +1,10 @@
 // angular
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { FormGroup, FormBuilder } from '@angular/forms';
 
 // internal
 import { FormService } from 'ClientApp/src/app/core/services/form/form.service';
+import { TypeConstants } from 'ClientApp/src/app/core/constants/types/type-constants';
 
 
 @Component({
@@ -11,6 +12,8 @@ import { FormService } from 'ClientApp/src/app/core/services/form/form.service';
   templateUrl: './vehicle-category.component.html'
 })
 export class AuctionAddWizardVehicleComponent implements OnInit {
+  @Input() selectedSubCategoryId: number;
+
   @Output() returnAddWizardStepForm = new EventEmitter<FormGroup>();
 
   /** Form what used in the template */
@@ -26,13 +29,48 @@ export class AuctionAddWizardVehicleComponent implements OnInit {
     vehicleRegistrationNumber: '',
     vehicleIdentificationNumber: '',
     vehicleInspectionActive: '',
-    vehiclePower: '',
-    vehicleEngineSize: '',
-    vehicleFuelType: '',
     vehicleTransmission: '',
-    vehicleGearbox: '',
+    vehicleFuelType: '',
+    vehicleEngineSize: '',
+    vehicleAxis: '',
     vehicleEvaluation: ''
   };
+
+  typeConstants = TypeConstants;
+
+  transmissionTypes = [
+    {
+      transmissionTypeId: 1,
+      transmissionTypeName: 'automatiskā'
+    },
+    {
+      transmissionTypeId: 2,
+      transmissionTypeName: 'mehāniskā'
+    }
+  ]
+
+  fuelTypes = [
+    {
+      fuelTypeId: 1,
+      fuelTypeName: 'benzīns'
+    },
+    {
+      fuelTypeId: 2,
+      fuelTypeName: 'dīzelis'
+    },
+    {
+      fuelTypeId: 3,
+      fuelTypeName: 'benzīns/naftas gāze'
+    },
+    {
+      fuelTypeId: 4,
+      fuelTypeName: 'elektroniskais'
+    },
+    {
+      fuelTypeId: 5,
+      fuelTypeName: 'hibrīds'
+    }
+  ]
 
   /** Convenience getter for easy access to form fields */
   get f() { return this.addStepForm.controls; }
@@ -70,16 +108,15 @@ export class AuctionAddWizardVehicleComponent implements OnInit {
     this.addStepForm = this.formBuilder.group({
       vehicleMake: ['BMW', []],
       vehicleModel: ['1-Series', []],
-      vehicleManufacturingDate: ['2019', []],
-      vehicleRegistrationNumber: ['LV-44HYU', []],
-      vehicleIdentificationNumber: ['KH-7777', []],
-      vehicleInspectionActive: ['Yes', []],
-      vehiclePower: ['93 bhp', []],
-      vehicleEngineSize: ['5', []],
-      vehicleFuelType: ['Diesel', []],
-      vehicleTransmission: ['Manual', []],
-      vehicleGearbox: ['6 Speed', []],
-      vehicleEvaluation: ['15000', []]
+      vehicleManufacturingDate: [2014, []],
+      vehicleRegistrationNumber: [5990144781, []],
+      vehicleIdentificationNumber: [68813321, []],
+      vehicleInspectionActive: ['', []],
+      vehicleTransmission: ['', []],
+      vehicleFuelType: ['', []],
+      vehicleEngineSize: ['', []],
+      vehicleAxis: ['', []],
+      vehicleEvaluation: ['Garš teksts', []]
     });
   }
 }

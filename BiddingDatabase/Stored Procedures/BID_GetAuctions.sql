@@ -1,6 +1,7 @@
-﻿CREATE PROCEDURE [dbo].[BID_GetAuctions] @selectedCategories BID_CategoryIdArray READONLY
-	,@selectedTypes BID_TypeIdArray READONLY
-	,
+﻿CREATE PROCEDURE [dbo].[BID_GetAuctions] 
+--@selectedCategories BID_CategoryIdArray READONLY
+--	,@selectedTypes BID_TypeIdArray READONLY
+	--,
 	--@startDate date,
 	--@endDate date,
 	@start INT
@@ -14,11 +15,11 @@ BEGIN
 
 	INSERT INTO @categories (CategoryId)
 	SELECT CategoryId
-	FROM @selectedCategories;
+	FROM @categories-- @selectedCategories;
 
 	INSERT INTO @types (TypeId)
 	SELECT TypeId
-	FROM @selectedTypes;
+	FROM @types -- @selectedTypes;
 
 	SELECT auct.AuctionId
 		,auct.Name AS AuctionName

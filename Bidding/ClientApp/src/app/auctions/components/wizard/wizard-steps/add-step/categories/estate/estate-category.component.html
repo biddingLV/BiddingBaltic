@@ -1,29 +1,87 @@
-<form [formGroup]="addStepForm">
-  <div class="form-row">
-    <div class="form-group col-6">
-      <label for="objectCoordinates">coordinates:</label>
-      <input type="text" formControlName="objectCoordinates" class="form-control" id="objectCoordinates"
-        name="objectCoordinates" [ngClass]="{ 'is-invalid': submitted && f.objectCoordinates.errors }" />
+<pre>{{ addStepForm.value | json }}</pre>
 
-      <!-- <div *ngIf="submitted && formErrors.objectCoordinates" class="invalid-feedback">
-        {{formErrors.make}}
-      </div> -->
-    </div>
+<div class="container">
+  <div class="row">
+    <div class="col-12">
+      <form [formGroup]="addStepForm">
+        <div class="form-row">
+          <div class="form-group col-6">
+            <label for="propertyCoordinates">Koordinātes:</label>
+            <input type="number" formControlName="propertyCoordinates" class="form-control" id="propertyCoordinates"
+              name="propertyCoordinates" [ngClass]="{ 'is-invalid': submitted && f.propertyCoordinates.errors }" />
+          </div>
 
-    <div class="form-group col-6">
-      <label for="objectRegion">region:</label>
-      <input type="text" formControlName="objectRegion" class="form-control" id="objectRegion" name="objectRegion"
-        [ngClass]="{ 'is-invalid': submitted && f.objectRegion.errors }" />
+          <div class="form-group col-6">
+            <label for="propertyRegion">Reģions:</label>
+            <p>todo: selects</p>
+            <input type="text" formControlName="propertyRegion" class="form-control" id="propertyRegion"
+              name="propertyRegion" [ngClass]="{ 'is-invalid': submitted && f.propertyRegion.errors }" />
+          </div>
+        </div>
 
-      <!-- <div *ngIf="submitted && formErrors.model" class="invalid-feedback">
-        {{formErrors.model}}
-      </div> -->
+        <div class="form-row">
+          <div class="form-group col-6">
+            <label for="propertyCadastreNumber">Kadastra numurs:</label>
+            <input type="number" formControlName="propertyCadastreNumber" class="form-control"
+              id="propertyCadastreNumber" name="propertyCadastreNumber"
+              [ngClass]="{ 'is-invalid': submitted && f.propertyCadastreNumber.errors }" />
+          </div>
+
+          <div class="form-group col-6">
+            <label for="propertyMeasurementValue">Izmēri:</label>
+            <input type="number" formControlName="propertyMeasurementValue" class="form-control"
+              id="propertyMeasurementValue" name="propertyMeasurementValue"
+              [ngClass]="{ 'is-invalid': submitted && f.propertyMeasurementValue.errors }" />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-6">
+            <label for="propertyMeasurementType">Mērvienība:</label>
+            <p>todo: selects</p>
+            <input type="text" formControlName="propertyMeasurementType" class="form-control"
+              id="propertyMeasurementType" name="propertyMeasurementType"
+              [ngClass]="{ 'is-invalid': submitted && f.propertyMeasurementType.errors }" />
+          </div>
+
+          <div class="form-group col-6">
+            <label for="propertyAddress">Adrese:</label>
+            <input type="text" formControlName="propertyAddress" class="form-control" id="propertyAddress"
+              name="propertyAddress" [ngClass]="{ 'is-invalid': submitted && f.propertyAddress.errors }" />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-6"
+            *ngIf="selectedSubCategoryId != typeConstants.LAND_TYPE || selectedSubCategoryId != typeConstants.GARAGE_TYPE">
+            <label for="propertyFloorCount">Stāvu skaits:</label>
+            <input type="number" formControlName="propertyFloorCount" class="form-control" id="propertyFloorCount"
+              name="propertyFloorCount" [ngClass]="{ 'is-invalid': submitted && f.propertyFloorCount.errors }" />
+          </div>
+
+          <div class="form-group col-6">
+            <label for="propertyRoomCount">Istabu skaits:</label>
+            <input type="number" formControlName="propertyRoomCount" class="form-control" id="propertyRoomCount"
+              name="propertyRoomCount" [ngClass]="{ 'is-invalid': submitted && f.propertyRoomCount.errors }" />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-6">
+            <label for="propertyEvaluation">Apraksts / novērtējums:</label>
+            <textarea class="form-control" formControlName="propertyEvaluation" rows="2" id="propertyEvaluation"
+              name="propertyEvaluation" [ngClass]="{ 'is-invalid': submitted && f.propertyEvaluation.errors }"
+              maxlength="1000"></textarea>
+          </div>
+        </div>
+
+        <div class="form-row float-right">
+          <div class="form-group modal-buttons">
+            <button type="button" class="btn btn-outline-dark" awPreviousStep>Back</button>
+            <button type="button" class="btn btn-primary" (click)="onNext()" awNextStep>Next</button>
+          </div>
+        </div>
+      </form>
     </div>
   </div>
-
-  <div class="form-row float-right">
-    <div class="form-group modal-buttons">
-      <button type="button" class="btn btn-primary" awNextStep>Next</button>
-    </div>
-  </div>
-</form>
+</div>

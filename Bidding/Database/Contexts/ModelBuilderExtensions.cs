@@ -321,7 +321,7 @@ namespace Bidding.Database.Contexts
                 new Type
                 {
                     TypeId = 9,
-                    Name = "Elektrotehnika",
+                    Name = "Sadzīves tehnika",
                     AuctionCategoryId = 2,
                     CreatedAt = CreatedAtDateTime,
                     CreatedBy = CreatedByBiddingAdmin,
@@ -332,17 +332,6 @@ namespace Bidding.Database.Contexts
                 new Type
                 {
                     TypeId = 10,
-                    Name = "Rūpniecības tehnika",
-                    AuctionCategoryId = 2,
-                    CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
-                    Deleted = false,
-                    LastUpdatedAt = CreatedAtDateTime,
-                    LastUpdatedBy = CreatedByBiddingAdmin
-                },
-                new Type
-                {
-                    TypeId = 11,
                     Name = "Instrumenti",
                     AuctionCategoryId = 2,
                     CreatedAt = CreatedAtDateTime,
@@ -353,8 +342,19 @@ namespace Bidding.Database.Contexts
                 },
                 new Type
                 {
+                    TypeId = 11,
+                    Name = "Iekārtas",
+                    AuctionCategoryId = 2,
+                    CreatedAt = CreatedAtDateTime,
+                    CreatedBy = CreatedByBiddingAdmin,
+                    Deleted = false,
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin
+                },
+                new Type
+                {
                     TypeId = 12,
-                    Name = "Cita manta",
+                    Name = "Ražošanas materiāli",
                     AuctionCategoryId = 2,
                     CreatedAt = CreatedAtDateTime,
                     CreatedBy = CreatedByBiddingAdmin,
@@ -365,6 +365,83 @@ namespace Bidding.Database.Contexts
                 new Type
                 {
                     TypeId = 13,
+                    Name = "Veikala produkcija",
+                    AuctionCategoryId = 2,
+                    CreatedAt = CreatedAtDateTime,
+                    CreatedBy = CreatedByBiddingAdmin,
+                    Deleted = false,
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin
+                },
+                new Type
+                {
+                    TypeId = 14,
+                    Name = "Uzņēmums",
+                    AuctionCategoryId = 2,
+                    CreatedAt = CreatedAtDateTime,
+                    CreatedBy = CreatedByBiddingAdmin,
+                    Deleted = false,
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin
+                },
+                new Type
+                {
+                    TypeId = 15,
+                    Name = "Domeins",
+                    AuctionCategoryId = 2,
+                    CreatedAt = CreatedAtDateTime,
+                    CreatedBy = CreatedByBiddingAdmin,
+                    Deleted = false,
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin
+                },
+                new Type
+                {
+                    TypeId = 16,
+                    Name = "Preču zīme",
+                    AuctionCategoryId = 2,
+                    CreatedAt = CreatedAtDateTime,
+                    CreatedBy = CreatedByBiddingAdmin,
+                    Deleted = false,
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin
+                },
+                new Type
+                {
+                    TypeId = 17,
+                    Name = "Sadzīves mēbeles",
+                    AuctionCategoryId = 2,
+                    CreatedAt = CreatedAtDateTime,
+                    CreatedBy = CreatedByBiddingAdmin,
+                    Deleted = false,
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin
+                },
+                new Type
+                {
+                    TypeId = 18,
+                    Name = "Biroja mēbeles",
+                    AuctionCategoryId = 2,
+                    CreatedAt = CreatedAtDateTime,
+                    CreatedBy = CreatedByBiddingAdmin,
+                    Deleted = false,
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin
+                },
+                new Type
+                {
+                    TypeId = 19,
+                    Name = "Cita manta",
+                    AuctionCategoryId = 2,
+                    CreatedAt = CreatedAtDateTime,
+                    CreatedBy = CreatedByBiddingAdmin,
+                    Deleted = false,
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin
+                },
+                new Type
+                {
+                    TypeId = 20,
                     Name = "Dzīvoklis",
                     AuctionCategoryId = 3,
                     CreatedAt = CreatedAtDateTime,
@@ -375,7 +452,7 @@ namespace Bidding.Database.Contexts
                 },
                 new Type
                 {
-                    TypeId = 14,
+                    TypeId = 21,
                     Name = "Māja",
                     AuctionCategoryId = 3,
                     CreatedAt = CreatedAtDateTime,
@@ -386,8 +463,30 @@ namespace Bidding.Database.Contexts
                 },
                 new Type
                 {
-                    TypeId = 15,
+                    TypeId = 22,
                     Name = "Zeme",
+                    AuctionCategoryId = 3,
+                    CreatedAt = CreatedAtDateTime,
+                    CreatedBy = CreatedByBiddingAdmin,
+                    Deleted = false,
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin
+                },
+                new Type
+                {
+                    TypeId = 23,
+                    Name = "Telpa",
+                    AuctionCategoryId = 3,
+                    CreatedAt = CreatedAtDateTime,
+                    CreatedBy = CreatedByBiddingAdmin,
+                    Deleted = false,
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin
+                },
+                new Type
+                {
+                    TypeId = 24,
+                    Name = "Garāža",
                     AuctionCategoryId = 3,
                     CreatedAt = CreatedAtDateTime,
                     CreatedBy = CreatedByBiddingAdmin,
