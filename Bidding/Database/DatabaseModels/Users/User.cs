@@ -1,5 +1,4 @@
 ﻿using Bidding.Database.DatabaseModels.Auctions;
-using Bidding.Database.DatabaseModels.Auctions.Details;
 using Bidding.Models.DatabaseModels;
 using System;
 using System.Collections.Generic;
@@ -57,8 +56,6 @@ namespace Bidding.Database.DatabaseModels.Users
         public List<AuctionCondition> AuctionConditions { get; set; }
         public List<AuctionFormat> AuctionFormats { get; set; }
         public List<AuctionItem> AuctionItems { get; set; }
-        public List<ItemAuctionDetails> ItemAuctionDetails { get; set; }
-        public List<PropertyAuctionDetails> PropertyAuctionDetails { get; set; }
-        public List<VehicleAuctionDetails> VehicleAuctionDetails { get; set; }
+        public List<AuctionDetails> AuctionDetails { get; set; }
     }
 }

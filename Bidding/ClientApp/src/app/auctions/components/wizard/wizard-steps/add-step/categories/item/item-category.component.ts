@@ -61,12 +61,12 @@ export class AuctionAddWizardItemComponent implements OnInit {
 
   private buildForm(): void {
     this.addStepForm = this.formBuilder.group({
-      itemName: ['Jauns Audi', [Validators.required]],
+      itemName: ['Jauns Audi', [Validators.required]], // todo: kke: why this is here?
       itemModel: ['A4', [Validators.required]],
       itemManufacturingDate: ['2017', []],
       itemCondition: ['Lietots', []],
       itemEvaluation: ['5000', [Validators.required]],
-      itemStartingPrice: [1500, []]
+      itemStartingPrice: [1500, []] // todo: kke: why this is here?
     });
   }
 }

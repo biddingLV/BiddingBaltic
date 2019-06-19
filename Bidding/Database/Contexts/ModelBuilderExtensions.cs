@@ -1,5 +1,4 @@
 ﻿using Bidding.Database.DatabaseModels.Auctions;
-using Bidding.Database.DatabaseModels.Auctions.Details;
 using Bidding.Database.DatabaseModels.Users;
 using Bidding.Models.DatabaseModels;
 using Bidding.Models.DatabaseModels.Bidding;
@@ -693,57 +692,57 @@ namespace Bidding.Database.Contexts
 
         private static void PopulateItemAuctionDetails(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<ItemAuctionDetails>().HasData(
-                new ItemAuctionDetails
-                {
-                    ItemAuctionDetailsId = 1,
-                    AuctionItemId = 3,
-                    Model = "In progress",
-                    ManufacturingDate = DateTime.UtcNow,
-                    Evaluation = "In progress",
-                    CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
-                    Deleted = false,
-                    LastUpdatedAt = CreatedAtDateTime,
-                    LastUpdatedBy = CreatedByBiddingAdmin
-                }
-            );
+            //modelBuilder.Entity<ItemAuctionDetails>().HasData(
+            //    new ItemAuctionDetails
+            //    {
+            //        ItemAuctionDetailsId = 1,
+            //        AuctionItemId = 3,
+            //        Model = "In progress",
+            //        ManufacturingDate = DateTime.UtcNow,
+            //        Evaluation = "In progress",
+            //        CreatedAt = CreatedAtDateTime,
+            //        CreatedBy = CreatedByBiddingAdmin,
+            //        Deleted = false,
+            //        LastUpdatedAt = CreatedAtDateTime,
+            //        LastUpdatedBy = CreatedByBiddingAdmin
+            //    }
+            //);
         }
 
         private static void PopulatePropertyAuctionDetails(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<PropertyAuctionDetails>().HasData(
-                new PropertyAuctionDetails
-                {
-                    PropertyAuctionDetailsId = 1,
-                    AuctionItemId = 2,
-                    CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
-                    Deleted = false,
-                    LastUpdatedAt = CreatedAtDateTime,
-                    LastUpdatedBy = CreatedByBiddingAdmin
-                }
-            );
+            //modelBuilder.Entity<PropertyAuctionDetails>().HasData(
+            //    new PropertyAuctionDetails
+            //    {
+            //        PropertyAuctionDetailsId = 1,
+            //        AuctionItemId = 2,
+            //        CreatedAt = CreatedAtDateTime,
+            //        CreatedBy = CreatedByBiddingAdmin,
+            //        Deleted = false,
+            //        LastUpdatedAt = CreatedAtDateTime,
+            //        LastUpdatedBy = CreatedByBiddingAdmin
+            //    }
+            //);
         }
 
         private static void PopulateVehicleAuctionDetails(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<VehicleAuctionDetails>().HasData(
-                new VehicleAuctionDetails
-                {
-                    VehicleAuctionDetailsId = 1,
-                    AuctionItemId = 1,
-                    Make = "In progress",
-                    Model = "In progress",
-                    ManufacturingDate = DateTime.UtcNow,
-                    Evaluation = "In progress",
-                    CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
-                    Deleted = false,
-                    LastUpdatedAt = CreatedAtDateTime,
-                    LastUpdatedBy = CreatedByBiddingAdmin
-                }
-            );
+            //modelBuilder.Entity<VehicleAuctionDetails>().HasData(
+            //    new VehicleAuctionDetails
+            //    {
+            //        VehicleAuctionDetailsId = 1,
+            //        AuctionItemId = 1,
+            //        Make = "In progress",
+            //        Model = "In progress",
+            //        ManufacturingDate = DateTime.UtcNow,
+            //        Evaluation = "In progress",
+            //        CreatedAt = CreatedAtDateTime,
+            //        CreatedBy = CreatedByBiddingAdmin,
+            //        Deleted = false,
+            //        LastUpdatedAt = CreatedAtDateTime,
+            //        LastUpdatedBy = CreatedByBiddingAdmin
+            //    }
+            //);
         }
     }
 }

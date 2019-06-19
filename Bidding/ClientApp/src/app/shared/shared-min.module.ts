@@ -8,7 +8,8 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
-  faSearch
+  faSearch,
+  faExclamationCircle
 } from '@fortawesome/free-solid-svg-icons';
 
 import {
@@ -68,7 +69,8 @@ export class MinSharedModule {
   constructor() {
     library.add(
       faSearch,
-      faHeart
+      faHeart,
+      faExclamationCircle
     );
   }
 }

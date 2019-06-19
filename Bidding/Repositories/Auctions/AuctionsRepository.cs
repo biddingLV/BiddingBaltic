@@ -21,7 +21,6 @@ using Bidding.Models.ViewModels.Bidding.Auctions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Bidding.Database.Contexts;
-using Bidding.Database.DatabaseModels.Auctions.Details;
 using Bidding.Models.ViewModels.Bidding.Shared.Categories;
 using Bidding.Models.ViewModels.Bidding.Shared.Types;
 
@@ -290,11 +289,12 @@ namespace Bidding.Repositories.Auctions
                         m_context.AuctionItems.Add(newAuctionItem);
                         m_context.SaveChanges();
 
-                        var itemAuctionDetails = new ItemAuctionDetails()
+                        var itemAuctionDetails = new AuctionDetails()
                         {
                             AuctionItemId = newAuctionItem.AuctionItemId,
                             Model = request.ItemModel,
                             ManufacturingDate = DateTime.UtcNow,
+                            Condition = "ADD ME",
                             Evaluation = request.ItemEvaluation,
                             CreatedAt = DateTime.UtcNow,
                             CreatedBy = 1,
@@ -303,7 +303,7 @@ namespace Bidding.Repositories.Auctions
                         };
 
                         // add Auction item details
-                        m_context.ItemAuctionDetails.Add(itemAuctionDetails);
+                        m_context.AuctionDetails.Add(itemAuctionDetails);
                         m_context.SaveChanges();
 
                         transaction.Commit();
