@@ -52,8 +52,7 @@
         </div>
 
         <div class="form-row">
-          <div class="form-group col-6"
-            *ngIf="selectedSubCategoryId != typeConstants.LAND_TYPE || selectedSubCategoryId != typeConstants.GARAGE_TYPE">
+          <div class="form-group col-6">
             <label for="propertyFloorCount">Stāvu skaits:</label>
             <input type="number" formControlName="propertyFloorCount" class="form-control" id="propertyFloorCount"
               name="propertyFloorCount" [ngClass]="{ 'is-invalid': submitted && f.propertyFloorCount.errors }" />
