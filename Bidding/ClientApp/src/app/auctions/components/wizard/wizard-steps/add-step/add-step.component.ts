@@ -17,20 +17,20 @@ export class AuctionAddAddWizardStepComponent implements OnInit {
   @Output() emitAddWizardStep = new EventEmitter<boolean>();
   @Output() returnAddWizardStepForm = new EventEmitter<FormGroup>();
 
-  categoryConstants = CategoryConstants;
+  showVehicleStep: boolean = false;
+  showItemStep: boolean = false;
+  showPropertyStep: boolean = false;
 
   constructor() { }
 
   ngOnInit(): void { }
 
   ngOnChanges(changes: SimpleChanges): void {
-    for (const property in changes) {
-      switch (!changes[property].firstChange && property) {
-        case 'selectedTopCategoryId':
-          this.selectedTopCategoryId = changes[property].currentValue;
-          break;
-        default:
-          break;
+    let topCategoryChange = changes['selectedTopCategoryId'];
+
+    if (topCategoryChange && !topCategoryChange.isFirstChange()) {
+      if (topCategoryChange !== undefined) {
+        this.handleTopCategory();
       }
     }
   }
@@ -42,5 +42,22 @@ export class AuctionAddAddWizardStepComponent implements OnInit {
   /** Return form values back to parent component */
   onClickNextReturnForm(form: FormGroup): void {
     this.returnAddWizardStepForm.emit(form);
+  }
+
+  private handleTopCategory(): void {
+    // todo: kke: how to refactor this?
+    if (this.selectedTopCategoryId == CategoryConstants.VEHICLE_CATEGORY) {
+      this.showVehicleStep = true;
+      this.showItemStep = false;
+      this.showPropertyStep = false;
+    } else if (this.selectedTopCategoryId == CategoryConstants.ITEM_CATEGORY) {
+      this.showVehicleStep = false;
+      this.showItemStep = true;
+      this.showPropertyStep = false;
+    } else {
+      this.showVehicleStep = false;
+      this.showItemStep = false;
+      this.showPropertyStep = true;
+    }
   }
 }

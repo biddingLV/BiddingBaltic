@@ -1,0 +1,77 @@
+<pre>{{ aboutStepForm.value | json }}</pre>
+<form [formGroup]="aboutStepForm">
+  <div class="form-row">
+    <div class="form-group col-6">
+      <label for="auctionCreator">Izsoles veidotājs</label>
+      <input type="text" formControlName="auctionCreator" class="form-control" id="auctionCreator" name="auctionCreator"
+        [ngClass]="{ 'is-invalid': submitted && f.auctionCreator.errors }" maxlength="100" />
+    </div>
+
+    <div class="form-group col-6">
+      <label for="auctionFormat">Izsoles veids</label>
+      <ng-select #auctionFormatSelect formControlName="auctionFormat" [clearable]="false" [virtualScroll]="true"
+        [multiple]="false" [closeOnSelect]="true" placeholder="Select auction format">
+        <ng-option *ngFor="let format of auctionFormats.formats; let i = index" [value]="format.auctionFormatId">
+          {{format.auctionFormatName}}
+        </ng-option>
+      </ng-select>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group col-6">
+      <label for="auctionCreatorEmail">E-pasts</label>
+      <input type="text" formControlName="auctionCreatorEmail" class="form-control" id="auctionCreatorEmail"
+        name="auctionCreatorEmail" [ngClass]="{ 'is-invalid': submitted && f.auctionCreatorEmail.errors }"
+        maxlength="100" />
+    </div>
+
+    <div class="form-group col-6">
+      <label for="auctionStartDate">Izsoles sākums</label>
+      <div class="input-group">
+        <input type="text" class="form-control" placeholder="01/01/2019" bsDatepicker [bsConfig]="bsConfig"
+          formControlName="auctionStartDate" id="auctionStartDate" name="auctionStartDate" />
+        <div class="input-group-append">
+          <button class="btn btn-outline-primary" type="button">
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group col-6">
+      <label for="auctionCreatorPhone">Telefons</label>
+      <input type="text" formControlName="auctionCreatorPhone" class="form-control" id="auctionCreatorPhone"
+        name="auctionCreatorPhone" [ngClass]="{ 'is-invalid': submitted && f.auctionCreatorPhone.errors }"
+        maxlength="100" />
+    </div>
+
+    <div class="form-group col-6">
+      <label for="auctionEndDate">Izsoles beigas</label>
+      <input type="text" class="form-control" placeholder="01/01/2019" bsDatepicker [bsConfig]="bsConfig"
+        formControlName="auctionEndDate" id="auctionEndDate" name="auctionEndDate" />
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group col-6">
+      <label for="auctionAddress">Adrese</label>
+      <input type="text" formControlName="auctionAddress" class="form-control" id="auctionAddress" name="auctionAddress"
+        [ngClass]="{ 'is-invalid': submitted && f.auctionAddress.errors }" maxlength="100" />
+    </div>
+
+    <div class="form-group col-6">
+      <label for="auctionApplyTillDate">Pieteikties līdz</label>
+      <input type="text" class="form-control" placeholder="01/01/2019" bsDatepicker [bsConfig]="bsConfig"
+        formControlName="auctionApplyTillDate" id="auctionApplyTillDate" name="auctionApplyTillDate" />
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group">
+      <button type="button" class="btn btn-outline-dark" awPreviousStep>Back</button>
+      <button class="btn btn-primary" [disabled]="false" (click)="onNext()">Add</button>
+    </div>
+  </div>
+</form>

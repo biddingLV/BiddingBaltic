@@ -16,12 +16,12 @@
       <app-auction-add-add-wizard-step style="width: 100%;" awWizardStep stepTitle="Izsoles detalas {{i}}"
         [selectedTopCategoryId]="selectedTopCategoryId" [canExit]="moveDirectionAddStep"
         [selectedSubCategoryId]="selectedSubCategoryId" (emitAddWizardStep)="addWizardStep($event)"
-        (returnAddWizardStepForm)="onClickNextReturnForm($event)">
+        (returnAddWizardStepForm)="onClickNextReturnForm('add-form', $event)">
       </app-auction-add-add-wizard-step>
     </ng-container>
 
-    <app-auction-add-last-wizard-step style="width: 100%;" awWizardStep [stepTitle]="'Rikotajs un norise'"
-      (formValuesAreValid)="onSubmit()">
-    </app-auction-add-last-wizard-step>
+    <app-auction-add-about-wizard-step style="width: 100%;" awWizardStep [stepTitle]="'Rikotajs un norise'"
+      (formValuesAreValid)="onSubmit()" (returnAddWizardStepForm)="onClickNextReturnForm('about-form', $event)">
+    </app-auction-add-about-wizard-step>
   </aw-wizard>
 </div>

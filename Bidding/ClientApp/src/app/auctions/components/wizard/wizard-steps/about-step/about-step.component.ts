@@ -18,17 +18,16 @@ import { FormService } from 'ClientApp/src/app/core/services/form/form.service';
 
 
 @Component({
-  selector: 'app-auction-add-last-wizard-step',
-  templateUrl: './last-step.component.html'
+  selector: 'app-auction-add-about-wizard-step',
+  templateUrl: './about-step.component.html'
 })
-export class AuctionAddLastWizardStepComponent implements OnInit {
-  // todo: kke: name this emitter submitAllWizardSteps!
-  @Output() formValuesAreValid = new EventEmitter<void>();
+export class AuctionAddAboutWizardStepComponent implements OnInit {
+  @Output() returnAddWizardStepForm = new EventEmitter<FormGroup>();
 
   auctionAddSub: Subscription;
 
   /** Form what used in the template */
-  lastStepForm: FormGroup;
+  aboutStepForm: FormGroup;
 
   /** Form error object */
   formErrors = {
@@ -51,7 +50,7 @@ export class AuctionAddLastWizardStepComponent implements OnInit {
   auctionStatuses: AuctionStatusModel;
 
   /** Convenience getter for easy access to form fields */
-  get f() { return this.lastStepForm.controls; }
+  get f() { return this.aboutStepForm.controls; }
 
   constructor(
     private formBuilder: FormBuilder,
@@ -65,27 +64,27 @@ export class AuctionAddLastWizardStepComponent implements OnInit {
     this.buildForm();
   }
 
-  onSubmit(): void {
+  onNext(): void {
     this.submitted = true;
 
     // mark all fields as touched
-    this.internalFormService.markFormGroupTouched(this.lastStepForm);
+    this.internalFormService.markFormGroupTouched(this.aboutStepForm);
 
-    if (this.lastStepForm.valid == false) {
-      this.formErrors = this.internalFormService.validateForm(this.lastStepForm, this.formErrors, false);
+    if (this.aboutStepForm.valid == false) {
+      this.formErrors = this.internalFormService.validateForm(this.aboutStepForm, this.formErrors, false);
     }
 
     // stop here if form is invalid
-    if (this.lastStepForm.invalid) {
+    if (this.aboutStepForm.invalid) {
       return;
     }
 
     // return form values back to parent component
-    this.formValuesAreValid.emit();
+    this.returnAddWizardStepForm.emit(this.aboutStepForm);
   }
 
   private buildForm(): void {
-    this.lastStepForm = this.formBuilder.group({
+    this.aboutStepForm = this.formBuilder.group({
       auctionCreator: ['Peteris Priede', []],
       auctionAddress: ['Lazdu iela 13', []],
       auctionCreatorEmail: ['peteris@peteris.gg', []],

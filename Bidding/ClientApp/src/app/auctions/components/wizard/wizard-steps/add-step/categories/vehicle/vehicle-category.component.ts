@@ -111,7 +111,7 @@ export class AuctionAddWizardVehicleComponent implements OnInit {
       vehicleManufacturingDate: [2014, []],
       vehicleRegistrationNumber: [5990144781, []],
       vehicleIdentificationNumber: [68813321, []],
-      vehicleInspectionActive: ['', []],
+      vehicleInspectionActive: ['', []],    
       vehicleTransmission: ['', []],
       vehicleFuelType: ['', []],
       vehicleEngineSize: ['', []],

@@ -8,12 +8,10 @@ namespace Bidding.Models.ViewModels.Bidding.Auctions.Add.Categories
 {
     public class ItemAuctionModel
     {
-        public int AuctionTopCategoryId { get; set; }
-        public int AuctionSubCategoryId { get; set; }
-        public string ItemName { get; set; } // todo: kke: move to the global level?
+        //public string ItemName { get; set; }
         public string ItemModel { get; set; }
         public string ItemManufacturingDate { get; set; }
         public string ItemEvaluation { get; set; }
-        public int ItemStartingPrice { get; set; } // todo: kke: move to the global level?
+        //public int ItemStartingPrice { get; set; }
     }
 }

@@ -153,7 +153,7 @@ namespace Bidding.Services.Auctions
             }
             else if (request.VehicleAuction.IsNotSpecified() == false)
             {
-                status = CreateVehicleAuction(request.VehicleAuction);
+                status = CreateVehicleAuction(request);
             }
             else if (request.PropertyAuction.IsNotSpecified() == false)
             {
@@ -205,7 +205,7 @@ namespace Bidding.Services.Auctions
             return m_auctionsRepository.CreatePropertyAuction(request);
         }
 
-        private bool CreateVehicleAuction(VehicleAuctionModel request)
+        private bool CreateVehicleAuction(AddAuctionRequestModel request)
         {
             // ValidateAuctionItemCreate(request);
 

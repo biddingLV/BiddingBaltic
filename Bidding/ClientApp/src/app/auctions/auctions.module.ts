@@ -16,13 +16,13 @@ import { AuctionsRoutingModule } from './auctions-routing.module';
 import { SharedModule } from '../shared/shared.module';
 import { AuctionsService } from './services/auctions.service';
 import { AuctionAddMainWizardComponent } from './containers/wizard/main/main.component';
-import { AuctionAddLastWizardStepComponent } from './components/wizard/wizard-steps/last-step/last-step.component';
 import { AuctionAddAddWizardStepComponent } from './components/wizard/wizard-steps/add-step/add-step.component';
 import { AuctionAddWizardVehicleComponent } from './components/wizard/wizard-steps/add-step/categories/vehicle/vehicle-category.component';
 import { AuctionAddWizardItemComponent } from './components/wizard/wizard-steps/add-step/categories/item/item-category.component';
-import { AuctionAddWizardEstateComponent } from './components/wizard/wizard-steps/add-step/categories/estate/estate-category.component';
 import { AuctionDetailsCountdownComponent } from './components/details/countdown/countdown.component';
 import { AuctionAddCategoryWizardStepComponent } from './components/wizard/wizard-steps/category-step/category-step.component';
+import { AuctionAddWizardPropertyComponent } from './components/wizard/wizard-steps/add-step/categories/property/property-category.component';
+import { AuctionAddAboutWizardStepComponent } from './components/wizard/wizard-steps/about-step/about-step.component';
 
 
 @NgModule({
@@ -47,10 +47,10 @@ import { AuctionAddCategoryWizardStepComponent } from './components/wizard/wizar
     AuctionDeleteComponent,
     AuctionAddCategoryWizardStepComponent,
     AuctionAddAddWizardStepComponent,
-    AuctionAddLastWizardStepComponent,
+    AuctionAddAboutWizardStepComponent,
     AuctionAddWizardVehicleComponent,
     AuctionAddWizardItemComponent,
-    AuctionAddWizardEstateComponent,
+    AuctionAddWizardPropertyComponent,
     AuctionDetailsCountdownComponent
   ],
   providers: [
@@ -62,7 +62,7 @@ import { AuctionAddCategoryWizardStepComponent } from './components/wizard/wizar
     AuctionDeleteComponent,
     AuctionAddCategoryWizardStepComponent,
     AuctionAddAddWizardStepComponent,
-    AuctionAddLastWizardStepComponent
+    AuctionAddAboutWizardStepComponent
   ]
 })
 export class AuctionsModule { }

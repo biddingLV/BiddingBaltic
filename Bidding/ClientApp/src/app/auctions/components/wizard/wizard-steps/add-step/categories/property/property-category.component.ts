@@ -9,9 +9,9 @@ import { TypeConstants } from 'ClientApp/src/app/core/constants/types/type-const
 
 @Component({
   selector: 'app-auction-add-wizard-property-category',
-  templateUrl: './estate-category.component.html'
+  templateUrl: './property-category.component.html'
 })
-export class AuctionAddWizardEstateComponent implements OnInit {
+export class AuctionAddWizardPropertyComponent implements OnInit {
   @Output() returnAddWizardStepForm = new EventEmitter<FormGroup>();
 
   /** Form what used in the template */

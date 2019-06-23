@@ -17,7 +17,6 @@ using Bidding.Shared.Exceptions;
 using Bidding.Shared.Utility;
 using Bidding.Models.DatabaseModels;
 using Bidding.Models.DatabaseModels.Bidding;
-using Bidding.Models.ViewModels.Bidding.Auctions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Bidding.Database.Contexts;
@@ -248,13 +247,13 @@ namespace Bidding.Repositories.Auctions
 
             Auction newAuction = new Auction()
             {
-                Name = request.ItemName,
-                StartingPrice = request.ItemStartingPrice,
+                // Name = request.ItemName,
+                // StartingPrice = request.ItemStartingPrice,
                 StartDate = DateTime.UtcNow,
                 ApplyTillDate = DateTime.UtcNow,
                 EndDate = DateTime.UtcNow,
-                AuctionCategoryId = request.AuctionTopCategoryId,
-                AuctionTypeId = request.AuctionSubCategoryId,
+                //AuctionCategoryId = request.AuctionTopCategoryId,
+                //AuctionTypeId = request.AuctionSubCategoryId,
                 AuctionStatusId = defaultAuctionStatusId,
                 CreatedAt = DateTime.UtcNow,
                 CreatedBy = 1,
@@ -275,10 +274,10 @@ namespace Bidding.Repositories.Auctions
 
                         AuctionItem newAuctionItem = new AuctionItem()
                         {
-                            Name = request.ItemName,
+                            // Name = request.ItemName,
                             AuctionId = newAuction.AuctionId,
-                            AuctionItemCategoryId = request.AuctionTopCategoryId,
-                            AuctionItemTypeId = request.AuctionSubCategoryId,
+                            //AuctionItemCategoryId = request.AuctionTopCategoryId,
+                            //AuctionItemTypeId = request.AuctionSubCategoryId,
                             CreatedAt = DateTime.UtcNow,
                             CreatedBy = 1,
                             LastUpdatedAt = DateTime.UtcNow,
@@ -323,8 +322,41 @@ namespace Bidding.Repositories.Auctions
             return true;
         }
 
-        public bool CreateVehicleAuction(VehicleAuctionModel request)
+        public bool CreateVehicleAuction(AddAuctionRequestModel request)
         {
+            Auction newAuction = SetupNewAuction(request);
+
+            var strategy = m_context.Database.CreateExecutionStrategy();
+            strategy.Execute(() =>
+            {
+                try
+                {
+                    using (var transaction = m_context.Database.BeginTransaction())
+                    {
+                        // add Auction
+                        m_context.Auctions.Add(newAuction);
+                        m_context.SaveChanges();
+
+                        AuctionItem newAuctionItem = SetupNewAuctionItem(newAuction);
+
+                        // add Auction Item
+                        m_context.AuctionItems.Add(newAuctionItem);
+                        m_context.SaveChanges();
+
+                        AuctionDetails itemAuctionDetails = SetupNewVehicleAuctionDetails(request, newAuctionItem);
+
+                        // add Auction item details
+                        m_context.AuctionDetails.Add(itemAuctionDetails);
+                        m_context.SaveChanges();
+                        transaction.Commit();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.CouldNotCreateAuction, ex);
+                }
+            });
+
             return true;
         }
 
@@ -436,6 +468,65 @@ namespace Bidding.Repositories.Auctions
             }
 
             return defaultAuctionStatusId;
+        }
+
+        private Auction SetupNewAuction(AddAuctionRequestModel request)
+        {
+            int defaultAuctionStatusId = ValidateAndFetchAuctionStatus();
+
+            return new Auction()
+            {
+                Name = request.AuctionName,
+                StartingPrice = request.AuctionStartingPrice,
+                StartDate = request.AboutAuction.AuctionStartDate,
+                ApplyTillDate = request.AboutAuction.AuctionApplyTillDate,
+                EndDate = request.AboutAuction.AuctionEndDate,
+                AuctionCategoryId = request.AuctionTopCategoryId,
+                AuctionTypeId = request.AuctionSubCategoryId ?? request.AuctionSubCategoryId.Value,
+                AuctionStatusId = defaultAuctionStatusId,
+                CreatedAt = DateTime.UtcNow,
+                CreatedBy = 1,
+                LastUpdatedAt = DateTime.UtcNow,
+                LastUpdatedBy = 1
+            };
+        }
+
+        private AuctionItem SetupNewAuctionItem(Auction newAuction)
+        {
+            return new AuctionItem()
+            {
+                Name = newAuction.Name,
+                AuctionId = newAuction.AuctionId,
+                AuctionItemCategoryId = newAuction.AuctionCategoryId,
+                AuctionItemTypeId = newAuction.AuctionTypeId,
+                CreatedAt = DateTime.UtcNow,
+                CreatedBy = 1,
+                LastUpdatedAt = DateTime.UtcNow,
+                LastUpdatedBy = 1
+            };
+        }
+
+        private AuctionDetails SetupNewVehicleAuctionDetails(AddAuctionRequestModel request, AuctionItem newAuctionItem)
+        {
+            return new AuctionDetails()
+            {
+                AuctionItemId = newAuctionItem.AuctionItemId,
+                Make = request.VehicleAuction.VehicleMake,
+                Model = request.VehicleAuction.VehicleModel,
+                ManufacturingDate = request.VehicleAuction.VehicleManufacturingDate,
+                RegistrationNumber = request.VehicleAuction.VehicleRegistrationNumber,
+                IdentificationNumber = request.VehicleAuction.VehicleIdentificationNumber,
+                InspectionActive = request.VehicleAuction.VehicleInspectionActive,
+                Transmission = request.VehicleAuction.VehicleTransmission,
+                FuelType = request.VehicleAuction.VehicleFuelType,
+                EngineSize = request.VehicleAuction.VehicleEngineSize,
+                Axis = request.VehicleAuction.VehicleAxis,
+                Evaluation = request.VehicleAuction.VehicleEvaluation,
+                CreatedAt = DateTime.UtcNow,
+                CreatedBy = 1,
+                LastUpdatedAt = DateTime.UtcNow,
+                LastUpdatedBy = 1
+            };
         }
     }
 }
