@@ -241,7 +241,7 @@ namespace Bidding.Migrations
 
                     b.Property<string>("Make");
 
-                    b.Property<DateTime>("ManufacturingDate");
+                    b.Property<int>("ManufacturingYear");
 
                     b.Property<string>("MeasurementType");
 

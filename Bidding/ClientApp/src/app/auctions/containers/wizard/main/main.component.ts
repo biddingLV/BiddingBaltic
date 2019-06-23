@@ -159,10 +159,12 @@ export class AuctionAddMainWizardComponent implements OnInit, AfterViewInit {
     this.addAuctionRequest = {
       auctionTopCategoryId: this.categoryStepForm.value.auctionTopCategory,
       auctionSubCategoryId: this.categoryStepForm.value.auctionSubCategory,
+      auctionName: this.addStepForm.value.auctionName,
+      auctionStartingPrice: this.addStepForm.value.auctionStartingPrice,
       vehicleAuction: {
         vehicleMake: this.addStepForm.value.vehicleMake,
         vehicleModel: this.addStepForm.value.vehicleModel,
-        vehicleManufacturingDate: this.addStepForm.value.vehicleManufacturingDate,
+        vehicleManufacturingYear: this.addStepForm.value.vehicleManufacturingYear,
         vehicleRegistrationNumber: this.addStepForm.value.vehicleRegistrationNumber,
         vehicleIdentificationNumber: this.addStepForm.value.vehicleIdentificationNumber,
         vehicleInspectionActive: this.addStepForm.value.vehicleInspectionActive,

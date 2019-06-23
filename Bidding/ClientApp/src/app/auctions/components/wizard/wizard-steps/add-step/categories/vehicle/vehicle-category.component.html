@@ -6,7 +6,21 @@
       <form [formGroup]="addStepForm">
         <div class="form-row">
           <div class="form-group col-6">
-            <label for="vehicleMake">Marka:</label>
+            <label for="auctionName">Izsoles Nosaukums</label>
+            <input type="text" formControlName="auctionName" class="form-control" id="auctionName" name="auctionName"
+              [ngClass]="{ 'is-invalid': submitted && f.auctionName.errors }" />
+          </div>
+
+          <div class="form-group col-6">
+            <label for="auctionStartingPrice">Minimālā cena (EUR)</label>
+            <input type="text" formControlName="auctionStartingPrice" class="form-control" id="auctionStartingPrice"
+              name="auctionStartingPrice" [ngClass]="{ 'is-invalid': submitted && f.auctionStartingPrice.errors }" />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-6">
+            <label for="vehicleMake">Marka</label>
             <input type="text" formControlName="vehicleMake" class="form-control" id="vehicleMake" name="vehicleMake"
               [ngClass]="{ 'is-invalid': submitted && f.vehicleMake.errors }" />
           </div>
@@ -20,10 +34,10 @@
 
         <div class="form-row">
           <div class="form-group col-6">
-            <label for="vehicleManufacturingDate">Ražošanas gads:</label>
-            <input type="number" formControlName="vehicleManufacturingDate" class="form-control"
-              id="vehicleManufacturingDate" name="vehicleManufacturingDate"
-              [ngClass]="{ 'is-invalid': submitted && f.vehicleManufacturingDate.errors }" />
+            <label for="vehicleManufacturingYear">Ražošanas gads:</label>
+            <input type="number" formControlName="vehicleManufacturingYear" class="form-control"
+              id="vehicleManufacturingYear" name="vehicleManufacturingYear"
+              [ngClass]="{ 'is-invalid': submitted && f.vehicleManufacturingYear.errors }" />
           </div>
 
           <div class="form-group col-6">

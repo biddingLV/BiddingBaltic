@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Bidding.Migrations
 {
     [DbContext(typeof(BiddingContext))]
-    [Migration("20190610140505_InitialMigration")]
+    [Migration("20190623183613_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -198,6 +198,79 @@ namespace Bidding.Migrations
                             LastUpdatedBy = 1,
                             Name = "Nepieciešams remonts"
                         });
+                });
+
+            modelBuilder.Entity("Bidding.Database.DatabaseModels.Auctions.AuctionDetails", b =>
+                {
+                    b.Property<int>("AuctionDetailsId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Address");
+
+                    b.Property<int>("AuctionItemId");
+
+                    b.Property<string>("Axis");
+
+                    b.Property<string>("CadastreNumber");
+
+                    b.Property<string>("Condition");
+
+                    b.Property<string>("Coordinates");
+
+                    b.Property<DateTime>("CreatedAt");
+
+                    b.Property<int>("CreatedBy");
+
+                    b.Property<bool>("Deleted");
+
+                    b.Property<string>("EngineSize");
+
+                    b.Property<string>("Evaluation");
+
+                    b.Property<string>("FloorCount");
+
+                    b.Property<string>("FuelType");
+
+                    b.Property<string>("IdentificationNumber")
+                        .HasMaxLength(50);
+
+                    b.Property<bool>("InspectionActive");
+
+                    b.Property<DateTime>("LastUpdatedAt");
+
+                    b.Property<int>("LastUpdatedBy");
+
+                    b.Property<string>("Make");
+
+                    b.Property<int>("ManufacturingYear");
+
+                    b.Property<string>("MeasurementType");
+
+                    b.Property<string>("MeasurementValue");
+
+                    b.Property<string>("Model");
+
+                    b.Property<string>("Name");
+
+                    b.Property<string>("Region");
+
+                    b.Property<string>("RegistrationNumber")
+                        .HasMaxLength(50);
+
+                    b.Property<string>("RoomCount");
+
+                    b.Property<string>("Transmission");
+
+                    b.Property<int?>("UserId");
+
+                    b.HasKey("AuctionDetailsId");
+
+                    b.HasIndex("AuctionItemId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("AuctionDetails");
                 });
 
             modelBuilder.Entity("Bidding.Database.DatabaseModels.Auctions.AuctionFormat", b =>
@@ -398,169 +471,6 @@ namespace Bidding.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Bidding.Database.DatabaseModels.Auctions.Details.ItemAuctionDetails", b =>
-                {
-                    b.Property<int>("ItemAuctionDetailsId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("AuctionItemId");
-
-                    b.Property<DateTime>("CreatedAt");
-
-                    b.Property<int>("CreatedBy");
-
-                    b.Property<bool>("Deleted");
-
-                    b.Property<string>("Evaluation");
-
-                    b.Property<DateTime>("LastUpdatedAt");
-
-                    b.Property<int>("LastUpdatedBy");
-
-                    b.Property<DateTime>("ManufacturingDate");
-
-                    b.Property<string>("Model");
-
-                    b.Property<int?>("UserId");
-
-                    b.HasKey("ItemAuctionDetailsId");
-
-                    b.HasIndex("AuctionItemId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("ItemAuctionDetails");
-
-                    b.HasData(
-                        new
-                        {
-                            ItemAuctionDetailsId = 1,
-                            AuctionItemId = 3,
-                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatedBy = 1,
-                            Deleted = false,
-                            Evaluation = "In progress",
-                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            LastUpdatedBy = 1,
-                            ManufacturingDate = new DateTime(2019, 6, 10, 14, 5, 4, 699, DateTimeKind.Utc).AddTicks(5804),
-                            Model = "In progress"
-                        });
-                });
-
-            modelBuilder.Entity("Bidding.Database.DatabaseModels.Auctions.Details.PropertyAuctionDetails", b =>
-                {
-                    b.Property<int>("PropertyAuctionDetailsId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("AuctionItemId");
-
-                    b.Property<DateTime>("CreatedAt");
-
-                    b.Property<int>("CreatedBy");
-
-                    b.Property<bool>("Deleted");
-
-                    b.Property<DateTime>("LastUpdatedAt");
-
-                    b.Property<int>("LastUpdatedBy");
-
-                    b.Property<int?>("UserId");
-
-                    b.HasKey("PropertyAuctionDetailsId");
-
-                    b.HasIndex("AuctionItemId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("PropertyAuctionDetails");
-
-                    b.HasData(
-                        new
-                        {
-                            PropertyAuctionDetailsId = 1,
-                            AuctionItemId = 2,
-                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatedBy = 1,
-                            Deleted = false,
-                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            LastUpdatedBy = 1
-                        });
-                });
-
-            modelBuilder.Entity("Bidding.Database.DatabaseModels.Auctions.Details.VehicleAuctionDetails", b =>
-                {
-                    b.Property<int>("VehicleAuctionDetailsId")
-                        .ValueGeneratedOnAdd()
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<int>("AuctionItemId");
-
-                    b.Property<DateTime>("CreatedAt");
-
-                    b.Property<int>("CreatedBy");
-
-                    b.Property<bool>("Deleted");
-
-                    b.Property<string>("EngineSize");
-
-                    b.Property<string>("Evaluation");
-
-                    b.Property<string>("FuelType");
-
-                    b.Property<string>("Gearbox");
-
-                    b.Property<string>("IdentificationNumber")
-                        .HasMaxLength(50);
-
-                    b.Property<bool>("InspectionActive");
-
-                    b.Property<DateTime>("LastUpdatedAt");
-
-                    b.Property<int>("LastUpdatedBy");
-
-                    b.Property<string>("Make");
-
-                    b.Property<DateTime>("ManufacturingDate");
-
-                    b.Property<string>("Model");
-
-                    b.Property<string>("Power");
-
-                    b.Property<string>("RegistrationNumber")
-                        .HasMaxLength(50);
-
-                    b.Property<string>("Transmission");
-
-                    b.Property<int?>("UserId");
-
-                    b.HasKey("VehicleAuctionDetailsId");
-
-                    b.HasIndex("AuctionItemId");
-
-                    b.HasIndex("UserId");
-
-                    b.ToTable("VehicleAuctionDetails");
-
-                    b.HasData(
-                        new
-                        {
-                            VehicleAuctionDetailsId = 1,
-                            AuctionItemId = 1,
-                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatedBy = 1,
-                            Deleted = false,
-                            Evaluation = "In progress",
-                            InspectionActive = false,
-                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            LastUpdatedBy = 1,
-                            Make = "In progress",
-                            ManufacturingDate = new DateTime(2019, 6, 10, 14, 5, 4, 701, DateTimeKind.Utc).AddTicks(977),
-                            Model = "In progress"
-                        });
-                });
-
             modelBuilder.Entity("Bidding.Database.DatabaseModels.Users.Role", b =>
                 {
                     b.Property<int>("RoleId")
@@ -661,11 +571,11 @@ namespace Bidding.Migrations
                             CreatedBy = 1,
                             Deleted = false,
                             Email = "dummyadmin@bidding.lv",
-                            FirstName = "Peteris",
-                            LastName = "Liepins",
+                            FirstName = "Test",
+                            LastName = "Admin",
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
-                            MiddleName = "Admin",
+                            MiddleName = "",
                             RoleId = 2,
                             UniqueIdentifier = ""
                         },
@@ -676,12 +586,72 @@ namespace Bidding.Migrations
                             CreatedBy = 1,
                             Deleted = false,
                             Email = "dummyuser@bidding.lv",
-                            FirstName = "Peteris",
-                            LastName = "Liepins",
+                            FirstName = "Test",
+                            LastName = "User",
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
-                            MiddleName = "User",
+                            MiddleName = "",
                             RoleId = 1,
+                            UniqueIdentifier = ""
+                        },
+                        new
+                        {
+                            UserId = 3,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = 1,
+                            Deleted = false,
+                            Email = "zanehaartman@gmail.com",
+                            FirstName = "Zane",
+                            LastName = "",
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            MiddleName = "",
+                            RoleId = 2,
+                            UniqueIdentifier = ""
+                        },
+                        new
+                        {
+                            UserId = 4,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = 1,
+                            Deleted = false,
+                            Email = "kristaps.kerpe@gmail.com",
+                            FirstName = "Kristaps",
+                            LastName = "",
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            MiddleName = "",
+                            RoleId = 2,
+                            UniqueIdentifier = ""
+                        },
+                        new
+                        {
+                            UserId = 5,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = 1,
+                            Deleted = false,
+                            Email = "j.jaunozols@gmail.com",
+                            FirstName = "Jānis",
+                            LastName = "J",
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            MiddleName = "",
+                            RoleId = 2,
+                            UniqueIdentifier = ""
+                        },
+                        new
+                        {
+                            UserId = 6,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = 1,
+                            Deleted = false,
+                            Email = "janis.rihards.blazevics@gmail.com",
+                            FirstName = "Jānis",
+                            LastName = "B",
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            MiddleName = "R",
+                            RoleId = 2,
                             UniqueIdentifier = ""
                         });
                 });
@@ -902,7 +872,7 @@ namespace Bidding.Migrations
                             Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
-                            Name = "Elektrotehnika"
+                            Name = "Sadzīves tehnika"
                         },
                         new
                         {
@@ -913,7 +883,7 @@ namespace Bidding.Migrations
                             Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
-                            Name = "Rūpniecības tehnika"
+                            Name = "Instrumenti"
                         },
                         new
                         {
@@ -924,7 +894,7 @@ namespace Bidding.Migrations
                             Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
-                            Name = "Instrumenti"
+                            Name = "Iekārtas"
                         },
                         new
                         {
@@ -935,11 +905,88 @@ namespace Bidding.Migrations
                             Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
-                            Name = "Cita manta"
+                            Name = "Ražošanas materiāli"
                         },
                         new
                         {
                             TypeId = 13,
+                            AuctionCategoryId = 2,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = 1,
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Veikala produkcija"
+                        },
+                        new
+                        {
+                            TypeId = 14,
+                            AuctionCategoryId = 2,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = 1,
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Uzņēmums"
+                        },
+                        new
+                        {
+                            TypeId = 15,
+                            AuctionCategoryId = 2,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = 1,
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Domeins"
+                        },
+                        new
+                        {
+                            TypeId = 16,
+                            AuctionCategoryId = 2,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = 1,
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Preču zīme"
+                        },
+                        new
+                        {
+                            TypeId = 17,
+                            AuctionCategoryId = 2,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = 1,
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Sadzīves mēbeles"
+                        },
+                        new
+                        {
+                            TypeId = 18,
+                            AuctionCategoryId = 2,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = 1,
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Biroja mēbeles"
+                        },
+                        new
+                        {
+                            TypeId = 19,
+                            AuctionCategoryId = 2,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = 1,
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Cita manta"
+                        },
+                        new
+                        {
+                            TypeId = 20,
                             AuctionCategoryId = 3,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CreatedBy = 1,
@@ -950,7 +997,7 @@ namespace Bidding.Migrations
                         },
                         new
                         {
-                            TypeId = 14,
+                            TypeId = 21,
                             AuctionCategoryId = 3,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CreatedBy = 1,
@@ -961,7 +1008,7 @@ namespace Bidding.Migrations
                         },
                         new
                         {
-                            TypeId = 15,
+                            TypeId = 22,
                             AuctionCategoryId = 3,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CreatedBy = 1,
@@ -969,6 +1016,28 @@ namespace Bidding.Migrations
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Zeme"
+                        },
+                        new
+                        {
+                            TypeId = 23,
+                            AuctionCategoryId = 3,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = 1,
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Telpa"
+                        },
+                        new
+                        {
+                            TypeId = 24,
+                            AuctionCategoryId = 3,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = 1,
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Garāža"
                         });
                 });
 
@@ -1000,6 +1069,19 @@ namespace Bidding.Migrations
                     b.HasOne("Bidding.Database.DatabaseModels.Users.User", "User")
                         .WithMany("AuctionConditions")
                         .HasForeignKey("CreatedBy")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("Bidding.Database.DatabaseModels.Auctions.AuctionDetails", b =>
+                {
+                    b.HasOne("Bidding.Database.DatabaseModels.Auctions.AuctionItem", "AuctionItem")
+                        .WithMany()
+                        .HasForeignKey("AuctionItemId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("Bidding.Database.DatabaseModels.Users.User", "User")
+                        .WithMany("AuctionDetails")
+                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
@@ -1039,45 +1121,6 @@ namespace Bidding.Migrations
                     b.HasOne("Bidding.Database.DatabaseModels.Users.User", "User")
                         .WithMany("AuctionStatuses")
                         .HasForeignKey("CreatedBy")
-                        .OnDelete(DeleteBehavior.Restrict);
-                });
-
-            modelBuilder.Entity("Bidding.Database.DatabaseModels.Auctions.Details.ItemAuctionDetails", b =>
-                {
-                    b.HasOne("Bidding.Database.DatabaseModels.Auctions.AuctionItem", "AuctionItem")
-                        .WithMany()
-                        .HasForeignKey("AuctionItemId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("Bidding.Database.DatabaseModels.Users.User", "User")
-                        .WithMany("ItemAuctionDetails")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict);
-                });
-
-            modelBuilder.Entity("Bidding.Database.DatabaseModels.Auctions.Details.PropertyAuctionDetails", b =>
-                {
-                    b.HasOne("Bidding.Database.DatabaseModels.Auctions.AuctionItem", "AuctionItem")
-                        .WithMany()
-                        .HasForeignKey("AuctionItemId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("Bidding.Database.DatabaseModels.Users.User", "User")
-                        .WithMany("PropertyAuctionDetails")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict);
-                });
-
-            modelBuilder.Entity("Bidding.Database.DatabaseModels.Auctions.Details.VehicleAuctionDetails", b =>
-                {
-                    b.HasOne("Bidding.Database.DatabaseModels.Auctions.AuctionItem", "AuctionItem")
-                        .WithMany()
-                        .HasForeignKey("AuctionItemId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("Bidding.Database.DatabaseModels.Users.User", "User")
-                        .WithMany("VehicleAuctionDetails")
-                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 

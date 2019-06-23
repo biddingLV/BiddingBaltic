@@ -23,9 +23,11 @@ export class AuctionAddWizardVehicleComponent implements OnInit {
 
   /** Form error object */
   formErrors = {
+    auctionName: '',
+    auctionStartingPrice: '',
     vehicleMake: '',
     vehicleModel: '',
-    vehicleManufacturingDate: '',
+    vehicleManufacturingYear: '',
     vehicleRegistrationNumber: '',
     vehicleIdentificationNumber: '',
     vehicleInspectionActive: '',
@@ -106,12 +108,14 @@ export class AuctionAddWizardVehicleComponent implements OnInit {
 
   private buildForm(): void {
     this.addStepForm = this.formBuilder.group({
+      auctionName: ['Skaists BMW', []],
+      auctionStartingPrice: [5000, []],
       vehicleMake: ['BMW', []],
       vehicleModel: ['1-Series', []],
-      vehicleManufacturingDate: [2014, []],
+      vehicleManufacturingYear: [2014, []],
       vehicleRegistrationNumber: [5990144781, []],
       vehicleIdentificationNumber: [68813321, []],
-      vehicleInspectionActive: ['', []],    
+      vehicleInspectionActive: [false, []],
       vehicleTransmission: ['', []],
       vehicleFuelType: ['', []],
       vehicleEngineSize: ['', []],

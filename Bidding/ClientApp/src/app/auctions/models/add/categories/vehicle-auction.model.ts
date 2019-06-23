@@ -2,7 +2,7 @@ namespace Auctions {
   export interface VehicleAuctionModel {
     vehicleMake: string;
     vehicleModel: string;
-    vehicleManufacturingDate: string;
+    vehicleManufacturingYear: number;
     vehicleRegistrationNumber: string;
     vehicleIdentificationNumber: string;
     vehicleInspectionActive: string;

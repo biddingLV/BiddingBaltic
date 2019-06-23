@@ -292,7 +292,7 @@ namespace Bidding.Repositories.Auctions
                         {
                             AuctionItemId = newAuctionItem.AuctionItemId,
                             Model = request.ItemModel,
-                            ManufacturingDate = DateTime.UtcNow,
+                            ManufacturingYear = 9999,
                             Condition = "ADD ME",
                             Evaluation = request.ItemEvaluation,
                             CreatedAt = DateTime.UtcNow,
@@ -513,7 +513,7 @@ namespace Bidding.Repositories.Auctions
                 AuctionItemId = newAuctionItem.AuctionItemId,
                 Make = request.VehicleAuction.VehicleMake,
                 Model = request.VehicleAuction.VehicleModel,
-                ManufacturingDate = request.VehicleAuction.VehicleManufacturingDate,
+                ManufacturingYear = request.VehicleAuction.VehicleManufacturingYear,
                 RegistrationNumber = request.VehicleAuction.VehicleRegistrationNumber,
                 IdentificationNumber = request.VehicleAuction.VehicleIdentificationNumber,
                 InspectionActive = request.VehicleAuction.VehicleInspectionActive,

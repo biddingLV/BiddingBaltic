@@ -90,9 +90,9 @@ export class AuctionAddAboutWizardStepComponent implements OnInit {
       auctionCreatorEmail: ['peteris@peteris.gg', []],
       auctionCreatorPhone: ['256565656', []],
       auctionFormat: ['', []],
-      auctionStartDate: ['02/06/2019', []],
-      auctionApplyTillDate: ['01/07/2019', []],
-      auctionEndDate: ['01/07/2019', []]
+      auctionStartDate: ['', []],
+      auctionApplyTillDate: ['', []],
+      auctionEndDate: ['', []]
     });
 
     // this.loadAuctionCreators();

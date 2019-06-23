@@ -28,64 +28,32 @@ namespace Bidding.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ItemAuctionDetails",
+                name: "AuctionDetails",
                 columns: table => new
                 {
-                    ItemAuctionDetailsId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    AuctionItemId = table.Column<int>(nullable: false),
-                    Model = table.Column<string>(nullable: true),
-                    ManufacturingDate = table.Column<DateTime>(nullable: false),
-                    Evaluation = table.Column<string>(nullable: true),
-                    CreatedAt = table.Column<DateTime>(nullable: false),
-                    CreatedBy = table.Column<int>(nullable: false),
-                    UserId = table.Column<int>(nullable: true),
-                    LastUpdatedAt = table.Column<DateTime>(nullable: false),
-                    LastUpdatedBy = table.Column<int>(nullable: false),
-                    Deleted = table.Column<bool>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_ItemAuctionDetails", x => x.ItemAuctionDetailsId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "PropertyAuctionDetails",
-                columns: table => new
-                {
-                    PropertyAuctionDetailsId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    AuctionItemId = table.Column<int>(nullable: false),
-                    CreatedAt = table.Column<DateTime>(nullable: false),
-                    CreatedBy = table.Column<int>(nullable: false),
-                    UserId = table.Column<int>(nullable: true),
-                    LastUpdatedAt = table.Column<DateTime>(nullable: false),
-                    LastUpdatedBy = table.Column<int>(nullable: false),
-                    Deleted = table.Column<bool>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_PropertyAuctionDetails", x => x.PropertyAuctionDetailsId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "VehicleAuctionDetails",
-                columns: table => new
-                {
-                    VehicleAuctionDetailsId = table.Column<int>(nullable: false)
+                    AuctionDetailsId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     AuctionItemId = table.Column<int>(nullable: false),
                     Make = table.Column<string>(nullable: true),
                     Model = table.Column<string>(nullable: true),
-                    Power = table.Column<string>(nullable: true),
-                    ManufacturingDate = table.Column<DateTime>(nullable: false),
-                    InspectionActive = table.Column<bool>(nullable: false),
-                    EngineSize = table.Column<string>(nullable: true),
-                    FuelType = table.Column<string>(nullable: true),
-                    Transmission = table.Column<string>(nullable: true),
-                    Gearbox = table.Column<string>(nullable: true),
+                    ManufacturingYear = table.Column<int>(nullable: false),
                     RegistrationNumber = table.Column<string>(maxLength: 50, nullable: true),
                     IdentificationNumber = table.Column<string>(maxLength: 50, nullable: true),
+                    InspectionActive = table.Column<bool>(nullable: false),
+                    Transmission = table.Column<string>(nullable: true),
+                    FuelType = table.Column<string>(nullable: true),
+                    EngineSize = table.Column<string>(nullable: true),
+                    Axis = table.Column<string>(nullable: true),
+                    Name = table.Column<string>(nullable: true),
+                    Condition = table.Column<string>(nullable: true),
+                    Coordinates = table.Column<string>(nullable: true),
+                    Region = table.Column<string>(nullable: true),
+                    CadastreNumber = table.Column<string>(nullable: true),
+                    MeasurementValue = table.Column<string>(nullable: true),
+                    MeasurementType = table.Column<string>(nullable: true),
+                    Address = table.Column<string>(nullable: true),
+                    FloorCount = table.Column<string>(nullable: true),
+                    RoomCount = table.Column<string>(nullable: true),
                     Evaluation = table.Column<string>(nullable: true),
                     CreatedAt = table.Column<DateTime>(nullable: false),
                     CreatedBy = table.Column<int>(nullable: false),
@@ -96,7 +64,7 @@ namespace Bidding.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_VehicleAuctionDetails", x => x.VehicleAuctionDetailsId);
+                    table.PrimaryKey("PK_AuctionDetails", x => x.AuctionDetailsId);
                 });
 
             migrationBuilder.CreateTable(
@@ -321,12 +289,15 @@ namespace Bidding.Migrations
             migrationBuilder.InsertData(
                 table: "Users",
                 columns: new[] { "UserId", "CreatedAt", "CreatedBy", "Deleted", "Email", "FirstName", "LastName", "LastUpdatedAt", "LastUpdatedBy", "MiddleName", "RoleId", "UniqueIdentifier" },
-                values: new object[] { 2, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, "dummyuser@bidding.lv", "Peteris", "Liepins", new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "User", 1, "" });
-
-            migrationBuilder.InsertData(
-                table: "Users",
-                columns: new[] { "UserId", "CreatedAt", "CreatedBy", "Deleted", "Email", "FirstName", "LastName", "LastUpdatedAt", "LastUpdatedBy", "MiddleName", "RoleId", "UniqueIdentifier" },
-                values: new object[] { 1, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, "dummyadmin@bidding.lv", "Peteris", "Liepins", new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Admin", 2, "" });
+                values: new object[,]
+                {
+                    { 2, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, "dummyuser@bidding.lv", "Test", "User", new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "", 1, "" },
+                    { 1, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, "dummyadmin@bidding.lv", "Test", "Admin", new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "", 2, "" },
+                    { 3, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, "zanehaartman@gmail.com", "Zane", "", new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "", 2, "" },
+                    { 4, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, "kristaps.kerpe@gmail.com", "Kristaps", "", new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "", 2, "" },
+                    { 5, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, "j.jaunozols@gmail.com", "Jānis", "J", new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "", 2, "" },
+                    { 6, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, "janis.rihards.blazevics@gmail.com", "Jānis", "B", new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "R", 2, "" }
+                });
 
             migrationBuilder.InsertData(
                 table: "AuctionConditions",
@@ -376,20 +347,29 @@ namespace Bidding.Migrations
                 values: new object[,]
                 {
                     { 1, 1, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Vieglais transports līdz 3,5t" },
-                    { 2, 1, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Traktortehnika" },
-                    { 3, 1, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Kravas auto" },
-                    { 4, 1, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Mototehnika" },
-                    { 5, 1, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Piekabes" },
-                    { 6, 1, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Ūdens transports" },
-                    { 7, 1, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Cits transports" },
+                    { 22, 3, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Zeme" },
+                    { 21, 3, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Māja" },
+                    { 20, 3, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Dzīvoklis" },
+                    { 19, 2, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Cita manta" },
+                    { 18, 2, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Biroja mēbeles" },
+                    { 17, 2, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Sadzīves mēbeles" },
+                    { 16, 2, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Preču zīme" },
+                    { 15, 2, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Domeins" },
+                    { 14, 2, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Uzņēmums" },
+                    { 13, 2, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Veikala produkcija" },
+                    { 12, 2, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Ražošanas materiāli" },
+                    { 11, 2, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Iekārtas" },
+                    { 10, 2, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Instrumenti" },
+                    { 9, 2, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Sadzīves tehnika" },
                     { 8, 2, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Biroja tehnika" },
-                    { 9, 2, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Elektrotehnika" },
-                    { 10, 2, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Rūpniecības tehnika" },
-                    { 11, 2, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Instrumenti" },
-                    { 12, 2, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Cita manta" },
-                    { 13, 3, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Dzīvoklis" },
-                    { 14, 3, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Māja" },
-                    { 15, 3, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Zeme" }
+                    { 7, 1, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Cits transports" },
+                    { 6, 1, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Ūdens transports" },
+                    { 5, 1, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Piekabes" },
+                    { 4, 1, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Mototehnika" },
+                    { 3, 1, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Kravas auto" },
+                    { 2, 1, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Traktortehnika" },
+                    { 23, 3, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Telpa" },
+                    { 24, 3, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Garāža" }
                 });
 
             migrationBuilder.InsertData(
@@ -422,25 +402,20 @@ namespace Bidding.Migrations
                 columns: new[] { "AuctionItemId", "AuctionId", "AuctionItemCategoryId", "AuctionItemTypeId", "CreatedAt", "CreatedBy", "Deleted", "LastUpdatedAt", "LastUpdatedBy", "Name" },
                 values: new object[] { 2, 2, 3, 13, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Penthouse tipa dzīvoklis Vecrīgas sirdī" });
 
-            migrationBuilder.InsertData(
-                table: "ItemAuctionDetails",
-                columns: new[] { "ItemAuctionDetailsId", "AuctionItemId", "CreatedAt", "CreatedBy", "Deleted", "Evaluation", "LastUpdatedAt", "LastUpdatedBy", "ManufacturingDate", "Model", "UserId" },
-                values: new object[] { 1, 3, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, "In progress", new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, new DateTime(2019, 6, 10, 14, 5, 4, 699, DateTimeKind.Utc).AddTicks(5804), "In progress", null });
-
-            migrationBuilder.InsertData(
-                table: "PropertyAuctionDetails",
-                columns: new[] { "PropertyAuctionDetailsId", "AuctionItemId", "CreatedAt", "CreatedBy", "Deleted", "LastUpdatedAt", "LastUpdatedBy", "UserId" },
-                values: new object[] { 1, 2, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, null });
-
-            migrationBuilder.InsertData(
-                table: "VehicleAuctionDetails",
-                columns: new[] { "VehicleAuctionDetailsId", "AuctionItemId", "CreatedAt", "CreatedBy", "Deleted", "EngineSize", "Evaluation", "FuelType", "Gearbox", "IdentificationNumber", "InspectionActive", "LastUpdatedAt", "LastUpdatedBy", "Make", "ManufacturingDate", "Model", "Power", "RegistrationNumber", "Transmission", "UserId" },
-                values: new object[] { 1, 1, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, null, "In progress", null, null, null, false, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "In progress", new DateTime(2019, 6, 10, 14, 5, 4, 701, DateTimeKind.Utc).AddTicks(977), "In progress", null, null, null, null });
-
             migrationBuilder.CreateIndex(
                 name: "IX_AuctionConditions_CreatedBy",
                 table: "AuctionConditions",
                 column: "CreatedBy");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AuctionDetails_AuctionItemId",
+                table: "AuctionDetails",
+                column: "AuctionItemId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AuctionDetails_UserId",
+                table: "AuctionDetails",
+                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AuctionFormats_CreatedBy",
@@ -498,26 +473,6 @@ namespace Bidding.Migrations
                 column: "CreatedBy");
 
             migrationBuilder.CreateIndex(
-                name: "IX_ItemAuctionDetails_AuctionItemId",
-                table: "ItemAuctionDetails",
-                column: "AuctionItemId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_ItemAuctionDetails_UserId",
-                table: "ItemAuctionDetails",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PropertyAuctionDetails_AuctionItemId",
-                table: "PropertyAuctionDetails",
-                column: "AuctionItemId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_PropertyAuctionDetails_UserId",
-                table: "PropertyAuctionDetails",
-                column: "UserId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Roles_UserId",
                 table: "Roles",
                 column: "UserId");
@@ -537,59 +492,17 @@ namespace Bidding.Migrations
                 table: "Users",
                 column: "RoleId");
 
-            migrationBuilder.CreateIndex(
-                name: "IX_VehicleAuctionDetails_AuctionItemId",
-                table: "VehicleAuctionDetails",
-                column: "AuctionItemId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_VehicleAuctionDetails_UserId",
-                table: "VehicleAuctionDetails",
-                column: "UserId");
-
             migrationBuilder.AddForeignKey(
-                name: "FK_ItemAuctionDetails_Users_UserId",
-                table: "ItemAuctionDetails",
+                name: "FK_AuctionDetails_Users_UserId",
+                table: "AuctionDetails",
                 column: "UserId",
                 principalTable: "Users",
                 principalColumn: "UserId",
                 onDelete: ReferentialAction.Restrict);
 
             migrationBuilder.AddForeignKey(
-                name: "FK_ItemAuctionDetails_AuctionItems_AuctionItemId",
-                table: "ItemAuctionDetails",
-                column: "AuctionItemId",
-                principalTable: "AuctionItems",
-                principalColumn: "AuctionItemId",
-                onDelete: ReferentialAction.Restrict);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_PropertyAuctionDetails_Users_UserId",
-                table: "PropertyAuctionDetails",
-                column: "UserId",
-                principalTable: "Users",
-                principalColumn: "UserId",
-                onDelete: ReferentialAction.Restrict);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_PropertyAuctionDetails_AuctionItems_AuctionItemId",
-                table: "PropertyAuctionDetails",
-                column: "AuctionItemId",
-                principalTable: "AuctionItems",
-                principalColumn: "AuctionItemId",
-                onDelete: ReferentialAction.Restrict);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_VehicleAuctionDetails_Users_UserId",
-                table: "VehicleAuctionDetails",
-                column: "UserId",
-                principalTable: "Users",
-                principalColumn: "UserId",
-                onDelete: ReferentialAction.Restrict);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_VehicleAuctionDetails_AuctionItems_AuctionItemId",
-                table: "VehicleAuctionDetails",
+                name: "FK_AuctionDetails_AuctionItems_AuctionItemId",
+                table: "AuctionDetails",
                 column: "AuctionItemId",
                 principalTable: "AuctionItems",
                 principalColumn: "AuctionItemId",
@@ -694,19 +607,13 @@ namespace Bidding.Migrations
                 name: "AuctionConditions");
 
             migrationBuilder.DropTable(
+                name: "AuctionDetails");
+
+            migrationBuilder.DropTable(
                 name: "AuctionFormats");
 
             migrationBuilder.DropTable(
-                name: "ItemAuctionDetails");
-
-            migrationBuilder.DropTable(
                 name: "Newsletters");
-
-            migrationBuilder.DropTable(
-                name: "PropertyAuctionDetails");
-
-            migrationBuilder.DropTable(
-                name: "VehicleAuctionDetails");
 
             migrationBuilder.DropTable(
                 name: "AuctionItems");

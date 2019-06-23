@@ -9,7 +9,7 @@ namespace Bidding.Models.ViewModels.Bidding.Auctions.Add.Categories
     {
         public string VehicleMake { get; set; }
         public string VehicleModel { get; set; }
-        public DateTime VehicleManufacturingDate { get; set; }
+        public int VehicleManufacturingYear { get; set; }
         public string VehicleRegistrationNumber { get; set; }
         public string VehicleIdentificationNumber { get; set; }
         public bool VehicleInspectionActive { get; set; }

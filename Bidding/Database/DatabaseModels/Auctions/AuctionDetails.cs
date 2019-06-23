@@ -19,7 +19,7 @@ namespace Bidding.Database.DatabaseModels.Auctions
 
         public string Make { get; set; }
         public string Model { get; set; }
-        public DateTime ManufacturingDate { get; set; }
+        public int ManufacturingYear { get; set; }
 
         [MaxLength(50)]
         public string RegistrationNumber { get; set; }

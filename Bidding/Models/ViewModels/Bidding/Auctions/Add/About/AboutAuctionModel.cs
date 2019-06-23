@@ -7,7 +7,6 @@ namespace Bidding.Models.ViewModels.Bidding.Auctions.Add.About
 {
     public class AboutAuctionModel
     {
-        // todo: add name here and also price???
         public string AuctionCreator { get; set; }
         public string AuctionAddress { get; set; }
         public string AuctionCreatorEmail { get; set; }
