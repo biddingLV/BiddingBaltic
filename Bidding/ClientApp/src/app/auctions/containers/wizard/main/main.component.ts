@@ -3,7 +3,7 @@ import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 // 3rd party
-import { BsModalRef } from 'ngx-bootstrap/modal';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Subscription } from 'rxjs';
 import { startWith } from 'rxjs/operators';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker/bs-datepicker.config';
@@ -56,7 +56,8 @@ export class AuctionAddMainWizardComponent implements OnInit, AfterViewInit {
   constructor(
     private auctionApi: AuctionsService,
     private notification: NotificationsService,
-    public bsModalRef: BsModalRef
+    public bsModalRef: BsModalRef,
+    private externalModalService: BsModalService,
   ) { }
 
   ngOnInit(): void {
@@ -207,10 +208,11 @@ export class AuctionAddMainWizardComponent implements OnInit, AfterViewInit {
 
   private makeRequest(request: Auctions.AddAuctionRequestModel): void {
     this.auctionApi.addAuction$(request)
-      .subscribe((response: boolean) => {
-        if (response) {
+      .subscribe((addSuccess: boolean) => {
+        if (addSuccess) {
           this.notification.success('Auction successfully added.');
           this.bsModalRef.hide();
+          this.externalModalService.setDismissReason('Create');
         } else {
           this.notification.error('Could not add auction.');
         }

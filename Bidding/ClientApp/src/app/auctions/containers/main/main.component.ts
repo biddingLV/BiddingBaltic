@@ -4,22 +4,23 @@ import { Component, OnInit } from '@angular/core';
 // 3rd lib
 import { Subscription } from 'rxjs';
 import { startWith } from 'rxjs/operators';
+import * as moment from 'moment-mini';
 
 // internal
 import { AuctionsService } from '../../services/auctions.service';
 import { NotificationsService } from 'ClientApp/src/app/core/services/notifications/notifications.service';
 import { AuctionFilterModel } from '../../models/filters/auction-filter.model';
 import { SubCategoryFilterModel } from '../../models/filters/sub-category-filter.model';
+import { AuctionModel } from '../../models/list/auction.model';
+import { AuctionListRequest } from '../../models/list/auction-list-request.model';
 
 
 @Component({
   selector: 'app-auction-main',
-  templateUrl: './main.component.html',
-  styleUrls: []
+  templateUrl: './main.component.html'
 })
 export class AuctionMainComponent implements OnInit {
-  // API
-  filtersSub: Subscription;
+  mainSubscription: Subscription;
 
   filters: AuctionFilterModel;
   auctionTypes: SubCategoryFilterModel[];
@@ -31,12 +32,22 @@ export class AuctionMainComponent implements OnInit {
   /** Search bar - specified text */
   searchText: string;
 
+  // API
+  auctionTable: AuctionModel;
+  request: AuctionListRequest;
+
+  // pagination || form
+  numberRows = 15;
+  currentPage = 1;
+
   constructor(
-    private auctionApi: AuctionsService,
-    private notification: NotificationsService
+    private auctionService: AuctionsService,
+    private notificationService: NotificationsService
   ) { }
 
   ngOnInit(): void {
+    this.setupInitialAuctionRequest();
+    this.loadActiveAuctions();
     this.loadFilters();
   }
 
@@ -64,14 +75,36 @@ export class AuctionMainComponent implements OnInit {
 
   /** Load top & sub categories */
   private loadFilters(): void {
-    this.filtersSub = this.auctionApi.getFilters$()
+    this.mainSubscription = this.auctionService.getFilters$()
       .pipe(startWith(new AuctionFilterModel()))
       .subscribe(
-        (result: AuctionFilterModel) => {
-          this.filters = result;
-          this.auctionTypes = result.subCategories;
+        (response: AuctionFilterModel) => {
+          this.filters = response;
+          this.auctionTypes = response.subCategories;
         },
-        (error: string) => this.notification.error(error)
+        (error: string) => this.notificationService.error(error)
+      );
+  }
+
+  private setupInitialAuctionRequest(): void {
+    this.request = {
+      auctionStartDate: moment().subtract(365, 'days').format('DD/MM/YYYY'),
+      auctionEndDate: moment().format('DD/MM/YYYY'),
+      sizeOfPage: this.numberRows,
+      currentPage: this.currentPage,
+      sortByColumn: 'AuctionName', // by default sort by auction name
+      sortingDirection: 'asc', // by default ascending
+      searchValue: this.searchText
+    };
+  }
+
+  /** Gets only active auctions */
+  private loadActiveAuctions(): void {
+    this.mainSubscription = this.auctionService
+      .getAuctions$(this.request)
+      .subscribe(
+        (response: AuctionModel) => { this.auctionTable = response; },
+        (error: string) => this.notificationService.error(error)
       );
   }
 }

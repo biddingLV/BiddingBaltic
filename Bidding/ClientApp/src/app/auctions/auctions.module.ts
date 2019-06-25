@@ -7,7 +7,7 @@ import { ArchwizardModule } from 'angular-archwizard';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 // internal 
-import { AuctionListComponent } from './containers/list/list.component';
+import { AuctionListComponent } from './components/list/list.component';
 import { AuctionDetailsComponent } from './containers/details/details.component';
 import { AuctionMainComponent } from './containers/main/main.component';
 import { AuctionEditComponent } from './components/edit/edit.component';

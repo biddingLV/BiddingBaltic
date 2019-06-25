@@ -14,10 +14,11 @@ import { NotificationsService } from 'ClientApp/src/app/core/services/notificati
 
 @Component({
   selector: 'app-auction-list',
-  templateUrl: './list.component.html',
-  styleUrls: []
+  templateUrl: './list.component.html'
 })
 export class AuctionListComponent implements OnInit, OnDestroy, OnChanges {
+  @Input() auctionTable: AuctionModel;
+
   @Input() selected?: any[] = []; // todo: kke: specify correct type! // note: kke: is this even needed here?
   @Output() selectedChange = new EventEmitter<any>(); // todo: kke: specify correct type!
 
@@ -30,16 +31,8 @@ export class AuctionListComponent implements OnInit, OnDestroy, OnChanges {
   /** Search bar text */
   @Input() searchText?: '';
 
-  /** Used to update auction list from parent components */
-  @Input() updateAuctionList?: false; // todo: kke: this is not working atm!
-
   // table
   auctionsSub: Subscription;
-  auctionTable: AuctionModel;
-
-  // pagination || form
-  numberRows = 15;
-  currentPage = 1;
 
   // API
   request: AuctionListRequest;
@@ -49,10 +42,7 @@ export class AuctionListComponent implements OnInit, OnDestroy, OnChanges {
     private notification: NotificationsService
   ) { }
 
-  ngOnInit(): void {
-    this.setupInitialAuctionRequest();
-    this.getAuctions();
-  }
+  ngOnInit(): void { }
 
   // Request Update Events
   updateRequest(property: string, event): void {
@@ -62,8 +52,6 @@ export class AuctionListComponent implements OnInit, OnDestroy, OnChanges {
       this.request.searchValue = event;
       this.request.currentPage = 1;
     }
-
-    this.getAuctions();
   }
 
   // Sort Update Events
@@ -73,8 +61,6 @@ export class AuctionListComponent implements OnInit, OnDestroy, OnChanges {
 
     this.request.sortByColumn = event.column.prop;
     this.request.currentPage = 1;
-
-    this.getAuctions();
   }
 
   // todo: kke: is this even needed here?
@@ -95,18 +81,12 @@ export class AuctionListComponent implements OnInit, OnDestroy, OnChanges {
       switch (!changes[property].firstChange && property) {
         case 'categoryIds':
           this.request.topCategoryIds = changes[property].currentValue;
-          this.getAuctions();
           break;
         case 'typeIds':
           this.request.typeIds = changes[property].currentValue;
-          this.getAuctions();
           break;
         case 'searchText':
           this.request.searchValue = changes[property].currentValue;
-          this.getAuctions();
-          break;
-        case 'updateAuctionList':
-          this.getAuctions(); // todo: kke: this is not working atm!
           break;
         default:
           break;
@@ -120,24 +100,24 @@ export class AuctionListComponent implements OnInit, OnDestroy, OnChanges {
     }
   }
 
-  private setupInitialAuctionRequest(): void {
-    this.request = {
-      auctionStartDate: moment().subtract(365, 'days').format('DD/MM/YYYY'),
-      auctionEndDate: moment().format('DD/MM/YYYY'),
-      sizeOfPage: this.numberRows,
-      currentPage: this.currentPage,
-      sortByColumn: 'AuctionName', // by default sort by auction name
-      sortingDirection: 'asc', // by default ascending
-      searchValue: this.searchText
-    };
-  }
+  // private setupInitialAuctionRequest(): void {
+  //   this.request = {
+  //     auctionStartDate: moment().subtract(365, 'days').format('DD/MM/YYYY'),
+  //     auctionEndDate: moment().format('DD/MM/YYYY'),
+  //     sizeOfPage: this.numberRows,
+  //     currentPage: this.currentPage,
+  //     sortByColumn: 'AuctionName', // by default sort by auction name
+  //     sortingDirection: 'asc', // by default ascending
+  //     searchValue: this.searchText
+  //   };
+  // }
 
-  private getAuctions(): void {
-    this.auctionsSub = this.auctionApi
-      .getAuctions$(this.request)
-      .subscribe(
-        (result: AuctionModel) => { this.auctionTable = result; },
-        (error: string) => this.notification.error(error)
-      );
-  }
+  // private getAuctions(): void {
+  //   this.auctionsSub = this.auctionApi
+  //     .getAuctions$(this.request)
+  //     .subscribe(
+  //       (result: AuctionModel) => { this.auctionTable = result; },
+  //       (error: string) => this.notification.error(error)
+  //     );
+  // }
 }

@@ -20,7 +20,6 @@
 </div>
 
 <!-- List -->
-<div>
-  <!-- todo: kke: this flag is not working ATM! -->
-  <app-auction-list [selected]="selected" [updateAuctionList]="updateAuctionList"></app-auction-list>
+<div *ngIf="auctionTable">
+  <app-auction-list [auctionTable]="auctionTable" [selected]="selected"></app-auction-list>
 </div>

@@ -13,9 +13,9 @@ import { FAQPageComponent } from './shared/components/footer/static-components/f
 
 const routes: Routes = [
   { path: '', loadChildren: './home/home.module#HomeModule' },
-  // { path: 'auctions', loadChildren: './auctions/auctions.module#AuctionsModule' },
-  // { path: 'admin', loadChildren: './admin/admin.module#AdminModule' },
-  // { path: 'users', loadChildren: './users/users.module#UsersModule' },
+  { path: 'auctions', loadChildren: './auctions/auctions.module#AuctionsModule' },
+  { path: 'admin', loadChildren: './admin/admin.module#AdminModule' },
+  { path: 'users', loadChildren: './users/users.module#UsersModule' },
   { path: 'public_html', redirectTo: '', pathMatch: 'full' },
   { path: 'noteikumi-un-nosacijumi', component: RulesListComponent },
   { path: 'gdpr', component: GdprRulesComponent },

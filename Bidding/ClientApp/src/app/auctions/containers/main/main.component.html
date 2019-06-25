@@ -41,8 +41,9 @@
 
   <!-- List/Table -->
   <div class="row">
-    <div class="col-12">
-      <app-auction-list [(categoryIds)]="selectedCategoryIds" [(typeIds)]="selectedTypeIds" [(searchText)]="searchText">
+    <div class="col-12" *ngIf="auctionTable">
+      <app-auction-list [auctionTable]="auctionTable" [(categoryIds)]="selectedCategoryIds"
+        [(typeIds)]="selectedTypeIds" [(searchText)]="searchText">
       </app-auction-list>
     </div>
   </div>
