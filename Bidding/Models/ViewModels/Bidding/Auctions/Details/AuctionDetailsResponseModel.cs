@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bidding.Models.ViewModels.Bidding.Auctions.Shared.Categories;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -7,15 +8,17 @@ namespace Bidding.Models.ViewModels.Bidding.Auctions.Details
 {
     public class AuctionDetailsResponseModel
     {
-        public string AuctionName { get; set; }
-        public string CategoryName { get; set; }
-        public string TypeName { get; set; }
-        public string FormatName { get; set; }
-        public string ConditionName { get; set; }
-        public int AuctionStartingPrice { get; set; }
-        public DateTime AuctionStartDate { get; set; }
-        public DateTime AuctionTillDate { get; set; }
-        public DateTime AuctionEndDate { get; set; }
-        public string AuctionDescription { get; set; }
+        //public int AuctionTopCategoryId { get; set; }
+
+        ///// <summary>
+        ///// Can be nullable because 'Mantu kopa' doesnt have sub-category
+        ///// </summary>
+        //public int? AuctionSubCategoryId { get; set; }
+        //public string AuctionName { get; set; }
+        //public int AuctionStartingPrice { get; set; }
+        public VehicleAuctionModel VehicleAuction { get; set; }
+        public ItemAuctionModel ItemAuction { get; set; }
+        public PropertyAuctionModel PropertyAuction { get; set; }
+        // public AboutAuctionModel AboutAuction { get; set; }
     }
 }

@@ -139,19 +139,29 @@ export class AuctionAddMainWizardComponent implements OnInit, AfterViewInit {
   }
 
   private setItemAuctionAddRequest(): void {
-    // this.addAuctionRequest = {
-    //   auctionTopCategoryId: this.categoryStepForm.value.auctionTopCategory,
-    //   auctionSubCategoryId: this.categoryStepForm.value.auctionSubCategory,
-    //   itemAuction: {
-    //     itemName: this.addStepForm.value.itemName,
-    //     itemModel: this.addStepForm.value.itemModel,
-    //     itemManufacturingDate: this.addStepForm.value.itemManufacturingDate,
-    //     itemEvaluation: this.addStepForm.value.itemEvaluation,
-    //     itemStartingPrice: this.addStepForm.value.itemStartingPrice
-    //   }
-    // }
-
-    // console.log('this.addAuctionRequest.itemAuction: ', this.addAuctionRequest.itemAuction)
+    this.addAuctionRequest = {
+      auctionTopCategoryId: this.categoryStepForm.value.auctionTopCategory,
+      auctionSubCategoryId: this.categoryStepForm.value.auctionSubCategory,
+      auctionName: this.addStepForm.value.itemName,
+      auctionStartingPrice: this.addStepForm.value.itemStartingPrice,
+      itemAuction: {
+        itemModel: this.addStepForm.value.itemModel,
+        itemManufacturingYear: this.addStepForm.value.itemManufacturingYear,
+        itemCondition: this.addStepForm.value.itemCondition,
+        itemEvaluation: this.addStepForm.value.itemEvaluation,
+        itemStartingPrice: this.addStepForm.value.itemStartingPrice
+      },
+      aboutAuction: { // todo: kke: this can be refactored because it is the same for all top-categories!
+        auctionCreator: this.aboutStepForm.value.auctionCreator,
+        auctionAddress: this.aboutStepForm.value.auctionAddress,
+        auctionCreatorEmail: this.aboutStepForm.value.auctionCreatorEmail,
+        auctionCreatorPhone: this.aboutStepForm.value.auctionCreatorPhone,
+        auctionFormat: this.aboutStepForm.value.auctionFormat,
+        auctionStartDate: this.aboutStepForm.value.auctionStartDate,
+        auctionApplyTillDate: this.aboutStepForm.value.auctionApplyTillDate,
+        auctionEndDate: this.aboutStepForm.value.auctionEndDate
+      }
+    }
 
     this.makeRequest(this.addAuctionRequest);
   }
@@ -191,18 +201,33 @@ export class AuctionAddMainWizardComponent implements OnInit, AfterViewInit {
   }
 
   private setPropertyAuctionAddRequest(): void {
-    // this.addAuctionRequest = {
-    //   auctionTopCategoryId: this.categoryStepForm.value.auctionTopCategory,
-    //   auctionSubCategoryId: this.categoryStepForm.value.auctionSubCategory,
-    //   propertyAuction: {
-    //     propertyCoordinates: this.addStepForm.value.objectCoordinates,
-    //     propertyRegion: this.addStepForm.value.objectRegion
-    //   }
-    // }
-
-    // todo: kke: all of these values are undefined here! - pass form object back to main component!
-    console.log('this.addAuctionRequest.propertyAuction: ', this.addAuctionRequest.propertyAuction)
-
+    this.addAuctionRequest = {
+      auctionTopCategoryId: this.categoryStepForm.value.auctionTopCategory,
+      auctionSubCategoryId: this.categoryStepForm.value.auctionSubCategory,
+      auctionName: this.addStepForm.value.auctionName, // ir?
+      auctionStartingPrice: this.addStepForm.value.auctionStartingPrice, // ir?
+      propertyAuction: {
+        propertyCoordinates: this.addStepForm.value.propertyCoordinates,
+        propertyRegion: this.addStepForm.value.propertyRegion,
+        propertyCadastreNumber: this.addStepForm.value.propertyCadastreNumber,
+        propertyMeasurementValue: this.addStepForm.value.propertyMeasurementValue,
+        propertyMeasurementType: this.addStepForm.value.propertyMeasurementType,
+        propertyAddress: this.addStepForm.value.propertyAddress,
+        propertyFloorCount: this.addStepForm.value.propertyFloorCount,
+        propertyRoomCount: this.addStepForm.value.propertyRoomCount,
+        propertyEvaluation: this.addStepForm.value.propertyEvaluation
+      },
+      aboutAuction: { // todo: kke: this can be refactored because it is the same for all top-categories!
+        auctionCreator: this.aboutStepForm.value.auctionCreator,
+        auctionAddress: this.aboutStepForm.value.auctionAddress,
+        auctionCreatorEmail: this.aboutStepForm.value.auctionCreatorEmail,
+        auctionCreatorPhone: this.aboutStepForm.value.auctionCreatorPhone,
+        auctionFormat: this.aboutStepForm.value.auctionFormat,
+        auctionStartDate: this.aboutStepForm.value.auctionStartDate,
+        auctionApplyTillDate: this.aboutStepForm.value.auctionApplyTillDate,
+        auctionEndDate: this.aboutStepForm.value.auctionEndDate
+      }
+    }
     this.makeRequest(this.addAuctionRequest);
   }
 

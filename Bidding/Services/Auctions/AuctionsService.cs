@@ -5,7 +5,7 @@ using System.Net;
 using System.Threading.Tasks;
 using Bidding.Models.ViewModels.Bidding.Auctions;
 using Bidding.Models.ViewModels.Bidding.Auctions.Add;
-using Bidding.Models.ViewModels.Bidding.Auctions.Add.Categories;
+using Bidding.Models.ViewModels.Bidding.Auctions.Shared.Categories;
 using Bidding.Models.ViewModels.Bidding.Auctions.Details;
 using Bidding.Models.ViewModels.Bidding.Filters;
 using Bidding.Services.Shared.Permissions;
@@ -16,7 +16,6 @@ using Bidding.Shared.Pagination;
 using Bidding.Shared.Utility;
 using Bidding.Models.DatabaseModels;
 using Bidding.Models.DatabaseModels.Bidding;
-using Bidding.Models.ViewModels.Bidding.Auctions;
 using Bidding.Repositories.Auctions;
 using FluentValidation;
 using FluentValidation.Results;
@@ -120,7 +119,7 @@ namespace Bidding.Services.Auctions
 
             m_permissionService.IsLoggedInUserActive();
 
-            return m_auctionsRepository.Details(request).FirstOrDefault();
+            return m_auctionsRepository.Details(request);
         }
 
         public bool Update(AuctionEditRequestModel request)
@@ -143,13 +142,15 @@ namespace Bidding.Services.Auctions
 
         public bool Create(AddAuctionRequestModel request)
         {
+            m_permissionService.IsLoggedInUserActive();
+
             bool status = false;
 
             // todo: kke: this logic is now based only that you can create ONE Single auction in GO!
             // todo: kke: maybe it makes more sense to use here selected top category not model definition?
             if (request.ItemAuction.IsNotSpecified() == false)
             {
-                status = CreateItemAuction(request.ItemAuction);
+                status = CreateItemAuction(request);
             }
             else if (request.VehicleAuction.IsNotSpecified() == false)
             {
@@ -157,7 +158,7 @@ namespace Bidding.Services.Auctions
             }
             else if (request.PropertyAuction.IsNotSpecified() == false)
             {
-                status = CreatePropertyAuction(request.PropertyAuction);
+                status = CreatePropertyAuction(request);
             }
             else
             {
@@ -187,31 +188,31 @@ namespace Bidding.Services.Auctions
             m_permissionService.IsLoggedInUserActive();
         }
 
-        private bool CreateItemAuction(ItemAuctionModel request)
+        private bool CreateItemAuction(AddAuctionRequestModel request)
         {
             // ValidateAuctionItemCreate(request);
 
-            // int? loggedInUserId = m_permissionService.GetUserIdFromClaimsPrincipal();
+            int? loggedInUserId = m_permissionService.GetUserIdFromClaimsPrincipal();
 
-            return m_auctionsRepository.CreateItemAuction(request);
+            return m_auctionsRepository.CreateItemAuction(request, loggedInUserId.Value);
         }
 
-        private bool CreatePropertyAuction(PropertyAuctionModel request)
+        private bool CreatePropertyAuction(AddAuctionRequestModel request)
         {
             // ValidateAuctionItemCreate(request);
 
-            // int? loggedInUserId = m_permissionService.GetUserIdFromClaimsPrincipal();
+            int? loggedInUserId = m_permissionService.GetUserIdFromClaimsPrincipal();
 
-            return m_auctionsRepository.CreatePropertyAuction(request);
+            return m_auctionsRepository.CreatePropertyAuction(request, loggedInUserId.Value);
         }
 
         private bool CreateVehicleAuction(AddAuctionRequestModel request)
         {
             // ValidateAuctionItemCreate(request);
 
-            // int? loggedInUserId = m_permissionService.GetUserIdFromClaimsPrincipal();
+            int? loggedInUserId = m_permissionService.GetUserIdFromClaimsPrincipal();
 
-            return m_auctionsRepository.CreateVehicleAuction(request);
+            return m_auctionsRepository.CreateVehicleAuction(request, loggedInUserId.Value);
         }
 
         private void ValidateAuctionItemCreate(string request)

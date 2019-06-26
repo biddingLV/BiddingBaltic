@@ -22,10 +22,22 @@ export class AuctionAddWizardItemComponent implements OnInit {
   formErrors = {
     itemName: '',
     itemModel: '',
-    itemManufacturingDate: '',
+    itemManufacturingYear: '',
+    itemCondition: '',
     itemEvaluation: '',
     itemStartingPrice: ''
   };
+
+  conditions = [
+    {
+      conditionId: 1,
+      conditionName: 'jauns'
+    },
+    {
+      conditionId: 2,
+      conditionName: 'lietots'
+    }
+  ]
 
   /** Convenience getter for easy access to form fields */
   get f() { return this.addStepForm.controls; }
@@ -61,12 +73,12 @@ export class AuctionAddWizardItemComponent implements OnInit {
 
   private buildForm(): void {
     this.addStepForm = this.formBuilder.group({
-      itemName: ['Jauns Audi', [Validators.required]], // todo: kke: why this is here?
-      itemModel: ['A4', [Validators.required]],
-      itemManufacturingDate: ['2017', []],
-      itemCondition: ['Lietots', []],
-      itemEvaluation: ['5000', [Validators.required]],
-      itemStartingPrice: [1500, []] // todo: kke: why this is here?
+      itemName: ['Skaists skapis', []],
+      itemModel: ['Skonsborg', []],
+      itemManufacturingYear: [2017, []],
+      itemCondition: ['', []],
+      itemEvaluation: ['Garš teksts', []],
+      itemStartingPrice: [300, []]
     });
   }
 }

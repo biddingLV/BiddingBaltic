@@ -8,7 +8,6 @@ using System.Threading.Tasks;
 using Bidding.Database.DatabaseModels.Auctions;
 using Bidding.Models.ViewModels.Bidding.Auctions;
 using Bidding.Models.ViewModels.Bidding.Auctions.Add;
-using Bidding.Models.ViewModels.Bidding.Auctions.Add.Categories;
 using Bidding.Models.ViewModels.Bidding.Auctions.Details;
 using Bidding.Models.ViewModels.Bidding.Auctions.List;
 using Bidding.Models.ViewModels.Bidding.Filters;
@@ -22,6 +21,7 @@ using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Bidding.Database.Contexts;
 using Bidding.Models.ViewModels.Bidding.Shared.Categories;
 using Bidding.Models.ViewModels.Bidding.Shared.Types;
+using Bidding.Models.ViewModels.Bidding.Auctions.Shared.Categories;
 
 namespace Bidding.Repositories.Auctions
 {
@@ -210,30 +210,43 @@ namespace Bidding.Repositories.Auctions
                 .Select(asta => new AuctionStatusItemModel { AuctionStatusId = asta.AuctionStatusId, AuctionStatusName = asta.Name });
         }
 
-        public IEnumerable<AuctionDetailsResponseModel> Details(AuctionDetailsRequestModel request)
+        public AuctionDetailsResponseModel Details(AuctionDetailsRequestModel request)
         {
             // check if even auction exists and only then do the full join
             bool auctionExists = m_context.Auctions.Any(auct => auct.AuctionId == request.AuctionId);
+            // todo: kke: WORK IN PROGRESS!
+            return new AuctionDetailsResponseModel();
 
             if (auctionExists)
             {
-                return from auct in m_context.Auctions
-                           //join acat in m_context.AuctionCategories on auct.AuctionId equals acat.AuctionId
+                var xxx = (from auct in m_context.Auctions
+                           join aitem in m_context.AuctionItems on auct.AuctionId equals aitem.AuctionId
+                           join adet in m_context.AuctionDetails on aitem.AuctionItemId equals adet.AuctionItemId
+                           // join acat in m_context.AuctionCategories on auct.AuctionId equals acat.AuctionId
                            //join atyp in m_context.AuctionTypes on auct.AuctionId equals atyp.AuctionId
                            //join cat in m_context.Categories on acat.CategoryId equals cat.CategoryId
                            //join typ in m_context.Types on atyp.TypeId equals typ.TypeId
                            // join adet in m_context.AuctionDetails on auct.AuctionId equals adet.AuctionId
-                       where auct.AuctionId == request.AuctionId
-                       select new AuctionDetailsResponseModel()
-                       {
-                           AuctionName = auct.Name,
-                           //CategoryName = cat.Name,
-                           //TypeName = typ.Name,
-                           AuctionStartingPrice = auct.StartingPrice,
-                           AuctionStartDate = auct.StartDate,
-                           AuctionEndDate = auct.EndDate,
-                           AuctionDescription = "" // adet.Description
-                       };
+                           where auct.AuctionId == request.AuctionId
+                           select new { auct, aitem, adet }).FirstOrDefault();
+
+                //if (xxx.auct.AuctionCategoryId == 1)
+                //{
+                //    return new AuctionDetailsResponseModel()
+                //    {
+                //        VehicleAuction = {
+                //            VehicleMake = xxx.adet.Make,
+                //        }
+                //    }
+                //}
+                //else if (xxx.auct.AuctionCategoryId == 2)
+                //{
+
+                //}
+                //else
+                //{
+
+                //}
             }
             else
             {
@@ -241,25 +254,9 @@ namespace Bidding.Repositories.Auctions
             }
         }
 
-        public bool CreateItemAuction(ItemAuctionModel request)
+        public bool CreateItemAuction(AddAuctionRequestModel request, int loggedInUserId)
         {
-            int defaultAuctionStatusId = ValidateAndFetchAuctionStatus();
-
-            Auction newAuction = new Auction()
-            {
-                // Name = request.ItemName,
-                // StartingPrice = request.ItemStartingPrice,
-                StartDate = DateTime.UtcNow,
-                ApplyTillDate = DateTime.UtcNow,
-                EndDate = DateTime.UtcNow,
-                //AuctionCategoryId = request.AuctionTopCategoryId,
-                //AuctionTypeId = request.AuctionSubCategoryId,
-                AuctionStatusId = defaultAuctionStatusId,
-                CreatedAt = DateTime.UtcNow,
-                CreatedBy = 1,
-                LastUpdatedAt = DateTime.UtcNow,
-                LastUpdatedBy = 1
-            };
+            Auction newAuction = SetupNewAuction(request, loggedInUserId);
 
             var strategy = m_context.Database.CreateExecutionStrategy();
             strategy.Execute(() =>
@@ -272,39 +269,17 @@ namespace Bidding.Repositories.Auctions
                         m_context.Auctions.Add(newAuction);
                         m_context.SaveChanges();
 
-                        AuctionItem newAuctionItem = new AuctionItem()
-                        {
-                            // Name = request.ItemName,
-                            AuctionId = newAuction.AuctionId,
-                            //AuctionItemCategoryId = request.AuctionTopCategoryId,
-                            //AuctionItemTypeId = request.AuctionSubCategoryId,
-                            CreatedAt = DateTime.UtcNow,
-                            CreatedBy = 1,
-                            LastUpdatedAt = DateTime.UtcNow,
-                            LastUpdatedBy = 1
-                        };
+                        AuctionItem newAuctionItem = SetupNewAuctionItem(newAuction, loggedInUserId);
 
                         // add Auction Item
                         m_context.AuctionItems.Add(newAuctionItem);
                         m_context.SaveChanges();
 
-                        var itemAuctionDetails = new AuctionDetails()
-                        {
-                            AuctionItemId = newAuctionItem.AuctionItemId,
-                            Model = request.ItemModel,
-                            ManufacturingYear = 9999,
-                            Condition = "ADD ME",
-                            Evaluation = request.ItemEvaluation,
-                            CreatedAt = DateTime.UtcNow,
-                            CreatedBy = 1,
-                            LastUpdatedAt = DateTime.UtcNow,
-                            LastUpdatedBy = 1
-                        };
+                        AuctionDetails itemAuctionDetails = SetupNewItemAuctionDetails(request, newAuctionItem, loggedInUserId);
 
                         // add Auction item details
                         m_context.AuctionDetails.Add(itemAuctionDetails);
                         m_context.SaveChanges();
-
                         transaction.Commit();
                     }
                 }
@@ -317,14 +292,9 @@ namespace Bidding.Repositories.Auctions
             return true;
         }
 
-        public bool CreatePropertyAuction(PropertyAuctionModel request)
+        public bool CreatePropertyAuction(AddAuctionRequestModel request, int loggedInUserId)
         {
-            return true;
-        }
-
-        public bool CreateVehicleAuction(AddAuctionRequestModel request)
-        {
-            Auction newAuction = SetupNewAuction(request);
+            Auction newAuction = SetupNewAuction(request, loggedInUserId);
 
             var strategy = m_context.Database.CreateExecutionStrategy();
             strategy.Execute(() =>
@@ -337,13 +307,51 @@ namespace Bidding.Repositories.Auctions
                         m_context.Auctions.Add(newAuction);
                         m_context.SaveChanges();
 
-                        AuctionItem newAuctionItem = SetupNewAuctionItem(newAuction);
+                        AuctionItem newAuctionItem = SetupNewAuctionItem(newAuction, loggedInUserId);
 
                         // add Auction Item
                         m_context.AuctionItems.Add(newAuctionItem);
                         m_context.SaveChanges();
 
-                        AuctionDetails itemAuctionDetails = SetupNewVehicleAuctionDetails(request, newAuctionItem);
+                        AuctionDetails itemAuctionDetails = SetupNewPropertyAuctionDetails(request, newAuctionItem, loggedInUserId);
+
+                        // add Auction item details
+                        m_context.AuctionDetails.Add(itemAuctionDetails);
+                        m_context.SaveChanges();
+                        transaction.Commit();
+                    }
+                }
+                catch (Exception ex)
+                {
+                    throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.CouldNotCreateAuction, ex);
+                }
+            });
+
+            return true;
+        }
+
+        public bool CreateVehicleAuction(AddAuctionRequestModel request, int loggedInUserId)
+        {
+            Auction newAuction = SetupNewAuction(request, loggedInUserId);
+
+            var strategy = m_context.Database.CreateExecutionStrategy();
+            strategy.Execute(() =>
+            {
+                try
+                {
+                    using (var transaction = m_context.Database.BeginTransaction())
+                    {
+                        // add Auction
+                        m_context.Auctions.Add(newAuction);
+                        m_context.SaveChanges();
+
+                        AuctionItem newAuctionItem = SetupNewAuctionItem(newAuction, loggedInUserId);
+
+                        // add Auction Item
+                        m_context.AuctionItems.Add(newAuctionItem);
+                        m_context.SaveChanges();
+
+                        AuctionDetails itemAuctionDetails = SetupNewVehicleAuctionDetails(request, newAuctionItem, loggedInUserId);
 
                         // add Auction item details
                         m_context.AuctionDetails.Add(itemAuctionDetails);
@@ -470,7 +478,7 @@ namespace Bidding.Repositories.Auctions
             return defaultAuctionStatusId;
         }
 
-        private Auction SetupNewAuction(AddAuctionRequestModel request)
+        private Auction SetupNewAuction(AddAuctionRequestModel request, int loggedInUserId)
         {
             int defaultAuctionStatusId = ValidateAndFetchAuctionStatus();
 
@@ -485,13 +493,13 @@ namespace Bidding.Repositories.Auctions
                 AuctionTypeId = request.AuctionSubCategoryId ?? request.AuctionSubCategoryId.Value,
                 AuctionStatusId = defaultAuctionStatusId,
                 CreatedAt = DateTime.UtcNow,
-                CreatedBy = 1,
+                CreatedBy = loggedInUserId,
                 LastUpdatedAt = DateTime.UtcNow,
-                LastUpdatedBy = 1
+                LastUpdatedBy = loggedInUserId
             };
         }
 
-        private AuctionItem SetupNewAuctionItem(Auction newAuction)
+        private AuctionItem SetupNewAuctionItem(Auction newAuction, int loggedInUserId)
         {
             return new AuctionItem()
             {
@@ -500,13 +508,13 @@ namespace Bidding.Repositories.Auctions
                 AuctionItemCategoryId = newAuction.AuctionCategoryId,
                 AuctionItemTypeId = newAuction.AuctionTypeId,
                 CreatedAt = DateTime.UtcNow,
-                CreatedBy = 1,
+                CreatedBy = loggedInUserId,
                 LastUpdatedAt = DateTime.UtcNow,
-                LastUpdatedBy = 1
+                LastUpdatedBy = loggedInUserId
             };
         }
 
-        private AuctionDetails SetupNewVehicleAuctionDetails(AddAuctionRequestModel request, AuctionItem newAuctionItem)
+        private AuctionDetails SetupNewVehicleAuctionDetails(AddAuctionRequestModel request, AuctionItem newAuctionItem, int loggedInUserId)
         {
             return new AuctionDetails()
             {
@@ -523,9 +531,46 @@ namespace Bidding.Repositories.Auctions
                 Axis = request.VehicleAuction.VehicleAxis,
                 Evaluation = request.VehicleAuction.VehicleEvaluation,
                 CreatedAt = DateTime.UtcNow,
-                CreatedBy = 1,
+                CreatedBy = loggedInUserId,
                 LastUpdatedAt = DateTime.UtcNow,
-                LastUpdatedBy = 1
+                LastUpdatedBy = loggedInUserId
+            };
+        }
+
+        private AuctionDetails SetupNewItemAuctionDetails(AddAuctionRequestModel request, AuctionItem newAuctionItem, int loggedInUserId)
+        {
+            return new AuctionDetails()
+            {
+                AuctionItemId = newAuctionItem.AuctionItemId,
+                Model = request.ItemAuction.ItemModel,
+                ManufacturingYear = request.ItemAuction.ItemManufacturingYear,
+                Condition = request.ItemAuction.ItemCondition,
+                Evaluation = request.ItemAuction.ItemEvaluation,
+                CreatedAt = DateTime.UtcNow,
+                CreatedBy = loggedInUserId,
+                LastUpdatedAt = DateTime.UtcNow,
+                LastUpdatedBy = loggedInUserId
+            };
+        }
+
+        private AuctionDetails SetupNewPropertyAuctionDetails(AddAuctionRequestModel request, AuctionItem newAuctionItem, int loggedInUserId)
+        {
+            return new AuctionDetails()
+            {
+                AuctionItemId = newAuctionItem.AuctionItemId,
+                Coordinates = request.PropertyAuction.PropertyCoordinates,
+                Region = request.PropertyAuction.PropertyRegion,
+                CadastreNumber = request.PropertyAuction.PropertyCadastreNumber,
+                MeasurementValue = request.PropertyAuction.PropertyMeasurementValue,
+                MeasurementType = request.PropertyAuction.PropertyMeasurementType,
+                Address = request.PropertyAuction.PropertyAddress,
+                FloorCount = request.PropertyAuction.PropertyFloorCount,
+                RoomCount = request.PropertyAuction.PropertyRoomCount,
+                Evaluation = request.PropertyAuction.PropertyEvaluation,
+                CreatedAt = DateTime.UtcNow,
+                CreatedBy = loggedInUserId,
+                LastUpdatedAt = DateTime.UtcNow,
+                LastUpdatedBy = loggedInUserId
             };
         }
     }

@@ -210,9 +210,9 @@ namespace Bidding.Migrations
 
                     b.Property<string>("Axis");
 
-                    b.Property<string>("CadastreNumber");
+                    b.Property<int>("CadastreNumber");
 
-                    b.Property<string>("Condition");
+                    b.Property<int>("Condition");
 
                     b.Property<string>("Coordinates");
 
@@ -226,14 +226,14 @@ namespace Bidding.Migrations
 
                     b.Property<string>("Evaluation");
 
-                    b.Property<string>("FloorCount");
+                    b.Property<int>("FloorCount");
 
                     b.Property<string>("FuelType");
 
                     b.Property<string>("IdentificationNumber")
                         .HasMaxLength(50);
 
-                    b.Property<bool>("InspectionActive");
+                    b.Property<bool?>("InspectionActive");
 
                     b.Property<DateTime>("LastUpdatedAt");
 
@@ -245,7 +245,7 @@ namespace Bidding.Migrations
 
                     b.Property<string>("MeasurementType");
 
-                    b.Property<string>("MeasurementValue");
+                    b.Property<int>("MeasurementValue");
 
                     b.Property<string>("Model");
 
@@ -256,7 +256,7 @@ namespace Bidding.Migrations
                     b.Property<string>("RegistrationNumber")
                         .HasMaxLength(50);
 
-                    b.Property<string>("RoomCount");
+                    b.Property<int>("RoomCount");
 
                     b.Property<string>("Transmission");
 

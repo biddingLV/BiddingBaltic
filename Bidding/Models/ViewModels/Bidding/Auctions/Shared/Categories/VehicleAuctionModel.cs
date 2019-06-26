@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Bidding.Models.ViewModels.Bidding.Auctions.Add.Categories
+namespace Bidding.Models.ViewModels.Bidding.Auctions.Shared.Categories
 {
     public class VehicleAuctionModel
     {

@@ -6,52 +6,44 @@
       <form [formGroup]="addStepForm">
         <div class="form-row">
           <div class="form-group col-6">
-            <label for="itemName">Nosaukums:</label>
+            <label for="itemName">Izsoles Nosaukums</label>
             <input type="text" formControlName="itemName" class="form-control" id="itemName" name="itemName"
               [ngClass]="{ 'is-invalid': submitted && f.itemName.errors }" maxlength="100" />
-
-            <div *ngIf="submitted && formErrors.itemName" class="invalid-feedback">
-              {{formErrors.itemName}}
-            </div>
           </div>
 
           <div class="form-group col-6">
-            <label for="itemModel">Modelis:</label>
+            <label for="itemModel">Modelis</label>
             <input type="text" formControlName="itemModel" class="form-control" id="itemModel" name="itemModel"
               [ngClass]="{ 'is-invalid': submitted && f.itemModel.errors }" maxlength="100" />
-
-            <div *ngIf="submitted && formErrors.itemModel" class="invalid-feedback">
-              {{formErrors.itemModel}}
-            </div>
           </div>
         </div>
 
         <div class="form-row">
           <div class="form-group col-6">
-            <label for="itemManufacturingDate">Gads:</label>
-            <input type="text" maxlength="10" formControlName="itemManufacturingDate" class="form-control"
-              id="itemManufacturingDate" name="itemManufacturingDate"
-              [ngClass]="{ 'is-invalid': submitted && f.itemManufacturingDate.errors }" />
+            <label for="itemManufacturingYear">Ražošanas gads:</label>
+            <input type="number" maxlength="10" formControlName="itemManufacturingYear" class="form-control"
+              id="itemManufacturingYear" name="itemManufacturingYear"
+              [ngClass]="{ 'is-invalid': submitted && f.itemManufacturingYear.errors }" />
 
-            <div *ngIf="submitted && formErrors.itemManufacturingDate" class="invalid-feedback">
-              {{formErrors.itemManufacturingDate}}
+            <div *ngIf="submitted && formErrors.itemManufacturingYear" class="invalid-feedback">
+              {{formErrors.itemManufacturingYear}}
             </div>
           </div>
 
           <div class="form-group col-6">
-            <label>Stavoklis:</label>
+            <label>Stāvoklis:</label>
             <ng-select #itemConditionSelect formControlName="itemCondition" [clearable]="false" [virtualScroll]="true"
               id="itemCondition" name="itemCondition">
-              <!-- <ng-option *ngFor="let cond of itemConditions; let i = index" [value]="cond.ConditionId">
-                {{cond.ConditionName}}
-              </ng-option> -->
+              <ng-option *ngFor="let cond of conditions; let i = index" [value]="cond.conditionId">
+                {{cond.conditionName}}
+              </ng-option>
             </ng-select>
           </div>
         </div>
 
         <div class="form-row">
           <div class="form-group col-6">
-            <label for="itemEvaluation">Novertejums:</label>
+            <label for="itemEvaluation">Apraksts / novērtējums:</label>
             <textarea class="form-control" formControlName="itemEvaluation" rows="2" id="itemEvaluation"
               name="itemEvaluation" [ngClass]="{ 'is-invalid': submitted && f.itemEvaluation.errors }"
               maxlength="1000"></textarea>
@@ -62,21 +54,14 @@
           </div>
 
           <div class="form-group col-6">
-            <label for="itemStartingPrice">Minimum cena:</label>
-            <input type="text" maxlength="10" formControlName="itemStartingPrice" class="form-control"
+            <label for="itemStartingPrice">Minimālā cena (EUR):</label>
+            <input type="number" maxlength="10" formControlName="itemStartingPrice" class="form-control"
               id="itemStartingPrice" name="itemStartingPrice"
               [ngClass]="{ 'is-invalid': submitted && f.itemStartingPrice.errors }" />
 
             <div *ngIf="submitted && formErrors.itemStartingPrice" class="invalid-feedback">
               {{formErrors.itemStartingPrice}}
             </div>
-          </div>
-        </div>
-
-        <div class="form-row">
-          <div class="form-group col-6">
-            <label for="vehicleInspectionActive">Bildes:</label>
-
           </div>
         </div>
 

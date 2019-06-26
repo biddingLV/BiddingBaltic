@@ -26,21 +26,21 @@ namespace Bidding.Database.DatabaseModels.Auctions
 
         [MaxLength(50)]
         public string IdentificationNumber { get; set; }
-        public bool InspectionActive { get; set; }
+        public bool? InspectionActive { get; set; }
         public string Transmission { get; set; }
         public string FuelType { get; set; }
         public string EngineSize { get; set; }
         public string Axis { get; set; }
         public string Name { get; set; }
-        public string Condition { get; set; }
+        public int Condition { get; set; }
         public string Coordinates { get; set; }
         public string Region { get; set; }
-        public string CadastreNumber { get; set; }
-        public string MeasurementValue { get; set; }
+        public int CadastreNumber { get; set; }
+        public int MeasurementValue { get; set; }
         public string MeasurementType { get; set; }
         public string Address { get; set; }
-        public string FloorCount { get; set; }
-        public string RoomCount { get; set; }
+        public int FloorCount { get; set; }
+        public int RoomCount { get; set; }
         public string Evaluation { get; set; }
 
         [Required]

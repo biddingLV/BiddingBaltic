@@ -13,7 +13,7 @@
 
           <div class="form-group col-6">
             <label for="auctionStartingPrice">Minimālā cena (EUR)</label>
-            <input type="text" formControlName="auctionStartingPrice" class="form-control" id="auctionStartingPrice"
+            <input type="number" formControlName="auctionStartingPrice" class="form-control" id="auctionStartingPrice"
               name="auctionStartingPrice" [ngClass]="{ 'is-invalid': submitted && f.auctionStartingPrice.errors }" />
           </div>
         </div>
@@ -26,7 +26,7 @@
           </div>
 
           <div class="form-group col-6">
-            <label for="vehicleModel">Modelis:</label>
+            <label for="vehicleModel">Modelis</label>
             <input type="text" formControlName="vehicleModel" class="form-control" id="vehicleModel" name="vehicleModel"
               [ngClass]="{ 'is-invalid': submitted && f.vehicleModel.errors }" />
           </div>

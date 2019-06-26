@@ -1,5 +1,5 @@
 ﻿using Bidding.Models.ViewModels.Bidding.Auctions.Add.About;
-using Bidding.Models.ViewModels.Bidding.Auctions.Add.Categories;
+using Bidding.Models.ViewModels.Bidding.Auctions.Shared.Categories;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -68,15 +68,15 @@ export class AuctionAddWizardPropertyComponent implements OnInit {
 
   private buildForm(): void {
     this.addStepForm = this.formBuilder.group({
-      propertyCoordinates: [1234, []],
-      propertyRegion: ['', []],
+      propertyCoordinates: ['a55b66', []],
+      propertyRegion: ['Valka', []],
       propertyCadastreNumber: [477821332, []],
-      propertyMeasurementValue: [100, []],
-      propertyMeasurementType: ['', []],
+      propertyMeasurementValue: [99, []],
+      propertyMeasurementType: ['ha', []],
       propertyAddress: ['Dummy address 1', []],
       propertyFloorCount: [3, []],
       propertyRoomCount: [12, []],
-      propertyEvaluation: ['Midtjylland', []]
+      propertyEvaluation: ['Garš teksts', []]
     });
   }
 }
