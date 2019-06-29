@@ -20,6 +20,7 @@ using Bidding.Repositories.Auctions;
 using FluentValidation;
 using FluentValidation.Results;
 using Bidding.Database.DatabaseModels.Auctions;
+using Bidding.Shared.Constants;
 
 namespace Bidding.Services.Auctions
 {
@@ -142,21 +143,22 @@ namespace Bidding.Services.Auctions
 
         public bool Create(AddAuctionRequestModel request)
         {
+            if (request.IsNotSpecified()) throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation);
+            if (request.AuctionTopCategoryId.IsNotSpecified()) throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation);
+
             m_permissionService.IsLoggedInUserActive();
 
             bool status = false;
 
-            // todo: kke: this logic is now based only that you can create ONE Single auction in GO!
-            // todo: kke: maybe it makes more sense to use here selected top category not model definition?
-            if (request.ItemAuction.IsNotSpecified() == false)
+            if (request.AuctionTopCategoryId == Categories.ITEM_CATEGORY)
             {
                 status = CreateItemAuction(request);
             }
-            else if (request.VehicleAuction.IsNotSpecified() == false)
+            else if (request.AuctionTopCategoryId == Categories.VEHICLE_CATEGORY)
             {
                 status = CreateVehicleAuction(request);
             }
-            else if (request.PropertyAuction.IsNotSpecified() == false)
+            else if (request.AuctionTopCategoryId == Categories.PROPERTY_CATEGORY)
             {
                 status = CreatePropertyAuction(request);
             }

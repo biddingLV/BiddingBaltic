@@ -39,7 +39,7 @@ namespace Bidding.Migrations
                     ManufacturingYear = table.Column<int>(nullable: false),
                     RegistrationNumber = table.Column<string>(maxLength: 50, nullable: true),
                     IdentificationNumber = table.Column<string>(maxLength: 50, nullable: true),
-                    InspectionActive = table.Column<bool>(nullable: true),
+                    InspectionActive = table.Column<bool>(nullable: false),
                     Transmission = table.Column<string>(nullable: true),
                     FuelType = table.Column<string>(nullable: true),
                     EngineSize = table.Column<string>(nullable: true),
@@ -371,36 +371,6 @@ namespace Bidding.Migrations
                     { 23, 3, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Telpa" },
                     { 24, 3, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Garāža" }
                 });
-
-            migrationBuilder.InsertData(
-                table: "Auctions",
-                columns: new[] { "AuctionId", "ApplyTillDate", "AuctionCategoryId", "AuctionStatusId", "AuctionTypeId", "CreatedAt", "CreatedBy", "Deleted", "EndDate", "LastUpdatedAt", "LastUpdatedBy", "Name", "StartDate", "StartingPrice" },
-                values: new object[] { 1, new DateTime(2019, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, 1, 1, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, new DateTime(2020, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Tesla Model 3", new DateTime(2019, 2, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 15000 });
-
-            migrationBuilder.InsertData(
-                table: "Auctions",
-                columns: new[] { "AuctionId", "ApplyTillDate", "AuctionCategoryId", "AuctionStatusId", "AuctionTypeId", "CreatedAt", "CreatedBy", "Deleted", "EndDate", "LastUpdatedAt", "LastUpdatedBy", "Name", "StartDate", "StartingPrice" },
-                values: new object[] { 3, new DateTime(2019, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 2, 1, 12, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, new DateTime(2020, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Vīna skapis", new DateTime(2019, 2, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 900 });
-
-            migrationBuilder.InsertData(
-                table: "Auctions",
-                columns: new[] { "AuctionId", "ApplyTillDate", "AuctionCategoryId", "AuctionStatusId", "AuctionTypeId", "CreatedAt", "CreatedBy", "Deleted", "EndDate", "LastUpdatedAt", "LastUpdatedBy", "Name", "StartDate", "StartingPrice" },
-                values: new object[] { 2, new DateTime(2019, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 3, 1, 13, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, new DateTime(2020, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Penthouse tipa dzīvoklis Vecrīgas sirdī", new DateTime(2019, 2, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 50000 });
-
-            migrationBuilder.InsertData(
-                table: "AuctionItems",
-                columns: new[] { "AuctionItemId", "AuctionId", "AuctionItemCategoryId", "AuctionItemTypeId", "CreatedAt", "CreatedBy", "Deleted", "LastUpdatedAt", "LastUpdatedBy", "Name" },
-                values: new object[] { 1, 1, 1, 1, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Tesla Model 3" });
-
-            migrationBuilder.InsertData(
-                table: "AuctionItems",
-                columns: new[] { "AuctionItemId", "AuctionId", "AuctionItemCategoryId", "AuctionItemTypeId", "CreatedAt", "CreatedBy", "Deleted", "LastUpdatedAt", "LastUpdatedBy", "Name" },
-                values: new object[] { 3, 3, 2, 12, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Vīna skapis" });
-
-            migrationBuilder.InsertData(
-                table: "AuctionItems",
-                columns: new[] { "AuctionItemId", "AuctionId", "AuctionItemCategoryId", "AuctionItemTypeId", "CreatedAt", "CreatedBy", "Deleted", "LastUpdatedAt", "LastUpdatedBy", "Name" },
-                values: new object[] { 2, 2, 3, 13, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Penthouse tipa dzīvoklis Vecrīgas sirdī" });
 
             migrationBuilder.CreateIndex(
                 name: "IX_AuctionConditions_CreatedBy",

@@ -6,9 +6,9 @@
       <form [formGroup]="addStepForm">
         <div class="form-row">
           <div class="form-group col-6">
-            <label for="auctionName">Izsoles Nosaukums</label>
-            <input type="text" formControlName="auctionName" class="form-control" id="auctionName" name="auctionName"
-              [ngClass]="{ 'is-invalid': submitted && f.auctionName.errors }" />
+            <label for="vehicleName">Izsoles Nosaukums</label>
+            <input type="text" formControlName="vehicleName" class="form-control" id="vehicleName" name="vehicleName"
+              [ngClass]="{ 'is-invalid': submitted && f.vehicleName.errors }" />
           </div>
 
           <div class="form-group col-6">
@@ -42,16 +42,16 @@
 
           <div class="form-group col-6">
             <label for="vehicleRegistrationNumber">VRN:</label>
-            <input type="number" formControlName="vehicleRegistrationNumber" class="form-control"
+            <input type="text" formControlName="vehicleRegistrationNumber" class="form-control"
               id="vehicleRegistrationNumber" name="vehicleRegistrationNumber"
               [ngClass]="{ 'is-invalid': submitted && f.vehicleRegistrationNumber.errors }" />
           </div>
         </div>
 
         <div class="form-row">
-          <div class="form-group col-6">
+          <div class="form-group col-6" *ngIf="selectedSubCategoryId != typeConstants.TRAILER_TYPE">
             <label for="vehicleIdentificationNumber">VIN:</label>
-            <input type="number" formControlName="vehicleIdentificationNumber" class="form-control"
+            <input type="text" formControlName="vehicleIdentificationNumber" class="form-control"
               id="vehicleIdentificationNumber" name="vehicleIdentificationNumber"
               [ngClass]="{ 'is-invalid': submitted && f.vehicleIdentificationNumber.errors }" />
           </div>
@@ -99,6 +99,14 @@
               [ngClass]="{ 'is-invalid': submitted && f.vehicleAxis.errors }" />
           </div>
 
+          <div class="form-group col-6" *ngIf="selectedSubCategoryId == typeConstants.TRAILER_TYPE">
+            <label for="vehicleDimensions">Izmēri:</label>
+            <input type="text" formControlName="vehicleDimensions" class="form-control" id="vehicleDimensions"
+              name="vehicleDimensions" [ngClass]="{ 'is-invalid': submitted && f.vehicleDimensions.errors }" />
+          </div>
+        </div>
+
+        <div class="form-row">
           <div class="form-group col-6">
             <label for="vehicleEvaluation">Apraksts / novērtējums:</label>
             <textarea class="form-control" formControlName="vehicleEvaluation" rows="2" id="vehicleEvaluation"

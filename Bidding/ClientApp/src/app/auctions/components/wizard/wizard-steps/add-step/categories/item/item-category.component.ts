@@ -25,7 +25,7 @@ export class AuctionAddWizardItemComponent implements OnInit {
     itemManufacturingYear: '',
     itemCondition: '',
     itemEvaluation: '',
-    itemStartingPrice: ''
+    auctionStartingPrice: ''
   };
 
   conditions = [
@@ -73,12 +73,12 @@ export class AuctionAddWizardItemComponent implements OnInit {
 
   private buildForm(): void {
     this.addStepForm = this.formBuilder.group({
-      itemName: ['Skaists skapis', []],
-      itemModel: ['Skonsborg', []],
-      itemManufacturingYear: [2017, []],
-      itemCondition: ['', []],
-      itemEvaluation: ['Garš teksts', []],
-      itemStartingPrice: [300, []]
+      itemName: ['', [Validators.required]],
+      itemModel: ['', [Validators.required]],
+      itemManufacturingYear: [null, [Validators.required]],
+      itemCondition: [this.conditions[0].conditionId, []],
+      itemEvaluation: ['', []],
+      auctionStartingPrice: [null, [Validators.required]]
     });
   }
 }

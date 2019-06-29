@@ -85,7 +85,7 @@
           </g>
         </svg>
       </div>
-      
+
       <div class="col-lg-12 text-center">
         <button type="button" class="apply_button"><strong>Pieteikties izsolei</strong></button>
       </div>
@@ -93,31 +93,78 @@
   </div>
 
   <div class="container">
-    <div class="row main_container">
-      <ng-container class="main_content" *ngIf="auctionDetails">
-        <div class="col-lg-4">
-          <h5>Izsoles priekšmets:</h5>
-          <p>{{auctionDetails.auctionName}}</p>
-          <h5>Kategorija:</h5>
-          <p>{{auctionDetails.categoryName}}</p>
-          <h5>Apakškategorija:</h5>
-          <p>{{auctionDetails.typeName}}</p>
+    <div class="row main_container" *ngIf="auctionDetails">
+      <ng-container class="main_content" *ngIf="auctionDetails.vehicleAuction">
+        <div class="col-12">
+          <p>Nosaukums: {{auctionDetails.auctionName}}</p>
+          <p>Minimālā cena (EUR): {{auctionDetails.auctionStartingPrice}}</p>
+          <p>Marka: {{auctionDetails.vehicleAuction.vehicleMake}}</p>
+          <p>Modelis: {{auctionDetails.vehicleAuction.vehicleModel}}</p>
+          <p>Ražošanas gads: {{auctionDetails.vehicleAuction.vehicleManufacturingYear}}</p>
+          <p>VRN: {{auctionDetails.vehicleAuction.vehicleRegistrationNumber}}</p>
+          <p>VIN: {{auctionDetails.vehicleAuction.vehicleIdentificationNumber}}</p>
+          <p>Ir T/A: {{auctionDetails.vehicleAuction.vehicleInspectionActive}}</p>
+          <p>Ātrumkārba: {{auctionDetails.vehicleAuction.vehicleTransmission}}</p>
+          <p>Motors: {{auctionDetails.vehicleAuction.vehicleFuelType}}</p>
+          <p>Motora tilpums: {{auctionDetails.vehicleAuction.vehicleEngineSize}}</p>
+          <p>Asis: {{auctionDetails.vehicleAuction.vehicleEngineSize}}</p>
+          <p>Izmēri: {{auctionDetails.vehicleAuction.vehicleAxis}}</p>
+          <p>Apraksts / novērtējums: {{auctionDetails.vehicleAuction.vehicleEvaluation}}</p>
+          <br>
+          <p>Izsoles veidotājs: {{auctionDetails.aboutAuction.auctionCreator}}</p>
+          <p>Adrese: {{auctionDetails.aboutAuction.auctionAddress}}</p>
+          <p>E-pasts: {{auctionDetails.aboutAuction.auctionCreatorEmail}}</p>
+          <p>Telefons: {{auctionDetails.aboutAuction.auctionCreatorPhone}}</p>
+          <p>Izsoles veids: {{auctionDetails.aboutAuction.auctionFormat}}</p>
+          <p>Izsoles sākums: {{auctionDetails.aboutAuction.auctionStartDate}}</p>
+          <p>Pieteikties līdz: {{auctionDetails.aboutAuction.auctionApplyTillDate}}</p>
+          <p>Izsoles beigas: {{auctionDetails.aboutAuction.auctionEndDate}}</p>
         </div>
+      </ng-container>
 
-        <div class="col-lg-4">
-          <h4>Izsoles apraksts:</h4>
-          <p>{{auctionDetails.auctionDescription}}</p>
-          <h5>Izsoles sākumcena:</h5>
-          <p>{{auctionDetails.auctionStartingPrice}}</p>
-          <h5>Izsoles sākuma laiks:</h5>
-          <p>{{auctionDetails.auctionStartDate}}</p>
-          <h5>Izsoles beigu pieteikšanās laiks:</h5>
-          <!-- <p>{{auctionDetails.auctionEndDate}}</p> -->
+      <ng-container class="main_content" *ngIf="auctionDetails.itemAuction">
+        <div class="col-12">
+          <p>Nosaukums: {{auctionDetails.auctionName}}</p>
+          <p>Minimālā cena (EUR): {{auctionDetails.auctionStartingPrice}}</p>
+          <p>Modelis: {{auctionDetails.itemAuction.itemModel}}</p>
+          <p>Ražošanas gads: {{auctionDetails.itemAuction.itemManufacturingYear}}</p>
+          <p>Stāvoklis: {{auctionDetails.itemAuction.itemCondition}}</p>
+          <p>Apraksts / novērtējums: {{auctionDetails.itemAuction.itemEvaluation}}</p>
+          <br>
+          <p>Izsoles veidotājs: {{auctionDetails.aboutAuction.auctionCreator}}</p>
+          <p>Adrese: {{auctionDetails.aboutAuction.auctionAddress}}</p>
+          <p>E-pasts: {{auctionDetails.aboutAuction.auctionCreatorEmail}}</p>
+          <p>Telefons: {{auctionDetails.aboutAuction.auctionCreatorPhone}}</p>
+          <p>Izsoles veids: {{auctionDetails.aboutAuction.auctionFormat}}</p>
+          <p>Izsoles sākums: {{auctionDetails.aboutAuction.auctionStartDate}}</p>
+          <p>Pieteikties līdz: {{auctionDetails.aboutAuction.auctionApplyTillDate}}</p>
+          <p>Izsoles beigas: {{auctionDetails.aboutAuction.auctionEndDate}}</p>
         </div>
+      </ng-container>
 
-        <div class="col-lg-4">
-          <h4>Bilde(s):</h4>
-          <p>None</p>
+      <ng-container class="main_content" *ngIf="auctionDetails.propertyAuction">
+        <div class="col-12">
+          <p>Nosaukums: {{auctionDetails.auctionName}}</p>
+          <p>Minimālā cena (EUR): {{auctionDetails.auctionStartingPrice}}</p>
+
+          <p>Koordinātes: {{auctionDetails.propertyAuction.propertyCoordinates}}</p>
+          <p>Reģions: {{auctionDetails.propertyAuction.propertyRegion}}</p>
+          <p>Kadastra numurs: {{auctionDetails.propertyAuction.propertyCadastreNumber}}</p>
+          <p>Izmēri: {{auctionDetails.propertyAuction.propertyMeasurementValue}}</p>
+          <p>Mērvienība: {{auctionDetails.propertyAuction.propertyMeasurementType}}</p>
+          <p>Adrese: {{auctionDetails.propertyAuction.propertyAddress}}</p>
+          <p>Stāvu skaits: {{auctionDetails.propertyAuction.propertyFloorCount}}</p>
+          <p>Istabu skaits: {{auctionDetails.propertyAuction.propertyRoomCount}}</p>
+          <p>Apraksts / novērtējums: {{auctionDetails.propertyAuction.propertyEvaluation}}</p>
+          <br>
+          <p>Izsoles veidotājs: {{auctionDetails.aboutAuction.auctionCreator}}</p>
+          <p>Adrese: {{auctionDetails.aboutAuction.auctionAddress}}</p>
+          <p>E-pasts: {{auctionDetails.aboutAuction.auctionCreatorEmail}}</p>
+          <p>Telefons: {{auctionDetails.aboutAuction.auctionCreatorPhone}}</p>
+          <p>Izsoles veids: {{auctionDetails.aboutAuction.auctionFormat}}</p>
+          <p>Izsoles sākums: {{auctionDetails.aboutAuction.auctionStartDate}}</p>
+          <p>Pieteikties līdz: {{auctionDetails.aboutAuction.auctionApplyTillDate}}</p>
+          <p>Izsoles beigas: {{auctionDetails.aboutAuction.auctionEndDate}}</p>
         </div>
       </ng-container>
     </div>

@@ -26,7 +26,7 @@ namespace Bidding.Database.DatabaseModels.Auctions
 
         [MaxLength(50)]
         public string IdentificationNumber { get; set; }
-        public bool? InspectionActive { get; set; }
+        public bool InspectionActive { get; set; }
         public string Transmission { get; set; }
         public string FuelType { get; set; }
         public string EngineSize { get; set; }

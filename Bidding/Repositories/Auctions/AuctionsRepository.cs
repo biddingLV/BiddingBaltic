@@ -22,6 +22,8 @@ using Bidding.Database.Contexts;
 using Bidding.Models.ViewModels.Bidding.Shared.Categories;
 using Bidding.Models.ViewModels.Bidding.Shared.Types;
 using Bidding.Models.ViewModels.Bidding.Auctions.Shared.Categories;
+using Bidding.Shared.Constants;
+using Bidding.Models.ViewModels.Bidding.Auctions.Add.About;
 
 namespace Bidding.Repositories.Auctions
 {
@@ -214,39 +216,109 @@ namespace Bidding.Repositories.Auctions
         {
             // check if even auction exists and only then do the full join
             bool auctionExists = m_context.Auctions.Any(auct => auct.AuctionId == request.AuctionId);
-            // todo: kke: WORK IN PROGRESS!
-            return new AuctionDetailsResponseModel();
 
             if (auctionExists)
             {
-                var xxx = (from auct in m_context.Auctions
-                           join aitem in m_context.AuctionItems on auct.AuctionId equals aitem.AuctionId
-                           join adet in m_context.AuctionDetails on aitem.AuctionItemId equals adet.AuctionItemId
-                           // join acat in m_context.AuctionCategories on auct.AuctionId equals acat.AuctionId
-                           //join atyp in m_context.AuctionTypes on auct.AuctionId equals atyp.AuctionId
-                           //join cat in m_context.Categories on acat.CategoryId equals cat.CategoryId
-                           //join typ in m_context.Types on atyp.TypeId equals typ.TypeId
-                           // join adet in m_context.AuctionDetails on auct.AuctionId equals adet.AuctionId
-                           where auct.AuctionId == request.AuctionId
-                           select new { auct, aitem, adet }).FirstOrDefault();
+                var details = (from auct in m_context.Auctions
+                               join aitem in m_context.AuctionItems on auct.AuctionId equals aitem.AuctionId
+                               join adet in m_context.AuctionDetails on aitem.AuctionItemId equals adet.AuctionItemId
+                               // join acat in m_context.AuctionCategories on auct.AuctionId equals acat.AuctionId
+                               // join atyp in m_context.AuctionTypes on auct.AuctionId equals atyp.AuctionId
+                               // join cat in m_context.Categories on acat.CategoryId equals cat.CategoryId
+                               // join typ in m_context.Types on atyp.TypeId equals typ.TypeId
+                               // join adet in m_context.AuctionDetails on auct.AuctionId equals adet.AuctionId
+                               where auct.AuctionId == request.AuctionId
+                               select new { auct, aitem, adet }).FirstOrDefault();
 
-                //if (xxx.auct.AuctionCategoryId == 1)
-                //{
-                //    return new AuctionDetailsResponseModel()
-                //    {
-                //        VehicleAuction = {
-                //            VehicleMake = xxx.adet.Make,
-                //        }
-                //    }
-                //}
-                //else if (xxx.auct.AuctionCategoryId == 2)
-                //{
-
-                //}
-                //else
-                //{
-
-                //}
+                if (details.auct.AuctionCategoryId == Categories.ITEM_CATEGORY)
+                {
+                    return new AuctionDetailsResponseModel
+                    {
+                        ItemAuction = new ItemAuctionModel
+                        {
+                            ItemModel = details.adet.Model,
+                            ItemManufacturingYear = details.adet.ManufacturingYear,
+                            ItemCondition = details.adet.Condition,
+                            ItemEvaluation = details.adet.Evaluation,
+                            ItemStartingPrice = details.auct.StartingPrice
+                        },
+                        AboutAuction = new AboutAuctionModel
+                        {
+                            AuctionCreator = "",
+                            AuctionAddress = "",
+                            AuctionCreatorEmail = "",
+                            AuctionCreatorPhone = "",
+                            AuctionFormat = 1,
+                            AuctionStartDate = new DateTime(),
+                            AuctionApplyTillDate = new DateTime(),
+                            AuctionEndDate = new DateTime()
+                        }
+                    };
+                }
+                else if (details.auct.AuctionCategoryId == Categories.VEHICLE_CATEGORY)
+                {
+                    return new AuctionDetailsResponseModel
+                    {
+                        VehicleAuction = new VehicleAuctionModel
+                        {
+                            VehicleMake = details.adet.Make,
+                            VehicleModel = details.adet.Model,
+                            VehicleManufacturingYear = details.adet.ManufacturingYear,
+                            VehicleRegistrationNumber = details.adet.RegistrationNumber,
+                            VehicleIdentificationNumber = details.adet.IdentificationNumber,
+                            VehicleInspectionActive = details.adet.InspectionActive,
+                            VehicleTransmission = details.adet.Transmission,
+                            VehicleFuelType = details.adet.FuelType,
+                            VehicleEngineSize = details.adet.EngineSize,
+                            VehicleAxis = details.adet.Axis,
+                            VehicleEvaluation = details.adet.Evaluation
+                        },
+                        AboutAuction = new AboutAuctionModel
+                        {
+                            AuctionCreator = "",
+                            AuctionAddress = "",
+                            AuctionCreatorEmail = "",
+                            AuctionCreatorPhone = "",
+                            AuctionFormat = 1,
+                            AuctionStartDate = new DateTime(),
+                            AuctionApplyTillDate = new DateTime(),
+                            AuctionEndDate = new DateTime()
+                        }
+                    };
+                }
+                else if (details.auct.AuctionCategoryId == Categories.PROPERTY_CATEGORY)
+                {
+                    return new AuctionDetailsResponseModel
+                    {
+                        PropertyAuction = new PropertyAuctionModel
+                        {
+                            PropertyCoordinates = details.adet.Coordinates,
+                            PropertyRegion = details.adet.Region,
+                            PropertyCadastreNumber = details.adet.CadastreNumber,
+                            PropertyMeasurementValue = details.adet.MeasurementValue,
+                            PropertyMeasurementType = details.adet.MeasurementType,
+                            PropertyAddress = details.adet.Address,
+                            PropertyFloorCount = details.adet.FloorCount,
+                            PropertyRoomCount = details.adet.RoomCount,
+                            PropertyEvaluation = details.adet.Evaluation
+                        },
+                        AboutAuction = new AboutAuctionModel
+                        {
+                            AuctionCreator = "",
+                            AuctionAddress = "",
+                            AuctionCreatorEmail = "",
+                            AuctionCreatorPhone = "",
+                            AuctionFormat = 1,
+                            AuctionStartDate = new DateTime(),
+                            AuctionApplyTillDate = new DateTime(),
+                            AuctionEndDate = new DateTime()
+                        }
+                    };
+                }
+                else
+                {
+                    throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation);
+                }
             }
             else
             {

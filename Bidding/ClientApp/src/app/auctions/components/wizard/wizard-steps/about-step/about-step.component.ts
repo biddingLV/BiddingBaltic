@@ -1,6 +1,6 @@
 // angular
 import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 
 // 3rd lib
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker/bs-datepicker.config';
@@ -85,14 +85,14 @@ export class AuctionAddAboutWizardStepComponent implements OnInit {
 
   private buildForm(): void {
     this.aboutStepForm = this.formBuilder.group({
-      auctionCreator: ['Peteris Priede', []],
-      auctionAddress: ['Lazdu iela 13', []],
-      auctionCreatorEmail: ['peteris@peteris.gg', []],
-      auctionCreatorPhone: ['256565656', []],
-      auctionFormat: ['', []],
+      auctionCreator: ['', [Validators.required]],
+      auctionAddress: ['', [Validators.required]],
+      auctionCreatorEmail: ['', [Validators.required]],
+      auctionCreatorPhone: ['', [Validators.required]],
+      auctionFormat: ['', [Validators.required]],
       auctionStartDate: ['', []],
-      auctionApplyTillDate: ['', []],
-      auctionEndDate: ['', []]
+      auctionApplyTillDate: ['', [Validators.required]],
+      auctionEndDate: ['', [Validators.required]]
     });
 
     // this.loadAuctionCreators();

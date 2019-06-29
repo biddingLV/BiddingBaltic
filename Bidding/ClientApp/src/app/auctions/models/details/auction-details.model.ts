@@ -1,9 +1,8 @@
 export interface AuctionDetailsModel {
   auctionName: string;
-  auctionStartDate: Date;
-  auctionEndDate: Date;
   auctionStartingPrice: number;
-  categoryName: string;
-  typeName: string;
-  auctionDescription: string;
+  vehicleAuction?: Auctions.VehicleAuctionModel;
+  itemAuction?: Auctions.ItemAuctionModel;
+  propertyAuction?: Auctions.PropertyAuctionModel;
+  aboutAuction: Auctions.AboutAuctionModel;
 }

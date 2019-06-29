@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Bidding.Migrations
 {
     [DbContext(typeof(BiddingContext))]
-    [Migration("20190626180559_InitialMigration")]
+    [Migration("20190629204948_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -66,59 +66,6 @@ namespace Bidding.Migrations
                     b.HasIndex("CreatedBy");
 
                     b.ToTable("Auctions");
-
-                    b.HasData(
-                        new
-                        {
-                            AuctionId = 1,
-                            ApplyTillDate = new DateTime(2019, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            AuctionCategoryId = 1,
-                            AuctionStatusId = 1,
-                            AuctionTypeId = 1,
-                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatedBy = 1,
-                            Deleted = false,
-                            EndDate = new DateTime(2020, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            LastUpdatedBy = 1,
-                            Name = "Tesla Model 3",
-                            StartDate = new DateTime(2019, 2, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            StartingPrice = 15000
-                        },
-                        new
-                        {
-                            AuctionId = 2,
-                            ApplyTillDate = new DateTime(2019, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            AuctionCategoryId = 3,
-                            AuctionStatusId = 1,
-                            AuctionTypeId = 13,
-                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatedBy = 1,
-                            Deleted = false,
-                            EndDate = new DateTime(2020, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            LastUpdatedBy = 1,
-                            Name = "Penthouse tipa dzīvoklis Vecrīgas sirdī",
-                            StartDate = new DateTime(2019, 2, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            StartingPrice = 50000
-                        },
-                        new
-                        {
-                            AuctionId = 3,
-                            ApplyTillDate = new DateTime(2019, 6, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            AuctionCategoryId = 2,
-                            AuctionStatusId = 1,
-                            AuctionTypeId = 12,
-                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatedBy = 1,
-                            Deleted = false,
-                            EndDate = new DateTime(2020, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            LastUpdatedBy = 1,
-                            Name = "Vīna skapis",
-                            StartDate = new DateTime(2019, 2, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            StartingPrice = 900
-                        });
                 });
 
             modelBuilder.Entity("Bidding.Database.DatabaseModels.Auctions.AuctionCondition", b =>
@@ -235,7 +182,7 @@ namespace Bidding.Migrations
                     b.Property<string>("IdentificationNumber")
                         .HasMaxLength(50);
 
-                    b.Property<bool?>("InspectionActive");
+                    b.Property<bool>("InspectionActive");
 
                     b.Property<DateTime>("LastUpdatedAt");
 
@@ -369,47 +316,6 @@ namespace Bidding.Migrations
                     b.HasIndex("CreatedBy");
 
                     b.ToTable("AuctionItems");
-
-                    b.HasData(
-                        new
-                        {
-                            AuctionItemId = 1,
-                            AuctionId = 1,
-                            AuctionItemCategoryId = 1,
-                            AuctionItemTypeId = 1,
-                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatedBy = 1,
-                            Deleted = false,
-                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            LastUpdatedBy = 1,
-                            Name = "Tesla Model 3"
-                        },
-                        new
-                        {
-                            AuctionItemId = 2,
-                            AuctionId = 2,
-                            AuctionItemCategoryId = 3,
-                            AuctionItemTypeId = 13,
-                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatedBy = 1,
-                            Deleted = false,
-                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            LastUpdatedBy = 1,
-                            Name = "Penthouse tipa dzīvoklis Vecrīgas sirdī"
-                        },
-                        new
-                        {
-                            AuctionItemId = 3,
-                            AuctionId = 3,
-                            AuctionItemCategoryId = 2,
-                            AuctionItemTypeId = 12,
-                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatedBy = 1,
-                            Deleted = false,
-                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            LastUpdatedBy = 1,
-                            Name = "Vīna skapis"
-                        });
                 });
 
             modelBuilder.Entity("Bidding.Database.DatabaseModels.Auctions.AuctionStatus", b =>

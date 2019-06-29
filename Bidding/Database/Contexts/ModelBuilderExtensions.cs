@@ -25,11 +25,9 @@ namespace Bidding.Database.Contexts
             PopulateTypes(modelBuilder);
             PopulateAuctionFormats(modelBuilder);
             PopulateAuctionConditions(modelBuilder);
-            PopulateAuctions(modelBuilder);
-            PopulateAuctionItems(modelBuilder);
-            PopulateItemAuctionDetails(modelBuilder);
-            PopulatePropertyAuctionDetails(modelBuilder);
-            PopulateVehicleAuctionDetails(modelBuilder);
+            // PopulateAuctions(modelBuilder);
+            // PopulateAuctionItems(modelBuilder);
+            // PopulateAuctionDetails(modelBuilder);
         }
 
         private static void PopulateRoles(ModelBuilder modelBuilder)
@@ -690,59 +688,31 @@ namespace Bidding.Database.Contexts
             );
         }
 
-        private static void PopulateItemAuctionDetails(ModelBuilder modelBuilder)
+        private static void PopulateAuctionDetails(ModelBuilder modelBuilder)
         {
-            //modelBuilder.Entity<ItemAuctionDetails>().HasData(
-            //    new ItemAuctionDetails
-            //    {
-            //        ItemAuctionDetailsId = 1,
-            //        AuctionItemId = 3,
-            //        Model = "In progress",
-            //        ManufacturingDate = DateTime.UtcNow,
-            //        Evaluation = "In progress",
-            //        CreatedAt = CreatedAtDateTime,
-            //        CreatedBy = CreatedByBiddingAdmin,
-            //        Deleted = false,
-            //        LastUpdatedAt = CreatedAtDateTime,
-            //        LastUpdatedBy = CreatedByBiddingAdmin
-            //    }
-            //);
-        }
-
-        private static void PopulatePropertyAuctionDetails(ModelBuilder modelBuilder)
-        {
-            //modelBuilder.Entity<PropertyAuctionDetails>().HasData(
-            //    new PropertyAuctionDetails
-            //    {
-            //        PropertyAuctionDetailsId = 1,
-            //        AuctionItemId = 2,
-            //        CreatedAt = CreatedAtDateTime,
-            //        CreatedBy = CreatedByBiddingAdmin,
-            //        Deleted = false,
-            //        LastUpdatedAt = CreatedAtDateTime,
-            //        LastUpdatedBy = CreatedByBiddingAdmin
-            //    }
-            //);
-        }
-
-        private static void PopulateVehicleAuctionDetails(ModelBuilder modelBuilder)
-        {
-            //modelBuilder.Entity<VehicleAuctionDetails>().HasData(
-            //    new VehicleAuctionDetails
-            //    {
-            //        VehicleAuctionDetailsId = 1,
-            //        AuctionItemId = 1,
-            //        Make = "In progress",
-            //        Model = "In progress",
-            //        ManufacturingDate = DateTime.UtcNow,
-            //        Evaluation = "In progress",
-            //        CreatedAt = CreatedAtDateTime,
-            //        CreatedBy = CreatedByBiddingAdmin,
-            //        Deleted = false,
-            //        LastUpdatedAt = CreatedAtDateTime,
-            //        LastUpdatedBy = CreatedByBiddingAdmin
-            //    }
-            //);
+            modelBuilder.Entity<AuctionDetails>().HasData(
+                new AuctionDetails
+                {
+                    AuctionDetailsId = 1,
+                    AuctionItemId = 1,
+                    Make = "BMW",
+                    Model = "1-Series",
+                    ManufacturingYear = 2012,
+                    RegistrationNumber = "5990144781",
+                    IdentificationNumber = "5990144781",
+                    InspectionActive = true,
+                    Transmission = "1",
+                    FuelType = "In progress",
+                    EngineSize = "In progress",
+                    Axis = "In progress",
+                    Evaluation = "In progress",
+                    CreatedAt = CreatedAtDateTime,
+                    CreatedBy = CreatedByBiddingAdmin,
+                    Deleted = false,
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin
+                }
+            );
         }
     }
 }

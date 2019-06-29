@@ -1,6 +1,6 @@
 // angular
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 // internal
 import { FormService } from 'ClientApp/src/app/core/services/form/form.service';
@@ -23,7 +23,7 @@ export class AuctionAddWizardVehicleComponent implements OnInit {
 
   /** Form error object */
   formErrors = {
-    auctionName: '',
+    vehicleName: '',
     auctionStartingPrice: '',
     vehicleMake: '',
     vehicleModel: '',
@@ -35,6 +35,7 @@ export class AuctionAddWizardVehicleComponent implements OnInit {
     vehicleFuelType: '',
     vehicleEngineSize: '',
     vehicleAxis: '',
+    vehicleDimensions: '',
     vehicleEvaluation: ''
   };
 
@@ -108,19 +109,20 @@ export class AuctionAddWizardVehicleComponent implements OnInit {
 
   private buildForm(): void {
     this.addStepForm = this.formBuilder.group({
-      auctionName: ['Skaists BMW', []],
-      auctionStartingPrice: [5000, []],
-      vehicleMake: ['BMW', []],
-      vehicleModel: ['1-Series', []],
-      vehicleManufacturingYear: [2014, []],
-      vehicleRegistrationNumber: [5990144781, []],
-      vehicleIdentificationNumber: [68813321, []],
+      vehicleName: ['', [Validators.required]],
+      auctionStartingPrice: [null, [Validators.required]],
+      vehicleMake: ['', [Validators.required]],
+      vehicleModel: ['', [Validators.required]],
+      vehicleManufacturingYear: [null, [Validators.required]],
+      vehicleRegistrationNumber: ['', []],
+      vehicleIdentificationNumber: ['', []],
       vehicleInspectionActive: [false, []],
-      vehicleTransmission: ['', []],
-      vehicleFuelType: ['', []],
+      vehicleTransmission: [this.transmissionTypes[0].transmissionTypeId, []],
+      vehicleFuelType: [this.fuelTypes[0].fuelTypeId, []],
       vehicleEngineSize: ['', []],
       vehicleAxis: ['', []],
-      vehicleEvaluation: ['Garš teksts', []]
+      vehicleDimensions: ['', []],
+      vehicleEvaluation: ['', []]
     });
   }
 }

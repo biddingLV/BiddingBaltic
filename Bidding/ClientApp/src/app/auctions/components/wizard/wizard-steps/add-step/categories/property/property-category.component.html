@@ -6,6 +6,20 @@
       <form [formGroup]="addStepForm">
         <div class="form-row">
           <div class="form-group col-6">
+            <label for="propertyName">Izsoles Nosaukums</label>
+            <input type="text" formControlName="propertyName" class="form-control" id="propertyName" name="propertyName"
+              [ngClass]="{ 'is-invalid': submitted && f.propertyName.errors }" />
+          </div>
+
+          <div class="form-group col-6">
+            <label for="auctionStartingPrice">Minimālā cena (EUR)</label>
+            <input type="number" formControlName="auctionStartingPrice" class="form-control" id="auctionStartingPrice"
+              name="auctionStartingPrice" [ngClass]="{ 'is-invalid': submitted && f.auctionStartingPrice.errors }" />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-6">
             <label for="propertyCoordinates">Koordinātes:</label>
             <input type="text" formControlName="propertyCoordinates" class="form-control" id="propertyCoordinates"
               name="propertyCoordinates" [ngClass]="{ 'is-invalid': submitted && f.propertyCoordinates.errors }" />
@@ -13,9 +27,11 @@
 
           <div class="form-group col-6">
             <label for="propertyRegion">Reģions:</label>
-            <p>todo: selects</p>
-            <input type="text" formControlName="propertyRegion" class="form-control" id="propertyRegion"
-              name="propertyRegion" [ngClass]="{ 'is-invalid': submitted && f.propertyRegion.errors }" />
+            <ng-select #regionSelect formControlName="propertyRegion" [clearable]="false" [virtualScroll]="true">
+              <ng-option *ngFor="let reg of regions; let i = index" [value]="reg.regionId">
+                {{reg.regionName}}
+              </ng-option>
+            </ng-select>
           </div>
         </div>
 
@@ -38,10 +54,12 @@
         <div class="form-row">
           <div class="form-group col-6">
             <label for="propertyMeasurementType">Mērvienība:</label>
-            <p>todo: selects</p>
-            <input type="text" formControlName="propertyMeasurementType" class="form-control"
-              id="propertyMeasurementType" name="propertyMeasurementType"
-              [ngClass]="{ 'is-invalid': submitted && f.propertyMeasurementType.errors }" />
+            <ng-select #measurementTypeSelect formControlName="propertyMeasurementType" [clearable]="false"
+              [virtualScroll]="true">
+              <ng-option *ngFor="let typ of measurementTypes; let i = index" [value]="typ.measurementTypeId">
+                {{typ.measurementTypeName}}
+              </ng-option>
+            </ng-select>
           </div>
 
           <div class="form-group col-6">

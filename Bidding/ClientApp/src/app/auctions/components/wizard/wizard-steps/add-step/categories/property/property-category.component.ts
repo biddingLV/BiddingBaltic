@@ -1,6 +1,6 @@
 // angular
 import { Component, OnInit, Output, EventEmitter } from '@angular/core';
-import { FormGroup, FormBuilder } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 // internal
 import { FormService } from 'ClientApp/src/app/core/services/form/form.service';
@@ -21,6 +21,8 @@ export class AuctionAddWizardPropertyComponent implements OnInit {
 
   /** Form error object */
   formErrors = {
+    propertyName: '',
+    auctionStartingPrice: '',
     propertyCoordinates: '',
     propertyRegion: '',
     propertyCadastreNumber: '',
@@ -33,6 +35,36 @@ export class AuctionAddWizardPropertyComponent implements OnInit {
   };
 
   typeConstants = TypeConstants;
+
+  regions = [
+    {
+      regionId: 1,
+      regionName: 'Jelgava'
+    },
+    {
+      regionId: 2,
+      regionName: 'Ogre'
+    },
+    {
+      regionId: 3,
+      regionName: 'Work in progress!'
+    }
+  ]
+
+  measurementTypes = [
+    {
+      measurementTypeId: 1,
+      measurementTypeName: 'm2'
+    },
+    {
+      measurementTypeId: 2,
+      measurementTypeName: 'a'
+    },
+    {
+      measurementTypeId: 3,
+      measurementTypeName: 'ha'
+    }
+  ]
 
   /** Convenience getter for easy access to form fields */
   get f() { return this.addStepForm.controls; }
@@ -68,15 +100,17 @@ export class AuctionAddWizardPropertyComponent implements OnInit {
 
   private buildForm(): void {
     this.addStepForm = this.formBuilder.group({
-      propertyCoordinates: ['a55b66', []],
-      propertyRegion: ['Valka', []],
-      propertyCadastreNumber: [477821332, []],
-      propertyMeasurementValue: [99, []],
-      propertyMeasurementType: ['ha', []],
-      propertyAddress: ['Dummy address 1', []],
-      propertyFloorCount: [3, []],
-      propertyRoomCount: [12, []],
-      propertyEvaluation: ['Garš teksts', []]
+      propertyName: ['', [Validators.required]],
+      auctionStartingPrice: [null, [Validators.required]],
+      propertyCoordinates: ['', []],
+      propertyRegion: [this.regions[0].regionId, [Validators.required]],
+      propertyCadastreNumber: [null, [Validators.required]],
+      propertyMeasurementValue: [null, [Validators.required]],
+      propertyMeasurementType: [this.measurementTypes[0].measurementTypeId, [Validators.required]],
+      propertyAddress: ['', []],
+      propertyFloorCount: [null, []],
+      propertyRoomCount: [null, []],
+      propertyEvaluation: ['', []]
     });
   }
 }
