@@ -170,7 +170,7 @@ export class AuctionAddMainWizardComponent implements OnInit, AfterViewInit {
     this.addAuctionRequest = {
       auctionTopCategoryId: this.categoryStepForm.value.auctionTopCategory,
       auctionSubCategoryId: this.categoryStepForm.value.auctionSubCategory,
-      auctionName: this.addStepForm.value.auctionName,
+      auctionName: this.addStepForm.value.vehicleName,
       auctionStartingPrice: this.addStepForm.value.auctionStartingPrice,
       vehicleAuction: {
         vehicleMake: this.addStepForm.value.vehicleMake,
@@ -204,8 +204,8 @@ export class AuctionAddMainWizardComponent implements OnInit, AfterViewInit {
     this.addAuctionRequest = {
       auctionTopCategoryId: this.categoryStepForm.value.auctionTopCategory,
       auctionSubCategoryId: this.categoryStepForm.value.auctionSubCategory,
-      auctionName: this.addStepForm.value.auctionName, // ir?
-      auctionStartingPrice: this.addStepForm.value.auctionStartingPrice, // ir?
+      auctionName: this.addStepForm.value.propertyName,
+      auctionStartingPrice: this.addStepForm.value.auctionStartingPrice,
       propertyAuction: {
         propertyCoordinates: this.addStepForm.value.propertyCoordinates,
         propertyRegion: this.addStepForm.value.propertyRegion,
