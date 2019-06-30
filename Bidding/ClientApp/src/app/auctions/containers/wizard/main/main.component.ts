@@ -107,9 +107,6 @@ export class AuctionAddMainWizardComponent implements OnInit, AfterViewInit {
 
   onSubmit(): void {
     this.aboutStepForm = this.aboutStep.aboutStepForm;
-    console.log('this.categoryStepForm: ', this.categoryStepForm)
-    console.log('this.addStepForm: ', this.addStepForm)
-    console.log('this.aboutStepForm: ', this.aboutStepForm)
 
     if (this.selectedTopCategoryId == this.categoryConstants.ITEM_CATEGORY) {
       this.setItemAuctionAddRequest();
@@ -143,7 +140,7 @@ export class AuctionAddMainWizardComponent implements OnInit, AfterViewInit {
       auctionTopCategoryId: this.categoryStepForm.value.auctionTopCategory,
       auctionSubCategoryId: this.categoryStepForm.value.auctionSubCategory,
       auctionName: this.addStepForm.value.itemName,
-      auctionStartingPrice: this.addStepForm.value.itemStartingPrice,
+      auctionStartingPrice: this.addStepForm.value.auctionStartingPrice,
       itemAuction: {
         itemModel: this.addStepForm.value.itemModel,
         itemManufacturingYear: this.addStepForm.value.itemManufacturingYear,
@@ -179,7 +176,7 @@ export class AuctionAddMainWizardComponent implements OnInit, AfterViewInit {
         vehicleRegistrationNumber: this.addStepForm.value.vehicleRegistrationNumber,
         vehicleIdentificationNumber: this.addStepForm.value.vehicleIdentificationNumber,
         vehicleInspectionActive: this.addStepForm.value.vehicleInspectionActive,
-        vehicleTransmission: this.addStepForm.value.vehicleTransmission,
+        vehicleTransmissionId: this.addStepForm.value.vehicleTransmission,
         vehicleFuelType: this.addStepForm.value.vehicleFuelType,
         vehicleEngineSize: this.addStepForm.value.vehicleEngineSize,
         vehicleAxis: this.addStepForm.value.vehicleAxis,

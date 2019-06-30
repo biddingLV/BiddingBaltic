@@ -24,6 +24,9 @@ namespace Bidding.Database.DatabaseModels.Auctions
         public int StartingPrice { get; set; }
 
         [Required]
+        public string Address { get; set; }
+
+        [Required]
         public DateTime StartDate { get; set; }
 
         [Required]

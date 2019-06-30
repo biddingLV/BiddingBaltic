@@ -234,24 +234,26 @@ namespace Bidding.Repositories.Auctions
                 {
                     return new AuctionDetailsResponseModel
                     {
+                        AuctionName = details.auct.Name,
+                        AuctionStartingPrice = details.auct.StartingPrice,
                         ItemAuction = new ItemAuctionModel
                         {
                             ItemModel = details.adet.Model,
-                            ItemManufacturingYear = details.adet.ManufacturingYear,
-                            ItemCondition = details.adet.Condition,
+                            ItemManufacturingYear = details.adet.ManufacturingYear.Value,
+                            ItemCondition = details.adet.Condition.Value,
                             ItemEvaluation = details.adet.Evaluation,
                             ItemStartingPrice = details.auct.StartingPrice
                         },
                         AboutAuction = new AboutAuctionModel
                         {
-                            AuctionCreator = "",
-                            AuctionAddress = "",
-                            AuctionCreatorEmail = "",
-                            AuctionCreatorPhone = "",
+                            AuctionCreator = "Not implemented",
+                            AuctionAddress = details.auct.Address,
+                            AuctionCreatorEmail = "Not implemented",
+                            AuctionCreatorPhone = "Not implemented",
                             AuctionFormat = 1,
-                            AuctionStartDate = new DateTime(),
-                            AuctionApplyTillDate = new DateTime(),
-                            AuctionEndDate = new DateTime()
+                            AuctionStartDate = details.auct.StartDate,
+                            AuctionApplyTillDate = details.auct.ApplyTillDate,
+                            AuctionEndDate = details.auct.EndDate
                         }
                     };
                 }
@@ -259,15 +261,17 @@ namespace Bidding.Repositories.Auctions
                 {
                     return new AuctionDetailsResponseModel
                     {
+                        AuctionName = details.auct.Name,
+                        AuctionStartingPrice = details.auct.StartingPrice,
                         VehicleAuction = new VehicleAuctionModel
                         {
                             VehicleMake = details.adet.Make,
                             VehicleModel = details.adet.Model,
-                            VehicleManufacturingYear = details.adet.ManufacturingYear,
+                            VehicleManufacturingYear = details.adet.ManufacturingYear.Value,
                             VehicleRegistrationNumber = details.adet.RegistrationNumber,
                             VehicleIdentificationNumber = details.adet.IdentificationNumber,
                             VehicleInspectionActive = details.adet.InspectionActive,
-                            VehicleTransmission = details.adet.Transmission,
+                            VehicleTransmissionId = details.adet.TransmissionId.Value, // todo: kke: DO i NEED TO HANDLE nullable ints here to return null?
                             VehicleFuelType = details.adet.FuelType,
                             VehicleEngineSize = details.adet.EngineSize,
                             VehicleAxis = details.adet.Axis,
@@ -275,14 +279,14 @@ namespace Bidding.Repositories.Auctions
                         },
                         AboutAuction = new AboutAuctionModel
                         {
-                            AuctionCreator = "",
-                            AuctionAddress = "",
-                            AuctionCreatorEmail = "",
-                            AuctionCreatorPhone = "",
+                            AuctionCreator = "Not implemented",
+                            AuctionAddress = details.auct.Address,
+                            AuctionCreatorEmail = "Not implemented",
+                            AuctionCreatorPhone = "Not implemented",
                             AuctionFormat = 1,
-                            AuctionStartDate = new DateTime(),
-                            AuctionApplyTillDate = new DateTime(),
-                            AuctionEndDate = new DateTime()
+                            AuctionStartDate = details.auct.StartDate,
+                            AuctionApplyTillDate = details.auct.ApplyTillDate,
+                            AuctionEndDate = details.auct.EndDate
                         }
                     };
                 }
@@ -290,28 +294,30 @@ namespace Bidding.Repositories.Auctions
                 {
                     return new AuctionDetailsResponseModel
                     {
+                        AuctionName = details.auct.Name,
+                        AuctionStartingPrice = details.auct.StartingPrice,
                         PropertyAuction = new PropertyAuctionModel
                         {
                             PropertyCoordinates = details.adet.Coordinates,
                             PropertyRegion = details.adet.Region,
-                            PropertyCadastreNumber = details.adet.CadastreNumber,
-                            PropertyMeasurementValue = details.adet.MeasurementValue,
+                            PropertyCadastreNumber = details.adet.CadastreNumber.Value,
+                            PropertyMeasurementValue = details.adet.MeasurementValue.Value,
                             PropertyMeasurementType = details.adet.MeasurementType,
                             PropertyAddress = details.adet.Address,
-                            PropertyFloorCount = details.adet.FloorCount,
-                            PropertyRoomCount = details.adet.RoomCount,
+                            PropertyFloorCount = details.adet.FloorCount.Value,
+                            PropertyRoomCount = details.adet.RoomCount.Value,
                             PropertyEvaluation = details.adet.Evaluation
                         },
                         AboutAuction = new AboutAuctionModel
                         {
-                            AuctionCreator = "",
-                            AuctionAddress = "",
-                            AuctionCreatorEmail = "",
-                            AuctionCreatorPhone = "",
+                            AuctionCreator = "Not implemented",
+                            AuctionAddress = details.auct.Address,
+                            AuctionCreatorEmail = "Not implemented",
+                            AuctionCreatorPhone = "Not implemented",
                             AuctionFormat = 1,
-                            AuctionStartDate = new DateTime(),
-                            AuctionApplyTillDate = new DateTime(),
-                            AuctionEndDate = new DateTime()
+                            AuctionStartDate = details.auct.StartDate,
+                            AuctionApplyTillDate = details.auct.ApplyTillDate,
+                            AuctionEndDate = details.auct.EndDate
                         }
                     };
                 }
@@ -558,6 +564,7 @@ namespace Bidding.Repositories.Auctions
             {
                 Name = request.AuctionName,
                 StartingPrice = request.AuctionStartingPrice,
+                Address = request.AboutAuction.AuctionAddress,
                 StartDate = request.AboutAuction.AuctionStartDate,
                 ApplyTillDate = request.AboutAuction.AuctionApplyTillDate,
                 EndDate = request.AboutAuction.AuctionEndDate,
@@ -597,7 +604,7 @@ namespace Bidding.Repositories.Auctions
                 RegistrationNumber = request.VehicleAuction.VehicleRegistrationNumber,
                 IdentificationNumber = request.VehicleAuction.VehicleIdentificationNumber,
                 InspectionActive = request.VehicleAuction.VehicleInspectionActive,
-                Transmission = request.VehicleAuction.VehicleTransmission,
+                TransmissionId = request.VehicleAuction.VehicleTransmissionId,
                 FuelType = request.VehicleAuction.VehicleFuelType,
                 EngineSize = request.VehicleAuction.VehicleEngineSize,
                 Axis = request.VehicleAuction.VehicleAxis,

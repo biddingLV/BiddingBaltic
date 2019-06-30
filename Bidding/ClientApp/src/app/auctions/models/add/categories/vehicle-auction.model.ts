@@ -6,7 +6,7 @@ namespace Auctions {
     vehicleRegistrationNumber: string;
     vehicleIdentificationNumber: string;
     vehicleInspectionActive: string;
-    vehicleTransmission: string;
+    vehicleTransmissionId: number;
     vehicleFuelType: string;
     vehicleEngineSize: string;
     vehicleAxis: string;

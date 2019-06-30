@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Bidding.Migrations
 {
     [DbContext(typeof(BiddingContext))]
-    [Migration("20190629204948_InitialMigration")]
+    [Migration("20190630094533_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -26,6 +26,9 @@ namespace Bidding.Migrations
                     b.Property<int>("AuctionId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("Address")
+                        .IsRequired();
 
                     b.Property<DateTime>("ApplyTillDate");
 
@@ -159,9 +162,9 @@ namespace Bidding.Migrations
 
                     b.Property<string>("Axis");
 
-                    b.Property<int>("CadastreNumber");
+                    b.Property<int?>("CadastreNumber");
 
-                    b.Property<int>("Condition");
+                    b.Property<int?>("Condition");
 
                     b.Property<string>("Coordinates");
 
@@ -175,7 +178,7 @@ namespace Bidding.Migrations
 
                     b.Property<string>("Evaluation");
 
-                    b.Property<int>("FloorCount");
+                    b.Property<int?>("FloorCount");
 
                     b.Property<string>("FuelType");
 
@@ -190,24 +193,22 @@ namespace Bidding.Migrations
 
                     b.Property<string>("Make");
 
-                    b.Property<int>("ManufacturingYear");
+                    b.Property<int?>("ManufacturingYear");
 
                     b.Property<string>("MeasurementType");
 
-                    b.Property<int>("MeasurementValue");
+                    b.Property<int?>("MeasurementValue");
 
                     b.Property<string>("Model");
-
-                    b.Property<string>("Name");
 
                     b.Property<string>("Region");
 
                     b.Property<string>("RegistrationNumber")
                         .HasMaxLength(50);
 
-                    b.Property<int>("RoomCount");
+                    b.Property<int?>("RoomCount");
 
-                    b.Property<string>("Transmission");
+                    b.Property<int?>("TransmissionId");
 
                     b.Property<int?>("UserId");
 

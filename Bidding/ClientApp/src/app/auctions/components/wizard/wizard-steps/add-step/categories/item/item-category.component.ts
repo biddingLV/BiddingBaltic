@@ -70,13 +70,13 @@ export class AuctionAddWizardItemComponent implements OnInit {
     // return form values back to parent component
     this.returnAddWizardStepForm.emit(this.addStepForm);
   }
-
+  
   private buildForm(): void {
     this.addStepForm = this.formBuilder.group({
       itemName: ['', [Validators.required]],
       itemModel: ['', [Validators.required]],
       itemManufacturingYear: [null, [Validators.required]],
-      itemCondition: [this.conditions[0].conditionId, []],
+      itemCondition: [null, []],
       itemEvaluation: ['', []],
       auctionStartingPrice: [null, [Validators.required]]
     });

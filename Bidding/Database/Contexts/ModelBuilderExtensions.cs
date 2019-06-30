@@ -701,7 +701,7 @@ namespace Bidding.Database.Contexts
                     RegistrationNumber = "5990144781",
                     IdentificationNumber = "5990144781",
                     InspectionActive = true,
-                    Transmission = "1",
+                    TransmissionId = 1,
                     FuelType = "In progress",
                     EngineSize = "In progress",
                     Axis = "In progress",

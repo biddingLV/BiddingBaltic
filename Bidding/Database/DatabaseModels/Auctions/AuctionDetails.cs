@@ -19,7 +19,7 @@ namespace Bidding.Database.DatabaseModels.Auctions
 
         public string Make { get; set; }
         public string Model { get; set; }
-        public int ManufacturingYear { get; set; }
+        public int? ManufacturingYear { get; set; }
 
         [MaxLength(50)]
         public string RegistrationNumber { get; set; }
@@ -27,20 +27,19 @@ namespace Bidding.Database.DatabaseModels.Auctions
         [MaxLength(50)]
         public string IdentificationNumber { get; set; }
         public bool InspectionActive { get; set; }
-        public string Transmission { get; set; }
+        public int? TransmissionId { get; set; }
         public string FuelType { get; set; }
         public string EngineSize { get; set; }
         public string Axis { get; set; }
-        public string Name { get; set; }
-        public int Condition { get; set; }
+        public int? Condition { get; set; }
         public string Coordinates { get; set; }
         public string Region { get; set; }
-        public int CadastreNumber { get; set; }
-        public int MeasurementValue { get; set; }
+        public int? CadastreNumber { get; set; }
+        public int? MeasurementValue { get; set; }
         public string MeasurementType { get; set; }
         public string Address { get; set; }
-        public int FloorCount { get; set; }
-        public int RoomCount { get; set; }
+        public int? FloorCount { get; set; }
+        public int? RoomCount { get; set; }
         public string Evaluation { get; set; }
 
         [Required]
