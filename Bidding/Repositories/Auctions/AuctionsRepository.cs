@@ -201,6 +201,13 @@ namespace Bidding.Repositories.Auctions
                 .Select(afor => new AuctionFormatItemModel { AuctionFormatId = afor.AuctionFormatId, AuctionFormatName = afor.Name });
         }
 
+        public IEnumerable<AuctionFormatItemModel> CreateVehicleDetails()
+        {
+            return m_context.AuctionFormats
+                .Where(afor => afor.Deleted == false)
+                .Select(afor => new AuctionFormatItemModel { AuctionFormatId = afor.AuctionFormatId, AuctionFormatName = afor.Name });
+        }
+
         /// <summary>
         /// Loads all active auction statuses
         /// </summary>

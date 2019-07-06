@@ -88,7 +88,7 @@ export class AuctionDeleteComponent implements OnInit {
 
     this.auctionService.deleteAuction$(this.deleteRequest)
       .subscribe((data: boolean) => {
-        let deleteSuccess = data;
+        const deleteSuccess = data;
         if (deleteSuccess) {
           this.notification.success('Auction(s) successfully deleted.');
           this.bsModalRef.hide();

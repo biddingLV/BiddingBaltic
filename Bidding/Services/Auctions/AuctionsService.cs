@@ -103,6 +103,16 @@ namespace Bidding.Services.Auctions
             };
         }
 
+        public AuctionFormatModel CreateVehicleDetails()
+        {
+            m_permissionService.IsLoggedInUserActive();
+
+            return new AuctionFormatModel()
+            {
+                Formats = new List<AuctionFormatItemModel>() // m_auctionsRepository.CreateVehicleDetails()
+            };
+        }
+
         public AuctionStatusModel Statuses()
         {
             m_permissionService.IsLoggedInUserActive();

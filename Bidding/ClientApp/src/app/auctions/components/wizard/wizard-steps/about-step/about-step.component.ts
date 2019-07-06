@@ -58,7 +58,13 @@ export class AuctionAddAboutWizardStepComponent implements OnInit {
     private auctionApi: AuctionsService,
     private notification: NotificationsService,
     private internalFormService: FormService
-  ) { }
+  ) {
+    this.bsConfig = {
+      containerClass: 'theme-green',
+      dateInputFormat: 'DD/MM/YYYY',
+      showWeekNumbers: true
+    };
+  }
 
   ngOnInit(): void {
     this.buildForm();
@@ -70,7 +76,7 @@ export class AuctionAddAboutWizardStepComponent implements OnInit {
     // mark all fields as touched
     this.internalFormService.markFormGroupTouched(this.aboutStepForm);
 
-    if (this.aboutStepForm.valid == false) {
+    if (this.aboutStepForm.valid === false) {
       this.formErrors = this.internalFormService.validateForm(this.aboutStepForm, this.formErrors, false);
     }
 
@@ -99,16 +105,16 @@ export class AuctionAddAboutWizardStepComponent implements OnInit {
     this.loadAuctionFormats();
   }
 
-  private loadAuctionCreators(): void {
-    this.auctionAddSub = this.auctionApi.getAuctionCreators$()
-      .pipe(startWith(new AuctionCreatorModel()))
-      .subscribe(
-        (result: AuctionCreatorModel) => {
-          this.auctionCreators = result;
-        },
-        (error: string) => this.notification.error(error)
-      );
-  }
+  // private loadAuctionCreators(): void {
+  //   this.auctionAddSub = this.auctionApi.getAuctionCreators$()
+  //     .pipe(startWith(new AuctionCreatorModel()))
+  //     .subscribe(
+  //       (result: AuctionCreatorModel) => {
+  //         this.auctionCreators = result;
+  //       },
+  //       (error: string) => this.notification.error(error)
+  //     );
+  // }
 
   private loadAuctionFormats(): void {
     this.auctionAddSub = this.auctionApi.getAuctionFormats$()

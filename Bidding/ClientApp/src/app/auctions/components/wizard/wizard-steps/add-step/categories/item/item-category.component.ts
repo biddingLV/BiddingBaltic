@@ -37,7 +37,7 @@ export class AuctionAddWizardItemComponent implements OnInit {
       conditionId: 2,
       conditionName: 'lietots'
     }
-  ]
+  ];
 
   /** Convenience getter for easy access to form fields */
   get f() { return this.addStepForm.controls; }
@@ -58,7 +58,7 @@ export class AuctionAddWizardItemComponent implements OnInit {
     // mark all fields as touched
     this.internalFormService.markFormGroupTouched(this.addStepForm);
 
-    if (this.addStepForm.valid == false) {
+    if (this.addStepForm.valid === false) {
       this.formErrors = this.internalFormService.validateForm(this.addStepForm, this.formErrors, false);
     }
 
@@ -70,7 +70,7 @@ export class AuctionAddWizardItemComponent implements OnInit {
     // return form values back to parent component
     this.returnAddWizardStepForm.emit(this.addStepForm);
   }
-  
+
   private buildForm(): void {
     this.addStepForm = this.formBuilder.group({
       itemName: ['', [Validators.required]],

@@ -23,7 +23,7 @@ export class AuctionDetailsCountdownComponent implements OnInit, OnDestroy {
     days: 0,
     hours: 0,
     minutes: 0
-  }
+  };
 
   constructor() { }
 
@@ -38,11 +38,11 @@ export class AuctionDetailsCountdownComponent implements OnInit, OnDestroy {
   }
 
   private setupCountdown(): void {
-    let eventTime = moment('10-06-2019 10:00:00', 'DD-MM-YYYY HH:mm:ss').unix();
-    let currentTime = moment().unix();
-    let diffTime = eventTime - currentTime;
-    let duration = moment.duration(diffTime * 1000, 'milliseconds')
-    let interval = 1000;
+    const eventTime = moment('10-06-2019 10:00:00', 'DD-MM-YYYY HH:mm:ss').unix();
+    const currentTime = moment().unix();
+    const diffTime = eventTime - currentTime;
+    let duration = moment.duration(diffTime * 1000, 'milliseconds');
+    const interval = 1000;
 
     duration = moment.duration(duration.asMilliseconds() - interval, 'milliseconds');
 

@@ -6,7 +6,7 @@ import { CommonModule } from '@angular/common';
 import { ArchwizardModule } from 'angular-archwizard';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
-// internal 
+// internal
 import { AuctionListComponent } from './components/list/list.component';
 import { AuctionDetailsComponent } from './containers/details/details.component';
 import { AuctionMainComponent } from './containers/main/main.component';

@@ -30,6 +30,7 @@ namespace Bidding.Services.Shared.Permissions
         /// <returns></returns>
         public void IsLoggedInUserActive()
         {
+            // what about this - User.Identity.IsAuthenticated?
             int? loggedInUserId = GetUserIdFromClaimsPrincipal();
 
             if (loggedInUserId.IsNotSpecified() == false)

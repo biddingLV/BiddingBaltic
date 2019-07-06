@@ -81,6 +81,17 @@ namespace Bidding.Controllers.Auctions
         }
 
         /// <summary>
+        /// Fetch extra details for create vehicle auction 
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public IActionResult CreateVehicleDetails()
+        {
+            return Ok(m_auctionsService.CreateVehicleDetails());
+        }
+
+        /// <summary>
         /// Fetch auction status list for auction add modal
         /// </summary>
         /// <returns></returns>

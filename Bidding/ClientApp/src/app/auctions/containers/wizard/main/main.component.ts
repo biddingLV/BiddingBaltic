@@ -97,7 +97,7 @@ export class AuctionAddMainWizardComponent implements OnInit, AfterViewInit {
   }
 
   onClickNextReturnForm(formType: string, form: FormGroup): void {
-    if (formType == 'add-form') {
+    if (formType === 'add-form') {
       this.addStepForm = form;
     } else {
       this.aboutStepForm = form;
@@ -108,11 +108,11 @@ export class AuctionAddMainWizardComponent implements OnInit, AfterViewInit {
   onSubmit(): void {
     this.aboutStepForm = this.aboutStep.aboutStepForm;
 
-    if (this.selectedTopCategoryId == this.categoryConstants.ITEM_CATEGORY) {
+    if (this.selectedTopCategoryId === this.categoryConstants.ITEM_CATEGORY) {
       this.setItemAuctionAddRequest();
-    } else if (this.selectedTopCategoryId == this.categoryConstants.VEHICLE_CATEGORY) {
+    } else if (this.selectedTopCategoryId === this.categoryConstants.VEHICLE_CATEGORY) {
       this.setVehicleAuctionAddRequest();
-    } else if (this.selectedTopCategoryId == this.categoryConstants.PROPERTY_CATEGORY) {
+    } else if (this.selectedTopCategoryId === this.categoryConstants.PROPERTY_CATEGORY) {
       this.setPropertyAuctionAddRequest();
     } else {
       // something is wrong!
@@ -148,17 +148,8 @@ export class AuctionAddMainWizardComponent implements OnInit, AfterViewInit {
         itemEvaluation: this.addStepForm.value.itemEvaluation,
         itemStartingPrice: this.addStepForm.value.itemStartingPrice
       },
-      aboutAuction: { // todo: kke: this can be refactored because it is the same for all top-categories!
-        auctionCreator: this.aboutStepForm.value.auctionCreator,
-        auctionAddress: this.aboutStepForm.value.auctionAddress,
-        auctionCreatorEmail: this.aboutStepForm.value.auctionCreatorEmail,
-        auctionCreatorPhone: this.aboutStepForm.value.auctionCreatorPhone,
-        auctionFormat: this.aboutStepForm.value.auctionFormat,
-        auctionStartDate: this.aboutStepForm.value.auctionStartDate,
-        auctionApplyTillDate: this.aboutStepForm.value.auctionApplyTillDate,
-        auctionEndDate: this.aboutStepForm.value.auctionEndDate
-      }
-    }
+      aboutAuction: this.setAboutAuctionDetails()
+    };
 
     this.makeRequest(this.addAuctionRequest);
   }
@@ -182,17 +173,8 @@ export class AuctionAddMainWizardComponent implements OnInit, AfterViewInit {
         vehicleAxis: this.addStepForm.value.vehicleAxis,
         vehicleEvaluation: this.addStepForm.value.vehicleEvaluation
       },
-      aboutAuction: { // todo: kke: this can be refactored because it is the same for all top-categories!
-        auctionCreator: this.aboutStepForm.value.auctionCreator,
-        auctionAddress: this.aboutStepForm.value.auctionAddress,
-        auctionCreatorEmail: this.aboutStepForm.value.auctionCreatorEmail,
-        auctionCreatorPhone: this.aboutStepForm.value.auctionCreatorPhone,
-        auctionFormat: this.aboutStepForm.value.auctionFormat,
-        auctionStartDate: this.aboutStepForm.value.auctionStartDate,
-        auctionApplyTillDate: this.aboutStepForm.value.auctionApplyTillDate,
-        auctionEndDate: this.aboutStepForm.value.auctionEndDate
-      }
-    }
+      aboutAuction: this.setAboutAuctionDetails()
+    };
 
     this.makeRequest(this.addAuctionRequest);
   }
@@ -214,18 +196,23 @@ export class AuctionAddMainWizardComponent implements OnInit, AfterViewInit {
         propertyRoomCount: this.addStepForm.value.propertyRoomCount,
         propertyEvaluation: this.addStepForm.value.propertyEvaluation
       },
-      aboutAuction: { // todo: kke: this can be refactored because it is the same for all top-categories!
-        auctionCreator: this.aboutStepForm.value.auctionCreator,
-        auctionAddress: this.aboutStepForm.value.auctionAddress,
-        auctionCreatorEmail: this.aboutStepForm.value.auctionCreatorEmail,
-        auctionCreatorPhone: this.aboutStepForm.value.auctionCreatorPhone,
-        auctionFormat: this.aboutStepForm.value.auctionFormat,
-        auctionStartDate: this.aboutStepForm.value.auctionStartDate,
-        auctionApplyTillDate: this.aboutStepForm.value.auctionApplyTillDate,
-        auctionEndDate: this.aboutStepForm.value.auctionEndDate
-      }
-    }
+      aboutAuction: this.setAboutAuctionDetails()
+    };
+
     this.makeRequest(this.addAuctionRequest);
+  }
+
+  private setAboutAuctionDetails(): Auctions.AboutAuctionModel {
+    return {
+      auctionCreator: this.aboutStepForm.value.auctionCreator,
+      auctionAddress: this.aboutStepForm.value.auctionAddress,
+      auctionCreatorEmail: this.aboutStepForm.value.auctionCreatorEmail,
+      auctionCreatorPhone: this.aboutStepForm.value.auctionCreatorPhone,
+      auctionFormat: this.aboutStepForm.value.auctionFormat,
+      auctionStartDate: this.aboutStepForm.value.auctionStartDate,
+      auctionApplyTillDate: this.aboutStepForm.value.auctionApplyTillDate,
+      auctionEndDate: this.aboutStepForm.value.auctionEndDate
+    };
   }
 
   private makeRequest(request: Auctions.AddAuctionRequestModel): void {

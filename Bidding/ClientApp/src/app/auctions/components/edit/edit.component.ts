@@ -111,7 +111,7 @@ export class AuctionEditComponent implements OnInit {
 
     this.auctionService.editAuction$(this.auctionEditRequest)
       .subscribe((data: boolean) => {
-        let editSuccess = data;
+        const editSuccess = data;
         if (editSuccess) {
           this.notificationService.success('Auction successfully updated.');
           this.auctionEditForm.reset();

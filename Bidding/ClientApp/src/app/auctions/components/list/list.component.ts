@@ -77,7 +77,7 @@ export class AuctionListComponent implements OnInit, OnDestroy, OnChanges {
    * @param changes
    */
   ngOnChanges(changes: SimpleChanges): void {
-    for (const property in changes) {
+    for (const property of Object.keys(changes)) {
       switch (!changes[property].firstChange && property) {
         case 'categoryIds':
           this.request.topCategoryIds = changes[property].currentValue;

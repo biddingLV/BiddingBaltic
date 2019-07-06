@@ -53,7 +53,7 @@ export class AuctionAddCategoryWizardStepComponent implements OnInit {
       this.categoryStepForm.get('auctionSubCategory').enable();
       this.categoryStepForm.get('auctionSubCategory').reset();
 
-      this.auctionTypes = this.categories.subCategories.filter(item => item.categoryId == categoryId);
+      this.auctionTypes = this.categories.subCategories.filter(item => item.categoryId === categoryId);
     } else {
       // todo: kke: I think this is not really needed anymore, because you can only select one cat! cant de-select!
       this.categoryStepForm.get('auctionSubCategory').disable();
@@ -73,7 +73,7 @@ export class AuctionAddCategoryWizardStepComponent implements OnInit {
     // mark all fields as touched
     this.formService.markFormGroupTouched(this.categoryStepForm);
 
-    if (this.categoryStepForm.valid == false) {
+    if (this.categoryStepForm.valid === false) {
       this.formErrors = this.formService.validateForm(this.categoryStepForm, this.formErrors, false);
     }
 

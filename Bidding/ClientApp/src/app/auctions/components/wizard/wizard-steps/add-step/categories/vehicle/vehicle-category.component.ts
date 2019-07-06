@@ -50,7 +50,7 @@ export class AuctionAddWizardVehicleComponent implements OnInit {
       transmissionTypeId: 2,
       transmissionTypeName: 'mehāniskā'
     }
-  ]
+  ];
 
   fuelTypes = [
     {
@@ -73,7 +73,7 @@ export class AuctionAddWizardVehicleComponent implements OnInit {
       fuelTypeId: 5,
       fuelTypeName: 'hibrīds'
     }
-  ]
+  ];
 
   /** Convenience getter for easy access to form fields */
   get f() { return this.addStepForm.controls; }
@@ -94,7 +94,7 @@ export class AuctionAddWizardVehicleComponent implements OnInit {
     // mark all fields as touched
     this.internalFormService.markFormGroupTouched(this.addStepForm);
 
-    if (this.addStepForm.valid == false) {
+    if (this.addStepForm.valid === false) {
       this.formErrors = this.internalFormService.validateForm(this.addStepForm, this.formErrors, false);
     }
 
