@@ -31,7 +31,8 @@ BEGIN
 	INNER JOIN AuctionStatuses asta ON auct.AuctionStatusId = asta.AuctionStatusId
 		AND (auct.Deleted = 0)
 		AND (auct.EndDate >= CONVERT(DATE, GETDATE()))
-	ORDER BY auct.StartDate
+	ORDER BY (CASE WHEN auct.StartDate IS NULL THEN 1 ELSE 0 END) DESC, 
+         auct.StartDate DESC
 		--	(CASE WHEN @sortByColumn = 'AuctionName' AND @sortingDirection  = 'asc' THEN auct.AuctionName END) ASC,    
 		--	(CASE WHEN @sortByColumn = 'AuctionName' AND @sortingDirection  = 'desc' THEN auct.AuctionName END) DESC,    
 		--	(CASE WHEN @sortByColumn = 'AuctionStartingPrice'  AND @sortingDirection  = 'asc' THEN auct.AuctionStartingPrice END) ASC,

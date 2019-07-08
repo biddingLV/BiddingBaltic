@@ -65,8 +65,8 @@ ng-select.ng-select {
 
 // remove extra border and padding when adding form-control to ng-select
 .form-control.ng-select {
-  // border: none;
-  // padding: 0;
+  border: none;
+  padding: 0;
 }
 
 // add error message border for the ng-select
@@ -77,4 +77,9 @@ ng-select.ng-invalid.is-invalid .ng-select-container {
 // add error message border for the ng-select when touched
 ng-select.ng-invalid.ng-touched.is-invalid .ng-select-container {
   // border-color: $danger;
+}
+
+// todo: kke: is this right?
+ng-select.ng-invalid.ng-touched .ng-select-container {
+  border-color: $danger;
 }

@@ -278,8 +278,8 @@ namespace Bidding.Repositories.Auctions
                             VehicleRegistrationNumber = details.adet.RegistrationNumber,
                             VehicleIdentificationNumber = details.adet.IdentificationNumber,
                             VehicleInspectionActive = details.adet.InspectionActive,
-                            VehicleTransmissionId = details.adet.TransmissionId.Value, // todo: kke: DO i NEED TO HANDLE nullable ints here to return null?
-                            VehicleFuelType = details.adet.FuelType,
+                            VehicleTransmissionId = details.adet.TransmissionId ?? null,
+                            VehicleFuelType = details.adet.FuelType ?? "",
                             VehicleEngineSize = details.adet.EngineSize,
                             VehicleAxis = details.adet.Axis,
                             VehicleEvaluation = details.adet.Evaluation
@@ -311,8 +311,8 @@ namespace Bidding.Repositories.Auctions
                             PropertyMeasurementValue = details.adet.MeasurementValue.Value,
                             PropertyMeasurementType = details.adet.MeasurementType,
                             PropertyAddress = details.adet.Address,
-                            PropertyFloorCount = details.adet.FloorCount.Value,
-                            PropertyRoomCount = details.adet.RoomCount.Value,
+                            PropertyFloorCount = details.adet.FloorCount ?? null,
+                            PropertyRoomCount = details.adet.RoomCount ?? null,
                             PropertyEvaluation = details.adet.Evaluation
                         },
                         AboutAuction = new AboutAuctionModel
@@ -322,7 +322,7 @@ namespace Bidding.Repositories.Auctions
                             AuctionCreatorEmail = "Not implemented",
                             AuctionCreatorPhone = "Not implemented",
                             AuctionFormat = 1,
-                            AuctionStartDate = details.auct.StartDate,
+                            AuctionStartDate = details.auct.StartDate ?? null,
                             AuctionApplyTillDate = details.auct.ApplyTillDate,
                             AuctionEndDate = details.auct.EndDate
                         }
@@ -572,7 +572,7 @@ namespace Bidding.Repositories.Auctions
                 Name = request.AuctionName,
                 StartingPrice = request.AuctionStartingPrice,
                 Address = request.AboutAuction.AuctionAddress,
-                StartDate = request.AboutAuction.AuctionStartDate,
+                StartDate = request.AboutAuction.AuctionStartDate ?? null,
                 ApplyTillDate = request.AboutAuction.AuctionApplyTillDate,
                 EndDate = request.AboutAuction.AuctionEndDate,
                 AuctionCategoryId = request.AuctionTopCategoryId,

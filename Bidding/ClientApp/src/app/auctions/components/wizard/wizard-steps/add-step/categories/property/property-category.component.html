@@ -1,5 +1,3 @@
-<pre>{{ addStepForm.value | json }}</pre>
-
 <div class="container">
   <div class="row">
     <div class="col-12">
@@ -27,11 +25,16 @@
 
           <div class="form-group col-6">
             <label for="propertyRegion">Reģions:</label>
-            <ng-select #regionSelect formControlName="propertyRegion" [clearable]="false" [virtualScroll]="true">
+            <ng-select #regionSelect formControlName="propertyRegion" [clearable]="false" [virtualScroll]="true"
+              class="form-control">
               <ng-option *ngFor="let reg of regions; let i = index" [value]="reg.regionId">
                 {{reg.regionName}}
               </ng-option>
             </ng-select>
+
+            <div *ngIf="submitted && formErrors.propertyRegion" class="invalid-feedback d-block">
+              {{formErrors.propertyRegion}}
+            </div>
           </div>
         </div>
 
@@ -60,6 +63,10 @@
                 {{typ.measurementTypeName}}
               </ng-option>
             </ng-select>
+
+            <div *ngIf="submitted && formErrors.propertyMeasurementType" class="invalid-feedback d-block">
+              {{formErrors.propertyMeasurementType}}
+            </div>
           </div>
 
           <div class="form-group col-6">

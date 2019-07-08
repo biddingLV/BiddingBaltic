@@ -96,9 +96,9 @@ export class AuctionAddAboutWizardStepComponent implements OnInit {
       auctionCreatorEmail: ['', [Validators.required]],
       auctionCreatorPhone: ['', [Validators.required]],
       auctionFormat: ['', [Validators.required]],
-      auctionStartDate: ['', []],
-      auctionApplyTillDate: ['', [Validators.required]],
-      auctionEndDate: ['', [Validators.required]]
+      auctionStartDate: [null, []],
+      auctionApplyTillDate: [null, [Validators.required]],
+      auctionEndDate: [null, [Validators.required]]
     });
 
     // this.loadAuctionCreators();

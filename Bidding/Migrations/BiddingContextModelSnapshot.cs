@@ -52,7 +52,7 @@ namespace Bidding.Migrations
                         .IsRequired()
                         .HasMaxLength(50);
 
-                    b.Property<DateTime>("StartDate");
+                    b.Property<DateTime?>("StartDate");
 
                     b.Property<int>("StartingPrice");
 
@@ -193,13 +193,13 @@ namespace Bidding.Migrations
 
                     b.Property<int?>("ManufacturingYear");
 
-                    b.Property<string>("MeasurementType");
+                    b.Property<int>("MeasurementType");
 
                     b.Property<int?>("MeasurementValue");
 
                     b.Property<string>("Model");
 
-                    b.Property<string>("Region");
+                    b.Property<int>("Region");
 
                     b.Property<string>("RegistrationNumber")
                         .HasMaxLength(50);

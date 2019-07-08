@@ -26,8 +26,7 @@ namespace Bidding.Database.DatabaseModels.Auctions
         [Required]
         public string Address { get; set; }
 
-        [Required]
-        public DateTime StartDate { get; set; }
+        public DateTime? StartDate { get; set; }
 
         [Required]
         public DateTime ApplyTillDate { get; set; }
@@ -41,7 +40,7 @@ namespace Bidding.Database.DatabaseModels.Auctions
 
         [Required]
         public int AuctionTypeId { get; set; }
-        public Bidding.Models.DatabaseModels.Type Type { get; set; }
+        public Models.DatabaseModels.Type Type { get; set; }
 
         [Required]
         public int AuctionStatusId { get; set; }

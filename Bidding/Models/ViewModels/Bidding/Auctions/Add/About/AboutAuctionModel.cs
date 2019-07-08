@@ -12,7 +12,7 @@ namespace Bidding.Models.ViewModels.Bidding.Auctions.Add.About
         public string AuctionCreatorEmail { get; set; }
         public string AuctionCreatorPhone { get; set; }
         public int AuctionFormat { get; set; }
-        public DateTime AuctionStartDate { get; set; }
+        public DateTime? AuctionStartDate { get; set; }
         public DateTime AuctionApplyTillDate { get; set; }
         public DateTime AuctionEndDate { get; set; }
     }

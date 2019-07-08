@@ -33,10 +33,10 @@ namespace Bidding.Database.DatabaseModels.Auctions
         public string Axis { get; set; }
         public int? Condition { get; set; }
         public string Coordinates { get; set; }
-        public string Region { get; set; }
+        public int Region { get; set; } // todo: kke: does this makes sense to be int here? static list?
         public int? CadastreNumber { get; set; }
         public int? MeasurementValue { get; set; }
-        public string MeasurementType { get; set; }
+        public int MeasurementType { get; set; }
         public string Address { get; set; }
         public int? FloorCount { get; set; }
         public int? RoomCount { get; set; }
