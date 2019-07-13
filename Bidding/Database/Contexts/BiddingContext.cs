@@ -24,6 +24,7 @@ namespace Bidding.Database.Contexts
         public virtual DbSet<AuctionCondition> AuctionConditions { get; set; }
         public virtual DbSet<AuctionDetails> AuctionDetails { get; set; }
         public virtual DbSet<AuctionItem> AuctionItems { get; set; }
+        public virtual DbSet<AuctionCreator> AuctionCreators { get; set; }
         public virtual DbSet<Auction> Auctions { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Type> Types { get; set; }
@@ -123,6 +124,11 @@ namespace Bidding.Database.Contexts
             modelBuilder.Entity<AuctionItem>()
                 .HasOne(p => p.User)
                 .WithMany(b => b.AuctionItems)
+                .HasForeignKey(p => p.CreatedBy);
+
+            modelBuilder.Entity<AuctionCreator>()
+                .HasOne(p => p.User)
+                .WithMany(b => b.AuctionCreators)
                 .HasForeignKey(p => p.CreatedBy);
 
             modelBuilder.Seed();

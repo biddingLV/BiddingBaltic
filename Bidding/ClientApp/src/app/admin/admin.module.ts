@@ -5,10 +5,11 @@ import { CommonModule } from '@angular/common';
 // internal
 import { SharedModule } from '../shared/shared.module';
 import { AuctionsModule } from '../auctions/auctions.module';
-import { AdminMainComponent } from './containers/main/main.component';
-import { AdminAuctionListComponent } from './containers/auction-list/auction-list.component';
-import { AdminCategoryListComponent } from './containers/category-list/category-list.component';
 import { AdminRoutingModule } from './admin-routing.module';
+import { AdminAuctionMainComponent } from './containers/auction-main/auction-main.component';
+import { AdminCategoryMainComponent } from './containers/category-main/category-main.component';
+import { AdminUserMainComponent } from './containers/user-main/user-main.component';
+import { AdminMainComponent } from './containers/main/main.component';
 
 
 @NgModule({
@@ -22,9 +23,10 @@ import { AdminRoutingModule } from './admin-routing.module';
 
   ],
   declarations: [
-    AdminMainComponent,
-    AdminAuctionListComponent,
-    AdminCategoryListComponent
+    AdminAuctionMainComponent,
+    AdminCategoryMainComponent,
+    AdminUserMainComponent,
+    AdminMainComponent
   ],
   providers: [
   ],

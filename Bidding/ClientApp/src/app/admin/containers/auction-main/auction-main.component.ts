@@ -19,10 +19,9 @@ import { NotificationsService } from 'ClientApp/src/app/core';
 
 
 @Component({
-  selector: 'app-admin-auction-list',
-  templateUrl: './auction-list.component.html'
+  templateUrl: './auction-main.component.html'
 })
-export class AdminAuctionListComponent implements OnInit {
+export class AdminAuctionMainComponent implements OnInit {
   // Component
   mainSubscription: Subscription;
 
@@ -75,6 +74,7 @@ export class AdminAuctionListComponent implements OnInit {
     const initialState = {
       selectedAuction: this.selected[0]
     };
+    console.log("TCL: AdminAuctionMainComponent -> initialState", initialState)
 
     const modalConfig = { ...this.internalModalService.defaultModalOptions, ...{ initialState: initialState, class: 'modal-lg' } };
     this.bsModalRef = this.modalService.show(AuctionEditComponent, modalConfig);

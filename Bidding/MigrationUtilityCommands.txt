@@ -2,23 +2,42 @@
 2. Update-Database -Migration 0
 
 3: Delete all tables in DB
-DECLARE @Sql NVARCHAR(500) DECLARE @Cursor CURSOR
+	DECLARE @Sql NVARCHAR(500) DECLARE @Cursor CURSOR
 
-SET @Cursor = CURSOR FAST_FORWARD FOR
-SELECT DISTINCT sql = 'ALTER TABLE [' + tc2.TABLE_SCHEMA + '].[' +  tc2.TABLE_NAME + '] DROP [' + rc1.CONSTRAINT_NAME + '];'
-FROM INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS rc1
-LEFT JOIN INFORMATION_SCHEMA.TABLE_CONSTRAINTS tc2 ON tc2.CONSTRAINT_NAME =rc1.CONSTRAINT_NAME
+	SET @Cursor = CURSOR FAST_FORWARD FOR
+	SELECT DISTINCT sql = 'ALTER TABLE [' + tc2.TABLE_SCHEMA + '].[' +  tc2.TABLE_NAME + '] DROP [' + rc1.CONSTRAINT_NAME + '];'
+	FROM INFORMATION_SCHEMA.REFERENTIAL_CONSTRAINTS rc1
+	LEFT JOIN INFORMATION_SCHEMA.TABLE_CONSTRAINTS tc2 ON tc2.CONSTRAINT_NAME =rc1.CONSTRAINT_NAME
 
-OPEN @Cursor FETCH NEXT FROM @Cursor INTO @Sql
+	OPEN @Cursor FETCH NEXT FROM @Cursor INTO @Sql
 
-WHILE (@@FETCH_STATUS = 0)
-BEGIN
-Exec sp_executesql @Sql
-FETCH NEXT FROM @Cursor INTO @Sql
-END
+	WHILE (@@FETCH_STATUS = 0)
+	BEGIN
+	Exec sp_executesql @Sql
+	FETCH NEXT FROM @Cursor INTO @Sql
+	END
 
-CLOSE @Cursor DEALLOCATE @Cursor
-GO
+	CLOSE @Cursor DEALLOCATE @Cursor
+	GO
 
-EXEC sp_MSforeachtable 'DROP TABLE ?'
-GO
+	EXEC sp_MSforeachtable 'DROP TABLE ?'
+	GO
+
+4: drop all tables on azure
+	drop table __EFMigrationsHistory
+	drop table AuctionConditions
+	drop table AuctionFormats
+	drop table Newsletters
+	ALTER TABLE [dbo].[Auctions] DROP CONSTRAINT [FK_Auctions_AuctionStatuses_AuctionStatusId]
+	ALTER TABLE [dbo].[Auctions] DROP CONSTRAINT FK_Auctions_Categories_AuctionCategoryId
+	ALTER TABLE [dbo].[Auctions] DROP CONSTRAINT FK_Auctions_Types_AuctionTypeId
+	ALTER TABLE [dbo].[Auctions] DROP CONSTRAINT FK_Auctions_Users_CreatedBy
+	drop table AuctionDetails
+	drop table AuctionStatuses
+	drop table AuctionItems
+	drop table Auctions
+	drop table Types
+	drop table Categories
+	ALTER TABLE [dbo].Roles DROP CONSTRAINT FK_Roles_Users_UserId
+	drop table Roles
+	drop table Users

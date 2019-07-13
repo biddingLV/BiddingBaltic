@@ -28,6 +28,33 @@ namespace Bidding.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Auctions",
+                columns: table => new
+                {
+                    AuctionId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(maxLength: 50, nullable: false),
+                    StartingPrice = table.Column<int>(nullable: false),
+                    Address = table.Column<string>(nullable: false),
+                    StartDate = table.Column<DateTime>(nullable: true),
+                    ApplyTillDate = table.Column<DateTime>(nullable: false),
+                    EndDate = table.Column<DateTime>(nullable: false),
+                    AuctionCategoryId = table.Column<int>(nullable: false),
+                    AuctionTypeId = table.Column<int>(nullable: false),
+                    AuctionStatusId = table.Column<int>(nullable: false),
+                    AuctionFormatId = table.Column<int>(nullable: false),
+                    CreatedAt = table.Column<DateTime>(nullable: false),
+                    CreatedBy = table.Column<int>(nullable: false),
+                    LastUpdatedAt = table.Column<DateTime>(nullable: false),
+                    LastUpdatedBy = table.Column<int>(nullable: false),
+                    Deleted = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Auctions", x => x.AuctionId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "AuctionDetails",
                 columns: table => new
                 {
@@ -85,32 +112,12 @@ namespace Bidding.Migrations
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_AuctionItems", x => x.AuctionItemId);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Auctions",
-                columns: table => new
-                {
-                    AuctionId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    Name = table.Column<string>(maxLength: 50, nullable: false),
-                    StartingPrice = table.Column<int>(nullable: false),
-                    Address = table.Column<string>(nullable: false),
-                    StartDate = table.Column<DateTime>(nullable: true),
-                    ApplyTillDate = table.Column<DateTime>(nullable: false),
-                    EndDate = table.Column<DateTime>(nullable: false),
-                    AuctionCategoryId = table.Column<int>(nullable: false),
-                    AuctionTypeId = table.Column<int>(nullable: false),
-                    AuctionStatusId = table.Column<int>(nullable: false),
-                    CreatedAt = table.Column<DateTime>(nullable: false),
-                    CreatedBy = table.Column<int>(nullable: false),
-                    LastUpdatedAt = table.Column<DateTime>(nullable: false),
-                    LastUpdatedBy = table.Column<int>(nullable: false),
-                    Deleted = table.Column<bool>(nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Auctions", x => x.AuctionId);
+                    table.ForeignKey(
+                        name: "FK_AuctionItems_Auctions_AuctionId",
+                        column: x => x.AuctionId,
+                        principalTable: "Auctions",
+                        principalColumn: "AuctionId",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -141,7 +148,7 @@ namespace Bidding.Migrations
                     FirstName = table.Column<string>(maxLength: 50, nullable: true),
                     MiddleName = table.Column<string>(maxLength: 50, nullable: true),
                     LastName = table.Column<string>(maxLength: 50, nullable: true),
-                    Email = table.Column<string>(maxLength: 50, nullable: false),
+                    LoginEmail = table.Column<string>(maxLength: 50, nullable: false),
                     RoleId = table.Column<int>(nullable: false),
                     UniqueIdentifier = table.Column<string>(maxLength: 100, nullable: false),
                     CreatedAt = table.Column<DateTime>(nullable: false),
@@ -173,6 +180,33 @@ namespace Bidding.Migrations
                     table.PrimaryKey("PK_AuctionConditions", x => x.AuctionConditionId);
                     table.ForeignKey(
                         name: "FK_AuctionConditions_Users_CreatedBy",
+                        column: x => x.CreatedBy,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AuctionCreators",
+                columns: table => new
+                {
+                    AuctionCreatorId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    UserId = table.Column<int>(nullable: false),
+                    ContactEmail = table.Column<string>(nullable: false),
+                    ContactPhone = table.Column<string>(nullable: false),
+                    ContactAddress = table.Column<string>(nullable: false),
+                    CreatedAt = table.Column<DateTime>(nullable: false),
+                    CreatedBy = table.Column<int>(nullable: false),
+                    LastUpdatedAt = table.Column<DateTime>(nullable: false),
+                    LastUpdatedBy = table.Column<int>(nullable: false),
+                    Deleted = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AuctionCreators", x => x.AuctionCreatorId);
+                    table.ForeignKey(
+                        name: "FK_AuctionCreators_Users_CreatedBy",
                         column: x => x.CreatedBy,
                         principalTable: "Users",
                         principalColumn: "UserId",
@@ -288,15 +322,15 @@ namespace Bidding.Migrations
 
             migrationBuilder.InsertData(
                 table: "Users",
-                columns: new[] { "UserId", "CreatedAt", "CreatedBy", "Deleted", "Email", "FirstName", "LastName", "LastUpdatedAt", "LastUpdatedBy", "MiddleName", "RoleId", "UniqueIdentifier" },
+                columns: new[] { "UserId", "CreatedAt", "CreatedBy", "Deleted", "FirstName", "LastName", "LastUpdatedAt", "LastUpdatedBy", "LoginEmail", "MiddleName", "RoleId", "UniqueIdentifier" },
                 values: new object[,]
                 {
-                    { 2, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, "dummyuser@bidding.lv", "Test", "User", new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "", 1, "" },
-                    { 1, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, "dummyadmin@bidding.lv", "Test", "Admin", new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "", 2, "" },
-                    { 3, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, "zanehaartman@gmail.com", "Zane", "", new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "", 2, "" },
-                    { 4, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, "kristaps.kerpe@gmail.com", "Kristaps", "", new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "", 2, "" },
-                    { 5, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, "j.jaunozols@gmail.com", "Jānis", "J", new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "", 2, "" },
-                    { 6, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, "janis.rihards.blazevics@gmail.com", "Jānis", "B", new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "R", 2, "" }
+                    { 2, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, "Test", "User", new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "dummyuser@bidding.lv", "", 1, "" },
+                    { 1, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, "Test", "Admin", new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "dummyadmin@bidding.lv", "", 2, "" },
+                    { 3, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, "Zane", "", new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "zanehaartman@gmail.com", "", 2, "" },
+                    { 4, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, "Kristaps", "", new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "kristaps.kerpe@gmail.com", "", 2, "" },
+                    { 5, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, "Jānis", "J", new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "j.jaunozols@gmail.com", "", 2, "" },
+                    { 6, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, "Jānis", "B", new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "janis.rihards.blazevics@gmail.com", "R", 2, "" }
                 });
 
             migrationBuilder.InsertData(
@@ -378,6 +412,11 @@ namespace Bidding.Migrations
                 column: "CreatedBy");
 
             migrationBuilder.CreateIndex(
+                name: "IX_AuctionCreators_CreatedBy",
+                table: "AuctionCreators",
+                column: "CreatedBy");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_AuctionDetails_AuctionItemId",
                 table: "AuctionDetails",
                 column: "AuctionItemId");
@@ -416,6 +455,11 @@ namespace Bidding.Migrations
                 name: "IX_Auctions_AuctionCategoryId",
                 table: "Auctions",
                 column: "AuctionCategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Auctions_AuctionFormatId",
+                table: "Auctions",
+                column: "AuctionFormatId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Auctions_AuctionStatusId",
@@ -463,54 +507,6 @@ namespace Bidding.Migrations
                 column: "RoleId");
 
             migrationBuilder.AddForeignKey(
-                name: "FK_AuctionDetails_Users_UserId",
-                table: "AuctionDetails",
-                column: "UserId",
-                principalTable: "Users",
-                principalColumn: "UserId",
-                onDelete: ReferentialAction.Restrict);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_AuctionDetails_AuctionItems_AuctionItemId",
-                table: "AuctionDetails",
-                column: "AuctionItemId",
-                principalTable: "AuctionItems",
-                principalColumn: "AuctionItemId",
-                onDelete: ReferentialAction.Restrict);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_AuctionItems_Users_CreatedBy",
-                table: "AuctionItems",
-                column: "CreatedBy",
-                principalTable: "Users",
-                principalColumn: "UserId",
-                onDelete: ReferentialAction.Restrict);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_AuctionItems_Auctions_AuctionId",
-                table: "AuctionItems",
-                column: "AuctionId",
-                principalTable: "Auctions",
-                principalColumn: "AuctionId",
-                onDelete: ReferentialAction.Restrict);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_AuctionItems_Categories_AuctionItemCategoryId",
-                table: "AuctionItems",
-                column: "AuctionItemCategoryId",
-                principalTable: "Categories",
-                principalColumn: "CategoryId",
-                onDelete: ReferentialAction.Restrict);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_AuctionItems_Types_AuctionItemTypeId",
-                table: "AuctionItems",
-                column: "AuctionItemTypeId",
-                principalTable: "Types",
-                principalColumn: "TypeId",
-                onDelete: ReferentialAction.Restrict);
-
-            migrationBuilder.AddForeignKey(
                 name: "FK_Auctions_Users_CreatedBy",
                 table: "Auctions",
                 column: "CreatedBy",
@@ -535,11 +531,59 @@ namespace Bidding.Migrations
                 onDelete: ReferentialAction.Restrict);
 
             migrationBuilder.AddForeignKey(
+                name: "FK_Auctions_AuctionFormats_AuctionFormatId",
+                table: "Auctions",
+                column: "AuctionFormatId",
+                principalTable: "AuctionFormats",
+                principalColumn: "AuctionFormatId",
+                onDelete: ReferentialAction.Restrict);
+
+            migrationBuilder.AddForeignKey(
                 name: "FK_Auctions_AuctionStatuses_AuctionStatusId",
                 table: "Auctions",
                 column: "AuctionStatusId",
                 principalTable: "AuctionStatuses",
                 principalColumn: "AuctionStatusId",
+                onDelete: ReferentialAction.Restrict);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_AuctionDetails_Users_UserId",
+                table: "AuctionDetails",
+                column: "UserId",
+                principalTable: "Users",
+                principalColumn: "UserId",
+                onDelete: ReferentialAction.Restrict);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_AuctionDetails_AuctionItems_AuctionItemId",
+                table: "AuctionDetails",
+                column: "AuctionItemId",
+                principalTable: "AuctionItems",
+                principalColumn: "AuctionItemId",
+                onDelete: ReferentialAction.Restrict);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_AuctionItems_Users_CreatedBy",
+                table: "AuctionItems",
+                column: "CreatedBy",
+                principalTable: "Users",
+                principalColumn: "UserId",
+                onDelete: ReferentialAction.Restrict);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_AuctionItems_Categories_AuctionItemCategoryId",
+                table: "AuctionItems",
+                column: "AuctionItemCategoryId",
+                principalTable: "Categories",
+                principalColumn: "CategoryId",
+                onDelete: ReferentialAction.Restrict);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_AuctionItems_Types_AuctionItemTypeId",
+                table: "AuctionItems",
+                column: "AuctionItemTypeId",
+                principalTable: "Types",
+                principalColumn: "TypeId",
                 onDelete: ReferentialAction.Restrict);
 
             migrationBuilder.AddForeignKey(
@@ -577,10 +621,10 @@ namespace Bidding.Migrations
                 name: "AuctionConditions");
 
             migrationBuilder.DropTable(
-                name: "AuctionDetails");
+                name: "AuctionCreators");
 
             migrationBuilder.DropTable(
-                name: "AuctionFormats");
+                name: "AuctionDetails");
 
             migrationBuilder.DropTable(
                 name: "Newsletters");
@@ -590,6 +634,9 @@ namespace Bidding.Migrations
 
             migrationBuilder.DropTable(
                 name: "Auctions");
+
+            migrationBuilder.DropTable(
+                name: "AuctionFormats");
 
             migrationBuilder.DropTable(
                 name: "AuctionStatuses");

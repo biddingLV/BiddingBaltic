@@ -25,7 +25,7 @@ namespace Bidding.Database.DatabaseModels.Users
 
         [Required]
         [MaxLength(50)]
-        public string Email { get; set; }
+        public string LoginEmail { get; set; }
 
         public int RoleId { get; set; }
         public Role Role { get; set; }
@@ -57,5 +57,6 @@ namespace Bidding.Database.DatabaseModels.Users
         public List<AuctionFormat> AuctionFormats { get; set; }
         public List<AuctionItem> AuctionItems { get; set; }
         public List<AuctionDetails> AuctionDetails { get; set; }
+        public List<AuctionCreator> AuctionCreators { get; set; }
     }
 }

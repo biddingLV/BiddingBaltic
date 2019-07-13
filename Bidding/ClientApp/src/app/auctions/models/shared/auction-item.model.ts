@@ -4,5 +4,5 @@ export interface AuctionItemModel {
   auctionStartingPrice: number;
   auctionStartDate: Date;
   auctionEndDate: Date;
-  auctionStatusName: string;
+  auctionStatusName: string; // todo: kke: this needs to be Status id!
 }

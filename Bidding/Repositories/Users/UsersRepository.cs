@@ -33,7 +33,7 @@ namespace Bidding.Repositories.Users
         public bool UserExists(string email)
         {
             return
-                m_context.Users.Any(usr => usr.Email == email && usr.Deleted == false);
+                m_context.Users.Any(usr => usr.LoginEmail == email && usr.Deleted == false);
         }
 
         /// <summary>
@@ -50,7 +50,7 @@ namespace Bidding.Repositories.Users
             {
                 FirstName = request.FirstName,
                 LastName = request.LastName,
-                Email = request.Email.ToLower(),
+                LoginEmail = request.LoginEmail.ToLower(),
                 Deleted = false,
                 RoleId = defaultUserRole.RoleId, // User
                 UniqueIdentifier = request.UniqueIdentifier,
@@ -88,7 +88,7 @@ namespace Bidding.Repositories.Users
                         UserId = usr.UserId,
                         UserFirstName = usr.FirstName,
                         UserLastName = usr.LastName,
-                        UserEmail = usr.Email
+                        UserEmail = usr.LoginEmail
                     });
         }
 
@@ -96,11 +96,11 @@ namespace Bidding.Repositories.Users
         {
             return (from usr in m_context.Users
                     join rol in m_context.Roles on usr.RoleId equals rol.RoleId
-                    where usr.Email == email && usr.Deleted == false
+                    where usr.LoginEmail == email && usr.Deleted == false
                     select new UserProfileModel()
                     {
                         UserId = usr.UserId,
-                        UserEmail = usr.Email,
+                        UserEmail = usr.LoginEmail,
                         UserRole = rol.Name,
                         UserUniqueIdentifier = usr.UniqueIdentifier
                     });

@@ -498,20 +498,36 @@ namespace Bidding.Repositories.Auctions
                 {
                     using (var transaction = m_context.Database.BeginTransaction())
                     {
-                        Auction auctionForDelete = m_context.Auctions.FirstOrDefault(auct => auct.AuctionId == 1);
-
-                        if (auctionForDelete.IsNotSpecified() == false)
+                        foreach (int auctionId in request.AuctionIds)
                         {
-                            m_context.Auctions.Where(auct => request.AuctionIds.Contains(auct.AuctionId)).ToList()
-                            .ForEach(auct => { auct.Deleted = true; auct.LastUpdatedAt = DateTime.UtcNow; auct.LastUpdatedBy = loggedInUserId; });
+                            bool auctionExists = m_context.Auctions.Any(auct => auct.AuctionId == auctionId);
 
-                            m_context.SaveChanges();
-                            transaction.Commit();
+                            if (auctionExists)
+                            {
+                                Auction auctionForDelete = m_context.Auctions.Where(auct => auct.AuctionId == auctionId).FirstOrDefault();
+                                auctionForDelete.Deleted = true;
+                                auctionForDelete.LastUpdatedAt = DateTime.UtcNow;
+                                auctionForDelete.LastUpdatedBy = loggedInUserId;
+
+                                AuctionItem auctionItemForDelete = m_context.AuctionItems.Where(aitem => aitem.AuctionId == auctionId).FirstOrDefault();
+                                auctionItemForDelete.Deleted = true;
+                                auctionItemForDelete.LastUpdatedAt = DateTime.UtcNow;
+                                auctionItemForDelete.LastUpdatedBy = loggedInUserId;
+
+                                AuctionDetails auctionDetailsForDelete = m_context.AuctionDetails.Where(adet => adet.AuctionItemId == auctionItemForDelete.AuctionItemId).FirstOrDefault();
+                                auctionDetailsForDelete.Deleted = true;
+                                auctionDetailsForDelete.LastUpdatedAt = DateTime.UtcNow;
+                                auctionDetailsForDelete.LastUpdatedBy = loggedInUserId;
+
+                                m_context.SaveChanges();
+                            }
+                            else
+                            {
+                                throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.NotActiveAuction);
+                            }
                         }
-                        else
-                        {
-                            throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.CouldNotDeleteAuction);
-                        }
+
+                        transaction.Commit();
                     }
                 }
                 catch (Exception ex)

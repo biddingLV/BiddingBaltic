@@ -3,6 +3,7 @@ export interface AuctionEditRequest {
   auctionName: string;
   auctionStartingPrice: number;
   auctionStartDate: Date;
+  auctionApplyTillDate: Date;
   auctionEndDate: Date;
-  auctionStatusName: string;
+  auctionStatusId: string;
 }

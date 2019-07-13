@@ -8,16 +8,26 @@
       </div>
     </div>
   </div>
+
   <div class="row">
     <div class="col-2">
-      <!-- todo: kke: Move to sidebar component? -->
-      <p>Izsoles</p>
-      <p>Kategorijas</p>
-      <p>Users</p>
+      <ul class="navbar-nav">
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/admin/auctions']">Izsoles</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/admin/categories']">Kategorijas</a>
+        </li>
+
+        <li class="nav-item">
+          <a class="nav-link" [routerLink]="['/admin/users']">Users</a>
+        </li>
+      </ul>
     </div>
 
     <div class="col-10">
-      <app-admin-auction-list></app-admin-auction-list>
+      <p>List in progress</p>
     </div>
   </div>
 </div>

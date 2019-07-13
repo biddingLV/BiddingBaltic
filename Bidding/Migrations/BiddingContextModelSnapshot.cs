@@ -32,6 +32,8 @@ namespace Bidding.Migrations
 
                     b.Property<int>("AuctionCategoryId");
 
+                    b.Property<int>("AuctionFormatId");
+
                     b.Property<int>("AuctionStatusId");
 
                     b.Property<int>("AuctionTypeId");
@@ -59,6 +61,8 @@ namespace Bidding.Migrations
                     b.HasKey("AuctionId");
 
                     b.HasIndex("AuctionCategoryId");
+
+                    b.HasIndex("AuctionFormatId");
 
                     b.HasIndex("AuctionStatusId");
 
@@ -146,6 +150,40 @@ namespace Bidding.Migrations
                             LastUpdatedBy = 1,
                             Name = "Nepieciešams remonts"
                         });
+                });
+
+            modelBuilder.Entity("Bidding.Database.DatabaseModels.Auctions.AuctionCreator", b =>
+                {
+                    b.Property<int>("AuctionCreatorId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<string>("ContactAddress")
+                        .IsRequired();
+
+                    b.Property<string>("ContactEmail")
+                        .IsRequired();
+
+                    b.Property<string>("ContactPhone")
+                        .IsRequired();
+
+                    b.Property<DateTime>("CreatedAt");
+
+                    b.Property<int>("CreatedBy");
+
+                    b.Property<bool>("Deleted");
+
+                    b.Property<DateTime>("LastUpdatedAt");
+
+                    b.Property<int>("LastUpdatedBy");
+
+                    b.Property<int>("UserId");
+
+                    b.HasKey("AuctionCreatorId");
+
+                    b.HasIndex("CreatedBy");
+
+                    b.ToTable("AuctionCreators");
                 });
 
             modelBuilder.Entity("Bidding.Database.DatabaseModels.Auctions.AuctionDetails", b =>
@@ -439,10 +477,6 @@ namespace Bidding.Migrations
 
                     b.Property<bool>("Deleted");
 
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasMaxLength(50);
-
                     b.Property<string>("FirstName")
                         .HasMaxLength(50);
 
@@ -452,6 +486,10 @@ namespace Bidding.Migrations
                     b.Property<DateTime>("LastUpdatedAt");
 
                     b.Property<int>("LastUpdatedBy");
+
+                    b.Property<string>("LoginEmail")
+                        .IsRequired()
+                        .HasMaxLength(50);
 
                     b.Property<string>("MiddleName")
                         .HasMaxLength(50);
@@ -475,11 +513,11 @@ namespace Bidding.Migrations
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CreatedBy = 1,
                             Deleted = false,
-                            Email = "dummyadmin@bidding.lv",
                             FirstName = "Test",
                             LastName = "Admin",
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
+                            LoginEmail = "dummyadmin@bidding.lv",
                             MiddleName = "",
                             RoleId = 2,
                             UniqueIdentifier = ""
@@ -490,11 +528,11 @@ namespace Bidding.Migrations
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CreatedBy = 1,
                             Deleted = false,
-                            Email = "dummyuser@bidding.lv",
                             FirstName = "Test",
                             LastName = "User",
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
+                            LoginEmail = "dummyuser@bidding.lv",
                             MiddleName = "",
                             RoleId = 1,
                             UniqueIdentifier = ""
@@ -505,11 +543,11 @@ namespace Bidding.Migrations
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CreatedBy = 1,
                             Deleted = false,
-                            Email = "zanehaartman@gmail.com",
                             FirstName = "Zane",
                             LastName = "",
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
+                            LoginEmail = "zanehaartman@gmail.com",
                             MiddleName = "",
                             RoleId = 2,
                             UniqueIdentifier = ""
@@ -520,11 +558,11 @@ namespace Bidding.Migrations
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CreatedBy = 1,
                             Deleted = false,
-                            Email = "kristaps.kerpe@gmail.com",
                             FirstName = "Kristaps",
                             LastName = "",
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
+                            LoginEmail = "kristaps.kerpe@gmail.com",
                             MiddleName = "",
                             RoleId = 2,
                             UniqueIdentifier = ""
@@ -535,11 +573,11 @@ namespace Bidding.Migrations
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CreatedBy = 1,
                             Deleted = false,
-                            Email = "j.jaunozols@gmail.com",
                             FirstName = "Jānis",
                             LastName = "J",
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
+                            LoginEmail = "j.jaunozols@gmail.com",
                             MiddleName = "",
                             RoleId = 2,
                             UniqueIdentifier = ""
@@ -550,11 +588,11 @@ namespace Bidding.Migrations
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CreatedBy = 1,
                             Deleted = false,
-                            Email = "janis.rihards.blazevics@gmail.com",
                             FirstName = "Jānis",
                             LastName = "B",
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
+                            LoginEmail = "janis.rihards.blazevics@gmail.com",
                             MiddleName = "R",
                             RoleId = 2,
                             UniqueIdentifier = ""
@@ -953,6 +991,11 @@ namespace Bidding.Migrations
                         .HasForeignKey("AuctionCategoryId")
                         .OnDelete(DeleteBehavior.Restrict);
 
+                    b.HasOne("Bidding.Database.DatabaseModels.Auctions.AuctionFormat", "AuctionFormat")
+                        .WithMany()
+                        .HasForeignKey("AuctionFormatId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.HasOne("Bidding.Database.DatabaseModels.Auctions.AuctionStatus", "AuctionStatus")
                         .WithMany("Auctions")
                         .HasForeignKey("AuctionStatusId")
@@ -973,6 +1016,14 @@ namespace Bidding.Migrations
                 {
                     b.HasOne("Bidding.Database.DatabaseModels.Users.User", "User")
                         .WithMany("AuctionConditions")
+                        .HasForeignKey("CreatedBy")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("Bidding.Database.DatabaseModels.Auctions.AuctionCreator", b =>
+                {
+                    b.HasOne("Bidding.Database.DatabaseModels.Users.User", "User")
+                        .WithMany("AuctionCreators")
                         .HasForeignKey("CreatedBy")
                         .OnDelete(DeleteBehavior.Restrict);
                 });

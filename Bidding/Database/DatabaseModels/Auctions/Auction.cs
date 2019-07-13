@@ -47,6 +47,9 @@ namespace Bidding.Database.DatabaseModels.Auctions
         public AuctionStatus AuctionStatus { get; set; }
 
         [Required]
+        public int AuctionFormatId { get; set; }
+        public AuctionFormat AuctionFormat { get; set; }
+
         public DateTime CreatedAt { get; set; }
 
         [Required]

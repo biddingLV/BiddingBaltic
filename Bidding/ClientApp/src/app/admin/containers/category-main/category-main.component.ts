@@ -9,10 +9,9 @@ import { NotificationsService } from 'ClientApp/src/app/core/services/notificati
 
 
 @Component({
-  templateUrl: './category-list.component.html',
-  styleUrls: []
+  templateUrl: './category-main.component.html'
 })
-export class AdminCategoryListComponent implements OnInit {
+export class AdminCategoryMainComponent implements OnInit {
   // table
   selected = [];
 

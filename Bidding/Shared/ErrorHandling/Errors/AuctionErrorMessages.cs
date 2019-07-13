@@ -26,6 +26,9 @@ namespace Bidding.Shared.ErrorHandling.Errors
         [Description("Could not delete auction")]
         CouldNotDeleteAuction,
 
+        [Description("Could not delete, because it is not active anymore")]
+        NotActiveAuction,
+
         [Description("Top category ids are incorrect")]
         TopCategoryIdsNotCorrect,
 

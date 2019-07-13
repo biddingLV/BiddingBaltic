@@ -1,6 +1,6 @@
 // angular
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup } from '@angular/forms';
 
 // 3rd party
 import { BsModalRef } from 'ngx-bootstrap/modal';
@@ -70,26 +70,15 @@ export class AuctionEditComponent implements OnInit {
 
   private buildForm(): void {
     this.auctionEditForm = this.fb.group({
-      auctionName: [this.selectedAuction.auctionName, [
-        Validators.maxLength(100)
-      ]],
-      auctionStartingPrice: [this.selectedAuction.auctionStartingPrice, [
-        Validators.maxLength(100)
-      ]],
-      auctionStartDate: [this.selectedAuction.auctionStartDate, [
-        Validators.maxLength(100)
-      ]],
-      auctionEndDate: [this.selectedAuction.auctionEndDate, [
-        Validators.maxLength(100)
-      ]],
-      auctionStatusName: [this.selectedAuction.auctionEndDate, [
-        Validators.maxLength(100)
-      ]]
+      auctionName: [this.selectedAuction.auctionName, []],
+      auctionStartingPrice: [this.selectedAuction.auctionStartingPrice, []],
+      auctionStartDate: [this.selectedAuction.auctionStartDate, []],
+      auctionApplyTillDate: [''// this.selectedAuction.auctionApplyTillDate
+        , []],
+      auctionEndDate: [this.selectedAuction.auctionEndDate, []],
+      auctionStatus: ['', []]
     });
 
-    // on each value change we call the validateForm function
-    // We only validate form controls that are dirty, meaning they are touched
-    // the result is passed to the formErrors object
     this.auctionEditForm.valueChanges.subscribe((data) => {
       this.formErrors = this.formService.validateForm(this.auctionEditForm, this.formErrors, true);
     });
@@ -101,8 +90,9 @@ export class AuctionEditComponent implements OnInit {
       auctionName: this.auctionEditForm.value.auctionName,
       auctionStartingPrice: this.auctionEditForm.value.auctionStartingPrice,
       auctionStartDate: this.auctionEditForm.value.auctionStartDate,
+      auctionApplyTillDate: this.auctionEditForm.value.auctionStartDate,
       auctionEndDate: this.auctionEditForm.value.auctionEndDate,
-      auctionStatusName: this.auctionEditForm.value.auctionStatusName
+      auctionStatusId: this.auctionEditForm.value.auctionStatus
     };
   }
 
@@ -110,8 +100,7 @@ export class AuctionEditComponent implements OnInit {
     this.setEditRequest();
 
     this.auctionService.editAuction$(this.auctionEditRequest)
-      .subscribe((data: boolean) => {
-        const editSuccess = data;
+      .subscribe((editSuccess: boolean) => {
         if (editSuccess) {
           this.notificationService.success('Auction successfully updated.');
           this.auctionEditForm.reset();
