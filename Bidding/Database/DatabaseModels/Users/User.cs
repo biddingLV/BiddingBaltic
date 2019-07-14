@@ -1,4 +1,5 @@
 ﻿using Bidding.Database.DatabaseModels.Auctions;
+using Bidding.Database.DatabaseModels.Item;
 using Bidding.Database.DatabaseModels.Vehicle;
 using Bidding.Models.DatabaseModels;
 using System;
@@ -54,6 +55,7 @@ namespace Bidding.Database.DatabaseModels.Users
         public List<AuctionStatus> AuctionStatuses { get; set; }
         public List<VehicleTransmission> VehicleTransmissions { get; set; }
         public List<VehicleFuelType> VehicleFuelTypes { get; set; }
+        public List<ItemCondition> ItemConditions { get; set; }
         public List<Category> Categories { get; set; }
         public List<Type> Types { get; set; }
         public List<AuctionCondition> AuctionConditions { get; set; }

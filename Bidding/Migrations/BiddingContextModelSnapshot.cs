@@ -197,7 +197,7 @@ namespace Bidding.Migrations
 
                     b.Property<int?>("CadastreNumber");
 
-                    b.Property<int?>("Condition");
+                    b.Property<int?>("ConditionId");
 
                     b.Property<string>("Coordinates");
 
@@ -218,7 +218,7 @@ namespace Bidding.Migrations
                     b.Property<string>("IdentificationNumber")
                         .HasMaxLength(50);
 
-                    b.Property<bool>("InspectionActive");
+                    b.Property<bool?>("InspectionActive");
 
                     b.Property<DateTime>("LastUpdatedAt");
 
@@ -228,13 +228,13 @@ namespace Bidding.Migrations
 
                     b.Property<int?>("ManufacturingYear");
 
-                    b.Property<int>("MeasurementType");
+                    b.Property<int?>("MeasurementType");
 
                     b.Property<int?>("MeasurementValue");
 
                     b.Property<string>("Model");
 
-                    b.Property<int>("Region");
+                    b.Property<int?>("Region");
 
                     b.Property<string>("RegistrationNumber")
                         .HasMaxLength(50);
@@ -248,6 +248,8 @@ namespace Bidding.Migrations
                     b.HasKey("AuctionDetailsId");
 
                     b.HasIndex("AuctionItemId");
+
+                    b.HasIndex("ConditionId");
 
                     b.HasIndex("FuelTypeId");
 
@@ -412,6 +414,55 @@ namespace Bidding.Migrations
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Beigusies"
+                        });
+                });
+
+            modelBuilder.Entity("Bidding.Database.DatabaseModels.Item.ItemCondition", b =>
+                {
+                    b.Property<int>("ItemConditionId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedAt");
+
+                    b.Property<int>("CreatedBy");
+
+                    b.Property<bool>("Deleted");
+
+                    b.Property<DateTime>("LastUpdatedAt");
+
+                    b.Property<int>("LastUpdatedBy");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.HasKey("ItemConditionId");
+
+                    b.HasIndex("CreatedBy");
+
+                    b.ToTable("ItemConditions");
+
+                    b.HasData(
+                        new
+                        {
+                            ItemConditionId = 1,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = 1,
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Jauns"
+                        },
+                        new
+                        {
+                            ItemConditionId = 2,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = 1,
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Lietots"
                         });
                 });
 
@@ -1164,6 +1215,11 @@ namespace Bidding.Migrations
                         .HasForeignKey("AuctionItemId")
                         .OnDelete(DeleteBehavior.Restrict);
 
+                    b.HasOne("Bidding.Database.DatabaseModels.Item.ItemCondition", "ItemCondition")
+                        .WithMany("AuctionDetails")
+                        .HasForeignKey("ConditionId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.HasOne("Bidding.Database.DatabaseModels.Vehicle.VehicleFuelType", "VehicleFuelType")
                         .WithMany("AuctionDetails")
                         .HasForeignKey("FuelTypeId")
@@ -1215,6 +1271,14 @@ namespace Bidding.Migrations
                 {
                     b.HasOne("Bidding.Database.DatabaseModels.Users.User", "User")
                         .WithMany("AuctionStatuses")
+                        .HasForeignKey("CreatedBy")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("Bidding.Database.DatabaseModels.Item.ItemCondition", b =>
+                {
+                    b.HasOne("Bidding.Database.DatabaseModels.Users.User", "User")
+                        .WithMany("ItemConditions")
                         .HasForeignKey("CreatedBy")
                         .OnDelete(DeleteBehavior.Restrict);
                 });

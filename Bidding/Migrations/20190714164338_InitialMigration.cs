@@ -65,17 +65,17 @@ namespace Bidding.Migrations
                     ManufacturingYear = table.Column<int>(nullable: true),
                     RegistrationNumber = table.Column<string>(maxLength: 50, nullable: true),
                     IdentificationNumber = table.Column<string>(maxLength: 50, nullable: true),
-                    InspectionActive = table.Column<bool>(nullable: false),
+                    InspectionActive = table.Column<bool>(nullable: true),
                     TransmissionId = table.Column<int>(nullable: true),
                     FuelTypeId = table.Column<int>(nullable: true),
                     EngineSize = table.Column<string>(nullable: true),
                     Axis = table.Column<string>(nullable: true),
-                    Condition = table.Column<int>(nullable: true),
+                    ConditionId = table.Column<int>(nullable: true),
                     Coordinates = table.Column<string>(nullable: true),
-                    Region = table.Column<int>(nullable: false),
+                    Region = table.Column<int>(nullable: true),
                     CadastreNumber = table.Column<int>(nullable: true),
                     MeasurementValue = table.Column<int>(nullable: true),
-                    MeasurementType = table.Column<int>(nullable: false),
+                    MeasurementType = table.Column<int>(nullable: true),
                     Address = table.Column<string>(nullable: true),
                     FloorCount = table.Column<int>(nullable: true),
                     RoomCount = table.Column<int>(nullable: true),
@@ -285,6 +285,30 @@ namespace Bidding.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "ItemConditions",
+                columns: table => new
+                {
+                    ItemConditionId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(maxLength: 50, nullable: false),
+                    CreatedAt = table.Column<DateTime>(nullable: false),
+                    CreatedBy = table.Column<int>(nullable: false),
+                    LastUpdatedAt = table.Column<DateTime>(nullable: false),
+                    LastUpdatedBy = table.Column<int>(nullable: false),
+                    Deleted = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_ItemConditions", x => x.ItemConditionId);
+                    table.ForeignKey(
+                        name: "FK_ItemConditions_Users_CreatedBy",
+                        column: x => x.CreatedBy,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Roles",
                 columns: table => new
                 {
@@ -407,9 +431,9 @@ namespace Bidding.Migrations
                 columns: new[] { "AuctionStatusId", "CreatedAt", "CreatedBy", "Deleted", "LastUpdatedAt", "LastUpdatedBy", "Name" },
                 values: new object[,]
                 {
+                    { 1, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Aktīva" },
                     { 2, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Pārtraukta" },
-                    { 3, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Beigusies" },
-                    { 1, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Aktīva" }
+                    { 3, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Beigusies" }
                 });
 
             migrationBuilder.InsertData(
@@ -417,9 +441,18 @@ namespace Bidding.Migrations
                 columns: new[] { "CategoryId", "CreatedAt", "CreatedBy", "Deleted", "LastUpdatedAt", "LastUpdatedBy", "Name" },
                 values: new object[,]
                 {
-                    { 2, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Manta" },
                     { 1, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Transports" },
-                    { 3, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Nekustamais īpašums" }
+                    { 3, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Nekustamais īpašums" },
+                    { 2, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Manta" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "ItemConditions",
+                columns: new[] { "ItemConditionId", "CreatedAt", "CreatedBy", "Deleted", "LastUpdatedAt", "LastUpdatedBy", "Name" },
+                values: new object[,]
+                {
+                    { 2, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Lietots" },
+                    { 1, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Jauns" }
                 });
 
             migrationBuilder.InsertData(
@@ -488,6 +521,11 @@ namespace Bidding.Migrations
                 name: "IX_AuctionDetails_AuctionItemId",
                 table: "AuctionDetails",
                 column: "AuctionItemId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AuctionDetails_ConditionId",
+                table: "AuctionDetails",
+                column: "ConditionId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AuctionDetails_FuelTypeId",
@@ -562,6 +600,11 @@ namespace Bidding.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_Categories_CreatedBy",
                 table: "Categories",
+                column: "CreatedBy");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ItemConditions_CreatedBy",
+                table: "ItemConditions",
                 column: "CreatedBy");
 
             migrationBuilder.CreateIndex(
@@ -651,6 +694,14 @@ namespace Bidding.Migrations
                 onDelete: ReferentialAction.Restrict);
 
             migrationBuilder.AddForeignKey(
+                name: "FK_AuctionDetails_ItemConditions_ConditionId",
+                table: "AuctionDetails",
+                column: "ConditionId",
+                principalTable: "ItemConditions",
+                principalColumn: "ItemConditionId",
+                onDelete: ReferentialAction.Restrict);
+
+            migrationBuilder.AddForeignKey(
                 name: "FK_AuctionDetails_VehicleFuelTypes_FuelTypeId",
                 table: "AuctionDetails",
                 column: "FuelTypeId",
@@ -735,6 +786,9 @@ namespace Bidding.Migrations
 
             migrationBuilder.DropTable(
                 name: "AuctionItems");
+
+            migrationBuilder.DropTable(
+                name: "ItemConditions");
 
             migrationBuilder.DropTable(
                 name: "VehicleFuelTypes");

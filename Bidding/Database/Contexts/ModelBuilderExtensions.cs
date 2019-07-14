@@ -1,4 +1,5 @@
 ﻿using Bidding.Database.DatabaseModels.Auctions;
+using Bidding.Database.DatabaseModels.Item;
 using Bidding.Database.DatabaseModels.Users;
 using Bidding.Database.DatabaseModels.Vehicle;
 using Bidding.Models.DatabaseModels;
@@ -24,6 +25,7 @@ namespace Bidding.Database.Contexts
             PopulateAuctionStatuses(modelBuilder);
             PopulateVehicleTransmissions(modelBuilder);
             PopulateVehicleFuelTypes(modelBuilder);
+            PopulateItemConditions(modelBuilder);
             PopulateCategories(modelBuilder);
             PopulateTypes(modelBuilder);
             PopulateAuctionFormats(modelBuilder);
@@ -264,6 +266,32 @@ namespace Bidding.Database.Contexts
                 {
                     VehicleFuelTypeId = 5,
                     Name = "Hibrīds",
+                    CreatedAt = CreatedAtDateTime,
+                    CreatedBy = CreatedByBiddingAdmin,
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin,
+                    Deleted = false
+                }
+            );
+        }
+
+        private static void PopulateItemConditions(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ItemCondition>().HasData(
+                new ItemCondition
+                {
+                    ItemConditionId = 1,
+                    Name = "Jauns",
+                    CreatedAt = CreatedAtDateTime,
+                    CreatedBy = CreatedByBiddingAdmin,
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin,
+                    Deleted = false
+                },
+                new ItemCondition
+                {
+                    ItemConditionId = 2,
+                    Name = "Lietots",
                     CreatedAt = CreatedAtDateTime,
                     CreatedBy = CreatedByBiddingAdmin,
                     LastUpdatedAt = CreatedAtDateTime,

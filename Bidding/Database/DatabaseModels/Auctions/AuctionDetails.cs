@@ -1,4 +1,5 @@
-﻿using Bidding.Database.DatabaseModels.Users;
+﻿using Bidding.Database.DatabaseModels.Item;
+using Bidding.Database.DatabaseModels.Users;
 using Bidding.Database.DatabaseModels.Vehicle;
 using System;
 using System.Collections.Generic;
@@ -27,7 +28,7 @@ namespace Bidding.Database.DatabaseModels.Auctions
 
         [MaxLength(50)]
         public string IdentificationNumber { get; set; }
-        public bool InspectionActive { get; set; }
+        public bool? InspectionActive { get; set; }
         public int? TransmissionId { get; set; }
         public VehicleTransmission VehicleTransmission { get; set; }
 
@@ -35,12 +36,14 @@ namespace Bidding.Database.DatabaseModels.Auctions
         public VehicleFuelType VehicleFuelType { get; set; }
         public string EngineSize { get; set; }
         public string Axis { get; set; }
-        public int? Condition { get; set; }
+        public int? ConditionId { get; set; }
+        public ItemCondition ItemCondition { get; set; }
+
         public string Coordinates { get; set; }
-        public int Region { get; set; } // todo: kke: does this makes sense to be int here? static list?
+        public int? Region { get; set; } // todo: kke: does this makes sense to be int here? static list?
         public int? CadastreNumber { get; set; }
         public int? MeasurementValue { get; set; }
-        public int MeasurementType { get; set; }
+        public int? MeasurementType { get; set; }
         public string Address { get; set; }
         public int? FloorCount { get; set; }
         public int? RoomCount { get; set; }

@@ -13,6 +13,7 @@ using Bidding.Models.DatabaseModels;
 using Microsoft.EntityFrameworkCore;
 using Type = Bidding.Models.DatabaseModels.Type;
 using Bidding.Database.DatabaseModels.Vehicle;
+using Bidding.Database.DatabaseModels.Item;
 
 namespace Bidding.Database.Contexts
 {
@@ -22,6 +23,7 @@ namespace Bidding.Database.Contexts
 
         public virtual DbSet<VehicleTransmission> VehicleTransmissions { get; set; }
         public virtual DbSet<VehicleFuelType> VehicleFuelTypes { get; set; }
+        public virtual DbSet<ItemCondition> ItemConditions { get; set; }
         public virtual DbSet<AuctionStatus> AuctionStatuses { get; set; }
         public virtual DbSet<AuctionFormat> AuctionFormats { get; set; }
         public virtual DbSet<AuctionCondition> AuctionConditions { get; set; }
@@ -81,6 +83,11 @@ namespace Bidding.Database.Contexts
                 .WithMany(b => b.AuctionDetails)
                 .HasForeignKey(p => p.FuelTypeId);
 
+            modelBuilder.Entity<AuctionDetails>() // todo: kke: is this right?
+                .HasOne(p => p.ItemCondition)
+                .WithMany(b => b.AuctionDetails)
+                .HasForeignKey(p => p.ConditionId);
+
             modelBuilder.Entity<Auction>()
                 .HasOne(p => p.Category)
                 .WithMany(b => b.Auctions)
@@ -104,6 +111,11 @@ namespace Bidding.Database.Contexts
             modelBuilder.Entity<VehicleFuelType>()
                 .HasOne(p => p.User)
                 .WithMany(b => b.VehicleFuelTypes)
+                .HasForeignKey(p => p.CreatedBy);
+
+            modelBuilder.Entity<ItemCondition>()
+                .HasOne(p => p.User)
+                .WithMany(b => b.ItemConditions)
                 .HasForeignKey(p => p.CreatedBy);
 
             modelBuilder.Entity<AuctionFormat>()

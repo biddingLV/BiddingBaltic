@@ -141,7 +141,7 @@ export class AuctionAddMainWizardComponent implements OnInit, AfterViewInit {
       itemAuction: {
         itemModel: this.addStepForm.value.itemModel,
         itemManufacturingYear: this.addStepForm.value.itemManufacturingYear,
-        itemCondition: this.addStepForm.value.itemCondition,
+        itemConditionId: this.addStepForm.value.itemCondition,
         itemEvaluation: this.addStepForm.value.itemEvaluation,
         itemStartingPrice: this.addStepForm.value.itemStartingPrice
       },
