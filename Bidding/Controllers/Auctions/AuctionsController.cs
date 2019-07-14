@@ -2,9 +2,11 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Bidding.Models.ViewModels.Bidding.Auctions;
 using Bidding.Models.ViewModels.Bidding.Auctions.Add;
+using Bidding.Models.ViewModels.Bidding.Auctions.Delete;
 using Bidding.Models.ViewModels.Bidding.Auctions.Details;
+using Bidding.Models.ViewModels.Bidding.Auctions.Edit;
+using Bidding.Models.ViewModels.Bidding.Auctions.List;
 using Bidding.Services.Auctions;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;

@@ -1,5 +1,5 @@
 ﻿using Bidding.Models.ViewModels.Bidding.Users.Add;
-using Bidding.Models.ViewModels.Bidding.Users.Edit;
+using Bidding.Models.ViewModels.Bidding.Users.Details;
 using Bidding.Models.ViewModels.Bidding.Users.Shared;
 using Bidding.Repositories.Users;
 using Bidding.Shared.ErrorHandling.Errors;

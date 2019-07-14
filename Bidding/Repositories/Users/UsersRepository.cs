@@ -1,5 +1,4 @@
 ﻿using Bidding.Models.ViewModels.Bidding.Users.Add;
-using Bidding.Models.ViewModels.Bidding.Users.Edit;
 using Bidding.Models.ViewModels.Bidding.Users.Shared;
 using Bidding.Shared.ErrorHandling.Errors;
 using Bidding.Shared.Exceptions;
@@ -13,6 +12,7 @@ using System.Net;
 using System.Threading.Tasks;
 using Bidding.Database.Contexts;
 using Bidding.Database.DatabaseModels.Users;
+using Bidding.Models.ViewModels.Bidding.Users.Details;
 
 namespace Bidding.Repositories.Users
 {

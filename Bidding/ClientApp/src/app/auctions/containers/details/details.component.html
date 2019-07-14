@@ -7,7 +7,7 @@
             <ol class="breadcrumb">
               <li class="breadcrumb-item"><a href="#">Sākumlapa</a></li>
               <li class="breadcrumb-item"><a href="#">Izsoles</a></li>
-              <li class="breadcrumb-item active">{{auctionDetails.auctionName}}</li>
+              <li class="breadcrumb-item active">{{auctionDetails.aboutAuctionDetails.auctionName}}</li>
             </ol>
           </nav>
         </div>
@@ -16,8 +16,9 @@
 
     <div class="row">
       <div class="Hero_header col-lg-12 text-uppercase text-center">
-        <h1 class="auction_title"><strong>{{auctionDetails.auctionName}}</strong></h1>
-        <h4 class="auction_startingprice"><strong>Sākumcena &euro; {{auctionDetails.auctionStartingPrice}}</strong></h4>
+        <h1 class="auction_title"><strong>{{auctionDetails.aboutAuctionDetails.auctionName}}</strong></h1>
+        <h4 class="auction_startingprice"><strong>Sākumcena &euro;
+            {{auctionDetails.aboutAuctionDetails.auctionStartingPrice}}</strong></h4>
       </div>
     </div>
 
@@ -27,7 +28,7 @@
       </div>
 
       <!-- Auction details countdown -->
-      <app-auction-details-countdown [auctionDetails]="auctionDetails"></app-auction-details-countdown>
+      <!-- <app-auction-details-countdown [auctionDetails]=""></app-auction-details-countdown> -->
 
       <div class="social col-lg-6">
         <svg xmlns="http://www.w3.org/2000/svg" class="social-item" width="13.668" height="26.508"
@@ -96,29 +97,32 @@
     <div class="row main_container" *ngIf="auctionDetails">
       <ng-container class="main_content" *ngIf="auctionDetails.vehicleAuction">
         <div class="col-12">
-          <p>Nosaukums: {{auctionDetails.auctionName}}</p>
-          <p>Minimālā cena (EUR): {{auctionDetails.auctionStartingPrice}}</p>
+          <p>Nosaukums: {{auctionDetails.aboutAuctionDetails.auctionName}}</p>
+          <p>Minimālā cena (EUR): {{auctionDetails.aboutAuctionDetails.auctionStartingPrice}}</p>
+          <p>Izsoles veids: {{auctionDetails.aboutAuctionDetails.auctionFormat}}</p>
+          <p>Izsoles sākums: {{auctionDetails.aboutAuctionDetails.auctionStartDate | date: dateFormat}}</p>
+          <p>Pieteikties līdz: {{auctionDetails.aboutAuctionDetails.auctionApplyTillDate | date: dateFormat}}</p>
+          <p>Izsoles beigas: {{auctionDetails.aboutAuctionDetails.auctionEndDate | date: dateFormat}}</p>
+
           <p>Marka: {{auctionDetails.vehicleAuction.vehicleMake}}</p>
           <p>Modelis: {{auctionDetails.vehicleAuction.vehicleModel}}</p>
           <p>Ražošanas gads: {{auctionDetails.vehicleAuction.vehicleManufacturingYear}}</p>
           <p>VRN: {{auctionDetails.vehicleAuction.vehicleRegistrationNumber}}</p>
           <p>VIN: {{auctionDetails.vehicleAuction.vehicleIdentificationNumber}}</p>
+
+          <!-- todo: kke: move out of the template this check! -->
           <p>Ir T/A: {{auctionDetails.vehicleAuction.vehicleInspectionActive}}</p>
-          <p>Ātrumkārba: {{auctionDetails.vehicleAuction.vehicleTransmission}}</p>
+          <p>Ātrumkārba: {{auctionDetails.vehicleAuction.vehicleTransmissionName}}</p>
           <p>Motors: {{auctionDetails.vehicleAuction.vehicleFuelType}}</p>
           <p>Motora tilpums: {{auctionDetails.vehicleAuction.vehicleEngineSize}}</p>
-          <p>Asis: {{auctionDetails.vehicleAuction.vehicleEngineSize}}</p>
-          <p>Izmēri: {{auctionDetails.vehicleAuction.vehicleAxis}}</p>
+          <p>Asis: {{auctionDetails.vehicleAuction.vehicleAxis}}</p>
+          <!-- <p>Izmēri: {{auctionDetails.vehicleAuction.vehicleAxis}}</p> -->
           <p>Apraksts / novērtējums: {{auctionDetails.vehicleAuction.vehicleEvaluation}}</p>
           <br>
-          <p>Izsoles veidotājs: {{auctionDetails.aboutAuction.auctionCreator}}</p>
-          <p>Adrese: {{auctionDetails.aboutAuction.auctionAddress}}</p>
-          <p>E-pasts: {{auctionDetails.aboutAuction.auctionCreatorEmail}}</p>
-          <p>Telefons: {{auctionDetails.aboutAuction.auctionCreatorPhone}}</p>
-          <p>Izsoles veids: {{auctionDetails.aboutAuction.auctionFormat}}</p>
-          <p>Izsoles sākums: {{auctionDetails.aboutAuction.auctionStartDate}}</p>
-          <p>Pieteikties līdz: {{auctionDetails.aboutAuction.auctionApplyTillDate}}</p>
-          <p>Izsoles beigas: {{auctionDetails.aboutAuction.auctionEndDate}}</p>
+          <p>Izsoles veidotājs: {{auctionDetails.aboutAuctionCreator.auctionCreator}}</p>
+          <p>Adrese: {{auctionDetails.aboutAuctionCreator.auctionCreatorAddress}}</p>
+          <p>E-pasts: {{auctionDetails.aboutAuctionCreator.auctionCreatorEmail}}</p>
+          <p>Telefons: {{auctionDetails.aboutAuctionCreator.auctionCreatorPhone}}</p>
         </div>
       </ng-container>
 
@@ -131,10 +135,10 @@
           <p>Stāvoklis: {{auctionDetails.itemAuction.itemCondition}}</p>
           <p>Apraksts / novērtējums: {{auctionDetails.itemAuction.itemEvaluation}}</p>
           <br>
-          <p>Izsoles veidotājs: {{auctionDetails.aboutAuction.auctionCreator}}</p>
-          <p>Adrese: {{auctionDetails.aboutAuction.auctionAddress}}</p>
-          <p>E-pasts: {{auctionDetails.aboutAuction.auctionCreatorEmail}}</p>
-          <p>Telefons: {{auctionDetails.aboutAuction.auctionCreatorPhone}}</p>
+          <p>Izsoles veidotājs: {{auctionDetails.aboutAuctionCreator.auctionCreator}}</p>
+          <p>Adrese: {{auctionDetails.aboutAuctionCreator.auctionCreatorAddress}}</p>
+          <p>E-pasts: {{auctionDetails.aboutAuctionCreator.auctionCreatorEmail}}</p>
+          <p>Telefons: {{auctionDetails.aboutAuctionCreator.auctionCreatorPhone}}</p>
           <p>Izsoles veids: {{auctionDetails.aboutAuction.auctionFormat}}</p>
           <p>Izsoles sākums: {{auctionDetails.aboutAuction.auctionStartDate}}</p>
           <p>Pieteikties līdz: {{auctionDetails.aboutAuction.auctionApplyTillDate}}</p>
@@ -157,10 +161,10 @@
           <p>Istabu skaits: {{auctionDetails.propertyAuction.propertyRoomCount}}</p>
           <p>Apraksts / novērtējums: {{auctionDetails.propertyAuction.propertyEvaluation}}</p>
           <br>
-          <p>Izsoles veidotājs: {{auctionDetails.aboutAuction.auctionCreator}}</p>
-          <p>Adrese: {{auctionDetails.aboutAuction.auctionAddress}}</p>
-          <p>E-pasts: {{auctionDetails.aboutAuction.auctionCreatorEmail}}</p>
-          <p>Telefons: {{auctionDetails.aboutAuction.auctionCreatorPhone}}</p>
+          <p>Izsoles veidotājs: {{auctionDetails.aboutAuctionCreator.auctionCreator}}</p>
+          <p>Adrese: {{auctionDetails.aboutAuctionCreator.auctionCreatorAddress}}</p>
+          <p>E-pasts: {{auctionDetails.aboutAuctionCreator.auctionCreatorEmail}}</p>
+          <p>Telefons: {{auctionDetails.aboutAuctionCreator.auctionCreatorPhone}}</p>
           <p>Izsoles veids: {{auctionDetails.aboutAuction.auctionFormat}}</p>
           <p>Izsoles sākums: {{auctionDetails.aboutAuction.auctionStartDate}}</p>
           <p>Pieteikties līdz: {{auctionDetails.aboutAuction.auctionApplyTillDate}}</p>
@@ -170,7 +174,7 @@
     </div>
   </div>
 
-  <div class="container">
+  <!-- <div class="container">
     <div class="row cards_container text-center">
       <div class="card card_left mx-lg-3">
         <h4 class="card_headline">Tev droši vien vajadzēs jaunas riepas</h4>
@@ -193,7 +197,7 @@
         <button type="button" class="service_button"><strong>Gribu atlaidi</strong></button>
       </div>
     </div>
-  </div>
+  </div> -->
 
   <!-- <div class="date_info">
     <button type="button" class="date_info_button text-uppercase">Svarīgie Datumi</button>

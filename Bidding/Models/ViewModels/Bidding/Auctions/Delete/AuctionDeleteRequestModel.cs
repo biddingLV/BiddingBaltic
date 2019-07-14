@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Bidding.Models.ViewModels.BaseModels;
 
-namespace Bidding.Models.ViewModels.Bidding.Auctions
+namespace Bidding.Models.ViewModels.Bidding.Auctions.Delete
 {
     public class AuctionDeleteRequestModel
     {

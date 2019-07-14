@@ -1,5 +1,6 @@
 ﻿using Bidding.Database.DatabaseModels.Auctions;
 using Bidding.Database.DatabaseModels.Users;
+using Bidding.Database.DatabaseModels.Vehicle;
 using Bidding.Models.DatabaseModels;
 using Bidding.Models.DatabaseModels.Bidding;
 using Microsoft.EntityFrameworkCore;
@@ -21,6 +22,8 @@ namespace Bidding.Database.Contexts
             PopulateRoles(modelBuilder);
             PopulateUsers(modelBuilder);
             PopulateAuctionStatuses(modelBuilder);
+            PopulateVehicleTransmissions(modelBuilder);
+            PopulateVehicleFuelTypes(modelBuilder);
             PopulateCategories(modelBuilder);
             PopulateTypes(modelBuilder);
             PopulateAuctionFormats(modelBuilder);
@@ -179,6 +182,88 @@ namespace Bidding.Database.Contexts
                 {
                     AuctionStatusId = 3,
                     Name = "Beigusies",
+                    CreatedAt = CreatedAtDateTime,
+                    CreatedBy = CreatedByBiddingAdmin,
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin,
+                    Deleted = false
+                }
+            );
+        }
+
+        private static void PopulateVehicleTransmissions(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<VehicleTransmission>().HasData(
+                new VehicleTransmission
+                {
+                    VehicleTransmissionId = 1,
+                    Name = "Automatiskā",
+                    CreatedAt = CreatedAtDateTime,
+                    CreatedBy = CreatedByBiddingAdmin,
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin,
+                    Deleted = false
+                },
+                new VehicleTransmission
+                {
+                    VehicleTransmissionId = 2,
+                    Name = "Mehāniskā",
+                    CreatedAt = CreatedAtDateTime,
+                    CreatedBy = CreatedByBiddingAdmin,
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin,
+                    Deleted = false
+                }
+            );
+        }
+
+        private static void PopulateVehicleFuelTypes(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<VehicleFuelType>().HasData(
+                new VehicleFuelType
+                {
+                    VehicleFuelTypeId = 1,
+                    Name = "Benzīns",
+                    CreatedAt = CreatedAtDateTime,
+                    CreatedBy = CreatedByBiddingAdmin,
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin,
+                    Deleted = false
+                },
+                new VehicleFuelType
+                {
+                    VehicleFuelTypeId = 2,
+                    Name = "Dīzelis",
+                    CreatedAt = CreatedAtDateTime,
+                    CreatedBy = CreatedByBiddingAdmin,
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin,
+                    Deleted = false
+                },
+                new VehicleFuelType
+                {
+                    VehicleFuelTypeId = 3,
+                    Name = "Benzīns/Naftas gāze",
+                    CreatedAt = CreatedAtDateTime,
+                    CreatedBy = CreatedByBiddingAdmin,
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin,
+                    Deleted = false
+                },
+                new VehicleFuelType
+                {
+                    VehicleFuelTypeId = 4,
+                    Name = "Elektroniskais",
+                    CreatedAt = CreatedAtDateTime,
+                    CreatedBy = CreatedByBiddingAdmin,
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin,
+                    Deleted = false
+                },
+                new VehicleFuelType
+                {
+                    VehicleFuelTypeId = 5,
+                    Name = "Hibrīds",
                     CreatedAt = CreatedAtDateTime,
                     CreatedBy = CreatedByBiddingAdmin,
                     LastUpdatedAt = CreatedAtDateTime,
@@ -702,7 +787,7 @@ namespace Bidding.Database.Contexts
                     IdentificationNumber = "5990144781",
                     InspectionActive = true,
                     TransmissionId = 1,
-                    FuelType = "In progress",
+                    FuelTypeId = 1,
                     EngineSize = "In progress",
                     Axis = "In progress",
                     Evaluation = "In progress",

@@ -6,11 +6,6 @@ using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
 using Bidding.Database.DatabaseModels.Auctions;
-using Bidding.Models.ViewModels.Bidding.Auctions;
-using Bidding.Models.ViewModels.Bidding.Auctions.Add;
-using Bidding.Models.ViewModels.Bidding.Auctions.Details;
-using Bidding.Models.ViewModels.Bidding.Auctions.List;
-using Bidding.Models.ViewModels.Bidding.Filters;
 using Bidding.Shared.ErrorHandling.Errors;
 using Bidding.Shared.Exceptions;
 using Bidding.Shared.Utility;
@@ -19,11 +14,17 @@ using Bidding.Models.DatabaseModels.Bidding;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Bidding.Database.Contexts;
+using Bidding.Shared.Constants;
+using Bidding.Models.ViewModels.Bidding.Auctions.List;
+using Bidding.Models.ViewModels.Bidding.Filters;
 using Bidding.Models.ViewModels.Bidding.Shared.Categories;
 using Bidding.Models.ViewModels.Bidding.Shared.Types;
+using Bidding.Models.ViewModels.Bidding.Auctions.Shared;
+using Bidding.Models.ViewModels.Bidding.Auctions.Details;
+using Bidding.Models.ViewModels.Bidding.Auctions.Add;
 using Bidding.Models.ViewModels.Bidding.Auctions.Shared.Categories;
-using Bidding.Shared.Constants;
-using Bidding.Models.ViewModels.Bidding.Auctions.Add.About;
+using Bidding.Models.ViewModels.Bidding.Auctions.Edit;
+using Bidding.Models.ViewModels.Bidding.Auctions.Delete;
 
 namespace Bidding.Repositories.Auctions
 {
@@ -241,8 +242,14 @@ namespace Bidding.Repositories.Auctions
                 {
                     return new AuctionDetailsResponseModel
                     {
-                        AuctionName = details.auct.Name,
-                        AuctionStartingPrice = details.auct.StartingPrice,
+                        //AboutAuction = new AboutAuctionModel
+                        //{
+                        //    AuctionName = details.auct.Name,
+                        //    AuctionStartingPrice = details.auct.StartingPrice,
+                        //    AuctionStartDate = details.auct.StartDate,
+                        //    AuctionApplyTillDate = details.auct.ApplyTillDate,
+                        //    AuctionEndDate = details.auct.EndDate
+                        //},
                         ItemAuction = new ItemAuctionModel
                         {
                             ItemModel = details.adet.Model,
@@ -251,49 +258,52 @@ namespace Bidding.Repositories.Auctions
                             ItemEvaluation = details.adet.Evaluation,
                             ItemStartingPrice = details.auct.StartingPrice
                         },
-                        AboutAuction = new AboutAuctionModel
+                        AboutAuctionCreator = new AboutAuctionCreatorModel
                         {
                             AuctionCreator = "Not implemented",
-                            AuctionAddress = details.auct.Address,
+                            AuctionCreatorAddress = "Not implemented",
                             AuctionCreatorEmail = "Not implemented",
                             AuctionCreatorPhone = "Not implemented",
-                            AuctionFormat = 1,
-                            AuctionStartDate = details.auct.StartDate,
-                            AuctionApplyTillDate = details.auct.ApplyTillDate,
-                            AuctionEndDate = details.auct.EndDate
                         }
                     };
                 }
                 else if (details.auct.AuctionCategoryId == Categories.VEHICLE_CATEGORY)
                 {
+                    string auctionFormatName = LoadAuctionFormatName(details.auct.AuctionFormatId);
+                    string transmissionName = details.adet.TransmissionId.IsNotSpecified() ? null : LoadVehicleTransmissionName(details.adet.TransmissionId.Value);
+                    string fuelTypeName = details.adet.FuelTypeId.IsNotSpecified() ? null : LoadVehicleFuelTypeName(details.adet.FuelTypeId.Value);
+
                     return new AuctionDetailsResponseModel
                     {
-                        AuctionName = details.auct.Name,
-                        AuctionStartingPrice = details.auct.StartingPrice,
-                        VehicleAuction = new VehicleAuctionModel
+                        AboutAuctionDetails = new AboutAuctionDetailsModel
+                        {
+                            AuctionName = details.auct.Name,
+                            AuctionStartingPrice = details.auct.StartingPrice,
+                            AuctionStartDate = details.auct.StartDate,
+                            AuctionApplyTillDate = details.auct.ApplyTillDate,
+                            AuctionEndDate = details.auct.EndDate,
+                            AuctionFormat = auctionFormatName
+                        },
+                        VehicleAuction = new VehicleAuctionDetailsModel
                         {
                             VehicleMake = details.adet.Make,
                             VehicleModel = details.adet.Model,
                             VehicleManufacturingYear = details.adet.ManufacturingYear.Value,
                             VehicleRegistrationNumber = details.adet.RegistrationNumber,
                             VehicleIdentificationNumber = details.adet.IdentificationNumber,
-                            VehicleInspectionActive = details.adet.InspectionActive,
-                            VehicleTransmissionId = details.adet.TransmissionId ?? null,
-                            VehicleFuelType = details.adet.FuelType ?? "",
+                            VehicleInspectionActive = details.adet.InspectionActive ? "Ir" : "Nav",
+                            VehicleTransmissionName = transmissionName,
+                            VehicleFuelType = fuelTypeName,
                             VehicleEngineSize = details.adet.EngineSize,
                             VehicleAxis = details.adet.Axis,
                             VehicleEvaluation = details.adet.Evaluation
                         },
-                        AboutAuction = new AboutAuctionModel
+                        AboutAuctionCreator = new AboutAuctionCreatorModel
                         {
                             AuctionCreator = "Not implemented",
-                            AuctionAddress = details.auct.Address,
+                            AuctionCreatorAddress = "Not implemented",
                             AuctionCreatorEmail = "Not implemented",
                             AuctionCreatorPhone = "Not implemented",
-                            AuctionFormat = 1,
-                            AuctionStartDate = details.auct.StartDate,
-                            AuctionApplyTillDate = details.auct.ApplyTillDate,
-                            AuctionEndDate = details.auct.EndDate
                         }
                     };
                 }
@@ -301,8 +311,14 @@ namespace Bidding.Repositories.Auctions
                 {
                     return new AuctionDetailsResponseModel
                     {
-                        AuctionName = details.auct.Name,
-                        AuctionStartingPrice = details.auct.StartingPrice,
+                        //AboutAuction = new AboutAuctionModel
+                        //{
+                        //    AuctionName = details.auct.Name,
+                        //    AuctionStartingPrice = details.auct.StartingPrice,
+                        //    AuctionStartDate = details.auct.StartDate,
+                        //    AuctionApplyTillDate = details.auct.ApplyTillDate,
+                        //    AuctionEndDate = details.auct.EndDate
+                        //},
                         PropertyAuction = new PropertyAuctionModel
                         {
                             PropertyCoordinates = details.adet.Coordinates,
@@ -315,16 +331,12 @@ namespace Bidding.Repositories.Auctions
                             PropertyRoomCount = details.adet.RoomCount ?? null,
                             PropertyEvaluation = details.adet.Evaluation
                         },
-                        AboutAuction = new AboutAuctionModel
+                        AboutAuctionCreator = new AboutAuctionCreatorModel
                         {
                             AuctionCreator = "Not implemented",
-                            AuctionAddress = details.auct.Address,
+                            AuctionCreatorAddress = "Not implemented",
                             AuctionCreatorEmail = "Not implemented",
                             AuctionCreatorPhone = "Not implemented",
-                            AuctionFormat = 1,
-                            AuctionStartDate = details.auct.StartDate ?? null,
-                            AuctionApplyTillDate = details.auct.ApplyTillDate,
-                            AuctionEndDate = details.auct.EndDate
                         }
                     };
                 }
@@ -585,15 +597,15 @@ namespace Bidding.Repositories.Auctions
 
             return new Auction()
             {
-                Name = request.AuctionName,
-                StartingPrice = request.AuctionStartingPrice,
-                Address = request.AboutAuction.AuctionAddress,
+                Name = request.AboutAuction.AuctionName,
+                StartingPrice = request.AboutAuction.AuctionStartingPrice,
                 StartDate = request.AboutAuction.AuctionStartDate ?? null,
                 ApplyTillDate = request.AboutAuction.AuctionApplyTillDate,
                 EndDate = request.AboutAuction.AuctionEndDate,
-                AuctionCategoryId = request.AuctionTopCategoryId,
-                AuctionTypeId = request.AuctionSubCategoryId ?? request.AuctionSubCategoryId.Value,
+                AuctionCategoryId = request.AboutAuction.AuctionTopCategoryId,
+                AuctionTypeId = request.AboutAuction.AuctionSubCategoryId ?? request.AboutAuction.AuctionSubCategoryId.Value,
                 AuctionStatusId = defaultAuctionStatusId,
+                AuctionFormatId = request.AboutAuction.AuctionFormatId,
                 CreatedAt = DateTime.UtcNow,
                 CreatedBy = loggedInUserId,
                 LastUpdatedAt = DateTime.UtcNow,
@@ -628,7 +640,7 @@ namespace Bidding.Repositories.Auctions
                 IdentificationNumber = request.VehicleAuction.VehicleIdentificationNumber,
                 InspectionActive = request.VehicleAuction.VehicleInspectionActive,
                 TransmissionId = request.VehicleAuction.VehicleTransmissionId,
-                FuelType = request.VehicleAuction.VehicleFuelType,
+                FuelTypeId = request.VehicleAuction.VehicleFuelTypeId,
                 EngineSize = request.VehicleAuction.VehicleEngineSize,
                 Axis = request.VehicleAuction.VehicleAxis,
                 Evaluation = request.VehicleAuction.VehicleEvaluation,
@@ -674,6 +686,21 @@ namespace Bidding.Repositories.Auctions
                 LastUpdatedAt = DateTime.UtcNow,
                 LastUpdatedBy = loggedInUserId
             };
+        }
+
+        private string LoadAuctionFormatName(int auctionFormatId)
+        {
+            return m_context.AuctionFormats.FirstOrDefault(form => form.AuctionFormatId == auctionFormatId).Name;
+        }
+
+        private string LoadVehicleTransmissionName(int transmissionId)
+        {
+            return m_context.VehicleTransmissions.FirstOrDefault(vtra => vtra.VehicleTransmissionId == transmissionId).Name;
+        }
+
+        private string LoadVehicleFuelTypeName(int fuelTypeId)
+        {
+            return m_context.VehicleFuelTypes.FirstOrDefault(vfue => vfue.VehicleFuelTypeId == fuelTypeId).Name;
         }
     }
 }

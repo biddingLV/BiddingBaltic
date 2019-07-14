@@ -5,7 +5,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Bidding.Models.ViewModels.Bidding.Auctions
+namespace Bidding.Models.ViewModels.Bidding.Auctions.List
 {
     public class AuctionListResponseModel : BaseListResponseModel
     {

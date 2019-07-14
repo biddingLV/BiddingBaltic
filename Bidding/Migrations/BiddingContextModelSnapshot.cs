@@ -25,9 +25,6 @@ namespace Bidding.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<string>("Address")
-                        .IsRequired();
-
                     b.Property<DateTime>("ApplyTillDate");
 
                     b.Property<int>("AuctionCategoryId");
@@ -216,7 +213,7 @@ namespace Bidding.Migrations
 
                     b.Property<int?>("FloorCount");
 
-                    b.Property<string>("FuelType");
+                    b.Property<int?>("FuelTypeId");
 
                     b.Property<string>("IdentificationNumber")
                         .HasMaxLength(50);
@@ -251,6 +248,10 @@ namespace Bidding.Migrations
                     b.HasKey("AuctionDetailsId");
 
                     b.HasIndex("AuctionItemId");
+
+                    b.HasIndex("FuelTypeId");
+
+                    b.HasIndex("TransmissionId");
 
                     b.HasIndex("UserId");
 
@@ -596,6 +597,134 @@ namespace Bidding.Migrations
                             MiddleName = "R",
                             RoleId = 2,
                             UniqueIdentifier = ""
+                        });
+                });
+
+            modelBuilder.Entity("Bidding.Database.DatabaseModels.Vehicle.VehicleFuelType", b =>
+                {
+                    b.Property<int>("VehicleFuelTypeId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedAt");
+
+                    b.Property<int>("CreatedBy");
+
+                    b.Property<bool>("Deleted");
+
+                    b.Property<DateTime>("LastUpdatedAt");
+
+                    b.Property<int>("LastUpdatedBy");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.HasKey("VehicleFuelTypeId");
+
+                    b.HasIndex("CreatedBy");
+
+                    b.ToTable("VehicleFuelTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            VehicleFuelTypeId = 1,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = 1,
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Benzīns"
+                        },
+                        new
+                        {
+                            VehicleFuelTypeId = 2,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = 1,
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Dīzelis"
+                        },
+                        new
+                        {
+                            VehicleFuelTypeId = 3,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = 1,
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Benzīns/Naftas gāze"
+                        },
+                        new
+                        {
+                            VehicleFuelTypeId = 4,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = 1,
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Elektroniskais"
+                        },
+                        new
+                        {
+                            VehicleFuelTypeId = 5,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = 1,
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Hibrīds"
+                        });
+                });
+
+            modelBuilder.Entity("Bidding.Database.DatabaseModels.Vehicle.VehicleTransmission", b =>
+                {
+                    b.Property<int>("VehicleTransmissionId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedAt");
+
+                    b.Property<int>("CreatedBy");
+
+                    b.Property<bool>("Deleted");
+
+                    b.Property<DateTime>("LastUpdatedAt");
+
+                    b.Property<int>("LastUpdatedBy");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.HasKey("VehicleTransmissionId");
+
+                    b.HasIndex("CreatedBy");
+
+                    b.ToTable("VehicleTransmissions");
+
+                    b.HasData(
+                        new
+                        {
+                            VehicleTransmissionId = 1,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = 1,
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Automatiskā"
+                        },
+                        new
+                        {
+                            VehicleTransmissionId = 2,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = 1,
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Mehāniskā"
                         });
                 });
 
@@ -1035,6 +1164,16 @@ namespace Bidding.Migrations
                         .HasForeignKey("AuctionItemId")
                         .OnDelete(DeleteBehavior.Restrict);
 
+                    b.HasOne("Bidding.Database.DatabaseModels.Vehicle.VehicleFuelType", "VehicleFuelType")
+                        .WithMany("AuctionDetails")
+                        .HasForeignKey("FuelTypeId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("Bidding.Database.DatabaseModels.Vehicle.VehicleTransmission", "VehicleTransmission")
+                        .WithMany("AuctionDetails")
+                        .HasForeignKey("TransmissionId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.HasOne("Bidding.Database.DatabaseModels.Users.User", "User")
                         .WithMany("AuctionDetails")
                         .HasForeignKey("UserId")
@@ -1093,6 +1232,22 @@ namespace Bidding.Migrations
                         .WithMany("Users")
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("Bidding.Database.DatabaseModels.Vehicle.VehicleFuelType", b =>
+                {
+                    b.HasOne("Bidding.Database.DatabaseModels.Users.User", "User")
+                        .WithMany("VehicleFuelTypes")
+                        .HasForeignKey("CreatedBy")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("Bidding.Database.DatabaseModels.Vehicle.VehicleTransmission", b =>
+                {
+                    b.HasOne("Bidding.Database.DatabaseModels.Users.User", "User")
+                        .WithMany("VehicleTransmissions")
+                        .HasForeignKey("CreatedBy")
+                        .OnDelete(DeleteBehavior.Restrict);
                 });
 
             modelBuilder.Entity("Bidding.Models.DatabaseModels.Category", b =>

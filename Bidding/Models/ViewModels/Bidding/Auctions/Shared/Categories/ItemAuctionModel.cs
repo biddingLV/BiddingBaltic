@@ -10,7 +10,7 @@ namespace Bidding.Models.ViewModels.Bidding.Auctions.Shared.Categories
     {
         public string ItemModel { get; set; }
         public int ItemManufacturingYear { get; set; }
-        public int ItemCondition { get; set; }
+        public int? ItemCondition { get; set; }
         public string ItemEvaluation { get; set; }
         public int ItemStartingPrice { get; set; }
     }

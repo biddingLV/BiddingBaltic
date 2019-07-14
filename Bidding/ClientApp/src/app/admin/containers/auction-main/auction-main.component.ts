@@ -74,7 +74,6 @@ export class AdminAuctionMainComponent implements OnInit {
     const initialState = {
       selectedAuction: this.selected[0]
     };
-    console.log("TCL: AdminAuctionMainComponent -> initialState", initialState)
 
     const modalConfig = { ...this.internalModalService.defaultModalOptions, ...{ initialState: initialState, class: 'modal-lg' } };
     this.bsModalRef = this.modalService.show(AuctionEditComponent, modalConfig);

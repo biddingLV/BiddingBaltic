@@ -1,4 +1,5 @@
 ﻿using Bidding.Database.DatabaseModels.Users;
+using Bidding.Database.DatabaseModels.Vehicle;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -28,7 +29,10 @@ namespace Bidding.Database.DatabaseModels.Auctions
         public string IdentificationNumber { get; set; }
         public bool InspectionActive { get; set; }
         public int? TransmissionId { get; set; }
-        public string FuelType { get; set; }
+        public VehicleTransmission VehicleTransmission { get; set; }
+
+        public int? FuelTypeId { get; set; }
+        public VehicleFuelType VehicleFuelType { get; set; }
         public string EngineSize { get; set; }
         public string Axis { get; set; }
         public int? Condition { get; set; }

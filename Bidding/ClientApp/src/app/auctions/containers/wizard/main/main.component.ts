@@ -137,10 +137,7 @@ export class AuctionAddMainWizardComponent implements OnInit, AfterViewInit {
 
   private setItemAuctionAddRequest(): void {
     this.addAuctionRequest = {
-      auctionTopCategoryId: this.categoryStepForm.value.auctionTopCategory,
-      auctionSubCategoryId: this.categoryStepForm.value.auctionSubCategory,
-      auctionName: this.addStepForm.value.itemName,
-      auctionStartingPrice: this.addStepForm.value.auctionStartingPrice,
+      aboutAuction: this.setAboutAuctionDetails(),
       itemAuction: {
         itemModel: this.addStepForm.value.itemModel,
         itemManufacturingYear: this.addStepForm.value.itemManufacturingYear,
@@ -148,18 +145,17 @@ export class AuctionAddMainWizardComponent implements OnInit, AfterViewInit {
         itemEvaluation: this.addStepForm.value.itemEvaluation,
         itemStartingPrice: this.addStepForm.value.itemStartingPrice
       },
-      aboutAuction: this.setAboutAuctionDetails()
+      aboutAuctionCreator: this.setAboutAuctionCreatorDetails()
     };
+
+    this.addAuctionRequest.aboutAuction.auctionName = this.addStepForm.value.itemName;
 
     this.makeRequest(this.addAuctionRequest);
   }
 
   private setVehicleAuctionAddRequest(): void {
     this.addAuctionRequest = {
-      auctionTopCategoryId: this.categoryStepForm.value.auctionTopCategory,
-      auctionSubCategoryId: this.categoryStepForm.value.auctionSubCategory,
-      auctionName: this.addStepForm.value.vehicleName,
-      auctionStartingPrice: this.addStepForm.value.auctionStartingPrice,
+      aboutAuction: this.setAboutAuctionDetails(),
       vehicleAuction: {
         vehicleMake: this.addStepForm.value.vehicleMake,
         vehicleModel: this.addStepForm.value.vehicleModel,
@@ -168,23 +164,22 @@ export class AuctionAddMainWizardComponent implements OnInit, AfterViewInit {
         vehicleIdentificationNumber: this.addStepForm.value.vehicleIdentificationNumber,
         vehicleInspectionActive: this.addStepForm.value.vehicleInspectionActive,
         vehicleTransmissionId: this.addStepForm.value.vehicleTransmission,
-        vehicleFuelType: this.addStepForm.value.vehicleFuelType,
+        vehicleFuelTypeId: this.addStepForm.value.vehicleFuelType,
         vehicleEngineSize: this.addStepForm.value.vehicleEngineSize,
         vehicleAxis: this.addStepForm.value.vehicleAxis,
         vehicleEvaluation: this.addStepForm.value.vehicleEvaluation
       },
-      aboutAuction: this.setAboutAuctionDetails()
+      aboutAuctionCreator: this.setAboutAuctionCreatorDetails()
     };
+
+    this.addAuctionRequest.aboutAuction.auctionName = this.addStepForm.value.vehicleName;
 
     this.makeRequest(this.addAuctionRequest);
   }
 
   private setPropertyAuctionAddRequest(): void {
     this.addAuctionRequest = {
-      auctionTopCategoryId: this.categoryStepForm.value.auctionTopCategory,
-      auctionSubCategoryId: this.categoryStepForm.value.auctionSubCategory,
-      auctionName: this.addStepForm.value.propertyName,
-      auctionStartingPrice: this.addStepForm.value.auctionStartingPrice,
+      aboutAuction: this.setAboutAuctionDetails(),
       propertyAuction: {
         propertyCoordinates: this.addStepForm.value.propertyCoordinates,
         propertyRegion: this.addStepForm.value.propertyRegion,
@@ -196,22 +191,33 @@ export class AuctionAddMainWizardComponent implements OnInit, AfterViewInit {
         propertyRoomCount: this.addStepForm.value.propertyRoomCount,
         propertyEvaluation: this.addStepForm.value.propertyEvaluation
       },
-      aboutAuction: this.setAboutAuctionDetails()
+      aboutAuctionCreator: this.setAboutAuctionCreatorDetails()
     };
+
+    this.addAuctionRequest.aboutAuction.auctionName = this.addStepForm.value.propertyName;
 
     this.makeRequest(this.addAuctionRequest);
   }
 
   private setAboutAuctionDetails(): Auctions.AboutAuctionModel {
     return {
-      auctionCreator: this.aboutStepForm.value.auctionCreator,
-      auctionAddress: this.aboutStepForm.value.auctionAddress,
-      auctionCreatorEmail: this.aboutStepForm.value.auctionCreatorEmail,
-      auctionCreatorPhone: this.aboutStepForm.value.auctionCreatorPhone,
-      auctionFormat: this.aboutStepForm.value.auctionFormat,
+      auctionTopCategoryId: this.categoryStepForm.value.auctionTopCategory,
+      auctionSubCategoryId: this.categoryStepForm.value.auctionSubCategory,
+      auctionName: '',
+      auctionStartingPrice: this.addStepForm.value.auctionStartingPrice,
+      auctionFormatId: this.aboutStepForm.value.auctionFormat,
       auctionStartDate: this.aboutStepForm.value.auctionStartDate,
       auctionApplyTillDate: this.aboutStepForm.value.auctionApplyTillDate,
       auctionEndDate: this.aboutStepForm.value.auctionEndDate
+    };
+  }
+
+  private setAboutAuctionCreatorDetails(): Auctions.AboutAuctionCreatorModel {
+    return {
+      auctionCreator: this.aboutStepForm.value.auctionCreator,
+      auctionCreatorAddress: this.aboutStepForm.value.auctionAddress,
+      auctionCreatorEmail: this.aboutStepForm.value.auctionCreatorEmail,
+      auctionCreatorPhone: this.aboutStepForm.value.auctionCreatorPhone,
     };
   }
 

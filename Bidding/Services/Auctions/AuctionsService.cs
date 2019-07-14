@@ -3,11 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
-using Bidding.Models.ViewModels.Bidding.Auctions;
-using Bidding.Models.ViewModels.Bidding.Auctions.Add;
-using Bidding.Models.ViewModels.Bidding.Auctions.Shared.Categories;
-using Bidding.Models.ViewModels.Bidding.Auctions.Details;
-using Bidding.Models.ViewModels.Bidding.Filters;
 using Bidding.Services.Shared.Permissions;
 using Bidding.Shared.ErrorHandling.Errors;
 using Bidding.Shared.ErrorHandling.Validators;
@@ -21,6 +16,13 @@ using FluentValidation;
 using FluentValidation.Results;
 using Bidding.Database.DatabaseModels.Auctions;
 using Bidding.Shared.Constants;
+using Bidding.Models.ViewModels.Bidding.Auctions.List;
+using Bidding.Models.ViewModels.Bidding.Filters;
+using Bidding.Models.ViewModels.Bidding.Auctions.Add;
+using Bidding.Models.ViewModels.Bidding.Auctions.Shared;
+using Bidding.Models.ViewModels.Bidding.Auctions.Details;
+using Bidding.Models.ViewModels.Bidding.Auctions.Edit;
+using Bidding.Models.ViewModels.Bidding.Auctions.Delete;
 
 namespace Bidding.Services.Auctions
 {
@@ -154,21 +156,21 @@ namespace Bidding.Services.Auctions
         public bool Create(AddAuctionRequestModel request)
         {
             if (request.IsNotSpecified()) throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation);
-            if (request.AuctionTopCategoryId.IsNotSpecified()) throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation);
+            if (request.AboutAuction.AuctionTopCategoryId.IsNotSpecified()) throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation);
 
             m_permissionService.IsLoggedInUserActive();
 
             bool status = false;
 
-            if (request.AuctionTopCategoryId == Categories.ITEM_CATEGORY)
+            if (request.AboutAuction.AuctionTopCategoryId == Categories.ITEM_CATEGORY)
             {
                 status = CreateItemAuction(request);
             }
-            else if (request.AuctionTopCategoryId == Categories.VEHICLE_CATEGORY)
+            else if (request.AboutAuction.AuctionTopCategoryId == Categories.VEHICLE_CATEGORY)
             {
                 status = CreateVehicleAuction(request);
             }
-            else if (request.AuctionTopCategoryId == Categories.PROPERTY_CATEGORY)
+            else if (request.AboutAuction.AuctionTopCategoryId == Categories.PROPERTY_CATEGORY)
             {
                 status = CreatePropertyAuction(request);
             }

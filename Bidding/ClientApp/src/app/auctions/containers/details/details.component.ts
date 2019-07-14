@@ -23,6 +23,8 @@ export class AuctionDetailsComponent implements OnInit, OnDestroy {
   /** Auction details model object */
   auctionDetails: AuctionDetailsModel;
 
+  dateFormat = 'dd/MM/yyyy';
+
   constructor(
     private auctionApi: AuctionsService,
     private notification: NotificationsService,
