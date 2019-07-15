@@ -1,10 +1,10 @@
 namespace Auctions {
-  export interface PropertyAuctionModel {
+  export interface PropertyAuctionDetailsModel {
     propertyCoordinates: string;
-    propertyRegionId: number;
+    propertyRegionName: string;
     propertyCadastreNumber: number;
     propertyMeasurementValue: number;
-    propertyMeasurementTypeId: number;
+    propertyMeasurementTypeName: string;
     propertyAddress: string;
     propertyFloorCount: number;
     propertyRoomCount: number;

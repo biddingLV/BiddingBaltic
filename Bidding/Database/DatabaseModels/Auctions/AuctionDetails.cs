@@ -1,4 +1,6 @@
 ﻿using Bidding.Database.DatabaseModels.Item;
+using Bidding.Database.DatabaseModels.Property;
+using Bidding.Database.DatabaseModels.Shared;
 using Bidding.Database.DatabaseModels.Users;
 using Bidding.Database.DatabaseModels.Vehicle;
 using System;
@@ -40,10 +42,14 @@ namespace Bidding.Database.DatabaseModels.Auctions
         public ItemCondition ItemCondition { get; set; }
 
         public string Coordinates { get; set; }
-        public int? Region { get; set; } // todo: kke: does this makes sense to be int here? static list?
+        public int? RegionId { get; set; }
+        public Region Region { get; set; }
+
         public int? CadastreNumber { get; set; }
         public int? MeasurementValue { get; set; }
-        public int? MeasurementType { get; set; }
+        public int? MeasurementTypeId { get; set; }
+        public PropertyMeasurementType PropertyMeasurementType { get; set; }
+
         public string Address { get; set; }
         public int? FloorCount { get; set; }
         public int? RoomCount { get; set; }

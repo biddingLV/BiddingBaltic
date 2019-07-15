@@ -182,10 +182,10 @@ export class AuctionAddMainWizardComponent implements OnInit, AfterViewInit {
       aboutAuction: this.setAboutAuctionDetails(),
       propertyAuction: {
         propertyCoordinates: this.addStepForm.value.propertyCoordinates,
-        propertyRegion: this.addStepForm.value.propertyRegion,
+        propertyRegionId: this.addStepForm.value.propertyRegion,
         propertyCadastreNumber: this.addStepForm.value.propertyCadastreNumber,
         propertyMeasurementValue: this.addStepForm.value.propertyMeasurementValue,
-        propertyMeasurementType: this.addStepForm.value.propertyMeasurementType,
+        propertyMeasurementTypeId: this.addStepForm.value.propertyMeasurementType,
         propertyAddress: this.addStepForm.value.propertyAddress,
         propertyFloorCount: this.addStepForm.value.propertyFloorCount,
         propertyRoomCount: this.addStepForm.value.propertyRoomCount,

@@ -14,6 +14,8 @@ using Microsoft.EntityFrameworkCore;
 using Type = Bidding.Models.DatabaseModels.Type;
 using Bidding.Database.DatabaseModels.Vehicle;
 using Bidding.Database.DatabaseModels.Item;
+using Bidding.Database.DatabaseModels.Property;
+using Bidding.Database.DatabaseModels.Shared;
 
 namespace Bidding.Database.Contexts
 {
@@ -24,6 +26,7 @@ namespace Bidding.Database.Contexts
         public virtual DbSet<VehicleTransmission> VehicleTransmissions { get; set; }
         public virtual DbSet<VehicleFuelType> VehicleFuelTypes { get; set; }
         public virtual DbSet<ItemCondition> ItemConditions { get; set; }
+        public virtual DbSet<PropertyMeasurementType> PropertyMeasurementTypes { get; set; }
         public virtual DbSet<AuctionStatus> AuctionStatuses { get; set; }
         public virtual DbSet<AuctionFormat> AuctionFormats { get; set; }
         public virtual DbSet<AuctionCondition> AuctionConditions { get; set; }
@@ -35,7 +38,8 @@ namespace Bidding.Database.Contexts
         public virtual DbSet<Type> Types { get; set; }
         public virtual DbSet<User> Users { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
-        //public virtual DbSet<TypeProduct> TypeProducts { get; set; } // intermediary table
+        public virtual DbSet<Region> Regions { get; set; }
+        //public virtual DbSet<TypeProduct> TypeProducts { get; set; }
         //public virtual DbSet<Product> Products { get; set; }
         //public virtual DbSet<Permission> Permissions { get; set; }
         //public virtual DbSet<Feature> Features { get; set; }
@@ -88,6 +92,16 @@ namespace Bidding.Database.Contexts
                 .WithMany(b => b.AuctionDetails)
                 .HasForeignKey(p => p.ConditionId);
 
+            modelBuilder.Entity<AuctionDetails>() // todo: kke: is this right?
+                .HasOne(p => p.PropertyMeasurementType)
+                .WithMany(b => b.AuctionDetails)
+                .HasForeignKey(p => p.MeasurementTypeId);
+
+            modelBuilder.Entity<AuctionDetails>() // todo: kke: is this right?
+                .HasOne(p => p.Region)
+                .WithMany(b => b.AuctionDetails)
+                .HasForeignKey(p => p.RegionId);
+
             modelBuilder.Entity<Auction>()
                 .HasOne(p => p.Category)
                 .WithMany(b => b.Auctions)
@@ -118,6 +132,11 @@ namespace Bidding.Database.Contexts
                 .WithMany(b => b.ItemConditions)
                 .HasForeignKey(p => p.CreatedBy);
 
+            modelBuilder.Entity<PropertyMeasurementType>()
+                .HasOne(p => p.User)
+                .WithMany(b => b.PropertyMeasurementTypes)
+                .HasForeignKey(p => p.CreatedBy);
+
             modelBuilder.Entity<AuctionFormat>()
                 .HasOne(p => p.User)
                 .WithMany(b => b.AuctionFormats)
@@ -126,6 +145,11 @@ namespace Bidding.Database.Contexts
             modelBuilder.Entity<AuctionCondition>()
                 .HasOne(p => p.User)
                 .WithMany(b => b.AuctionConditions)
+                .HasForeignKey(p => p.CreatedBy);
+
+            modelBuilder.Entity<Region>()
+                .HasOne(p => p.User)
+                .WithMany(b => b.Regions)
                 .HasForeignKey(p => p.CreatedBy);
 
             modelBuilder.Entity<Category>()

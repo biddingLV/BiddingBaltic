@@ -72,10 +72,10 @@ namespace Bidding.Migrations
                     Axis = table.Column<string>(nullable: true),
                     ConditionId = table.Column<int>(nullable: true),
                     Coordinates = table.Column<string>(nullable: true),
-                    Region = table.Column<int>(nullable: true),
+                    RegionId = table.Column<int>(nullable: true),
                     CadastreNumber = table.Column<int>(nullable: true),
                     MeasurementValue = table.Column<int>(nullable: true),
-                    MeasurementType = table.Column<int>(nullable: true),
+                    MeasurementTypeId = table.Column<int>(nullable: true),
                     Address = table.Column<string>(nullable: true),
                     FloorCount = table.Column<int>(nullable: true),
                     RoomCount = table.Column<int>(nullable: true),
@@ -309,6 +309,54 @@ namespace Bidding.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "PropertyMeasurementTypes",
+                columns: table => new
+                {
+                    PropertyMeasurementTypeId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(maxLength: 50, nullable: false),
+                    CreatedAt = table.Column<DateTime>(nullable: false),
+                    CreatedBy = table.Column<int>(nullable: false),
+                    LastUpdatedAt = table.Column<DateTime>(nullable: false),
+                    LastUpdatedBy = table.Column<int>(nullable: false),
+                    Deleted = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PropertyMeasurementTypes", x => x.PropertyMeasurementTypeId);
+                    table.ForeignKey(
+                        name: "FK_PropertyMeasurementTypes_Users_CreatedBy",
+                        column: x => x.CreatedBy,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Regions",
+                columns: table => new
+                {
+                    RegionId = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
+                    Name = table.Column<string>(maxLength: 50, nullable: false),
+                    CreatedAt = table.Column<DateTime>(nullable: false),
+                    CreatedBy = table.Column<int>(nullable: false),
+                    LastUpdatedAt = table.Column<DateTime>(nullable: false),
+                    LastUpdatedBy = table.Column<int>(nullable: false),
+                    Deleted = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Regions", x => x.RegionId);
+                    table.ForeignKey(
+                        name: "FK_Regions_Users_CreatedBy",
+                        column: x => x.CreatedBy,
+                        principalTable: "Users",
+                        principalColumn: "UserId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Roles",
                 columns: table => new
                 {
@@ -442,8 +490,8 @@ namespace Bidding.Migrations
                 values: new object[,]
                 {
                     { 1, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Transports" },
-                    { 3, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Nekustamais īpašums" },
-                    { 2, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Manta" }
+                    { 2, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Manta" },
+                    { 3, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Nekustamais īpašums" }
                 });
 
             migrationBuilder.InsertData(
@@ -451,8 +499,27 @@ namespace Bidding.Migrations
                 columns: new[] { "ItemConditionId", "CreatedAt", "CreatedBy", "Deleted", "LastUpdatedAt", "LastUpdatedBy", "Name" },
                 values: new object[,]
                 {
-                    { 2, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Lietots" },
-                    { 1, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Jauns" }
+                    { 1, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Jauns" },
+                    { 2, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Lietots" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "PropertyMeasurementTypes",
+                columns: new[] { "PropertyMeasurementTypeId", "CreatedAt", "CreatedBy", "Deleted", "LastUpdatedAt", "LastUpdatedBy", "Name" },
+                values: new object[,]
+                {
+                    { 2, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "a" },
+                    { 3, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "ha" },
+                    { 1, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "m2" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Regions",
+                columns: new[] { "RegionId", "CreatedAt", "CreatedBy", "Deleted", "LastUpdatedAt", "LastUpdatedBy", "Name" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Jelgava" },
+                    { 2, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "Ogre" }
                 });
 
             migrationBuilder.InsertData(
@@ -533,6 +600,16 @@ namespace Bidding.Migrations
                 column: "FuelTypeId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_AuctionDetails_MeasurementTypeId",
+                table: "AuctionDetails",
+                column: "MeasurementTypeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_AuctionDetails_RegionId",
+                table: "AuctionDetails",
+                column: "RegionId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_AuctionDetails_TransmissionId",
                 table: "AuctionDetails",
                 column: "TransmissionId");
@@ -605,6 +682,16 @@ namespace Bidding.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_ItemConditions_CreatedBy",
                 table: "ItemConditions",
+                column: "CreatedBy");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PropertyMeasurementTypes_CreatedBy",
+                table: "PropertyMeasurementTypes",
+                column: "CreatedBy");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Regions_CreatedBy",
+                table: "Regions",
                 column: "CreatedBy");
 
             migrationBuilder.CreateIndex(
@@ -710,6 +797,22 @@ namespace Bidding.Migrations
                 onDelete: ReferentialAction.Restrict);
 
             migrationBuilder.AddForeignKey(
+                name: "FK_AuctionDetails_PropertyMeasurementTypes_MeasurementTypeId",
+                table: "AuctionDetails",
+                column: "MeasurementTypeId",
+                principalTable: "PropertyMeasurementTypes",
+                principalColumn: "PropertyMeasurementTypeId",
+                onDelete: ReferentialAction.Restrict);
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_AuctionDetails_Regions_RegionId",
+                table: "AuctionDetails",
+                column: "RegionId",
+                principalTable: "Regions",
+                principalColumn: "RegionId",
+                onDelete: ReferentialAction.Restrict);
+
+            migrationBuilder.AddForeignKey(
                 name: "FK_AuctionDetails_VehicleTransmissions_TransmissionId",
                 table: "AuctionDetails",
                 column: "TransmissionId",
@@ -792,6 +895,12 @@ namespace Bidding.Migrations
 
             migrationBuilder.DropTable(
                 name: "VehicleFuelTypes");
+
+            migrationBuilder.DropTable(
+                name: "PropertyMeasurementTypes");
+
+            migrationBuilder.DropTable(
+                name: "Regions");
 
             migrationBuilder.DropTable(
                 name: "VehicleTransmissions");

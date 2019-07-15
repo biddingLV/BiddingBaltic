@@ -228,13 +228,13 @@ namespace Bidding.Migrations
 
                     b.Property<int?>("ManufacturingYear");
 
-                    b.Property<int?>("MeasurementType");
+                    b.Property<int?>("MeasurementTypeId");
 
                     b.Property<int?>("MeasurementValue");
 
                     b.Property<string>("Model");
 
-                    b.Property<int?>("Region");
+                    b.Property<int?>("RegionId");
 
                     b.Property<string>("RegistrationNumber")
                         .HasMaxLength(50);
@@ -252,6 +252,10 @@ namespace Bidding.Migrations
                     b.HasIndex("ConditionId");
 
                     b.HasIndex("FuelTypeId");
+
+                    b.HasIndex("MeasurementTypeId");
+
+                    b.HasIndex("RegionId");
 
                     b.HasIndex("TransmissionId");
 
@@ -463,6 +467,114 @@ namespace Bidding.Migrations
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Lietots"
+                        });
+                });
+
+            modelBuilder.Entity("Bidding.Database.DatabaseModels.Property.PropertyMeasurementType", b =>
+                {
+                    b.Property<int>("PropertyMeasurementTypeId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedAt");
+
+                    b.Property<int>("CreatedBy");
+
+                    b.Property<bool>("Deleted");
+
+                    b.Property<DateTime>("LastUpdatedAt");
+
+                    b.Property<int>("LastUpdatedBy");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.HasKey("PropertyMeasurementTypeId");
+
+                    b.HasIndex("CreatedBy");
+
+                    b.ToTable("PropertyMeasurementTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            PropertyMeasurementTypeId = 1,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = 1,
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "m2"
+                        },
+                        new
+                        {
+                            PropertyMeasurementTypeId = 2,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = 1,
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "a"
+                        },
+                        new
+                        {
+                            PropertyMeasurementTypeId = 3,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = 1,
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "ha"
+                        });
+                });
+
+            modelBuilder.Entity("Bidding.Database.DatabaseModels.Shared.Region", b =>
+                {
+                    b.Property<int>("RegionId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedAt");
+
+                    b.Property<int>("CreatedBy");
+
+                    b.Property<bool>("Deleted");
+
+                    b.Property<DateTime>("LastUpdatedAt");
+
+                    b.Property<int>("LastUpdatedBy");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.HasKey("RegionId");
+
+                    b.HasIndex("CreatedBy");
+
+                    b.ToTable("Regions");
+
+                    b.HasData(
+                        new
+                        {
+                            RegionId = 1,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = 1,
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Jelgava"
+                        },
+                        new
+                        {
+                            RegionId = 2,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = 1,
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Ogre"
                         });
                 });
 
@@ -1225,6 +1337,16 @@ namespace Bidding.Migrations
                         .HasForeignKey("FuelTypeId")
                         .OnDelete(DeleteBehavior.Restrict);
 
+                    b.HasOne("Bidding.Database.DatabaseModels.Property.PropertyMeasurementType", "PropertyMeasurementType")
+                        .WithMany("AuctionDetails")
+                        .HasForeignKey("MeasurementTypeId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("Bidding.Database.DatabaseModels.Shared.Region", "Region")
+                        .WithMany("AuctionDetails")
+                        .HasForeignKey("RegionId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.HasOne("Bidding.Database.DatabaseModels.Vehicle.VehicleTransmission", "VehicleTransmission")
                         .WithMany("AuctionDetails")
                         .HasForeignKey("TransmissionId")
@@ -1279,6 +1401,22 @@ namespace Bidding.Migrations
                 {
                     b.HasOne("Bidding.Database.DatabaseModels.Users.User", "User")
                         .WithMany("ItemConditions")
+                        .HasForeignKey("CreatedBy")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("Bidding.Database.DatabaseModels.Property.PropertyMeasurementType", b =>
+                {
+                    b.HasOne("Bidding.Database.DatabaseModels.Users.User", "User")
+                        .WithMany("PropertyMeasurementTypes")
+                        .HasForeignKey("CreatedBy")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
+            modelBuilder.Entity("Bidding.Database.DatabaseModels.Shared.Region", b =>
+                {
+                    b.HasOne("Bidding.Database.DatabaseModels.Users.User", "User")
+                        .WithMany("Regions")
                         .HasForeignKey("CreatedBy")
                         .OnDelete(DeleteBehavior.Restrict);
                 });

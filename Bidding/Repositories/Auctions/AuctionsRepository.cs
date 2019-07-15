@@ -583,10 +583,10 @@ namespace Bidding.Repositories.Auctions
             {
                 AuctionItemId = newAuctionItem.AuctionItemId,
                 Coordinates = request.PropertyAuction.PropertyCoordinates,
-                Region = request.PropertyAuction.PropertyRegion,
+                RegionId = request.PropertyAuction.PropertyRegionId,
                 CadastreNumber = request.PropertyAuction.PropertyCadastreNumber,
                 MeasurementValue = request.PropertyAuction.PropertyMeasurementValue,
-                MeasurementType = request.PropertyAuction.PropertyMeasurementType,
+                MeasurementTypeId = request.PropertyAuction.PropertyMeasurementTypeId,
                 Address = request.PropertyAuction.PropertyAddress,
                 FloorCount = request.PropertyAuction.PropertyFloorCount,
                 RoomCount = request.PropertyAuction.PropertyRoomCount,
@@ -616,6 +616,16 @@ namespace Bidding.Repositories.Auctions
         private string LoadItemConditionName(int conditionId)
         {
             return m_context.ItemConditions.FirstOrDefault(icon => icon.ItemConditionId == conditionId).Name;
+        }
+
+        private string LoadPropertyMeasurementTypeName(int measurementTypeId)
+        {
+            return m_context.PropertyMeasurementTypes.FirstOrDefault(pmea => pmea.PropertyMeasurementTypeId == measurementTypeId).Name;
+        }
+
+        private string LoadPropertyRegionName(int regionId)
+        {
+            return m_context.Regions.FirstOrDefault(preg => preg.RegionId == regionId).Name;
         }
 
         private AuctionDetailsResponseModel SetupVehicleAuctionDetails(AuctionDetailsModel details)
@@ -696,6 +706,8 @@ namespace Bidding.Repositories.Auctions
         private AuctionDetailsResponseModel SetupPropertyAuctionDetails(AuctionDetailsModel details)
         {
             string auctionFormatName = LoadAuctionFormatName(details.Auction.AuctionFormatId);
+            string measurementTypeName = details.AuctionDetails.MeasurementTypeId.IsNotSpecified() ? null : LoadPropertyMeasurementTypeName(details.AuctionDetails.MeasurementTypeId.Value);
+            string regionName = details.AuctionDetails.RegionId.IsNotSpecified() ? null : LoadPropertyRegionName(details.AuctionDetails.RegionId.Value);
 
             return new AuctionDetailsResponseModel
             {
@@ -708,13 +720,13 @@ namespace Bidding.Repositories.Auctions
                     AuctionEndDate = details.Auction.EndDate,
                     AuctionFormat = auctionFormatName
                 },
-                PropertyAuction = new PropertyAuctionModel
+                PropertyAuction = new PropertyAuctionDetailsModel
                 {
                     PropertyCoordinates = details.AuctionDetails.Coordinates,
-                    PropertyRegion = details.AuctionDetails.Region ?? details.AuctionDetails.Region.Value,
+                    PropertyRegionName = regionName,
                     PropertyCadastreNumber = details.AuctionDetails.CadastreNumber.Value,
                     PropertyMeasurementValue = details.AuctionDetails.MeasurementValue.Value,
-                    PropertyMeasurementType = details.AuctionDetails.MeasurementType ?? details.AuctionDetails.MeasurementType.Value,
+                    PropertyMeasurementTypeName = measurementTypeName,
                     PropertyAddress = details.AuctionDetails.Address,
                     PropertyFloorCount = details.AuctionDetails.FloorCount ?? null,
                     PropertyRoomCount = details.AuctionDetails.RoomCount ?? null,

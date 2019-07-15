@@ -1,5 +1,7 @@
 ﻿using Bidding.Database.DatabaseModels.Auctions;
 using Bidding.Database.DatabaseModels.Item;
+using Bidding.Database.DatabaseModels.Property;
+using Bidding.Database.DatabaseModels.Shared;
 using Bidding.Database.DatabaseModels.Users;
 using Bidding.Database.DatabaseModels.Vehicle;
 using Bidding.Models.DatabaseModels;
@@ -26,6 +28,8 @@ namespace Bidding.Database.Contexts
             PopulateVehicleTransmissions(modelBuilder);
             PopulateVehicleFuelTypes(modelBuilder);
             PopulateItemConditions(modelBuilder);
+            PopulatePropertyMeasurementTypes(modelBuilder);
+            PopulateRegions(modelBuilder);
             PopulateCategories(modelBuilder);
             PopulateTypes(modelBuilder);
             PopulateAuctionFormats(modelBuilder);
@@ -292,6 +296,42 @@ namespace Bidding.Database.Contexts
                 {
                     ItemConditionId = 2,
                     Name = "Lietots",
+                    CreatedAt = CreatedAtDateTime,
+                    CreatedBy = CreatedByBiddingAdmin,
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin,
+                    Deleted = false
+                }
+            );
+        }
+
+        private static void PopulatePropertyMeasurementTypes(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<PropertyMeasurementType>().HasData(
+                new PropertyMeasurementType
+                {
+                    PropertyMeasurementTypeId = 1,
+                    Name = "m2",
+                    CreatedAt = CreatedAtDateTime,
+                    CreatedBy = CreatedByBiddingAdmin,
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin,
+                    Deleted = false
+                },
+                new PropertyMeasurementType
+                {
+                    PropertyMeasurementTypeId = 2,
+                    Name = "a",
+                    CreatedAt = CreatedAtDateTime,
+                    CreatedBy = CreatedByBiddingAdmin,
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin,
+                    Deleted = false
+                },
+                new PropertyMeasurementType
+                {
+                    PropertyMeasurementTypeId = 3,
+                    Name = "ha",
                     CreatedAt = CreatedAtDateTime,
                     CreatedBy = CreatedByBiddingAdmin,
                     LastUpdatedAt = CreatedAtDateTime,
@@ -690,6 +730,32 @@ namespace Bidding.Database.Contexts
                 {
                     AuctionConditionId = 5,
                     Name = "Nepieciešams remonts",
+                    CreatedAt = CreatedAtDateTime,
+                    CreatedBy = CreatedByBiddingAdmin,
+                    Deleted = false,
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin
+                }
+            );
+        }
+
+        private static void PopulateRegions(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Region>().HasData(
+                new Region
+                {
+                    RegionId = 1,
+                    Name = "Jelgava",
+                    CreatedAt = CreatedAtDateTime,
+                    CreatedBy = CreatedByBiddingAdmin,
+                    Deleted = false,
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin
+                },
+                new Region
+                {
+                    RegionId = 2,
+                    Name = "Ogre",
                     CreatedAt = CreatedAtDateTime,
                     CreatedBy = CreatedByBiddingAdmin,
                     Deleted = false,

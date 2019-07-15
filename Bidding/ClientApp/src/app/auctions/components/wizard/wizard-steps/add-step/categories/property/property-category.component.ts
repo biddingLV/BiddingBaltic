@@ -44,10 +44,6 @@ export class AuctionAddWizardPropertyComponent implements OnInit {
     {
       regionId: 2,
       regionName: 'Ogre'
-    },
-    {
-      regionId: 3,
-      regionName: 'Work in progress!'
     }
   ];
 

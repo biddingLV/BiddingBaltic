@@ -1,7 +1,7 @@
 export interface AuctionDetailsModel {
   aboutAuctionDetails: Auctions.AboutAuctionDetailsModel;
   vehicleAuction?: Auctions.VehicleAuctionDetailsModel;
-  itemAuction?: Auctions.ItemAuctionModel;
-  propertyAuction?: Auctions.PropertyAuctionModel;
+  itemAuction?: Auctions.ItemAuctionDetailsModel;
+  propertyAuction?: Auctions.PropertyAuctionDetailsModel;
   aboutAuctionCreator; // todo: kke: specify type when ready!
 }
