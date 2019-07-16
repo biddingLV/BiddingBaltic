@@ -49,7 +49,6 @@ namespace Bidding.Database.Contexts
         //public virtual DbSet<UserDetail> UserDetails { get; set; }
         //public virtual DbSet<UserOrganization> UserOrganizations { get; set; }
         public virtual DbSet<Newsletter> Newsletters { get; set; }
-        //public virtual DbSet<AuctionCreator> AuctionCreators { get; set; }
 
         // Database Queries for stored procedures / views
         public virtual DbQuery<TopCategoryFilterModel> TopCategoryFilter { get; set; }
@@ -76,6 +75,11 @@ namespace Bidding.Database.Contexts
                 .HasOne(p => p.AuctionStatus)
                 .WithMany(b => b.Auctions)
                 .HasForeignKey(p => p.AuctionStatusId);
+
+            modelBuilder.Entity<Auction>()
+                .HasOne(p => p.AuctionCreator)
+                .WithMany(b => b.Auctions)
+                .HasForeignKey(p => p.AuctionCreatorId);
 
             modelBuilder.Entity<AuctionDetails>() // todo: kke: is this right?
                 .HasOne(p => p.VehicleTransmission)
@@ -145,6 +149,11 @@ namespace Bidding.Database.Contexts
             modelBuilder.Entity<AuctionCondition>()
                 .HasOne(p => p.User)
                 .WithMany(b => b.AuctionConditions)
+                .HasForeignKey(p => p.CreatedBy);
+
+            modelBuilder.Entity<AuctionDetails>()
+                .HasOne(p => p.User)
+                .WithMany(b => b.AuctionDetails)
                 .HasForeignKey(p => p.CreatedBy);
 
             modelBuilder.Entity<Region>()

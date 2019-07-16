@@ -1,5 +1,5 @@
 namespace Auctions {
-  export interface AboutAuctionCreatorModel {
+  export interface AuctionCreatorDetailsModel {
     auctionCreatorName: string;
     auctionCreatorAddress: string;
     auctionCreatorEmail: string;

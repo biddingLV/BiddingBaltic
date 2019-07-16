@@ -31,5 +31,7 @@ namespace Bidding.Database.DatabaseModels.Auctions
         public int LastUpdatedBy { get; set; }
 
         public bool Deleted { get; set; }
+
+        public List<Auction> Auctions { get; set; }
     }
 }

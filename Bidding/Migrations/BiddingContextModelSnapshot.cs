@@ -29,6 +29,8 @@ namespace Bidding.Migrations
 
                     b.Property<int>("AuctionCategoryId");
 
+                    b.Property<int>("AuctionCreatorId");
+
                     b.Property<int>("AuctionFormatId");
 
                     b.Property<int>("AuctionStatusId");
@@ -58,6 +60,8 @@ namespace Bidding.Migrations
                     b.HasKey("AuctionId");
 
                     b.HasIndex("AuctionCategoryId");
+
+                    b.HasIndex("AuctionCreatorId");
 
                     b.HasIndex("AuctionFormatId");
 
@@ -174,7 +178,8 @@ namespace Bidding.Migrations
 
                     b.Property<int>("LastUpdatedBy");
 
-                    b.Property<int>("UserId");
+                    b.Property<string>("Name")
+                        .IsRequired();
 
                     b.HasKey("AuctionCreatorId");
 
@@ -243,13 +248,13 @@ namespace Bidding.Migrations
 
                     b.Property<int?>("TransmissionId");
 
-                    b.Property<int?>("UserId");
-
                     b.HasKey("AuctionDetailsId");
 
                     b.HasIndex("AuctionItemId");
 
                     b.HasIndex("ConditionId");
+
+                    b.HasIndex("CreatedBy");
 
                     b.HasIndex("FuelTypeId");
 
@@ -258,8 +263,6 @@ namespace Bidding.Migrations
                     b.HasIndex("RegionId");
 
                     b.HasIndex("TransmissionId");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("AuctionDetails");
                 });
@@ -1283,8 +1286,13 @@ namespace Bidding.Migrations
                         .HasForeignKey("AuctionCategoryId")
                         .OnDelete(DeleteBehavior.Restrict);
 
+                    b.HasOne("Bidding.Database.DatabaseModels.Auctions.AuctionCreator", "AuctionCreator")
+                        .WithMany("Auctions")
+                        .HasForeignKey("AuctionCreatorId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.HasOne("Bidding.Database.DatabaseModels.Auctions.AuctionFormat", "AuctionFormat")
-                        .WithMany()
+                        .WithMany("Auctions")
                         .HasForeignKey("AuctionFormatId")
                         .OnDelete(DeleteBehavior.Restrict);
 
@@ -1332,6 +1340,11 @@ namespace Bidding.Migrations
                         .HasForeignKey("ConditionId")
                         .OnDelete(DeleteBehavior.Restrict);
 
+                    b.HasOne("Bidding.Database.DatabaseModels.Users.User", "User")
+                        .WithMany("AuctionDetails")
+                        .HasForeignKey("CreatedBy")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.HasOne("Bidding.Database.DatabaseModels.Vehicle.VehicleFuelType", "VehicleFuelType")
                         .WithMany("AuctionDetails")
                         .HasForeignKey("FuelTypeId")
@@ -1350,11 +1363,6 @@ namespace Bidding.Migrations
                     b.HasOne("Bidding.Database.DatabaseModels.Vehicle.VehicleTransmission", "VehicleTransmission")
                         .WithMany("AuctionDetails")
                         .HasForeignKey("TransmissionId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
-                    b.HasOne("Bidding.Database.DatabaseModels.Users.User", "User")
-                        .WithMany("AuctionDetails")
-                        .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 

@@ -15,8 +15,7 @@ namespace Bidding.Database.DatabaseModels.Auctions
         public int AuctionCreatorId { get; set; }
 
         [Required]
-        public int UserId { get; set; }
-        public User User { get; set; }
+        public string Name { get; set; }
 
         [Required]
         public string ContactEmail { get; set; }
@@ -26,16 +25,20 @@ namespace Bidding.Database.DatabaseModels.Auctions
 
         [Required]
         public string ContactAddress { get; set; }
+
         [Required]
         public DateTime CreatedAt { get; set; }
 
         [Required]
         public int CreatedBy { get; set; }
+        public User User { get; set; }
 
         public DateTime LastUpdatedAt { get; set; }
 
         public int LastUpdatedBy { get; set; }
 
         public bool Deleted { get; set; }
+
+        public List<Auction> Auctions { get; set; }
     }
 }

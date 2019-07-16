@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace Bidding.Models.ViewModels.Bidding.Auctions.Add
+namespace Bidding.Models.ViewModels.Bidding.Auctions.Details
 {
-    public class AboutAuctionCreatorModel
+    public class AuctionCreatorDetailsModel
     {
         public string AuctionCreatorName { get; set; }
         public string AuctionCreatorAddress { get; set; }

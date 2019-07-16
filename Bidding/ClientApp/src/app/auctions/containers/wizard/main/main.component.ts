@@ -214,7 +214,7 @@ export class AuctionAddMainWizardComponent implements OnInit, AfterViewInit {
 
   private setAboutAuctionCreatorDetails(): Auctions.AboutAuctionCreatorModel {
     return {
-      auctionCreator: this.aboutStepForm.value.auctionCreator,
+      auctionCreatorName: this.aboutStepForm.value.auctionCreator,
       auctionCreatorAddress: this.aboutStepForm.value.auctionAddress,
       auctionCreatorEmail: this.aboutStepForm.value.auctionCreatorEmail,
       auctionCreatorPhone: this.aboutStepForm.value.auctionCreatorPhone,

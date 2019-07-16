@@ -42,6 +42,7 @@ namespace Bidding.Migrations
                     AuctionTypeId = table.Column<int>(nullable: false),
                     AuctionStatusId = table.Column<int>(nullable: false),
                     AuctionFormatId = table.Column<int>(nullable: false),
+                    AuctionCreatorId = table.Column<int>(nullable: false),
                     CreatedAt = table.Column<DateTime>(nullable: false),
                     CreatedBy = table.Column<int>(nullable: false),
                     LastUpdatedAt = table.Column<DateTime>(nullable: false),
@@ -82,7 +83,6 @@ namespace Bidding.Migrations
                     Evaluation = table.Column<string>(nullable: true),
                     CreatedAt = table.Column<DateTime>(nullable: false),
                     CreatedBy = table.Column<int>(nullable: false),
-                    UserId = table.Column<int>(nullable: true),
                     LastUpdatedAt = table.Column<DateTime>(nullable: false),
                     LastUpdatedBy = table.Column<int>(nullable: false),
                     Deleted = table.Column<bool>(nullable: false)
@@ -191,7 +191,7 @@ namespace Bidding.Migrations
                 {
                     AuctionCreatorId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
-                    UserId = table.Column<int>(nullable: false),
+                    Name = table.Column<string>(nullable: false),
                     ContactEmail = table.Column<string>(nullable: false),
                     ContactPhone = table.Column<string>(nullable: false),
                     ContactAddress = table.Column<string>(nullable: false),
@@ -595,6 +595,11 @@ namespace Bidding.Migrations
                 column: "ConditionId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_AuctionDetails_CreatedBy",
+                table: "AuctionDetails",
+                column: "CreatedBy");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_AuctionDetails_FuelTypeId",
                 table: "AuctionDetails",
                 column: "FuelTypeId");
@@ -613,11 +618,6 @@ namespace Bidding.Migrations
                 name: "IX_AuctionDetails_TransmissionId",
                 table: "AuctionDetails",
                 column: "TransmissionId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AuctionDetails_UserId",
-                table: "AuctionDetails",
-                column: "UserId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AuctionFormats_CreatedBy",
@@ -648,6 +648,11 @@ namespace Bidding.Migrations
                 name: "IX_Auctions_AuctionCategoryId",
                 table: "Auctions",
                 column: "AuctionCategoryId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Auctions_AuctionCreatorId",
+                table: "Auctions",
+                column: "AuctionCreatorId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Auctions_AuctionFormatId",
@@ -749,6 +754,14 @@ namespace Bidding.Migrations
                 onDelete: ReferentialAction.Restrict);
 
             migrationBuilder.AddForeignKey(
+                name: "FK_Auctions_AuctionCreators_AuctionCreatorId",
+                table: "Auctions",
+                column: "AuctionCreatorId",
+                principalTable: "AuctionCreators",
+                principalColumn: "AuctionCreatorId",
+                onDelete: ReferentialAction.Restrict);
+
+            migrationBuilder.AddForeignKey(
                 name: "FK_Auctions_AuctionFormats_AuctionFormatId",
                 table: "Auctions",
                 column: "AuctionFormatId",
@@ -765,9 +778,9 @@ namespace Bidding.Migrations
                 onDelete: ReferentialAction.Restrict);
 
             migrationBuilder.AddForeignKey(
-                name: "FK_AuctionDetails_Users_UserId",
+                name: "FK_AuctionDetails_Users_CreatedBy",
                 table: "AuctionDetails",
-                column: "UserId",
+                column: "CreatedBy",
                 principalTable: "Users",
                 principalColumn: "UserId",
                 onDelete: ReferentialAction.Restrict);
@@ -879,9 +892,6 @@ namespace Bidding.Migrations
                 name: "AuctionConditions");
 
             migrationBuilder.DropTable(
-                name: "AuctionCreators");
-
-            migrationBuilder.DropTable(
                 name: "AuctionDetails");
 
             migrationBuilder.DropTable(
@@ -907,6 +917,9 @@ namespace Bidding.Migrations
 
             migrationBuilder.DropTable(
                 name: "Auctions");
+
+            migrationBuilder.DropTable(
+                name: "AuctionCreators");
 
             migrationBuilder.DropTable(
                 name: "AuctionFormats");

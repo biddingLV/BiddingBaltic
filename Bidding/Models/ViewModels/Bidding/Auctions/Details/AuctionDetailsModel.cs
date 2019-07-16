@@ -11,5 +11,6 @@ namespace Bidding.Models.ViewModels.Bidding.Auctions.Details
         public Auction Auction { get; set; }
         public AuctionItem AuctionItem { get; set; }
         public AuctionDetails AuctionDetails { get; set; }
+        public AuctionCreator AuctionCreator { get; set; }
     }
 }
