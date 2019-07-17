@@ -5,9 +5,7 @@ import { Title } from '@angular/platform-browser';
 
 // 3rd lib
 import { filter, map, mergeMap } from 'rxjs/operators';
-import { environment } from '../environments/environment';
 
-declare var gtag;
 
 @Component({
   selector: 'app-root',
@@ -23,19 +21,7 @@ export class AppComponent implements OnInit {
     private router: Router,
     private activatedRoute: ActivatedRoute,
     private titleService: Title
-  ) {
-    const script = document.createElement('script');
-    script.async = true;
-    script.src = 'https://www.googletagmanager.com/gtm.js?id=' + environment.trackingCode;
-    document.head.prepend(script);
-
-    //const navEndEvent$ = router.events.pipe(
-    //  filter(e => e instanceof NavigationEnd)
-    //);
-    //navEndEvent$.subscribe((e: NavigationEnd) => {
-    //  gtag('config', 'UA-88448661-2', { 'page_path': e.urlAfterRedirects });
-    //});
-  }
+  ) { }
 
   ngOnInit(): void {
     this.router.events
