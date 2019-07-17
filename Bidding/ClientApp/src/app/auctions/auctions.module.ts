@@ -23,6 +23,7 @@ import { AuctionDetailsCountdownComponent } from './components/details/countdown
 import { AuctionAddCategoryWizardStepComponent } from './components/wizard/wizard-steps/category-step/category-step.component';
 import { AuctionAddWizardPropertyComponent } from './components/wizard/wizard-steps/add-step/categories/property/property-category.component';
 import { AuctionAddAboutWizardStepComponent } from './components/wizard/wizard-steps/about-step/about-step.component';
+import { AuctionsTableComponent } from './components/list/table/table.component';
 
 
 @NgModule({
@@ -34,11 +35,13 @@ import { AuctionAddAboutWizardStepComponent } from './components/wizard/wizard-s
     BsDatepickerModule.forRoot()
   ],
   exports: [
+    AuctionsTableComponent,
     AuctionListComponent,
     ArchwizardModule,
     BsDatepickerModule
   ],
   declarations: [
+    AuctionsTableComponent,
     AuctionListComponent,
     AuctionDetailsComponent,
     AuctionMainComponent,

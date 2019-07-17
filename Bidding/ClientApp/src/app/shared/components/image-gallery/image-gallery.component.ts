@@ -12,7 +12,7 @@ export class ImageGalleryComponent implements OnInit {
   images: GalleryItem[];
 
   constructor() { }
-
+  // DONT USE THIS LIBRARY BUT - https://github.com/lukasz-galka/ngx-gallery
   ngOnInit(): void {
     this.images = [
       new ImageItem({ src: 'https://preview.ibb.co/jrsA6R/img12.jpg', thumb: 'https://preview.ibb.co/jrsA6R/img12.jpg' }),

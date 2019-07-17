@@ -116,6 +116,13 @@ export class AuctionsService {
       .pipe(catchError(this.exception.errorHandler));
   }
 
+  getAuctionEditDetails$(auctionId: number): Observable<any> {
+    const url = `api/auctions/editDetails?auctionId=${auctionId}`;
+
+    return this.http.get<any>(url)
+      .pipe(catchError(this.exception.errorHandler));
+  }
+
   editAuction$(request: AuctionEditRequest): Observable<boolean> {
     const url = '/api/auctions/edit';
 

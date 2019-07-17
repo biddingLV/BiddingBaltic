@@ -16,6 +16,7 @@ import { AuctionModel } from 'ClientApp/src/app/auctions/models/list/auction.mod
 import { AuctionListRequest } from 'ClientApp/src/app/auctions/models/list/auction-list-request.model';
 import { AuctionsService } from 'ClientApp/src/app/auctions/services/auctions.service';
 import { NotificationsService } from 'ClientApp/src/app/core';
+import { AuctionItemModel } from 'ClientApp/src/app/auctions/models/shared/auction-item.model';
 
 
 @Component({
@@ -30,7 +31,7 @@ export class AdminAuctionMainComponent implements OnInit {
   request: AuctionListRequest;
 
   // table
-  selected = [];
+  selected: AuctionItemModel[] = [];
 
   // modals
   bsModalRef: BsModalRef;
@@ -72,7 +73,7 @@ export class AdminAuctionMainComponent implements OnInit {
 
   editModal(): void {
     const initialState = {
-      selectedAuction: this.selected[0]
+      selectedAuctionId: this.selected[0].auctionId
     };
 
     const modalConfig = { ...this.internalModalService.defaultModalOptions, ...{ initialState: initialState, class: 'modal-lg' } };

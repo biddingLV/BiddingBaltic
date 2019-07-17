@@ -128,6 +128,13 @@ namespace Bidding.Controllers.Auctions
             return Ok(m_auctionsService.Create(request));
         }
 
+        [HttpGet]
+        [Authorize(Roles = "User, Admin")]
+        public IActionResult EditDetails([FromQuery] AuctionDetailsRequestModel request)
+        {
+            return Ok(m_auctionsService.Details(request));
+        }
+
         /// <summary>
         /// Updates 1 auction in go
         /// </summary>

@@ -1,4 +1,4 @@
-// KKE: Check if these values are okay?
 export const environment = {
-  production: true
+  production: true,
+  trackingCode: 'GTM-WXFHSN7'
 };

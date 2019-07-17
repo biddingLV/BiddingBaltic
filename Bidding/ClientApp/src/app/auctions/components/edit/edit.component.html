@@ -35,6 +35,15 @@
     </div>
 
     <div class="form-group">
+      <label>Apply till Date:</label>
+      <input type="text" formControlName="auctionApplyTillDate" class="form-control"
+        [ngClass]="{ 'is-invalid': submitted && f.auctionApplyTillDate.errors }" />
+      <div *ngIf="submitted && formErrors.auctionApplyTillDate" class="invalid-feedback">
+        {{formErrors.auctionApplyTillDate}}
+      </div>
+    </div>
+
+    <div class="form-group">
       <label>End Date:</label>
       <input type="text" formControlName="auctionEndDate" class="form-control"
         [ngClass]="{ 'is-invalid': submitted && f.auctionEndDate.errors }" />
@@ -44,11 +53,11 @@
     </div>
 
     <div class="form-group">
-      <label>auctionStatusName:</label>
-      <input type="text" formControlName="auctionStatusName" class="form-control"
-        [ngClass]="{ 'is-invalid': submitted && f.auctionStatusName.errors }" />
-      <div *ngIf="submitted && formErrors.auctionStatusName" class="invalid-feedback">
-        {{formErrors.auctionStatusName}}
+      <label>auctionStatus:</label>
+      <input type="text" formControlName="auctionStatus" class="form-control"
+        [ngClass]="{ 'is-invalid': submitted && f.auctionStatus.errors }" />
+      <div *ngIf="submitted && formErrors.auctionStatus" class="invalid-feedback">
+        {{formErrors.auctionStatus}}
       </div>
     </div>
 

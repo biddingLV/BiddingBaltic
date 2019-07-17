@@ -7,12 +7,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // 3rd lib
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { NgSelectModule } from '@ng-select/ng-select';
-
-// filter components
 import { GalleryModule } from '@ngx-gallery/core';
 
 // internal
-import { AuctionsTableComponent } from './components/table/auctions/auctions.component';
 import { SearchComponent } from './components/search/search.component';
 import { MinSharedModule } from './shared-min.module';
 import { FileUploaderComponent } from './components/file-uploader/file-uploader.component';
@@ -32,17 +29,16 @@ import { HasRoleDirective } from './directives/authorization/role/has-role.direc
     GalleryModule
   ],
   exports: [
-    AuctionsTableComponent,
     SearchComponent,
     NgSelectModule,
     FormsModule,
     ReactiveFormsModule,
     FileUploaderComponent,
     ImageGalleryComponent,
-    HasRoleDirective
+    HasRoleDirective,
+    NgxDatatableModule
   ],
   declarations: [
-    AuctionsTableComponent,
     SearchComponent,
     FileUploaderComponent,
     ImageGalleryComponent,

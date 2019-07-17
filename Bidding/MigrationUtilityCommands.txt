@@ -25,8 +25,6 @@
 
 4: drop all tables on azure
 	drop table __EFMigrationsHistory
-	drop table [dbo].[VehicleFuelTypes]
-	drop table [dbo].[VehicleTransmissions]
 	drop table AuctionConditions
 	drop table AuctionFormats
 	drop table Newsletters
@@ -34,8 +32,14 @@
 	ALTER TABLE [dbo].[Auctions] DROP CONSTRAINT FK_Auctions_Categories_AuctionCategoryId
 	ALTER TABLE [dbo].[Auctions] DROP CONSTRAINT FK_Auctions_Types_AuctionTypeId
 	ALTER TABLE [dbo].[Auctions] DROP CONSTRAINT FK_Auctions_Users_CreatedBy
+	-- ALTER TABLE [dbo].[Auctions] DROP CONSTRAINT FK_Auctions_Users_CreatedBy - FK FOR dbo.VehicleFuelTypes & dbo.VehicleTransmissions
 	drop table AuctionDetails
 	drop table AuctionStatuses
+	drop table [dbo].[VehicleFuelTypes]
+	drop table [dbo].[VehicleTransmissions]
+	drop table [dbo].[ItemConditions]
+	drop table [dbo].[PropertyMeasurementTypes]
+	drop table [dbo].[Regions]
 	drop table AuctionItems
 	drop table Auctions
 	drop table [dbo].[AuctionCreators]

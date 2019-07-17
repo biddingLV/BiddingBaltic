@@ -3,10 +3,9 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 
 // 3rd lib
-import { CookieService } from 'ngx-cookie-service/cookie-service/cookie.service';
+import { CookieService } from 'ngx-cookie-service';
 
 // internal
-import { environment } from '../../../../environments/environment';
 import { User } from '../../models/user/user.model';
 
 

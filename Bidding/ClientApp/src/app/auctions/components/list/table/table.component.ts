@@ -2,13 +2,12 @@
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 
 // internal
-import { AuctionModel } from 'ClientApp/src/app/auctions/models/list/auction.model';
+import { AuctionModel } from '../../../models/list/auction.model';
 
 
 @Component({
   selector: 'app-auctions-table',
-  templateUrl: './auctions.component.html',
-  styleUrls: []
+  templateUrl: './table.component.html'
 })
 export class AuctionsTableComponent implements OnInit {
   // table

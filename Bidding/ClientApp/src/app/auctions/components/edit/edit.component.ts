@@ -4,13 +4,13 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 
 // 3rd party
 import { BsModalRef } from 'ngx-bootstrap/modal';
+import { Subscription } from 'rxjs';
 
 // internal
 import { AuctionsService } from '../../services/auctions.service';
 import { FormService } from 'ClientApp/src/app/core/services/form/form.service';
 import { NotificationsService } from 'ClientApp/src/app/core/services/notifications/notifications.service';
 import { AuctionEditRequest } from '../../models/edit/auction-edit-request.model';
-import { AuctionItemModel } from '../../models/shared/auction-item.model';
 
 
 @Component({
@@ -18,8 +18,10 @@ import { AuctionItemModel } from '../../models/shared/auction-item.model';
   templateUrl: './edit.component.html'
 })
 export class AuctionEditComponent implements OnInit {
-  /** Passed from parent component */
-  selectedAuction: AuctionItemModel;
+  /** Selected auction's id passed from parent component */
+  selectedAuctionId: number;
+
+  auctionEditSubscription: Subscription;
 
   // form
   auctionEditForm: FormGroup;
@@ -32,7 +34,7 @@ export class AuctionEditComponent implements OnInit {
     auctionStatusName: ''
   };
 
-  // API
+  /** API - request model */
   auctionEditRequest: AuctionEditRequest;
 
   // convenience getter for easy access to form fields
@@ -41,7 +43,7 @@ export class AuctionEditComponent implements OnInit {
   constructor(
     private auctionService: AuctionsService,
     private notificationService: NotificationsService,
-    private fb: FormBuilder,
+    private formBuilder: FormBuilder,
     private formService: FormService,
     public bsModalRef: BsModalRef
   ) { }
@@ -53,30 +55,26 @@ export class AuctionEditComponent implements OnInit {
   onSubmit(): void {
     this.submitted = true;
 
-    // mark all fields as touched
     this.formService.markFormGroupTouched(this.auctionEditForm);
 
     if (this.auctionEditForm.valid) {
-      this.makeRequest();
+      this.makeUpdateRequest();
     } else {
       this.formErrors = this.formService.validateForm(this.auctionEditForm, this.formErrors, false);
-    }
-
-    // stop here if form is invalid
-    if (this.auctionEditForm.invalid) {
       return;
     }
   }
 
   private buildForm(): void {
-    this.auctionEditForm = this.fb.group({
-      auctionName: [this.selectedAuction.auctionName, []],
-      auctionStartingPrice: [this.selectedAuction.auctionStartingPrice, []],
-      auctionStartDate: [this.selectedAuction.auctionStartDate, []],
-      auctionApplyTillDate: [''// this.selectedAuction.auctionApplyTillDate
-        , []],
-      auctionEndDate: [this.selectedAuction.auctionEndDate, []],
-      auctionStatus: ['', []]
+    let auctionDetails = this.loadAuctionDetails();
+
+    this.auctionEditForm = this.formBuilder.group({
+      auctionName: ['', []],
+      auctionStartingPrice: [null, []],
+      auctionStartDate: [null, []],
+      auctionApplyTillDate: [null, []],
+      auctionEndDate: [null, []],
+      auctionStatus: [null, []]
     });
 
     this.auctionEditForm.valueChanges.subscribe((data) => {
@@ -84,9 +82,20 @@ export class AuctionEditComponent implements OnInit {
     });
   }
 
+  private loadAuctionDetails() {
+    this.auctionEditSubscription = this.auctionService
+      .getAuctionEditDetails$(this.selectedAuctionId)
+      .subscribe(
+        (editDetails: any) => {
+
+        },
+        (error: string) => this.notificationService.error(error)
+      );
+  }
+
   private setEditRequest(): void {
     this.auctionEditRequest = {
-      auctionId: this.selectedAuction.auctionId,
+      auctionId: this.selectedAuctionId,
       auctionName: this.auctionEditForm.value.auctionName,
       auctionStartingPrice: this.auctionEditForm.value.auctionStartingPrice,
       auctionStartDate: this.auctionEditForm.value.auctionStartDate,
@@ -96,7 +105,7 @@ export class AuctionEditComponent implements OnInit {
     };
   }
 
-  private makeRequest(): void {
+  private makeUpdateRequest(): void {
     this.setEditRequest();
 
     this.auctionService.editAuction$(this.auctionEditRequest)
@@ -108,7 +117,6 @@ export class AuctionEditComponent implements OnInit {
         } else {
           this.notificationService.error('Could not update auction.');
         }
-      },
-        (error: string) => this.notificationService.error(error));
+      }, (error: string) => this.notificationService.error(error));
   }
 }
