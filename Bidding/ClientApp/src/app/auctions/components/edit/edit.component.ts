@@ -30,8 +30,9 @@ export class AuctionEditComponent implements OnInit {
     auctionName: '',
     auctionStartingPrice: '',
     auctionStartDate: '',
+    auctionApplyTillDate: '',
     auctionEndDate: '',
-    auctionStatusName: ''
+    auctionStatus: ''
   };
 
   /** API - request model */
