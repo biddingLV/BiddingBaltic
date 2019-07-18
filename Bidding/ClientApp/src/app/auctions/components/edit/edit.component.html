@@ -6,7 +6,7 @@
 </div>
 
 <div class="modal-body">
-  <form [formGroup]="auctionEditForm">
+  <form [formGroup]="auctionEditForm" *ngIf="loaded; else loading">
     <div class="form-group">
       <label>Auction Name:</label>
       <input type="text" formControlName="auctionName" class="form-control"
@@ -67,3 +67,7 @@
     </div>
   </form>
 </div>
+
+<ng-template #loading>
+  <div>Loading...</div>
+</ng-template>

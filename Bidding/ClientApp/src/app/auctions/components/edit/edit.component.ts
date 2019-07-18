@@ -1,16 +1,17 @@
 // angular
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 // 3rd party
-import { BsModalRef } from 'ngx-bootstrap/modal';
+import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Subscription } from 'rxjs';
 
 // internal
 import { AuctionsService } from '../../services/auctions.service';
 import { FormService } from 'ClientApp/src/app/core/services/form/form.service';
 import { NotificationsService } from 'ClientApp/src/app/core/services/notifications/notifications.service';
-import { AuctionEditRequest } from '../../models/edit/auction-edit-request.model';
+import { AuctionEditRequestModel } from '../../models/edit/auction-edit-request.model';
+import { AuctionEditDetailsResponseModel } from '../../models/edit/auction-edit-details-response.model';
 
 
 @Component({
@@ -35,10 +36,16 @@ export class AuctionEditComponent implements OnInit {
     auctionStatus: ''
   };
 
-  /** API - request model */
-  auctionEditRequest: AuctionEditRequest;
+  // used in the template to show || hide the loading spinner
+  loaded = false;
 
-  // convenience getter for easy access to form fields
+  /** Edit request model */
+  auctionEditRequest: AuctionEditRequestModel;
+
+  /** Specific auction details response model */
+  auctionDetails: AuctionEditDetailsResponseModel;
+
+  /** Convenience getter for easy access to form fields */
   get f() { return this.auctionEditForm.controls; }
 
   constructor(
@@ -46,11 +53,12 @@ export class AuctionEditComponent implements OnInit {
     private notificationService: NotificationsService,
     private formBuilder: FormBuilder,
     private formService: FormService,
-    public bsModalRef: BsModalRef
+    public bsModalRef: BsModalRef,
+    private externalModalService: BsModalService
   ) { }
 
   ngOnInit(): void {
-    this.buildForm();
+    this.loadAuctionDetails();
   }
 
   onSubmit(): void {
@@ -66,16 +74,27 @@ export class AuctionEditComponent implements OnInit {
     }
   }
 
-  private buildForm(): void {
-    let auctionDetails = this.loadAuctionDetails();
+  private loadAuctionDetails(): void {
+    this.auctionEditSubscription = this.auctionService
+      .getAuctionEditDetails$(this.selectedAuctionId)
+      .subscribe(
+        (editDetails: AuctionEditDetailsResponseModel) => {
+          this.loaded = true;
+          this.auctionDetails = editDetails;
+          this.buildForm();
+        },
+        (error: string) => this.notificationService.error(error)
+      );
+  }
 
+  private buildForm(): void {
     this.auctionEditForm = this.formBuilder.group({
-      auctionName: ['', []],
-      auctionStartingPrice: [null, []],
-      auctionStartDate: [null, []],
-      auctionApplyTillDate: [null, []],
-      auctionEndDate: [null, []],
-      auctionStatus: [null, []]
+      auctionName: [this.auctionDetails.auction.auctionName, [Validators.required]],
+      auctionStartingPrice: [this.auctionDetails.auction.auctionStartingPrice, []],
+      auctionStartDate: [this.auctionDetails.auction.auctionStartDate, []],
+      auctionApplyTillDate: [this.auctionDetails.auction.auctionApplyTillDate, [Validators.required]],
+      auctionEndDate: [this.auctionDetails.auction.auctionEndDate, [Validators.required]],
+      auctionStatus: [this.auctionDetails.auction.auctionStatusId, [Validators.required]] // todo: kke: needs to be select!
     });
 
     this.auctionEditForm.valueChanges.subscribe((data) => {
@@ -83,31 +102,8 @@ export class AuctionEditComponent implements OnInit {
     });
   }
 
-  private loadAuctionDetails() {
-    this.auctionEditSubscription = this.auctionService
-      .getAuctionEditDetails$(this.selectedAuctionId)
-      .subscribe(
-        (editDetails: any) => {
-
-        },
-        (error: string) => this.notificationService.error(error)
-      );
-  }
-
-  private setEditRequest(): void {
-    this.auctionEditRequest = {
-      auctionId: this.selectedAuctionId,
-      auctionName: this.auctionEditForm.value.auctionName,
-      auctionStartingPrice: this.auctionEditForm.value.auctionStartingPrice,
-      auctionStartDate: this.auctionEditForm.value.auctionStartDate,
-      auctionApplyTillDate: this.auctionEditForm.value.auctionStartDate,
-      auctionEndDate: this.auctionEditForm.value.auctionEndDate,
-      auctionStatusId: this.auctionEditForm.value.auctionStatus
-    };
-  }
-
   private makeUpdateRequest(): void {
-    this.setEditRequest();
+    this.setUpdateRequestValues();
 
     this.auctionService.editAuction$(this.auctionEditRequest)
       .subscribe((editSuccess: boolean) => {
@@ -115,9 +111,22 @@ export class AuctionEditComponent implements OnInit {
           this.notificationService.success('Auction successfully updated.');
           this.auctionEditForm.reset();
           this.bsModalRef.hide();
+          this.externalModalService.setDismissReason('Update');
         } else {
           this.notificationService.error('Could not update auction.');
         }
       }, (error: string) => this.notificationService.error(error));
+  }
+
+  private setUpdateRequestValues(): void {
+    this.auctionEditRequest = {
+      auctionId: this.selectedAuctionId,
+      auctionName: this.auctionEditForm.value.auctionName,
+      auctionStartingPrice: this.auctionEditForm.value.auctionStartingPrice,
+      auctionStartDate: this.auctionEditForm.value.auctionStartDate,
+      auctionApplyTillDate: this.auctionEditForm.value.auctionApplyTillDate,
+      auctionEndDate: this.auctionEditForm.value.auctionEndDate,
+      auctionStatusId: 1 // this.auctionEditForm.value.auctionStatus
+    };
   }
 }

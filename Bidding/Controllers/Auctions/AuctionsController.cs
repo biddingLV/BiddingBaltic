@@ -128,11 +128,16 @@ namespace Bidding.Controllers.Auctions
             return Ok(m_auctionsService.Create(request));
         }
 
+        /// <summary>
+        /// Loads specific auction's details for update modal
+        /// </summary>
+        /// <param name="auctionId"></param>
+        /// <returns></returns>
         [HttpGet]
         [Authorize(Roles = "User, Admin")]
-        public IActionResult EditDetails([FromQuery] AuctionDetailsRequestModel request)
+        public IActionResult EditDetails([FromQuery] int auctionId)
         {
-            return Ok(m_auctionsService.Details(request));
+            return Ok(m_auctionsService.EditDetails(auctionId));
         }
 
         /// <summary>
@@ -144,7 +149,7 @@ namespace Bidding.Controllers.Auctions
         [Authorize(Roles = "Admin")]
         public IActionResult Edit([FromBody] AuctionEditRequestModel request)
         {
-            return Ok(m_auctionsService.Update(request));
+            return Ok(m_auctionsService.UpdateAuctionDetails(request));
         }
 
         /// <summary>

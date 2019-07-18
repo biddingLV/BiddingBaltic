@@ -386,7 +386,35 @@ namespace Bidding.Repositories.Auctions
             return true;
         }
 
-        public bool Update(AuctionEditRequestModel request, int loggedInUserId)
+        public AuctionEditDetailsResponseModel EditDetails(int auctionId)
+        {
+            // check if even auction exists and only then do the full join
+            bool auctionExists = m_context.Auctions.Any(auct => auct.AuctionId == auctionId);
+
+            if (auctionExists)
+            {
+                return (from auct in m_context.Auctions
+                        where auct.AuctionId == auctionId
+                        select new AuctionEditDetailsResponseModel
+                        {
+                            Auction = new AboutAuctionEditDetailsModel
+                            {
+                                AuctionName = auct.Name,
+                                AuctionStartingPrice = auct.StartingPrice,
+                                AuctionStartDate = auct.StartDate,
+                                AuctionApplyTillDate = auct.ApplyTillDate,
+                                AuctionEndDate = auct.EndDate,
+                                AuctionStatusId = auct.AuctionStatusId
+                            }
+                        }).FirstOrDefault();
+            }
+            else
+            {
+                throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.IncorrectAuction);
+            }
+        }
+
+        public bool UpdateAuctionDetails(AuctionEditRequestModel request, int loggedInUserId)
         {
             var strategy = m_context.Database.CreateExecutionStrategy();
             strategy.Execute(() =>
@@ -402,7 +430,9 @@ namespace Bidding.Repositories.Auctions
                             auctionForUpdate.Name = request.AuctionName;
                             auctionForUpdate.StartingPrice = request.AuctionStartingPrice;
                             auctionForUpdate.StartDate = request.AuctionStartDate;
+                            auctionForUpdate.ApplyTillDate = request.AuctionApplyTillDate;
                             auctionForUpdate.EndDate = request.AuctionEndDate;
+                            // todo: kke: add missing status change here!
 
                             m_context.SaveChanges();
                             transaction.Commit();

@@ -135,13 +135,22 @@ namespace Bidding.Services.Auctions
             return m_auctionsRepository.Details(request);
         }
 
-        public bool Update(AuctionEditRequestModel request)
+        public AuctionEditDetailsResponseModel EditDetails(int auctionId)
+        {
+            if (auctionId.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
+
+            m_permissionService.IsLoggedInUserActive();
+
+            return m_auctionsRepository.EditDetails(auctionId);
+        }
+
+        public bool UpdateAuctionDetails(AuctionEditRequestModel request)
         {
             ValidateAuctionUpdate(request);
 
             int? loggedInUserId = m_permissionService.GetUserIdFromClaimsPrincipal();
 
-            return m_auctionsRepository.Update(request, loggedInUserId.Value);
+            return m_auctionsRepository.UpdateAuctionDetails(request, loggedInUserId.Value);
         }
 
         public bool Delete(AuctionDeleteRequestModel request)

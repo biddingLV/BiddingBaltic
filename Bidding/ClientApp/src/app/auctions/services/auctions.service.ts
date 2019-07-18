@@ -11,13 +11,14 @@ import { AuctionModel } from '../models/list/auction.model';
 import { AuctionListRequest } from '../models/list/auction-list-request.model';
 import { AuctionDetailsModel } from '../models/details/auction-details.model';
 import { ExceptionsService } from '../../core/services/exceptions/exceptions.service';
-import { AuctionEditRequest } from '../models/edit/auction-edit-request.model';
+import { AuctionEditRequestModel } from '../models/edit/auction-edit-request.model';
 import { AuctionFilterModel } from '../models/filters/auction-filter.model';
 import { AuctionFormatModel } from '../models/add/auction-format.model';
 import { AuctionCreatorModel } from '../models/add/auction-creator.model';
 import { AuctionStatusModel } from '../models/add/auction-status.model';
 import { AuctionDeleteRequest } from '../models/delete/auction-delete-request.model';
 import { CategoriesWithTypesModel } from '../models/add/categories-with-types.model';
+import { AuctionEditDetailsResponseModel } from '../models/edit/auction-edit-details-response.model';
 
 
 @Injectable({
@@ -116,14 +117,14 @@ export class AuctionsService {
       .pipe(catchError(this.exception.errorHandler));
   }
 
-  getAuctionEditDetails$(auctionId: number): Observable<any> {
+  getAuctionEditDetails$(auctionId: number): Observable<AuctionEditDetailsResponseModel> {
     const url = `api/auctions/editDetails?auctionId=${auctionId}`;
 
-    return this.http.get<any>(url)
+    return this.http.get<AuctionEditDetailsResponseModel>(url)
       .pipe(catchError(this.exception.errorHandler));
   }
 
-  editAuction$(request: AuctionEditRequest): Observable<boolean> {
+  editAuction$(request: AuctionEditRequestModel): Observable<boolean> {
     const url = '/api/auctions/edit';
 
     return this.http.put<boolean>(url, request)

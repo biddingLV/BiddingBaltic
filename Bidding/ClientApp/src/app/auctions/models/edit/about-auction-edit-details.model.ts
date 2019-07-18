@@ -1,5 +1,4 @@
-export interface AuctionEditRequestModel {
-  auctionId: number;
+export interface AboutAuctionEditDetailsModel {
   auctionName: string;
   auctionStartingPrice: number;
   auctionStartDate: Date;
