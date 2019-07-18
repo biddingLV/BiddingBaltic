@@ -7,7 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 // 3rd lib
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { GalleryModule } from '@ngx-gallery/core';
+import { NgxGalleryModule } from 'ngx-gallery';
 
 // internal
 import { SearchComponent } from './components/search/search.component';
@@ -26,7 +26,7 @@ import { HasRoleDirective } from './directives/authorization/role/has-role.direc
     MinSharedModule,
     FormsModule,
     ReactiveFormsModule,
-    GalleryModule
+    NgxGalleryModule
   ],
   exports: [
     SearchComponent,
