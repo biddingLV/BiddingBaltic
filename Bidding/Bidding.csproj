@@ -53,6 +53,7 @@
     <Folder Include="ClientApp\src\app\admin\services\" />
     <Folder Include="ClientApp\src\app\auth\components\404-page-not-found\" />
     <Folder Include="ClientApp\src\app\shared\components\callback\" />
+    <Folder Include="Models\ViewModels\Bidding\Admin\Auctions\" />
     <Folder Include="Models\ViewModels\Bidding\Users\Delete\" />
     <Folder Include="Models\ViewModels\Bidding\Users\Edit\" />
   </ItemGroup>

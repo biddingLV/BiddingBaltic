@@ -32,6 +32,8 @@ export class AuctionMainComponent implements OnInit {
   /** Search bar - specified text */
   searchText: string;
 
+  selected?: any[] = [];
+
   // API
   auctionTable: AuctionModel;
   request: AuctionListRequest;
@@ -71,6 +73,34 @@ export class AuctionMainComponent implements OnInit {
   /** Called on auction search event */
   onAuctionSearch(searchText: string) {
     this.searchText = searchText;
+  }
+
+  // Request Update Events
+  updateRequest(property: string, event): void {
+    if (property === 'Page') {
+      this.request.currentPage = event.page;
+    } else {
+      this.request.searchValue = event;
+      this.request.currentPage = 1;
+    }
+  }
+
+  // Sort Update Events
+  onSortChange(event): void {
+    this.request.sortingDirection =
+      this.request.sortByColumn === event.column.prop ? this.request.sortingDirection === 'asc' ? 'desc' : 'asc' : 'asc';
+
+    this.request.sortByColumn = event.column.prop;
+    this.request.currentPage = 1;
+  }
+
+  // todo: kke: is this even needed here?
+  onSelectedChange(event): void {
+    // this.selectedChange.emit(event);
+  }
+
+  onDetailsClick(): void {
+
   }
 
   /** Load top & sub categories */

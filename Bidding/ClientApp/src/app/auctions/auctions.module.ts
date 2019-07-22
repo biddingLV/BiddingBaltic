@@ -7,7 +7,6 @@ import { ArchwizardModule } from 'angular-archwizard';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 // internal
-import { AuctionListComponent } from './components/list/list.component';
 import { AuctionDetailsComponent } from './containers/details/details.component';
 import { AuctionMainComponent } from './containers/main/main.component';
 import { AuctionEditComponent } from './components/edit/edit.component';
@@ -23,7 +22,7 @@ import { AuctionDetailsCountdownComponent } from './components/details/countdown
 import { AuctionAddCategoryWizardStepComponent } from './components/wizard/wizard-steps/category-step/category-step.component';
 import { AuctionAddWizardPropertyComponent } from './components/wizard/wizard-steps/add-step/categories/property/property-category.component';
 import { AuctionAddAboutWizardStepComponent } from './components/wizard/wizard-steps/about-step/about-step.component';
-import { AuctionsTableComponent } from './components/list/table/table.component';
+import { AuctionTableComponent } from './components/auction-table/auction-table.component';
 
 
 @NgModule({
@@ -35,14 +34,12 @@ import { AuctionsTableComponent } from './components/list/table/table.component'
     BsDatepickerModule.forRoot()
   ],
   exports: [
-    AuctionsTableComponent,
-    AuctionListComponent,
+    AuctionTableComponent,
     ArchwizardModule,
     BsDatepickerModule
   ],
   declarations: [
-    AuctionsTableComponent,
-    AuctionListComponent,
+    AuctionTableComponent,
     AuctionDetailsComponent,
     AuctionMainComponent,
     AuctionAddMainWizardComponent,

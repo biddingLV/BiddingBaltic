@@ -33,11 +33,6 @@ namespace Bidding.Services.Auctions
         private readonly AuctionsRepository m_auctionsRepository;
         private readonly FileUploaderService m_fileUploaderService;
 
-        /// <summary>
-        /// Default page size for auction list
-        /// </summary>
-        private readonly int defaultPageSize = 15;
-
         public AuctionsService(AuctionsRepository auctionRepository, PermissionService permissionService, FileUploaderService fileUploaderService)
         {
             m_permissionService = permissionService ?? throw new ArgumentNullException(nameof(permissionService));
@@ -57,7 +52,7 @@ namespace Bidding.Services.Auctions
                 ItemCount = m_auctionsRepository.TotalAuctionCount().Count()
             };
 
-            Pagination.PaginateResponse(ref auctionsResponse, defaultPageSize, request.CurrentPage);
+            Pagination.PaginateResponse(ref auctionsResponse, TableItem.DEFAULT_SIZE, request.CurrentPage);
 
             return auctionsResponse;
         }

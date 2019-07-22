@@ -8,6 +8,9 @@ namespace Bidding.Shared.ErrorHandling.Errors
 {
     public enum UserErrorMessages
     {
+        [Description("Users information missing")]
+        MissingUsersInformation,
+
         [Description("You can not sign-in")]
         CanNotSignIn,
 

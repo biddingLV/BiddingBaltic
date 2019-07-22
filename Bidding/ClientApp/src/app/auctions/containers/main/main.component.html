@@ -42,9 +42,9 @@
   <!-- List/Table -->
   <div class="row">
     <div class="col-12" *ngIf="auctionTable">
-      <app-auction-list [auctionTable]="auctionTable" [(categoryIds)]="selectedCategoryIds"
-        [(typeIds)]="selectedTypeIds" [(searchText)]="searchText">
-      </app-auction-list>
+      <app-auction-table *ngIf="auctionTable" [auctionTable]="auctionTable" [numberRows]="numberRows"
+        [selected]="selected" (pageChange)="updateRequest('Page', $event)" (sortChange)="onSortChange($event)"
+        (detailsClick)="onDetailsClick()" (selectedChange)="onSelectedChange($event)"></app-auction-table>
     </div>
   </div>
 </div>

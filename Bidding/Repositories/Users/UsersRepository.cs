@@ -13,6 +13,9 @@ using System.Threading.Tasks;
 using Bidding.Database.Contexts;
 using Bidding.Database.DatabaseModels.Users;
 using Bidding.Models.ViewModels.Bidding.Users.Details;
+using System.Data.SqlClient;
+using System.Data;
+using Bidding.Models.ViewModels.Bidding.Admin.Users.List;
 
 namespace Bidding.Repositories.Users
 {
@@ -104,6 +107,40 @@ namespace Bidding.Repositories.Users
                         UserRole = rol.Name,
                         UserUniqueIdentifier = usr.UniqueIdentifier
                     });
+        }
+
+        public IEnumerable<UserListModel> ListWithSearch(UserListRequestModel request, int startFrom, int endAt)
+        {
+            try
+            {
+                SqlParameter startPaginationFrom = new SqlParameter
+                {
+                    ParameterName = "start",
+                    Direction = ParameterDirection.Input,
+                    Value = startFrom,
+                    SqlDbType = SqlDbType.Int
+                };
+
+                SqlParameter endPaginationAt = new SqlParameter
+                {
+                    ParameterName = "end",
+                    Direction = ParameterDirection.Input,
+                    Value = endAt,
+                    SqlDbType = SqlDbType.Int
+                };
+
+                return m_context.Query<UserListModel>()
+                    .FromSql("BID_GetUsers @start, @end", startPaginationFrom, endPaginationAt);
+            }
+            catch (Exception ex)
+            {
+                throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.CouldNotFetchAuctionList, ex);
+            }
+        }
+
+        public IEnumerable<User> TotalUserCount()
+        {
+            return m_context.Users.Where(usr => usr.Deleted == false);
         }
     }
 }

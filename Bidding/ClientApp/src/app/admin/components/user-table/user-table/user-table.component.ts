@@ -1,18 +1,15 @@
 // angular
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 
-// internal
-import { AuctionModel } from '../../../models/list/auction.model';
-
 
 @Component({
-  selector: 'app-auctions-table',
-  templateUrl: './table.component.html'
+  selector: 'app-user-table',
+  templateUrl: './user-table.component.html'
 })
-export class AuctionsTableComponent implements OnInit {
+export class UserTableComponent implements OnInit {
   // table
   @Input() numberRows: number;
-  @Input() auctionTable: AuctionModel;
+  @Input() userTable: any;
   @Input() selected: any[];
 
   @Output() pageChange = new EventEmitter<number>();
