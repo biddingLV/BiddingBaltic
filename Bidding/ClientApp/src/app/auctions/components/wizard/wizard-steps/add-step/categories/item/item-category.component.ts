@@ -71,6 +71,16 @@ export class AuctionAddWizardItemComponent implements OnInit {
     this.returnAddWizardStepForm.emit(this.addStepForm);
   }
 
+  onFileUploaded(fileId: any) {
+    // todo: kke: add to form object!
+    // this.firstStepForm.get('logo').setValue(fileId);
+  }
+
+  onFileRemoved() {
+    // todo: kke: add to form object!
+    // this.firstStepForm.get('logo').reset();
+  }
+
   private buildForm(): void {
     this.addStepForm = this.formBuilder.group({
       itemName: ['', [Validators.required]],

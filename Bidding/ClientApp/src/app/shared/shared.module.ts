@@ -8,6 +8,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { NgxGalleryModule } from 'ngx-gallery';
+import { NgxUploaderModule } from 'ngx-uploader';
 
 // internal
 import { SearchComponent } from './components/search/search.component';
@@ -26,7 +27,8 @@ import { HasRoleDirective } from './directives/authorization/role/has-role.direc
     MinSharedModule,
     FormsModule,
     ReactiveFormsModule,
-    NgxGalleryModule
+    NgxGalleryModule,
+    NgxUploaderModule
   ],
   exports: [
     SearchComponent,
@@ -36,7 +38,8 @@ import { HasRoleDirective } from './directives/authorization/role/has-role.direc
     FileUploaderComponent,
     ImageGalleryComponent,
     HasRoleDirective,
-    NgxDatatableModule
+    NgxDatatableModule,
+    NgxUploaderModule
   ],
   declarations: [
     SearchComponent,

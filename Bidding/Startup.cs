@@ -11,8 +11,6 @@ using Bidding.Shared.ErrorHandling.Validators;
 using Bidding.Shared.Exceptions;
 using Bidding.Shared.Utility;
 using Bidding.Models.ApplicationModels.Configuration;
-using Bidding.Models.DatabaseModels;
-using Bidding.Models.DatabaseModels.Bidding;
 using Bidding.Repositories.Auctions;
 using Bidding.Repositories.Subscribe;
 using Bidding.Services.Auctions;
@@ -28,7 +26,6 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Authorization;
-using Microsoft.AspNetCore.SpaServices.AngularCli;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -42,6 +39,7 @@ using System.Security.Principal;
 using System.Threading.Tasks;
 using Bidding.Database.Contexts;
 using Bidding.Database.DatabaseModels.Auctions;
+using Bidding.Services.Shared;
 
 namespace Bidding
 {
@@ -205,7 +203,7 @@ namespace Bidding
                     options.Filters.Add(new AuthorizeFilter(policy));
                     options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()); // TODO: KKE: Check why this is not working for post requests!
                 })
-                .SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+                .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
         private void ConfigureCORS(ref IServiceCollection services)
@@ -262,6 +260,8 @@ namespace Bidding
             services.AddScoped<AuctionsRepository>();
             services.AddScoped<UsersService>();
             services.AddScoped<UsersRepository>();
+            services.AddScoped<FileUploaderService>();
+            services.AddScoped<FileUploaderRepository>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }
 

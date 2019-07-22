@@ -8,6 +8,7 @@ import { catchError } from 'rxjs/operators';
 // internal
 import { NotificationsService } from '../../../core';
 import { ExceptionsService } from '../../../core/services/exceptions/exceptions.service';
+import { FileUploaderService } from '../../services/file-uploader/file-uploader.service';
 
 
 @Component({
@@ -25,9 +26,10 @@ export class FileUploaderComponent {
   urls = [];
 
   constructor(
-    private http: HttpClient,
-    private notification: NotificationsService,
-    private exception: ExceptionsService
+    private httpService: HttpClient,
+    private notificationService: NotificationsService,
+    private exceptionService: ExceptionsService,
+    private fileUploaderService: FileUploaderService
   ) { }
 
   upload(event): void {
@@ -55,12 +57,18 @@ export class FileUploaderComponent {
       formData.append('fileArray', event.target.files[i], event.target.files[i].name);
     }
 
-    const uploadRequest = new HttpRequest('POST', 'api/fileUploader/upload', formData, {
-      reportProgress: true,
-    });
+    this.fileUploaderService.uploadFiles$(formData)
+      .subscribe((response: boolean) => {
+        if (response) {
+          this.notificationService.success('File(s) successfully uploaded.');
+        } else {
+          this.notificationService.error('Could not upload file(s).');
+        }
+      },
+        (error: string) => this.notificationService.error(error));
 
-    // this.http.request(uploadRequest)
-    //   .pipe(catchError(this.exception.errorHandler))
+    // this.httpService.request(uploadRequest)
+    //   .pipe(catchError(this.exceptionService.errorHandler))
     //   .subscribe(event => {
     //     if (event.type === HttpEventType.UploadProgress) {
     //       this.progress = Math.round(100 * event.loaded / event.total);
@@ -69,11 +77,11 @@ export class FileUploaderComponent {
     //         this.fileIsUploaded = true;
     //         this.fileUploaded.emit(event.body.toString());
     //       } else {
-    //         this.notification.error('Could not upload image.');
+    //         this.notificationService.error('Could not upload image.');
     //       }
     //     }
     //   },
-    //     (error: string) => this.notification.error(error)
+    //     (error: string) => this.notificationService.error(error)
     //   );
   }
 

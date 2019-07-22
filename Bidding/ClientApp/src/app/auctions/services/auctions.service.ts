@@ -26,8 +26,8 @@ import { AuctionEditDetailsResponseModel } from '../models/edit/auction-edit-det
 })
 export class AuctionsService {
   constructor(
-    private http: HttpClient,
-    private exception: ExceptionsService
+    private httpService: HttpClient,
+    private exceptionService: ExceptionsService
   ) { }
 
   getAuctions$(request: AuctionListRequest): Observable<AuctionModel> {
@@ -58,52 +58,52 @@ export class AuctionsService {
       }
     }
 
-    return this.http.get<AuctionModel>(url, { params })
-      .pipe(catchError(this.exception.errorHandler));
+    return this.httpService.get<AuctionModel>(url, { params })
+      .pipe(catchError(this.exceptionService.errorHandler));
   }
 
   /** Loads filters for auction list */
   getFilters$(): Observable<AuctionFilterModel> {
     const url = '/api/auctions/filters';
 
-    return this.http.get<AuctionFilterModel>(url)
-      .pipe(catchError(this.exception.errorHandler));
+    return this.httpService.get<AuctionFilterModel>(url)
+      .pipe(catchError(this.exceptionService.errorHandler));
   }
 
   /** Fetch all top-categories with sub-categories / types for auction add wizard */
   categoriesWithTypes$(): Observable<CategoriesWithTypesModel> {
     const url = '/api/auctions/CategoriesWithTypes';
 
-    return this.http.get<CategoriesWithTypesModel>(url)
-      .pipe(catchError(this.exception.errorHandler));
+    return this.httpService.get<CategoriesWithTypesModel>(url)
+      .pipe(catchError(this.exceptionService.errorHandler));
   }
 
   getAuctionCreators$(): Observable<AuctionCreatorModel[]> {
     const url = '/api/auctions/creators';
 
-    return this.http.get<AuctionCreatorModel[]>(url)
-      .pipe(catchError(this.exception.errorHandler));
+    return this.httpService.get<AuctionCreatorModel[]>(url)
+      .pipe(catchError(this.exceptionService.errorHandler));
   }
 
   getAuctionFormats$(): Observable<AuctionFormatModel[]> {
     const url = '/api/auctions/formats';
 
-    return this.http.get<AuctionFormatModel[]>(url)
-      .pipe(catchError(this.exception.errorHandler));
+    return this.httpService.get<AuctionFormatModel[]>(url)
+      .pipe(catchError(this.exceptionService.errorHandler));
   }
 
   getAuctionStatuses$(): Observable<AuctionStatusModel[]> {
     const url = '/api/auctions/statuses';
 
-    return this.http.get<AuctionStatusModel[]>(url)
-      .pipe(catchError(this.exception.errorHandler));
+    return this.httpService.get<AuctionStatusModel[]>(url)
+      .pipe(catchError(this.exceptionService.errorHandler));
   }
 
   getAuctionDetails$(auctionId: number): Observable<AuctionDetailsModel> {
     const url = `api/auctions/details?auctionId=${auctionId}`;
 
-    return this.http.get<AuctionDetailsModel>(url)
-      .pipe(catchError(this.exception.errorHandler));
+    return this.httpService.get<AuctionDetailsModel>(url)
+      .pipe(catchError(this.exceptionService.errorHandler));
   }
 
   /**
@@ -113,22 +113,22 @@ export class AuctionsService {
   addAuction$(request: Auctions.AddAuctionRequestModel): Observable<boolean> {
     const url = '/api/auctions/create';
 
-    return this.http.post<boolean>(url, request)
-      .pipe(catchError(this.exception.errorHandler));
+    return this.httpService.post<boolean>(url, request)
+      .pipe(catchError(this.exceptionService.errorHandler));
   }
 
   getAuctionEditDetails$(auctionId: number): Observable<AuctionEditDetailsResponseModel> {
     const url = `api/auctions/editDetails?auctionId=${auctionId}`;
 
-    return this.http.get<AuctionEditDetailsResponseModel>(url)
-      .pipe(catchError(this.exception.errorHandler));
+    return this.httpService.get<AuctionEditDetailsResponseModel>(url)
+      .pipe(catchError(this.exceptionService.errorHandler));
   }
 
   editAuction$(request: AuctionEditRequestModel): Observable<boolean> {
     const url = '/api/auctions/edit';
 
-    return this.http.put<boolean>(url, request)
-      .pipe(catchError(this.exception.errorHandler));
+    return this.httpService.put<boolean>(url, request)
+      .pipe(catchError(this.exceptionService.errorHandler));
   }
 
   deleteAuction$(request: AuctionDeleteRequest): Observable<boolean> {
@@ -138,7 +138,7 @@ export class AuctionsService {
       body: request
     };
 
-    return this.http.delete<boolean>(url, options)
-      .pipe(catchError(this.exception.errorHandler));
+    return this.httpService.delete<boolean>(url, options)
+      .pipe(catchError(this.exceptionService.errorHandler));
   }
 }

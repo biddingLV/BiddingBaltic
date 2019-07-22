@@ -23,6 +23,7 @@ using Bidding.Models.ViewModels.Bidding.Auctions.Shared;
 using Bidding.Models.ViewModels.Bidding.Auctions.Details;
 using Bidding.Models.ViewModels.Bidding.Auctions.Edit;
 using Bidding.Models.ViewModels.Bidding.Auctions.Delete;
+using Bidding.Services.Shared;
 
 namespace Bidding.Services.Auctions
 {
@@ -30,16 +31,18 @@ namespace Bidding.Services.Auctions
     {
         private readonly PermissionService m_permissionService;
         private readonly AuctionsRepository m_auctionsRepository;
+        private readonly FileUploaderService m_fileUploaderService;
 
         /// <summary>
         /// Default page size for auction list
         /// </summary>
         private readonly int defaultPageSize = 15;
 
-        public AuctionsService(AuctionsRepository auctionRepository, PermissionService permissionService)
+        public AuctionsService(AuctionsRepository auctionRepository, PermissionService permissionService, FileUploaderService fileUploaderService)
         {
             m_permissionService = permissionService ?? throw new ArgumentNullException(nameof(permissionService));
             m_auctionsRepository = auctionRepository ?? throw new ArgumentNullException(nameof(auctionRepository));
+            m_fileUploaderService = fileUploaderService ?? throw new ArgumentNullException(nameof(fileUploaderService));
         }
 
         public AuctionListResponseModel ListWithSearch(AuctionListRequestModel request)
@@ -125,14 +128,16 @@ namespace Bidding.Services.Auctions
             };
         }
 
-        public AuctionDetailsResponseModel Details(AuctionDetailsRequestModel request)
+        public async Task<AuctionDetailsResponseModel> DetailsAsync(AuctionDetailsRequestModel request)
         {
             if (request.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
             if (request.AuctionId.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.IncorrectAuction); }
 
             m_permissionService.IsLoggedInUserActive();
 
-            return m_auctionsRepository.Details(request);
+            var xxx = await m_fileUploaderService.GetCloudBlobContainer2();
+
+            return await m_auctionsRepository.DetailsAsync(request);
         }
 
         public AuctionEditDetailsResponseModel EditDetails(int auctionId)

@@ -45,28 +45,20 @@ export class ImageGalleryComponent implements OnInit {
 
     this.galleryImages = [
       {
-        small: 'assets/images/gallery-images/1-small.jpeg',
-        medium: 'assets/images/gallery-images/1-medium.jpeg',
-        big: 'assets/images/gallery-images/1-medium.jpeg'
+        small: 'https://biddinglv.blob.core.windows.net/bidauctionimages-67107ed8-d71f-4130-8787-91c202e8434a/8d566cbe-e027-40f4-af14-440132ab4f8a.jpg',
+        medium: 'https://biddinglv.blob.core.windows.net/bidauctionimages-67107ed8-d71f-4130-8787-91c202e8434a/8d566cbe-e027-40f4-af14-440132ab4f8a.jpg',
+        big: 'https://biddinglv.blob.core.windows.net/bidauctionimages-67107ed8-d71f-4130-8787-91c202e8434a/8d566cbe-e027-40f4-af14-440132ab4f8a.jpg'
       },
       {
-        small: 'assets/images/gallery-images/2-small.jpeg',
-        medium: 'assets/images/gallery-images/2-medium.jpeg',
-        big: 'assets/images/gallery-images/1-medium.jpeg'
+        small: 'https://biddinglv.blob.core.windows.net/bidauctionimages-67107ed8-d71f-4130-8787-91c202e8434a/c07440cd-7f64-42ad-ad92-bfd4b1660ee0.jpg',
+        medium: 'https://biddinglv.blob.core.windows.net/bidauctionimages-67107ed8-d71f-4130-8787-91c202e8434a/c07440cd-7f64-42ad-ad92-bfd4b1660ee0.jpg',
+        big: 'https://biddinglv.blob.core.windows.net/bidauctionimages-67107ed8-d71f-4130-8787-91c202e8434a/c07440cd-7f64-42ad-ad92-bfd4b1660ee0.jpg'
       },
       {
-        small: 'assets/images/gallery-images/3-small.jpeg',
-        medium: 'assets/images/gallery-images/3-medium.jpeg',
-        big: 'assets/images/gallery-images/1-medium.jpeg'
+        small: 'https://biddinglv.blob.core.windows.net/bidauctionimages-67107ed8-d71f-4130-8787-91c202e8434a/e5c60ea7-7243-4f5c-bc9e-f09df28f5b53.jpg',
+        medium: 'https://biddinglv.blob.core.windows.net/bidauctionimages-67107ed8-d71f-4130-8787-91c202e8434a/e5c60ea7-7243-4f5c-bc9e-f09df28f5b53.jpg',
+        big: 'https://biddinglv.blob.core.windows.net/bidauctionimages-67107ed8-d71f-4130-8787-91c202e8434a/e5c60ea7-7243-4f5c-bc9e-f09df28f5b53.jpg'
       }
     ];
-
-    // this.images = [
-    //   new ImageItem({ src: 'https://preview.ibb.co/jrsA6R/img12.jpg', thumb: 'https://preview.ibb.co/jrsA6R/img12.jpg' }),
-    //   new ImageItem({ src: 'https://preview.ibb.co/jrsA6R/img12.jpg', thumb: 'https://preview.ibb.co/jrsA6R/img12.jpg' }),
-    //   new ImageItem({ src: 'https://preview.ibb.co/jrsA6R/img12.jpg', thumb: 'https://preview.ibb.co/jrsA6R/img12.jpg' })
-    // ];
-
-
   }
 }

@@ -220,7 +220,7 @@ namespace Bidding.Repositories.Auctions
                 .Select(asta => new AuctionStatusItemModel { AuctionStatusId = asta.AuctionStatusId, AuctionStatusName = asta.Name });
         }
 
-        public AuctionDetailsResponseModel Details(AuctionDetailsRequestModel request)
+        public async Task<AuctionDetailsResponseModel> DetailsAsync(AuctionDetailsRequestModel request)
         {
             // check if even auction exists and only then do the full join
             bool auctionExists = m_context.Auctions.Any(auct => auct.AuctionId == request.AuctionId);

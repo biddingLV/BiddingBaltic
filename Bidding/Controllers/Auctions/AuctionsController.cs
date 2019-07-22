@@ -111,9 +111,9 @@ namespace Bidding.Controllers.Auctions
         /// <returns></returns>
         [HttpGet]
         [Authorize(Roles = "User, Admin")]
-        public IActionResult Details([FromQuery] AuctionDetailsRequestModel request)
+        public async Task<IActionResult> Details([FromQuery] AuctionDetailsRequestModel request)
         {
-            return Ok(m_auctionsService.Details(request));
+            return Ok(await m_auctionsService.DetailsAsync(request));
         }
 
         /// <summary>

@@ -107,6 +107,16 @@ export class AuctionAddWizardVehicleComponent implements OnInit {
     this.returnAddWizardStepForm.emit(this.addStepForm);
   }
 
+  onFileUploaded(fileId: string) {
+    // todo: kke: add to form object!
+    // this.firstStepForm.get('logo').setValue(fileId);
+  }
+
+  onFileRemoved() {
+    // todo: kke: add to form object!
+    // this.firstStepForm.get('logo').reset();
+  }
+
   private buildForm(): void {
     this.addStepForm = this.formBuilder.group({
       vehicleName: ['', [Validators.required]],

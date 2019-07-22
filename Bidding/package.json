@@ -43,6 +43,7 @@
     "ngx-cookie-service": "^2.1.0",
     "ngx-gallery": "^5.10.0",
     "ngx-toastr": "^9.2.0",
+    "ngx-uploader": "^7.1.0",
     "popper.js": "^1.15.0",
     "rxjs": "^6.4.0",
     "tslint-angular": "^1.1.2",
