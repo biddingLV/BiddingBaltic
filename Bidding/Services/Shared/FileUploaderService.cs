@@ -1,5 +1,4 @@
-﻿using Bidding.Models.ViewModels.Bidding.Shared.FileUpload;
-using Bidding.Repositories.Shared;
+﻿using Bidding.Repositories.Shared;
 using Bidding.Shared.ErrorHandling.Errors;
 using Bidding.Shared.Exceptions;
 using Microsoft.AspNetCore.Http;

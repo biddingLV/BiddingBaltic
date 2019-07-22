@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using Bidding.Models.ViewModels.Bidding.Shared.FileUpload;
 using Bidding.Services.Shared;
 using Bidding.Shared.Utility;
 using Microsoft.AspNetCore.Authorization;
