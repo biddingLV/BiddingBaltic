@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Bidding.Migrations
 {
     [DbContext(typeof(BiddingContext))]
-    [Migration("20190716070913_InitialMigration")]
+    [Migration("20190723074121_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -640,6 +640,9 @@ namespace Bidding.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("ContactEmail")
+                        .HasMaxLength(50);
+
                     b.Property<DateTime>("CreatedAt");
 
                     b.Property<int>("CreatedBy");
@@ -756,7 +759,7 @@ namespace Bidding.Migrations
                             UserId = 6,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CreatedBy = 1,
-                            Deleted = false,
+                            Deleted = true,
                             FirstName = "Jānis",
                             LastName = "B",
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),

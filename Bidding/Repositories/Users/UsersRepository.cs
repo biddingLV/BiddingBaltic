@@ -109,7 +109,7 @@ namespace Bidding.Repositories.Users
                     });
         }
 
-        public IEnumerable<UserListModel> ListWithSearch(UserListRequestModel request, int startFrom, int endAt)
+        public IEnumerable<UserListItemModel> ListWithSearch(UserListRequestModel request, int startFrom, int endAt)
         {
             try
             {
@@ -129,12 +129,12 @@ namespace Bidding.Repositories.Users
                     SqlDbType = SqlDbType.Int
                 };
 
-                return m_context.Query<UserListModel>()
-                    .FromSql("BID_GetUsers @start, @end", startPaginationFrom, endPaginationAt);
+                return m_context.Query<UserListItemModel>()
+                    .FromSql("[dbo].[BID_GetUsers] @start, @end", startPaginationFrom, endPaginationAt);
             }
             catch (Exception ex)
             {
-                throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.CouldNotFetchAuctionList, ex);
+                throw new WebApiException(HttpStatusCode.BadRequest, UserErrorMessages.CouldNotFetchUserList, ex);
             }
         }
 

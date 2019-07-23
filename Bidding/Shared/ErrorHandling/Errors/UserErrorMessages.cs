@@ -33,6 +33,9 @@ namespace Bidding.Shared.ErrorHandling.Errors
         SubscribeEmailFails,
 
         [Description("Could not subscribe to newsletter using whatsapp approach")]
-        SubscribWhatsAppFails
+        SubscribWhatsAppFails,
+
+        [Description("Could not fetch user list")]
+        CouldNotFetchUserList,
     }
 }

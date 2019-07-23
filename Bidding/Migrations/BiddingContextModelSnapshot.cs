@@ -638,6 +638,9 @@ namespace Bidding.Migrations
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
+                    b.Property<string>("ContactEmail")
+                        .HasMaxLength(50);
+
                     b.Property<DateTime>("CreatedAt");
 
                     b.Property<int>("CreatedBy");
@@ -754,7 +757,7 @@ namespace Bidding.Migrations
                             UserId = 6,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CreatedBy = 1,
-                            Deleted = false,
+                            Deleted = true,
                             FirstName = "Jānis",
                             LastName = "B",
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),

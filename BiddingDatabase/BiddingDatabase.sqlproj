@@ -65,6 +65,7 @@
     <Build Include="Stored Procedures\BID_GetAuctions.sql" />
     <Build Include="Stored Procedures\BID_GetSubCategoriesWithCount.sql" />
     <Build Include="Stored Procedures\BID_GetTopCategoriesWithCount.sql" />
+    <Build Include="Stored Procedures\BID_GetUsers.sql" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Types\Table Types\BID_CategoryIdArray.sql" />

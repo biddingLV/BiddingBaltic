@@ -39,8 +39,8 @@ export class AuctionsService {
         endDate: request.auctionEndDate.toString(),
         sortByColumn: request.sortByColumn.toString(),
         sortingDirection: request.sortingDirection.toString(),
-        offsetEnd: request.sizeOfPage.toString(),
-        offsetStart: request.currentPage.toString(),
+        offsetEnd: request.offsetEnd.toString(),
+        offsetStart: request.offsetStart.toString(),
         searchValue: request.searchValue === undefined ? '' : request.searchValue.toString(),
         currentPage: request.currentPage.toString()
       }

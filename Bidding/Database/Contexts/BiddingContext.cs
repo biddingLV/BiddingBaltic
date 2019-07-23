@@ -16,6 +16,7 @@ using Bidding.Database.DatabaseModels.Vehicle;
 using Bidding.Database.DatabaseModels.Item;
 using Bidding.Database.DatabaseModels.Property;
 using Bidding.Database.DatabaseModels.Shared;
+using Bidding.Models.ViewModels.Bidding.Admin.Users.List;
 
 namespace Bidding.Database.Contexts
 {
@@ -50,10 +51,11 @@ namespace Bidding.Database.Contexts
         //public virtual DbSet<UserOrganization> UserOrganizations { get; set; }
         public virtual DbSet<Newsletter> Newsletters { get; set; }
 
-        // Database Queries for stored procedures / views
+        // Database Queries for stored procedures, views and so on!
         public virtual DbQuery<TopCategoryFilterModel> TopCategoryFilter { get; set; }
         public virtual DbQuery<SubCategoryFilterModel> SubCategoryFilter { get; set; }
         public virtual DbQuery<AuctionListModel> AuctionList { get; set; }
+        public virtual DbQuery<UserListItemModel> UserListItem { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

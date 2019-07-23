@@ -151,7 +151,7 @@ namespace Bidding.Database.Contexts
                     LastName = "B",
                     LoginEmail = "janis.rihards.blazevics@gmail.com",
                     RoleId = 2,
-                    Deleted = false,
+                    Deleted = true,
                     UniqueIdentifier = "",
                     CreatedAt = CreatedAtDateTime,
                     CreatedBy = CreatedByBiddingAdmin,

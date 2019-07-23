@@ -109,7 +109,8 @@ export class AdminAuctionMainComponent implements OnInit {
     this.request = {
       auctionStartDate: moment().subtract(365, 'days').format('DD/MM/YYYY'),
       auctionEndDate: moment().format('DD/MM/YYYY'),
-      sizeOfPage: this.numberRows,
+      offsetStart: 0,
+      offsetEnd: this.numberRows,
       currentPage: this.currentPage,
       sortByColumn: 'AuctionName', // by default sort by auction name
       sortingDirection: 'asc', // by default ascending

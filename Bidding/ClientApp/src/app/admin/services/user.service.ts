@@ -8,6 +8,8 @@ import { Observable } from 'rxjs';
 
 // internal
 import { ExceptionsService } from '../../core';
+import { UserListResponseModel } from '../models/list/user-list-response.model';
+import { UserListRequestModel } from '../models/list/user-list-request.model';
 
 
 @Injectable({
@@ -21,21 +23,21 @@ export class UserService {
   ) { }
 
   // todo: kke: SPECIFY ALL MISSING TYPES!
-  getUsers$(request: any): Observable<any> {
+  getUsers$(request: UserListRequestModel): Observable<UserListResponseModel> {
     const url = '/api/users/search';
 
     let params = new HttpParams({
       fromObject: {
         sortByColumn: request.sortByColumn.toString(),
         sortingDirection: request.sortingDirection.toString(),
-        offsetEnd: request.sizeOfPage.toString(),
-        offsetStart: request.currentPage.toString(),
+        offsetEnd: request.offsetEnd.toString(),
+        offsetStart: request.offsetStart.toString(),
         searchValue: request.searchValue === undefined ? '' : request.searchValue.toString(),
         currentPage: request.currentPage.toString()
       }
     });
 
-    return this.httpService.get<any>(url, { params })
+    return this.httpService.get<UserListResponseModel>(url, { params })
       .pipe(catchError(this.exceptionService.errorHandler));
   }
 }

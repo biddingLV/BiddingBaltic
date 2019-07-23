@@ -1,6 +1,6 @@
-import { ListRequest } from '../../../shared/models/list-request.model';
+import { BaseListRequestModel } from '../../../shared/models/base-list-request.model';
 
-export interface AuctionListRequest extends ListRequest {
+export interface AuctionListRequest extends BaseListRequestModel {
   auctionStartDate: string;
   auctionEndDate: string;
   topCategoryIds?: number[]; // optional - category ids

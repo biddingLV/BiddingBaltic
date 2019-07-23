@@ -1,7 +1,8 @@
-export interface ListRequest {
+export interface BaseListRequestModel {
   sortByColumn: string;
   sortingDirection: string;
   searchValue: string;
-  sizeOfPage: number;
+  offsetStart: number;
+  offsetEnd: number;
   currentPage: number;
 }

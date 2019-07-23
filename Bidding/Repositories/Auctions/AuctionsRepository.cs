@@ -97,7 +97,7 @@ namespace Bidding.Repositories.Auctions
                 };
 
                 return m_context.Query<AuctionListModel>()
-                    .FromSql("BID_GetAuctions @selectedCategories, @selectedTypes, @start, @end", categories, types, startPaginationFrom, endPaginationAt);
+                    .FromSql("[dbo].[BID_GetAuctions] @selectedCategories, @selectedTypes, @start, @end", categories, types, startPaginationFrom, endPaginationAt);
             }
             catch (Exception ex)
             {

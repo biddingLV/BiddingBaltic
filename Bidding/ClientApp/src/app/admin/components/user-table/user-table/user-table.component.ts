@@ -1,6 +1,10 @@
 // angular
 import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 
+// internal
+import { UserListResponseModel } from '../../../models/list/user-list-response.model';
+import { UserListItemModel } from '../../../models/list/user-list-item.model';
+
 
 @Component({
   selector: 'app-user-table',
@@ -9,8 +13,8 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 export class UserTableComponent implements OnInit {
   // table
   @Input() numberRows: number;
-  @Input() userTable: any;
-  @Input() selected: any[];
+  @Input() userTable: UserListResponseModel;
+  @Input() selected: UserListItemModel[];
 
   @Output() pageChange = new EventEmitter<number>();
   @Output() sortChange = new EventEmitter<boolean>();
@@ -19,7 +23,9 @@ export class UserTableComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit(): void { }
+  ngOnInit(): void {
+
+  }
 
   onPageChange(page: number): void {
     this.pageChange.emit(page);

@@ -9,6 +9,9 @@ import { Subscription } from 'rxjs';
 import { NotificationsService } from 'ClientApp/src/app/core/services/notifications/notifications.service';
 import { ModalService, FormService } from 'ClientApp/src/app/core';
 import { UserService } from '../../services/user.service';
+import { UserListRequestModel } from '../../models/list/user-list-request.model';
+import { UserListResponseModel } from '../../models/list/user-list-response.model';
+import { UserListItemModel } from '../../models/list/user-list-item.model';
 
 
 @Component({
@@ -19,11 +22,11 @@ export class AdminUserMainComponent implements OnInit {
   mainSubscription: Subscription;
 
   // API
-  userTable: any;// AuctionModel; // todo: kke: specify type!
-  request: any;// AuctionListRequest; // todo: kke: specify type!
+  userTable: UserListResponseModel;
+  request: UserListRequestModel;
 
   // table
-  selected = [];// : AuctionItemModel[] = []; // todo: kke: specify type!
+  selected: UserListItemModel[] = [];
 
   // modals
   bsModalRef: BsModalRef;
@@ -76,7 +79,8 @@ export class AdminUserMainComponent implements OnInit {
 
   private setupInitialAuctionRequest(): void {
     this.request = {
-      sizeOfPage: this.numberRows,
+      offsetStart: 0,
+      offsetEnd: this.numberRows,
       currentPage: this.currentPage,
       sortByColumn: 'FirstName',
       sortingDirection: 'asc',
@@ -84,12 +88,12 @@ export class AdminUserMainComponent implements OnInit {
     };
   }
 
-  /** Gets ALL users */
+  /** Gets all users */
   private loadUsers(): void {
     this.mainSubscription = this.userService
       .getUsers$(this.request)
       .subscribe(
-        (response: any) => { this.userTable = response; },
+        (response: UserListResponseModel) => { this.userTable = response; },
         (error: string) => this.notificationService.error(error)
       );
   }

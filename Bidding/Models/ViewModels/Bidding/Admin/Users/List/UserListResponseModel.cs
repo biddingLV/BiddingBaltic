@@ -8,7 +8,7 @@ namespace Bidding.Models.ViewModels.Bidding.Admin.Users.List
 {
     public class UserListResponseModel : BaseListResponseModel
     {
-        public List<UserListModel> Users { get; set; }
+        public List<UserListItemModel> Users { get; set; }
 
         public override bool IsReponseEmpty()
         {
