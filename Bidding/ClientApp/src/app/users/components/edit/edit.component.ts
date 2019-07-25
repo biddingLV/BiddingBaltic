@@ -13,14 +13,11 @@ import { NotificationsService, FormService } from '../../../core';
 
 @Component({
   selector: 'app-edit-user',
-  templateUrl: './edit.component.html',
-  styles: []
+  templateUrl: './edit.component.html'
 })
 export class UserEditComponent implements OnInit, OnDestroy {
-  // info from parent component
-  userId: number;
-  userFirstName: string;
-  userLastName: string;
+  /** Passed from parent component */
+  selectedUserId: number;
 
   // details
   userEditSubscription: Subscription;
@@ -42,21 +39,23 @@ export class UserEditComponent implements OnInit, OnDestroy {
 
   constructor(
     public bsModalRef: BsModalRef,
-    private userApi: UsersService,
-    private notification: NotificationsService,
-    private fb: FormBuilder,
-    private formService: FormService
+    private usersService: UsersService,
+    private notificationService: NotificationsService,
+    private formBuilder: FormBuilder,
+    private internalFormService: FormService
   ) { }
 
   ngOnInit(): void {
-    this.buildForm();
+    // todo: kke: prob we need some flag here to load own profile details
+    // || load profile details as an admin looking at another users profile!
+    this.loadUserDetails();
   }
 
   onSubmit(): void {
     this.submitted = true;
 
     // mark all fields as touched
-    this.formService.markFormGroupTouched(this.userEditForm);
+    this.internalFormService.markFormGroupTouched(this.userEditForm);
 
     if (this.userEditForm.valid) {
       this.initEditRequest();
@@ -75,7 +74,7 @@ export class UserEditComponent implements OnInit, OnDestroy {
       //   },
       //     (error: string) => this.notification.error(error));
     } else {
-      this.formErrors = this.formService.validateForm(this.userEditForm, this.formErrors, false);
+      this.formErrors = this.internalFormService.validateForm(this.userEditForm, this.formErrors, false);
     }
 
     // stop here if form is invalid
@@ -90,13 +89,22 @@ export class UserEditComponent implements OnInit, OnDestroy {
     }
   }
 
+  private loadUserDetails(): void {
+    this.userEditSubscription = this.usersService
+      .getUserDetailsForEdit$(this.selectedUserId)
+      .subscribe(
+        (response: any) => { this.buildForm(); }, // todo: kke: SPECIFY RESPONSE TYPE!
+        (error: string) => this.notificationService.error(error)
+      );
+  }
+
   private buildForm(): void {
-    this.userEditForm = this.fb.group({
-      usersFirstName: [this.userFirstName, [
+    this.userEditForm = this.formBuilder.group({
+      usersFirstName: ['', [
         Validators.required,
         Validators.maxLength(100)
       ]],
-      usersLastName: [this.userLastName, [
+      usersLastName: ['', [
         Validators.required,
         Validators.maxLength(100)
       ]]
@@ -109,7 +117,7 @@ export class UserEditComponent implements OnInit, OnDestroy {
     //// the result is passed to the formErrors object
     this.userEditForm.valueChanges.subscribe((data) => {
       // this.formService.hasAFormControlChange(this.userEditFormAtStart, this.userEditForm) ? this.disableButton = false : this.disableButton = true;
-      this.formErrors = this.formService.validateForm(this.userEditForm, this.formErrors, true);
+      this.formErrors = this.internalFormService.validateForm(this.userEditForm, this.formErrors, true);
     });
   }
 

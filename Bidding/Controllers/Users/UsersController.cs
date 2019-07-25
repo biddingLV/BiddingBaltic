@@ -23,7 +23,15 @@ namespace Bidding.Controllers.Users
         /// <param name="userId"></param>
         /// <returns></returns>
         [HttpGet]
+        [Authorize(Roles = "User, Admin")]
         public IActionResult Details([FromQuery] int userId)
+        {
+            return Ok(m_userService.UserDetails(userId));
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "User, Admin")]
+        public IActionResult EditDetails([FromQuery] int userId)
         {
             return Ok(m_userService.UserDetails(userId));
         }

@@ -8,10 +8,11 @@ import { Subscription } from 'rxjs';
 // internal
 import { NotificationsService } from 'ClientApp/src/app/core/services/notifications/notifications.service';
 import { ModalService, FormService } from 'ClientApp/src/app/core';
-import { UserService } from '../../services/user.service';
 import { UserListRequestModel } from '../../models/list/user-list-request.model';
 import { UserListResponseModel } from '../../models/list/user-list-response.model';
 import { UserListItemModel } from '../../models/list/user-list-item.model';
+import { UserEditComponent } from 'ClientApp/src/app/users/components/edit/edit.component';
+import { UsersService } from 'ClientApp/src/app/users/services/users.service';
 
 
 @Component({
@@ -40,10 +41,10 @@ export class AdminUserMainComponent implements OnInit {
   searchText: string;
 
   constructor(
-    private modalService: BsModalService,
+    private externalModalService: BsModalService,
     private internalModalService: ModalService,
     private internalFormService: FormService,
-    private userService: UserService,
+    private usersService: UsersService,
     private notificationService: NotificationsService
   ) { }
 
@@ -52,30 +53,30 @@ export class AdminUserMainComponent implements OnInit {
     this.loadUsers();
   }
 
-  addModal(): void {
+  // addModal(): void {
 
-  }
+  // }
 
   editModal(): void {
-    // const initialState = {
-    //   selectedAuctionId: this.selected[0].auctionId
-    // };
+    const initialState = {
+      selectedUserId: this.selected[0].userId
+    };
 
-    // const modalConfig = { ...this.internalModalService.defaultModalOptions, ...{ initialState: initialState, class: 'modal-lg' } };
-    // this.bsModalRef = this.modalService.show(AuctionEditComponent, modalConfig);
+    const modalConfig = { ...this.internalModalService.defaultModalOptions, ...{ initialState: initialState, class: 'modal-md' } };
+    this.bsModalRef = this.externalModalService.show(UserEditComponent, modalConfig);
 
-    // this.subscriptions.push(
-    //   this.modalService.onHidden.subscribe((result: string) => {
-    //     if (this.internalFormService.onModalHide(result, this.subscriptions)) {
-    //       this.loadAuctions();
-    //     }
-    //   })
-    // );
+    this.subscriptions.push(
+      this.externalModalService.onHidden.subscribe((result: string) => {
+        if (this.internalFormService.onModalHide(result, this.subscriptions)) {
+          this.loadUsers();
+        }
+      })
+    );
   }
 
-  deleteModal(): void {
+  // deleteModal(): void {
 
-  }
+  // }
 
   private setupInitialAuctionRequest(): void {
     this.request = {
@@ -90,7 +91,7 @@ export class AdminUserMainComponent implements OnInit {
 
   /** Gets all users */
   private loadUsers(): void {
-    this.mainSubscription = this.userService
+    this.mainSubscription = this.usersService
       .getUsers$(this.request)
       .subscribe(
         (response: UserListResponseModel) => { this.userTable = response; },

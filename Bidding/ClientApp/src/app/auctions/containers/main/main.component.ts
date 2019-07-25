@@ -29,14 +29,11 @@ export class AuctionMainComponent implements OnInit {
   selectedCategoryIds: number[];
   selectedTypeIds: number[];
 
-  /** Search bar - specified text */
-  searchText: string;
-
   selected?: any[] = [];
 
   // API
   auctionTable: AuctionModel;
-  request: AuctionListRequest;
+  auctionListRequest: AuctionListRequest;
 
   // pagination || form
   numberRows = 15;
@@ -71,27 +68,33 @@ export class AuctionMainComponent implements OnInit {
   }
 
   /** Called on auction search event */
-  onAuctionSearch(searchText: string) {
-    this.searchText = searchText;
+  onSearch(text: string): void {
+    if (text != undefined) {
+      this.auctionListRequest.searchValue = text;
+    } else {
+      this.auctionListRequest.searchValue = '';
+    }
+
+    this.updateColumns(1);
   }
 
   // Request Update Events
   updateRequest(property: string, event): void {
     if (property === 'Page') {
-      this.request.currentPage = event.page;
+      this.auctionListRequest.currentPage = event.page;
     } else {
-      this.request.searchValue = event;
-      this.request.currentPage = 1;
+      this.auctionListRequest.searchValue = event;
+      this.auctionListRequest.currentPage = 1;
     }
   }
 
   // Sort Update Events
   onSortChange(event): void {
-    this.request.sortingDirection =
-      this.request.sortByColumn === event.column.prop ? this.request.sortingDirection === 'asc' ? 'desc' : 'asc' : 'asc';
+    this.auctionListRequest.sortingDirection =
+      this.auctionListRequest.sortByColumn === event.column.prop ? this.auctionListRequest.sortingDirection === 'asc' ? 'desc' : 'asc' : 'asc';
 
-    this.request.sortByColumn = event.column.prop;
-    this.request.currentPage = 1;
+    this.auctionListRequest.sortByColumn = event.column.prop;
+    this.auctionListRequest.currentPage = 1;
   }
 
   // todo: kke: is this even needed here?
@@ -101,6 +104,12 @@ export class AuctionMainComponent implements OnInit {
 
   onDetailsClick(): void {
 
+  }
+
+  private updateColumns(page: number): void {
+    this.auctionListRequest.offsetStart = page;
+
+    this.loadActiveAuctions();
   }
 
   /** Load top & sub categories */
@@ -117,7 +126,7 @@ export class AuctionMainComponent implements OnInit {
   }
 
   private setupInitialAuctionRequest(): void {
-    this.request = {
+    this.auctionListRequest = {
       auctionStartDate: moment().subtract(365, 'days').format('DD/MM/YYYY'),
       auctionEndDate: moment().format('DD/MM/YYYY'),
       offsetStart: 0,
@@ -125,14 +134,14 @@ export class AuctionMainComponent implements OnInit {
       currentPage: this.currentPage,
       sortByColumn: 'AuctionName', // by default sort by auction name
       sortingDirection: 'asc', // by default ascending
-      searchValue: this.searchText
+      searchValue: ''
     };
   }
 
   /** Gets only active auctions */
   private loadActiveAuctions(): void {
     this.mainSubscription = this.auctionService
-      .getAuctions$(this.request)
+      .getAuctions$(this.auctionListRequest)
       .subscribe(
         (response: AuctionModel) => { this.auctionTable = response; },
         (error: string) => this.notificationService.error(error)

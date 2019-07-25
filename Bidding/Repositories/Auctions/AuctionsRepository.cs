@@ -96,8 +96,17 @@ namespace Bidding.Repositories.Auctions
                     SqlDbType = SqlDbType.Int
                 };
 
+                SqlParameter searchBy = new SqlParameter
+                {
+                    ParameterName = "searchValue",
+                    Direction = ParameterDirection.Input,
+                    Value = HandleNull(request.SearchValue),
+                    SqlDbType = SqlDbType.Text
+                };
+
+                // @selectedCategories, @selectedTypes, || categories, types,
                 return m_context.Query<AuctionListModel>()
-                    .FromSql("[dbo].[BID_GetAuctions] @selectedCategories, @selectedTypes, @start, @end", categories, types, startPaginationFrom, endPaginationAt);
+                    .FromSql("[dbo].[BID_GetAuctions] @start, @end, @searchValue", startPaginationFrom, endPaginationAt, searchBy);
             }
             catch (Exception ex)
             {
@@ -758,6 +767,13 @@ namespace Bidding.Repositories.Auctions
                     AuctionCreatorPhone = details.AuctionCreator.ContactPhone
                 }
             };
+        }
+
+        private object HandleNull<T>(T value)
+        {
+            if (value == null)
+                return DBNull.Value;
+            return value;
         }
 
         private AuctionDetailsResponseModel SetupPropertyAuctionDetails(AuctionDetailsModel details)

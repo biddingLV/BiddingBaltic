@@ -12,8 +12,10 @@ import { UsersService } from '../../services/users.service';
 import { NotificationsService } from 'ClientApp/src/app/core/services/notifications/notifications.service';
 import { UserDetailsModel } from '../../models/details/user-details.model';
 import { UserEditComponent } from '../../components/edit/edit.component';
+import { ModalService, FormService } from 'ClientApp/src/app/core';
 
-
+// MAYBE THIS NEEDS TO BE OWN USER PROFILE COMPONENT?
+// Then another component for another user profile?
 @Component({
   selector: 'app-user-details',
   templateUrl: './details.component.html'
@@ -28,30 +30,36 @@ export class UserDetailsComponent implements OnInit {
 
   // modals
   bsModalRef: BsModalRef;
+  subscriptions: Subscription[] = [];
 
   constructor(
-    private userApi: UsersService,
+    private userService: UsersService,
     private activedRoute: ActivatedRoute,
-    private notification: NotificationsService,
-    private modalService: BsModalService
+    private notificationService: NotificationsService,
+    private externalModalService: BsModalService,
+    private internalModalService: ModalService,
+    private internalFormService: FormService,
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.loadUserDetails();
   }
 
   editModal(): void {
     const initialState = {
-      userId: this.userDetails.userId,
-      userFirstName: this.userDetails.userFirstName,
-      userLastName: this.userDetails.userLastName
+      selectedUserId: this.userDetails.userId
     };
 
-    this.bsModalRef = this.modalService.show(UserEditComponent, { initialState });
+    const modalConfig = { ...this.internalModalService.defaultModalOptions, ...{ initialState: initialState, class: 'modal-md' } };
+    this.bsModalRef = this.externalModalService.show(UserEditComponent, modalConfig);
 
-    this.modalService.onHide.subscribe(() => {
-      this.loadUserDetails();
-    });
+    this.subscriptions.push(
+      this.externalModalService.onHidden.subscribe((result: string) => {
+        if (this.internalFormService.onModalHide(result, this.subscriptions)) {
+          this.loadUserDetails();
+        }
+      })
+    );
   }
 
   /**
@@ -60,13 +68,13 @@ export class UserDetailsComponent implements OnInit {
   private loadUserDetails() {
     this.detailsSub =
       this.activedRoute.paramMap.pipe(
-        switchMap((params: ParamMap) => this.userApi.getUserDetails$(Number(params.get('id'))))
+        switchMap((params: ParamMap) => this.userService.getUserDetails$(Number(params.get('id'))))
       ).subscribe(
         response => {
           this.userDetails = response;
           this.setFullName();
         },
-        (error: string) => this.notification.error(error)
+        (error: string) => this.notificationService.error(error)
       );
   }
 

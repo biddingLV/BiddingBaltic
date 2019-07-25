@@ -23,7 +23,7 @@ import { AuctionAddAboutWizardStepComponent } from '../../../components/wizard/w
   templateUrl: './main.component.html'
 })
 export class AuctionAddMainWizardComponent implements OnInit, AfterViewInit {
-  auctionAddSub: Subscription;
+  auctionAddSubscription: Subscription;
   submitted = false;
 
   // filters
@@ -54,8 +54,8 @@ export class AuctionAddMainWizardComponent implements OnInit, AfterViewInit {
   private categoryConstants = CategoryConstants;
 
   constructor(
-    private auctionApi: AuctionsService,
-    private notification: NotificationsService,
+    private auctionService: AuctionsService,
+    private notificationService: NotificationsService,
     public bsModalRef: BsModalRef,
     private externalModalService: BsModalService,
   ) { }
@@ -119,19 +119,26 @@ export class AuctionAddMainWizardComponent implements OnInit, AfterViewInit {
     }
   }
 
+  /** Avoid memory leaks here by cleaning up after ourselves */
+  ngOnDestroy(): void {
+    if (this.auctionAddSubscription) {
+      this.auctionAddSubscription.unsubscribe();
+    }
+  }
+
   private moveDirection = (formOfStep: FormGroup, direction: MovingDirection): boolean => {
     return direction === MovingDirection.Backwards ? true : formOfStep.valid;
   }
 
   private loadTopAndSubCategories(): void {
-    this.auctionAddSub = this.auctionApi.categoriesWithTypes$()
+    this.auctionAddSubscription = this.auctionService.categoriesWithTypes$()
       .pipe(startWith(new CategoriesWithTypesModel()))
       .subscribe(
         (result: CategoriesWithTypesModel) => {
           this.categories = result;
           this.auctionTypes = result.subCategories;
         },
-        (error: string) => this.notification.error(error)
+        (error: string) => this.notificationService.error(error)
       );
   }
 
@@ -203,9 +210,9 @@ export class AuctionAddMainWizardComponent implements OnInit, AfterViewInit {
     return {
       auctionTopCategoryId: this.categoryStepForm.value.auctionTopCategory,
       auctionSubCategoryId: this.categoryStepForm.value.auctionSubCategory,
-      auctionName: '',
+      auctionFormatId: this.categoryStepForm.value.auctionFormat,
+      auctionName: '', // todo: kke: why this is just empty string here?
       auctionStartingPrice: this.addStepForm.value.auctionStartingPrice,
-      auctionFormatId: this.aboutStepForm.value.auctionFormat,
       auctionStartDate: this.aboutStepForm.value.auctionStartDate,
       auctionApplyTillDate: this.aboutStepForm.value.auctionApplyTillDate,
       auctionEndDate: this.aboutStepForm.value.auctionEndDate
@@ -222,16 +229,16 @@ export class AuctionAddMainWizardComponent implements OnInit, AfterViewInit {
   }
 
   private makeRequest(request: Auctions.AddAuctionRequestModel): void {
-    this.auctionApi.addAuction$(request)
+    this.auctionService.addAuction$(request)
       .subscribe((addSuccess: boolean) => {
         if (addSuccess) {
-          this.notification.success('Auction successfully added.');
+          this.notificationService.success('Auction successfully added.');
           this.bsModalRef.hide();
           this.externalModalService.setDismissReason('Create');
         } else {
-          this.notification.error('Could not add auction.');
+          this.notificationService.error('Could not add auction.');
         }
       },
-        (error: string) => this.notification.error(error));
+        (error: string) => this.notificationService.error(error));
   }
 }

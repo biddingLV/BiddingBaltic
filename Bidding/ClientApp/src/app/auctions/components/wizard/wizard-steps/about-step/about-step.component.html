@@ -9,20 +9,6 @@
         Add new (+)
       </button>
     </div>
-
-    <div class="form-group col-6">
-      <label for="auctionFormat">Izsoles veids</label>
-      <ng-select #auctionFormatSelect formControlName="auctionFormat" [clearable]="false" [virtualScroll]="true"
-        [multiple]="false" [closeOnSelect]="true" placeholder="Select auction format">
-        <ng-option *ngFor="let format of auctionFormats.formats; let i = index" [value]="format.auctionFormatId">
-          {{format.auctionFormatName}}
-        </ng-option>
-      </ng-select>
-
-      <div *ngIf="submitted && formErrors.auctionFormat" class="invalid-feedback d-block">
-        {{formErrors.auctionFormat}}
-      </div>
-    </div>
   </div>
 
   <div class="form-row">

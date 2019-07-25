@@ -11,6 +11,7 @@ import { AdminUserMainComponent } from './containers/user-main/user-main.compone
 import { AdminMainComponent } from './containers/main/main.component';
 import { UserTableComponent } from './components/user-table/user-table/user-table.component';
 import { AdminSidebarComponent } from './components/sidebar/sidebar.component';
+import { UsersModule } from '../users/users.module';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { AdminSidebarComponent } from './components/sidebar/sidebar.component';
     CommonModule,
     AdminRoutingModule,
     SharedModule,
-    AuctionsModule
+    AuctionsModule,
+    UsersModule
   ],
   exports: [
 

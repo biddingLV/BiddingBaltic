@@ -26,7 +26,6 @@
 4: drop all tables on azure
 	drop table __EFMigrationsHistory
 	drop table AuctionConditions
-	drop table AuctionFormats
 	drop table Newsletters
 	ALTER TABLE [dbo].[Auctions] DROP CONSTRAINT [FK_Auctions_AuctionStatuses_AuctionStatusId]
 	ALTER TABLE [dbo].[Auctions] DROP CONSTRAINT FK_Auctions_Categories_AuctionCategoryId
@@ -46,5 +45,6 @@
 	drop table Types
 	drop table Categories
 	ALTER TABLE [dbo].Roles DROP CONSTRAINT FK_Roles_Users_UserId
+	drop table AuctionFormats
 	drop table Users
 	drop table Roles

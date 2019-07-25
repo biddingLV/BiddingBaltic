@@ -93,7 +93,7 @@ export class AdminAuctionMainComponent implements OnInit {
       selectedAuctions: this.selected
     };
 
-    const modalConfig = { ...this.internalModalService.defaultModalOptions, ...{ initialState: initialState, class: 'modal-lg' } };
+    const modalConfig = { ...this.internalModalService.defaultModalOptions, ...{ initialState: initialState, class: 'modal-md' } };
     this.bsModalRef = this.modalService.show(AuctionDeleteComponent, modalConfig);
 
     this.subscriptions.push(

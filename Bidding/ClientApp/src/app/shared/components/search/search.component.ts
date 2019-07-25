@@ -4,20 +4,18 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 
 @Component({
   selector: 'app-search-bar',
-  templateUrl: './search.component.html',
-  styleUrls: []
+  templateUrl: './search.component.html'
 })
 export class SearchComponent implements OnInit {
-  @Input() placeholder: string;
-  @Output() search = new EventEmitter<string>();
+  @Output() searchChange = new EventEmitter<string>();
 
   searchText: string;
 
   constructor() { }
 
-  ngOnInit() { }
+  ngOnInit(): void { }
 
   onSearch(text: string): void {
-    this.search.emit(text);
+    this.searchChange.emit(text);
   }
 }

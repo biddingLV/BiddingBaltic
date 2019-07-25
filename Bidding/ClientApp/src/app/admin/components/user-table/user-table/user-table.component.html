@@ -1,17 +1,20 @@
 <!-- header definition -->
-<ngx-datatable class="bootstrap" [rows]="userTable.users" [columnMode]="'force'" [headerHeight]="50"
-  [footerHeight]="50" [rowHeight]="'auto'" [externalSorting]="true" [externalPaging]="true"
-  [count]="userTable.itemCount" [offset]="userTable.currentPage" [selectionType]="'checkbox'" [limit]="numberRows"
-  (sort)="onSortChange($event)" (select)='onSelect($event)' [sorts]="[{prop: 'name', dir: 'asc'}]" [selected]="selected"
+<ngx-datatable class="bootstrap" [rows]="userTable.users" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50"
+  [rowHeight]="'auto'" [externalSorting]="true" [externalPaging]="true" [count]="userTable.itemCount"
+  [offset]="userTable.currentPage" [selectionType]="'checkbox'" [limit]="numberRows" (sort)="onSortChange($event)"
+  (select)='onSelect($event)' [sorts]="[{prop: 'name', dir: 'asc'}]" [selected]="selected"
   [selectAllRowsOnPage]="false">
 
   <ngx-datatable-column [width]="30" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false"
     [headerCheckboxable]="true" [checkboxable]="true">
   </ngx-datatable-column>
 
-  <ngx-datatable-column prop="firstName" name="First name" [sortable]="true"></ngx-datatable-column>
-  <ngx-datatable-column prop="middleName" name="Middle name" [sortable]="true"></ngx-datatable-column>
-  <ngx-datatable-column prop="lastName" name="Last name" [sortable]="true"></ngx-datatable-column>
+  <ngx-datatable-column name="Full name" [sortable]="true">
+    <ng-template let-row="row" ngx-datatable-cell-template>
+      <a [routerLink]="['/users/details', row.userId]">{{row.firstName + ' ' + row.middleName + ' ' + row.lastName}}</a>
+    </ng-template>
+  </ngx-datatable-column>
+
   <ngx-datatable-column prop="contactEmail" name="Contact email" [sortable]="true"></ngx-datatable-column>
   <ngx-datatable-column prop="createdAt" name="Created at" [sortable]="true"></ngx-datatable-column>
   <ngx-datatable-column prop="userRole" name="User role" [sortable]="true"></ngx-datatable-column>

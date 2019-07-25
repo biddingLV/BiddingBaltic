@@ -23,9 +23,7 @@ export class AuctionTableComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log("TCL: AuctionsTableComponent -> numberRows", this.numberRows)
-    console.log("TCL: AuctionsTableComponent -> auctionTable", this.auctionTable)
-    console.log("TCL: AuctionsTableComponent -> selected", this.selected)
+
   }
 
   onPageChange(page: number): void {
