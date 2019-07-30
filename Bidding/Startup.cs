@@ -72,7 +72,6 @@ namespace Bidding
             ConfigureHttpContext(ref services);
             ConfigureAppConfigurationService(ref services);
             ConfigureAppServices(ref services);
-            ConfigureFluentApiValidators(ref services);
             ConfigureAuthentication(services);
             ConfigureAuthorization(ref services);
         }
@@ -249,9 +248,12 @@ namespace Bidding
 
         }
 
+        /// <summary>
+        /// If there is a problem with Cors, check if you have added service and repository to services.
+        /// </summary>
+        /// <param name="services"></param>
         private void ConfigureAppServices(ref IServiceCollection services)
         {
-            // if there is a problem with Cors, check if you have added service and repo here!
             services.AddScoped<ISubscribeService, SubscribeService>();
             services.AddScoped<ISubscribeRepository, SubscribeRepository>();
             services.AddScoped<PermissionService>();
@@ -263,12 +265,6 @@ namespace Bidding
             services.AddScoped<FileUploaderService>();
             services.AddScoped<FileUploaderRepository>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-        }
-
-        private void ConfigureFluentApiValidators(ref IServiceCollection services)
-        {
-            //In order for ASP.NET to discover your validators, they must be registered with the services collection.
-            services.AddTransient<IValidator<Auction>, AuctionValidator>();
         }
 
         private void ConfigureAuthentication(IServiceCollection services)
@@ -367,39 +363,17 @@ namespace Bidding
                        // todo: kke: fix this to not be object comparison!
                        if (payload["email_verified"].IsNotSpecified()) { throw new WebApiException(HttpStatusCode.Unauthorized, UserErrorMessages.UsersEmailNotVerified); }
 
-                       string usersIdentityId = payload["sub"].ToString();
-                       string usersEmail = payload["email"].ToString();
+                       string userIdentityId = payload["sub"].ToString();
+                       string userLoginEmail = payload["email"].ToString();
 
-                       if (usersIdentityId.IsNotSpecified() == false && usersEmail.IsNotSpecified() == false)
+                       if (userIdentityId.IsNotSpecified() == false && userLoginEmail.IsNotSpecified() == false)
                        {
                            // todo: kke: 1. check if this is the first sign in for the user!
                            // todo: kke: can we use auth0 for that?
                            // 2. if user doesnt exist fetch and save all the information!
 
-                           UsersService usersServiceProvider = services.BuildServiceProvider().GetService<UsersService>();
-                           UserProfileModel userDetails = new UserProfileModel();
-
-                           if (usersServiceProvider.UserExists(usersEmail))
-                           {
-                               // load user details for the profile cookie
-                               userDetails = services.BuildServiceProvider().GetService<UsersService>().UserDetails(usersEmail);
-                           }
-                           else
-                           {
-                               UserAddRequestModel newUser = new UserAddRequestModel()
-                               {
-                                   // todo: kke: what about social logins here? can we get full name?
-                                   LoginEmail = payload["email"].ToString(),
-                                   UniqueIdentifier = payload["sub"].ToString()
-                               };
-
-                               // todo: kke: maybe merge these two in one call so we dont call db two times?
-                               usersServiceProvider.Create(newUser);
-                               userDetails = services.BuildServiceProvider().GetService<UsersService>().UserDetails(usersEmail);
-                           }
-
-                           // validate user details
-                           // ValidateUserDetails(userDetails, usersIdentityId, m_context);
+                           UsersService usersService = services.BuildServiceProvider().GetService<UsersService>();
+                           UserProfileModel userDetails = HandleUserLogin(usersService, userLoginEmail, userIdentityId, services);
 
                            // setup user claims
                            context.Principal.AddIdentity(SetupUserClaims(userDetails));
@@ -421,6 +395,35 @@ namespace Bidding
            });
         }
 
+        private UserProfileModel HandleUserLogin(UsersService usersService, string userLoginEmail, string usersIdentityId, IServiceCollection services)
+        {
+            UserProfileModel userDetails = new UserProfileModel();
+
+            if (usersService.UserExists(userLoginEmail))
+            {
+                // load user details for the profile cookie
+                userDetails = services.BuildServiceProvider().GetService<UsersService>().UserDetails(userLoginEmail);
+            }
+            else
+            {
+                UserAddRequestModel newUser = new UserAddRequestModel()
+                {
+                    // todo: kke: what about social logins here? can we get full name?
+                    LoginEmail = userLoginEmail,
+                    UniqueIdentifier = usersIdentityId
+                };
+
+                // todo: kke: maybe merge these two in one call so we dont call db two times?
+                usersService.Create(newUser);
+                userDetails = services.BuildServiceProvider().GetService<UsersService>().UserDetails(userLoginEmail);
+            }
+
+            // validate user details
+            // ValidateUserDetails(userDetails, usersIdentityId, m_context);
+
+            return userDetails;
+        }
+
         private string SetupUserProfileCookie(UserProfileModel userDetails)
         {
             // Create the profile cookie, used for displaying user information in the client.
@@ -428,7 +431,7 @@ namespace Bidding
             {
                 IsAuthenticated = true,
                 UserId = userDetails.UserId, // todo: kke: why do we setup here user id?
-                Email = userDetails.UserEmail
+                ContactEmail = userDetails.UserContactEmail
             });
         }
 
@@ -444,7 +447,7 @@ namespace Bidding
         private void ValidateUserDetails(UserProfileModel userDetails, string payloadUserUniqueIdentifier, BiddingContext m_context)
         {
             // our database and auth0 user unique identifiers need to be the same
-            if (userDetails.UserUniqueIdentifier != payloadUserUniqueIdentifier) { throw new WebApiException(HttpStatusCode.Unauthorized, UserErrorMessages.CanNotSignIn); }
+            // if (userDetails.UserUniqueIdentifier != payloadUserUniqueIdentifier) { throw new WebApiException(HttpStatusCode.Unauthorized, UserErrorMessages.CanNotSignIn); }
         }
 
         private ClaimsIdentity SetupUserClaims(UserProfileModel userDetails)

@@ -34,6 +34,9 @@ namespace Bidding.Database.DatabaseModels.Users
         [MaxLength(50)]
         public string ContactEmail { get; set; }
 
+        [MaxLength(50)]
+        public string Phone { get; set; }
+
         public int RoleId { get; set; }
         public Role Role { get; set; }
 

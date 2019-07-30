@@ -15,6 +15,12 @@ export class AuctionTableComponent implements OnInit {
   @Input() auctionTable: AuctionModel;
   @Input() selected: any[];
 
+  /** 
+   * Can be passed from parent component to show or hide select all checkbox column in template.
+   * By default don't show.
+   */
+  @Input() showSelectAllCheckboxColumn?: boolean = false;
+
   @Output() pageChange = new EventEmitter<number>();
   @Output() sortChange = new EventEmitter<boolean>();
   @Output() detailsClick = new EventEmitter<boolean>();
@@ -23,7 +29,7 @@ export class AuctionTableComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-
+    console.log('table: ', this.auctionTable)
   }
 
   onPageChange(page: number): void {

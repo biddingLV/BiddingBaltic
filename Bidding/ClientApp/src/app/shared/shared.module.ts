@@ -39,7 +39,8 @@ import { HasRoleDirective } from './directives/authorization/role/has-role.direc
     ImageGalleryComponent,
     HasRoleDirective,
     NgxDatatableModule,
-    NgxUploaderModule
+    NgxUploaderModule,
+    MinSharedModule
   ],
   declarations: [
     SearchComponent,

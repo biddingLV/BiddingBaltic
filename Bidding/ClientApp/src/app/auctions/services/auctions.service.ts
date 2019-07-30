@@ -31,7 +31,7 @@ export class AuctionsService {
   ) { }
 
   getAuctions$(request: AuctionListRequest): Observable<AuctionModel> {
-    const url = '/api/auctions/search';
+    const url = '/api/auctions/list';
 
     let params = new HttpParams({
       fromObject: {

@@ -26,6 +26,14 @@ namespace Bidding.Controllers.Auctions
             m_auctionsService = auctionsService ?? throw new ArgumentNullException(nameof(auctionsService));
         }
 
+        [HttpGet]
+        [AllowAnonymous]
+        //[Authorize(Roles = "User, Admin")]
+        public IActionResult List([FromQuery] AuctionListRequestModel request)
+        {
+            return Ok(m_auctionsService.ListWithSearch(request));
+        }
+
         /// <summary>
         /// Gets Auction list and also used for to search for specific auction
         /// </summary>
@@ -43,7 +51,8 @@ namespace Bidding.Controllers.Auctions
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Authorize(Roles = "User, Admin")]
+        [AllowAnonymous]
+        //[Authorize(Roles = "User, Admin")]
         public IActionResult Filters()
         {
             return Ok(m_auctionsService.Filters());

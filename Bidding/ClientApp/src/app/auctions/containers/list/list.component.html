@@ -1,0 +1,39 @@
+<ng-container *ngIf="!isLoading; else loading">
+  <app-auction-table [auctionTable]="auctionTable" [numberRows]="numberRows" [selected]="selected"
+    (pageChange)="updateRequest('Page', $event)" (sortChange)="onSortChange($event)" (detailsClick)="onDetailsClick()"
+    (selectedChange)="onSelectedChange($event)"></app-auction-table>
+</ng-container>
+
+<!-- todo: kke: move to a shared loading component -->
+<ng-template #loading>
+  <content-loader [height]=130 [width]=400 [speed]=2 [primaryColor]="'#cac1d0'" [secondaryColor]="'#ecebeb'">
+    <svg:rect x="8" y="35" rx="5" ry="5" width="390" height="7" />
+    <svg:rect x="8" y="55" rx="5" ry="5" width="390" height="7" />
+    <svg:rect x="8" y="75" rx="5" ry="5" width="390" height="7" />
+    <svg:rect x="25" y="16" rx="5" ry="5" width="60" height="7" />
+    <svg:rect x="100" y="16" rx="5" ry="5" width="60" height="7" />
+    <svg:rect x="175" y="16" rx="5" ry="5" width="60" height="7" />
+    <svg:rect x="250" y="16" rx="5" ry="5" width="60" height="7" />
+    <svg:rect x="325" y="16" rx="5" ry="5" width="60" height="7" />
+    <svg:rect x="8" y="95" rx="5" ry="5" width="390" height="7" />
+    <svg:rect x="8" y="115" rx="5" ry="5" width="390" height="7" />
+  </content-loader>
+</ng-template>
+
+
+<!-- import ContentLoader from "react-content-loader"
+
+const MyLoader = () => (
+<ContentLoader height={130} width={400} speed={2} primaryColor="#f3f3f3" secondaryColor="#ecebeb">
+  <rect x="8" y="35" rx="5" ry="5" width="345" height="7" />
+  <rect x="8" y="55" rx="5" ry="5" width="345" height="7" />
+  <rect x="8" y="75" rx="5" ry="5" width="345" height="7" />
+  <rect x="15" y="16" rx="5" ry="5" width="50" height="7" />
+  <rect x="85" y="16" rx="5" ry="5" width="50" height="7" />
+  <rect x="155" y="16" rx="5" ry="5" width="50" height="7" />
+  <rect x="225" y="16" rx="5" ry="5" width="50" height="7" />
+  <rect x="295" y="16" rx="5" ry="5" width="50" height="7" />
+  <rect x="8" y="95" rx="5" ry="5" width="345" height="7" />
+  <rect x="8" y="115" rx="5" ry="5" width="345" height="7" />
+</ContentLoader>
+) -->

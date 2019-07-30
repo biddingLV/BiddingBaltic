@@ -4,7 +4,6 @@ import { Component, OnInit } from '@angular/core';
 // 3rd lib
 import { Subscription } from 'rxjs';
 import { startWith } from 'rxjs/operators';
-import * as moment from 'moment-mini';
 
 // internal
 import { AuctionsService } from '../../services/auctions.service';
@@ -45,8 +44,6 @@ export class AuctionMainComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.setupInitialAuctionRequest();
-    this.loadActiveAuctions();
     this.loadFilters();
   }
 
@@ -75,7 +72,7 @@ export class AuctionMainComponent implements OnInit {
       this.auctionListRequest.searchValue = '';
     }
 
-    this.updateColumns(1);
+    // this.updateColumns(1);
   }
 
   // Request Update Events
@@ -106,11 +103,7 @@ export class AuctionMainComponent implements OnInit {
 
   }
 
-  private updateColumns(page: number): void {
-    this.auctionListRequest.offsetStart = page;
 
-    this.loadActiveAuctions();
-  }
 
   /** Load top & sub categories */
   private loadFilters(): void {
@@ -121,29 +114,6 @@ export class AuctionMainComponent implements OnInit {
           this.filters = response;
           this.auctionTypes = response.subCategories;
         },
-        (error: string) => this.notificationService.error(error)
-      );
-  }
-
-  private setupInitialAuctionRequest(): void {
-    this.auctionListRequest = {
-      auctionStartDate: moment().subtract(365, 'days').format('DD/MM/YYYY'),
-      auctionEndDate: moment().format('DD/MM/YYYY'),
-      offsetStart: 0,
-      offsetEnd: this.numberRows,
-      currentPage: this.currentPage,
-      sortByColumn: 'AuctionName', // by default sort by auction name
-      sortingDirection: 'asc', // by default ascending
-      searchValue: ''
-    };
-  }
-
-  /** Gets only active auctions */
-  private loadActiveAuctions(): void {
-    this.mainSubscription = this.auctionService
-      .getAuctions$(this.auctionListRequest)
-      .subscribe(
-        (response: AuctionModel) => { this.auctionTable = response; },
         (error: string) => this.notificationService.error(error)
       );
   }

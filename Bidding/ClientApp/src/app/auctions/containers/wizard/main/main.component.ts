@@ -7,7 +7,7 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { Subscription } from 'rxjs';
 import { startWith } from 'rxjs/operators';
 import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker/bs-datepicker.config';
-import { MovingDirection } from 'angular-archwizard';
+// import { MovingDirection } from 'angular-archwizard';
 
 // internal
 import { AuctionsService } from '../../../services/auctions.service';

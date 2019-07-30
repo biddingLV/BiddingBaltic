@@ -6,6 +6,7 @@ import { RouterModule } from '@angular/router';
 // 3rd lib
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
+import { ContentLoaderModule } from '@netbasal/ngx-content-loader';
 import { library } from '@fortawesome/fontawesome-svg-core';
 import {
   faSearch,
@@ -26,7 +27,6 @@ import {
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { FooterComponent } from './components/footer/footer.component';
 import { CallbackComponent } from './components/callback/callback.component';
-import { HeaderComponent } from './components/header/header.component';
 import { GdprRulesComponent } from './components/footer/static-components/gdpr-rules/gdpr-rules.component';
 import { PartnerRulesComponent } from './components/footer/static-components/partner-rules/partner-rules.component';
 import { RulesListComponent } from './components/footer/static-components/rules-list/rules-list.component';
@@ -39,10 +39,10 @@ import { FAQPageComponent } from './components/footer/static-components/faq-page
     CommonModule,
     RouterModule,
     FontAwesomeModule,
-    AccordionModule
+    AccordionModule,
+    ContentLoaderModule
   ],
   exports: [
-    HeaderComponent,
     NavbarComponent,
     FooterComponent,
     GdprRulesComponent,
@@ -51,10 +51,10 @@ import { FAQPageComponent } from './components/footer/static-components/faq-page
     ServiceRulesComponent,
     FAQPageComponent,
     CallbackComponent,
-    FontAwesomeModule
+    FontAwesomeModule,
+    ContentLoaderModule
   ],
   declarations: [
-    HeaderComponent,
     NavbarComponent,
     FooterComponent,
     GdprRulesComponent,

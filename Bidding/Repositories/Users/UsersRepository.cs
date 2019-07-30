@@ -97,16 +97,15 @@ namespace Bidding.Repositories.Users
 
         public IEnumerable<UserProfileModel> UserDetails(string email)
         {
-            return (from usr in m_context.Users
-                    join rol in m_context.Roles on usr.RoleId equals rol.RoleId
-                    where usr.LoginEmail == email && usr.Deleted == false
-                    select new UserProfileModel()
-                    {
-                        UserId = usr.UserId,
-                        UserEmail = usr.LoginEmail,
-                        UserRole = rol.Name,
-                        UserUniqueIdentifier = usr.UniqueIdentifier
-                    });
+            return from usr in m_context.Users
+                   join rol in m_context.Roles on usr.RoleId equals rol.RoleId
+                   where usr.LoginEmail == email && usr.Deleted == false
+                   select new UserProfileModel()
+                   {
+                       UserId = usr.UserId,
+                       UserContactEmail = usr.ContactEmail,
+                       UserRole = rol.Name
+                   };
         }
 
         public IEnumerable<UserListItemModel> ListWithSearch(UserListRequestModel request, int startFrom, int endAt)

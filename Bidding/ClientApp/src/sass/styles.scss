@@ -388,13 +388,12 @@
 * Shared
 */
 
-// Header
-.shared-page__header {
+// NavBar
+.shared-page__navBar {
   background-color: $dark-pink;
 }
 
-// NavBar
-.shared-page__navBar {
+.shared-page__innerNavBar {
   ul li a.nav-link {
     color: $white !important; // todo: kke: is it possible to get rid of this !important?
   }

@@ -63,7 +63,7 @@ namespace Bidding.Services.Auctions
         /// <returns></returns>
         public AuctionFilterModel Filters()
         {
-            m_permissionService.IsLoggedInUserActive();
+            // m_permissionService.IsLoggedInUserActive();
 
             return new AuctionFilterModel()
             {
@@ -208,7 +208,7 @@ namespace Bidding.Services.Auctions
             List<string> allowedSortByColumns = new List<string> { "AuctionName", "AuctionStartingPrice", "AuctionStartDate", "AuctionEndDate" };
             if (allowedSortByColumns.Contains(request.SortByColumn) == false) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
 
-            m_permissionService.IsLoggedInUserActive();
+            // m_permissionService.IsLoggedInUserActive();
         }
 
         private bool CreateItemAuction(AddAuctionRequestModel request)

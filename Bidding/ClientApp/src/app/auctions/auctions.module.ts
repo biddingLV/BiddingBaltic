@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 // 3rd lib
-import { ArchwizardModule } from 'angular-archwizard';
+// import { ArchwizardModule } from 'angular-archwizard';
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 
 // internal
@@ -23,6 +23,7 @@ import { AuctionAddCategoryWizardStepComponent } from './components/wizard/wizar
 import { AuctionAddWizardPropertyComponent } from './components/wizard/wizard-steps/add-step/categories/property/property-category.component';
 import { AuctionAddAboutWizardStepComponent } from './components/wizard/wizard-steps/about-step/about-step.component';
 import { AuctionTableComponent } from './components/auction-table/auction-table.component';
+import { AuctionListComponent } from './containers/list/list.component';
 
 
 @NgModule({
@@ -30,13 +31,14 @@ import { AuctionTableComponent } from './components/auction-table/auction-table.
     CommonModule,
     SharedModule,
     AuctionsRoutingModule,
-    ArchwizardModule,
+    // ArchwizardModule,
     BsDatepickerModule.forRoot()
   ],
   exports: [
     AuctionTableComponent,
-    ArchwizardModule,
-    BsDatepickerModule
+    // ArchwizardModule,
+    BsDatepickerModule,
+    AuctionListComponent
   ],
   declarations: [
     AuctionTableComponent,
@@ -51,7 +53,8 @@ import { AuctionTableComponent } from './components/auction-table/auction-table.
     AuctionAddWizardVehicleComponent,
     AuctionAddWizardItemComponent,
     AuctionAddWizardPropertyComponent,
-    AuctionDetailsCountdownComponent
+    AuctionDetailsCountdownComponent,
+    AuctionListComponent
   ],
   providers: [
     AuctionsService

@@ -1,9 +1,13 @@
+// angular
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ComingSoonListComponent } from './containers/coming-soon-list/list.component';
+
+// internal
+import { HomeMainComponent } from './containers/main/main.component';
+
 
 const routes: Routes = [
-  { path: '', component: ComingSoonListComponent }
+  { path: '', component: HomeMainComponent }
 ];
 
 @NgModule({

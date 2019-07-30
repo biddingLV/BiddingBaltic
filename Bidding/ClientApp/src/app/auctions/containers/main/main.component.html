@@ -6,14 +6,14 @@
     </div>
   </div>
 
-  <div class="row">
+  <!-- <div class="row">
     <div class="col-4 mt-5 mb-5">
       <app-search-bar (searchChange)="onSearch($event)"></app-search-bar>
     </div>
-  </div>
+  </div> -->
 
   <!-- Filters -->
-  <div class="row mt-5 mb-5">
+  <!-- <div class="row mt-5 mb-5">
     <div class="col-6">
       <div class="form-group">
         <label for="">Kategorija:</label>
@@ -37,14 +37,12 @@
         </ng-select>
       </div>
     </div>
-  </div>
+  </div> -->
 
-  <!-- List/Table -->
+  <!-- List & Table -->
   <div class="row">
-    <div class="col-12" *ngIf="auctionTable">
-      <app-auction-table *ngIf="auctionTable" [auctionTable]="auctionTable" [numberRows]="numberRows"
-        [selected]="selected" (pageChange)="updateRequest('Page', $event)" (sortChange)="onSortChange($event)"
-        (detailsClick)="onDetailsClick()" (selectedChange)="onSelectedChange($event)"></app-auction-table>
+    <div class="col-12">
+      <app-auction-list></app-auction-list>
     </div>
   </div>
 </div>

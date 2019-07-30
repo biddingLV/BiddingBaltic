@@ -12,10 +12,10 @@ import { FAQPageComponent } from './shared/components/footer/static-components/f
 
 
 const routes: Routes = [
-  { path: '', loadChildren: './home/home.module#HomeModule' },
-  { path: 'auctions', loadChildren: './auctions/auctions.module#AuctionsModule' },
-  { path: 'admin', loadChildren: './admin/admin.module#AdminModule' },
-  { path: 'users', loadChildren: './users/users.module#UsersModule' },
+  { path: '', loadChildren: () => import('./home/home.module').then(m => m.HomeModule) },
+  { path: 'auctions', loadChildren: () => import('./auctions/auctions.module').then(m => m.AuctionsModule) },
+  { path: 'admin', loadChildren: () => import('./admin/admin.module').then(m => m.AdminModule) },
+  { path: 'users', loadChildren: () => import('./users/users.module').then(m => m.UsersModule) },
   { path: 'public_html', redirectTo: '', pathMatch: 'full' },
   { path: 'noteikumi-un-nosacijumi', component: RulesListComponent },
   { path: 'gdpr', component: GdprRulesComponent },
