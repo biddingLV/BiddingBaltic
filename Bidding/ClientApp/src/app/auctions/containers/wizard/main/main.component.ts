@@ -37,10 +37,10 @@ export class AuctionAddMainWizardComponent implements OnInit, AfterViewInit {
   selectedSubCategoryId: number;
 
   /** Category step component */
-  @ViewChild(AuctionAddCategoryWizardStepComponent) categoryStep: { categoryStepForm: FormGroup; };
+  @ViewChild(AuctionAddCategoryWizardStepComponent, { static: true }) categoryStep: { categoryStepForm: FormGroup; };
 
   /** About step component */
-  @ViewChild(AuctionAddAboutWizardStepComponent) aboutStep: { aboutStepForm: FormGroup; };
+  @ViewChild(AuctionAddAboutWizardStepComponent, { static: true }) aboutStep: { aboutStepForm: FormGroup; };
 
   bsConfig: Partial<BsDatepickerConfig>;
 
