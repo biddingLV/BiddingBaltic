@@ -24,12 +24,12 @@ export class UsersService {
 
   /**
  * Loads all(active & inactive) users for admin page
- * @param request 
+ * @param request
  */
   getUsers$(request: UserListRequestModel): Observable<UserListResponseModel> {
     const url = '/api/users/search';
 
-    let params = new HttpParams({
+    const params = new HttpParams({
       fromObject: {
         sortByColumn: request.sortByColumn.toString(),
         sortingDirection: request.sortingDirection.toString(),

@@ -1,5 +1,5 @@
 // angular
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 
 // 3rd lib
@@ -19,7 +19,7 @@ import { NotificationsService } from 'ClientApp/src/app/core';
   selector: 'app-auction-add-category-wizard-step',
   templateUrl: './category-step.component.html'
 })
-export class AuctionAddCategoryWizardStepComponent implements OnInit {
+export class AuctionAddCategoryWizardStepComponent implements OnInit, OnDestroy {
   /** Top-categories with sub-categories */
   @Input() categories: AuctionFilterModel;
 

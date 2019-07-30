@@ -13,13 +13,13 @@
 
   <ngx-datatable-column prop="auctionName" name="Nosaukums" [sortable]="true">
     <ng-template let-row="row" ngx-datatable-cell-template>
-      <a (click)="onDetailsClick()" [routerLink]="['/auction', row.auctionId]">{{row.auctionName}}</a>
+      <a (click)="onDetailsClick()" [routerLink]="['/auction', row.auctionId]">{{ row.auctionName }}</a>
     </ng-template>
   </ngx-datatable-column>
 
   <ngx-datatable-column prop="auctionStartingPrice" name="Sākumcena" [sortable]="true">
     <ng-template let-row="row" ngx-datatable-cell-template>
-      <span>€ {{row.auctionStartingPrice | number : '1.2-2' }}</span>
+      <span>€ {{ row.auctionStartingPrice | number : '1.2-2' }}</span>
     </ng-template>
   </ngx-datatable-column>
 
@@ -39,7 +39,7 @@
   <ngx-datatable-footer>
     <ng-template ngx-datatable-footer-template let-rowCount="page.size">
       <div class="">
-        Kopējais izsoļu skaits: {{auctionTable.itemCount}}
+        Kopējais izsoļu skaits:{{ auctionTable.itemCount }}
       </div>
 
       <datatable-pager [pagerLeftArrowIcon]="'datatable-icon-left'" [pagerRightArrowIcon]="'datatable-icon-right'"

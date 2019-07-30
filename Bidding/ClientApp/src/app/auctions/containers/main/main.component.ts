@@ -66,7 +66,7 @@ export class AuctionMainComponent implements OnInit {
 
   /** Called on auction search event */
   onSearch(text: string): void {
-    if (text != undefined) {
+    if (text !== undefined) {
       this.auctionListRequest.searchValue = text;
     } else {
       this.auctionListRequest.searchValue = '';

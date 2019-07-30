@@ -1,5 +1,5 @@
 // angular
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 // 3rd party
@@ -22,7 +22,7 @@ import { AuctionAddAboutWizardStepComponent } from '../../../components/wizard/w
 @Component({
   templateUrl: './main.component.html'
 })
-export class AuctionAddMainWizardComponent implements OnInit, AfterViewInit {
+export class AuctionAddMainWizardComponent implements OnInit, AfterViewInit, OnDestroy {
   auctionAddSubscription: Subscription;
   submitted = false;
 
