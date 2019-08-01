@@ -74,6 +74,7 @@ export class AuctionAddAboutWizardStepComponent implements OnInit {
   }
 
   private buildForm(): void {
+    // todo: kke: I need something smart here how to build dynamic form based on specific conditions! + add validations!
     this.aboutStepForm = this.formBuilder.group({
       auctionCreator: ['', [Validators.required]],
       auctionAddress: ['', [Validators.required]],

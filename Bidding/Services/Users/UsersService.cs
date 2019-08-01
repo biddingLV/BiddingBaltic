@@ -42,7 +42,10 @@ namespace Bidding.Services.Users
         /// <returns></returns>
         public bool Create(UserAddRequestModel request)
         {
-            //if (email.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, UserErrorMessages.IncorrectSignInEmail); }
+            if (request.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, UserErrorMessages.MissingUsersInformation); }
+            if (request.LoginEmail.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, UserErrorMessages.MissingUsersInformation); }
+            if (request.UniqueIdentifier.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, UserErrorMessages.MissingUsersInformation); }
+
             return m_userRepository.Create(request);
         }
 

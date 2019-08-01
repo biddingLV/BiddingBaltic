@@ -1,10 +1,10 @@
 export interface UserListItemModel {
   userId: number;
   firstName: string;
-  middleName: string;
   lastName: string;
+  loginEmail: string;
   contactEmail: string;
-  createdAt: Date;
+  phone: string;
   userRole: string;
   userStatus: string;
 }

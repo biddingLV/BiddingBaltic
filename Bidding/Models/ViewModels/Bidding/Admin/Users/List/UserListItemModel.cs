@@ -9,10 +9,10 @@ namespace Bidding.Models.ViewModels.Bidding.Admin.Users.List
     {
         public int UserId { get; set; }
         public string FirstName { get; set; }
-        public string MiddleName { get; set; }
         public string LastName { get; set; }
+        public string LoginEmail { get; set; }
         public string ContactEmail { get; set; }
-        public DateTime CreatedAt { get; set; }
+        public string Phone { get; set; }
         public string UserRole { get; set; }
         public string UserStatus { get; set; }
     }

@@ -406,6 +406,7 @@ namespace Bidding
             }
             else
             {
+                // first time login, set both emails to be the same!
                 UserAddRequestModel newUser = new UserAddRequestModel()
                 {
                     // todo: kke: what about social logins here? can we get full name?
@@ -418,6 +419,7 @@ namespace Bidding
                 userDetails = services.BuildServiceProvider().GetService<UsersService>().UserDetails(userLoginEmail);
             }
 
+            // todo: kke: add this back for extra validation!
             // validate user details
             // ValidateUserDetails(userDetails, usersIdentityId, m_context);
 

@@ -194,7 +194,6 @@ namespace Bidding.Repositories.Auctions
                     {
                         AuctionCreatorId = usr.UserId,
                         FirstName = usr.FirstName,
-                        MiddleName = usr.MiddleName,
                         LastName = usr.LastName
                     });
             }

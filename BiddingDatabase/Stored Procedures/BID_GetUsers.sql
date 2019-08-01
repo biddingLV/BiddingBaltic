@@ -1,14 +1,15 @@
-﻿CREATE PROCEDURE [dbo].[BID_GetUsers] @start int,
-@end int
+﻿CREATE PROCEDURE [dbo].[BID_GetUsers] 
+	@start int,
+	@end int
 AS
 BEGIN
 	SELECT
 		usr.UserId,
 		usr.FirstName,
-		usr.MiddleName,
 		usr.LastName,
+		usr.LoginEmail,
 		usr.ContactEmail,
-		usr.CreatedAt,
+		usr.Phone,
 		rol.Name AS UserRole,
 		(CASE
 			WHEN usr.Deleted = 0 THEN 'Active'

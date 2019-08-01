@@ -40,44 +40,35 @@ namespace Bidding.Repositories.Users
         }
 
         /// <summary>
-        /// Used in startup.cs file to add a new user to our internal DB, called on the first time sign-in!
+        /// Used in startup.cs file to add a new user to our internal DB, called on the first time sign-up!
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
-        public bool Create(UserAddRequestModel request)
+        public bool Create(UserAddRequestModel request) // todo: kke: naming needs to be something like create on signUp!
         {
             // by default create user with User Role!
             Role defaultUserRole = m_context.Roles.FirstOrDefault(rol => rol.Name == "User");
 
             User newUser = new User()
             {
-                FirstName = request.FirstName,
-                LastName = request.LastName,
                 LoginEmail = request.LoginEmail.ToLower(),
-                Deleted = false,
-                RoleId = defaultUserRole.RoleId, // User
+                ContactEmail = request.LoginEmail.ToLower(),
+                RoleId = defaultUserRole.RoleId, // User role
                 UniqueIdentifier = request.UniqueIdentifier,
                 CreatedAt = DateTime.UtcNow,
-                CreatedBy = 1 // todo: kke: this needs to be null!
+                LastUpdatedAt = DateTime.UtcNow,
+                Deleted = false
             };
 
-            var strategy = m_context.Database.CreateExecutionStrategy();
-            strategy.Execute(() =>
+            try
             {
-                try
-                {
-                    using (var transaction = m_context.Database.BeginTransaction())
-                    {
-                        m_context.Add(newUser);
-                        m_context.SaveChanges();
-                        transaction.Commit();
-                    }
-                }
-                catch (Exception ex)
-                {
-                    throw new WebApiException(HttpStatusCode.BadRequest, UserErrorMessages.CouldNotCreateUser, ex);
-                }
-            });
+                m_context.Add(newUser);
+                m_context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new WebApiException(HttpStatusCode.BadRequest, UserErrorMessages.CouldNotCreateUser, ex);
+            }
 
             return true;
         }
@@ -137,9 +128,13 @@ namespace Bidding.Repositories.Users
             }
         }
 
+        /// <summary>
+        /// Returns total count of all active and inactive users for admin panel!
+        /// </summary>
+        /// <returns></returns>
         public IEnumerable<User> TotalUserCount()
         {
-            return m_context.Users.Where(usr => usr.Deleted == false);
+            return m_context.Users;
         }
     }
 }

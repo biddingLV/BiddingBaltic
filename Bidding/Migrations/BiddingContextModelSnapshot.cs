@@ -661,9 +661,6 @@ namespace Bidding.Migrations
                         .IsRequired()
                         .HasMaxLength(50);
 
-                    b.Property<string>("MiddleName")
-                        .HasMaxLength(50);
-
                     b.Property<string>("Phone")
                         .HasMaxLength(50);
 
@@ -683,66 +680,38 @@ namespace Bidding.Migrations
                         new
                         {
                             UserId = 1,
-                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatedBy = 1,
-                            Deleted = false,
-                            FirstName = "Test",
-                            LastName = "Admin",
-                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            LastUpdatedBy = 1,
-                            LoginEmail = "dummyadmin@bidding.lv",
-                            MiddleName = "",
-                            RoleId = 2,
-                            UniqueIdentifier = ""
-                        },
-                        new
-                        {
-                            UserId = 2,
-                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatedBy = 1,
-                            Deleted = false,
-                            FirstName = "Test",
-                            LastName = "User",
-                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            LastUpdatedBy = 1,
-                            LoginEmail = "dummyuser@bidding.lv",
-                            MiddleName = "",
-                            RoleId = 1,
-                            UniqueIdentifier = ""
-                        },
-                        new
-                        {
-                            UserId = 3,
-                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            CreatedBy = 1,
-                            Deleted = false,
-                            FirstName = "Zane",
-                            LastName = "",
-                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            LastUpdatedBy = 1,
-                            LoginEmail = "zanehaartman@gmail.com",
-                            MiddleName = "",
-                            RoleId = 2,
-                            UniqueIdentifier = ""
-                        },
-                        new
-                        {
-                            UserId = 4,
+                            ContactEmail = "kristaps.kerpe@gmail.com",
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CreatedBy = 1,
                             Deleted = false,
                             FirstName = "Kristaps",
-                            LastName = "",
+                            LastName = "K",
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             LoginEmail = "kristaps.kerpe@gmail.com",
-                            MiddleName = "",
+                            Phone = "22089756",
                             RoleId = 2,
-                            UniqueIdentifier = ""
+                            UniqueIdentifier = "auth0|5bb4fdb000997e5d8c606653"
                         },
                         new
                         {
-                            UserId = 5,
+                            UserId = 2,
+                            ContactEmail = "zanehaartman@gmail.com",
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            CreatedBy = 1,
+                            Deleted = false,
+                            FirstName = "Zane",
+                            LastName = "H",
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            LoginEmail = "zanehaartman@gmail.com",
+                            RoleId = 2,
+                            UniqueIdentifier = "auth0|5bd605d46d76842d17365f3b"
+                        },
+                        new
+                        {
+                            UserId = 3,
+                            ContactEmail = "j.jaunozols@gmail.com",
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CreatedBy = 1,
                             Deleted = false,
@@ -751,24 +720,23 @@ namespace Bidding.Migrations
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             LoginEmail = "j.jaunozols@gmail.com",
-                            MiddleName = "",
                             RoleId = 2,
-                            UniqueIdentifier = ""
+                            UniqueIdentifier = "uth0|5bba448bb76b8011ae24e569"
                         },
                         new
                         {
-                            UserId = 6,
+                            UserId = 4,
+                            ContactEmail = "janis.rihards.blazevics@gmail.com",
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             CreatedBy = 1,
                             Deleted = true,
-                            FirstName = "Jānis",
+                            FirstName = "Jānis R",
                             LastName = "B",
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             LoginEmail = "janis.rihards.blazevics@gmail.com",
-                            MiddleName = "R",
-                            RoleId = 2,
-                            UniqueIdentifier = ""
+                            RoleId = 1,
+                            UniqueIdentifier = "auth0|5c5dae63da9fe9124eccf90f"
                         });
                 });
 

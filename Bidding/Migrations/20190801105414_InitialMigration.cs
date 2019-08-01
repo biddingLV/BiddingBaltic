@@ -145,10 +145,10 @@ namespace Bidding.Migrations
                     UserId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     FirstName = table.Column<string>(maxLength: 50, nullable: true),
-                    MiddleName = table.Column<string>(maxLength: 50, nullable: true),
                     LastName = table.Column<string>(maxLength: 50, nullable: true),
                     LoginEmail = table.Column<string>(maxLength: 50, nullable: false),
                     ContactEmail = table.Column<string>(maxLength: 50, nullable: true),
+                    Phone = table.Column<string>(maxLength: 50, nullable: true),
                     RoleId = table.Column<int>(nullable: false),
                     UniqueIdentifier = table.Column<string>(maxLength: 100, nullable: false),
                     CreatedAt = table.Column<DateTime>(nullable: false),
@@ -442,15 +442,13 @@ namespace Bidding.Migrations
 
             migrationBuilder.InsertData(
                 table: "Users",
-                columns: new[] { "UserId", "ContactEmail", "CreatedAt", "CreatedBy", "Deleted", "FirstName", "LastName", "LastUpdatedAt", "LastUpdatedBy", "LoginEmail", "MiddleName", "RoleId", "UniqueIdentifier" },
+                columns: new[] { "UserId", "ContactEmail", "CreatedAt", "CreatedBy", "Deleted", "FirstName", "LastName", "LastUpdatedAt", "LastUpdatedBy", "LoginEmail", "Phone", "RoleId", "UniqueIdentifier" },
                 values: new object[,]
                 {
-                    { 2, null, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, "Test", "User", new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "dummyuser@bidding.lv", "", 1, "" },
-                    { 1, null, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, "Test", "Admin", new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "dummyadmin@bidding.lv", "", 2, "" },
-                    { 3, null, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, "Zane", "", new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "zanehaartman@gmail.com", "", 2, "" },
-                    { 4, null, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, "Kristaps", "", new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "kristaps.kerpe@gmail.com", "", 2, "" },
-                    { 5, null, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, "Jānis", "J", new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "j.jaunozols@gmail.com", "", 2, "" },
-                    { 6, null, new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, true, "Jānis", "B", new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "janis.rihards.blazevics@gmail.com", "R", 2, "" }
+                    { 4, "janis.rihards.blazevics@gmail.com", new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, true, "Jānis R", "B", new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "janis.rihards.blazevics@gmail.com", null, 1, "auth0|5c5dae63da9fe9124eccf90f" },
+                    { 1, "kristaps.kerpe@gmail.com", new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, "Kristaps", "K", new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "kristaps.kerpe@gmail.com", "22089756", 2, "auth0|5bb4fdb000997e5d8c606653" },
+                    { 2, "zanehaartman@gmail.com", new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, "Zane", "H", new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "zanehaartman@gmail.com", null, 2, "auth0|5bd605d46d76842d17365f3b" },
+                    { 3, "j.jaunozols@gmail.com", new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, false, "Jānis", "J", new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified), 1, "j.jaunozols@gmail.com", null, 2, "uth0|5bba448bb76b8011ae24e569" }
                 });
 
             migrationBuilder.InsertData(

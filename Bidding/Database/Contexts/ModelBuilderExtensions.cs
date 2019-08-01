@@ -67,17 +67,21 @@ namespace Bidding.Database.Contexts
 
         private static void PopulateUsers(ModelBuilder modelBuilder)
         {
+            var adminRoleId = 2;
+            var userRoleId = 1;
+
             modelBuilder.Entity<User>().HasData(
                 new User
                 {
                     UserId = 1,
-                    FirstName = "Test",
-                    MiddleName = "",
-                    LastName = "Admin",
-                    LoginEmail = "dummyadmin@bidding.lv",
-                    RoleId = 2,
+                    FirstName = "Kristaps",
+                    LastName = "K",
+                    LoginEmail = "kristaps.kerpe@gmail.com",
+                    ContactEmail = "kristaps.kerpe@gmail.com",
+                    Phone = "22089756",
+                    RoleId = adminRoleId,
                     Deleted = false,
-                    UniqueIdentifier = "",
+                    UniqueIdentifier = "auth0|5bb4fdb000997e5d8c606653",
                     CreatedAt = CreatedAtDateTime,
                     CreatedBy = CreatedByBiddingAdmin,
                     LastUpdatedAt = CreatedAtDateTime,
@@ -86,13 +90,13 @@ namespace Bidding.Database.Contexts
                 new User
                 {
                     UserId = 2,
-                    FirstName = "Test",
-                    MiddleName = "",
-                    LastName = "User",
-                    LoginEmail = "dummyuser@bidding.lv",
-                    RoleId = 1,
+                    FirstName = "Zane",
+                    LastName = "H",
+                    LoginEmail = "zanehaartman@gmail.com",
+                    ContactEmail = "zanehaartman@gmail.com",
+                    RoleId = adminRoleId,
                     Deleted = false,
-                    UniqueIdentifier = "",
+                    UniqueIdentifier = "auth0|5bd605d46d76842d17365f3b",
                     CreatedAt = CreatedAtDateTime,
                     CreatedBy = CreatedByBiddingAdmin,
                     LastUpdatedAt = CreatedAtDateTime,
@@ -101,13 +105,13 @@ namespace Bidding.Database.Contexts
                 new User
                 {
                     UserId = 3,
-                    FirstName = "Zane",
-                    MiddleName = "",
-                    LastName = "",
-                    LoginEmail = "zanehaartman@gmail.com",
-                    RoleId = 2,
+                    FirstName = "Jānis",
+                    LastName = "J",
+                    LoginEmail = "j.jaunozols@gmail.com",
+                    ContactEmail = "j.jaunozols@gmail.com",
+                    RoleId = adminRoleId,
                     Deleted = false,
-                    UniqueIdentifier = "",
+                    UniqueIdentifier = "uth0|5bba448bb76b8011ae24e569",
                     CreatedAt = CreatedAtDateTime,
                     CreatedBy = CreatedByBiddingAdmin,
                     LastUpdatedAt = CreatedAtDateTime,
@@ -116,43 +120,13 @@ namespace Bidding.Database.Contexts
                 new User
                 {
                     UserId = 4,
-                    FirstName = "Kristaps",
-                    MiddleName = "",
-                    LastName = "",
-                    LoginEmail = "kristaps.kerpe@gmail.com",
-                    RoleId = 2,
-                    Deleted = false,
-                    UniqueIdentifier = "",
-                    CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
-                    LastUpdatedAt = CreatedAtDateTime,
-                    LastUpdatedBy = CreatedByBiddingAdmin
-                },
-                new User
-                {
-                    UserId = 5,
-                    FirstName = "Jānis",
-                    MiddleName = "",
-                    LastName = "J",
-                    LoginEmail = "j.jaunozols@gmail.com",
-                    RoleId = 2,
-                    Deleted = false,
-                    UniqueIdentifier = "",
-                    CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
-                    LastUpdatedAt = CreatedAtDateTime,
-                    LastUpdatedBy = CreatedByBiddingAdmin
-                },
-                new User
-                {
-                    UserId = 6,
-                    FirstName = "Jānis",
-                    MiddleName = "R",
+                    FirstName = "Jānis R",
                     LastName = "B",
                     LoginEmail = "janis.rihards.blazevics@gmail.com",
-                    RoleId = 2,
+                    ContactEmail = "janis.rihards.blazevics@gmail.com",
+                    RoleId = userRoleId,
                     Deleted = true,
-                    UniqueIdentifier = "",
+                    UniqueIdentifier = "auth0|5c5dae63da9fe9124eccf90f",
                     CreatedAt = CreatedAtDateTime,
                     CreatedBy = CreatedByBiddingAdmin,
                     LastUpdatedAt = CreatedAtDateTime,
