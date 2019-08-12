@@ -7,7 +7,7 @@
 @import "~node_modules/bootstrap/scss/bootstrap";
 
 // bootstrap style - toastr
-@import '~ngx-toastr/toastr-bs4-alert';
+@import "~ngx-toastr/toastr-bs4-alert";
 
 // ng-select theme
 @import "~@ng-select/ng-select/scss/default.theme.scss";
@@ -58,7 +58,6 @@
 */
 
 // General/Global styles for modals
-
 
 // Specific styles for specific modal
 
@@ -113,20 +112,59 @@
   }
 
   // CountDown Timer
-  .countdown{  
-    bottom: 0; left: 0; right: 0;
+  .countdown {
+    bottom: 0;
+    left: 0;
+    right: 0;
     float: right;
 
     width: 460px;
     height: 245px;
     text-align: center;
     background: $primary;
-    background: -moz-linear-gradient(top,  $primary 0%, $primary 70%, $white 70%, $white 100%); /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, right top, color-stop(0%,$primary), color-stop(70%,$primary), color-stop(70%,$white), color-stop(100%,$white)); /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top,  $primary 0%,$primary 70%,$white 70%,$white 100%); /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top, $primary 0%,$primary 70%,$white 70%$white 100%); /* Opera 11.10+ */
-    background: -ms-linear-gradient(top,  $primary 0%,$primary 70%,$white 70%,$white 100%);  /*IE10+*/
-    background: linear-gradient(to bottom,  $primary 0%,$primary 70%,$white 70%,$white 100%);
+    background: -moz-linear-gradient(
+      top,
+      $primary 0%,
+      $primary 70%,
+      $white 70%,
+      $white 100%
+    ); /* FF3.6+ */
+    background: -webkit-gradient(
+      linear,
+      left top,
+      right top,
+      color-stop(0%, $primary),
+      color-stop(70%, $primary),
+      color-stop(70%, $white),
+      color-stop(100%, $white)
+    ); /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(
+      top,
+      $primary 0%,
+      $primary 70%,
+      $white 70%,
+      $white 100%
+    ); /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(
+      top,
+      $primary 0%,
+      $primary 70%,
+      $white 70%$white 100%
+    ); /* Opera 11.10+ */
+    background: -ms-linear-gradient(
+      top,
+      $primary 0%,
+      $primary 70%,
+      $white 70%,
+      $white 100%
+    ); /*IE10+*/
+    background: linear-gradient(
+      to bottom,
+      $primary 0%,
+      $primary 70%,
+      $white 70%,
+      $white 100%
+    );
     border: 1px solid #111;
     box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
 
@@ -178,7 +216,6 @@
         }
       }
     }
-
   }
   .social {
     float: right;
@@ -188,8 +225,8 @@
   }
   // Apply for auction button
   .apply_button {
-    margin-top: 65px; 
-    
+    margin-top: 65px;
+
     width: 220px;
     height: 70px;
     background-color: $primary;
@@ -280,7 +317,6 @@
   }
 }
 .date_info {
-
   .date_info_button {
     position: fixed;
     z-index: 100;
@@ -316,16 +352,14 @@
     .date_info_card_components {
       margin-left: auto;
       margin-right: auto;
-       
+
       width: 366px;
       height: 100px;
-      background-color: #F0F0F0;;
+      background-color: #f0f0f0;
       border-radius: 10px;
       border: $gray-700 2px;
       .date_info_card_component {
-        
         .date_info_card_component_body {
-
           p {
             font-size: 16px;
             font-family: $font-family-base;

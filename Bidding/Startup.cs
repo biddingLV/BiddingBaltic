@@ -40,6 +40,7 @@ using System.Threading.Tasks;
 using Bidding.Database.Contexts;
 using Bidding.Database.DatabaseModels.Auctions;
 using Bidding.Services.Shared;
+using SixLabors.ImageSharp.Web.DependencyInjection;
 
 namespace Bidding
 {
@@ -62,6 +63,9 @@ namespace Bidding
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            // Configure ImageSharp for image compression
+            services.AddImageSharp();
+
             ConfigureSinglePageApplication(ref services);
             ConfigureHttps(ref services);
             ConfigureAntiCSRF(ref services);

@@ -9,27 +9,34 @@
 // todo: kke: different way how to include fonts ?
 // latin-ext
 @font-face {
-  font-family: 'Source Sans Pro';
+  font-family: "Source Sans Pro";
   font-style: normal;
   font-weight: 400;
-  src: local('Source Sans Pro Regular'), local('SourceSansPro-Regular'), url(https://fonts.gstatic.com/s/sourcesanspro/v11/6xK3dSBYKcSV-LCoeQqfX1RYOo3qNq7lqDY.woff2) format('woff2');
-  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB, U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
+  src: local("Source Sans Pro Regular"), local("SourceSansPro-Regular"),
+    url(https://fonts.gstatic.com/s/sourcesanspro/v11/6xK3dSBYKcSV-LCoeQqfX1RYOo3qNq7lqDY.woff2)
+      format("woff2");
+  unicode-range: U+0100-024F, U+0259, U+1E00-1EFF, U+2020, U+20A0-20AB,
+    U+20AD-20CF, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 
 // latin
 @font-face {
-  font-family: 'Source Sans Pro';
+  font-family: "Source Sans Pro";
   font-style: normal;
   font-weight: 400;
-  src: local('Source Sans Pro Regular'), local('SourceSansPro-Regular'), url(https://fonts.gstatic.com/s/sourcesanspro/v11/6xK3dSBYKcSV-LCoeQqfX1RYOo3qOK7l.woff2) format('woff2');
-  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+  src: local("Source Sans Pro Regular"), local("SourceSansPro-Regular"),
+    url(https://fonts.gstatic.com/s/sourcesanspro/v11/6xK3dSBYKcSV-LCoeQqfX1RYOo3qOK7l.woff2)
+      format("woff2");
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA,
+    U+02DC, U+2000-206F, U+2074, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215,
+    U+FEFF, U+FFFD;
 }
 
 // Font definitions
 $font-family-sans-serif: Tahoma, Arial, sans-serif;
 
 // Font assignments
-$font-family-base: 'Source Sans Pro', $font-family-sans-serif;
+$font-family-base: "Source Sans Pro", $font-family-sans-serif;
 
 // Font size assignments
 $p-font-size: 1rem; // todo: kke: make this more - global?
@@ -44,13 +51,13 @@ $purple: #6f5081;
 $dark-pink: #863456;
 $red: #f8435f;
 $green: #acceb2;
-$white: #FFFFFF;
+$white: #ffffff;
 $black: #000000;
-$gray-100: #FCFCFC;
-$gray-200: #F7F7F7;
+$gray-100: #fcfcfc;
+$gray-200: #f7f7f7;
 $gray-700: #707070;
 $gray-950: #363636;
-$purple-gray: #D3CAD8;
+$purple-gray: #d3cad8;
 
 // Color assignments
 $primary: $purple;
@@ -63,7 +70,13 @@ $danger: $red;
 */
 
 // Grid definition
-$grid-breakpoints: ( xs: 0, sm: 576px, md: 768px, lg: 992px, xl: 1200px);
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px,
+  lg: 992px,
+  xl: 1200px
+);
 
 // Global assignments
 $body-bg: $gray-100;
@@ -117,24 +130,24 @@ $link-hover-decoration: underline;
 // for phone headings:
 // h1 - 30px
 // h2 - 21px
-// h3 - 
+// h3 -
 // h4 - 18px
 // h5 - 16px + semi-bold
 // a / pogas - 16px
 // for tablet headings:
 // h1 - 40px
-// h2 - 
+// h2 -
 // h3 - 21px
 // h4 - 19px
-// h5 - 
+// h5 -
 // p -
-// a / pogas - 
+// a / pogas -
 // for desktop headings:
 // h1 - 50px
 // h2 - 32px
 // h3 - 28px
 // h4 - 24px
 // h5 -
-// p -  
+// p -
 // a / pogas -
 // old

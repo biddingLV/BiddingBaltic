@@ -32,6 +32,7 @@ import { PartnerRulesComponent } from './components/footer/static-components/par
 import { RulesListComponent } from './components/footer/static-components/rules-list/rules-list.component';
 import { ServiceRulesComponent } from './components/footer/static-components/service-rules/service-rules.component';
 import { FAQPageComponent } from './components/footer/static-components/faq-page/faq-page.component';
+import { HomeSignUpButtonComponent } from './components/home-sign-up-button/home-sign-up-button.component';
 
 
 @NgModule({
@@ -52,7 +53,8 @@ import { FAQPageComponent } from './components/footer/static-components/faq-page
     FAQPageComponent,
     CallbackComponent,
     FontAwesomeModule,
-    ContentLoaderModule
+    ContentLoaderModule,
+    HomeSignUpButtonComponent
   ],
   declarations: [
     NavbarComponent,
@@ -62,7 +64,8 @@ import { FAQPageComponent } from './components/footer/static-components/faq-page
     RulesListComponent,
     ServiceRulesComponent,
     FAQPageComponent,
-    CallbackComponent
+    CallbackComponent,
+    HomeSignUpButtonComponent
   ]
 })
 export class MinSharedModule {

@@ -14,18 +14,23 @@ ng-select.ng-select {
   // color: $input-placeholder-color;
 }
 
-.ng-select.ng-select-focused:not(.ng-select-opened)>.ng-select-container,
-.ng-select.ng-select-focused.ng-select-opened>.ng-select-container {
+.ng-select.ng-select-focused:not(.ng-select-opened) > .ng-select-container,
+.ng-select.ng-select-focused.ng-select-opened > .ng-select-container {
   // border: 1px solid $txprimarycolorlight;
   // box-shadow: inset 0 2px 2px rgba($primary, 0.075), 0 0 0 4px rgba( $primary, .2);
 }
 
-.ng-select.custom .ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-marked {
+.ng-select.custom
+  .ng-dropdown-panel
+  .ng-dropdown-panel-items
+  .ng-option.ng-option-marked {
   // background-color: $primary;
   // color: $white;
 }
 
-.ng-dropdown-panel .ng-dropdown-panel-items .ng-option.ng-option-selected.ng-option-disabled {
+.ng-dropdown-panel
+  .ng-dropdown-panel-items
+  .ng-option.ng-option-selected.ng-option-disabled {
   // color: $gray;
 }
 
