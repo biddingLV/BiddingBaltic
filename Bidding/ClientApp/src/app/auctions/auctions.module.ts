@@ -24,6 +24,8 @@ import { AuctionAddWizardPropertyComponent } from './components/wizard/wizard-st
 import { AuctionAddAboutWizardStepComponent } from './components/wizard/wizard-steps/about-step/about-step.component';
 import { AuctionTableComponent } from './components/auction-table/auction-table.component';
 import { AuctionListComponent } from './containers/list/list.component';
+import { CategoryFilterComponent } from './components/category-filter/category-filter.component';
+import { TypeFilterComponent } from './components/type-filter/type-filter.component';
 
 
 @NgModule({
@@ -38,7 +40,9 @@ import { AuctionListComponent } from './containers/list/list.component';
     AuctionTableComponent,
     ArchwizardModule,
     BsDatepickerModule,
-    AuctionListComponent
+    AuctionListComponent,
+    CategoryFilterComponent,
+    TypeFilterComponent
   ],
   declarations: [
     AuctionTableComponent,
@@ -54,7 +58,9 @@ import { AuctionListComponent } from './containers/list/list.component';
     AuctionAddWizardItemComponent,
     AuctionAddWizardPropertyComponent,
     AuctionDetailsCountdownComponent,
-    AuctionListComponent
+    AuctionListComponent,
+    CategoryFilterComponent,
+    TypeFilterComponent
   ],
   providers: [
     AuctionsService

@@ -28,7 +28,6 @@ namespace Bidding.Controllers.Auctions
 
         [HttpGet]
         [AllowAnonymous]
-        //[Authorize(Roles = "User, Admin")]
         public IActionResult List([FromQuery] AuctionListRequestModel request)
         {
             return Ok(m_auctionsService.ListWithSearch(request));
@@ -52,7 +51,6 @@ namespace Bidding.Controllers.Auctions
         /// <returns></returns>
         [HttpGet]
         [AllowAnonymous]
-        //[Authorize(Roles = "User, Admin")]
         public IActionResult Filters()
         {
             return Ok(m_auctionsService.Filters());
@@ -119,7 +117,7 @@ namespace Bidding.Controllers.Auctions
         /// <param name="auctionId"></param>
         /// <returns></returns>
         [HttpGet]
-        [Authorize(Roles = "User, Admin")]
+        [AllowAnonymous]
         public async Task<IActionResult> Details([FromQuery] AuctionDetailsRequestModel request)
         {
             return Ok(await m_auctionsService.DetailsAsync(request));

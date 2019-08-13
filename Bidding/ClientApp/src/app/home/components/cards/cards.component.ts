@@ -10,15 +10,15 @@ export class HomeCardsComponent implements OnInit {
   public cards = [
     {
       description: "Transportlīdzekļu izsoles",
-      imagePath: "../../../../../assets/images/motorcycle.png"
+      imagePath: "../../../../../assets/images/delivery-truck.svg"
     },
     {
       description: "Nekustamo īpašumu izsoles",
-      imagePath: "../../../../../assets/images/motorcycle.png"
+      imagePath: "../../../../../assets/images/delivery-truck.svg"
     },
     {
       description: "Mantu izsoles",
-      imagePath: "../../../../../assets/images/motorcycle.png"
+      imagePath: "../../../../../assets/images/delivery-truck.svg"
     }
   ];
 
