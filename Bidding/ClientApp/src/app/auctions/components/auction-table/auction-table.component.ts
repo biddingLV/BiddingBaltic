@@ -1,13 +1,12 @@
 // angular
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from "@angular/core";
 
 // internal
-import { AuctionModel } from '../../models/list/auction.model';
-
+import { AuctionModel } from "../../models/list/auction.model";
 
 @Component({
-  selector: 'app-auction-table',
-  templateUrl: './auction-table.component.html'
+  selector: "app-auction-table",
+  templateUrl: "./auction-table.component.html"
 })
 export class AuctionTableComponent implements OnInit {
   // table
@@ -26,11 +25,9 @@ export class AuctionTableComponent implements OnInit {
   @Output() detailsClick = new EventEmitter<boolean>();
   @Output() selectedChange = new EventEmitter<any>();
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
-    console.log('table: ', this.auctionTable);
-  }
+  ngOnInit(): void {}
 
   onPageChange(page: number): void {
     this.pageChange.emit(page);
@@ -45,7 +42,6 @@ export class AuctionTableComponent implements OnInit {
   }
 
   onSelect({ selected }): void {
-
     this.selected.splice(0, this.selected.length);
     this.selected.push(...selected);
 

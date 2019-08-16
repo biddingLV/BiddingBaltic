@@ -24,7 +24,7 @@ import { AuctionAddWizardPropertyComponent } from "./components/wizard/wizard-st
 import { AuctionAddAboutWizardStepComponent } from "./components/wizard/wizard-steps/about-step/about-step.component";
 import { AuctionTableComponent } from "./components/auction-table/auction-table.component";
 import { AuctionListComponent } from "./containers/list/list.component";
-import { AuctionFiltersComponent } from "./components/auction-filter/auction-filters.component";
+import { AuctionFiltersComponent } from "./components/auction-filters/auction-filters.component";
 
 @NgModule({
   imports: [

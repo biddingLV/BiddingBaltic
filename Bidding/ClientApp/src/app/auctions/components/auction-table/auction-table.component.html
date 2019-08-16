@@ -1,25 +1,54 @@
 <!-- header definition -->
-<ngx-datatable class="bootstrap" [rows]="auctionTable.auctions" [columnMode]="'force'" [headerHeight]="50"
-  [footerHeight]="50" [rowHeight]="'auto'" [externalSorting]="true" [externalPaging]="true"
-  [count]="auctionTable.itemCount" [offset]="auctionTable.currentPage" [selectionType]="'checkbox'" [limit]="numberRows"
-  (sort)="onSortChange($event)" (select)='onSelect($event)' [sorts]="[{prop: 'name', dir: 'asc'}]" [selected]="selected"
-  [selectAllRowsOnPage]="false">
-
+<ngx-datatable
+  class="bootstrap"
+  [rows]="auctionTable.auctions"
+  [columnMode]="'force'"
+  [headerHeight]="50"
+  [footerHeight]="50"
+  [rowHeight]="'auto'"
+  [externalSorting]="true"
+  [externalPaging]="true"
+  [count]="auctionTable.itemCount"
+  [offset]="auctionTable.currentPage"
+  [selectionType]="'checkbox'"
+  [limit]="numberRows"
+  (sort)="onSortChange($event)"
+  (select)="onSelect($event)"
+  [sorts]="[{ prop: 'name', dir: 'asc' }]"
+  [selected]="selected"
+  [selectAllRowsOnPage]="false"
+>
   <!-- column definition -->
   <!-- todo: kke: hide checkboxes! -->
-  <ngx-datatable-column [width]="30" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false"
-    [headerCheckboxable]="true" [checkboxable]="true" *ngIf="showSelectAllCheckboxColumn">
+  <ngx-datatable-column
+    [width]="30"
+    [sortable]="false"
+    [canAutoResize]="false"
+    [draggable]="false"
+    [resizeable]="false"
+    [headerCheckboxable]="true"
+    [checkboxable]="true"
+    *ngIf="showSelectAllCheckboxColumn"
+  >
   </ngx-datatable-column>
 
   <ngx-datatable-column prop="auctionName" name="Nosaukums" [sortable]="true">
     <ng-template let-row="row" ngx-datatable-cell-template>
-      <a (click)="onDetailsClick()" [routerLink]="['/auction', row.auctionId]">{{ row.auctionName }}</a>
+      <a
+        (click)="onDetailsClick()"
+        [routerLink]="['/auction', row.auctionId]"
+        >{{ row.auctionName }}</a
+      >
     </ng-template>
   </ngx-datatable-column>
 
-  <ngx-datatable-column prop="auctionStartingPrice" name="Sākumcena" [sortable]="true">
+  <ngx-datatable-column
+    prop="auctionStartingPrice"
+    name="Sākumcena"
+    [sortable]="true"
+  >
     <ng-template let-row="row" ngx-datatable-cell-template>
-      <span>€ {{ row.auctionStartingPrice | number : '1.2-2' }}</span>
+      <span>€ {{ row.auctionStartingPrice | number: "1.2-2" }}</span>
     </ng-template>
   </ngx-datatable-column>
 
@@ -33,18 +62,26 @@
     </ng-template>
   </ngx-datatable-column> -->
 
-  <ngx-datatable-column prop="auctionStatusName" name="Statuss" [sortable]="true"></ngx-datatable-column>
+  <ngx-datatable-column
+    prop="auctionStatusName"
+    name="Statuss"
+    [sortable]="true"
+  ></ngx-datatable-column>
 
   <!-- footer definition -->
   <ngx-datatable-footer>
     <ng-template ngx-datatable-footer-template let-rowCount="page.size">
-      <div class="">
-        Kopējais izsoļu skaits:{{ auctionTable.itemCount }}
-      </div>
+      <div class="">Kopējais izsoļu skaits:{{ auctionTable.itemCount }}</div>
 
-      <datatable-pager [pagerLeftArrowIcon]="'datatable-icon-left'" [pagerRightArrowIcon]="'datatable-icon-right'"
-        [pagerPreviousIcon]="'datatable-icon-prev'" [pagerNextIcon]="'datatable-icon-skip'" [size]="numberRows"
-        [count]="auctionTable.itemCount" (change)="onPageChange($event)">
+      <datatable-pager
+        [pagerLeftArrowIcon]="'datatable-icon-left'"
+        [pagerRightArrowIcon]="'datatable-icon-right'"
+        [pagerPreviousIcon]="'datatable-icon-prev'"
+        [pagerNextIcon]="'datatable-icon-skip'"
+        [size]="numberRows"
+        [count]="auctionTable.itemCount"
+        (change)="onPageChange($event)"
+      >
       </datatable-pager>
     </ng-template>
   </ngx-datatable-footer>

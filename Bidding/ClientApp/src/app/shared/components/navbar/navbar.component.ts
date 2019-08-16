@@ -1,12 +1,6 @@
 // angular
 import { Component, OnInit } from "@angular/core";
 
-// 3rd lib
-import {
-  ScrollToService,
-  ScrollToConfigOptions
-} from "@nicky-lenaers/ngx-scroll-to";
-
 // internal
 import { AuthService } from "ClientApp/src/app/core/services/auth/auth.service";
 
@@ -16,15 +10,12 @@ import { AuthService } from "ClientApp/src/app/core/services/auth/auth.service";
 })
 export class NavbarComponent implements OnInit {
   fullName: string;
-  userDetails = this.auth.userDetails;
+  userDetails = this.authService.userDetails;
 
   /** The navbarOpen variable would be set to either true or false , depending if the navbar is open or not, when we click the button to see it */
   navbarOpen = false;
 
-  constructor(
-    private auth: AuthService,
-    private scrollToService: ScrollToService
-  ) {}
+  constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
     this.setNavBarUserInformation();
@@ -32,15 +23,7 @@ export class NavbarComponent implements OnInit {
 
   /** Used to handle sign-out */
   signOut(): void {
-    this.auth.logout();
-  }
-
-  triggerScrollTo(): void {
-    const config: ScrollToConfigOptions = {
-      target: "destination"
-    };
-
-    this.scrollToService.scrollTo(config);
+    this.authService.logout();
   }
 
   /** Used to handle responsive show/hide nav bar menu items */
@@ -49,8 +32,8 @@ export class NavbarComponent implements OnInit {
   }
 
   /** Used to handle sign-in */
-  onSignInChange($event: boolean) {
-    this.auth.login();
+  onSignInChange(event: boolean) {
+    this.authService.login();
   }
 
   /**

@@ -12,7 +12,7 @@ export class HomeSignUpButtonComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  onSignInClick(): void {
-    this.signInChange.emit(true);
+  onSignInClick(event: boolean): void {
+    this.signInChange.emit(event);
   }
 }

@@ -29,6 +29,7 @@
 
               <li class="nav-item" *ngIf="!userDetails">
                 <app-home-sign-up-button
+                  class="homepage__header--sign-up-button"
                   (signInChange)="onSignInChange($event)"
                 ></app-home-sign-up-button>
               </li>

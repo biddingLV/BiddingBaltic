@@ -372,6 +372,16 @@
 }
 
 /*
+* Header
+*/
+
+.homepage__header--sign-up-button {
+  button {
+    font-size: 14px;
+  }
+}
+
+/*
 * Footer
 */
 
@@ -425,6 +435,7 @@
 // NavBar
 .shared-page__navBar {
   background-color: $dark-pink;
+  font-size: 14px;
 }
 
 .shared-page__innerNavBar {
