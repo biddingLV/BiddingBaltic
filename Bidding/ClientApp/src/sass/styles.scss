@@ -45,14 +45,6 @@
   color: red;
 }
 
-// Float values
-.right {
-  float: right;
-}
-.left {
-  float: left;
-}
-
 /*
 * Modals
 */
@@ -69,48 +61,8 @@
 * Auction Details
 */
 
-// BreadCrumbs
-.breadcrumb {
-  padding-top: 98px;
-  background-color: transparent;
-
-  .breadcrumb-item > a {
-    font-family: $font-family-base;
-    color: $black;
-
-    .active > a {
-      color: $primary;
-    }
-  }
-}
-
-// Auction details title and header
-.Hero_header {
-  strong {
-    font-family: $font-family-base;
-    color: $black;
-  }
-
-  .auction_title {
-    padding-top: 30px;
-  }
-
-  .auction_startingprice {
-    padding-top: 10px;
-  }
-}
-
 // Content for user interest
 .visual_info {
-  margin-top: 65px;
-
-  // Auction images
-  .image-gallery {
-    float: left;
-    width: 500px;
-    height: 360px;
-  }
-
   // CountDown Timer
   .countdown {
     bottom: 0;

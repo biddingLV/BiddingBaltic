@@ -42,6 +42,11 @@ $font-family-base: "Source Sans Pro", $font-family-sans-serif;
 $p-font-size: 1rem; // todo: kke: make this more - global?
 // $headings-color: $gray-dark;
 
+// sets default font family for all html elements!
+* {
+  font-family: $font-family-base;
+}
+
 /*
 * Colors
 */

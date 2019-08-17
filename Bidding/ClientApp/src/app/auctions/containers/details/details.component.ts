@@ -13,15 +13,15 @@ import { NotificationsService } from "ClientApp/src/app/core/services/notificati
 
 @Component({
   selector: "app-auction-details",
-  templateUrl: "./details.component.html"
+  templateUrl: "./details.component.html",
+  styleUrls: ["./details.component.scss"]
 })
 export class AuctionDetailsComponent implements OnInit, OnDestroy {
-  /** Auction details component subscription */
+  // component
   auctionDetailsSub: Subscription;
-
-  /** Auction details model object */
   auctionDetails: AuctionDetailsModel;
 
+  // template
   dateFormat = "dd/MM/yyyy";
 
   constructor(
