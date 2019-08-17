@@ -7,8 +7,8 @@ import { catchError } from 'rxjs/operators';
 import { Observable } from 'rxjs';
 
 // internal
-import { AuctionModel } from '../models/list/auction.model';
-import { AuctionListRequest } from '../models/list/auction-list-request.model';
+import { AuctionListResponseModel } from '../models/list/auction-list-response.model';
+import { AuctionListRequestModel } from '../models/list/auction-list-request.model';
 import { AuctionDetailsModel } from '../models/details/auction-details.model';
 import { ExceptionsService } from '../../core/services/exceptions/exceptions.service';
 import { AuctionEditRequestModel } from '../models/edit/auction-edit-request.model';
@@ -30,13 +30,11 @@ export class AuctionsService {
     private exceptionService: ExceptionsService
   ) { }
 
-  getAuctions$(request: AuctionListRequest): Observable<AuctionModel> {
+  getAuctions$(request: AuctionListRequestModel): Observable<AuctionListResponseModel> {
     const url = '/api/auctions/list';
 
     let params = new HttpParams({
       fromObject: {
-        startDate: request.auctionStartDate.toString(),
-        endDate: request.auctionEndDate.toString(),
         sortByColumn: request.sortByColumn.toString(),
         sortingDirection: request.sortingDirection.toString(),
         offsetEnd: request.offsetEnd.toString(),
@@ -58,7 +56,7 @@ export class AuctionsService {
       }
     }
 
-    return this.httpService.get<AuctionModel>(url, { params })
+    return this.httpService.get<AuctionListResponseModel>(url, { params })
       .pipe(catchError(this.exceptionService.errorHandler));
   }
 

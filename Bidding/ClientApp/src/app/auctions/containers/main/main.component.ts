@@ -10,8 +10,8 @@ import { AuctionsService } from "../../services/auctions.service";
 import { NotificationsService } from "ClientApp/src/app/core/services/notifications/notifications.service";
 import { AuctionFilterModel } from "../../models/filters/auction-filter.model";
 import { SubCategoryFilterModel } from "../../models/filters/sub-category-filter.model";
-import { AuctionModel } from "../../models/list/auction.model";
-import { AuctionListRequest } from "../../models/list/auction-list-request.model";
+import { AuctionListResponseModel } from "../../models/list/auction-list-response.model";
+import { AuctionListRequestModel } from "../../models/list/auction-list-request.model";
 
 @Component({
   selector: "app-auction-main",
@@ -23,8 +23,8 @@ export class AuctionMainComponent implements OnInit {
   selected?: any[] = [];
 
   // API
-  auctionTable: AuctionModel;
-  auctionListRequest: AuctionListRequest;
+  auctionTable: AuctionListResponseModel;
+  auctionListRequest: AuctionListRequestModel;
 
   // pagination || form
   numberRows = 15;

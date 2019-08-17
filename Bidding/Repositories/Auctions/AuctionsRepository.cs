@@ -46,22 +46,10 @@ namespace Bidding.Repositories.Auctions
         /// <param name="categoryIds">top category ids</param>
         /// <param name="typeIds">sub-category ids</param>
         /// <returns></returns>
-        public IEnumerable<AuctionListModel> ListWithSearch(AuctionListRequestModel request, int startFrom, int endAt, List<int> selectedCategoryIds, List<int> selectedTypeIds)
+        public IEnumerable<AuctionListItemModel> ListWithSearch(AuctionListRequestModel request, int startFrom, int endAt, List<int> selectedCategoryIds, List<int> selectedTypeIds)
         {
             try
             {
-                // todo: kke: move this to the stored procedure as a case / if
-                //if (selectedCategoryIds.IsNotSpecified())
-                //{
-                //    selectedCategoryIds = m_context.Categories.Select(cat => cat.CategoryId).ToList();
-                //}
-
-                // todo: kke: move this to the stored procedure as a case / if
-                //if (selectedTypeIds.IsNotSpecified())
-                //{
-                //    selectedTypeIds = m_context.Types.Select(typ => typ.TypeId).ToList();
-                //}
-
                 SqlParameter categories = new SqlParameter
                 {
                     ParameterName = "selectedCategories",
@@ -104,8 +92,7 @@ namespace Bidding.Repositories.Auctions
                     SqlDbType = SqlDbType.Text
                 };
 
-                // @selectedCategories, @selectedTypes, || categories, types,
-                return m_context.Query<AuctionListModel>()
+                return m_context.Query<AuctionListItemModel>()
                     .FromSql("[dbo].[BID_GetAuctions] @start, @end, @searchValue", startPaginationFrom, endPaginationAt, searchBy);
             }
             catch (Exception ex)
@@ -129,7 +116,6 @@ namespace Bidding.Repositories.Auctions
         /// <returns></returns>
         public IEnumerable<TopCategoryFilterModel> LoadActiveTopCategoriesWithCount()
         {
-            // todo: kke: what about status here?
             return m_context.TopCategoryFilter.FromSql("BID_GetTopCategoriesWithCount");
         }
 
@@ -139,7 +125,6 @@ namespace Bidding.Repositories.Auctions
         /// <returns></returns>
         public IEnumerable<SubCategoryFilterModel> LoadActiveSubCategoriesWithCount()
         {
-            // todo: kke: what about status here?
             return m_context.SubCategoryFilter.FromSql("BID_GetSubCategoriesWithCount");
         }
 

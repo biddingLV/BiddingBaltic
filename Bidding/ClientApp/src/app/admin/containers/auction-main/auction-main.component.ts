@@ -1,37 +1,36 @@
 // angular
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 
 // 3rd lib
-import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { Subscription } from 'rxjs';
-import * as moment from 'moment-mini';
+import { BsModalRef, BsModalService } from "ngx-bootstrap/modal";
+import { Subscription } from "rxjs";
+import * as moment from "moment-mini";
 
 // internal
-import { AuctionEditComponent } from 'ClientApp/src/app/auctions/components/edit/edit.component';
-import { AuctionAddMainWizardComponent } from 'ClientApp/src/app/auctions/containers/wizard/main/main.component';
-import { AuctionDeleteComponent } from 'ClientApp/src/app/auctions/components/delete/delete.component';
-import { ModalService } from 'ClientApp/src/app/core/services/modal/modal.service';
-import { FormService } from 'ClientApp/src/app/core/services/form/form.service';
-import { AuctionModel } from 'ClientApp/src/app/auctions/models/list/auction.model';
-import { AuctionListRequest } from 'ClientApp/src/app/auctions/models/list/auction-list-request.model';
-import { AuctionsService } from 'ClientApp/src/app/auctions/services/auctions.service';
-import { NotificationsService } from 'ClientApp/src/app/core';
-import { AuctionItemModel } from 'ClientApp/src/app/auctions/models/shared/auction-item.model';
-
+import { AuctionEditComponent } from "ClientApp/src/app/auctions/components/edit/edit.component";
+import { AuctionAddMainWizardComponent } from "ClientApp/src/app/auctions/containers/wizard/main/main.component";
+import { AuctionDeleteComponent } from "ClientApp/src/app/auctions/components/delete/delete.component";
+import { ModalService } from "ClientApp/src/app/core/services/modal/modal.service";
+import { FormService } from "ClientApp/src/app/core/services/form/form.service";
+import { AuctionListResponseModel } from "ClientApp/src/app/auctions/models/list/auction-list-response.model";
+import { AuctionListRequestModel } from "ClientApp/src/app/auctions/models/list/auction-list-request.model";
+import { AuctionsService } from "ClientApp/src/app/auctions/services/auctions.service";
+import { NotificationsService } from "ClientApp/src/app/core";
+import { AuctionListItemModel } from "ClientApp/src/app/auctions/models/list/auction-list-item.model";
 
 @Component({
-  templateUrl: './auction-main.component.html'
+  templateUrl: "./auction-main.component.html"
 })
 export class AdminAuctionMainComponent implements OnInit {
   // Component
   mainSubscription: Subscription;
 
   // API
-  auctionTable: AuctionModel;
-  request: AuctionListRequest;
+  auctionTable: AuctionListResponseModel;
+  request: AuctionListRequestModel;
 
   // table
-  selected: AuctionItemModel[] = [];
+  selected: AuctionListItemModel[] = [];
 
   // modals
   bsModalRef: BsModalRef;
@@ -50,7 +49,7 @@ export class AdminAuctionMainComponent implements OnInit {
     private internalFormService: FormService,
     private auctionService: AuctionsService,
     private notificationService: NotificationsService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.setupInitialAuctionRequest();
@@ -59,8 +58,14 @@ export class AdminAuctionMainComponent implements OnInit {
 
   addModal(): void {
     const initialState = {};
-    const modalConfig = { ...this.internalModalService.defaultModalOptions, ...{ initialState: initialState, class: 'modal-lg' } };
-    this.bsModalRef = this.modalService.show(AuctionAddMainWizardComponent, modalConfig);
+    const modalConfig = {
+      ...this.internalModalService.defaultModalOptions,
+      ...{ initialState: initialState, class: "modal-lg" }
+    };
+    this.bsModalRef = this.modalService.show(
+      AuctionAddMainWizardComponent,
+      modalConfig
+    );
 
     this.subscriptions.push(
       this.modalService.onHidden.subscribe((result: string) => {
@@ -76,7 +81,10 @@ export class AdminAuctionMainComponent implements OnInit {
       selectedAuctionId: this.selected[0].auctionId
     };
 
-    const modalConfig = { ...this.internalModalService.defaultModalOptions, ...{ initialState: initialState, class: 'modal-lg' } };
+    const modalConfig = {
+      ...this.internalModalService.defaultModalOptions,
+      ...{ initialState: initialState, class: "modal-lg" }
+    };
     this.bsModalRef = this.modalService.show(AuctionEditComponent, modalConfig);
 
     this.subscriptions.push(
@@ -93,8 +101,14 @@ export class AdminAuctionMainComponent implements OnInit {
       selectedAuctions: this.selected
     };
 
-    const modalConfig = { ...this.internalModalService.defaultModalOptions, ...{ initialState: initialState, class: 'modal-md' } };
-    this.bsModalRef = this.modalService.show(AuctionDeleteComponent, modalConfig);
+    const modalConfig = {
+      ...this.internalModalService.defaultModalOptions,
+      ...{ initialState: initialState, class: "modal-md" }
+    };
+    this.bsModalRef = this.modalService.show(
+      AuctionDeleteComponent,
+      modalConfig
+    );
 
     this.subscriptions.push(
       this.modalService.onHidden.subscribe((result: string) => {
@@ -107,13 +121,11 @@ export class AdminAuctionMainComponent implements OnInit {
 
   private setupInitialAuctionRequest(): void {
     this.request = {
-      auctionStartDate: moment().subtract(365, 'days').format('DD/MM/YYYY'),
-      auctionEndDate: moment().format('DD/MM/YYYY'),
       offsetStart: 0,
       offsetEnd: this.numberRows,
       currentPage: this.currentPage,
-      sortByColumn: 'AuctionName', // by default sort by auction name
-      sortingDirection: 'asc', // by default ascending
+      sortByColumn: "AuctionName", // by default sort by auction name
+      sortingDirection: "asc", // by default ascending
       searchValue: this.searchText
     };
   }
@@ -123,7 +135,9 @@ export class AdminAuctionMainComponent implements OnInit {
     this.mainSubscription = this.auctionService
       .getAuctions$(this.request)
       .subscribe(
-        (response: AuctionModel) => { this.auctionTable = response; },
+        (response: AuctionListResponseModel) => {
+          this.auctionTable = response;
+        },
         (error: string) => this.notificationService.error(error)
       );
   }

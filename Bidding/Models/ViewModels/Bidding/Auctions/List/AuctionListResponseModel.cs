@@ -9,7 +9,7 @@ namespace Bidding.Models.ViewModels.Bidding.Auctions.List
 {
     public class AuctionListResponseModel : BaseListResponseModel
     {
-        public List<AuctionListModel> Auctions { get; set; }
+        public List<AuctionListItemModel> Auctions { get; set; }
 
         public override bool IsReponseEmpty()
         {

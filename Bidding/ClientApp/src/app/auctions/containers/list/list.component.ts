@@ -1,27 +1,25 @@
 // angular
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit } from "@angular/core";
 
 // 3rd lib
-import { Subscription } from 'rxjs';
-import * as moment from 'moment-mini';
+import { Subscription } from "rxjs";
 
 // internal
-import { AuctionsService } from '../../services/auctions.service';
-import { NotificationsService } from 'ClientApp/src/app/core';
-import { AuctionModel } from '../../models/list/auction.model';
-import { AuctionListRequest } from '../../models/list/auction-list-request.model';
-
+import { AuctionsService } from "../../services/auctions.service";
+import { NotificationsService } from "ClientApp/src/app/core";
+import { AuctionListRequestModel } from "../../models/list/auction-list-request.model";
+import { AuctionListResponseModel } from "../../models/list/auction-list-response.model";
 
 @Component({
-  selector: 'app-auction-list',
-  templateUrl: './list.component.html'
+  selector: "app-auction-list",
+  templateUrl: "./list.component.html"
 })
 export class AuctionListComponent implements OnInit {
   listSubscription: Subscription;
 
   // API
-  auctionTable: AuctionModel;
-  auctionListRequest: AuctionListRequest;
+  auctionTable: AuctionListResponseModel;
+  auctionListRequest: AuctionListRequestModel;
 
   // pagination || form
   numberRows = 15;
@@ -32,7 +30,7 @@ export class AuctionListComponent implements OnInit {
   constructor(
     private auctionService: AuctionsService,
     private notificationService: NotificationsService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.setupInitialAuctionRequest();
@@ -47,14 +45,12 @@ export class AuctionListComponent implements OnInit {
 
   private setupInitialAuctionRequest(): void {
     this.auctionListRequest = {
-      auctionStartDate: moment().subtract(365, 'days').format('DD/MM/YYYY'),
-      auctionEndDate: moment().format('DD/MM/YYYY'),
       offsetStart: 0,
       offsetEnd: this.numberRows,
       currentPage: this.currentPage,
-      sortByColumn: 'AuctionName', // by default sort by auction name
-      sortingDirection: 'asc', // by default ascending
-      searchValue: ''
+      sortByColumn: "AuctionName", // by default sort by auction name
+      sortingDirection: "asc", // by default ascending
+      searchValue: ""
     };
   }
 
@@ -63,7 +59,7 @@ export class AuctionListComponent implements OnInit {
     this.listSubscription = this.auctionService
       .getAuctions$(this.auctionListRequest)
       .subscribe(
-        (response: AuctionModel) => {
+        (response: AuctionListResponseModel) => {
           this.auctionTable = response;
           this.isLoading = false;
         },

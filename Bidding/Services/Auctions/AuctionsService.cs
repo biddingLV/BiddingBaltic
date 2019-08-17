@@ -63,8 +63,6 @@ namespace Bidding.Services.Auctions
         /// <returns></returns>
         public AuctionFilterModel Filters()
         {
-            // m_permissionService.IsLoggedInUserActive();
-
             return new AuctionFilterModel()
             {
                 TopCategories = m_auctionsRepository.LoadActiveTopCategoriesWithCount().ToList(),
@@ -196,17 +194,17 @@ namespace Bidding.Services.Auctions
         private void ValidateAuctionListWithSearch(AuctionListRequestModel request)
         {
             if (request.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
-            if (request.SortByColumn.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
             if (request.SortingDirection.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
             if (request.OffsetStart < 0) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
             if (request.OffsetEnd.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
             if (request.CurrentPage < 0) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
             if (request.SortingDirection != "asc" && request.SortingDirection != "desc") { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
 
+            // todo: kke: validate sort by columns list!
+            // todo: kke: validate if smth else is not missing here!
+            if (request.SortByColumn.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
             List<string> allowedSortByColumns = new List<string> { "AuctionName", "AuctionStartingPrice", "AuctionStartDate", "AuctionEndDate" };
             if (allowedSortByColumns.Contains(request.SortByColumn) == false) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
-
-            // m_permissionService.IsLoggedInUserActive();
         }
 
         private bool CreateItemAuction(AddAuctionRequestModel request)

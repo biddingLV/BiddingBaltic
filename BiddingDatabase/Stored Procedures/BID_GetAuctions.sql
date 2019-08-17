@@ -1,5 +1,4 @@
-﻿CREATE PROCEDURE [dbo].[BID_GetAuctions] 
-@start int,
+﻿CREATE PROCEDURE [dbo].[BID_GetAuctions] @start int,
 @end int,
 @searchValue varchar(100) = NULL
 AS
@@ -10,24 +9,24 @@ BEGIN
   INSERT INTO @categories (CategoryId)
     SELECT
       CategoryId
-    FROM @categories-- @selectedCategories;
+    FROM @categories
 
   INSERT INTO @types (TypeId)
     SELECT
       TypeId
-    FROM @types -- @selectedTypes;
+    FROM @types
 
   SELECT
     auct.AuctionId,
     auct.Name AS AuctionName,
     auct.StartingPrice AS AuctionStartingPrice,
-    auct.StartDate AS AuctionStartDate,
+		auct.ApplyTillDate AS AuctionApplyTillDate,
     auct.EndDate AS AuctionEndDate,
     asta.Name AS AuctionStatusName
   FROM Auctions auct
   INNER JOIN AuctionStatuses asta
     ON auct.AuctionStatusId = asta.AuctionStatusId
-    AND (auct.Deleted = 0)
+    AND auct.Deleted = 0
     AND (auct.EndDate >= CONVERT(date, GETDATE()))
     AND (@searchValue IS NULL
     OR auct.Name LIKE '%' + @searchValue + '%')

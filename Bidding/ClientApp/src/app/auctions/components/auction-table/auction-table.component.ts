@@ -2,17 +2,18 @@
 import { Component, OnInit, Input, EventEmitter, Output } from "@angular/core";
 
 // internal
-import { AuctionModel } from "../../models/list/auction.model";
+import { AuctionListItemModel } from "../../models/list/auction-list-item.model";
+import { AuctionListResponseModel } from "../../models/list/auction-list-response.model";
 
 @Component({
   selector: "app-auction-table",
   templateUrl: "./auction-table.component.html"
 })
 export class AuctionTableComponent implements OnInit {
-  // table
+  // template
   @Input() numberRows: number;
-  @Input() auctionTable: AuctionModel;
-  @Input() selected: any[];
+  @Input() auctionTable: AuctionListResponseModel;
+  @Input() selected: AuctionListItemModel[];
 
   /**
    * Can be passed from parent component to show or hide select all checkbox column in template.

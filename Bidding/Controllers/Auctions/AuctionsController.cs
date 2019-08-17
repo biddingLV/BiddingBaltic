@@ -34,6 +34,29 @@ namespace Bidding.Controllers.Auctions
         }
 
         /// <summary>
+        /// Loads filters for auction list
+        /// </summary>
+        /// <returns></returns>
+        [HttpGet]
+        [AllowAnonymous]
+        public IActionResult Filters()
+        {
+            return Ok(m_auctionsService.Filters());
+        }
+
+        /// <summary>
+        /// Gets specific auction details
+        /// </summary>
+        /// <param name="auctionId"></param>
+        /// <returns></returns>
+        [HttpGet]
+        [AllowAnonymous]
+        public async Task<IActionResult> Details([FromQuery] AuctionDetailsRequestModel request)
+        {
+            return Ok(await m_auctionsService.DetailsAsync(request));
+        }
+
+        /// <summary>
         /// Gets Auction list and also used for to search for specific auction
         /// </summary>
         /// <param name="request"></param>
@@ -43,17 +66,6 @@ namespace Bidding.Controllers.Auctions
         public IActionResult Search([FromQuery] AuctionListRequestModel request)
         {
             return Ok(m_auctionsService.ListWithSearch(request));
-        }
-
-        /// <summary>
-        /// Loads filters for auction list
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet]
-        [AllowAnonymous]
-        public IActionResult Filters()
-        {
-            return Ok(m_auctionsService.Filters());
         }
 
         /// <summary>
@@ -109,18 +121,6 @@ namespace Bidding.Controllers.Auctions
         public IActionResult Statuses()
         {
             return Ok(m_auctionsService.Statuses());
-        }
-
-        /// <summary>
-        /// Gets specific auction details
-        /// </summary>
-        /// <param name="auctionId"></param>
-        /// <returns></returns>
-        [HttpGet]
-        [AllowAnonymous]
-        public async Task<IActionResult> Details([FromQuery] AuctionDetailsRequestModel request)
-        {
-            return Ok(await m_auctionsService.DetailsAsync(request));
         }
 
         /// <summary>

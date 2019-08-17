@@ -54,7 +54,7 @@ namespace Bidding.Database.Contexts
         // Database Queries for stored procedures, views and so on!
         public virtual DbQuery<TopCategoryFilterModel> TopCategoryFilter { get; set; }
         public virtual DbQuery<SubCategoryFilterModel> SubCategoryFilter { get; set; }
-        public virtual DbQuery<AuctionListModel> AuctionList { get; set; }
+        public virtual DbQuery<AuctionListItemModel> AuctionList { get; set; }
         public virtual DbQuery<UserListItemModel> UserListItem { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

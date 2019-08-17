@@ -14,11 +14,11 @@ export class HomeCardsComponent implements OnInit {
     },
     {
       description: "Nekustamo īpašumu izsoles",
-      imagePath: "../../../../../assets/images/delivery-truck.svg"
+      imagePath: "../../../../../assets/images/apartments.svg"
     },
     {
       description: "Mantu izsoles",
-      imagePath: "../../../../../assets/images/delivery-truck.svg"
+      imagePath: "../../../../../assets/images/shelf.svg"
     }
   ];
 
