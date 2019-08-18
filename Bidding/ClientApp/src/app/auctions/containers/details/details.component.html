@@ -34,12 +34,10 @@
 
       <div class="row" style="height: 350px">
         <div class="col-6">
-          <!-- Auction details gallery -->
           <app-image-gallery></app-image-gallery>
         </div>
 
-        <div class="col-6">
-          <!-- Auction details countdown -->
+        <div class="col-5 offset-1">
           <app-auction-details-countdown></app-auction-details-countdown>
         </div>
       </div>
@@ -91,91 +89,25 @@
             class="main_content"
             *ngIf="auctionDetails.vehicleAuction"
           >
-            <p>Marka: {{ auctionDetails.vehicleAuction.vehicleMake }}</p>
-            <p>Modelis: {{ auctionDetails.vehicleAuction.vehicleModel }}</p>
-            <p>
-              Ražošanas gads:
-              {{ auctionDetails.vehicleAuction.vehicleManufacturingYear }}
-            </p>
-            <p>
-              VRN: {{ auctionDetails.vehicleAuction.vehicleRegistrationNumber }}
-            </p>
-            <p>
-              VIN:
-              {{ auctionDetails.vehicleAuction.vehicleIdentificationNumber }}
-            </p>
-            <p>
-              Ir T/A:
-              {{ auctionDetails.vehicleAuction.vehicleInspectionActive }}
-            </p>
-            <p>
-              Ātrumkārba:
-              {{ auctionDetails.vehicleAuction.vehicleTransmissionName }}
-            </p>
-            <p>Motors: {{ auctionDetails.vehicleAuction.vehicleFuelType }}</p>
-            <p>
-              Motora tilpums:
-              {{ auctionDetails.vehicleAuction.vehicleEngineSize }}
-            </p>
-            <p>Asis: {{ auctionDetails.vehicleAuction.vehicleAxis }}</p>
-            <!-- <p>Izmēri: {{auctionDetails.vehicleAuction.vehicleAxis}}</p> -->
-            <p>
-              Apraksts / novērtējums:
-              {{ auctionDetails.vehicleAuction.vehicleEvaluation }}
-            </p>
+            <app-auction-details-vehicle-category
+              [details]="auctionDetails.vehicleAuction"
+            ></app-auction-details-vehicle-category>
           </ng-container>
 
           <ng-container class="main_content" *ngIf="auctionDetails.itemAuction">
-            <p>Modelis: {{ auctionDetails.itemAuction.itemModel }}</p>
-            <p>
-              Ražošanas gads:
-              {{ auctionDetails.itemAuction.itemManufacturingYear }}
-            </p>
-            <p>Stāvoklis: {{ auctionDetails.itemAuction.itemConditionName }}</p>
-            <p>
-              Apraksts / novērtējums:
-              {{ auctionDetails.itemAuction.itemEvaluation }}
-            </p>
+            <app-auction-details-item-category
+              [details]="auctionDetails.itemAuction"
+            ></app-auction-details-item-category>
           </ng-container>
 
           <ng-container
             class="main_content"
             *ngIf="auctionDetails.propertyAuction"
           >
-            <p>
-              Koordinātes:
-              {{ auctionDetails.propertyAuction.propertyCoordinates }}
-            </p>
-            <p>
-              Reģions: {{ auctionDetails.propertyAuction.propertyRegionName }}
-            </p>
-            <p>
-              Kadastra numurs:
-              {{ auctionDetails.propertyAuction.propertyCadastreNumber }}
-            </p>
-            <p>
-              Izmēri:
-              {{ auctionDetails.propertyAuction.propertyMeasurementValue }}
-            </p>
-            <p>
-              Mērvienība:
-              {{ auctionDetails.propertyAuction.propertyMeasurementTypeName }}
-            </p>
-            <p>Adrese: {{ auctionDetails.propertyAuction.propertyAddress }}</p>
-            <p>
-              Stāvu skaits:
-              {{ auctionDetails.propertyAuction.propertyFloorCount }}
-            </p>
-            <p>
-              Istabu skaits:
-              {{ auctionDetails.propertyAuction.propertyRoomCount }}
-            </p>
-            <p>
-              Apraksts / novērtējums:
-              {{ auctionDetails.propertyAuction.propertyEvaluation }}
-            </p>
+            <app-auction-details-property-category
+              [details]="auctionDetails.propertyAuction"
+            ></app-auction-details-property-category>
           </ng-container>
-
           <br />
           <p>
             Izsoles veidotājs:

@@ -10,7 +10,8 @@ import { AuctionDetailsModel } from "../../../models/details/auction-details.mod
 
 @Component({
   selector: "app-auction-details-countdown",
-  templateUrl: "./countdown.component.html"
+  templateUrl: "./countdown.component.html",
+  styleUrls: ["./countdown.component.scss"]
 })
 export class AuctionDetailsCountdownComponent implements OnInit, OnDestroy {
   @Input() auctionDetails: AuctionDetailsModel;

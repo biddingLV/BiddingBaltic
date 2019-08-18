@@ -5,7 +5,7 @@
         <nav
           class="navbar navbar-expand-lg shared-page__innerNavBar navbar-dark bg-dark-pink"
         >
-          <a class="navbar-brand" href="">
+          <a class="navbar-brand" [routerLink]="['/']">
             <img
               id="bidding-logo"
               src="assets/images/bidding-logo.png"
@@ -24,7 +24,9 @@
           >
             <ul class="navbar-nav">
               <li class="nav-item" *ngIf="!userDetails">
-                <a class="nav-link" [routerLink]="['']">Visas izsoles </a>
+                <a class="nav-link" [routerLink]="['/auctions']"
+                  >Visas izsoles
+                </a>
               </li>
 
               <li class="nav-item" *ngIf="!userDetails">

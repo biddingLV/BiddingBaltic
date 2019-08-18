@@ -1,0 +1,72 @@
+@import "../../../../../sass/variables";
+
+.countdown__card {
+  height: 75%;
+
+  .countdown__card-title {
+    height: 50%;
+    background-color: $primary;
+    color: $white;
+    font-weight: bold;
+  }
+}
+
+// OLD STUFF
+// CountDown Timer
+.countdown {
+  height: 245px;
+  text-align: center;
+  background: $primary;
+
+  // border: 1px solid #111;
+  // box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+
+  .countdown_headline {
+    color: $white;
+    font-weight: bold;
+    margin-top: 50px;
+  }
+
+  .countdown_tiles {
+    position: relative;
+    z-index: 100;
+    > span {
+      width: 98px;
+      height: 98px;
+      font-family: $font-family-base;
+      font-weight: bold;
+      text-align: center;
+      background-color: $white;
+      box-shadow: 0px 3px 6px rgba(0, 0, 0, 0.16);
+      border-radius: 3px;
+      margin: 0 7px;
+      display: inline-block;
+      .countdown_time {
+        margin-top: 15px;
+        display: block;
+        margin-left: auto;
+
+        margin-right: auto;
+        height: 20px;
+        width: 64px;
+        font-size: 32px;
+        font-weight: bold;
+        font-style: $font-family-base;
+        transform: translateZ(0);
+        transform: translate3d(0, 0, 0);
+      }
+      li {
+        width: 98px;
+        height: 24px;
+        font-family: $font-family-base;
+        font-weight: bold;
+        font-size: 16px;
+        color: $gray-700;
+        text-align: center;
+        text-transform: uppercase;
+        display: inline-block;
+        padding-top: 20px;
+      }
+    }
+  }
+}

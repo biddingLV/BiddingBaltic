@@ -25,6 +25,9 @@ import { AuctionAddAboutWizardStepComponent } from "./components/wizard/wizard-s
 import { AuctionTableComponent } from "./components/auction-table/auction-table.component";
 import { AuctionListComponent } from "./containers/list/list.component";
 import { AuctionFiltersComponent } from "./components/auction-filters/auction-filters.component";
+import { ItemDetailsComponent } from './components/details/categories/item-details/item-details.component';
+import { PropertyDetailsComponent } from './components/details/categories/property-details/property-details.component';
+import { VehicleDetailsComponent } from './components/details/categories/vehicle-details/vehicle-details.component';
 
 @NgModule({
   imports: [
@@ -56,7 +59,10 @@ import { AuctionFiltersComponent } from "./components/auction-filters/auction-fi
     AuctionAddWizardPropertyComponent,
     AuctionDetailsCountdownComponent,
     AuctionListComponent,
-    AuctionFiltersComponent
+    AuctionFiltersComponent,
+    ItemDetailsComponent,
+    PropertyDetailsComponent,
+    VehicleDetailsComponent
   ],
   providers: [AuctionsService],
   entryComponents: [
