@@ -37,35 +37,27 @@ namespace Bidding.Repositories.Auctions
             m_context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="request"></param>
-        /// <param name="startFrom">pagination start from</param>
-        /// <param name="endAt"> pagination end at</param>
-        /// <param name="categoryIds">top category ids</param>
-        /// <param name="typeIds">sub-category ids</param>
-        /// <returns></returns>
-        public IEnumerable<AuctionListItemModel> ListWithSearch(AuctionListRequestModel request, int startFrom, int endAt, List<int> selectedCategoryIds, List<int> selectedTypeIds)
+        public IEnumerable<AuctionListItemModel> GetAuctions(AuctionListRequestModel request, int startFrom, int endAt)
         {
             try
             {
-                SqlParameter categories = new SqlParameter
+                string convertedCategoryIds = request.TopCategoryIds.IsNotSpecified() ? null : string.Join(',', request.TopCategoryIds.Select(t => t.ToString()));
+                string convertedTypeIds = request.TypeIds.IsNotSpecified() ? null : string.Join(',', request.TypeIds.Select(t => t.ToString()));
+
+                SqlParameter categoryIds = new SqlParameter
                 {
                     ParameterName = "selectedCategories",
                     Direction = ParameterDirection.Input,
-                    Value = CreateIdTable(selectedCategoryIds, "CategoryId"),
-                    TypeName = "BID_CategoryIdArray",
-                    SqlDbType = SqlDbType.Structured
+                    Value = HandleNull(convertedCategoryIds),
+                    SqlDbType = SqlDbType.Text
                 };
 
-                SqlParameter types = new SqlParameter
+                SqlParameter typeIds = new SqlParameter
                 {
                     ParameterName = "selectedTypes",
                     Direction = ParameterDirection.Input,
-                    Value = CreateIdTable(selectedTypeIds, "TypeId"),
-                    TypeName = "BID_TypeIdArray",
-                    SqlDbType = SqlDbType.Structured
+                    Value = HandleNull(convertedTypeIds),
+                    SqlDbType = SqlDbType.Text
                 };
 
                 SqlParameter startPaginationFrom = new SqlParameter
@@ -93,7 +85,7 @@ namespace Bidding.Repositories.Auctions
                 };
 
                 return m_context.Query<AuctionListItemModel>()
-                    .FromSql("[dbo].[BID_GetAuctions] @start, @end, @searchValue", startPaginationFrom, endPaginationAt, searchBy);
+                    .FromSql("[dbo].[BID_GetAuctions] @selectedCategories, @selectedTypes, @start, @end, @searchValue", categoryIds, typeIds, startPaginationFrom, endPaginationAt, searchBy);
             }
             catch (Exception ex)
             {
@@ -493,28 +485,6 @@ namespace Bidding.Repositories.Auctions
             });
 
             return true;
-        }
-
-        /// <summary>
-        /// Creates Sql Server array table, used to pass list of ids to Sql Server
-        /// </summary>
-        /// <param name="ids">List with ids</param>
-        /// <param name="nameOfId">Name of the id column</param>
-        /// <returns></returns>
-        private DataTable CreateIdTable(IEnumerable<int> ids, string nameOfId)
-        {
-            DataTable table = new DataTable();
-            table.Columns.Add(nameOfId, typeof(int));
-
-            if (ids.IsNotSpecified() == false)
-            {
-                foreach (int id in ids)
-                {
-                    table.Rows.Add(id);
-                }
-            }
-
-            return table;
         }
 
         /// <summary>

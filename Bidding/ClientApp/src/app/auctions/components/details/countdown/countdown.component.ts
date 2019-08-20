@@ -7,6 +7,7 @@ import * as moment from "moment-mini";
 
 // internal
 import { AuctionDetailsModel } from "../../../models/details/auction-details.model";
+import { map, take, startWith } from "rxjs/operators";
 
 @Component({
   selector: "app-auction-details-countdown",
@@ -16,19 +17,41 @@ import { AuctionDetailsModel } from "../../../models/details/auction-details.mod
 export class AuctionDetailsCountdownComponent implements OnInit, OnDestroy {
   @Input() auctionDetails: AuctionDetailsModel;
 
+  //https://stackblitz.com/edit/rxjs-rajp6s?file=index.ts
+
   /** Auction details countdown component subscription */
   countdownSub: Subscription;
 
   countdown = {
     days: 0,
     hours: 0,
-    minutes: 0
+    minutes: 0,
+    seconds: 0
   };
 
   constructor() {}
 
   ngOnInit(): void {
-    // this.countdownSub = interval(1000).subscribe(value => this.setupCountdown());
+    // let x = interval(1000).pipe(
+    //   map(i => {
+    //     5 - i - 1
+    //   }),
+    //   take(5),
+    //   startWith(5)
+    // );
+
+    // console.log("x: ", x);
+
+    //   .take()
+    // startWith())
+
+    // .subscribe(value => {
+    //   console.log(
+    //     "TCL: AuctionDetailsCountdownComponent -> constructor -> value",
+    //     value
+    //   );
+    //   this.setupCountdown();
+    // });
   }
 
   ngOnDestroy(): void {
@@ -39,7 +62,7 @@ export class AuctionDetailsCountdownComponent implements OnInit, OnDestroy {
 
   private setupCountdown(): void {
     const eventTime = moment(
-      "10-06-2019 10:00:00",
+      "19-08-2019 19:25:00",
       "DD-MM-YYYY HH:mm:ss"
     ).unix();
     const currentTime = moment().unix();
@@ -56,6 +79,7 @@ export class AuctionDetailsCountdownComponent implements OnInit, OnDestroy {
       this.countdown.days = moment.duration(duration).days();
       this.countdown.hours = moment.duration(duration).hours();
       this.countdown.minutes = moment.duration(duration).minutes();
+      this.countdown.seconds = moment.duration(duration).seconds();
     }
   }
 }

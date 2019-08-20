@@ -58,17 +58,11 @@
   <ItemGroup>
     <Folder Include="Properties" />
     <Folder Include="Stored Procedures" />
-    <Folder Include="Types" />
-    <Folder Include="Types\Table Types" />
   </ItemGroup>
   <ItemGroup>
     <Build Include="Stored Procedures\BID_GetAuctions.sql" />
     <Build Include="Stored Procedures\BID_GetSubCategoriesWithCount.sql" />
     <Build Include="Stored Procedures\BID_GetTopCategoriesWithCount.sql" />
     <Build Include="Stored Procedures\BID_GetUsers.sql" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Types\Table Types\BID_CategoryIdArray.sql" />
-    <None Include="Types\Table Types\BID_TypeIdArray.sql" />
   </ItemGroup>
 </Project>

@@ -1,26 +1,56 @@
-﻿CREATE PROCEDURE [dbo].[BID_GetAuctions] @start int,
+﻿CREATE PROCEDURE [dbo].[BID_GetAuctions] @selectedCategories varchar(1000) = NULL,
+@selectedTypes varchar(1000) = NULL,
+@start int,
 @end int,
 @searchValue varchar(100) = NULL
 AS
 BEGIN
-	DECLARE @categories TABLE ([CategoryId] [int] INDEX IX1 CLUSTERED);
-	DECLARE @types TABLE ([TypeId] [int] INDEX IX2 CLUSTERED);
 
-  INSERT INTO @categories (CategoryId)
-    SELECT
-      CategoryId
-    FROM @categories
+  DECLARE @TempCategoryIds TABLE (
+    CategoryId int
+  );
 
-  INSERT INTO @types (TypeId)
-    SELECT
-      TypeId
-    FROM @types
+  DECLARE @TempTypeIds TABLE (
+    TypeId int
+  );
+
+  IF @selectedCategories IS NULL
+  BEGIN
+    INSERT INTO @TempCategoryIds (CategoryId)
+      SELECT
+        CategoryId
+      FROM Categories
+      WHERE Deleted = 0;
+  END
+  ELSE
+  BEGIN
+    INSERT INTO @TempCategoryIds (CategoryId)
+      SELECT
+        value
+      FROM STRING_SPLIT(@selectedCategories, ',');
+  END;
+
+  IF @selectedTypes IS NULL
+  BEGIN
+    INSERT INTO @TempTypeIds (TypeId)
+      SELECT
+        TypeId
+      FROM Types
+      WHERE Deleted = 0;
+  END
+  ELSE
+  BEGIN
+    INSERT INTO @TempTypeIds (TypeId)
+      SELECT
+        value
+      FROM STRING_SPLIT(@selectedTypes, ',');
+  END;
 
   SELECT
     auct.AuctionId,
     auct.Name AS AuctionName,
     auct.StartingPrice AS AuctionStartingPrice,
-		auct.ApplyTillDate AS AuctionApplyTillDate,
+    auct.ApplyTillDate AS AuctionApplyTillDate,
     auct.EndDate AS AuctionEndDate,
     asta.Name AS AuctionStatusName
   FROM Auctions auct
@@ -28,6 +58,12 @@ BEGIN
     ON auct.AuctionStatusId = asta.AuctionStatusId
     AND auct.Deleted = 0
     AND (auct.EndDate >= CONVERT(date, GETDATE()))
+    AND auct.AuctionCategoryId IN (SELECT
+      CategoryId
+    FROM @TempCategoryIds)
+    AND auct.AuctionTypeId IN (SELECT
+      TypeId
+    FROM @TempTypeIds)
     AND (@searchValue IS NULL
     OR auct.Name LIKE '%' + @searchValue + '%')
   ORDER BY (CASE

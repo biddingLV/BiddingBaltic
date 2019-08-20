@@ -133,7 +133,7 @@ export class AdminAuctionMainComponent implements OnInit {
   /** Gets ALL auctions */
   private loadAuctions(): void {
     this.mainSubscription = this.auctionService
-      .getAuctions$(this.request)
+      .getAuctionsWithSearch$(this.request)
       .subscribe(
         (response: AuctionListResponseModel) => {
           this.auctionTable = response;

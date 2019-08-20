@@ -40,15 +40,38 @@ namespace Bidding.Services.Auctions
             m_fileUploaderService = fileUploaderService ?? throw new ArgumentNullException(nameof(fileUploaderService));
         }
 
-        public AuctionListResponseModel ListWithSearch(AuctionListRequestModel request)
+        public AuctionListResponseModel GetAuctions(AuctionListRequestModel request)
         {
-            ValidateAuctionListWithSearch(request);
+            ValidateAuctionList(request);
+
+            // note: kke: Always set searchValue to be null here, 
+            // because the user needs to be signed-in to use search functionality!
+            request.SearchValue = null;
 
             (int startFrom, int endAt) = Pagination.GetStartAndEnd(request);
 
             AuctionListResponseModel auctionsResponse = new AuctionListResponseModel()
             {
-                Auctions = m_auctionsRepository.ListWithSearch(request, startFrom, endAt, request.TopCategoryIds, request.TypeIds).ToList(),
+                Auctions = m_auctionsRepository.GetAuctions(request, startFrom, endAt).ToList(),
+                ItemCount = m_auctionsRepository.TotalAuctionCount().Count()
+            };
+
+            Pagination.PaginateResponse(ref auctionsResponse, TableItem.DEFAULT_SIZE, request.CurrentPage);
+
+            return auctionsResponse;
+        }
+
+        public AuctionListResponseModel GetAuctionsWithSearch(AuctionListRequestModel request)
+        {
+            ValidateAuctionList(request);
+
+            // todo: kke: validate request.SearchValue to be valid value!
+
+            (int startFrom, int endAt) = Pagination.GetStartAndEnd(request);
+
+            AuctionListResponseModel auctionsResponse = new AuctionListResponseModel()
+            {
+                Auctions = m_auctionsRepository.GetAuctions(request, startFrom, endAt).ToList(),
                 ItemCount = m_auctionsRepository.TotalAuctionCount().Count()
             };
 
@@ -191,7 +214,7 @@ namespace Bidding.Services.Auctions
         /// Validate auction list permissions and input values
         /// </summary>
         /// <param name="request"></param>
-        private void ValidateAuctionListWithSearch(AuctionListRequestModel request)
+        private void ValidateAuctionList(AuctionListRequestModel request)
         {
             if (request.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
             if (request.SortingDirection.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }

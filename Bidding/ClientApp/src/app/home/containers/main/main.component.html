@@ -1,7 +1,18 @@
 <app-home-header></app-home-header>
 <app-home-cards></app-home-cards>
-<app-auction-filters></app-auction-filters>
+<ng-container *ngIf="filters">
+  <app-auction-filters
+    [filters]="filters"
+    [auctionTypes]="auctionTypes"
+    (topCategoryChange)="onTopCategoryChange($event)"
+    (subCategoryChange)="onSubCategoryChange($event)"
+  ></app-auction-filters>
+</ng-container>
 
 <div class="container">
-  <app-auction-list></app-auction-list>
+  <app-auction-list
+    [selectedCategoryIds]="selectedCategoryIds"
+    [selectedTypeIds]="selectedTypeIds"
+    [disableSearch]="disableSearch"
+  ></app-auction-list>
 </div>

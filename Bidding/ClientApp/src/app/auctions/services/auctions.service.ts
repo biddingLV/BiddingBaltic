@@ -1,37 +1,38 @@
 // angular
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import { Injectable } from "@angular/core";
+import { HttpClient, HttpParams } from "@angular/common/http";
 
 // 3rd lib
-import { catchError } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { catchError } from "rxjs/operators";
+import { Observable } from "rxjs";
 
 // internal
-import { AuctionListResponseModel } from '../models/list/auction-list-response.model';
-import { AuctionListRequestModel } from '../models/list/auction-list-request.model';
-import { AuctionDetailsModel } from '../models/details/auction-details.model';
-import { ExceptionsService } from '../../core/services/exceptions/exceptions.service';
-import { AuctionEditRequestModel } from '../models/edit/auction-edit-request.model';
-import { AuctionFilterModel } from '../models/filters/auction-filter.model';
-import { AuctionFormatModel } from '../models/add/auction-format.model';
-import { AuctionCreatorModel } from '../models/add/auction-creator.model';
-import { AuctionStatusModel } from '../models/add/auction-status.model';
-import { AuctionDeleteRequest } from '../models/delete/auction-delete-request.model';
-import { CategoriesWithTypesModel } from '../models/add/categories-with-types.model';
-import { AuctionEditDetailsResponseModel } from '../models/edit/auction-edit-details-response.model';
-
+import { AuctionListResponseModel } from "../models/list/auction-list-response.model";
+import { AuctionListRequestModel } from "../models/list/auction-list-request.model";
+import { AuctionDetailsModel } from "../models/details/auction-details.model";
+import { ExceptionsService } from "../../core/services/exceptions/exceptions.service";
+import { AuctionEditRequestModel } from "../models/edit/auction-edit-request.model";
+import { AuctionFilterModel } from "../models/filters/auction-filter.model";
+import { AuctionFormatModel } from "../models/add/auction-format.model";
+import { AuctionCreatorModel } from "../models/add/auction-creator.model";
+import { AuctionStatusModel } from "../models/add/auction-status.model";
+import { AuctionDeleteRequest } from "../models/delete/auction-delete-request.model";
+import { CategoriesWithTypesModel } from "../models/add/categories-with-types.model";
+import { AuctionEditDetailsResponseModel } from "../models/edit/auction-edit-details-response.model";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class AuctionsService {
   constructor(
     private httpService: HttpClient,
     private exceptionService: ExceptionsService
-  ) { }
+  ) {}
 
-  getAuctions$(request: AuctionListRequestModel): Observable<AuctionListResponseModel> {
-    const url = '/api/auctions/list';
+  getAuctionsWithSearch$(
+    request: AuctionListRequestModel
+  ): Observable<AuctionListResponseModel> {
+    const url = "/api/auctions/GetAuctionsWithSearch";
 
     let params = new HttpParams({
       fromObject: {
@@ -39,68 +40,103 @@ export class AuctionsService {
         sortingDirection: request.sortingDirection.toString(),
         offsetEnd: request.offsetEnd.toString(),
         offsetStart: request.offsetStart.toString(),
-        searchValue: request.searchValue === undefined ? '' : request.searchValue.toString(),
+        searchValue:
+          request.searchValue === undefined
+            ? ""
+            : request.searchValue.toString(),
         currentPage: request.currentPage.toString()
       }
     });
 
     if (request.topCategoryIds !== undefined) {
-      for (const id of request.topCategoryIds) {
-        params = params.append('topCategoryIds', id.toString());
-      }
+      params = this.setupCategoryIds(request, params);
     }
 
     if (request.typeIds !== undefined) {
-      for (const id of request.typeIds) {
-        params = params.append('typeIds', id.toString());
-      }
+      params = this.setupTypeIds(request, params);
     }
 
-    return this.httpService.get<AuctionListResponseModel>(url, { params })
+    return this.httpService
+      .get<AuctionListResponseModel>(url, { params })
+      .pipe(catchError(this.exceptionService.errorHandler));
+  }
+
+  getAuctionsWithoutSearch$(
+    request: AuctionListRequestModel
+  ): Observable<AuctionListResponseModel> {
+    const url = "/api/auctions/GetAuctions";
+
+    let params = new HttpParams({
+      fromObject: {
+        sortByColumn: request.sortByColumn.toString(),
+        sortingDirection: request.sortingDirection.toString(),
+        offsetEnd: request.offsetEnd.toString(),
+        offsetStart: request.offsetStart.toString(),
+        searchValue: "", // always set this to be empty string!
+        currentPage: request.currentPage.toString()
+      }
+    });
+
+    if (request.topCategoryIds !== undefined) {
+      params = this.setupCategoryIds(request, params);
+    }
+
+    if (request.typeIds !== undefined) {
+      params = this.setupTypeIds(request, params);
+    }
+
+    return this.httpService
+      .get<AuctionListResponseModel>(url, { params })
       .pipe(catchError(this.exceptionService.errorHandler));
   }
 
   /** Loads filters for auction list */
   getFilters$(): Observable<AuctionFilterModel> {
-    const url = '/api/auctions/filters';
+    const url = "/api/auctions/filters";
 
-    return this.httpService.get<AuctionFilterModel>(url)
+    return this.httpService
+      .get<AuctionFilterModel>(url)
       .pipe(catchError(this.exceptionService.errorHandler));
   }
 
   /** Fetch all top-categories with sub-categories / types for auction add wizard */
   categoriesWithTypes$(): Observable<CategoriesWithTypesModel> {
-    const url = '/api/auctions/CategoriesWithTypes';
+    const url = "/api/auctions/CategoriesWithTypes";
 
-    return this.httpService.get<CategoriesWithTypesModel>(url)
+    return this.httpService
+      .get<CategoriesWithTypesModel>(url)
       .pipe(catchError(this.exceptionService.errorHandler));
   }
 
   getAuctionCreators$(): Observable<AuctionCreatorModel[]> {
-    const url = '/api/auctions/creators';
+    const url = "/api/auctions/creators";
 
-    return this.httpService.get<AuctionCreatorModel[]>(url)
+    return this.httpService
+      .get<AuctionCreatorModel[]>(url)
       .pipe(catchError(this.exceptionService.errorHandler));
   }
 
   getAuctionFormats$(): Observable<AuctionFormatModel[]> {
-    const url = '/api/auctions/formats';
+    const url = "/api/auctions/formats";
 
-    return this.httpService.get<AuctionFormatModel[]>(url)
+    return this.httpService
+      .get<AuctionFormatModel[]>(url)
       .pipe(catchError(this.exceptionService.errorHandler));
   }
 
   getAuctionStatuses$(): Observable<AuctionStatusModel[]> {
-    const url = '/api/auctions/statuses';
+    const url = "/api/auctions/statuses";
 
-    return this.httpService.get<AuctionStatusModel[]>(url)
+    return this.httpService
+      .get<AuctionStatusModel[]>(url)
       .pipe(catchError(this.exceptionService.errorHandler));
   }
 
   getAuctionDetails$(auctionId: number): Observable<AuctionDetailsModel> {
     const url = `api/auctions/details?auctionId=${auctionId}`;
 
-    return this.httpService.get<AuctionDetailsModel>(url)
+    return this.httpService
+      .get<AuctionDetailsModel>(url)
       .pipe(catchError(this.exceptionService.errorHandler));
   }
 
@@ -109,34 +145,59 @@ export class AuctionsService {
    * @param request Global auction add request
    */
   addAuction$(request: Auctions.AddAuctionRequestModel): Observable<boolean> {
-    const url = '/api/auctions/create';
+    const url = "/api/auctions/create";
 
-    return this.httpService.post<boolean>(url, request)
+    return this.httpService
+      .post<boolean>(url, request)
       .pipe(catchError(this.exceptionService.errorHandler));
   }
 
-  getAuctionEditDetails$(auctionId: number): Observable<AuctionEditDetailsResponseModel> {
+  getAuctionEditDetails$(
+    auctionId: number
+  ): Observable<AuctionEditDetailsResponseModel> {
     const url = `api/auctions/editDetails?auctionId=${auctionId}`;
 
-    return this.httpService.get<AuctionEditDetailsResponseModel>(url)
+    return this.httpService
+      .get<AuctionEditDetailsResponseModel>(url)
       .pipe(catchError(this.exceptionService.errorHandler));
   }
 
   editAuction$(request: AuctionEditRequestModel): Observable<boolean> {
-    const url = '/api/auctions/edit';
+    const url = "/api/auctions/edit";
 
-    return this.httpService.put<boolean>(url, request)
+    return this.httpService
+      .put<boolean>(url, request)
       .pipe(catchError(this.exceptionService.errorHandler));
   }
 
   deleteAuction$(request: AuctionDeleteRequest): Observable<boolean> {
-    const url = '/api/auctions/delete';
+    const url = "/api/auctions/delete";
     const options = {
       headers: {},
       body: request
     };
 
-    return this.httpService.delete<boolean>(url, options)
+    return this.httpService
+      .delete<boolean>(url, options)
       .pipe(catchError(this.exceptionService.errorHandler));
+  }
+
+  private setupCategoryIds(
+    request: AuctionListRequestModel,
+    params: HttpParams
+  ) {
+    for (const id of request.topCategoryIds) {
+      params = params.append("topCategoryIds", id.toString());
+    }
+
+    return params;
+  }
+
+  private setupTypeIds(request: AuctionListRequestModel, params: HttpParams) {
+    for (const id of request.typeIds) {
+      params = params.append("typeIds", id.toString());
+    }
+
+    return params;
   }
 }

@@ -14,6 +14,7 @@ BEGIN
     ON typ.TypeId = auct.AuctionTypeId
   WHERE auct.Deleted = 0
   AND typ.Deleted = 0
+	AND (auct.EndDate >= CONVERT(date, GETDATE()))
   GROUP BY typ.TypeId,
            typ.Name,
            typ.AuctionCategoryId;

@@ -13,6 +13,7 @@ BEGIN
     ON cat.CategoryId = auct.AuctionCategoryId
   WHERE cat.Deleted = 0
   AND auct.Deleted = 0
+	AND (auct.EndDate >= CONVERT(date, GETDATE()))
   GROUP BY cat.CategoryId,
            cat.Name;
 END;

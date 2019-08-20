@@ -26,11 +26,16 @@ namespace Bidding.Controllers.Auctions
             m_auctionsService = auctionsService ?? throw new ArgumentNullException(nameof(auctionsService));
         }
 
+        /// <summary>
+        /// Fetch auction list with filters, but without search
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult List([FromQuery] AuctionListRequestModel request)
+        public IActionResult GetAuctions([FromQuery] AuctionListRequestModel request)
         {
-            return Ok(m_auctionsService.ListWithSearch(request));
+            return Ok(m_auctionsService.GetAuctions(request));
         }
 
         /// <summary>
@@ -57,15 +62,15 @@ namespace Bidding.Controllers.Auctions
         }
 
         /// <summary>
-        /// Gets Auction list and also used for to search for specific auction
+        /// Fetch auction list with filters, including search
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpGet]
         [Authorize(Roles = "User, Admin")]
-        public IActionResult Search([FromQuery] AuctionListRequestModel request)
+        public IActionResult GetAuctionsWithSearch([FromQuery] AuctionListRequestModel request)
         {
-            return Ok(m_auctionsService.ListWithSearch(request));
+            return Ok(m_auctionsService.GetAuctionsWithSearch(request));
         }
 
         /// <summary>

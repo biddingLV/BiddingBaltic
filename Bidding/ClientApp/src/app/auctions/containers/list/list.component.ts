@@ -1,5 +1,5 @@
 // angular
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Input, SimpleChanges } from "@angular/core";
 
 // 3rd lib
 import { Subscription } from "rxjs";
@@ -15,6 +15,10 @@ import { AuctionListResponseModel } from "../../models/list/auction-list-respons
   templateUrl: "./list.component.html"
 })
 export class AuctionListComponent implements OnInit {
+  @Input() selectedCategoryIds: number[];
+  @Input() selectedTypeIds: number[];
+  @Input() disableSearch: boolean;
+
   listSubscription: Subscription;
 
   // API
@@ -32,14 +36,23 @@ export class AuctionListComponent implements OnInit {
     private notificationService: NotificationsService
   ) {}
 
-  ngOnInit(): void {
-    this.setupInitialAuctionRequest();
+  ngOnChanges(changes: SimpleChanges): void {
+    const categoryIdsChange = changes["selectedCategoryIds"];
+    const typeIdsChange = changes["selectedTypeIds"];
+
+    if (categoryIdsChange && !categoryIdsChange.isFirstChange()) {
+      this.auctionListRequest.topCategoryIds = categoryIdsChange.currentValue;
+    } else if (typeIdsChange && !typeIdsChange.isFirstChange()) {
+      this.auctionListRequest.typeIds = typeIdsChange.currentValue;
+    } else {
+      return;
+    }
+
     this.loadActiveAuctions();
   }
 
-  private updateColumns(page: number): void {
-    this.auctionListRequest.offsetStart = page;
-
+  ngOnInit(): void {
+    this.setupInitialAuctionRequest();
     this.loadActiveAuctions();
   }
 
@@ -56,8 +69,28 @@ export class AuctionListComponent implements OnInit {
 
   /** Gets only active auctions */
   private loadActiveAuctions(): void {
+    if (this.disableSearch) {
+      this.loadAuctionsWithoutSearch();
+    } else {
+      this.loadAuctionsWithSearch();
+    }
+  }
+
+  private loadAuctionsWithSearch() {
     this.listSubscription = this.auctionService
-      .getAuctions$(this.auctionListRequest)
+      .getAuctionsWithSearch$(this.auctionListRequest)
+      .subscribe(
+        (response: AuctionListResponseModel) => {
+          this.auctionTable = response;
+          this.isLoading = false;
+        },
+        (error: string) => this.notificationService.error(error)
+      );
+  }
+
+  private loadAuctionsWithoutSearch() {
+    this.listSubscription = this.auctionService
+      .getAuctionsWithoutSearch$(this.auctionListRequest)
       .subscribe(
         (response: AuctionListResponseModel) => {
           this.auctionTable = response;

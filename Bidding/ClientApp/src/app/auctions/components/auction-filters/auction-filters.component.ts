@@ -1,13 +1,18 @@
 // angular
-import { Component, OnInit } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  Output,
+  EventEmitter,
+  Input,
+  ViewChild
+} from "@angular/core";
 
 // 3rd lib
 import { Subscription } from "rxjs";
-import { startWith } from "rxjs/operators";
+import { NgSelectComponent } from "@ng-select/ng-select";
 
 // internal
-import { AuctionsService } from "../../services/auctions.service";
-import { NotificationsService } from "ClientApp/src/app/core";
 import { AuctionFilterModel } from "../../models/filters/auction-filter.model";
 import { SubCategoryFilterModel } from "../../models/filters/sub-category-filter.model";
 
@@ -17,24 +22,24 @@ import { SubCategoryFilterModel } from "../../models/filters/sub-category-filter
   styleUrls: ["./auction-filters.component.scss"]
 })
 export class AuctionFiltersComponent implements OnInit {
+  @Input() filters: AuctionFilterModel;
+  @Input() auctionTypes: SubCategoryFilterModel[];
+
+  @Output() topCategoryChange = new EventEmitter<number[]>();
+  @Output() subCategoryChange = new EventEmitter<number[]>();
+
+  @ViewChild("typeSelect", { static: false }) typeSelect: NgSelectComponent;
+
   // component
   filterSubscription: Subscription;
-
-  filters: AuctionFilterModel;
-  auctionTypes: SubCategoryFilterModel[];
 
   // used to pass selected filter values to the auction list component
   selectedCategoryIds: number[];
   selectedTypeIds: number[];
 
-  constructor(
-    private auctionService: AuctionsService,
-    private notificationService: NotificationsService
-  ) {}
+  constructor() {}
 
-  ngOnInit(): void {
-    this.loadFilters();
-  }
+  ngOnInit(): void {}
 
   onCategoryChange(categoryIds: number[]): void {
     this.selectedCategoryIds = categoryIds;
@@ -48,23 +53,13 @@ export class AuctionFiltersComponent implements OnInit {
       // nothing selected show the full list
       this.auctionTypes = this.filters.subCategories;
     }
+
+    this.topCategoryChange.emit(categoryIds);
   }
 
   onTypeChange(typeIds: number[]): void {
     this.selectedTypeIds = typeIds;
-  }
 
-  /** Load top & sub categories */
-  private loadFilters(): void {
-    this.filterSubscription = this.auctionService
-      .getFilters$()
-      .pipe(startWith(new AuctionFilterModel()))
-      .subscribe(
-        (response: AuctionFilterModel) => {
-          this.filters = response;
-          this.auctionTypes = response.subCategories;
-        },
-        (error: string) => this.notificationService.error(error)
-      );
+    this.subCategoryChange.emit(typeIds);
   }
 }
