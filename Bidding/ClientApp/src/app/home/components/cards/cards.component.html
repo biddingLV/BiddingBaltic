@@ -8,7 +8,12 @@
       />
       <div class="card-body text-center d-flex flex-column">
         <h5 class="card-title font-weight-bold">{{ item.description }}</h5>
-        <a class="card-link mt-auto">Skatīt vairāk</a>
+        <a
+          [routerLink]="['/auctions']"
+          [queryParams]="{ filter: item.filterUrl }"
+          class="card-link mt-auto"
+          >Skatīt vairāk</a
+        >
       </div>
     </div>
   </div>

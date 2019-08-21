@@ -7,18 +7,21 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./cards.component.scss"]
 })
 export class HomeCardsComponent implements OnInit {
-  public cards = [
+  cards = [
     {
       description: "Transportlīdzekļu izsoles",
-      imagePath: "../../../../../assets/images/delivery-truck.svg"
+      imagePath: "../../../../../assets/images/delivery-truck.svg",
+      filterUrl: "transports"
     },
     {
       description: "Nekustamo īpašumu izsoles",
-      imagePath: "../../../../../assets/images/apartments.svg"
+      imagePath: "../../../../../assets/images/apartments.svg",
+      filterUrl: "ipasumi"
     },
     {
       description: "Mantu izsoles",
-      imagePath: "../../../../../assets/images/shelf.svg"
+      imagePath: "../../../../../assets/images/shelf.svg",
+      filterUrl: "mantas"
     }
   ];
 

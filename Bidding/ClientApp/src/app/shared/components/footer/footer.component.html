@@ -1,27 +1,37 @@
-<footer>
-  <div class="container">
-    <div class="row" id="footer-row">
-      <div class="col-md-4">
-        <h5 id="service-title" class="footer-title">Bidding.lv pakalpojumi</h5>
-        <a class="text-white" [routerLink]="['/pakalpojumi']">Pakalpojumi Bidding.lv apmeklētājiem</a>
-        <br>
-        <a class="text-white" [routerLink]="['/faq']">FAQ</a>
-      </div>
-
-      <div class="col-md-4">
-        <h5 id="contact-us-title" class="footer-title">Sazinies ar mums</h5>
+<footer class="fluid-container">
+  <div class="container footer__container">
+    <div class="row">
+      <div class="col-3 footer__contact-row">
+        <h5>Sazinies ar mums</h5>
         <p>+371 24 248 345</p>
         <p>info<span>[at]</span>bidding.lv</p>
       </div>
 
-      <div class="col-md-4">
-        <h5 id="terms-title" class="footer-title">Bidding.lv noteikumu sadaļa</h5>
-        <a class="text-white" [routerLink]="['/noteikumi-un-nosacijumi']">Izsoļu portāla bidding.lv noteikumi pagaidu
-          lapai</a>
-        <br>
-        <a class="text-white" [routerLink]="['/sadarbibas-partneru-piedavajumi']">Sadarbības partneru piedāvājumi</a>
-        <br>
+      <div class="col-3 footer__services-row">
+        <h5>Pakalpojumi</h5>
+        <a class="text-white" [routerLink]="['/pakalpojumi']"
+          >Pakalpojumi apmeklētājiem</a
+        >
+        <a class="text-white" [routerLink]="['/faq']">FAQ</a>
+      </div>
+
+      <div class="col-3 footer__rules-row">
+        <h5>Noteikumu sadaļa</h5>
+        <a class="text-white" [routerLink]="['/noteikumi-un-nosacijumi']"
+          >Izsoļu portāla noteikumi</a
+        >
+        <a
+          class="text-white"
+          [routerLink]="['/sadarbibas-partneru-piedavajumi']"
+          >Sadarbības partneru piedāvājumi</a
+        >
+        <br />
         <a class="text-white" [routerLink]="['/gdpr']">GDPR noteikumi</a>
+      </div>
+
+      <div class="col-3 footer__subscribe-row">
+        <h5>Piesakies jaunumiem</h5>
+        <p>Izvelies savu iemīļoto jaunumu saņešanas servisu:</p>
       </div>
     </div>
 
@@ -29,12 +39,20 @@
       <div class="col-md-2 offset-md-5 text-center">
         <ul class="social-network social-circle">
           <li>
-            <a target="_blank" class="text-white" href="https://www.facebook.com/biddinglv/">
+            <a
+              target="_blank"
+              class="text-white"
+              href="https://www.facebook.com/biddinglv/"
+            >
               <i class="fa fa-facebook-f"></i>
             </a>
           </li>
           <li>
-            <a target="_blank" class="text-white" href="https://www.instagram.com/bidding.lv/">
+            <a
+              target="_blank"
+              class="text-white"
+              href="https://www.instagram.com/bidding.lv/"
+            >
               <i class="fa fa-instagram"></i>
             </a>
           </li>
@@ -47,6 +65,5 @@
         <p>© Bidding.lv, {{ currentYear }}</p>
       </div>
     </div>
-
   </div>
 </footer>

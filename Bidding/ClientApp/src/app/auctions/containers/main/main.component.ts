@@ -18,7 +18,12 @@ import { AuctionListRequestModel } from "../../models/list/auction-list-request.
   templateUrl: "./main.component.html"
 })
 export class AuctionMainComponent implements OnInit {
+  // component
   mainSubscription: Subscription;
+
+  // used to pass selected filter values to the auction list component
+  selectedCategoryIds: number[];
+  selectedTypeIds: number[];
 
   selected?: any[] = [];
 
@@ -30,9 +35,18 @@ export class AuctionMainComponent implements OnInit {
   numberRows = 15;
   currentPage = 1;
 
-  constructor() {}
+  // filters
+  filters: AuctionFilterModel;
+  auctionTypes: SubCategoryFilterModel[];
 
-  ngOnInit(): void {}
+  constructor(
+    private auctionService: AuctionsService,
+    private notificationService: NotificationsService
+  ) {}
+
+  ngOnInit(): void {
+    this.loadFilters();
+  }
 
   /** Called on auction search event */
   onSearch(text: string): void {
@@ -74,4 +88,26 @@ export class AuctionMainComponent implements OnInit {
   }
 
   onDetailsClick(): void {}
+
+  onTopCategoryChange(categoryIds: number[]) {
+    this.selectedCategoryIds = categoryIds;
+  }
+
+  onSubCategoryChange(typeIds: number[]) {
+    this.selectedTypeIds = typeIds;
+  }
+
+  /** Load top & sub categories */
+  private loadFilters(): void {
+    this.mainSubscription = this.auctionService
+      .getFilters$()
+      .pipe(startWith(new AuctionFilterModel()))
+      .subscribe(
+        (response: AuctionFilterModel) => {
+          this.filters = response;
+          this.auctionTypes = response.subCategories;
+        },
+        (error: string) => this.notificationService.error(error)
+      );
+  }
 }

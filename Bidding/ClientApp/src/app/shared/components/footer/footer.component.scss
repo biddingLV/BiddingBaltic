@@ -1,25 +1,40 @@
 footer {
   /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#863456+0,6f5081+0,863456+100 */
-  background: rgb(134,52,86); /* Old browsers */
-  background: -moz-linear-gradient(top, rgba(134,52,86,1) 0%, rgba(111,80,129,1) 0%, rgba(134,52,86,1) 100%); /* FF3.6-15 */
-  background: -webkit-linear-gradient(top, rgba(134,52,86,1) 0%,rgba(111,80,129,1) 0%,rgba(134,52,86,1) 100%); /* Chrome10-25,Safari5.1-6 */
-  background: linear-gradient(to bottom, rgba(134,52,86,1) 0%,rgba(111,80,129,1) 0%,rgba(134,52,86,1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+  background: rgb(134, 52, 86); /* Old browsers */
+  background: -moz-linear-gradient(
+    top,
+    rgba(134, 52, 86, 1) 0%,
+    rgba(111, 80, 129, 1) 0%,
+    rgba(134, 52, 86, 1) 100%
+  ); /* FF3.6-15 */
+  background: -webkit-linear-gradient(
+    top,
+    rgba(134, 52, 86, 1) 0%,
+    rgba(111, 80, 129, 1) 0%,
+    rgba(134, 52, 86, 1) 100%
+  ); /* Chrome10-25,Safari5.1-6 */
+  background: linear-gradient(
+    to bottom,
+    rgba(134, 52, 86, 1) 0%,
+    rgba(111, 80, 129, 1) 0%,
+    rgba(134, 52, 86, 1) 100%
+  ); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
   filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#863456', endColorstr='#863456',GradientType=0 ); /* IE6-9 */
   color: white;
-}
 
-#footer-row {
-  padding-top: 50px;
-  padding-bottom: 30px;
-}
+  padding-top: 100px;
 
-.footer-title {
-  font-weight: 600;
-  margin-bottom: 1rem;
-}
+  .footer__container {
+    h5 {
+      font-size: 15px;
+      text-transform: uppercase;
+      margin-bottom: 3rem;
+    }
 
-p {
-  margin-bottom: 0.3rem;
+    p {
+      margin-bottom: 0.3rem;
+    }
+  }
 }
 
 #social-icon-row {
@@ -28,17 +43,17 @@ p {
 
 // social icons
 ul.social-network {
-	list-style: none;
-	padding: 0;
+  list-style: none;
+  padding: 0;
 }
 ul.social-network li {
-	display: inline;
-	margin: 0 5px;
+  display: inline;
+  margin: 0 5px;
 }
 
 .social-circle li a {
-	font-size:20px;
+  font-size: 20px;
 }
 .social-circle li i {
-	line-height:50px;
+  line-height: 50px;
 }

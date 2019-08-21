@@ -1,14 +1,16 @@
 // angular
 import { Component, OnInit, Input, SimpleChanges } from "@angular/core";
+import { ActivatedRoute, ParamMap } from "@angular/router";
 
 // 3rd lib
 import { Subscription } from "rxjs";
 
 // internal
 import { AuctionsService } from "../../services/auctions.service";
-import { NotificationsService } from "ClientApp/src/app/core";
+import { NotificationsService, AuthService } from "ClientApp/src/app/core";
 import { AuctionListRequestModel } from "../../models/list/auction-list-request.model";
 import { AuctionListResponseModel } from "../../models/list/auction-list-response.model";
+import { map, switchMap } from "rxjs/operators";
 
 @Component({
   selector: "app-auction-list",
@@ -17,13 +19,13 @@ import { AuctionListResponseModel } from "../../models/list/auction-list-respons
 export class AuctionListComponent implements OnInit {
   @Input() selectedCategoryIds: number[];
   @Input() selectedTypeIds: number[];
-  @Input() disableSearch: boolean;
 
   listSubscription: Subscription;
 
   // API
   auctionTable: AuctionListResponseModel;
   auctionListRequest: AuctionListRequestModel;
+  loggedInUserId: number;
 
   // pagination || form
   numberRows = 15;
@@ -33,8 +35,14 @@ export class AuctionListComponent implements OnInit {
 
   constructor(
     private auctionService: AuctionsService,
-    private notificationService: NotificationsService
-  ) {}
+    private notificationService: NotificationsService,
+    private activatedRoute: ActivatedRoute,
+    private authService: AuthService
+  ) {
+    if (this.authService.userDetails) {
+      this.loggedInUserId = this.authService.userDetails.UserId;
+    }
+  }
 
   ngOnChanges(changes: SimpleChanges): void {
     const categoryIdsChange = changes["selectedCategoryIds"];
@@ -52,6 +60,16 @@ export class AuctionListComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.listSubscription = this.activatedRoute.queryParams.subscribe(
+      params => {
+        let filterParam = params["filter"];
+
+        if (filterParam) {
+          // note: kke: implement filter pre-select!
+        }
+      }
+    );
+
     this.setupInitialAuctionRequest();
     this.loadActiveAuctions();
   }
@@ -69,10 +87,10 @@ export class AuctionListComponent implements OnInit {
 
   /** Gets only active auctions */
   private loadActiveAuctions(): void {
-    if (this.disableSearch) {
-      this.loadAuctionsWithoutSearch();
-    } else {
+    if (this.loggedInUserId) {
       this.loadAuctionsWithSearch();
+    } else {
+      this.loadAuctionsWithoutSearch();
     }
   }
 

@@ -27,9 +27,6 @@ export class HomeMainComponent implements OnInit {
   filters: AuctionFilterModel;
   auctionTypes: SubCategoryFilterModel[];
 
-  // template
-  disableSearch = true;
-
   constructor(
     private auctionService: AuctionsService,
     private notificationService: NotificationsService

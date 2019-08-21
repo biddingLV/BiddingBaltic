@@ -13,36 +13,22 @@
   </div> -->
 
   <!-- Filters -->
-  <!-- <div class="row mt-5 mb-5">
-    <div class="col-6">
-      <div class="form-group">
-        <label for="">Kategorija:</label>
-        <ng-select [clearable]="false" [virtualScroll]="true" [multiple]="true" [closeOnSelect]="false"
-          placeholder="Izvēlies kategoriju" (change)="onCategoryChange($event)">
-          <ng-option *ngFor="let cat of filters.topCategories; let i = index" [value]="cat.categoryId">
-            {{cat.categoryName}} ({{cat.categoryTotalCount}})
-          </ng-option>
-        </ng-select>
-      </div>
-    </div>
-
-    <div class="col-6">
-      <div class="form-group">
-        <label for="">Tips:</label>
-        <ng-select [clearable]="false" [virtualScroll]="true" [multiple]="true" [closeOnSelect]="false"
-          placeholder="Izvēlies tipu" (change)="onTypeChange($event)">
-          <ng-option *ngFor="let typ of auctionTypes; let i = index" [value]="typ.typeId">
-            {{typ.typeName}} ({{typ.typeTotalCount}})
-          </ng-option>
-        </ng-select>
-      </div>
-    </div>
-  </div> -->
+  <ng-container *ngIf="filters">
+    <app-auction-filters
+      [filters]="filters"
+      [auctionTypes]="auctionTypes"
+      (topCategoryChange)="onTopCategoryChange($event)"
+      (subCategoryChange)="onSubCategoryChange($event)"
+    ></app-auction-filters>
+  </ng-container>
 
   <!-- List & Table -->
   <div class="row">
     <div class="col-12">
-      <app-auction-list></app-auction-list>
+      <app-auction-list
+        [selectedCategoryIds]="selectedCategoryIds"
+        [selectedTypeIds]="selectedTypeIds"
+      ></app-auction-list>
     </div>
   </div>
 </div>
