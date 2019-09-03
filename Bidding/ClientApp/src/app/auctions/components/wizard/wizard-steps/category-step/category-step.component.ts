@@ -1,25 +1,32 @@
 // angular
-import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
+  OnDestroy
+} from "@angular/core";
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 
 // 3rd lib
-import { Subscription } from 'rxjs';
-import { startWith } from 'rxjs/operators';
+import { Subscription } from "rxjs";
+import { startWith } from "rxjs/operators";
 
 // internal
-import { AuctionFilterModel } from 'ClientApp/src/app/auctions/models/filters/auction-filter.model';
-import { SubCategoryFilterModel } from 'ClientApp/src/app/auctions/models/filters/sub-category-filter.model';
-import { FormService } from 'ClientApp/src/app/core/services/form/form.service';
-import { AuctionFormatModel } from 'ClientApp/src/app/auctions/models/add/auction-format.model';
-import { AuctionsService } from 'ClientApp/src/app/auctions/services/auctions.service';
-import { NotificationsService } from 'ClientApp/src/app/core';
-
+import { AuctionFilterModel } from "ClientApp/src/app/auctions/models/filters/auction-filter.model";
+import { SubCategoryFilterModel } from "ClientApp/src/app/auctions/models/filters/sub-category-filter.model";
+import { FormService } from "ClientApp/src/app/core/services/form/form.service";
+import { AuctionFormatModel } from "ClientApp/src/app/auctions/models/add/auction-format.model";
+import { AuctionsService } from "ClientApp/src/app/auctions/services/auctions.service";
+import { NotificationsService } from "ClientApp/src/app/core";
 
 @Component({
-  selector: 'app-auction-add-category-wizard-step',
-  templateUrl: './category-step.component.html'
+  selector: "app-auction-add-category-wizard-step",
+  templateUrl: "./category-step.component.html"
 })
-export class AuctionAddCategoryWizardStepComponent implements OnInit, OnDestroy {
+export class AuctionAddCategoryWizardStepComponent
+  implements OnInit, OnDestroy {
   /** Top-categories with sub-categories */
   @Input() categories: AuctionFilterModel;
 
@@ -39,9 +46,9 @@ export class AuctionAddCategoryWizardStepComponent implements OnInit, OnDestroy 
 
   /** Form error object for template */
   formErrors = {
-    auctionTopCategory: '',
-    auctionSubCategory: '',
-    auctionFormat: ''
+    auctionTopCategory: "",
+    auctionSubCategory: "",
+    auctionFormat: ""
   };
 
   submitted = false;
@@ -52,8 +59,8 @@ export class AuctionAddCategoryWizardStepComponent implements OnInit, OnDestroy 
     private formBuilder: FormBuilder,
     private internalFormService: FormService,
     private auctionService: AuctionsService,
-    private notificationService: NotificationsService,
-  ) { }
+    private notificationService: NotificationsService
+  ) {}
 
   ngOnInit(): void {
     this.buildForm();
@@ -64,13 +71,15 @@ export class AuctionAddCategoryWizardStepComponent implements OnInit, OnDestroy 
     this.emitTopCategoryId.emit(categoryId);
 
     if (categoryId) {
-      this.categoryStepForm.get('auctionSubCategory').enable();
-      this.categoryStepForm.get('auctionSubCategory').reset();
+      this.categoryStepForm.get("auctionSubCategory").enable();
+      this.categoryStepForm.get("auctionSubCategory").reset();
 
-      this.auctionTypes = this.categories.subCategories.filter(item => item.categoryId === categoryId);
+      this.auctionTypes = this.categories.subCategories.filter(
+        item => item.categoryId === categoryId
+      );
     } else {
       // todo: kke: I think this is not really needed anymore, because you can only select one cat! cant de-select!
-      this.categoryStepForm.get('auctionSubCategory').disable();
+      this.categoryStepForm.get("auctionSubCategory").disable();
       this.auctionTypes = this.categories.subCategories;
     }
   }
@@ -88,7 +97,11 @@ export class AuctionAddCategoryWizardStepComponent implements OnInit, OnDestroy 
     this.internalFormService.markFormGroupTouched(this.categoryStepForm);
 
     if (this.categoryStepForm.valid === false) {
-      this.formErrors = this.internalFormService.validateForm(this.categoryStepForm, this.formErrors, false);
+      this.formErrors = this.internalFormService.validateForm(
+        this.categoryStepForm,
+        this.formErrors,
+        false
+      );
     }
 
     // stop here if form is invalid
@@ -107,16 +120,20 @@ export class AuctionAddCategoryWizardStepComponent implements OnInit, OnDestroy 
   /** Build auction add category wizard step form group */
   private buildForm(): void {
     this.categoryStepForm = this.formBuilder.group({
-      auctionTopCategory: ['', [Validators.required]],
-      auctionSubCategory: [{ value: '', disabled: true }, [Validators.required]],
-      auctionFormat: ['', [Validators.required]]
+      auctionTopCategory: ["", [Validators.required]],
+      auctionSubCategory: [
+        { value: "", disabled: true },
+        [Validators.required]
+      ],
+      auctionFormat: ["", [Validators.required]]
     });
 
     this.loadAuctionFormats();
   }
 
   private loadAuctionFormats(): void {
-    this.auctionAddSubscription = this.auctionService.getAuctionFormats$()
+    this.auctionAddSubscription = this.auctionService
+      .getAuctionFormats$()
       .pipe(startWith(new AuctionFormatModel()))
       .subscribe(
         (result: AuctionFormatModel) => {

@@ -38,20 +38,19 @@
         </div>
 
         <div class="col-5 offset-1">
-          <app-auction-details-countdown></app-auction-details-countdown>
+          <app-auction-details-countdown ></app-auction-details-countdown>
         </div>
       </div>
 
-      <!-- 
-        NEEDS TO BE IN DIFFERENT ROW!
-                <div class="col-lg-12 text-center">
+      <div class="row auction__details-apply-row">
+        <div class="col-12 text-center">
           <button type="button" class="apply_button">
             <strong>Pieteikties izsolei</strong>
           </button>
         </div>
-       -->
+      </div>
 
-      <div class="row main_container">
+      <div class="row auction__details-information-row">
         <div class="col-12">
           <p>Nosaukums: {{ auctionDetails.aboutAuctionDetails.auctionName }}</p>
           <p>

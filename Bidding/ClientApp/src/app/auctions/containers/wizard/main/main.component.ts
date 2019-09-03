@@ -1,28 +1,34 @@
 // angular
-import { Component, OnInit, ViewChild, AfterViewInit, OnDestroy } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import {
+  Component,
+  OnInit,
+  ViewChild,
+  AfterViewInit,
+  OnDestroy
+} from "@angular/core";
+import { FormGroup } from "@angular/forms";
 
 // 3rd party
-import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { Subscription } from 'rxjs';
-import { startWith } from 'rxjs/operators';
-import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker/bs-datepicker.config';
-import { MovingDirection } from 'angular-archwizard';
+import { BsModalRef, BsModalService } from "ngx-bootstrap/modal";
+import { Subscription } from "rxjs";
+import { startWith } from "rxjs/operators";
+import { BsDatepickerConfig } from "ngx-bootstrap/datepicker/bs-datepicker.config";
+import { MovingDirection } from "angular-archwizard";
 
 // internal
-import { AuctionsService } from '../../../services/auctions.service';
-import { NotificationsService } from 'ClientApp/src/app/core/services/notifications/notifications.service';
-import { AuctionAddCategoryWizardStepComponent } from '../../../components/wizard/wizard-steps/category-step/category-step.component';
-import { CategoryConstants } from 'ClientApp/src/app/core/constants/categories/category-constants';
-import { CategoriesWithTypesModel } from '../../../models/add/categories-with-types.model';
-import { TypeModel } from '../../../models/shared/types/type.model';
-import { AuctionAddAboutWizardStepComponent } from '../../../components/wizard/wizard-steps/about-step/about-step.component';
-
+import { AuctionsService } from "../../../services/auctions.service";
+import { NotificationsService } from "ClientApp/src/app/core/services/notifications/notifications.service";
+import { AuctionAddCategoryWizardStepComponent } from "../../../components/wizard/wizard-steps/category-step/category-step.component";
+import { CategoryConstants } from "ClientApp/src/app/core/constants/categories/category-constants";
+import { CategoriesWithTypesModel } from "../../../models/add/categories-with-types.model";
+import { TypeModel } from "../../../models/shared/types/type.model";
+import { AuctionAddAboutWizardStepComponent } from "../../../components/wizard/wizard-steps/about-step/about-step.component";
 
 @Component({
-  templateUrl: './main.component.html'
+  templateUrl: "./main.component.html"
 })
-export class AuctionAddMainWizardComponent implements OnInit, AfterViewInit, OnDestroy {
+export class AuctionAddMainWizardComponent
+  implements OnInit, AfterViewInit, OnDestroy {
   auctionAddSubscription: Subscription;
   submitted = false;
 
@@ -37,10 +43,13 @@ export class AuctionAddMainWizardComponent implements OnInit, AfterViewInit, OnD
   selectedSubCategoryId: number;
 
   /** Category step component */
-  @ViewChild(AuctionAddCategoryWizardStepComponent, { static: true }) categoryStep: { categoryStepForm: FormGroup; };
+  @ViewChild(AuctionAddCategoryWizardStepComponent, { static: true })
+  categoryStep: { categoryStepForm: FormGroup };
 
   /** About step component */
-  @ViewChild(AuctionAddAboutWizardStepComponent, { static: true }) aboutStep: { aboutStepForm: FormGroup; };
+  @ViewChild(AuctionAddAboutWizardStepComponent, { static: true }) aboutStep: {
+    aboutStepForm: FormGroup;
+  };
 
   bsConfig: Partial<BsDatepickerConfig>;
 
@@ -57,8 +66,8 @@ export class AuctionAddMainWizardComponent implements OnInit, AfterViewInit, OnD
     private auctionService: AuctionsService,
     private notificationService: NotificationsService,
     public bsModalRef: BsModalRef,
-    private externalModalService: BsModalService,
-  ) { }
+    private externalModalService: BsModalService
+  ) {}
 
   ngOnInit(): void {
     this.loadTopAndSubCategories();
@@ -71,7 +80,7 @@ export class AuctionAddMainWizardComponent implements OnInit, AfterViewInit, OnD
   /** Validates if wizard's category step form is valid */
   moveDirectionCategoryStep = (direction: MovingDirection): boolean => {
     return this.moveDirection(this.categoryStepForm, direction);
-  }
+  };
 
   /** Validates if wizard's add step form is valid */
   moveDirectionAddStep = (direction: MovingDirection): boolean => {
@@ -80,7 +89,7 @@ export class AuctionAddMainWizardComponent implements OnInit, AfterViewInit, OnD
     } else {
       return false;
     }
-  }
+  };
 
   /** Adds additional add-wizard step to the whole wizard flow */
   addWizardStep(event: boolean) {
@@ -97,7 +106,7 @@ export class AuctionAddMainWizardComponent implements OnInit, AfterViewInit, OnD
   }
 
   onClickNextReturnForm(formType: string, form: FormGroup): void {
-    if (formType === 'add-form') {
+    if (formType === "add-form") {
       this.addStepForm = form;
     } else {
       this.aboutStepForm = form;
@@ -108,11 +117,17 @@ export class AuctionAddMainWizardComponent implements OnInit, AfterViewInit, OnD
   onSubmit(): void {
     this.aboutStepForm = this.aboutStep.aboutStepForm;
 
-    if (this.selectedTopCategoryId === this.categoryConstants.ITEM_CATEGORY) {
+    if (
+      this.selectedTopCategoryId === this.categoryConstants.ITEM_CATEGORY_ID
+    ) {
       this.setItemAuctionAddRequest();
-    } else if (this.selectedTopCategoryId === this.categoryConstants.VEHICLE_CATEGORY) {
+    } else if (
+      this.selectedTopCategoryId === this.categoryConstants.VEHICLE_CATEGORY_ID
+    ) {
       this.setVehicleAuctionAddRequest();
-    } else if (this.selectedTopCategoryId === this.categoryConstants.PROPERTY_CATEGORY) {
+    } else if (
+      this.selectedTopCategoryId === this.categoryConstants.PROPERTY_CATEGORY_ID
+    ) {
       this.setPropertyAuctionAddRequest();
     } else {
       // something is wrong!
@@ -126,12 +141,16 @@ export class AuctionAddMainWizardComponent implements OnInit, AfterViewInit, OnD
     }
   }
 
-  private moveDirection = (formOfStep: FormGroup, direction: MovingDirection): boolean => {
+  private moveDirection = (
+    formOfStep: FormGroup,
+    direction: MovingDirection
+  ): boolean => {
     return direction === MovingDirection.Backwards ? true : formOfStep.valid;
-  }
+  };
 
   private loadTopAndSubCategories(): void {
-    this.auctionAddSubscription = this.auctionService.categoriesWithTypes$()
+    this.auctionAddSubscription = this.auctionService
+      .categoriesWithTypes$()
       .pipe(startWith(new CategoriesWithTypesModel()))
       .subscribe(
         (result: CategoriesWithTypesModel) => {
@@ -166,9 +185,12 @@ export class AuctionAddMainWizardComponent implements OnInit, AfterViewInit, OnD
       vehicleAuction: {
         vehicleMake: this.addStepForm.value.vehicleMake,
         vehicleModel: this.addStepForm.value.vehicleModel,
-        vehicleManufacturingYear: this.addStepForm.value.vehicleManufacturingYear,
-        vehicleRegistrationNumber: this.addStepForm.value.vehicleRegistrationNumber,
-        vehicleIdentificationNumber: this.addStepForm.value.vehicleIdentificationNumber,
+        vehicleManufacturingYear: this.addStepForm.value
+          .vehicleManufacturingYear,
+        vehicleRegistrationNumber: this.addStepForm.value
+          .vehicleRegistrationNumber,
+        vehicleIdentificationNumber: this.addStepForm.value
+          .vehicleIdentificationNumber,
         vehicleInspectionActive: this.addStepForm.value.vehicleInspectionActive,
         vehicleTransmissionId: this.addStepForm.value.vehicleTransmission,
         vehicleFuelTypeId: this.addStepForm.value.vehicleFuelType,
@@ -191,8 +213,10 @@ export class AuctionAddMainWizardComponent implements OnInit, AfterViewInit, OnD
         propertyCoordinates: this.addStepForm.value.propertyCoordinates,
         propertyRegionId: this.addStepForm.value.propertyRegion,
         propertyCadastreNumber: this.addStepForm.value.propertyCadastreNumber,
-        propertyMeasurementValue: this.addStepForm.value.propertyMeasurementValue,
-        propertyMeasurementTypeId: this.addStepForm.value.propertyMeasurementType,
+        propertyMeasurementValue: this.addStepForm.value
+          .propertyMeasurementValue,
+        propertyMeasurementTypeId: this.addStepForm.value
+          .propertyMeasurementType,
         propertyAddress: this.addStepForm.value.propertyAddress,
         propertyFloorCount: this.addStepForm.value.propertyFloorCount,
         propertyRoomCount: this.addStepForm.value.propertyRoomCount,
@@ -211,7 +235,7 @@ export class AuctionAddMainWizardComponent implements OnInit, AfterViewInit, OnD
       auctionTopCategoryId: this.categoryStepForm.value.auctionTopCategory,
       auctionSubCategoryId: this.categoryStepForm.value.auctionSubCategory,
       auctionFormatId: this.categoryStepForm.value.auctionFormat,
-      auctionName: '', // todo: kke: why this is just empty string here?
+      auctionName: "", // todo: kke: why this is just empty string here?
       auctionStartingPrice: this.addStepForm.value.auctionStartingPrice,
       auctionStartDate: this.aboutStepForm.value.auctionStartDate,
       auctionApplyTillDate: this.aboutStepForm.value.auctionApplyTillDate,
@@ -224,21 +248,22 @@ export class AuctionAddMainWizardComponent implements OnInit, AfterViewInit, OnD
       auctionCreatorName: this.aboutStepForm.value.auctionCreator,
       auctionCreatorAddress: this.aboutStepForm.value.auctionAddress,
       auctionCreatorEmail: this.aboutStepForm.value.auctionCreatorEmail,
-      auctionCreatorPhone: this.aboutStepForm.value.auctionCreatorPhone,
+      auctionCreatorPhone: this.aboutStepForm.value.auctionCreatorPhone
     };
   }
 
   private makeRequest(request: Auctions.AddAuctionRequestModel): void {
-    this.auctionService.addAuction$(request)
-      .subscribe((addSuccess: boolean) => {
+    this.auctionService.addAuction$(request).subscribe(
+      (addSuccess: boolean) => {
         if (addSuccess) {
-          this.notificationService.success('Auction successfully added.');
+          this.notificationService.success("Auction successfully added.");
           this.bsModalRef.hide();
-          this.externalModalService.setDismissReason('Create');
+          this.externalModalService.setDismissReason("Create");
         } else {
-          this.notificationService.error('Could not add auction.');
+          this.notificationService.error("Could not add auction.");
         }
       },
-        (error: string) => this.notificationService.error(error));
+      (error: string) => this.notificationService.error(error)
+    );
   }
 }

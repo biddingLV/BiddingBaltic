@@ -1,19 +1,31 @@
 // Angular
-import { NgModule, Optional, SkipSelf, ModuleWithProviders } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { HttpClientModule } from '@angular/common/http';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {
+  NgModule,
+  Optional,
+  SkipSelf,
+  ModuleWithProviders
+} from "@angular/core";
+import { CommonModule } from "@angular/common";
+import { HttpClientModule } from "@angular/common/http";
+import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
 // Third Party
-import { ToastrModule } from 'ngx-toastr';
-import { CookieService } from 'ngx-cookie-service';
+import { ToastrModule } from "ngx-toastr";
+import { CookieService } from "ngx-cookie-service";
 
 // Services
-import { AuthGuard, PermissionsService, AuthService, NotificationsService, ExceptionsService, FormService, ModalService } from './services';
+import {
+  AuthenticatedGuard,
+  PermissionsService,
+  AuthService,
+  NotificationsService,
+  ExceptionsService,
+  FormService,
+  ModalService
+} from "./services";
 
 // Constants
-import { CategoryConstants, RoleConstants } from './constants';
-
+import { CategoryConstants, RoleConstants } from "./constants";
 
 @NgModule({
   imports: [
@@ -22,7 +34,7 @@ import { CategoryConstants, RoleConstants } from './constants';
     ToastrModule.forRoot()
   ],
   providers: [
-    AuthGuard,
+    AuthenticatedGuard,
     PermissionsService,
     AuthService,
     NotificationsService,
@@ -34,18 +46,15 @@ import { CategoryConstants, RoleConstants } from './constants';
     RoleConstants, // todo: kke: is this correct?
     ModalService
   ],
-  exports: [
-    HttpClientModule,
-    BrowserAnimationsModule,
-    ToastrModule,
-  ],
+  exports: [HttpClientModule, BrowserAnimationsModule, ToastrModule],
   declarations: []
 })
 export class CoreModule {
   constructor(@Optional() @SkipSelf() parentModule: CoreModule) {
     if (parentModule) {
       throw new Error(
-        'CoreModule is already loaded. Import it in the AppModule only');
+        "CoreModule is already loaded. Import it in the AppModule only"
+      );
     }
   }
 

@@ -1,14 +1,21 @@
 // angular
-import { Component, OnInit, Input, Output, EventEmitter, SimpleChanges, OnChanges } from '@angular/core';
-import { FormGroup } from '@angular/forms';
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
+  SimpleChanges,
+  OnChanges
+} from "@angular/core";
+import { FormGroup } from "@angular/forms";
 
 // internal
-import { CategoryConstants } from 'ClientApp/src/app/core/constants';
-
+import { CategoryConstants } from "ClientApp/src/app/core/constants";
 
 @Component({
-  selector: 'app-auction-add-add-wizard-step',
-  templateUrl: './add-step.component.html'
+  selector: "app-auction-add-add-wizard-step",
+  templateUrl: "./add-step.component.html"
 })
 export class AuctionAddAddWizardStepComponent implements OnInit, OnChanges {
   @Input() selectedTopCategoryId: number;
@@ -21,12 +28,12 @@ export class AuctionAddAddWizardStepComponent implements OnInit, OnChanges {
   showItemStep = false;
   showPropertyStep = false;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void { }
+  ngOnInit(): void {}
 
   ngOnChanges(changes: SimpleChanges): void {
-    const topCategoryChange = changes['selectedTopCategoryId'];
+    const topCategoryChange = changes["selectedTopCategoryId"];
 
     if (topCategoryChange && !topCategoryChange.isFirstChange()) {
       if (topCategoryChange !== undefined) {
@@ -46,13 +53,15 @@ export class AuctionAddAddWizardStepComponent implements OnInit, OnChanges {
 
   private handleTopCategory(): void {
     // todo: kke: how to refactor this?
-    if (this.selectedTopCategoryId === CategoryConstants.VEHICLE_CATEGORY) {
+    if (this.selectedTopCategoryId === CategoryConstants.VEHICLE_CATEGORY_ID) {
       this.showVehicleStep = true;
       this.showItemStep = false;
       this.showPropertyStep = false;
 
       // fetch here vehicle category
-    } else if (this.selectedTopCategoryId === CategoryConstants.ITEM_CATEGORY) {
+    } else if (
+      this.selectedTopCategoryId === CategoryConstants.ITEM_CATEGORY_ID
+    ) {
       this.showVehicleStep = false;
       this.showItemStep = true;
       this.showPropertyStep = false;

@@ -11,6 +11,7 @@ import { NotificationsService, AuthService } from "ClientApp/src/app/core";
 import { AuctionListRequestModel } from "../../models/list/auction-list-request.model";
 import { AuctionListResponseModel } from "../../models/list/auction-list-response.model";
 import { map, switchMap } from "rxjs/operators";
+import { CategoryConstants } from "ClientApp/src/app/core/constants/categories/category-constants";
 
 @Component({
   selector: "app-auction-list",
@@ -65,16 +66,48 @@ export class AuctionListComponent implements OnInit {
         let filterParam = params["filter"];
 
         if (filterParam) {
-          // note: kke: implement filter pre-select!
+          this.handleCardLinkClick(filterParam);
+        } else {
+          this.setupInitialAuctionRequest();
+          this.loadActiveAuctions();
         }
       }
     );
-
-    this.setupInitialAuctionRequest();
-    this.loadActiveAuctions();
   }
 
   private setupInitialAuctionRequest(): void {
+    this.auctionListRequest = {
+      offsetStart: 0,
+      offsetEnd: this.numberRows,
+      currentPage: this.currentPage,
+      sortByColumn: "AuctionName", // by default sort by auction name
+      sortingDirection: "asc", // by default ascending
+      searchValue: ""
+    };
+  }
+
+  private handleCardLinkClick(filterParam: any) {
+    if (filterParam == CategoryConstants.VEHICLE_CATEGORY_NAME) {
+      this.setupCardAuctionRequest();
+      this.auctionListRequest.topCategoryIds = [
+        CategoryConstants.VEHICLE_CATEGORY_ID
+      ];
+    } else if (filterParam == CategoryConstants.PROPERTY_CATEGORY_NAME) {
+      this.setupCardAuctionRequest();
+      this.auctionListRequest.topCategoryIds = [
+        CategoryConstants.PROPERTY_CATEGORY_ID
+      ];
+    } else if (filterParam == CategoryConstants.ITEM_CATEGORY_NAME) {
+      this.setupCardAuctionRequest();
+      this.auctionListRequest.topCategoryIds = [
+        CategoryConstants.ITEM_CATEGORY_ID
+      ];
+    }
+
+    this.loadActiveAuctions();
+  }
+
+  private setupCardAuctionRequest(): void {
     this.auctionListRequest = {
       offsetStart: 0,
       offsetEnd: this.numberRows,

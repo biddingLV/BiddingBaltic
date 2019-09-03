@@ -32,6 +32,8 @@ export class AuctionDetailsCountdownComponent implements OnInit, OnDestroy {
   constructor() {}
 
   ngOnInit(): void {
+// CHECK THIS - https://stackblitz.com/edit/angular-wb5g7m
+
     // let x = interval(1000).pipe(
     //   map(i => {
     //     5 - i - 1

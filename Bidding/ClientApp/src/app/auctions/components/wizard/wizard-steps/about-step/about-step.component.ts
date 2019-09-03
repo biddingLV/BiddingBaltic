@@ -1,18 +1,17 @@
 // angular
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Component, OnInit, EventEmitter, Output } from "@angular/core";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
 // 3rd lib
-import { BsDatepickerConfig } from 'ngx-bootstrap/datepicker/bs-datepicker.config';
-import { BsModalRef } from 'ngx-bootstrap/modal';
+import { BsDatepickerConfig } from "ngx-bootstrap/datepicker/bs-datepicker.config";
+import { BsModalRef } from "ngx-bootstrap/modal";
 
 // internal
-import { FormService } from 'ClientApp/src/app/core/services/form/form.service';
-
+import { FormService } from "ClientApp/src/app/core/services/form/form.service";
 
 @Component({
-  selector: 'app-auction-add-about-wizard-step',
-  templateUrl: './about-step.component.html'
+  selector: "app-auction-add-about-wizard-step",
+  templateUrl: "./about-step.component.html"
 })
 export class AuctionAddAboutWizardStepComponent implements OnInit {
   @Output() returnAddWizardStepForm = new EventEmitter<FormGroup>();
@@ -22,13 +21,13 @@ export class AuctionAddAboutWizardStepComponent implements OnInit {
 
   /** Form error object */
   formErrors = {
-    auctionCreator: '',
-    auctionAddress: '',
-    auctionCreatorEmail: '',
-    auctionCreatorPhone: '',
-    auctionStartDate: '',
-    auctionApplyTillDate: '',
-    auctionEndDate: ''
+    auctionCreator: "",
+    auctionAddress: "",
+    auctionCreatorEmail: "",
+    auctionCreatorPhone: "",
+    auctionStartDate: "",
+    auctionApplyTillDate: "",
+    auctionEndDate: ""
   };
 
   bsConfig: Partial<BsDatepickerConfig>;
@@ -36,7 +35,9 @@ export class AuctionAddAboutWizardStepComponent implements OnInit {
   submitted = false;
 
   /** Convenience getter for easy access to form fields */
-  get f() { return this.aboutStepForm.controls; }
+  get f() {
+    return this.aboutStepForm.controls;
+  }
 
   constructor(
     private formBuilder: FormBuilder,
@@ -44,8 +45,8 @@ export class AuctionAddAboutWizardStepComponent implements OnInit {
     private internalFormService: FormService
   ) {
     this.bsConfig = {
-      containerClass: 'theme-green',
-      dateInputFormat: 'DD/MM/YYYY',
+      containerClass: "theme-green",
+      dateInputFormat: "DD/MM/YYYY",
       showWeekNumbers: true
     };
   }
@@ -61,7 +62,11 @@ export class AuctionAddAboutWizardStepComponent implements OnInit {
     this.internalFormService.markFormGroupTouched(this.aboutStepForm);
 
     if (this.aboutStepForm.valid === false) {
-      this.formErrors = this.internalFormService.validateForm(this.aboutStepForm, this.formErrors, false);
+      this.formErrors = this.internalFormService.validateForm(
+        this.aboutStepForm,
+        this.formErrors,
+        false
+      );
     }
 
     // stop here if form is invalid
@@ -76,10 +81,10 @@ export class AuctionAddAboutWizardStepComponent implements OnInit {
   private buildForm(): void {
     // todo: kke: I need something smart here how to build dynamic form based on specific conditions! + add validations!
     this.aboutStepForm = this.formBuilder.group({
-      auctionCreator: ['', [Validators.required]],
-      auctionAddress: ['', [Validators.required]],
-      auctionCreatorEmail: ['', [Validators.required]],
-      auctionCreatorPhone: ['', [Validators.required]],
+      auctionCreator: ["", [Validators.required]],
+      auctionAddress: ["", [Validators.required]],
+      auctionCreatorEmail: ["", [Validators.required]],
+      auctionCreatorPhone: ["", [Validators.required]],
       auctionStartDate: [null, []],
       auctionApplyTillDate: [null, [Validators.required]],
       auctionEndDate: [null, [Validators.required]]

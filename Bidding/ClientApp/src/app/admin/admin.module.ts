@@ -1,18 +1,17 @@
 // angular
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
 
 // internal
-import { SharedModule } from '../shared/shared.module';
-import { AuctionsModule } from '../auctions/auctions.module';
-import { AdminRoutingModule } from './admin-routing.module';
-import { AdminAuctionMainComponent } from './containers/auction-main/auction-main.component';
-import { AdminUserMainComponent } from './containers/user-main/user-main.component';
-import { AdminMainComponent } from './containers/main/main.component';
-import { UserTableComponent } from './components/user-table/user-table/user-table.component';
-import { AdminSidebarComponent } from './components/sidebar/sidebar.component';
-import { UsersModule } from '../users/users.module';
-
+import { SharedModule } from "../shared/shared.module";
+import { AuctionsModule } from "../auctions/auctions.module";
+import { AdminRoutingModule } from "./admin-routing.module";
+import { AdminAuctionMainComponent } from "./containers/auction-main/auction-main.component";
+import { AdminUserMainComponent } from "./containers/user-main/user-main.component";
+import { AdminMainComponent } from "./containers/main/main.component";
+import { UserTableComponent } from "./components/user-table/user-table/user-table.component";
+import { AdminSidebarComponent } from "./components/sidebar/sidebar.component";
+import { UsersModule } from "../users/users.module";
 
 @NgModule({
   imports: [
@@ -22,9 +21,7 @@ import { UsersModule } from '../users/users.module';
     AuctionsModule,
     UsersModule
   ],
-  exports: [
-
-  ],
+  exports: [],
   declarations: [
     AdminAuctionMainComponent,
     AdminUserMainComponent,
@@ -32,10 +29,7 @@ import { UsersModule } from '../users/users.module';
     UserTableComponent,
     AdminSidebarComponent
   ],
-  providers: [
-  ],
-  entryComponents: [
-
-  ]
+  providers: [],
+  entryComponents: []
 })
-export class AdminModule { }
+export class AdminModule {}

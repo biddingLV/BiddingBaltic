@@ -9,6 +9,7 @@ import { PartnerRulesComponent } from "./shared/components/footer/static-compone
 import { RulesListComponent } from "./shared/components/footer/static-components/rules-list/rules-list.component";
 import { ServiceRulesComponent } from "./shared/components/footer/static-components/service-rules/service-rules.component";
 import { FAQPageComponent } from "./shared/components/footer/static-components/faq-page/faq-page.component";
+import { AuthenticatedGuard } from "./core/services/auth/auth-guard.service";
 
 const routes: Routes = [
   {
@@ -22,6 +23,7 @@ const routes: Routes = [
   },
   {
     path: "admin",
+    canLoad: [AuthenticatedGuard],
     loadChildren: () => import("./admin/admin.module").then(m => m.AdminModule)
   },
   {

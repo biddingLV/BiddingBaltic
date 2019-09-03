@@ -1,27 +1,49 @@
 <div class="modal-header auction-add__header">
   <h3 class="modal-title pull-left">New Auction</h3>
-  <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+  <button
+    type="button"
+    class="close pull-right"
+    aria-label="Close"
+    (click)="bsModalRef.hide()"
+  >
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
 
 <div class="modal-body auction-add__body">
   <aw-wizard #wizard [navBarLayout]="'large-empty-symbols'">
-    <app-auction-add-category-wizard-step style="width: 100%;" awWizardStep [stepTitle]="'Kategorija'"
-      [categories]="categories" [canExit]="moveDirectionCategoryStep" (emitTopCategoryId)="onTopCategoryChange($event)"
-      (emitSubCategoryId)="onSubCategoryChange($event)">
+    <app-auction-add-category-wizard-step
+      style="width: 100%;"
+      awWizardStep
+      [stepTitle]="'Kategorija'"
+      [categories]="categories"
+      [canExit]="moveDirectionCategoryStep"
+      (emitTopCategoryId)="onTopCategoryChange($event)"
+      (emitSubCategoryId)="onSubCategoryChange($event)"
+    >
     </app-auction-add-category-wizard-step>
 
     <ng-container *ngFor="let i of steps">
-      <app-auction-add-add-wizard-step style="width: 100%;" awWizardStep stepTitle="Izsoles detalas {{i}}"
-        [selectedTopCategoryId]="selectedTopCategoryId" [canExit]="moveDirectionAddStep"
-        [selectedSubCategoryId]="selectedSubCategoryId" (emitAddWizardStep)="addWizardStep($event)"
-        (returnAddWizardStepForm)="onClickNextReturnForm('add-form', $event)">
+      <app-auction-add-add-wizard-step
+        style="width: 100%;"
+        awWizardStep
+        stepTitle="Izsoles detalas {{ i }}"
+        [selectedTopCategoryId]="selectedTopCategoryId"
+        [canExit]="moveDirectionAddStep"
+        [selectedSubCategoryId]="selectedSubCategoryId"
+        (emitAddWizardStep)="addWizardStep($event)"
+        (returnAddWizardStepForm)="onClickNextReturnForm('add-form', $event)"
+      >
       </app-auction-add-add-wizard-step>
     </ng-container>
 
-    <app-auction-add-about-wizard-step style="width: 100%;" awWizardStep [stepTitle]="'Rikotajs un norise'"
-      (formValuesAreValid)="onSubmit()" (returnAddWizardStepForm)="onClickNextReturnForm('about-form', $event)">
+    <app-auction-add-about-wizard-step
+      style="width: 100%;"
+      awWizardStep
+      [stepTitle]="'Rikotajs un norise'"
+      (formValuesAreValid)="onSubmit()"
+      (returnAddWizardStepForm)="onClickNextReturnForm('about-form', $event)"
+    >
     </app-auction-add-about-wizard-step>
   </aw-wizard>
 </div>

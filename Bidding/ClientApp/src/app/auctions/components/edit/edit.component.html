@@ -1,6 +1,11 @@
 <div class="modal-header">
   <h3 class="modal-title pull-left">Edit Auction</h3>
-  <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+  <button
+    type="button"
+    class="close pull-right"
+    aria-label="Close"
+    (click)="bsModalRef.hide()"
+  >
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
@@ -9,61 +14,102 @@
   <form [formGroup]="auctionEditForm" *ngIf="loaded; else loading">
     <div class="form-group">
       <label>Auction Name:</label>
-      <input type="text" formControlName="auctionName" class="form-control"
-        [ngClass]="{ 'is-invalid': submitted && f.auctionName.errors }" />
+      <input
+        type="text"
+        formControlName="auctionName"
+        class="form-control"
+        [ngClass]="{ 'is-invalid': submitted && f.auctionName.errors }"
+      />
       <div *ngIf="submitted && formErrors.auctionName" class="invalid-feedback">
-        {{formErrors.auctionName}}
+        {{ formErrors.auctionName }}
       </div>
     </div>
 
     <div class="form-group">
       <label>Starting Price:</label>
-      <input type="text" formControlName="auctionStartingPrice" class="form-control"
-        [ngClass]="{ 'is-invalid': submitted && f.auctionStartingPrice.errors }" />
-      <div *ngIf="submitted && formErrors.auctionStartingPrice" class="invalid-feedback">
-        {{formErrors.auctionStartingPrice}}
+      <input
+        type="text"
+        formControlName="auctionStartingPrice"
+        class="form-control"
+        [ngClass]="{ 'is-invalid': submitted && f.auctionStartingPrice.errors }"
+      />
+      <div
+        *ngIf="submitted && formErrors.auctionStartingPrice"
+        class="invalid-feedback"
+      >
+        {{ formErrors.auctionStartingPrice }}
       </div>
     </div>
 
     <div class="form-group">
       <label>Start Date:</label>
-      <input type="text" formControlName="auctionStartDate" class="form-control"
-        [ngClass]="{ 'is-invalid': submitted && f.auctionStartDate.errors }" />
-      <div *ngIf="submitted && formErrors.auctionStartDate" class="invalid-feedback">
-        {{formErrors.auctionStartDate}}
+      <input
+        type="text"
+        formControlName="auctionStartDate"
+        class="form-control"
+        [ngClass]="{ 'is-invalid': submitted && f.auctionStartDate.errors }"
+      />
+      <div
+        *ngIf="submitted && formErrors.auctionStartDate"
+        class="invalid-feedback"
+      >
+        {{ formErrors.auctionStartDate }}
       </div>
     </div>
 
     <div class="form-group">
       <label>Apply till Date:</label>
-      <input type="text" formControlName="auctionApplyTillDate" class="form-control"
-        [ngClass]="{ 'is-invalid': submitted && f.auctionApplyTillDate.errors }" />
-      <div *ngIf="submitted && formErrors.auctionApplyTillDate" class="invalid-feedback">
-        {{formErrors.auctionApplyTillDate}}
+      <input
+        type="text"
+        formControlName="auctionApplyTillDate"
+        class="form-control"
+        [ngClass]="{ 'is-invalid': submitted && f.auctionApplyTillDate.errors }"
+      />
+      <div
+        *ngIf="submitted && formErrors.auctionApplyTillDate"
+        class="invalid-feedback"
+      >
+        {{ formErrors.auctionApplyTillDate }}
       </div>
     </div>
 
     <div class="form-group">
       <label>End Date:</label>
-      <input type="text" formControlName="auctionEndDate" class="form-control"
-        [ngClass]="{ 'is-invalid': submitted && f.auctionEndDate.errors }" />
-      <div *ngIf="submitted && formErrors.auctionEndDate" class="invalid-feedback">
-        {{formErrors.auctionEndDate}}
+      <input
+        type="text"
+        formControlName="auctionEndDate"
+        class="form-control"
+        [ngClass]="{ 'is-invalid': submitted && f.auctionEndDate.errors }"
+      />
+      <div
+        *ngIf="submitted && formErrors.auctionEndDate"
+        class="invalid-feedback"
+      >
+        {{ formErrors.auctionEndDate }}
       </div>
     </div>
 
     <div class="form-group">
       <label>auctionStatus:</label>
-      <input type="text" formControlName="auctionStatus" class="form-control"
-        [ngClass]="{ 'is-invalid': submitted && f.auctionStatus.errors }" />
-      <div *ngIf="submitted && formErrors.auctionStatus" class="invalid-feedback">
-        {{formErrors.auctionStatus}}
+      <input
+        type="text"
+        formControlName="auctionStatus"
+        class="form-control"
+        [ngClass]="{ 'is-invalid': submitted && f.auctionStatus.errors }"
+      />
+      <div
+        *ngIf="submitted && formErrors.auctionStatus"
+        class="invalid-feedback"
+      >
+        {{ formErrors.auctionStatus }}
       </div>
     </div>
 
     <div class="form-group">
       <button class="btn btn-primary" (click)="onSubmit()">Update</button>
-      <button class="btn btn-secondary" (click)="bsModalRef.hide()">Cancel</button>
+      <button class="btn btn-secondary" (click)="bsModalRef.hide()">
+        Cancel
+      </button>
     </div>
   </form>
 </div>

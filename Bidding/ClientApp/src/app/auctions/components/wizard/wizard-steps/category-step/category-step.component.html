@@ -5,15 +5,27 @@
         <div class="form-row" *ngIf="categories">
           <div class="form-group col-12">
             <label for="auctionTopCategory">Top-category:</label>
-            <ng-select #auctionTopCategorySelect formControlName="auctionTopCategory" [clearable]="false"
-              [virtualScroll]="true" placeholder="Select top-category" (change)="onTopCategoryChange($event)">
-              <ng-option *ngFor="let cat of categories.topCategories; let i = index" [value]="cat.categoryId">
-                {{cat.categoryName}}
+            <ng-select
+              #auctionTopCategorySelect
+              formControlName="auctionTopCategory"
+              [clearable]="false"
+              [virtualScroll]="true"
+              placeholder="Select top-category"
+              (change)="onTopCategoryChange($event)"
+            >
+              <ng-option
+                *ngFor="let cat of categories.topCategories; let i = index"
+                [value]="cat.categoryId"
+              >
+                {{ cat.categoryName }}
               </ng-option>
             </ng-select>
 
-            <div *ngIf="submitted && formErrors.auctionTopCategory" class="d-block invalid-feedback">
-              {{formErrors.auctionTopCategory}}
+            <div
+              *ngIf="submitted && formErrors.auctionTopCategory"
+              class="d-block invalid-feedback"
+            >
+              {{ formErrors.auctionTopCategory }}
             </div>
           </div>
         </div>
@@ -21,15 +33,27 @@
         <div class="form-row">
           <div class="form-group col-12">
             <label for="auctionSubCategory">Sub-category:</label>
-            <ng-select #auctionSubCategorySelect formControlName="auctionSubCategory" [clearable]="false"
-              [virtualScroll]="true" placeholder="Select sub-category" (change)="onSubCategoryChange($event)">
-              <ng-option *ngFor="let typ of auctionTypes; let i = index" [value]="typ.typeId">
-                {{typ.typeName}}
+            <ng-select
+              #auctionSubCategorySelect
+              formControlName="auctionSubCategory"
+              [clearable]="false"
+              [virtualScroll]="true"
+              placeholder="Select sub-category"
+              (change)="onSubCategoryChange($event)"
+            >
+              <ng-option
+                *ngFor="let typ of auctionTypes; let i = index"
+                [value]="typ.typeId"
+              >
+                {{ typ.typeName }}
               </ng-option>
             </ng-select>
 
-            <div *ngIf="submitted && formErrors.auctionSubCategory" class="d-block invalid-feedback">
-              {{formErrors.auctionSubCategory}}
+            <div
+              *ngIf="submitted && formErrors.auctionSubCategory"
+              class="d-block invalid-feedback"
+            >
+              {{ formErrors.auctionSubCategory }}
             </div>
           </div>
         </div>
@@ -37,29 +61,48 @@
         <div class="form-row">
           <div class="form-group col-12">
             <label for="auctionFormat">Izsoles veids</label>
-            <ng-select #auctionFormatSelect formControlName="auctionFormat" [clearable]="false" [virtualScroll]="true"
-              [multiple]="false" [closeOnSelect]="true" placeholder="Select auction format">
-              <ng-option *ngFor="let format of auctionFormats.formats; let i = index" [value]="format.auctionFormatId">
-                {{format.auctionFormatName}}
+            <ng-select
+              #auctionFormatSelect
+              formControlName="auctionFormat"
+              [clearable]="false"
+              [virtualScroll]="true"
+              [multiple]="false"
+              [closeOnSelect]="true"
+              placeholder="Select auction format"
+            >
+              <ng-option
+                *ngFor="let format of auctionFormats.formats; let i = index"
+                [value]="format.auctionFormatId"
+              >
+                {{ format.auctionFormatName }}
               </ng-option>
             </ng-select>
 
-            <div *ngIf="submitted && formErrors.auctionFormat" class="invalid-feedback d-block">
-              {{formErrors.auctionFormat}}
+            <div
+              *ngIf="submitted && formErrors.auctionFormat"
+              class="invalid-feedback d-block"
+            >
+              {{ formErrors.auctionFormat }}
             </div>
           </div>
         </div>
 
         <div class="form-row float-right">
           <div class="form-group modal-buttons">
-            <button type="button" class="btn btn-primary" awNextStep (click)="onNext()">Next</button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              awNextStep
+              (click)="onNext()"
+            >
+              Next
+            </button>
           </div>
         </div>
       </form>
     </div>
   </div>
 </div>
-
 
 <!-- todo: kke: move to the shared sass file! -->
 <style>

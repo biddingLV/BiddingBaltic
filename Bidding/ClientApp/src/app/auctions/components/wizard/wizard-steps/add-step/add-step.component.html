@@ -1,15 +1,21 @@
 <ng-container *ngIf="showVehicleStep">
-  <app-auction-add-wizard-vehicle-category [selectedSubCategoryId]="selectedSubCategoryId"
-    (returnAddWizardStepForm)="onClickNextReturnForm($event)">
+  <app-auction-add-wizard-vehicle-category
+    [selectedSubCategoryId]="selectedSubCategoryId"
+    (returnAddWizardStepForm)="onClickNextReturnForm($event)"
+  >
   </app-auction-add-wizard-vehicle-category>
 </ng-container>
 
 <ng-container *ngIf="showItemStep">
-  <app-auction-add-wizard-item-category (returnAddWizardStepForm)="onClickNextReturnForm($event)">
+  <app-auction-add-wizard-item-category
+    (returnAddWizardStepForm)="onClickNextReturnForm($event)"
+  >
   </app-auction-add-wizard-item-category>
 </ng-container>
 
 <ng-container *ngIf="showPropertyStep">
-  <app-auction-add-wizard-property-category (returnAddWizardStepForm)="onClickNextReturnForm($event)">
+  <app-auction-add-wizard-property-category
+    (returnAddWizardStepForm)="onClickNextReturnForm($event)"
+  >
   </app-auction-add-wizard-property-category>
 </ng-container>

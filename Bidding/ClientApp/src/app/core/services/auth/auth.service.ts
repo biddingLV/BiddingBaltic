@@ -1,13 +1,12 @@
 // angular
-import { Injectable } from '@angular/core';
-import { Router } from '@angular/router';
+import { Injectable } from "@angular/core";
+import { Router } from "@angular/router";
 
 // 3rd lib
-import { CookieService } from 'ngx-cookie-service';
+import { CookieService } from "ngx-cookie-service";
 
 // internal
-import { User } from '../../models/user/user.model';
-
+import { User } from "../../models/user/user.model";
 
 interface TxWindow extends Window {
   global: Window;
@@ -20,23 +19,21 @@ export class AuthService {
   userDetails: User;
   redirectUri: string;
 
-  constructor(
-    public router: Router,
-    private cookieService: CookieService
-  ) {
+  constructor(public router: Router, private cookieService: CookieService) {
     this.checkCookie();
   }
 
   login(): void {
     if (this.redirectUri !== undefined) {
-      window.location.href = '/start/auth/login?redirectPage=' + this.redirectUri;
+      window.location.href =
+        "/start/auth/login?redirectPage=" + this.redirectUri;
     } else {
-      window.location.href = '/start/auth/login';
+      window.location.href = "/start/auth/login";
     }
   }
 
   logout(): void {
-    window.location.href = '/start/auth/logout';
+    window.location.href = "/start/auth/logout";
   }
 
   isAuthenticated(): boolean {
@@ -52,8 +49,8 @@ export class AuthService {
   }
 
   private checkCookie(): void {
-    if (this.cookieService.check('BIDPROFILE')) {
-      const profileCookie = this.cookieService.get('BIDPROFILE');
+    if (this.cookieService.check("BIDPROFILE")) {
+      const profileCookie = this.cookieService.get("BIDPROFILE");
       if (profileCookie) {
         this.setUserDetails(profileCookie);
       }
