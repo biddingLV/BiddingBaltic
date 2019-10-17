@@ -1,4 +1,5 @@
 ﻿using Bidding.Models.ApplicationModels.Database;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using System;

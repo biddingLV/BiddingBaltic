@@ -27,7 +27,5 @@ namespace Bidding.Database.DatabaseModels.Users
         public int LastUpdatedBy { get; set; }
 
         public bool Deleted { get; set; }
-
-        public ICollection<User> Users { get; set; }
     }
 }

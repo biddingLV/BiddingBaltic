@@ -7,15 +7,13 @@ using System.Threading.Tasks;
 
 namespace Bidding.Database.DatabaseModels.Users
 {
-    public partial class Permission
+    public class RolePermission
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int PermissionId { get; set; }
+        public int RolePermissionId { get; set; }
 
-        [Required]
-        [MaxLength(50)]
-        public string Name { get; set; }
+        // note: kke: add mapping values!
 
         [Required]
         public DateTime CreatedAt { get; set; }

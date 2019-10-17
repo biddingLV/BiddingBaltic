@@ -5,7 +5,6 @@ using Bidding.Repositories.Users;
 using Bidding.Services.Shared.Permissions;
 using Bidding.Services.Users;
 using Bidding.Shared.Attributes;
-using Bidding.Shared.Authorization;
 using Bidding.Shared.ErrorHandling.Errors;
 using Bidding.Shared.ErrorHandling.Validators;
 using Bidding.Shared.Exceptions;
@@ -41,6 +40,7 @@ using Bidding.Database.Contexts;
 using Bidding.Database.DatabaseModels.Auctions;
 using Bidding.Services.Shared;
 using SixLabors.ImageSharp.Web.DependencyInjection;
+using Bidding.Shared.Permissions;
 
 namespace Bidding
 {
@@ -372,6 +372,31 @@ namespace Bidding
 
                        if (userIdentityId.IsNotSpecified() == false && userLoginEmail.IsNotSpecified() == false)
                        {
+                           // WIP
+                           // WIP
+
+                           if (false)
+                           {
+                               ////We build the AuthCookie's OnValidatePrincipal 
+                               //var sp = services.BuildServiceProvider();
+                               //var extraAuthDbContextOptions = sp.GetRequiredService<DbContextOptions<ExtraAuthorizeDbContext>>();
+                               //var authCookieValidate = new AuthCookieValidate(new CalcAllowedPermissions(extraAuthDbContextOptions));
+
+                               ////see https://docs.microsoft.com/en-us/aspnet/core/security/authentication/identity-configuration?view=aspnetcore-2.1#cookie-settings
+                               //services.ConfigureApplicationCookie(options =>
+                               //{
+                               //    options.Events.OnValidatePrincipal = authCookieValidate.ValidateAsync;
+                               //});
+                           }
+                           else
+                           {
+                               //For simple setup on login then this will work
+                               services.AddScoped<IUserClaimsPrincipalFactory<IdentityUser>, AddPermissionsToUserClaims>();
+                           }
+
+                           // WIP
+                           // WIP
+
                            // todo: kke: 1. check if this is the first sign in for the user!
                            // todo: kke: can we use auth0 for that?
                            // 2. if user doesnt exist fetch and save all the information!
@@ -471,25 +496,9 @@ namespace Bidding
 
         private void ConfigureAuthorization(ref IServiceCollection services)
         {
-            services.AddScoped<IAuthorizationHandler, PermissionAuthorizationHandler>();
-
-            services.AddAuthorization(options =>
-            {
-                // todo: implement this!
-                // Permissions Access
-                options.AddPolicy("View Admin Panel",
-                    policy => policy.Requirements.Add(new PermissionRequirement(1)));
-            });
-
-            // Dev policies
-            if (Environment.IsDevelopment())
-            {
-
-            }
-            else // Prod policies
-            {
-
-            }
+            //Register the Permission policy handlers
+            services.AddSingleton<IAuthorizationPolicyProvider, AuthorizationPolicyProvider>();
+            services.AddSingleton<IAuthorizationHandler, PermissionHandler>();
         }
     }
 }

@@ -17,10 +17,11 @@ using Bidding.Database.DatabaseModels.Item;
 using Bidding.Database.DatabaseModels.Property;
 using Bidding.Database.DatabaseModels.Shared;
 using Bidding.Models.ViewModels.Bidding.Admin.Users.List;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 
 namespace Bidding.Database.Contexts
 {
-    public partial class BiddingContext : DbContextBase<BiddingContext>
+    public class BiddingContext : IdentityDbContext
     {
         public BiddingContext(DbContextOptions<BiddingContext> options) : base(options) { }
 
@@ -32,24 +33,27 @@ namespace Bidding.Database.Contexts
         public virtual DbSet<AuctionFormat> AuctionFormats { get; set; }
         public virtual DbSet<AuctionCondition> AuctionConditions { get; set; }
         public virtual DbSet<AuctionDetails> AuctionDetails { get; set; }
+        public virtual DbSet<Region> Regions { get; set; }
         public virtual DbSet<AuctionItem> AuctionItems { get; set; }
         public virtual DbSet<AuctionCreator> AuctionCreators { get; set; }
         public virtual DbSet<Auction> Auctions { get; set; }
         public virtual DbSet<Category> Categories { get; set; }
         public virtual DbSet<Type> Types { get; set; }
         public virtual DbSet<User> Users { get; set; }
+        public virtual DbSet<UserRole> UserRoles { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
-        public virtual DbSet<Region> Regions { get; set; }
+        public virtual DbSet<RolePermission> RolePermissions { get; set; }
+        public virtual DbSet<Permission> Permissions { get; set; }
+        public virtual DbSet<Newsletter> Newsletters { get; set; }
+
         //public virtual DbSet<TypeProduct> TypeProducts { get; set; }
         //public virtual DbSet<Product> Products { get; set; }
-        //public virtual DbSet<Permission> Permissions { get; set; }
         //public virtual DbSet<Feature> Features { get; set; }
         //public virtual DbSet<Images> Images { get; set; }
         //public virtual DbSet<Organization> Organizations { get; set; }
         //public virtual DbSet<ProductDetail> ProductDetails { get; set; }
         //public virtual DbSet<UserDetail> UserDetails { get; set; }
         //public virtual DbSet<UserOrganization> UserOrganizations { get; set; }
-        public virtual DbSet<Newsletter> Newsletters { get; set; }
 
         // Database Queries for stored procedures, views and so on!
         public virtual DbQuery<TopCategoryFilterModel> TopCategoryFilter { get; set; }
@@ -63,10 +67,6 @@ namespace Bidding.Database.Contexts
             {
                 relationship.DeleteBehavior = DeleteBehavior.Restrict;
             }
-
-            modelBuilder.Entity<Role>()
-                .HasMany(c => c.Users)
-                .WithOne(e => e.Role);
 
             modelBuilder.Entity<Auction>()
                 .HasOne(p => p.User)
@@ -121,6 +121,26 @@ namespace Bidding.Database.Contexts
             modelBuilder.Entity<AuctionStatus>()
                 .HasOne(p => p.User)
                 .WithMany(b => b.AuctionStatuses)
+                .HasForeignKey(p => p.CreatedBy);
+
+            modelBuilder.Entity<Role>()
+                .HasOne(p => p.User)
+                .WithMany(b => b.Roles)
+                .HasForeignKey(p => p.CreatedBy);
+
+            modelBuilder.Entity<Permission>()
+                .HasOne(p => p.User)
+                .WithMany(b => b.Permissions)
+                .HasForeignKey(p => p.CreatedBy);
+
+            modelBuilder.Entity<UserRole>()
+                .HasOne(p => p.User)
+                .WithMany(b => b.UserRoles)
+                .HasForeignKey(p => p.CreatedBy);
+
+            modelBuilder.Entity<RolePermission>()
+                .HasOne(p => p.User)
+                .WithMany(b => b.RolePermissions)
                 .HasForeignKey(p => p.CreatedBy);
 
             modelBuilder.Entity<VehicleTransmission>()

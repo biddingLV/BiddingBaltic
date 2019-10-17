@@ -22,6 +22,7 @@ namespace Bidding.Database.Contexts
 
         public static void Seed(this ModelBuilder modelBuilder)
         {
+            PopulatePermissions(modelBuilder);
             PopulateRoles(modelBuilder);
             PopulateUsers(modelBuilder);
             PopulateAuctionStatuses(modelBuilder);
@@ -39,13 +40,109 @@ namespace Bidding.Database.Contexts
             // PopulateAuctionDetails(modelBuilder);
         }
 
+        private static void PopulatePermissions(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Permission>().HasData(
+                new Permission
+                {
+                    PermissionId = 1,
+                    Name = "View own auctions",
+                    CreatedAt = CreatedAtDateTime,
+                    CreatedBy = CreatedByBiddingAdmin,
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin,
+                    Deleted = false
+                },
+                new Permission
+                {
+                    PermissionId = 2,
+                    Name = "View all auctions",
+                    CreatedAt = CreatedAtDateTime,
+                    CreatedBy = CreatedByBiddingAdmin,
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin,
+                    Deleted = false
+                },
+                new Permission
+                {
+                    PermissionId = 3,
+                    Name = "Create auction",
+                    CreatedAt = CreatedAtDateTime,
+                    CreatedBy = CreatedByBiddingAdmin,
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin,
+                    Deleted = false
+                },
+                new Permission
+                {
+                    PermissionId = 4,
+                    Name = "Edit own auction",
+                    CreatedAt = CreatedAtDateTime,
+                    CreatedBy = CreatedByBiddingAdmin,
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin,
+                    Deleted = false
+                },
+                new Permission
+                {
+                    PermissionId = 5,
+                    Name = "Edit all auctions",
+                    CreatedAt = CreatedAtDateTime,
+                    CreatedBy = CreatedByBiddingAdmin,
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin,
+                    Deleted = false
+                },
+                new Permission
+                {
+                    PermissionId = 6,
+                    Name = "Delete own auctions",
+                    CreatedAt = CreatedAtDateTime,
+                    CreatedBy = CreatedByBiddingAdmin,
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin,
+                    Deleted = false
+                },
+                new Permission
+                {
+                    PermissionId = 7,
+                    Name = "Delete all auctions",
+                    CreatedAt = CreatedAtDateTime,
+                    CreatedBy = CreatedByBiddingAdmin,
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin,
+                    Deleted = false
+                },
+                new Permission
+                {
+                    PermissionId = 8,
+                    Name = "Edit another profile",
+                    CreatedAt = CreatedAtDateTime,
+                    CreatedBy = CreatedByBiddingAdmin,
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin,
+                    Deleted = false
+                },
+                new Permission
+                {
+                    PermissionId = 9,
+                    Name = "Delete another profile",
+                    CreatedAt = CreatedAtDateTime,
+                    CreatedBy = CreatedByBiddingAdmin,
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin,
+                    Deleted = false
+                }
+            );
+        }
+
         private static void PopulateRoles(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Role>().HasData(
                 new Role
                 {
                     RoleId = 1,
-                    Name = "User",
+                    Name = "AuctionCreator",
                     CreatedAt = CreatedAtDateTime,
                     CreatedBy = CreatedByBiddingAdmin,
                     LastUpdatedAt = CreatedAtDateTime,
@@ -55,7 +152,7 @@ namespace Bidding.Database.Contexts
                 new Role
                 {
                     RoleId = 2,
-                    Name = "Admin",
+                    Name = "PageModerator",
                     CreatedAt = CreatedAtDateTime,
                     CreatedBy = CreatedByBiddingAdmin,
                     LastUpdatedAt = CreatedAtDateTime,

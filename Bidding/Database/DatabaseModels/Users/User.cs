@@ -70,5 +70,9 @@ namespace Bidding.Database.DatabaseModels.Users
         public List<AuctionItem> AuctionItems { get; set; }
         public List<AuctionDetails> AuctionDetails { get; set; }
         public List<AuctionCreator> AuctionCreators { get; set; }
+        public List<Role> Roles { get; set; }
+        public List<Permission> Permissions { get; set; }
+        public List<RolePermission> RolePermissions { get; set; }
+        public List<UserRole> UserRoles { get; set; }
     }
 }
