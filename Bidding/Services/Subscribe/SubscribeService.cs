@@ -1,14 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
-using Bidding.Models.ViewModels.Bidding.Subscribe;
-using Bidding.Shared.Exceptions;
-using Bidding.Shared.Utility;
-using Bidding.Models.ViewModels.Bidding.Auctions;
-using Bidding.Repositories.Auctions;
+﻿using Bidding.Models.ViewModels.Bidding.Subscribe;
 using Bidding.Repositories.Subscribe;
+using Bidding.Shared.Exceptions;
+using Bidding.Shared.Utility.Validation.Comparers;
+using System;
+using System.Collections.Generic;
+using System.Net;
 
 namespace Bidding.Services.Subscribe
 {

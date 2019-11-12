@@ -48,7 +48,7 @@ namespace Bidding.Database.Contexts
                     PermissionId = 1,
                     Name = "View own auctions",
                     CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
+                    // // CreatedBy = CreatedByBiddingAdmin,
                     LastUpdatedAt = CreatedAtDateTime,
                     LastUpdatedBy = CreatedByBiddingAdmin,
                     Deleted = false
@@ -58,7 +58,7 @@ namespace Bidding.Database.Contexts
                     PermissionId = 2,
                     Name = "View all auctions",
                     CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
+                    // // CreatedBy = CreatedByBiddingAdmin,
                     LastUpdatedAt = CreatedAtDateTime,
                     LastUpdatedBy = CreatedByBiddingAdmin,
                     Deleted = false
@@ -68,7 +68,7 @@ namespace Bidding.Database.Contexts
                     PermissionId = 3,
                     Name = "Create auction",
                     CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
+                    // CreatedBy = CreatedByBiddingAdmin,
                     LastUpdatedAt = CreatedAtDateTime,
                     LastUpdatedBy = CreatedByBiddingAdmin,
                     Deleted = false
@@ -78,7 +78,7 @@ namespace Bidding.Database.Contexts
                     PermissionId = 4,
                     Name = "Edit own auction",
                     CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
+                    // CreatedBy = CreatedByBiddingAdmin,
                     LastUpdatedAt = CreatedAtDateTime,
                     LastUpdatedBy = CreatedByBiddingAdmin,
                     Deleted = false
@@ -88,7 +88,7 @@ namespace Bidding.Database.Contexts
                     PermissionId = 5,
                     Name = "Edit all auctions",
                     CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
+                    // CreatedBy = CreatedByBiddingAdmin,
                     LastUpdatedAt = CreatedAtDateTime,
                     LastUpdatedBy = CreatedByBiddingAdmin,
                     Deleted = false
@@ -98,7 +98,7 @@ namespace Bidding.Database.Contexts
                     PermissionId = 6,
                     Name = "Delete own auctions",
                     CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
+                    // CreatedBy = CreatedByBiddingAdmin,
                     LastUpdatedAt = CreatedAtDateTime,
                     LastUpdatedBy = CreatedByBiddingAdmin,
                     Deleted = false
@@ -108,7 +108,7 @@ namespace Bidding.Database.Contexts
                     PermissionId = 7,
                     Name = "Delete all auctions",
                     CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
+                    // CreatedBy = CreatedByBiddingAdmin,
                     LastUpdatedAt = CreatedAtDateTime,
                     LastUpdatedBy = CreatedByBiddingAdmin,
                     Deleted = false
@@ -118,7 +118,7 @@ namespace Bidding.Database.Contexts
                     PermissionId = 8,
                     Name = "Edit another profile",
                     CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
+                    // CreatedBy = CreatedByBiddingAdmin,
                     LastUpdatedAt = CreatedAtDateTime,
                     LastUpdatedBy = CreatedByBiddingAdmin,
                     Deleted = false
@@ -128,7 +128,7 @@ namespace Bidding.Database.Contexts
                     PermissionId = 9,
                     Name = "Delete another profile",
                     CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
+                    // CreatedBy = CreatedByBiddingAdmin,
                     LastUpdatedAt = CreatedAtDateTime,
                     LastUpdatedBy = CreatedByBiddingAdmin,
                     Deleted = false
@@ -138,28 +138,28 @@ namespace Bidding.Database.Contexts
 
         private static void PopulateRoles(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Role>().HasData(
-                new Role
-                {
-                    RoleId = 1,
-                    Name = "AuctionCreator",
-                    CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
-                    LastUpdatedAt = CreatedAtDateTime,
-                    LastUpdatedBy = CreatedByBiddingAdmin,
-                    Deleted = false
-                },
-                new Role
-                {
-                    RoleId = 2,
-                    Name = "PageModerator",
-                    CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
-                    LastUpdatedAt = CreatedAtDateTime,
-                    LastUpdatedBy = CreatedByBiddingAdmin,
-                    Deleted = false
-                }
-            );
+            //modelBuilder.Entity<Role>().HasData(
+            //    new Role
+            //    {
+            //        RoleId = 1,
+            //        Name = "AuctionCreator",
+            //        CreatedAt = CreatedAtDateTime,
+            //        // CreatedBy = CreatedByBiddingAdmin,
+            //        LastUpdatedAt = CreatedAtDateTime,
+            //        LastUpdatedBy = CreatedByBiddingAdmin,
+            //        Deleted = false
+            //    },
+            //    new Role
+            //    {
+            //        RoleId = 2,
+            //        Name = "PageModerator",
+            //        CreatedAt = CreatedAtDateTime,
+            //        // CreatedBy = CreatedByBiddingAdmin,
+            //        LastUpdatedAt = CreatedAtDateTime,
+            //        LastUpdatedBy = CreatedByBiddingAdmin,
+            //        Deleted = false
+            //    }
+            //);
         }
 
         private static void PopulateUsers(ModelBuilder modelBuilder)
@@ -167,69 +167,69 @@ namespace Bidding.Database.Contexts
             var adminRoleId = 2;
             var userRoleId = 1;
 
-            modelBuilder.Entity<User>().HasData(
-                new User
-                {
-                    UserId = 1,
-                    FirstName = "Kristaps",
-                    LastName = "K",
-                    LoginEmail = "kristaps.kerpe@gmail.com",
-                    ContactEmail = "kristaps.kerpe@gmail.com",
-                    Phone = "22089756",
-                    RoleId = adminRoleId,
-                    Deleted = false,
-                    UniqueIdentifier = "auth0|5bb4fdb000997e5d8c606653",
-                    CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
-                    LastUpdatedAt = CreatedAtDateTime,
-                    LastUpdatedBy = CreatedByBiddingAdmin
-                },
-                new User
-                {
-                    UserId = 2,
-                    FirstName = "Zane",
-                    LastName = "H",
-                    LoginEmail = "zanehaartman@gmail.com",
-                    ContactEmail = "zanehaartman@gmail.com",
-                    RoleId = adminRoleId,
-                    Deleted = false,
-                    UniqueIdentifier = "auth0|5bd605d46d76842d17365f3b",
-                    CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
-                    LastUpdatedAt = CreatedAtDateTime,
-                    LastUpdatedBy = CreatedByBiddingAdmin
-                },
-                new User
-                {
-                    UserId = 3,
-                    FirstName = "Jānis",
-                    LastName = "J",
-                    LoginEmail = "j.jaunozols@gmail.com",
-                    ContactEmail = "j.jaunozols@gmail.com",
-                    RoleId = adminRoleId,
-                    Deleted = false,
-                    UniqueIdentifier = "uth0|5bba448bb76b8011ae24e569",
-                    CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
-                    LastUpdatedAt = CreatedAtDateTime,
-                    LastUpdatedBy = CreatedByBiddingAdmin
-                },
-                new User
-                {
-                    UserId = 4,
-                    FirstName = "Jānis R",
-                    LastName = "B",
-                    LoginEmail = "janis.rihards.blazevics@gmail.com",
-                    ContactEmail = "janis.rihards.blazevics@gmail.com",
-                    RoleId = userRoleId,
-                    Deleted = true,
-                    UniqueIdentifier = "auth0|5c5dae63da9fe9124eccf90f",
-                    CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
-                    LastUpdatedAt = CreatedAtDateTime,
-                    LastUpdatedBy = CreatedByBiddingAdmin
-                }
-            );
+            //modelBuilder.Entity<User>().HasData(
+            //    new User
+            //    {
+            //        UserId = 1,
+            //        FirstName = "Kristaps",
+            //        LastName = "K",
+            //        LoginEmail = "kristaps.kerpe@gmail.com",
+            //        ContactEmail = "kristaps.kerpe@gmail.com",
+            //        Phone = "22089756",
+            //        RoleId = adminRoleId,
+            //        Deleted = false,
+            //        UniqueIdentifier = "auth0|5bb4fdb000997e5d8c606653",
+            //        CreatedAt = CreatedAtDateTime,
+            //        // CreatedBy = CreatedByBiddingAdmin,
+            //        LastUpdatedAt = CreatedAtDateTime,
+            //        LastUpdatedBy = CreatedByBiddingAdmin
+            //    },
+            //    new User
+            //    {
+            //        UserId = 2,
+            //        FirstName = "Zane",
+            //        LastName = "H",
+            //        LoginEmail = "zanehaartman@gmail.com",
+            //        ContactEmail = "zanehaartman@gmail.com",
+            //        RoleId = adminRoleId,
+            //        Deleted = false,
+            //        UniqueIdentifier = "auth0|5bd605d46d76842d17365f3b",
+            //        CreatedAt = CreatedAtDateTime,
+            //        // CreatedBy = CreatedByBiddingAdmin,
+            //        LastUpdatedAt = CreatedAtDateTime,
+            //        LastUpdatedBy = CreatedByBiddingAdmin
+            //    },
+            //    new User
+            //    {
+            //        UserId = 3,
+            //        FirstName = "Jānis",
+            //        LastName = "J",
+            //        LoginEmail = "j.jaunozols@gmail.com",
+            //        ContactEmail = "j.jaunozols@gmail.com",
+            //        RoleId = adminRoleId,
+            //        Deleted = false,
+            //        UniqueIdentifier = "uth0|5bba448bb76b8011ae24e569",
+            //        CreatedAt = CreatedAtDateTime,
+            //        // CreatedBy = CreatedByBiddingAdmin,
+            //        LastUpdatedAt = CreatedAtDateTime,
+            //        LastUpdatedBy = CreatedByBiddingAdmin
+            //    },
+            //    new User
+            //    {
+            //        UserId = 4,
+            //        FirstName = "Jānis R",
+            //        LastName = "B",
+            //        LoginEmail = "janis.rihards.blazevics@gmail.com",
+            //        ContactEmail = "janis.rihards.blazevics@gmail.com",
+            //        RoleId = userRoleId,
+            //        Deleted = true,
+            //        UniqueIdentifier = "auth0|5c5dae63da9fe9124eccf90f",
+            //        CreatedAt = CreatedAtDateTime,
+            //        // CreatedBy = CreatedByBiddingAdmin,
+            //        LastUpdatedAt = CreatedAtDateTime,
+            //        LastUpdatedBy = CreatedByBiddingAdmin
+            //    }
+            //);
         }
 
         private static void PopulateAuctionStatuses(ModelBuilder modelBuilder)
@@ -240,7 +240,7 @@ namespace Bidding.Database.Contexts
                     AuctionStatusId = 1,
                     Name = "Aktīva",
                     CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
+                    // CreatedBy = CreatedByBiddingAdmin,
                     LastUpdatedAt = CreatedAtDateTime,
                     LastUpdatedBy = CreatedByBiddingAdmin,
                     Deleted = false
@@ -250,7 +250,7 @@ namespace Bidding.Database.Contexts
                     AuctionStatusId = 2,
                     Name = "Pārtraukta",
                     CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
+                    // CreatedBy = CreatedByBiddingAdmin,
                     LastUpdatedAt = CreatedAtDateTime,
                     LastUpdatedBy = CreatedByBiddingAdmin,
                     Deleted = false
@@ -260,7 +260,7 @@ namespace Bidding.Database.Contexts
                     AuctionStatusId = 3,
                     Name = "Beigusies",
                     CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
+                    // CreatedBy = CreatedByBiddingAdmin,
                     LastUpdatedAt = CreatedAtDateTime,
                     LastUpdatedBy = CreatedByBiddingAdmin,
                     Deleted = false
@@ -276,7 +276,7 @@ namespace Bidding.Database.Contexts
                     VehicleTransmissionId = 1,
                     Name = "Automatiskā",
                     CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
+                    // CreatedBy = CreatedByBiddingAdmin,
                     LastUpdatedAt = CreatedAtDateTime,
                     LastUpdatedBy = CreatedByBiddingAdmin,
                     Deleted = false
@@ -286,7 +286,7 @@ namespace Bidding.Database.Contexts
                     VehicleTransmissionId = 2,
                     Name = "Mehāniskā",
                     CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
+                    // CreatedBy = CreatedByBiddingAdmin,
                     LastUpdatedAt = CreatedAtDateTime,
                     LastUpdatedBy = CreatedByBiddingAdmin,
                     Deleted = false
@@ -302,7 +302,7 @@ namespace Bidding.Database.Contexts
                     VehicleFuelTypeId = 1,
                     Name = "Benzīns",
                     CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
+                    // CreatedBy = CreatedByBiddingAdmin,
                     LastUpdatedAt = CreatedAtDateTime,
                     LastUpdatedBy = CreatedByBiddingAdmin,
                     Deleted = false
@@ -312,7 +312,7 @@ namespace Bidding.Database.Contexts
                     VehicleFuelTypeId = 2,
                     Name = "Dīzelis",
                     CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
+                    // CreatedBy = CreatedByBiddingAdmin,
                     LastUpdatedAt = CreatedAtDateTime,
                     LastUpdatedBy = CreatedByBiddingAdmin,
                     Deleted = false
@@ -322,7 +322,7 @@ namespace Bidding.Database.Contexts
                     VehicleFuelTypeId = 3,
                     Name = "Benzīns/Naftas gāze",
                     CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
+                    // CreatedBy = CreatedByBiddingAdmin,
                     LastUpdatedAt = CreatedAtDateTime,
                     LastUpdatedBy = CreatedByBiddingAdmin,
                     Deleted = false
@@ -332,7 +332,7 @@ namespace Bidding.Database.Contexts
                     VehicleFuelTypeId = 4,
                     Name = "Elektroniskais",
                     CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
+                    // CreatedBy = CreatedByBiddingAdmin,
                     LastUpdatedAt = CreatedAtDateTime,
                     LastUpdatedBy = CreatedByBiddingAdmin,
                     Deleted = false
@@ -342,7 +342,7 @@ namespace Bidding.Database.Contexts
                     VehicleFuelTypeId = 5,
                     Name = "Hibrīds",
                     CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
+                    // CreatedBy = CreatedByBiddingAdmin,
                     LastUpdatedAt = CreatedAtDateTime,
                     LastUpdatedBy = CreatedByBiddingAdmin,
                     Deleted = false
@@ -358,7 +358,7 @@ namespace Bidding.Database.Contexts
                     ItemConditionId = 1,
                     Name = "Jauns",
                     CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
+                    // CreatedBy = CreatedByBiddingAdmin,
                     LastUpdatedAt = CreatedAtDateTime,
                     LastUpdatedBy = CreatedByBiddingAdmin,
                     Deleted = false
@@ -368,7 +368,7 @@ namespace Bidding.Database.Contexts
                     ItemConditionId = 2,
                     Name = "Lietots",
                     CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
+                    // CreatedBy = CreatedByBiddingAdmin,
                     LastUpdatedAt = CreatedAtDateTime,
                     LastUpdatedBy = CreatedByBiddingAdmin,
                     Deleted = false
@@ -384,7 +384,7 @@ namespace Bidding.Database.Contexts
                     PropertyMeasurementTypeId = 1,
                     Name = "m2",
                     CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
+                    // CreatedBy = CreatedByBiddingAdmin,
                     LastUpdatedAt = CreatedAtDateTime,
                     LastUpdatedBy = CreatedByBiddingAdmin,
                     Deleted = false
@@ -394,7 +394,7 @@ namespace Bidding.Database.Contexts
                     PropertyMeasurementTypeId = 2,
                     Name = "a",
                     CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
+                    // CreatedBy = CreatedByBiddingAdmin,
                     LastUpdatedAt = CreatedAtDateTime,
                     LastUpdatedBy = CreatedByBiddingAdmin,
                     Deleted = false
@@ -404,7 +404,7 @@ namespace Bidding.Database.Contexts
                     PropertyMeasurementTypeId = 3,
                     Name = "ha",
                     CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
+                    // CreatedBy = CreatedByBiddingAdmin,
                     LastUpdatedAt = CreatedAtDateTime,
                     LastUpdatedBy = CreatedByBiddingAdmin,
                     Deleted = false
@@ -420,7 +420,7 @@ namespace Bidding.Database.Contexts
                     CategoryId = 1,
                     Name = "Transports",
                     CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
+                    // CreatedBy = CreatedByBiddingAdmin,
                     Deleted = false,
                     LastUpdatedAt = CreatedAtDateTime,
                     LastUpdatedBy = CreatedByBiddingAdmin
@@ -430,7 +430,7 @@ namespace Bidding.Database.Contexts
                     CategoryId = 2,
                     Name = "Manta",
                     CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
+                    // CreatedBy = CreatedByBiddingAdmin,
                     Deleted = false,
                     LastUpdatedAt = CreatedAtDateTime,
                     LastUpdatedBy = CreatedByBiddingAdmin
@@ -440,7 +440,7 @@ namespace Bidding.Database.Contexts
                     CategoryId = 3,
                     Name = "Nekustamais īpašums",
                     CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
+                    // CreatedBy = CreatedByBiddingAdmin,
                     Deleted = false,
                     LastUpdatedAt = CreatedAtDateTime,
                     LastUpdatedBy = CreatedByBiddingAdmin
@@ -457,7 +457,7 @@ namespace Bidding.Database.Contexts
                     Name = "Vieglais transports līdz 3,5t",
                     AuctionCategoryId = 1,
                     CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
+                    // CreatedBy = CreatedByBiddingAdmin,
                     Deleted = false,
                     LastUpdatedAt = CreatedAtDateTime,
                     LastUpdatedBy = CreatedByBiddingAdmin
@@ -468,7 +468,7 @@ namespace Bidding.Database.Contexts
                     Name = "Traktortehnika",
                     AuctionCategoryId = 1,
                     CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
+                    // CreatedBy = CreatedByBiddingAdmin,
                     Deleted = false,
                     LastUpdatedAt = CreatedAtDateTime,
                     LastUpdatedBy = CreatedByBiddingAdmin
@@ -479,7 +479,7 @@ namespace Bidding.Database.Contexts
                     Name = "Kravas auto",
                     AuctionCategoryId = 1,
                     CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
+                    // CreatedBy = CreatedByBiddingAdmin,
                     Deleted = false,
                     LastUpdatedAt = CreatedAtDateTime,
                     LastUpdatedBy = CreatedByBiddingAdmin
@@ -490,7 +490,7 @@ namespace Bidding.Database.Contexts
                     Name = "Mototehnika",
                     AuctionCategoryId = 1,
                     CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
+                    // CreatedBy = CreatedByBiddingAdmin,
                     Deleted = false,
                     LastUpdatedAt = CreatedAtDateTime,
                     LastUpdatedBy = CreatedByBiddingAdmin
@@ -501,7 +501,7 @@ namespace Bidding.Database.Contexts
                     Name = "Piekabes",
                     AuctionCategoryId = 1,
                     CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
+                    // CreatedBy = CreatedByBiddingAdmin,
                     Deleted = false,
                     LastUpdatedAt = CreatedAtDateTime,
                     LastUpdatedBy = CreatedByBiddingAdmin
@@ -512,7 +512,7 @@ namespace Bidding.Database.Contexts
                     Name = "Ūdens transports",
                     AuctionCategoryId = 1,
                     CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
+                    // CreatedBy = CreatedByBiddingAdmin,
                     Deleted = false,
                     LastUpdatedAt = CreatedAtDateTime,
                     LastUpdatedBy = CreatedByBiddingAdmin
@@ -523,7 +523,7 @@ namespace Bidding.Database.Contexts
                     Name = "Cits transports",
                     AuctionCategoryId = 1,
                     CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
+                    // CreatedBy = CreatedByBiddingAdmin,
                     Deleted = false,
                     LastUpdatedAt = CreatedAtDateTime,
                     LastUpdatedBy = CreatedByBiddingAdmin
@@ -534,7 +534,7 @@ namespace Bidding.Database.Contexts
                     Name = "Biroja tehnika",
                     AuctionCategoryId = 2,
                     CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
+                    // CreatedBy = CreatedByBiddingAdmin,
                     Deleted = false,
                     LastUpdatedAt = CreatedAtDateTime,
                     LastUpdatedBy = CreatedByBiddingAdmin
@@ -545,7 +545,7 @@ namespace Bidding.Database.Contexts
                     Name = "Sadzīves tehnika",
                     AuctionCategoryId = 2,
                     CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
+                    // CreatedBy = CreatedByBiddingAdmin,
                     Deleted = false,
                     LastUpdatedAt = CreatedAtDateTime,
                     LastUpdatedBy = CreatedByBiddingAdmin
@@ -556,7 +556,7 @@ namespace Bidding.Database.Contexts
                     Name = "Instrumenti",
                     AuctionCategoryId = 2,
                     CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
+                    // CreatedBy = CreatedByBiddingAdmin,
                     Deleted = false,
                     LastUpdatedAt = CreatedAtDateTime,
                     LastUpdatedBy = CreatedByBiddingAdmin
@@ -567,7 +567,7 @@ namespace Bidding.Database.Contexts
                     Name = "Iekārtas",
                     AuctionCategoryId = 2,
                     CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
+                    // CreatedBy = CreatedByBiddingAdmin,
                     Deleted = false,
                     LastUpdatedAt = CreatedAtDateTime,
                     LastUpdatedBy = CreatedByBiddingAdmin
@@ -578,7 +578,7 @@ namespace Bidding.Database.Contexts
                     Name = "Ražošanas materiāli",
                     AuctionCategoryId = 2,
                     CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
+                    // CreatedBy = CreatedByBiddingAdmin,
                     Deleted = false,
                     LastUpdatedAt = CreatedAtDateTime,
                     LastUpdatedBy = CreatedByBiddingAdmin
@@ -589,7 +589,7 @@ namespace Bidding.Database.Contexts
                     Name = "Veikala produkcija",
                     AuctionCategoryId = 2,
                     CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
+                    // CreatedBy = CreatedByBiddingAdmin,
                     Deleted = false,
                     LastUpdatedAt = CreatedAtDateTime,
                     LastUpdatedBy = CreatedByBiddingAdmin
@@ -600,7 +600,7 @@ namespace Bidding.Database.Contexts
                     Name = "Uzņēmums",
                     AuctionCategoryId = 2,
                     CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
+                    // CreatedBy = CreatedByBiddingAdmin,
                     Deleted = false,
                     LastUpdatedAt = CreatedAtDateTime,
                     LastUpdatedBy = CreatedByBiddingAdmin
@@ -611,7 +611,7 @@ namespace Bidding.Database.Contexts
                     Name = "Domeins",
                     AuctionCategoryId = 2,
                     CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
+                    // CreatedBy = CreatedByBiddingAdmin,
                     Deleted = false,
                     LastUpdatedAt = CreatedAtDateTime,
                     LastUpdatedBy = CreatedByBiddingAdmin
@@ -622,7 +622,7 @@ namespace Bidding.Database.Contexts
                     Name = "Preču zīme",
                     AuctionCategoryId = 2,
                     CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
+                    // CreatedBy = CreatedByBiddingAdmin,
                     Deleted = false,
                     LastUpdatedAt = CreatedAtDateTime,
                     LastUpdatedBy = CreatedByBiddingAdmin
@@ -633,7 +633,7 @@ namespace Bidding.Database.Contexts
                     Name = "Sadzīves mēbeles",
                     AuctionCategoryId = 2,
                     CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
+                    // CreatedBy = CreatedByBiddingAdmin,
                     Deleted = false,
                     LastUpdatedAt = CreatedAtDateTime,
                     LastUpdatedBy = CreatedByBiddingAdmin
@@ -644,7 +644,7 @@ namespace Bidding.Database.Contexts
                     Name = "Biroja mēbeles",
                     AuctionCategoryId = 2,
                     CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
+                    // CreatedBy = CreatedByBiddingAdmin,
                     Deleted = false,
                     LastUpdatedAt = CreatedAtDateTime,
                     LastUpdatedBy = CreatedByBiddingAdmin
@@ -655,7 +655,7 @@ namespace Bidding.Database.Contexts
                     Name = "Cita manta",
                     AuctionCategoryId = 2,
                     CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
+                    // CreatedBy = CreatedByBiddingAdmin,
                     Deleted = false,
                     LastUpdatedAt = CreatedAtDateTime,
                     LastUpdatedBy = CreatedByBiddingAdmin
@@ -666,7 +666,7 @@ namespace Bidding.Database.Contexts
                     Name = "Dzīvoklis",
                     AuctionCategoryId = 3,
                     CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
+                    // CreatedBy = CreatedByBiddingAdmin,
                     Deleted = false,
                     LastUpdatedAt = CreatedAtDateTime,
                     LastUpdatedBy = CreatedByBiddingAdmin
@@ -677,7 +677,7 @@ namespace Bidding.Database.Contexts
                     Name = "Māja",
                     AuctionCategoryId = 3,
                     CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
+                    // CreatedBy = CreatedByBiddingAdmin,
                     Deleted = false,
                     LastUpdatedAt = CreatedAtDateTime,
                     LastUpdatedBy = CreatedByBiddingAdmin
@@ -688,7 +688,7 @@ namespace Bidding.Database.Contexts
                     Name = "Zeme",
                     AuctionCategoryId = 3,
                     CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
+                    // CreatedBy = CreatedByBiddingAdmin,
                     Deleted = false,
                     LastUpdatedAt = CreatedAtDateTime,
                     LastUpdatedBy = CreatedByBiddingAdmin
@@ -699,7 +699,7 @@ namespace Bidding.Database.Contexts
                     Name = "Telpa",
                     AuctionCategoryId = 3,
                     CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
+                    // CreatedBy = CreatedByBiddingAdmin,
                     Deleted = false,
                     LastUpdatedAt = CreatedAtDateTime,
                     LastUpdatedBy = CreatedByBiddingAdmin
@@ -710,7 +710,7 @@ namespace Bidding.Database.Contexts
                     Name = "Garāža",
                     AuctionCategoryId = 3,
                     CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
+                    // CreatedBy = CreatedByBiddingAdmin,
                     Deleted = false,
                     LastUpdatedAt = CreatedAtDateTime,
                     LastUpdatedBy = CreatedByBiddingAdmin
@@ -726,7 +726,7 @@ namespace Bidding.Database.Contexts
                     AuctionFormatId = 1,
                     Name = "Cenu aptauja",
                     CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
+                    // CreatedBy = CreatedByBiddingAdmin,
                     Deleted = false,
                     LastUpdatedAt = CreatedAtDateTime,
                     LastUpdatedBy = CreatedByBiddingAdmin
@@ -736,7 +736,7 @@ namespace Bidding.Database.Contexts
                     AuctionFormatId = 2,
                     Name = "Izsole elektroniski",
                     CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
+                    // CreatedBy = CreatedByBiddingAdmin,
                     Deleted = false,
                     LastUpdatedAt = CreatedAtDateTime,
                     LastUpdatedBy = CreatedByBiddingAdmin
@@ -746,7 +746,7 @@ namespace Bidding.Database.Contexts
                     AuctionFormatId = 3,
                     Name = "Izsole klātienē",
                     CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
+                    // CreatedBy = CreatedByBiddingAdmin,
                     Deleted = false,
                     LastUpdatedAt = CreatedAtDateTime,
                     LastUpdatedBy = CreatedByBiddingAdmin
@@ -762,7 +762,7 @@ namespace Bidding.Database.Contexts
                     AuctionConditionId = 1,
                     Name = "Lietota",
                     CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
+                    // CreatedBy = CreatedByBiddingAdmin,
                     Deleted = false,
                     LastUpdatedAt = CreatedAtDateTime,
                     LastUpdatedBy = CreatedByBiddingAdmin
@@ -772,7 +772,7 @@ namespace Bidding.Database.Contexts
                     AuctionConditionId = 2,
                     Name = "Jauna",
                     CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
+                    // CreatedBy = CreatedByBiddingAdmin,
                     Deleted = false,
                     LastUpdatedAt = CreatedAtDateTime,
                     LastUpdatedBy = CreatedByBiddingAdmin
@@ -782,7 +782,7 @@ namespace Bidding.Database.Contexts
                     AuctionConditionId = 3,
                     Name = "Apdzīvots",
                     CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
+                    // CreatedBy = CreatedByBiddingAdmin,
                     Deleted = false,
                     LastUpdatedAt = CreatedAtDateTime,
                     LastUpdatedBy = CreatedByBiddingAdmin
@@ -792,7 +792,7 @@ namespace Bidding.Database.Contexts
                     AuctionConditionId = 4,
                     Name = "Neapdzīvots",
                     CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
+                    // CreatedBy = CreatedByBiddingAdmin,
                     Deleted = false,
                     LastUpdatedAt = CreatedAtDateTime,
                     LastUpdatedBy = CreatedByBiddingAdmin
@@ -802,7 +802,7 @@ namespace Bidding.Database.Contexts
                     AuctionConditionId = 5,
                     Name = "Nepieciešams remonts",
                     CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
+                    // CreatedBy = CreatedByBiddingAdmin,
                     Deleted = false,
                     LastUpdatedAt = CreatedAtDateTime,
                     LastUpdatedBy = CreatedByBiddingAdmin
@@ -818,7 +818,7 @@ namespace Bidding.Database.Contexts
                     RegionId = 1,
                     Name = "Jelgava",
                     CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
+                    // CreatedBy = CreatedByBiddingAdmin,
                     Deleted = false,
                     LastUpdatedAt = CreatedAtDateTime,
                     LastUpdatedBy = CreatedByBiddingAdmin
@@ -828,7 +828,7 @@ namespace Bidding.Database.Contexts
                     RegionId = 2,
                     Name = "Ogre",
                     CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
+                    // CreatedBy = CreatedByBiddingAdmin,
                     Deleted = false,
                     LastUpdatedAt = CreatedAtDateTime,
                     LastUpdatedBy = CreatedByBiddingAdmin
@@ -851,7 +851,7 @@ namespace Bidding.Database.Contexts
                     AuctionTypeId = 1,
                     AuctionStatusId = 1,
                     CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
+                    // CreatedBy = CreatedByBiddingAdmin,
                     Deleted = false,
                     LastUpdatedAt = CreatedAtDateTime,
                     LastUpdatedBy = CreatedByBiddingAdmin
@@ -868,7 +868,7 @@ namespace Bidding.Database.Contexts
                     AuctionTypeId = 13,
                     AuctionStatusId = 1,
                     CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
+                    // CreatedBy = CreatedByBiddingAdmin,
                     Deleted = false,
                     LastUpdatedAt = CreatedAtDateTime,
                     LastUpdatedBy = CreatedByBiddingAdmin
@@ -885,7 +885,7 @@ namespace Bidding.Database.Contexts
                     AuctionTypeId = 12,
                     AuctionStatusId = 1,
                     CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
+                    // CreatedBy = CreatedByBiddingAdmin,
                     Deleted = false,
                     LastUpdatedAt = CreatedAtDateTime,
                     LastUpdatedBy = CreatedByBiddingAdmin
@@ -904,7 +904,7 @@ namespace Bidding.Database.Contexts
                     AuctionItemCategoryId = 1,
                     AuctionItemTypeId = 1,
                     CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
+                    // CreatedBy = CreatedByBiddingAdmin,
                     Deleted = false,
                     LastUpdatedAt = CreatedAtDateTime,
                     LastUpdatedBy = CreatedByBiddingAdmin
@@ -917,7 +917,7 @@ namespace Bidding.Database.Contexts
                     AuctionItemCategoryId = 3,
                     AuctionItemTypeId = 13,
                     CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
+                    // CreatedBy = CreatedByBiddingAdmin,
                     Deleted = false,
                     LastUpdatedAt = CreatedAtDateTime,
                     LastUpdatedBy = CreatedByBiddingAdmin
@@ -930,7 +930,7 @@ namespace Bidding.Database.Contexts
                     AuctionItemCategoryId = 2,
                     AuctionItemTypeId = 12,
                     CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
+                    // CreatedBy = CreatedByBiddingAdmin,
                     Deleted = false,
                     LastUpdatedAt = CreatedAtDateTime,
                     LastUpdatedBy = CreatedByBiddingAdmin
@@ -957,7 +957,7 @@ namespace Bidding.Database.Contexts
                     Axis = "In progress",
                     Evaluation = "In progress",
                     CreatedAt = CreatedAtDateTime,
-                    CreatedBy = CreatedByBiddingAdmin,
+                    // CreatedBy = CreatedByBiddingAdmin,
                     Deleted = false,
                     LastUpdatedAt = CreatedAtDateTime,
                     LastUpdatedBy = CreatedByBiddingAdmin

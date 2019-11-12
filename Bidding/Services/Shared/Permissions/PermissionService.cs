@@ -2,14 +2,12 @@
 using Bidding.Repositories.Shared;
 using Bidding.Shared.ErrorHandling.Errors;
 using Bidding.Shared.Exceptions;
-using Bidding.Shared.Utility;
+using Bidding.Shared.Utility.Validation.Comparers;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Security.Claims;
 using System.Security.Principal;
-using System.Threading.Tasks;
 
 namespace Bidding.Services.Shared.Permissions
 {

@@ -1,10 +1,12 @@
-﻿using System;
+﻿// Copyright (c) 2018 Jon P Smith, GitHub: JonPSmith, web: http://www.thereformedprogrammer.net/
+// Licensed under MIT license. See License.txt in the project root for license information.
+
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Threading.Tasks;
 
-namespace Bidding.Shared.Permissions
+namespace PermissionParts
 {
     public static class PermissionChecker
     {
@@ -18,8 +20,8 @@ namespace Bidding.Shared.Permissions
         {
             var usersPermissions = packedPermissions.UnpackPermissionsFromString().ToArray();
 
-            if (!Enum.TryParse(permissionName, true, out Permissions permissionToCheck))
-                throw new InvalidEnumArgumentException($"{permissionName} could not be converted to a {nameof(Permissions)}.");
+            if (!Enum.TryParse(permissionName, true, out Permission permissionToCheck))
+                throw new InvalidEnumArgumentException($"{permissionName} could not be converted to a {nameof(Permission)}.");
 
             return usersPermissions.UserHasThisPermission(permissionToCheck);
         }
@@ -30,9 +32,9 @@ namespace Bidding.Shared.Permissions
         /// <param name="usersPermissions"></param>
         /// <param name="permissionToCheck"></param>
         /// <returns></returns>
-        public static bool UserHasThisPermission(this Permissions[] usersPermissions, Permissions permissionToCheck)
+        public static bool UserHasThisPermission(this Permission[] usersPermissions, Permission permissionToCheck)
         {
-            return usersPermissions.Contains(permissionToCheck) || usersPermissions.Contains(Permissions.AccessAll);
+            return usersPermissions.Contains(permissionToCheck) || usersPermissions.Contains(Permission.AccessAll);
         }
     }
 }

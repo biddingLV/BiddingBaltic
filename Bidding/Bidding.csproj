@@ -18,6 +18,10 @@
     <PackageReference Include="Microsoft.AspNetCore.App" />
     <PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.2.0" />
     <PackageReference Include="Microsoft.AspNetCore.SpaServices.Extensions" Version="2.2.0" />
+    <PackageReference Include="Microsoft.CodeAnalysis.FxCopAnalyzers" Version="2.9.7">
+      <PrivateAssets>all</PrivateAssets>
+      <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+    </PackageReference>
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="2.2.2">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
@@ -54,9 +58,11 @@
     <Folder Include="ClientApp\src\app\admin\services\" />
     <Folder Include="ClientApp\src\app\auth\components\404-page-not-found\" />
     <Folder Include="ClientApp\src\app\shared\components\callback\" />
+    <Folder Include="Migrations\" />
     <Folder Include="Models\ViewModels\Bidding\Admin\Auctions\" />
     <Folder Include="Models\ViewModels\Bidding\Users\Delete\" />
     <Folder Include="Models\ViewModels\Bidding\Users\Edit\" />
+    <Folder Include="GenericServicesStandIn\" />
   </ItemGroup>
 
   <ItemGroup>

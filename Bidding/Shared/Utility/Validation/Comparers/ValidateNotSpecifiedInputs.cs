@@ -1,11 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace Bidding.Shared.Utility
+namespace Bidding.Shared.Utility.Validation.Comparers
 {
-    public static class ValidateInputs
+    public static class ValidateNotSpecifiedInputs
     {
         public static bool IsNotSpecified(this Guid? guid)
         {

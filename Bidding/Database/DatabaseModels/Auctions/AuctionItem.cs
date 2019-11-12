@@ -36,9 +36,9 @@ namespace Bidding.Database.DatabaseModels.Auctions
         [Required]
         public DateTime CreatedAt { get; set; }
 
-        [Required]
-        public int CreatedBy { get; set; }
-        public User User { get; set; }
+        //[Required]
+        //public int CreatedBy { get; set; }
+        //public User User { get; set; }
 
         public DateTime LastUpdatedAt { get; set; }
 

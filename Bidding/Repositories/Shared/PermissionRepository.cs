@@ -24,7 +24,8 @@ namespace Bidding.Repositories.Shared
         /// <returns></returns>
         public bool IsUserActive(int loggedInUserId)
         {
-            return m_context.Users.Where(usr => usr.UserId == loggedInUserId && usr.Deleted == false).Any();
+            // @Permissions: WIP!
+            return true; // m_context.Users.Where(usr => usr.UserId == loggedInUserId && usr.Deleted == false).Any();
         }
 
         /// <summary>
@@ -34,14 +35,21 @@ namespace Bidding.Repositories.Shared
         /// <returns></returns>
         public IEnumerable<UserRoleResponseModel> GetUserRole(int loggedInUserId)
         {
-            return from usr in m_context.Users
-                   join rol in m_context.Roles on usr.RoleId equals rol.RoleId
-                   where usr.UserId == loggedInUserId && usr.Deleted == false
-                   select new UserRoleResponseModel()
-                   {
-                       RoleId = rol.RoleId,
-                       RoleName = rol.Name
-                   };
+            yield return new UserRoleResponseModel()
+            {
+                RoleId = 1,
+                RoleName = "Admin"
+            };
+
+            // @Permissions: WIP!
+            //return from usr in m_context.Users
+            //       join rol in m_context.Roles on usr.RoleId equals rol.RoleId
+            //       where usr.UserId == loggedInUserId && usr.Deleted == false
+            //       select new UserRoleResponseModel()
+            //       {
+            //           RoleId = rol.RoleId,
+            //           RoleName = rol.Name
+            //       };
         }
     }
 }

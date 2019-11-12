@@ -1,30 +1,26 @@
-﻿using System;
+﻿using Bidding.Database.Contexts;
+using Bidding.Database.DatabaseModels.Auctions;
+using Bidding.Models.ViewModels.Bidding.Auctions.Add;
+using Bidding.Models.ViewModels.Bidding.Auctions.Delete;
+using Bidding.Models.ViewModels.Bidding.Auctions.Details;
+using Bidding.Models.ViewModels.Bidding.Auctions.Edit;
+using Bidding.Models.ViewModels.Bidding.Auctions.List;
+using Bidding.Models.ViewModels.Bidding.Auctions.Shared;
+using Bidding.Models.ViewModels.Bidding.Filters;
+using Bidding.Models.ViewModels.Bidding.Shared.Categories;
+using Bidding.Models.ViewModels.Bidding.Shared.Types;
+using Bidding.Shared.Constants;
+using Bidding.Shared.ErrorHandling.Errors;
+using Bidding.Shared.Exceptions;
+using Bidding.Shared.Utility.Validation.Comparers;
+using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
-using Bidding.Database.DatabaseModels.Auctions;
-using Bidding.Shared.ErrorHandling.Errors;
-using Bidding.Shared.Exceptions;
-using Bidding.Shared.Utility;
-using Bidding.Models.DatabaseModels;
-using Bidding.Models.DatabaseModels.Bidding;
-using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.ChangeTracking;
-using Bidding.Database.Contexts;
-using Bidding.Shared.Constants;
-using Bidding.Models.ViewModels.Bidding.Auctions.List;
-using Bidding.Models.ViewModels.Bidding.Filters;
-using Bidding.Models.ViewModels.Bidding.Shared.Categories;
-using Bidding.Models.ViewModels.Bidding.Shared.Types;
-using Bidding.Models.ViewModels.Bidding.Auctions.Shared;
-using Bidding.Models.ViewModels.Bidding.Auctions.Details;
-using Bidding.Models.ViewModels.Bidding.Auctions.Add;
-using Bidding.Models.ViewModels.Bidding.Auctions.Shared.Categories;
-using Bidding.Models.ViewModels.Bidding.Auctions.Edit;
-using Bidding.Models.ViewModels.Bidding.Auctions.Delete;
 
 namespace Bidding.Repositories.Auctions
 {
@@ -155,9 +151,12 @@ namespace Bidding.Repositories.Auctions
         /// <returns></returns>
         public IEnumerable<AuctionCreatorItemModel> Creators()
         {
-            int adminRoleId = m_context.Roles
-                .Where(rol => rol.Name == "Admin" && rol.Deleted == false)
-                .Select(rol => rol.RoleId).FirstOrDefault();
+            int adminRoleId = 1;
+
+            // @Permissions: WIP!
+            //m_context.Roles
+            //.Where(rol => rol.Name == "Admin") // && rol.Deleted == false
+            //.Select(rol => rol.RoleId).FirstOrDefault();
 
             if (adminRoleId.IsNotSpecified())
             {
@@ -166,12 +165,12 @@ namespace Bidding.Repositories.Auctions
             else
             {
                 return m_context.Users
-                    .Where(usr => usr.Deleted == false && usr.RoleId == adminRoleId)
+                    // .Where(usr => usr.Deleted == false && usr.RoleId == adminRoleId)  // @Permissions: WIP!
                     .Select(usr => new AuctionCreatorItemModel
                     {
-                        AuctionCreatorId = usr.UserId,
-                        FirstName = usr.FirstName,
-                        LastName = usr.LastName
+                        AuctionCreatorId = 1, // usr.UserId,  // @Permissions: WIP!
+                        FirstName = "Test", // usr.FirstName,  // @Permissions: WIP!
+                        LastName = "Dummy" // usr.LastName  // @Permissions: WIP!
                     });
             }
         }
@@ -522,7 +521,7 @@ namespace Bidding.Repositories.Auctions
                 AuctionFormatId = request.AboutAuction.AuctionFormatId,
                 AuctionCreatorId = auctionCreatorId,
                 CreatedAt = DateTime.UtcNow,
-                CreatedBy = loggedInUserId,
+                // CreatedBy = loggedInUserId,
                 LastUpdatedAt = DateTime.UtcNow,
                 LastUpdatedBy = loggedInUserId
             };
@@ -537,7 +536,7 @@ namespace Bidding.Repositories.Auctions
                 AuctionItemCategoryId = newAuction.AuctionCategoryId,
                 AuctionItemTypeId = newAuction.AuctionTypeId,
                 CreatedAt = DateTime.UtcNow,
-                CreatedBy = loggedInUserId,
+                // CreatedBy = loggedInUserId,
                 LastUpdatedAt = DateTime.UtcNow,
                 LastUpdatedBy = loggedInUserId
             };
@@ -560,7 +559,7 @@ namespace Bidding.Repositories.Auctions
                 Axis = request.VehicleAuction.VehicleAxis,
                 Evaluation = request.VehicleAuction.VehicleEvaluation,
                 CreatedAt = DateTime.UtcNow,
-                CreatedBy = loggedInUserId,
+                // CreatedBy = loggedInUserId,
                 LastUpdatedAt = DateTime.UtcNow,
                 LastUpdatedBy = loggedInUserId
             };
@@ -576,7 +575,7 @@ namespace Bidding.Repositories.Auctions
                 ConditionId = request.ItemAuction.ItemConditionId,
                 Evaluation = request.ItemAuction.ItemEvaluation,
                 CreatedAt = DateTime.UtcNow,
-                CreatedBy = loggedInUserId,
+                // CreatedBy = loggedInUserId,
                 LastUpdatedAt = DateTime.UtcNow,
                 LastUpdatedBy = loggedInUserId
             };
@@ -591,7 +590,7 @@ namespace Bidding.Repositories.Auctions
                 ContactPhone = request.AboutAuctionCreator.AuctionCreatorPhone,
                 ContactAddress = request.AboutAuctionCreator.AuctionCreatorAddress,
                 CreatedAt = DateTime.UtcNow,
-                CreatedBy = loggedInUserId,
+                // CreatedBy = loggedInUserId,
                 LastUpdatedAt = DateTime.UtcNow,
                 LastUpdatedBy = loggedInUserId
             };
@@ -612,7 +611,7 @@ namespace Bidding.Repositories.Auctions
                 RoomCount = request.PropertyAuction.PropertyRoomCount,
                 Evaluation = request.PropertyAuction.PropertyEvaluation,
                 CreatedAt = DateTime.UtcNow,
-                CreatedBy = loggedInUserId,
+                // CreatedBy = loggedInUserId,
                 LastUpdatedAt = DateTime.UtcNow,
                 LastUpdatedBy = loggedInUserId
             };

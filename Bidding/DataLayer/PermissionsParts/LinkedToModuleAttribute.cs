@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿// Copyright (c) 2018 Jon P Smith, GitHub: JonPSmith, web: http://www.thereformedprogrammer.net/
+// Licensed under MIT license. See License.txt in the project root for license information.
 
-namespace Bidding.Shared.Permissions
+using System;
+
+namespace PermissionParts
 {
     [AttributeUsage(AttributeTargets.Field)]
     public class LinkedToModuleAttribute : Attribute

@@ -1,20 +1,21 @@
-using Bidding.Models.ViewModels.Bidding.Users.Add;
+using Bidding.Database.Contexts;
+using Bidding.Database.DatabaseModels;
+using Bidding.Models.ApplicationModels.Configuration;
 using Bidding.Models.ViewModels.Bidding.Users.Shared;
+using Bidding.Repositories.Auctions;
 using Bidding.Repositories.Shared;
+using Bidding.Repositories.Subscribe;
 using Bidding.Repositories.Users;
+using Bidding.Services.Auctions;
+using Bidding.Services.Shared;
 using Bidding.Services.Shared.Permissions;
+using Bidding.Services.Subscribe;
 using Bidding.Services.Users;
 using Bidding.Shared.Attributes;
 using Bidding.Shared.ErrorHandling.Errors;
-using Bidding.Shared.ErrorHandling.Validators;
 using Bidding.Shared.Exceptions;
-using Bidding.Shared.Utility;
-using Bidding.Models.ApplicationModels.Configuration;
-using Bidding.Repositories.Auctions;
-using Bidding.Repositories.Subscribe;
-using Bidding.Services.Auctions;
-using Bidding.Services.Subscribe;
-using FluentValidation;
+using Bidding.Shared.Utility.Validation.Comparers;
+using FeatureAuthorize.PolicyCode;
 using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.OpenIdConnect;
@@ -29,6 +30,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using SixLabors.ImageSharp.Web.DependencyInjection;
 using System;
 using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
@@ -36,11 +38,6 @@ using System.Net;
 using System.Security.Claims;
 using System.Security.Principal;
 using System.Threading.Tasks;
-using Bidding.Database.Contexts;
-using Bidding.Database.DatabaseModels.Auctions;
-using Bidding.Services.Shared;
-using SixLabors.ImageSharp.Web.DependencyInjection;
-using Bidding.Shared.Permissions;
 
 namespace Bidding
 {
@@ -56,28 +53,22 @@ namespace Bidding
             Configuration = builder.Build();
             Environment = environment;
         }
-
         public IConfiguration Configuration { get; }
         public IHostingEnvironment Environment { get; }
 
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            // Configure ImageSharp for image compression
-            services.AddImageSharp();
-
             ConfigureSinglePageApplication(ref services);
             ConfigureHttps(ref services);
             ConfigureAntiCSRF(ref services);
             ConfigureSession(ref services);
             ConfigureMVC(ref services);
             ConfigureCORS(ref services);
-            ConfigureDbContext(ref services);
             ConfigureHttpContext(ref services);
             ConfigureAppConfigurationService(ref services);
             ConfigureAppServices(ref services);
             ConfigureAuthentication(services);
-            ConfigureAuthorization(ref services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -229,16 +220,6 @@ namespace Bidding
                 }));
         }
 
-        private void ConfigureDbContext(ref IServiceCollection services)
-        {
-            services.AddDbContext<BiddingContext>(
-                options => options.UseSqlServer(
-                    Configuration.GetConnectionString("BiddingLV"),
-                    sqlOptions => sqlOptions.EnableRetryOnFailure()
-                )
-            );
-        }
-
         private void ConfigureHttpContext(ref IServiceCollection services)
         {
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
@@ -249,7 +230,6 @@ namespace Bidding
         private void ConfigureAppConfigurationService(ref IServiceCollection services)
         {
             services.AddSingleton(Configuration);
-
         }
 
         /// <summary>
@@ -269,200 +249,164 @@ namespace Bidding
             services.AddScoped<FileUploaderService>();
             services.AddScoped<FileUploaderRepository>();
             services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
+            // Configure ImageSharp for image compression
+            services.AddImageSharp();
         }
 
         private void ConfigureAuthentication(IServiceCollection services)
         {
-            var authenticationSettings = Configuration.GetSection(nameof(Authentication)).Get<Authentication>();
-            services.AddIdentity<IdentityUser, IdentityRole>()
-                    .AddEntityFrameworkStores<BiddingContext>()
-                    .AddDefaultTokenProviders();
+            var authenticationSettings = Configuration
+                .GetSection(nameof(Authentication))
+                .Get<Authentication>();
 
-            services.AddAuthentication(options =>
-            {
-                options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-                options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
-            })
-           .AddCookie(options =>
-           {
-               options.Cookie.Name = Configuration["Cookies:Session"];
-               options.SlidingExpiration = true;
-               options.Cookie.HttpOnly = true;
-               options.Cookie.SameSite = SameSiteMode.Lax;
-               options.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
-               options.LoginPath = "/sign-in";
-               options.Cookie.IsEssential = true;
-               options.Events = new CookieAuthenticationEvents()
-               {
-                   OnRedirectToLogin = (context) =>
-                   {
-                       if (context.Request.Path.StartsWithSegments("/api"))
-                       {
-                           context.Response.Clear();
-                           context.Response.StatusCode = StatusCodes.Status401Unauthorized;
-                           return Task.CompletedTask;
-                       }
-                       context.Response.Redirect(context.RedirectUri);
-                       return Task.CompletedTask;
-                   }
-               };
-           })
-           .AddOpenIdConnect(Configuration["Authentication:Scheme"], options =>
-           {
-               // Set the authority to your Auth0 domain
-               options.Authority = Configuration["Authentication:Authority"];
+            services.AddIdentity<ApplicationUser, ApplicationRole>()
+                .AddEntityFrameworkStores<BiddingContext>()
+                .AddDefaultTokenProviders();
 
-               // Configure the Auth0 Client ID and Client Secret
-               options.ClientId = Configuration["Authentication:ClientId"];
-               options.ClientSecret = Configuration["Authentication:ClientSecret"];
+            services.AddDbContext<BiddingContext>(
+                options => options.UseSqlServer(
+                    Configuration.GetConnectionString("BiddingLV"),
+                    sqlOptions => sqlOptions.EnableRetryOnFailure()
+                )
+            );
 
-               // Set response type to code
-               options.ResponseType = "code";
-               options.SaveTokens = true;
+            //Register the Permission policy handlers
+            services.AddSingleton<IAuthorizationPolicyProvider, AuthorizationPolicyProvider>();
+            services.AddSingleton<IAuthorizationHandler, PermissionHandler>();
 
-               // Configure the scope
-               options.Scope.Clear();
-               options.Scope.Add("openid");
-               options.Scope.Add("profile");
-               options.Scope.Add("email");
-
-               options.CallbackPath = new PathString("/" + Configuration["Authentication:CallbackPath"]);
-
-               // Configure the Claims Issuer to be Auth0
-               options.ClaimsIssuer = Configuration["Authentication:Issuer"];
-
-               options.Events = new OpenIdConnectEvents
-               {
-                   // handle the logout redirection
-                   OnRedirectToIdentityProviderForSignOut = (context) =>
-                   {
-                       string logoutUri = $"https://{Configuration["Authentication:Domain"]}/v2/logout?client_id={Configuration["Authentication:ClientId"]}";
-                       string postLogoutUri = context.Properties.RedirectUri;
-
-                       if (postLogoutUri.IsNotSpecified() == false)
-                       {
-                           if (postLogoutUri.StartsWith("/"))
-                           {
-                               // transform to absolute
-                               var request = context.Request;
-                               postLogoutUri = request.Scheme + "://" + request.Host + request.PathBase + postLogoutUri;
-                           }
-                           logoutUri += $"&returnTo={ Uri.EscapeDataString(postLogoutUri)}";
-                       }
-
-                       context.Response.Redirect(logoutUri);
-                       context.HandleResponse();
-
-                       return Task.CompletedTask;
-                   },
-                   OnTokenValidated = async (context) =>
-                   {
-                       JwtPayload payload = context.SecurityToken.Payload;
-
-                       if (payload.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.Unauthorized, UserErrorMessages.CanNotSignIn); }
-
-                       BiddingContext m_context = context.HttpContext.RequestServices.GetRequiredService<BiddingContext>();
-
-                       // todo: kke: fix this to not be object comparison!
-                       if (payload["email_verified"].IsNotSpecified()) { throw new WebApiException(HttpStatusCode.Unauthorized, UserErrorMessages.UsersEmailNotVerified); }
-
-                       string userIdentityId = payload["sub"].ToString();
-                       string userLoginEmail = payload["email"].ToString();
-
-                       if (userIdentityId.IsNotSpecified() == false && userLoginEmail.IsNotSpecified() == false)
-                       {
-                           // WIP
-                           // WIP
-
-                           if (false)
-                           {
-                               ////We build the AuthCookie's OnValidatePrincipal 
-                               //var sp = services.BuildServiceProvider();
-                               //var extraAuthDbContextOptions = sp.GetRequiredService<DbContextOptions<ExtraAuthorizeDbContext>>();
-                               //var authCookieValidate = new AuthCookieValidate(new CalcAllowedPermissions(extraAuthDbContextOptions));
-
-                               ////see https://docs.microsoft.com/en-us/aspnet/core/security/authentication/identity-configuration?view=aspnetcore-2.1#cookie-settings
-                               //services.ConfigureApplicationCookie(options =>
-                               //{
-                               //    options.Events.OnValidatePrincipal = authCookieValidate.ValidateAsync;
-                               //});
-                           }
-                           else
-                           {
-                               //For simple setup on login then this will work
-                               services.AddScoped<IUserClaimsPrincipalFactory<IdentityUser>, AddPermissionsToUserClaims>();
-                           }
-
-                           // WIP
-                           // WIP
-
-                           // todo: kke: 1. check if this is the first sign in for the user!
-                           // todo: kke: can we use auth0 for that?
-                           // 2. if user doesnt exist fetch and save all the information!
-
-                           UsersService usersService = services.BuildServiceProvider().GetService<UsersService>();
-                           UserProfileModel userDetails = HandleUserLogin(usersService, userLoginEmail, userIdentityId, services);
-
-                           // setup user claims
-                           context.Principal.AddIdentity(SetupUserClaims(userDetails));
-
-                           // setup profile cookie
-                           string userProfileCookieJSON = SetupUserProfileCookie(userDetails);
-
-                           // setup profile cookie options
-                           CookieOptions userProfileCookieOptions = SetupUserProfileCookieOptions();
-
-                           context.Response.Cookies.Append("BIDPROFILE", userProfileCookieJSON, userProfileCookieOptions);
-                       }
-                       else
-                       {
-                           throw new WebApiException(HttpStatusCode.Unauthorized, UserErrorMessages.CanNotSignIn);
-                       }
-                   }
-               };
-           });
-        }
-
-        private UserProfileModel HandleUserLogin(UsersService usersService, string userLoginEmail, string usersIdentityId, IServiceCollection services)
-        {
-            UserProfileModel userDetails = new UserProfileModel();
-
-            if (usersService.UserExists(userLoginEmail))
-            {
-                // load user details for the profile cookie
-                userDetails = services.BuildServiceProvider().GetService<UsersService>().UserDetails(userLoginEmail);
-            }
-            else
-            {
-                // first time login, set both emails to be the same!
-                UserAddRequestModel newUser = new UserAddRequestModel()
+            services
+                .AddAuthentication(options =>
                 {
-                    // todo: kke: what about social logins here? can we get full name?
-                    LoginEmail = userLoginEmail,
-                    UniqueIdentifier = usersIdentityId
-                };
+                    options.DefaultAuthenticateScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                    options.DefaultSignInScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                    options.DefaultChallengeScheme = CookieAuthenticationDefaults.AuthenticationScheme;
+                })
+                .AddCookie(options =>
+                {
+                    options.Cookie.Name = Configuration["Cookies:Session"];
+                    options.SlidingExpiration = true;
+                    options.Cookie.HttpOnly = true;
+                    options.Cookie.SameSite = SameSiteMode.Lax;
+                    options.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
+                    options.LoginPath = "/sign-in";
+                    options.Cookie.IsEssential = true;
+                    options.Events = new CookieAuthenticationEvents()
+                    {
+                        OnRedirectToLogin = (context) =>
+                        {
+                            if (context.Request.Path.StartsWithSegments("/api"))
+                            {
+                                context.Response.Clear();
+                                context.Response.StatusCode = StatusCodes.Status401Unauthorized;
+                                return Task.CompletedTask;
+                            }
+                            context.Response.Redirect(context.RedirectUri);
+                            return Task.CompletedTask;
+                        }
+                    };
+                })
+                .AddOpenIdConnect(Configuration["Authentication:Scheme"], options =>
+                {
+                    // Set the authority to your Auth0 domain
+                    options.Authority = Configuration["Authentication:Authority"];
 
-                // todo: kke: maybe merge these two in one call so we dont call db two times?
-                usersService.Create(newUser);
-                userDetails = services.BuildServiceProvider().GetService<UsersService>().UserDetails(userLoginEmail);
-            }
+                    // Configure the Auth0 Client ID and Client Secret
+                    options.ClientId = Configuration["Authentication:ClientId"];
+                    options.ClientSecret = Configuration["Authentication:ClientSecret"];
 
-            // todo: kke: add this back for extra validation!
-            // validate user details
-            // ValidateUserDetails(userDetails, usersIdentityId, m_context);
+                    // Set response type to code
+                    options.ResponseType = "code";
+                    options.SaveTokens = true;
 
-            return userDetails;
+                    // Configure the scope
+                    options.Scope.Clear();
+                    options.Scope.Add("openid");
+                    options.Scope.Add("profile");
+                    options.Scope.Add("email");
+
+                    options.CallbackPath = new PathString("/" + Configuration["Authentication:CallbackPath"]);
+
+                    // Configure the Claims Issuer to be Auth0
+                    options.ClaimsIssuer = Configuration["Authentication:Issuer"];
+
+                    options.Events = new OpenIdConnectEvents
+                    {
+                        // handle the logout redirection
+                        OnRedirectToIdentityProviderForSignOut = (context) =>
+                        {
+                            string logoutUri = $"https://{Configuration["Authentication:Domain"]}/v2/logout?client_id={Configuration["Authentication:ClientId"]}";
+                            string postLogoutUri = context.Properties.RedirectUri;
+
+                            if (postLogoutUri.IsNotSpecified() == false)
+                            {
+                                if (postLogoutUri.StartsWith("/"))
+                                {
+                                    // transform to absolute
+                                    var request = context.Request;
+                                    postLogoutUri = request.Scheme + "://" + request.Host + request.PathBase + postLogoutUri;
+                                }
+                                logoutUri += $"&returnTo={ Uri.EscapeDataString(postLogoutUri)}";
+                            }
+
+                            context.Response.Redirect(logoutUri);
+                            context.HandleResponse();
+
+                            return Task.CompletedTask;
+                        },
+                        OnTokenValidated = async (context) =>
+                        {
+                            JwtPayload payload = context.SecurityToken.Payload;
+
+                            if (payload.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.Unauthorized, UserErrorMessages.CanNotSignIn); }
+
+                            ApplicationUser user = new ApplicationUser()
+                            {
+                                Email = payload["email"].ToString(),
+                                IdentityId = payload["sub"].ToString(),
+                                EmailConfirmed = Convert.ToBoolean(payload["email_verified"]),
+                                UserName = payload["email"].ToString()
+                            };
+
+                            UsersService usersService = services.BuildServiceProvider().GetService<UsersService>();
+                            ApplicationUser userDetails = await usersService.HandleUserLoginAsync(user).ConfigureAwait(false);
+
+                            //// setup user claims
+                            //context.Principal.AddIdentity(SetupUserClaims(userDetails));
+
+                            //// setup profile cookie
+                            //string userProfileCookieJSON = SetupUserProfileCookie(userDetails);
+
+                            //// setup profile cookie options
+                            //CookieOptions userProfileCookieOptions = SetupUserProfileCookieOptions();
+
+                            //context.Response.Cookies.Append("BIDPROFILE", userProfileCookieJSON, userProfileCookieOptions);
+                        }
+                    };
+                });
         }
 
-        private string SetupUserProfileCookie(UserProfileModel userDetails)
+        private ClaimsIdentity SetupUserClaims(ApplicationUser userDetails)
+        {
+            // setup user id and organization id claims
+            List<Claim> claims = new List<Claim>
+            {
+                new Claim("UserId", userDetails.Id.ToString(), ClaimValueTypes.Integer, "Bidding"),
+                new Claim(ClaimTypes.Role, "Admin", ClaimValueTypes.String, "Bidding") // ,
+                // new Claim(PermissionConstants.PackedPermissionClaimType, await rtoPCalcer.CalcPermissionsForUserAsync(userId))
+            };
+
+            // setup claims identity
+            return new ClaimsIdentity(claims);
+        }
+
+        private string SetupUserProfileCookie(ApplicationUser userDetails)
         {
             // Create the profile cookie, used for displaying user information in the client.
             return Newtonsoft.Json.JsonConvert.SerializeObject(new UserProfileCookie()
             {
                 IsAuthenticated = true,
-                UserId = userDetails.UserId, // todo: kke: why do we setup here user id?
-                ContactEmail = userDetails.UserContactEmail
+                UserId = userDetails.Id, // todo: kke: why do we setup here user id?
+                ContactEmail = userDetails.Email
             });
         }
 
@@ -473,32 +417,6 @@ namespace Bidding
                 SameSite = SameSiteMode.Lax,
                 HttpOnly = false
             };
-        }
-
-        private void ValidateUserDetails(UserProfileModel userDetails, string payloadUserUniqueIdentifier, BiddingContext m_context)
-        {
-            // our database and auth0 user unique identifiers need to be the same
-            // if (userDetails.UserUniqueIdentifier != payloadUserUniqueIdentifier) { throw new WebApiException(HttpStatusCode.Unauthorized, UserErrorMessages.CanNotSignIn); }
-        }
-
-        private ClaimsIdentity SetupUserClaims(UserProfileModel userDetails)
-        {
-            // setup user id and organization id claims
-            List<Claim> claims = new List<Claim>
-            {
-                new Claim("UserId", userDetails.UserId.ToString(), ClaimValueTypes.Integer, "Bidding"),
-                new Claim(ClaimTypes.Role, userDetails.UserRole, ClaimValueTypes.String, "Bidding")
-            };
-
-            // setup claims identity
-            return new ClaimsIdentity(claims);
-        }
-
-        private void ConfigureAuthorization(ref IServiceCollection services)
-        {
-            //Register the Permission policy handlers
-            services.AddSingleton<IAuthorizationPolicyProvider, AuthorizationPolicyProvider>();
-            services.AddSingleton<IAuthorizationHandler, PermissionHandler>();
         }
     }
 }

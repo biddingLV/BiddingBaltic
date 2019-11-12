@@ -22,9 +22,9 @@ namespace Bidding.Database.DatabaseModels.Item
         [Required]
         public DateTime CreatedAt { get; set; }
 
-        [Required]
-        public int CreatedBy { get; set; }
-        public User User { get; set; }
+        //[Required]
+        //public int CreatedBy { get; set; }
+        //public User User { get; set; }
 
         public DateTime LastUpdatedAt { get; set; }
 

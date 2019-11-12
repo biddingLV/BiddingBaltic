@@ -1,5 +1,5 @@
-﻿using Bidding.Models.ViewModels.Bidding.Admin.Users.List;
-using Bidding.Models.ViewModels.Bidding.Users.Add;
+﻿using Bidding.Database.DatabaseModels;
+using Bidding.Models.ViewModels.Bidding.Admin.Users.List;
 using Bidding.Models.ViewModels.Bidding.Users.Details;
 using Bidding.Models.ViewModels.Bidding.Users.Shared;
 using Bidding.Repositories.Users;
@@ -8,9 +8,9 @@ using Bidding.Shared.Constants;
 using Bidding.Shared.ErrorHandling.Errors;
 using Bidding.Shared.Exceptions;
 using Bidding.Shared.Pagination;
-using Bidding.Shared.Utility;
+using Bidding.Shared.Utility.Validation.Comparers;
+using Microsoft.AspNetCore.Identity;
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -28,25 +28,27 @@ namespace Bidding.Services.Users
             m_userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
         }
 
+        /// <summary>
+        /// Checks if user already exists, if not creates a new user.
+        /// </summary>
+        /// <param name="email"></param>
+        /// <returns></returns>
+        public async Task<ApplicationUser> HandleUserLoginAsync(ApplicationUser user)
+        {
+            if (user.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, UserErrorMessages.MissingUsersInformation); }
+            if (user.Email.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, UserErrorMessages.MissingUsersInformation); }
+            if (user.IdentityId.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.Unauthorized, UserErrorMessages.CanNotSignIn); }
+            if (user.EmailConfirmed.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.Unauthorized, UserErrorMessages.CanNotSignIn); }
+            if (user.UserName.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.Unauthorized, UserErrorMessages.CanNotSignIn); }
+
+            return await m_userRepository.HandleUserLoginAsync(user).ConfigureAwait(false);
+        }
+
         public bool UserExists(string email)
         {
             if (email.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, UserErrorMessages.EmailNotSpecified); }
 
             return m_userRepository.UserExists(email);
-        }
-
-        /// <summary>
-        /// Used in startup.cs file to add a new user to our internal DB, called on the first time sign-in!
-        /// </summary>
-        /// <param name="request"></param>
-        /// <returns></returns>
-        public bool Create(UserAddRequestModel request)
-        {
-            if (request.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, UserErrorMessages.MissingUsersInformation); }
-            if (request.LoginEmail.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, UserErrorMessages.MissingUsersInformation); }
-            if (request.UniqueIdentifier.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, UserErrorMessages.MissingUsersInformation); }
-
-            return m_userRepository.Create(request);
         }
 
         public UserDetailsModel UserDetails(int userId)
@@ -72,7 +74,7 @@ namespace Bidding.Services.Users
             UserListResponseModel auctionsResponse = new UserListResponseModel()
             {
                 Users = m_userRepository.ListWithSearch(request, startFrom, endAt).ToList(),
-                ItemCount = m_userRepository.TotalUserCount().Count()
+                ItemCount = 1// m_userRepository.TotalUserCount().Count()
             };
 
             Pagination.PaginateResponse(ref auctionsResponse, TableItem.DEFAULT_SIZE, request.CurrentPage);

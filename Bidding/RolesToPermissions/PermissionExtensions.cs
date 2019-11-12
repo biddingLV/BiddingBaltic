@@ -1,10 +1,12 @@
-﻿using System;
+﻿// Copyright (c) 2019 Jon P Smith, GitHub: JonPSmith, web: http://www.thereformedprogrammer.net/
+// Licensed under MIT license. See License.txt in the project root for license information.
+
 using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
-using System.Threading.Tasks;
+using PermissionParts;
 
-namespace Bidding.Shared.Permissions
+namespace FeatureAuthorize
 {
     public static class PermissionExtensions
     {
@@ -14,7 +16,7 @@ namespace Bidding.Shared.Permissions
         /// <param name="user"></param>
         /// <param name="permission"></param>
         /// <returns></returns>
-        public static bool UserHasThisPermission(this ClaimsPrincipal user, Permissions permission)
+        public static bool UserHasThisPermission(this ClaimsPrincipal user, Permission permission)
         {
             var permissionClaim =
                 user?.Claims.SingleOrDefault(x => x.Type == PermissionConstants.PackedPermissionClaimType);

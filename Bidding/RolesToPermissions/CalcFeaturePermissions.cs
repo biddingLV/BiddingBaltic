@@ -1,19 +1,25 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿// Copyright (c) 2019 Jon P Smith, GitHub: JonPSmith, web: http://www.thereformedprogrammer.net/
+// Licensed under MIT license. See License.txt in the project root for license information.
 
-namespace Bidding.Shared.Permissions
+using System;
+using System.Linq;
+using System.Reflection;
+using System.Threading.Tasks;
+using Bidding.Database.Contexts;
+using DataLayer;
+using Microsoft.EntityFrameworkCore;
+using PermissionParts;
+
+namespace FeatureAuthorize
 {
     /// <summary>
     /// This is the code that calculates what feature permissions a user has
     /// </summary>
     public class CalcAllowedPermissions
     {
-        private readonly ExtraAuthorizeDbContext _context;
+        private readonly BiddingContext _context;
 
-        public CalcAllowedPermissions(ExtraAuthorizeDbContext context)
+        public CalcAllowedPermissions(BiddingContext context)
         {
             _context = context;
         }
@@ -28,7 +34,7 @@ namespace Bidding.Shared.Permissions
         public async Task<string> CalcPermissionsForUserAsync(string userId)
         {
             //This gets all the permissions, with a distinct to remove duplicates
-            var permissionsForUser = (await _context.UserToRoles.Where(x => x.UserId == userId)
+            var permissionsForUser = (await _context.UserToRoles.Where(x => x.UserId == Int32.Parse(userId))
                 .Select(x => x.Role.PermissionsInRole)
                 .ToListAsync())
                 //Because the permissions are packed we have to put these parts of the query after the ToListAsync()
@@ -40,7 +46,7 @@ namespace Bidding.Shared.Permissions
             //Now we remove permissions that are linked to modules that the user has no access to
             var filteredPermissions =
                 from permission in permissionsForUser
-                let moduleAttr = typeof(Permissions).GetMember(permission.ToString())[0]
+                let moduleAttr = typeof(Permission).GetMember(permission.ToString())[0]
                     .GetCustomAttribute<LinkedToModuleAttribute>()
                 where moduleAttr == null || userModules.HasFlag(moduleAttr.PaidForModule)
                 select permission;

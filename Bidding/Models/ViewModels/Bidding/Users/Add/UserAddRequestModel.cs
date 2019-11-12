@@ -7,8 +7,9 @@ using System.Threading.Tasks;
 
 namespace Bidding.Models.ViewModels.Bidding.Users.Add
 {
-    public class UserAddRequestModel : User
+    public class UserAddRequestModel// : User
     {
-
+        public string LoginEmail { get; set; }
+        public string UniqueIdentifier { get; set; }
     }
 }

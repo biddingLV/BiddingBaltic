@@ -1,31 +1,40 @@
-﻿using Bidding.Models.ViewModels.Bidding.Users.Add;
+﻿using Bidding.Database.Contexts;
+using Bidding.Models.ViewModels.Bidding.Admin.Users.List;
+using Bidding.Models.ViewModels.Bidding.Users.Details;
 using Bidding.Models.ViewModels.Bidding.Users.Shared;
 using Bidding.Shared.ErrorHandling.Errors;
 using Bidding.Shared.Exceptions;
-using Bidding.Shared.Utility;
-using Bidding.Models.DatabaseModels;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using ServiceLayer.UserServices.Internal;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
-using Bidding.Database.Contexts;
-using Bidding.Database.DatabaseModels.Users;
-using Bidding.Models.ViewModels.Bidding.Users.Details;
-using System.Data.SqlClient;
-using System.Data;
-using Bidding.Models.ViewModels.Bidding.Admin.Users.List;
+using Bidding.Shared.Utility.Validation.Comparers;
+using Bidding.Database.DatabaseModels;
+using DataLayer.ExtraAuthClasses;
+using PermissionParts;
+using Bidding.Shared.Constants;
+using System.Reflection;
 
 namespace Bidding.Repositories.Users
 {
     public class UsersRepository
     {
-        private readonly BiddingContext m_context;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly BiddingContext _bidContext;
+        private readonly ExtraAuthUsersSetup _extraService;
 
-        public UsersRepository(BiddingContext context)
+        public UsersRepository(IServiceProvider services)
         {
-            m_context = context ?? throw new ArgumentNullException(nameof(context));
+            _userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
+            _bidContext = services.GetRequiredService<BiddingContext>();
+            _extraService = new ExtraAuthUsersSetup(_bidContext);
         }
 
         /// <summary>
@@ -35,68 +44,53 @@ namespace Bidding.Repositories.Users
         /// <returns></returns>
         public bool UserExists(string email)
         {
-            return
-                m_context.Users.Any(usr => usr.LoginEmail == email && usr.Deleted == false);
+            return true;
+
+            // @Permissions: WIP!
+            // m_context.Users.Any(usr => usr.LoginEmail == email && usr.Deleted == false);
         }
 
-        /// <summary>
-        /// Used in startup.cs file to add a new user to our internal DB, called on the first time sign-up!
-        /// </summary>
-        /// <param name="request"></param>
-        /// <returns></returns>
-        public bool Create(UserAddRequestModel request) // todo: kke: naming needs to be something like create on signUp!
+        public async Task<ApplicationUser> HandleUserLoginAsync(ApplicationUser user)
         {
-            // by default create user with User Role!
-            Role defaultUserRole = m_context.Roles.FirstOrDefault(rol => rol.Name == "User");
+            ApplicationUser userDetails = await _userManager.FindByEmailAsync(user.Email).ConfigureAwait(false);
 
-            User newUser = new User()
+            if (userDetails.IsSpecified())
             {
-                LoginEmail = request.LoginEmail.ToLower(),
-                ContactEmail = request.LoginEmail.ToLower(),
-                RoleId = defaultUserRole.RoleId, // User role
-                UniqueIdentifier = request.UniqueIdentifier,
-                CreatedAt = DateTime.UtcNow,
-                LastUpdatedAt = DateTime.UtcNow,
-                Deleted = false
-            };
-
-            try
-            {
-                m_context.Add(newUser);
-                m_context.SaveChanges();
-            }
-            catch (Exception ex)
-            {
-                throw new WebApiException(HttpStatusCode.BadRequest, UserErrorMessages.CouldNotCreateUser, ex);
+                return await HandleExistingUserAsync(user, userDetails).ConfigureAwait(false);
             }
 
-            return true;
+            return await HandleNewUserAsync(user).ConfigureAwait(false);
         }
 
         public IEnumerable<UserDetailsModel> UserDetails(int userId)
         {
-            return (from usr in m_context.Users
-                    where usr.UserId == userId && usr.Deleted == false
-                    select new UserDetailsModel()
-                    {
-                        UserId = usr.UserId,
-                        UserFirstName = usr.FirstName,
-                        UserLastName = usr.LastName,
-                        UserEmail = usr.LoginEmail
-                    });
+            yield return new UserDetailsModel();
+
+            // @Permissions: WIP!
+            //return (from usr in m_context.Users
+            //        where usr.UserId == userId && usr.Deleted == false
+            //        select new UserDetailsModel()
+            //        {
+            //            UserId = usr.UserId,
+            //            UserFirstName = usr.FirstName,
+            //            UserLastName = usr.LastName,
+            //            UserEmail = usr.LoginEmail
+            //        });
         }
 
         public IEnumerable<UserProfileModel> UserDetails(string email)
         {
-            return from usr in m_context.Users
-                   join rol in m_context.Roles on usr.RoleId equals rol.RoleId
-                   where usr.LoginEmail == email && usr.Deleted == false
-                   select new UserProfileModel()
-                   {
-                       UserId = usr.UserId,
-                       UserContactEmail = usr.ContactEmail,
-                       UserRole = rol.Name
-                   };
+            yield return new UserProfileModel();
+            // @Permissions: WIP!
+            //return from usr in m_context.Users
+            //       join rol in m_context.Roles on usr.RoleId equals rol.RoleId
+            //       where usr.LoginEmail == email && usr.Deleted == false
+            //       select new UserProfileModel()
+            //       {
+            //           UserId = usr.UserId,
+            //           UserContactEmail = usr.ContactEmail,
+            //           UserRole = rol.Name
+            //       };
         }
 
         public IEnumerable<UserListItemModel> ListWithSearch(UserListRequestModel request, int startFrom, int endAt)
@@ -119,7 +113,7 @@ namespace Bidding.Repositories.Users
                     SqlDbType = SqlDbType.Int
                 };
 
-                return m_context.Query<UserListItemModel>()
+                return _bidContext.Query<UserListItemModel>()
                     .FromSql("[dbo].[BID_GetUsers] @start, @end", startPaginationFrom, endPaginationAt);
             }
             catch (Exception ex)
@@ -132,9 +126,88 @@ namespace Bidding.Repositories.Users
         /// Returns total count of all active and inactive users for admin panel!
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<User> TotalUserCount()
+        //public IEnumerable<User> TotalUserCount()
+        //{
+        //    yield return new User();
+        //    // @Permissions: WIP!
+        //    // return m_context.Users;
+        //}
+
+        private async Task<ApplicationUser> HandleExistingUserAsync(ApplicationUser user, ApplicationUser userDetails)
         {
-            return m_context.Users;
+            if (user.EmailConfirmed != userDetails.EmailConfirmed)
+            {
+                userDetails.EmailConfirmed = user.EmailConfirmed;
+
+                await _userManager.UpdateAsync(userDetails).ConfigureAwait(false);
+            }
+
+            await CalcPermissionsForUserAsync(user.Id).ConfigureAwait(false);
+
+            // var status = UserToRole.AddRoleToUser(userDetails.Id, Permissions.DemoPermission.ToString(), _bidContext);
+            //if (status.IsValid)
+            //    //we assume there is already a link to the role is the status wasn't valid
+            //    _context.Add(status.Result);
+
+            return userDetails;
+        }
+
+        private async Task<ApplicationUser> HandleNewUserAsync(ApplicationUser user)
+        {
+            var newUser = new ApplicationUser
+            {
+                UserName = user.UserName,
+                Email = user.Email,
+                EmailConfirmed = user.EmailConfirmed
+            };
+
+            var result = await _userManager.CreateAsync(user).ConfigureAwait(false);
+
+            if (result.Succeeded)
+            {
+                var extraService = new ExtraAuthUsersSetup(_bidContext);
+                extraService.CheckAddRoleToUser(user.Id, ApplicationUserRoles.BasicUser);
+                _bidContext.SaveChanges();
+
+                // await CalcPermissionsForUserAsync(user.Id).ConfigureAwait(false);
+            }
+
+            if (!result.Succeeded)
+            {
+                throw new WebApiException(HttpStatusCode.InternalServerError, UserErrorMessages.CanNotSignIn);
+            }
+
+            return newUser;
+        }
+
+        /// <summary>
+        /// This is called if the Permissions that a user needs calculating.
+        /// It looks at what permissions the user has, and then filters out any permissions
+        /// they aren't allowed because they haven't get access to the module that permission is linked to.
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns>a string containing the packed permissions</returns>
+        private async Task<string> CalcPermissionsForUserAsync(int userId)
+        {
+            var permissionsForUser = (await _bidContext.UserToRoles
+                .Where(x => x.UserId == userId)
+                .Select(x => x.Role.PermissionsInRole)
+                .ToListAsync().ConfigureAwait(false))
+                .SelectMany(x => x)
+                .Distinct();
+
+            // we get the modules this user is allowed to see
+            var userModules = _bidContext.ModulesForUsers.Find(userId)?.AllowedPaidForModules ?? PaidForModules.None;
+
+            // Now we remove permissions that are linked to modules that the user has no access to
+            var filteredPermissions =
+                from permission in permissionsForUser
+                let moduleAttr = typeof(Permission).GetMember(permission.ToString())[0]
+                    .GetCustomAttribute<LinkedToModuleAttribute>()
+                where moduleAttr == null || userModules.HasFlag(moduleAttr.PaidForModule)
+                select permission;
+
+            return filteredPermissions.PackPermissionsIntoString();
         }
     }
 }

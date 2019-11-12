@@ -1,20 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
+﻿// Copyright (c) 2019 Jon P Smith, GitHub: JonPSmith, web: http://www.thereformedprogrammer.net/
+// Licensed under MIT license. See License.txt in the project root for license information.
+
+using System;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Linq;
-using System.Threading.Tasks;
+using Bidding.Database.Contexts;
+using GenericServices;
 
-namespace Bidding.Shared.Permissions
+namespace DataLayer.ExtraAuthClasses
 {
     /// <summary>
     /// This is a one-to-many relationship between the User (represented by the UserId) and their Roles (represented by RoleToPermissions)
     /// </summary>
-    public class UserToRole : IAddRemoveEffectsUser, IChangeEffectsUser
+    public class UserToRole
     {
         private UserToRole() { } //needed by EF Core
 
-        public UserToRole(string userId, RoleToPermissions role)
+        public UserToRole(int userId, RoleToPermissions role)
         {
             UserId = userId;
             Role = role;
@@ -23,8 +25,8 @@ namespace Bidding.Shared.Permissions
         //I use a composite key for this table: combination of UserId and RoleName
         //That has to be defined by EF Core's fluent API
         [Required(AllowEmptyStrings = false)]
-        [MaxLength(ExtraAuthConstants.UserIdSize)]
-        public string UserId { get; private set; }
+        [MaxLength(ExtraAuthConstants.UserIdSize)] 
+        public int UserId { get; private set; }
 
         [Required(AllowEmptyStrings = false)]
         [MaxLength(ExtraAuthConstants.RoleNameSize)]
@@ -34,7 +36,7 @@ namespace Bidding.Shared.Permissions
         public RoleToPermissions Role { get; private set; }
 
 
-        public static IStatusGeneric<UserToRole> AddRoleToUser(string userId, string roleName, ExtraAuthorizeDbContext context)
+        public static IStatusGeneric<UserToRole> AddRoleToUser(int userId, string roleName, BiddingContext context)
         {
             if (roleName == null) throw new ArgumentNullException(nameof(roleName));
 
