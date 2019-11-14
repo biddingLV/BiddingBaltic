@@ -1,13 +1,8 @@
-﻿// Copyright (c) 2019 Jon P Smith, GitHub: JonPSmith, web: http://www.thereformedprogrammer.net/
-// Licensed under MIT license. See License.txt in the project root for license information.
-
-using System;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
-using Bidding.Database.Contexts;
-using DataLayer;
+﻿using Bidding.Database.Contexts;
 using DataLayer.ExtraAuthClasses;
 using PermissionParts;
+using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 
 [assembly: InternalsVisibleTo("Test")]
 
@@ -56,19 +51,6 @@ namespace ServiceLayer.UserServices.Internal
             if (existingRole == null)
                 throw new KeyNotFoundException($"Could not find the role {roleName} to update.");
             existingRole.Update(description, permissions);
-        }
-
-        /// <summary>
-        /// This ensures there is a UserToRole linking the userId to the given roleName
-        /// </summary>
-        /// <param name="userId"></param>
-        /// <param name="roleName"></param>
-        public void CheckAddRoleToUser(int userId, string roleName)
-        {
-            var status = UserToRole.AddRoleToUser(userId, roleName, _context);
-            if (status.IsValid)
-                //we assume there is already a link to the role is the status wasn't valid
-                _context.Add(status.Result);
         }
     }
 }

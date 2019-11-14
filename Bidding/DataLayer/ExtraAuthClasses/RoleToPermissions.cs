@@ -27,7 +27,7 @@ namespace DataLayer.ExtraAuthClasses
         /// <param name="roleName"></param>
         /// <param name="description"></param>
         /// <param name="permissions"></param>
-        private RoleToPermissions(string roleName, string description, ICollection<Permission> permissions)
+        public RoleToPermissions(string roleName, string description, ICollection<Permission> permissions)
         {
             RoleName = roleName;
             Update(description, permissions);
@@ -50,7 +50,7 @@ namespace DataLayer.ExtraAuthClasses
         /// <summary>
         /// This returns the list of permissions in this role
         /// </summary>
-        public IEnumerable<Permission> PermissionsInRole => _permissionsInRole.UnpackPermissionsFromString();
+        public string PermissionsInRole => _permissionsInRole;
 
         public static IStatusGeneric<RoleToPermissions> CreateRoleWithPermissions(string roleName, string description, ICollection<Permission> permissionInRole,
             BiddingContext context)
@@ -70,7 +70,7 @@ namespace DataLayer.ExtraAuthClasses
             if (permissions == null || !permissions.Any())
                 throw new InvalidOperationException("There should be at least one permission associated with a role.");
 
-            _permissionsInRole = permissions.PackPermissionsIntoString();
+            _permissionsInRole = string.Join(",", permissions);
             Description = description;
         }
 
@@ -78,21 +78,21 @@ namespace DataLayer.ExtraAuthClasses
             BiddingContext context)
         {
             var status = new StatusGenericHandler { Message = "Deleted role successfully." };
-            var roleToUpdate = context.Find<RoleToPermissions>(roleName);
-            if (roleToUpdate == null)
-                return status.AddError("That role doesn't exists");
+            //var roleToUpdate = context.Find<RoleToPermissions>(roleName);
+            //if (roleToUpdate == null)
+            //    return status.AddError("That role doesn't exists");
 
-            var usersWithRoles = context.UserToRoles.Where(x => x.RoleName == roleName).ToList();
-            if (usersWithRoles.Any())
-            {
-                if (!removeFromUsers)
-                    return status.AddError($"That role is used by {usersWithRoles.Count} and you didn't ask for them to be updated.");
+            //var usersWithRoles = context.UserToRoles.Where(x => x.RoleName == roleName).ToList();
+            //if (usersWithRoles.Any())
+            //{
+            //    if (!removeFromUsers)
+            //        return status.AddError($"That role is used by {usersWithRoles.Count} and you didn't ask for them to be updated.");
 
-                context.RemoveRange(usersWithRoles);
-                status.Message = $"Removed role from {usersWithRoles.Count} user and then deleted role successfully.";
-            }
+            //    context.RemoveRange(usersWithRoles);
+            //    status.Message = $"Removed role from {usersWithRoles.Count} user and then deleted role successfully.";
+            //}
 
-            context.Remove(roleToUpdate);
+            //context.Remove(roleToUpdate);
             return status;
         }
 

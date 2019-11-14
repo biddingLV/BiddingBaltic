@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Globalization;
 using System.Linq;
 
@@ -10,18 +11,19 @@ namespace PermissionParts
 {
     public static class PermissionPackers
     {
-        public static string PackPermissionsIntoString(this IEnumerable<Permission> permissions)
-        {
-            return permissions.Aggregate("", (s, permission) => s + (char)permission);
-        }
-
         public static IEnumerable<Permission> UnpackPermissionsFromString(this string packedPermissions)
         {
             if (packedPermissions == null)
                 throw new ArgumentNullException(nameof(packedPermissions));
-            foreach (var character in packedPermissions)
+
+            var xList = packedPermissions.Split(',');
+
+            foreach (var item in xList)
             {
-                yield return ((Permission) character);
+                if (!Enum.TryParse(item, true, out Permission permissionToCheck))
+                    throw new InvalidEnumArgumentException($"{item} could not be converted to a {nameof(Permission)}.");
+
+                yield return permissionToCheck;
             }
         }
 

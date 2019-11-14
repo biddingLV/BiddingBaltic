@@ -17,15 +17,15 @@ namespace DataLayer.ExtraAuthClasses
         /// </summary>
         /// <param name="userId"></param>
         /// <param name="allowedPaidForModules"></param>
-        public ModulesForUser(string userId, PaidForModules allowedPaidForModules)
+        public ModulesForUser(int userId, PaidForModules allowedPaidForModules)
         {
-            UserId = userId ?? throw new ArgumentNullException(nameof(userId));
+            UserId = userId;
             AllowedPaidForModules = allowedPaidForModules;
         }
 
         [Key]
         [MaxLength(ExtraAuthConstants.UserIdSize)]
-        public string UserId { get; private set; }
+        public int UserId { get; private set; }
 
         public PaidForModules AllowedPaidForModules { get; private set; }
     }

@@ -3,7 +3,6 @@ using Bidding.Database.DatabaseModels.Auctions;
 using Bidding.Database.DatabaseModels.Item;
 using Bidding.Database.DatabaseModels.Property;
 using Bidding.Database.DatabaseModels.Shared;
-using Bidding.Database.DatabaseModels.Users;
 using Bidding.Database.DatabaseModels.Vehicle;
 using Bidding.Models.DatabaseModels;
 using Bidding.Models.DatabaseModels.Bidding.Subscribe;
@@ -36,11 +35,8 @@ namespace Bidding.Database.Contexts
         public DbSet<Auction> Auctions { get; set; }
         public DbSet<Category> Categories { get; set; }
         public DbSet<Type> Types { get; set; }
-        public DbSet<RolePermission> RolePermissions { get; set; }
-        public DbSet<Permission> Permissions { get; set; }
         public DbSet<Newsletter> Newsletters { get; set; }
 
-        public DbSet<UserToRole> UserToRoles { get; set; }
         public DbSet<RoleToPermissions> RolesToPermissions { get; set; }
         public DbSet<ModulesForUser> ModulesForUsers { get; set; }
 
@@ -222,8 +218,6 @@ namespace Bidding.Database.Contexts
             //    .HasForeignKey(p => p.CreatedBy);
 
             //ExtraAuthClasses configurations
-            modelBuilder.Entity<UserToRole>().HasKey(x => new { x.UserId, x.RoleName });
-
             modelBuilder.Entity<RoleToPermissions>()
                 .Property("_permissionsInRole")
                 .HasColumnName("PermissionsInRole");

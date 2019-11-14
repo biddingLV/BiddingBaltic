@@ -1,16 +1,16 @@
-﻿using Bidding.Database.DatabaseModels.Auctions;
+﻿using Bidding.Database.DatabaseModels;
+using Bidding.Database.DatabaseModels.Auctions;
 using Bidding.Database.DatabaseModels.Item;
 using Bidding.Database.DatabaseModels.Property;
 using Bidding.Database.DatabaseModels.Shared;
-using Bidding.Database.DatabaseModels.Users;
 using Bidding.Database.DatabaseModels.Vehicle;
 using Bidding.Models.DatabaseModels;
-using Bidding.Models.DatabaseModels.Bidding;
+using Bidding.Shared.Constants;
+using DataLayer.ExtraAuthClasses;
 using Microsoft.EntityFrameworkCore;
+using PermissionParts;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 using Type = Bidding.Models.DatabaseModels.Type;
 
 namespace Bidding.Database.Contexts
@@ -22,9 +22,7 @@ namespace Bidding.Database.Contexts
 
         public static void Seed(this ModelBuilder modelBuilder)
         {
-            PopulatePermissions(modelBuilder);
             PopulateRoles(modelBuilder);
-            PopulateUsers(modelBuilder);
             PopulateAuctionStatuses(modelBuilder);
             PopulateVehicleTransmissions(modelBuilder);
             PopulateVehicleFuelTypes(modelBuilder);
@@ -40,196 +38,44 @@ namespace Bidding.Database.Contexts
             // PopulateAuctionDetails(modelBuilder);
         }
 
-        private static void PopulatePermissions(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Permission>().HasData(
-                new Permission
-                {
-                    PermissionId = 1,
-                    Name = "View own auctions",
-                    CreatedAt = CreatedAtDateTime,
-                    // // CreatedBy = CreatedByBiddingAdmin,
-                    LastUpdatedAt = CreatedAtDateTime,
-                    LastUpdatedBy = CreatedByBiddingAdmin,
-                    Deleted = false
-                },
-                new Permission
-                {
-                    PermissionId = 2,
-                    Name = "View all auctions",
-                    CreatedAt = CreatedAtDateTime,
-                    // // CreatedBy = CreatedByBiddingAdmin,
-                    LastUpdatedAt = CreatedAtDateTime,
-                    LastUpdatedBy = CreatedByBiddingAdmin,
-                    Deleted = false
-                },
-                new Permission
-                {
-                    PermissionId = 3,
-                    Name = "Create auction",
-                    CreatedAt = CreatedAtDateTime,
-                    // CreatedBy = CreatedByBiddingAdmin,
-                    LastUpdatedAt = CreatedAtDateTime,
-                    LastUpdatedBy = CreatedByBiddingAdmin,
-                    Deleted = false
-                },
-                new Permission
-                {
-                    PermissionId = 4,
-                    Name = "Edit own auction",
-                    CreatedAt = CreatedAtDateTime,
-                    // CreatedBy = CreatedByBiddingAdmin,
-                    LastUpdatedAt = CreatedAtDateTime,
-                    LastUpdatedBy = CreatedByBiddingAdmin,
-                    Deleted = false
-                },
-                new Permission
-                {
-                    PermissionId = 5,
-                    Name = "Edit all auctions",
-                    CreatedAt = CreatedAtDateTime,
-                    // CreatedBy = CreatedByBiddingAdmin,
-                    LastUpdatedAt = CreatedAtDateTime,
-                    LastUpdatedBy = CreatedByBiddingAdmin,
-                    Deleted = false
-                },
-                new Permission
-                {
-                    PermissionId = 6,
-                    Name = "Delete own auctions",
-                    CreatedAt = CreatedAtDateTime,
-                    // CreatedBy = CreatedByBiddingAdmin,
-                    LastUpdatedAt = CreatedAtDateTime,
-                    LastUpdatedBy = CreatedByBiddingAdmin,
-                    Deleted = false
-                },
-                new Permission
-                {
-                    PermissionId = 7,
-                    Name = "Delete all auctions",
-                    CreatedAt = CreatedAtDateTime,
-                    // CreatedBy = CreatedByBiddingAdmin,
-                    LastUpdatedAt = CreatedAtDateTime,
-                    LastUpdatedBy = CreatedByBiddingAdmin,
-                    Deleted = false
-                },
-                new Permission
-                {
-                    PermissionId = 8,
-                    Name = "Edit another profile",
-                    CreatedAt = CreatedAtDateTime,
-                    // CreatedBy = CreatedByBiddingAdmin,
-                    LastUpdatedAt = CreatedAtDateTime,
-                    LastUpdatedBy = CreatedByBiddingAdmin,
-                    Deleted = false
-                },
-                new Permission
-                {
-                    PermissionId = 9,
-                    Name = "Delete another profile",
-                    CreatedAt = CreatedAtDateTime,
-                    // CreatedBy = CreatedByBiddingAdmin,
-                    LastUpdatedAt = CreatedAtDateTime,
-                    LastUpdatedBy = CreatedByBiddingAdmin,
-                    Deleted = false
-                }
-            );
-        }
-
         private static void PopulateRoles(ModelBuilder modelBuilder)
         {
-            //modelBuilder.Entity<Role>().HasData(
-            //    new Role
-            //    {
-            //        RoleId = 1,
-            //        Name = "AuctionCreator",
-            //        CreatedAt = CreatedAtDateTime,
-            //        // CreatedBy = CreatedByBiddingAdmin,
-            //        LastUpdatedAt = CreatedAtDateTime,
-            //        LastUpdatedBy = CreatedByBiddingAdmin,
-            //        Deleted = false
-            //    },
-            //    new Role
-            //    {
-            //        RoleId = 2,
-            //        Name = "PageModerator",
-            //        CreatedAt = CreatedAtDateTime,
-            //        // CreatedBy = CreatedByBiddingAdmin,
-            //        LastUpdatedAt = CreatedAtDateTime,
-            //        LastUpdatedBy = CreatedByBiddingAdmin,
-            //        Deleted = false
-            //    }
-            //);
-        }
+            modelBuilder.Entity<ApplicationRole>().HasData(new ApplicationRole { Id = 100, Name = ApplicationUserRoles.BasicUser, NormalizedName = ApplicationUserRoles.BasicUser.ToUpper() });
+            modelBuilder.Entity<ApplicationRole>().HasData(new ApplicationRole { Id = 200, Name = ApplicationUserRoles.AuctionCreator, NormalizedName = ApplicationUserRoles.AuctionCreator.ToUpper() });
+            modelBuilder.Entity<ApplicationRole>().HasData(new ApplicationRole { Id = 300, Name = ApplicationUserRoles.PageAdministrator, NormalizedName = ApplicationUserRoles.PageAdministrator.ToUpper() });
+            modelBuilder.Entity<ApplicationRole>().HasData(new ApplicationRole { Id = 400, Name = ApplicationUserRoles.SuperAdministrator, NormalizedName = ApplicationUserRoles.SuperAdministrator.ToUpper() });
 
-        private static void PopulateUsers(ModelBuilder modelBuilder)
-        {
-            var adminRoleId = 2;
-            var userRoleId = 1;
+            modelBuilder.Entity<RoleToPermissions>().HasData(
+                new RoleToPermissions(
+                    ApplicationUserRoles.BasicUser,
+                    "Basic user without anything extra",
+                    new List<Permission> { Permission.ReadAuctionList, Permission.ReadBasicAuctionDetails, Permission.ChangeOwnProfile }
+                )
+            );
 
-            //modelBuilder.Entity<User>().HasData(
-            //    new User
-            //    {
-            //        UserId = 1,
-            //        FirstName = "Kristaps",
-            //        LastName = "K",
-            //        LoginEmail = "kristaps.kerpe@gmail.com",
-            //        ContactEmail = "kristaps.kerpe@gmail.com",
-            //        Phone = "22089756",
-            //        RoleId = adminRoleId,
-            //        Deleted = false,
-            //        UniqueIdentifier = "auth0|5bb4fdb000997e5d8c606653",
-            //        CreatedAt = CreatedAtDateTime,
-            //        // CreatedBy = CreatedByBiddingAdmin,
-            //        LastUpdatedAt = CreatedAtDateTime,
-            //        LastUpdatedBy = CreatedByBiddingAdmin
-            //    },
-            //    new User
-            //    {
-            //        UserId = 2,
-            //        FirstName = "Zane",
-            //        LastName = "H",
-            //        LoginEmail = "zanehaartman@gmail.com",
-            //        ContactEmail = "zanehaartman@gmail.com",
-            //        RoleId = adminRoleId,
-            //        Deleted = false,
-            //        UniqueIdentifier = "auth0|5bd605d46d76842d17365f3b",
-            //        CreatedAt = CreatedAtDateTime,
-            //        // CreatedBy = CreatedByBiddingAdmin,
-            //        LastUpdatedAt = CreatedAtDateTime,
-            //        LastUpdatedBy = CreatedByBiddingAdmin
-            //    },
-            //    new User
-            //    {
-            //        UserId = 3,
-            //        FirstName = "Jānis",
-            //        LastName = "J",
-            //        LoginEmail = "j.jaunozols@gmail.com",
-            //        ContactEmail = "j.jaunozols@gmail.com",
-            //        RoleId = adminRoleId,
-            //        Deleted = false,
-            //        UniqueIdentifier = "uth0|5bba448bb76b8011ae24e569",
-            //        CreatedAt = CreatedAtDateTime,
-            //        // CreatedBy = CreatedByBiddingAdmin,
-            //        LastUpdatedAt = CreatedAtDateTime,
-            //        LastUpdatedBy = CreatedByBiddingAdmin
-            //    },
-            //    new User
-            //    {
-            //        UserId = 4,
-            //        FirstName = "Jānis R",
-            //        LastName = "B",
-            //        LoginEmail = "janis.rihards.blazevics@gmail.com",
-            //        ContactEmail = "janis.rihards.blazevics@gmail.com",
-            //        RoleId = userRoleId,
-            //        Deleted = true,
-            //        UniqueIdentifier = "auth0|5c5dae63da9fe9124eccf90f",
-            //        CreatedAt = CreatedAtDateTime,
-            //        // CreatedBy = CreatedByBiddingAdmin,
-            //        LastUpdatedAt = CreatedAtDateTime,
-            //        LastUpdatedBy = CreatedByBiddingAdmin
-            //    }
-            //);
+            modelBuilder.Entity<RoleToPermissions>().HasData(
+                new RoleToPermissions(
+                    ApplicationUserRoles.AuctionCreator,
+                    "Can change data for own auctions",
+                    new List<Permission> { Permission.ReadAuctionList, Permission.ReadBasicAuctionDetails, Permission.ChangeOwnProfile, Permission.ReadAdvancedDetailsForOwnAuction, Permission.ChangeOwnAuction }
+                )
+            );
+
+            modelBuilder.Entity<RoleToPermissions>().HasData(
+                new RoleToPermissions(
+                    ApplicationUserRoles.PageAdministrator,
+                    "Can almost do evrything in the page",
+                    new List<Permission> { Permission.ReadAuctionList, Permission.ReadBasicAuctionDetails, Permission.ChangeOwnProfile, Permission.ReadAdvancedDetailsForOwnAuction, Permission.ChangeOwnAuction }
+                )
+            );
+
+            modelBuilder.Entity<RoleToPermissions>().HasData(
+                new RoleToPermissions(
+                    ApplicationUserRoles.SuperAdministrator,
+                    "Can access everything",
+                    new List<Permission> { Permission.AccessAll }
+                )
+            );
         }
 
         private static void PopulateAuctionStatuses(ModelBuilder modelBuilder)

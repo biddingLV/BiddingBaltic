@@ -46,48 +46,5 @@ namespace ServiceLayer.SeedDemo
             //    }
             //}
         }
-
-        /// <summary>
-        /// Populates application user roles if they don't already exist.
-        /// </summary>
-        /// <param name="serviceProvider"></param>
-        /// <returns></returns>
-        public static async Task CreateApplicationUserRolesAsync(this IServiceProvider serviceProvider)
-        {
-            using (var scope = serviceProvider.CreateScope())
-            {
-                var services = scope.ServiceProvider;
-                var extraContext = services.GetRequiredService<BiddingContext>();
-                var RoleManager = services.GetRequiredService<RoleManager<ApplicationRole>>();
-
-                bool basicUserRoleExists = await RoleManager.RoleExistsAsync(ApplicationUserRoles.BasicUser).ConfigureAwait(false);
-                if (!basicUserRoleExists)
-                {
-                    await RoleManager.CreateAsync(new ApplicationRole() { Name = ApplicationUserRoles.BasicUser }).ConfigureAwait(false);
-                    // extraService.AddUpdateRoleToPermissions("AuctionCreator", "AuctionCreator Role", new List<Permission> { Permission.ReadAdvancedDetailsForOwnAuction, Permission.ChangeOwnAuction });
-                }
-
-                bool auctionCreatorRoleExists = await RoleManager.RoleExistsAsync(ApplicationUserRoles.AuctionCreator).ConfigureAwait(false);
-                if (!auctionCreatorRoleExists)
-                {
-                    await RoleManager.CreateAsync(new ApplicationRole() { Name = ApplicationUserRoles.AuctionCreator }).ConfigureAwait(false);
-                    // extraService.AddUpdateRoleToPermissions("AuctionCreator", "AuctionCreator Role", new List<Permission> { Permission.ReadAdvancedDetailsForOwnAuction, Permission.ChangeOwnAuction });
-                }
-
-                bool pageAdminRoleExists = await RoleManager.RoleExistsAsync(ApplicationUserRoles.PageAdministrator).ConfigureAwait(false);
-                if (!pageAdminRoleExists)
-                {
-                    await RoleManager.CreateAsync(new ApplicationRole() { Name = ApplicationUserRoles.PageAdministrator }).ConfigureAwait(false);
-                    // extraService.AddUpdateRoleToPermissions("AuctionCreator", "AuctionCreator Role", new List<Permission> { Permission.ReadAdvancedDetailsForOwnAuction, Permission.ChangeOwnAuction });
-                }
-
-                bool superAdminRoleExists = await RoleManager.RoleExistsAsync(ApplicationUserRoles.SuperAdministrator).ConfigureAwait(false);
-                if (!superAdminRoleExists)
-                {
-                    await RoleManager.CreateAsync(new ApplicationRole() { Name = ApplicationUserRoles.SuperAdministrator }).ConfigureAwait(false);
-                    // extraService.AddUpdateRoleToPermissions("AuctionCreator", "AuctionCreator Role", new List<Permission> { Permission.ReadAdvancedDetailsForOwnAuction, Permission.ChangeOwnAuction });
-                }
-            }
-        }
     }
 }

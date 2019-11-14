@@ -7,11 +7,14 @@ using Bidding.Models.ViewModels.Bidding.Auctions.Delete;
 using Bidding.Models.ViewModels.Bidding.Auctions.Details;
 using Bidding.Models.ViewModels.Bidding.Auctions.Edit;
 using Bidding.Models.ViewModels.Bidding.Auctions.List;
+using Bidding.Services;
 using Bidding.Services.Auctions;
+using FeatureAuthorize.PolicyCode;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PermissionParts;
 
 namespace Bidding.Controllers.Auctions
 {
@@ -19,7 +22,7 @@ namespace Bidding.Controllers.Auctions
     [Route("api/[Controller]/[action]")]
     public class AuctionsController : ControllerBase
     {
-        public readonly AuctionsService m_auctionsService;
+        private readonly AuctionsService m_auctionsService;
 
         public AuctionsController(AuctionsService auctionsService)
         {
@@ -67,7 +70,7 @@ namespace Bidding.Controllers.Auctions
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpGet]
-        [Authorize(Roles = "User, Admin")]
+        [HasPermission(Permission.ReadAuctionList)]
         public IActionResult GetAuctionsWithSearch([FromQuery] AuctionListRequestModel request)
         {
             return Ok(m_auctionsService.GetAuctionsWithSearch(request));

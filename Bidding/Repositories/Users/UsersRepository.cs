@@ -142,13 +142,6 @@ namespace Bidding.Repositories.Users
                 await _userManager.UpdateAsync(userDetails).ConfigureAwait(false);
             }
 
-            await CalcPermissionsForUserAsync(user.Id).ConfigureAwait(false);
-
-            // var status = UserToRole.AddRoleToUser(userDetails.Id, Permissions.DemoPermission.ToString(), _bidContext);
-            //if (status.IsValid)
-            //    //we assume there is already a link to the role is the status wasn't valid
-            //    _context.Add(status.Result);
-
             return userDetails;
         }
 
@@ -165,11 +158,7 @@ namespace Bidding.Repositories.Users
 
             if (result.Succeeded)
             {
-                var extraService = new ExtraAuthUsersSetup(_bidContext);
-                extraService.CheckAddRoleToUser(user.Id, ApplicationUserRoles.BasicUser);
-                _bidContext.SaveChanges();
-
-                // await CalcPermissionsForUserAsync(user.Id).ConfigureAwait(false);
+                await _userManager.AddToRoleAsync(user, ApplicationUserRoles.BasicUser).ConfigureAwait(false);
             }
 
             if (!result.Succeeded)
@@ -178,36 +167,6 @@ namespace Bidding.Repositories.Users
             }
 
             return newUser;
-        }
-
-        /// <summary>
-        /// This is called if the Permissions that a user needs calculating.
-        /// It looks at what permissions the user has, and then filters out any permissions
-        /// they aren't allowed because they haven't get access to the module that permission is linked to.
-        /// </summary>
-        /// <param name="userId"></param>
-        /// <returns>a string containing the packed permissions</returns>
-        private async Task<string> CalcPermissionsForUserAsync(int userId)
-        {
-            var permissionsForUser = (await _bidContext.UserToRoles
-                .Where(x => x.UserId == userId)
-                .Select(x => x.Role.PermissionsInRole)
-                .ToListAsync().ConfigureAwait(false))
-                .SelectMany(x => x)
-                .Distinct();
-
-            // we get the modules this user is allowed to see
-            var userModules = _bidContext.ModulesForUsers.Find(userId)?.AllowedPaidForModules ?? PaidForModules.None;
-
-            // Now we remove permissions that are linked to modules that the user has no access to
-            var filteredPermissions =
-                from permission in permissionsForUser
-                let moduleAttr = typeof(Permission).GetMember(permission.ToString())[0]
-                    .GetCustomAttribute<LinkedToModuleAttribute>()
-                where moduleAttr == null || userModules.HasFlag(moduleAttr.PaidForModule)
-                select permission;
-
-            return filteredPermissions.PackPermissionsIntoString();
         }
     }
 }

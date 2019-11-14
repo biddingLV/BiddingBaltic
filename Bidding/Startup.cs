@@ -15,6 +15,7 @@ using Bidding.Shared.Attributes;
 using Bidding.Shared.ErrorHandling.Errors;
 using Bidding.Shared.Exceptions;
 using Bidding.Shared.Utility.Validation.Comparers;
+using FeatureAuthorize;
 using FeatureAuthorize.PolicyCode;
 using Microsoft.AspNetCore.Antiforgery;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -195,7 +196,7 @@ namespace Bidding
                                 .Build();
                     options.Filters.AddService<AntiforgeryCookieResultFilterAttribute>();
                     options.Filters.Add(new AuthorizeFilter(policy));
-                    options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()); // TODO: KKE: Check why this is not working for post requests!
+                    options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
                 })
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
@@ -370,29 +371,32 @@ namespace Bidding
                             UsersService usersService = services.BuildServiceProvider().GetService<UsersService>();
                             ApplicationUser userDetails = await usersService.HandleUserLoginAsync(user).ConfigureAwait(false);
 
-                            //// setup user claims
-                            //context.Principal.AddIdentity(SetupUserClaims(userDetails));
+                            // setup user claims
+                            context.Principal.AddIdentity(await SetupUserClaimsAsync(services, userDetails));
 
-                            //// setup profile cookie
-                            //string userProfileCookieJSON = SetupUserProfileCookie(userDetails);
+                            // setup profile cookie
+                            string userProfileCookieJSON = SetupUserProfileCookie(userDetails);
 
-                            //// setup profile cookie options
-                            //CookieOptions userProfileCookieOptions = SetupUserProfileCookieOptions();
+                            // setup profile cookie options
+                            CookieOptions userProfileCookieOptions = SetupUserProfileCookieOptions();
 
-                            //context.Response.Cookies.Append("BIDPROFILE", userProfileCookieJSON, userProfileCookieOptions);
+                            context.Response.Cookies.Append("BIDPROFILE", userProfileCookieJSON, userProfileCookieOptions);
                         }
                     };
                 });
         }
 
-        private ClaimsIdentity SetupUserClaims(ApplicationUser userDetails)
+        private async Task<ClaimsIdentity> SetupUserClaimsAsync(IServiceCollection services, ApplicationUser userDetails)
         {
+            var dbContext = services.BuildServiceProvider().GetService<BiddingContext>();
+            var rtoPCalcer = new CalcAllowedPermissions(dbContext);
+
             // setup user id and organization id claims
             List<Claim> claims = new List<Claim>
             {
                 new Claim("UserId", userDetails.Id.ToString(), ClaimValueTypes.Integer, "Bidding"),
-                new Claim(ClaimTypes.Role, "Admin", ClaimValueTypes.String, "Bidding") // ,
-                // new Claim(PermissionConstants.PackedPermissionClaimType, await rtoPCalcer.CalcPermissionsForUserAsync(userId))
+                new Claim(ClaimTypes.Role, "Admin", ClaimValueTypes.String, "Bidding"), // todo: kke: remove this!
+                new Claim(PermissionConstants.PackedPermissionClaimType, await rtoPCalcer.CalcPermissionsForUserAsync(userDetails.Id).ConfigureAwait(false))
             };
 
             // setup claims identity

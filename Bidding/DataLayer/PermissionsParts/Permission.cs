@@ -27,6 +27,9 @@ namespace PermissionParts
         [Display(GroupName = "AuctionCreator", Name = "Change details for own auctions", Description = "Can create, update or delete own Auction details")]
         ChangeOwnAuction = 51,
 
+        // PageAdministrator
+        // todo: permission list!
+
         /// <summary>
         /// This is a special Permission used by the SuperAdmin user. A user has this permission can access any other permission.
         /// </summary>
