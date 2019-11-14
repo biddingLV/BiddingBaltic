@@ -147,18 +147,11 @@ namespace Bidding.Repositories.Users
 
         private async Task<ApplicationUser> HandleNewUserAsync(ApplicationUser user)
         {
-            var newUser = new ApplicationUser
-            {
-                UserName = user.UserName,
-                Email = user.Email,
-                EmailConfirmed = user.EmailConfirmed
-            };
-
-            var result = await _userManager.CreateAsync(user).ConfigureAwait(false);
+            IdentityResult result = await _userManager.CreateAsync(user).ConfigureAwait(false);
 
             if (result.Succeeded)
             {
-                await _userManager.AddToRoleAsync(user, ApplicationUserRoles.BasicUser).ConfigureAwait(false);
+                await AddBasicRoleToNewUser(user).ConfigureAwait(false);
             }
 
             if (!result.Succeeded)
@@ -166,7 +159,17 @@ namespace Bidding.Repositories.Users
                 throw new WebApiException(HttpStatusCode.InternalServerError, UserErrorMessages.CanNotSignIn);
             }
 
-            return newUser;
+            return user;
+        }
+
+        private async Task AddBasicRoleToNewUser(ApplicationUser user)
+        {
+            IdentityResult result = await _userManager.AddToRoleAsync(user, ApplicationUserRoles.BasicUser).ConfigureAwait(false);
+
+            if (!result.Succeeded)
+            {
+                throw new WebApiException(HttpStatusCode.InternalServerError, UserErrorMessages.CanNotSignIn);
+            }
         }
     }
 }

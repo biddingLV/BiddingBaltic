@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace Bidding.Migrations
 {
-    public partial class addInit : Migration
+    public partial class InitialMigration : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -574,10 +574,10 @@ namespace Bidding.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Description", "Name", "NormalizedName", "PermissionsInRole" },
                 values: new object[,]
                 {
-                    { 100, "c6a672a2-ca89-45fb-b1ec-8bf36c8b9186", null, "BasicUser", "BASICUSER", null },
-                    { 200, "1a57844a-152a-4a0a-be49-1a744f11c321", null, "AuctionCreator", "AUCTIONCREATOR", null },
-                    { 300, "5b45912c-9a63-46e3-9a50-ec625066db3a", null, "PageAdministrator", "PAGEADMINISTRATOR", null },
-                    { 400, "b876c4db-2b6a-4b87-866e-4e4e54e67082", null, "SuperAdministrator", "SUPERADMINISTRATOR", null }
+                    { 100, "fe76ece1-8e7a-4f10-8209-c2d6e423412b", null, "BasicUser", "BASICUSER", null },
+                    { 200, "76d1ce02-7768-4621-a63c-16fbf4507c93", null, "AuctionCreator", "AUCTIONCREATOR", null },
+                    { 300, "344b8b01-655b-4471-a369-719a9ba2afbb", null, "PageAdministrator", "PAGEADMINISTRATOR", null },
+                    { 400, "86bc6f6c-16e9-45da-9b95-43c9daa36afd", null, "SuperAdministrator", "SUPERADMINISTRATOR", null }
                 });
 
             migrationBuilder.InsertData(
