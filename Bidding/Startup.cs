@@ -266,7 +266,7 @@ namespace Bidding
 
             services.AddDbContext<BiddingContext>(
                 options => options.UseSqlServer(
-                    Configuration.GetConnectionString("BiddingLV"),
+                    Configuration.GetConnectionString("BiddingBaltic"),
                     sqlOptions => sqlOptions.EnableRetryOnFailure()
                 )
             );
