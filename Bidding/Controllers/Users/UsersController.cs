@@ -1,8 +1,10 @@
-﻿using System;
-using Bidding.Models.ViewModels.Bidding.Admin.Users.List;
+﻿using Bidding.Models.ViewModels.Bidding.Admin.Users.List;
 using Bidding.Services.Users;
+using FeatureAuthorize.PolicyCode;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using PermissionParts;
+using System;
 
 namespace Bidding.Controllers.Users
 {
@@ -17,13 +19,8 @@ namespace Bidding.Controllers.Users
             m_userService = userService ?? throw new ArgumentNullException(nameof(userService));
         }
 
-        /// <summary>
-        /// todo: kke: IS THIS ONLY USED INTERNALLY? Is this even used somewhere?
-        /// </summary>
-        /// <param name="userId"></param>
-        /// <returns></returns>
         [HttpGet]
-        [Authorize(Roles = "User, Admin")]
+        [HasPermission(Permission.ChangeOwnProfile)]
         public IActionResult Details([FromQuery] int userId)
         {
             return Ok(m_userService.UserDetails(userId));

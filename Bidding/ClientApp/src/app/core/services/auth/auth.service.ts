@@ -12,7 +12,7 @@ interface TxWindow extends Window {
   global: Window;
 }
 
-(window as TxWindow).global = window;
+(window as unknown as TxWindow).global = window;
 
 @Injectable()
 export class AuthService {

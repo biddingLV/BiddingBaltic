@@ -372,7 +372,7 @@ namespace Bidding
                             ApplicationUser userDetails = await usersService.HandleUserLoginAsync(user).ConfigureAwait(false);
 
                             // setup user claims
-                            context.Principal.AddIdentity(await SetupUserClaimsAsync(services, userDetails));
+                            context.Principal.AddIdentity(await SetupUserClaimsAsync(services, userDetails).ConfigureAwait(false));
 
                             // setup profile cookie
                             string userProfileCookieJSON = SetupUserProfileCookie(userDetails);
@@ -388,29 +388,38 @@ namespace Bidding
 
         private async Task<ClaimsIdentity> SetupUserClaimsAsync(IServiceCollection services, ApplicationUser userDetails)
         {
-            var dbContext = services.BuildServiceProvider().GetService<BiddingContext>();
+            BiddingContext dbContext = services.BuildServiceProvider().GetService<BiddingContext>();
             var rtoPCalcer = new CalcAllowedPermissions(dbContext);
 
-            // setup user id and organization id claims
             List<Claim> claims = new List<Claim>
             {
-                new Claim("UserId", userDetails.Id.ToString(), ClaimValueTypes.Integer, "Bidding"),
-                new Claim(ClaimTypes.Role, "Admin", ClaimValueTypes.String, "Bidding"), // todo: kke: remove this!
-                new Claim(PermissionConstants.PackedPermissionClaimType, await rtoPCalcer.CalcPermissionsForUserAsync(userDetails.Id).ConfigureAwait(false))
+                new Claim(
+                    type: PermissionConstants.UserIdClaimType,
+                    value: userDetails.Id.ToString(),
+                    valueType: ClaimValueTypes.Integer,
+                    issuer: "Bidding"
+                ),
+                new Claim(
+                    type: PermissionConstants.PackedPermissionClaimType,
+                    value: await rtoPCalcer.CalcPermissionsForUserAsync(userDetails.Id).ConfigureAwait(false)
+                )
             };
 
-            // setup claims identity
             return new ClaimsIdentity(claims);
         }
 
+        /// <summary>
+        /// Create the profile cookie, used for displaying user information in the client.
+        /// </summary>
+        /// <param name="userDetails"></param>
+        /// <returns></returns>
         private string SetupUserProfileCookie(ApplicationUser userDetails)
         {
-            // Create the profile cookie, used for displaying user information in the client.
             return Newtonsoft.Json.JsonConvert.SerializeObject(new UserProfileCookie()
             {
                 IsAuthenticated = true,
-                UserId = userDetails.Id, // todo: kke: why do we setup here user id?
-                ContactEmail = userDetails.Email
+                UserId = userDetails.Id,
+                Email = userDetails.Email
             });
         }
 
