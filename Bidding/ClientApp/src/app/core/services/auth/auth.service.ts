@@ -6,7 +6,13 @@ import { Router } from "@angular/router";
 import { CookieService } from "ngx-cookie-service";
 
 // internal
-import { User } from "../../models/user.model";
+export class User {
+  UserId: number;
+  IsAuthenticated: boolean;
+  FirstName: string;
+  LastName: string;
+  Email: string;
+}
 
 interface TxWindow extends Window {
   global: Window;

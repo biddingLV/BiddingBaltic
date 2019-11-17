@@ -16,7 +16,7 @@ import { CookieService } from "ngx-cookie-service";
 // Services
 import {
   AuthenticatedGuard,
-  PermissionsService,
+  PermissionService,
   AuthService,
   NotificationsService,
   ExceptionsService,
@@ -35,7 +35,7 @@ import { CategoryConstants, RoleConstants } from "./constants";
   ],
   providers: [
     AuthenticatedGuard,
-    PermissionsService,
+    PermissionService,
     AuthService,
     NotificationsService,
     ExceptionsService,
