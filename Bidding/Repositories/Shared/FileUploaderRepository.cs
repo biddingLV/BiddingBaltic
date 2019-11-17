@@ -1,4 +1,4 @@
-﻿using Bidding.Database.Contexts;
+﻿using Bidding.Models.Contexts;
 using System;
 
 namespace Bidding.Repositories.Shared

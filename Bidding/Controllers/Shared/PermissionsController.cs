@@ -1,9 +1,6 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Bidding.Services.Shared.Permissions;
+﻿using Bidding.Services.Shared.Permissions;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace Bidding.Controllers.Shared
 {

@@ -1,4 +1,4 @@
-﻿using Bidding.Models.ViewModels.Bidding.Admin.Users.List;
+﻿using Bidding.Models.ViewModels.Admin.Users.List;
 using Bidding.Services.Users;
 using FeatureAuthorize.PolicyCode;
 using Microsoft.AspNetCore.Authorization;

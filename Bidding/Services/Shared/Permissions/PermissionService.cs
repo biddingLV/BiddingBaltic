@@ -1,4 +1,4 @@
-﻿using Bidding.Models.ViewModels.Bidding.Shared;
+﻿using Bidding.Models.ViewModels.Shared;
 using Bidding.Repositories.Shared;
 using Bidding.Shared.ErrorHandling.Errors;
 using Bidding.Shared.Exceptions;

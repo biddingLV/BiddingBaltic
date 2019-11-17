@@ -1,4 +1,4 @@
-export * from './permissions/permissions.service';
+export * from './permissions/permission.service';
 export * from './auth/auth-guard.service';
 export * from './auth/auth.service';
 export * from './notifications/notifications.service';

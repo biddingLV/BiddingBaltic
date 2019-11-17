@@ -1,7 +1,7 @@
-using Bidding.Database.Contexts;
-using Bidding.Database.DatabaseModels;
 using Bidding.Models.ApplicationModels.Configuration;
-using Bidding.Models.ViewModels.Bidding.Users.Shared;
+using Bidding.Models.Contexts;
+using Bidding.Models.DatabaseModels.Shared;
+using Bidding.Models.ViewModels.Users.Shared;
 using Bidding.Repositories.Auctions;
 using Bidding.Repositories.Shared;
 using Bidding.Repositories.Subscribe;

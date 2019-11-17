@@ -1,15 +1,9 @@
-﻿// Copyright (c) 2019 Jon P Smith, GitHub: JonPSmith, web: http://www.thereformedprogrammer.net/
-// Licensed under MIT license. See License.txt in the project root for license information.
-
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Options;
+using System.Threading.Tasks;
 
 namespace FeatureAuthorize.PolicyCode
 {
-    //thanks to https://www.jerriepelser.com/blog/creating-dynamic-authorization-policies-aspnet-core/
-    //And to GholamReza Rabbal see https://github.com/JonPSmith/PermissionAccessControl/issues/3
-
     public class AuthorizationPolicyProvider : DefaultAuthorizationPolicyProvider
     {
         private readonly AuthorizationOptions _options;

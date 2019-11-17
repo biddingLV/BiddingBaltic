@@ -1,18 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Net;
-using System.Threading.Tasks;
-using Bidding.Models.DatabaseModels.Bidding.Subscribe;
-using Bidding.Models.ViewModels.Bidding.Subscribe;
+﻿using Bidding.Models.Contexts;
+using Bidding.Models.DatabaseModels.Subscribe;
+using Bidding.Models.ViewModels.Subscribe;
 using Bidding.Shared.ErrorHandling.Errors;
 using Bidding.Shared.Exceptions;
-using Bidding.Models.DatabaseModels;
-using Bidding.Repositories.Subscribe;
 using Microsoft.EntityFrameworkCore;
-using Bidding.Database.Contexts;
+using System;
+using System.Net;
 
 namespace Bidding.Repositories.Subscribe
 {

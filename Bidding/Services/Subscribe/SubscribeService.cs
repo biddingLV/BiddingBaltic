@@ -1,4 +1,4 @@
-﻿using Bidding.Models.ViewModels.Bidding.Subscribe;
+﻿using Bidding.Models.ViewModels.Subscribe;
 using Bidding.Repositories.Subscribe;
 using Bidding.Shared.Exceptions;
 using Bidding.Shared.Utility.Validation.Comparers;

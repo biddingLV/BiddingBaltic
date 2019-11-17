@@ -1,26 +1,21 @@
-﻿using Bidding.Database.Contexts;
-using Bidding.Models.ViewModels.Bidding.Admin.Users.List;
-using Bidding.Models.ViewModels.Bidding.Users.Details;
-using Bidding.Models.ViewModels.Bidding.Users.Shared;
+﻿using Bidding.Models.Contexts;
+using Bidding.Models.DatabaseModels.Shared;
+using Bidding.Models.ViewModels.Admin.Users.List;
+using Bidding.Models.ViewModels.Users.Details;
+using Bidding.Models.ViewModels.Users.Shared;
+using Bidding.Shared.Constants;
 using Bidding.Shared.ErrorHandling.Errors;
 using Bidding.Shared.Exceptions;
+using Bidding.Shared.Utility.Validation.Comparers;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
-using ServiceLayer.UserServices.Internal;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
-using Bidding.Shared.Utility.Validation.Comparers;
-using Bidding.Database.DatabaseModels;
-using DataLayer.ExtraAuthClasses;
-using PermissionParts;
-using Bidding.Shared.Constants;
-using System.Reflection;
 
 namespace Bidding.Repositories.Users
 {
@@ -28,13 +23,11 @@ namespace Bidding.Repositories.Users
     {
         private readonly UserManager<ApplicationUser> _userManager;
         private readonly BiddingContext _bidContext;
-        private readonly ExtraAuthUsersSetup _extraService;
 
         public UsersRepository(IServiceProvider services)
         {
             _userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
             _bidContext = services.GetRequiredService<BiddingContext>();
-            _extraService = new ExtraAuthUsersSetup(_bidContext);
         }
 
         /// <summary>

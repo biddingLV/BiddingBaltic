@@ -1,1 +1,1 @@
-# BiddingBaltic
+﻿# Baltijas Izsoļu Datubāze

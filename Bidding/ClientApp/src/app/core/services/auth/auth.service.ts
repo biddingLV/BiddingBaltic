@@ -6,7 +6,7 @@ import { Router } from "@angular/router";
 import { CookieService } from "ngx-cookie-service";
 
 // internal
-import { User } from "../../models/user/user.model";
+import { User } from "../../models/user.model";
 
 interface TxWindow extends Window {
   global: Window;

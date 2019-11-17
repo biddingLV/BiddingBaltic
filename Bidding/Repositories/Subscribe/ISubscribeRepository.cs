@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Bidding.Models.ViewModels.Bidding.Subscribe;
+﻿using Bidding.Models.ViewModels.Subscribe;
 
 namespace Bidding.Repositories.Subscribe
 {

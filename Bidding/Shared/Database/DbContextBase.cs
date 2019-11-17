@@ -1,11 +1,8 @@
-﻿using Bidding.Models.ApplicationModels.Database;
-using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+﻿using Bidding.Models.DatabaseModels.Shared;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Bidding.Shared.Database
 {

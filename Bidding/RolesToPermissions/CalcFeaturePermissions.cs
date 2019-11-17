@@ -1,14 +1,7 @@
-﻿// Copyright (c) 2019 Jon P Smith, GitHub: JonPSmith, web: http://www.thereformedprogrammer.net/
-// Licensed under MIT license. See License.txt in the project root for license information.
-
-using System;
-using System.Linq;
-using System.Reflection;
-using System.Threading.Tasks;
-using Bidding.Database.Contexts;
-using DataLayer;
+﻿using Bidding.Models.Contexts;
 using Microsoft.EntityFrameworkCore;
-using PermissionParts;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace FeatureAuthorize
 {

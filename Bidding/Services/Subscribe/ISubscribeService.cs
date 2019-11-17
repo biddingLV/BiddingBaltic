@@ -1,5 +1,5 @@
-﻿using System.Threading.Tasks;
-using Bidding.Models.ViewModels.Bidding.Subscribe;
+﻿using Bidding.Models.ViewModels.Subscribe;
+
 namespace Bidding.Services.Subscribe
 {
     public interface ISubscribeService

@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Bidding.Models.ViewModels.Bidding.Subscribe;
+﻿using Bidding.Models.ViewModels.Subscribe;
 using Bidding.Services.Subscribe;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System;
 
 namespace Bidding.Controllers.Subscribe
 {
@@ -14,7 +10,7 @@ namespace Bidding.Controllers.Subscribe
     [Route("api/[Controller]/[action]")]
     public class SubscribeController : ControllerBase
     {
-        public readonly ISubscribeService m_subscribeService;
+        private readonly ISubscribeService m_subscribeService;
 
         public SubscribeController(ISubscribeService subscribeService)
         {

@@ -1,20 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Bidding.Models.ViewModels.Bidding.Auctions.Add;
-using Bidding.Models.ViewModels.Bidding.Auctions.Delete;
-using Bidding.Models.ViewModels.Bidding.Auctions.Details;
-using Bidding.Models.ViewModels.Bidding.Auctions.Edit;
-using Bidding.Models.ViewModels.Bidding.Auctions.List;
-using Bidding.Services;
+﻿using Bidding.Models.ViewModels.Auctions.Add;
+using Bidding.Models.ViewModels.Auctions.Delete;
+using Bidding.Models.ViewModels.Auctions.Details;
+using Bidding.Models.ViewModels.Auctions.Edit;
+using Bidding.Models.ViewModels.Auctions.List;
 using Bidding.Services.Auctions;
 using FeatureAuthorize.PolicyCode;
-using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using PermissionParts;
+using System;
+using System.Threading.Tasks;
 
 namespace Bidding.Controllers.Auctions
 {
