@@ -1,10 +1,8 @@
-﻿using Bidding.Models.ViewModels.Shared;
-using Bidding.Repositories.Shared;
+﻿using Bidding.Repositories.Shared;
 using Bidding.Shared.ErrorHandling.Errors;
 using Bidding.Shared.Exceptions;
 using Bidding.Shared.Utility.Validation.Comparers;
 using System;
-using System.Linq;
 using System.Net;
 using System.Security.Claims;
 using System.Security.Principal;
@@ -55,19 +53,6 @@ namespace Bidding.Services.Shared.Permissions
             {
                 return null;
             }
-        }
-
-        /// <summary>
-        /// Returns logged in users role
-        /// </summary>
-        /// <returns></returns>
-        public UserRoleResponseModel GetUserRole()
-        {
-            IsLoggedInUserActive();
-
-            int loggedInUserId = GetUserIdFromClaimsPrincipal().Value;
-
-            return m_permissionRepository.GetUserRole(loggedInUserId).FirstOrDefault();
         }
 
         /// <summary>

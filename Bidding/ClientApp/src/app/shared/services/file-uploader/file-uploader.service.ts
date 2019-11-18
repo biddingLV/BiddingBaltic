@@ -5,9 +5,10 @@ import { HttpClient, HttpParams, HttpRequest } from '@angular/common/http';
 // 3rd lib
 import { catchError } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import { ExceptionsService } from 'ClientApp/src/app/core/services/exceptions/exceptions.service';
 
 // internal
-import { ExceptionsService } from 'ClientApp/src/app/core';
+
 
 
 @Injectable({

@@ -19,7 +19,7 @@ import { SubCategoryFilterModel } from "ClientApp/src/app/auctions/models/filter
 import { FormService } from "ClientApp/src/app/core/services/form/form.service";
 import { AuctionFormatModel } from "ClientApp/src/app/auctions/models/add/auction-format.model";
 import { AuctionsService } from "ClientApp/src/app/auctions/services/auctions.service";
-import { NotificationsService } from "ClientApp/src/app/core";
+import { NotificationsService } from "ClientApp/src/app/core/services/notifications/notifications.service";
 
 @Component({
   selector: "app-auction-add-category-wizard-step",

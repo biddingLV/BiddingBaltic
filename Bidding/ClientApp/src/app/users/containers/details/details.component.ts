@@ -12,7 +12,8 @@ import { UsersService } from '../../services/users.service';
 import { NotificationsService } from 'ClientApp/src/app/core/services/notifications/notifications.service';
 import { UserDetailsModel } from '../../models/details/user-details.model';
 import { UserEditComponent } from '../../components/edit/edit.component';
-import { ModalService, FormService } from 'ClientApp/src/app/core';
+import { FormService } from 'ClientApp/src/app/core/services/form/form.service';
+import { ModalService } from 'ClientApp/src/app/core/services/modal/modal.service';
 
 // MAYBE THIS NEEDS TO BE OWN USER PROFILE COMPONENT?
 // Then another component for another user profile?

@@ -7,12 +7,13 @@ import { Subscription } from 'rxjs';
 
 // internal
 import { NotificationsService } from 'ClientApp/src/app/core/services/notifications/notifications.service';
-import { ModalService, FormService } from 'ClientApp/src/app/core';
 import { UserListRequestModel } from '../../models/list/user-list-request.model';
 import { UserListResponseModel } from '../../models/list/user-list-response.model';
 import { UserListItemModel } from '../../models/list/user-list-item.model';
 import { UserEditComponent } from 'ClientApp/src/app/users/components/edit/edit.component';
 import { UsersService } from 'ClientApp/src/app/users/services/users.service';
+import { FormService } from 'ClientApp/src/app/core/services/form/form.service';
+import { ModalService } from 'ClientApp/src/app/core/services/modal/modal.service';
 
 
 @Component({

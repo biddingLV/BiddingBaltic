@@ -6,7 +6,6 @@ import { Routes, RouterModule } from "@angular/router";
 import { AdminAuctionMainComponent } from "./containers/auction-main/auction-main.component";
 import { AdminUserMainComponent } from "./containers/user-main/user-main.component";
 import { AdminMainComponent } from "./containers/main/main.component";
-import { AuthenticatedGuard } from "../core";
 
 const routes: Routes = [
   {

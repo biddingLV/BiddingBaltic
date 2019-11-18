@@ -1,8 +1,9 @@
 // angular
 import { Directive, OnInit, Input, ViewContainerRef, TemplateRef } from '@angular/core';
+import { PermissionService } from 'ClientApp/src/app/core/services/permissions/permission.service';
 
 // internal
-import { PermissionService } from '../../../../core/services';
+
 
 /** ATM only supports one role! */
 @Directive({ selector: '[hasRole]' })

@@ -6,9 +6,9 @@ import { HttpClient, HttpRequest, HttpEventType } from '@angular/common/http';
 import { catchError } from 'rxjs/operators';
 
 // internal
-import { NotificationsService } from '../../../core';
 import { ExceptionsService } from '../../../core/services/exceptions/exceptions.service';
 import { FileUploaderService } from '../../services/file-uploader/file-uploader.service';
+import { NotificationsService } from 'ClientApp/src/app/core/services/notifications/notifications.service';
 
 
 @Component({

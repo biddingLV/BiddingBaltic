@@ -15,7 +15,14 @@ export class NavbarComponent implements OnInit {
   /** The navbarOpen variable would be set to either true or false , depending if the navbar is open or not, when we click the button to see it */
   navbarOpen = false;
 
-  constructor(private authService: AuthService) {}
+  constructor(private authService: AuthService) {
+    if (this.userDetails) {
+        if (sessionStorage.getItem('userPermissions')) {
+          // todo: kke: WIP!
+        // sessionStorage.removeItem('odxVerifyVersion');
+      }
+    }
+  }
 
   ngOnInit(): void {
     this.setNavBarUserInformation();

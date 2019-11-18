@@ -7,11 +7,12 @@ import { Subscription } from "rxjs";
 
 // internal
 import { AuctionsService } from "../../services/auctions.service";
-import { NotificationsService, AuthService } from "ClientApp/src/app/core";
 import { AuctionListRequestModel } from "../../models/list/auction-list-request.model";
 import { AuctionListResponseModel } from "../../models/list/auction-list-response.model";
 import { map, switchMap } from "rxjs/operators";
 import { CategoryConstants } from "ClientApp/src/app/core/constants/categories/category-constants";
+import { NotificationsService } from "ClientApp/src/app/core/services/notifications/notifications.service";
+import { AuthService } from "ClientApp/src/app/core/services/auth/auth.service";
 
 @Component({
   selector: "app-auction-list",

@@ -1,7 +1,5 @@
 ﻿using Bidding.Models.Contexts;
-using Bidding.Models.ViewModels.Shared;
 using System;
-using System.Collections.Generic;
 
 namespace Bidding.Repositories.Shared
 {
@@ -23,30 +21,6 @@ namespace Bidding.Repositories.Shared
         {
             // @Permissions: WIP!
             return true; // m_context.Users.Where(usr => usr.UserId == loggedInUserId && usr.Deleted == false).Any();
-        }
-
-        /// <summary>
-        /// Returns logged in users role
-        /// </summary>
-        /// <param name="loggedInUserId"></param>
-        /// <returns></returns>
-        public IEnumerable<UserRoleResponseModel> GetUserRole(int loggedInUserId)
-        {
-            yield return new UserRoleResponseModel()
-            {
-                RoleId = 1,
-                RoleName = "Admin"
-            };
-
-            // @Permissions: WIP!
-            //return from usr in m_context.Users
-            //       join rol in m_context.Roles on usr.RoleId equals rol.RoleId
-            //       where usr.UserId == loggedInUserId && usr.Deleted == false
-            //       select new UserRoleResponseModel()
-            //       {
-            //           RoleId = rol.RoleId,
-            //           RoleName = rol.Name
-            //       };
         }
     }
 }

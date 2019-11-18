@@ -8,7 +8,8 @@ import { Subscription } from 'rxjs';
 
 // internal
 import { UsersService } from '../../services/users.service';
-import { NotificationsService, FormService } from '../../../core';
+import { NotificationsService } from 'ClientApp/src/app/core/services/notifications/notifications.service';
+import { FormService } from 'ClientApp/src/app/core/services/form/form.service';
 
 
 @Component({

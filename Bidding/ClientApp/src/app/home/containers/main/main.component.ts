@@ -3,13 +3,13 @@ import { Component, OnInit } from "@angular/core";
 
 // 3rd lib
 import { Subscription } from "rxjs";
+import { startWith } from "rxjs/operators";
 
 // internal
 import { AuctionsService } from "ClientApp/src/app/auctions/services/auctions.service";
-import { NotificationsService } from "ClientApp/src/app/core";
-import { startWith } from "rxjs/operators";
 import { AuctionFilterModel } from "ClientApp/src/app/auctions/models/filters/auction-filter.model";
 import { SubCategoryFilterModel } from "ClientApp/src/app/auctions/models/filters/sub-category-filter.model";
+import { NotificationsService } from "ClientApp/src/app/core/services/notifications/notifications.service";
 
 @Component({
   selector: "app-home-main",

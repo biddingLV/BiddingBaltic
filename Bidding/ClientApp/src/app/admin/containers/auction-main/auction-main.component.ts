@@ -15,8 +15,8 @@ import { FormService } from "ClientApp/src/app/core/services/form/form.service";
 import { AuctionListResponseModel } from "ClientApp/src/app/auctions/models/list/auction-list-response.model";
 import { AuctionListRequestModel } from "ClientApp/src/app/auctions/models/list/auction-list-request.model";
 import { AuctionsService } from "ClientApp/src/app/auctions/services/auctions.service";
-import { NotificationsService } from "ClientApp/src/app/core";
 import { AuctionListItemModel } from "ClientApp/src/app/auctions/models/list/auction-list-item.model";
+import { NotificationsService } from "ClientApp/src/app/core/services/notifications/notifications.service";
 
 @Component({
   templateUrl: "./auction-main.component.html"

@@ -13,19 +13,15 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { ToastrModule } from "ngx-toastr";
 import { CookieService } from "ngx-cookie-service";
 
-// Services
-import {
-  AuthenticatedGuard,
-  PermissionService,
-  AuthService,
-  NotificationsService,
-  ExceptionsService,
-  FormService,
-  ModalService
-} from "./services";
-
-// Constants
+// Internal
 import { CategoryConstants, RoleConstants } from "./constants";
+import { AuthenticatedGuard } from "./services/auth/auth-guard.service";
+import { PermissionService } from "./services/permissions/permission.service";
+import { AuthService } from "./services/auth/auth.service";
+import { NotificationsService } from "./services/notifications/notifications.service";
+import { ExceptionsService } from "./services/exceptions/exceptions.service";
+import { FormService } from "./services/form/form.service";
+import { ModalService } from "./services/modal/modal.service";
 
 @NgModule({
   imports: [

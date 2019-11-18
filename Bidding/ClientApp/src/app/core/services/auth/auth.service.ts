@@ -1,11 +1,17 @@
 // angular
 import { Injectable } from "@angular/core";
-import { Router } from "@angular/router";
+import { HttpClient } from "@angular/common/http";
 
 // 3rd lib
 import { CookieService } from "ngx-cookie-service";
+import { catchError } from "rxjs/operators";
+import { Observable } from "rxjs";
 
 // internal
+import { ExceptionsService } from "../exceptions/exceptions.service";
+import { NotificationsService } from "../notifications/notifications.service";
+
+// internal model
 export class User {
   UserId: number;
   IsAuthenticated: boolean;
@@ -18,14 +24,19 @@ interface TxWindow extends Window {
   global: Window;
 }
 
-(window as unknown as TxWindow).global = window;
+((window as unknown) as TxWindow).global = window;
 
 @Injectable()
 export class AuthService {
   userDetails: User;
   redirectUri: string;
 
-  constructor(public router: Router, private cookieService: CookieService) {
+  constructor(
+    private cookieService: CookieService,
+    private httpClient: HttpClient,
+    private exceptionService: ExceptionsService,
+    private notificationService: NotificationsService
+  ) {
     this.checkCookie();
   }
 
@@ -39,6 +50,10 @@ export class AuthService {
   }
 
   logout(): void {
+    if (localStorage.getItem("userPermissions")) {
+      localStorage.removeItem("userPermissions");
+    }
+
     window.location.href = "/start/auth/logout";
   }
 
@@ -56,13 +71,23 @@ export class AuthService {
 
   private checkCookie(): void {
     if (this.cookieService.check("BIDPROFILE")) {
-      const profileCookie = this.cookieService.get("BIDPROFILE");
-      if (profileCookie) {
-        this.setUserDetails(profileCookie);
-      }
+      this.handleProfileCookieExists();
     } else {
       this.userDetails = null;
     }
+  }
+
+  private handleProfileCookieExists() {
+    const profileCookie = this.cookieService.get("BIDPROFILE");
+
+    this.setUserDetails(profileCookie);
+
+    this.loadUserPermissions$().subscribe(
+      (response: string) => {
+        localStorage.setItem("userPermissions", response);
+      },
+      (error: string) => this.notificationService.error(error)
+    );
   }
 
   private setUserDetails(profileCookie: string): void {
@@ -73,5 +98,13 @@ export class AuthService {
     this.userDetails.FirstName = profile.FirstName;
     this.userDetails.LastName = profile.LastName;
     this.userDetails.Email = profile.Email;
+  }
+
+  loadUserPermissions$(): Observable<string> {
+    const permissionsUrl = "/api/permissions/LoadUserPermissions";
+
+    return this.httpClient
+      .get<string>(permissionsUrl)
+      .pipe(catchError(this.exceptionService.errorHandler));
   }
 }
