@@ -8,9 +8,11 @@
               <li class="breadcrumb-item">
                 <a [routerLink]="['/']">Sākumlapa</a>
               </li>
+
               <li class="breadcrumb-item">
-                <a [routerLink]="['/auctions']">Izsoles</a>
+                <a [routerLink]="['/izsoles']">Izsoles</a>
               </li>
+
               <li class="breadcrumb-item active">
                 {{ auctionDetails.aboutAuctionDetails.auctionName }}
               </li>
@@ -38,7 +40,7 @@
         </div>
 
         <div class="col-5 offset-1">
-          <app-auction-details-countdown ></app-auction-details-countdown>
+          <app-auction-details-countdown></app-auction-details-countdown>
         </div>
       </div>
 

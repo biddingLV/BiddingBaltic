@@ -24,7 +24,7 @@
           >
             <ul class="navbar-nav">
               <li class="nav-item" *ngIf="!userDetails">
-                <a class="nav-link" [routerLink]="['/auctions']"
+                <a class="nav-link" [routerLink]="['/izsoles']"
                   >Visas izsoles
                 </a>
               </li>
@@ -34,15 +34,6 @@
                   class="homepage__header--sign-up-button"
                   (signInChange)="onSignInChange($event)"
                 ></app-home-sign-up-button>
-              </li>
-
-              <li class="nav-item" *ngIf="userDetails">
-                <a
-                  class="nav-link"
-                  [routerLink]="['/users/details', userDetails.UserId]"
-                  href=""
-                  >{{ fullName }}</a
-                >
               </li>
 
               <li class="nav-item" *ngIf="userDetails">
@@ -58,14 +49,23 @@
                 <a
                   class="nav-link"
                   [routerLinkActive]="['active-link']"
-                  [routerLink]="['/auctions']"
+                  [routerLink]="['/izsoles']"
                   >Izsoles</a
                 >
               </li>
 
               <li class="nav-item" *ngIf="userDetails">
+                <a
+                  class="nav-link"
+                  [routerLink]="['/users/details', userDetails.UserId]"
+                  href=""
+                  >{{ fullName }}</a
+                >
+              </li>
+
+              <li class="nav-item" *ngIf="userDetails">
                 <a class="nav-link" [routerLink]="" (click)="signOut()" href=""
-                  >Sign Out</a
+                  >Iziet</a
                 >
               </li>
             </ul>

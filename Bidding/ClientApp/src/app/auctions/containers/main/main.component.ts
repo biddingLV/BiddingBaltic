@@ -15,7 +15,8 @@ import { AuctionListRequestModel } from "../../models/list/auction-list-request.
 
 @Component({
   selector: "app-auction-main",
-  templateUrl: "./main.component.html"
+  templateUrl: "./main.component.html",
+  styleUrls: ["./main.component.scss"]
 })
 export class AuctionMainComponent implements OnInit {
   // component

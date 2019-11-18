@@ -18,8 +18,7 @@ import { SubCategoryFilterModel } from "../../models/filters/sub-category-filter
 
 @Component({
   selector: "app-auction-filters",
-  templateUrl: "./auction-filters.component.html",
-  styleUrls: ["./auction-filters.component.scss"]
+  templateUrl: "./auction-filters.component.html"
 })
 export class AuctionFiltersComponent implements OnInit {
   @Input() filters: AuctionFilterModel;

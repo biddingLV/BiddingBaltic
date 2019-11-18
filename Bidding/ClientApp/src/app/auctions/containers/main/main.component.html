@@ -1,16 +1,33 @@
 <div class="container page-content">
+  <div class="row auction__list-breadcrumb-row">
+    <div class="col-12 text-uppercase">
+      <nav aria-label="breadcrumb auction__list-breadcrumb">
+        <ol class="breadcrumb">
+          <li class="breadcrumb-item">
+            <a [routerLink]="['/']">Sākumlapa</a>
+          </li>
+
+          <li class="breadcrumb-item">
+            <a [routerLink]="['/izsoles']">Izsoles</a>
+          </li>
+        </ol>
+      </nav>
+    </div>
+  </div>
+
   <!-- Page title -->
-  <div class="row">
+  <div class="row d-flex justify-content-end">
     <div class="col-12 mt-5 mb-5 d-flex justify-content-center">
       <h1 id="page-title"><strong>Izvēlies izsoli un aidā!</strong></h1>
     </div>
   </div>
 
-  <!-- <div class="row">
-    <div class="col-4 mt-5 mb-5">
+  <!-- Search bar -->
+  <div class="row d-flex justify-content-end">
+    <div class="col-3 mt-5 mb-5">
       <app-search-bar (searchChange)="onSearch($event)"></app-search-bar>
     </div>
-  </div> -->
+  </div>
 
   <!-- Filters -->
   <ng-container *ngIf="filters">

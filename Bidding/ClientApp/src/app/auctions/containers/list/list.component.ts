@@ -63,7 +63,7 @@ export class AuctionListComponent implements OnInit {
   ngOnInit(): void {
     this.listSubscription = this.activatedRoute.queryParams.subscribe(
       params => {
-        let filterParam = params["filter"];
+        let filterParam = params["filtrs"];
 
         if (filterParam) {
           this.handleCardLinkClick(filterParam);

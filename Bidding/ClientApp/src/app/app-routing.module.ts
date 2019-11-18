@@ -17,7 +17,7 @@ const routes: Routes = [
     loadChildren: () => import("./home/home.module").then(m => m.HomeModule)
   },
   {
-    path: "auctions",
+    path: "izsoles",
     loadChildren: () =>
       import("./auctions/auctions.module").then(m => m.AuctionsModule)
   },

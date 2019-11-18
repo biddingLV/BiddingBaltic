@@ -1,5 +1,4 @@
-﻿CREATE PROCEDURE BID_GetSubCategoriesWithCount
-AS
+﻿CREATE PROCEDURE BID_GetSubCategoriesWithCount AS
 BEGIN
   SELECT
     typ.AuctionCategoryId AS CategoryId,
@@ -10,11 +9,7 @@ BEGIN
       ELSE 0
     END) AS TypeTotalCount
   FROM Types typ
-  INNER JOIN Auctions auct
-    ON typ.TypeId = auct.AuctionTypeId
-  WHERE auct.Deleted = 0
-  AND typ.Deleted = 0
-	AND (auct.EndDate >= CONVERT(date, GETDATE()))
+  LEFT JOIN Auctions auct ON typ.TypeId = auct.AuctionTypeId
   GROUP BY typ.TypeId,
            typ.Name,
            typ.AuctionCategoryId;

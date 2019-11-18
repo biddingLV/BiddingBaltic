@@ -1,7 +1,5 @@
 // Custom variables
 @import "variables";
-@import "ngx-datatable.scss";
-@import "ng-select.scss";
 
 // bootstrap main
 @import "~node_modules/bootstrap/scss/bootstrap";
@@ -9,8 +7,14 @@
 // bootstrap style - toastr
 @import "~ngx-toastr/toastr-bs4-alert";
 
-// ng-select theme
+// default ng-select theme
 @import "~@ng-select/ng-select/scss/default.theme.scss";
+
+// custom ng-select styles
+@import "ng-select.scss";
+
+// custom ngx-datatable styles
+@import "ngx-datatable.scss";
 
 /*
 *
