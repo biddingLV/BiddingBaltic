@@ -1,17 +1,11 @@
 // angular
 import { Injectable } from "@angular/core";
-import { HttpClient } from "@angular/common/http";
 
 // 3rd lib
 import { CookieService } from "ngx-cookie-service";
-import { catchError } from "rxjs/operators";
-import { Observable } from "rxjs";
+import { PermissionService } from "../permissions/permission.service";
 
 // internal
-import { ExceptionsService } from "../exceptions/exceptions.service";
-import { NotificationsService } from "../notifications/notifications.service";
-
-// internal model
 export class User {
   UserId: number;
   IsAuthenticated: boolean;
@@ -33,9 +27,7 @@ export class AuthService {
 
   constructor(
     private cookieService: CookieService,
-    private httpClient: HttpClient,
-    private exceptionService: ExceptionsService,
-    private notificationService: NotificationsService
+    private permissionService: PermissionService
   ) {
     this.checkCookie();
   }
@@ -50,10 +42,6 @@ export class AuthService {
   }
 
   logout(): void {
-    if (localStorage.getItem("userPermissions")) {
-      localStorage.removeItem("userPermissions");
-    }
-
     window.location.href = "/start/auth/logout";
   }
 
@@ -81,13 +69,7 @@ export class AuthService {
     const profileCookie = this.cookieService.get("BIDPROFILE");
 
     this.setUserDetails(profileCookie);
-
-    this.loadUserPermissions$().subscribe(
-      (response: string) => {
-        localStorage.setItem("userPermissions", response);
-      },
-      (error: string) => this.notificationService.error(error)
-    );
+    this.permissionService.setUserPermissions();
   }
 
   private setUserDetails(profileCookie: string): void {
@@ -98,13 +80,5 @@ export class AuthService {
     this.userDetails.FirstName = profile.FirstName;
     this.userDetails.LastName = profile.LastName;
     this.userDetails.Email = profile.Email;
-  }
-
-  loadUserPermissions$(): Observable<string> {
-    const permissionsUrl = "/api/permissions/LoadUserPermissions";
-
-    return this.httpClient
-      .get<string>(permissionsUrl)
-      .pipe(catchError(this.exceptionService.errorHandler));
   }
 }

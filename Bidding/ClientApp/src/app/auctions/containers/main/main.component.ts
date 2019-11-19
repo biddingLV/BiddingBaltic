@@ -25,6 +25,7 @@ export class AuctionMainComponent implements OnInit {
   // used to pass selected filter values to the auction list component
   selectedCategoryIds: number[];
   selectedTypeIds: number[];
+  specifiedSearchText: string;
 
   selected?: any[] = [];
 
@@ -50,14 +51,8 @@ export class AuctionMainComponent implements OnInit {
   }
 
   /** Called on auction search event */
-  onSearch(text: string): void {
-    if (text !== undefined) {
-      this.auctionListRequest.searchValue = text;
-    } else {
-      this.auctionListRequest.searchValue = "";
-    }
-
-    // this.updateColumns(1);
+  onSearch(searchText: string): void {
+    this.specifiedSearchText = searchText;
   }
 
   // Request Update Events

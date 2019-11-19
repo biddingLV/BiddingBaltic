@@ -1,7 +1,6 @@
-﻿using Bidding.Services.Shared.Permissions;
-using FeatureAuthorize;
+﻿using FeatureAuthorize;
 using Microsoft.AspNetCore.Mvc;
-using System;
+using System.Collections.Generic;
 using System.Linq;
 
 namespace Bidding.Controllers.Shared
@@ -10,14 +9,6 @@ namespace Bidding.Controllers.Shared
     [Route("api/[Controller]/[action]")]
     public class PermissionsController : ControllerBase
     {
-        // todo: kke: Do I need permissions Service here?
-        //private readonly PermissionService m_permissionService;
-
-        //public PermissionsController(PermissionService permissionService)
-        //{
-        //    m_permissionService = permissionService ?? throw new ArgumentNullException(nameof(permissionService));
-        //}
-
         /// <summary>
         /// Frontend calls this method to load logged in user's permissions and sets those in local storage.
         /// </summary>
@@ -25,9 +16,11 @@ namespace Bidding.Controllers.Shared
         [HttpGet]
         public IActionResult LoadUserPermissions()
         {
-            var packedPermissions = HttpContext.User?.Claims.SingleOrDefault(x => x.Type == PermissionConstants.PackedPermissionClaimType);
+            List<string> packedPermissions = HttpContext.User?.Claims
+                .SingleOrDefault(x => x.Type == PermissionConstants.PackedPermissionClaimType)?
+                .Value.Split(',').ToList();
 
-            return Ok(packedPermissions?.Value);
+            return Ok(packedPermissions);
         }
     }
 }

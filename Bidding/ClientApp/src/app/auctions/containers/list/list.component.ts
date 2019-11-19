@@ -9,7 +9,6 @@ import { Subscription } from "rxjs";
 import { AuctionsService } from "../../services/auctions.service";
 import { AuctionListRequestModel } from "../../models/list/auction-list-request.model";
 import { AuctionListResponseModel } from "../../models/list/auction-list-response.model";
-import { map, switchMap } from "rxjs/operators";
 import { CategoryConstants } from "ClientApp/src/app/core/constants/categories/category-constants";
 import { NotificationsService } from "ClientApp/src/app/core/services/notifications/notifications.service";
 import { AuthService } from "ClientApp/src/app/core/services/auth/auth.service";
@@ -21,6 +20,7 @@ import { AuthService } from "ClientApp/src/app/core/services/auth/auth.service";
 export class AuctionListComponent implements OnInit {
   @Input() selectedCategoryIds: number[];
   @Input() selectedTypeIds: number[];
+  @Input() specifiedSearchText: string;
 
   listSubscription: Subscription;
 
@@ -49,16 +49,27 @@ export class AuctionListComponent implements OnInit {
   ngOnChanges(changes: SimpleChanges): void {
     const categoryIdsChange = changes["selectedCategoryIds"];
     const typeIdsChange = changes["selectedTypeIds"];
+    const searchTextChange = changes["specifiedSearchText"];
 
     if (categoryIdsChange && !categoryIdsChange.isFirstChange()) {
       this.auctionListRequest.topCategoryIds = categoryIdsChange.currentValue;
-    } else if (typeIdsChange && !typeIdsChange.isFirstChange()) {
-      this.auctionListRequest.typeIds = typeIdsChange.currentValue;
-    } else {
-      return;
+
+      this.loadActiveAuctions();
     }
 
-    this.loadActiveAuctions();
+    if (typeIdsChange && !typeIdsChange.isFirstChange()) {
+      this.auctionListRequest.typeIds = typeIdsChange.currentValue;
+
+      this.loadActiveAuctions();
+    }
+
+    if (searchTextChange && !searchTextChange.isFirstChange()) {
+      this.auctionListRequest.searchValue = searchTextChange.currentValue;
+
+      this.loadActiveAuctions();
+    }
+
+    return;
   }
 
   ngOnInit(): void {

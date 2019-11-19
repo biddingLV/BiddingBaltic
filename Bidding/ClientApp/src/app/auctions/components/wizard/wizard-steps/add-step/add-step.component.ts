@@ -11,7 +11,7 @@ import {
 import { FormGroup } from "@angular/forms";
 
 // internal
-import { CategoryConstants } from "ClientApp/src/app/core/constants";
+import { CategoryConstants } from "ClientApp/src/app/core/constants/categories/category-constants";
 
 @Component({
   selector: "app-auction-add-add-wizard-step",

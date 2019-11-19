@@ -15,20 +15,20 @@ namespace PermissionParts
 
         // BasicUser
         [Display(GroupName = "BasicUser", Name = "Read auction list", Description = "Can see auction list")]
-        ReadAuctionList = 10,
-        [Display(GroupName = "BasicUser", Name = "Read basic auction details", Description = "Can see basic details for all auctions")]
-        ReadBasicAuctionDetails = 15,
-        [Display(GroupName = "BasicUser", Name = "Change own profile details", Description = "Can update own profile")]
-        ChangeOwnProfile = 20,
+        UseSearchOnAuctionList = 10,
+
+        // Admin panel
+        [Display(GroupName = "AdminPanel", Name = "Can Access Admin Panel", Description = "Can Access Admin Panel")]
+        CanAccessAdminPanel = 200,
 
         // AuctionCreator
         [Display(GroupName = "AuctionCreator", Name = "Read advanced details for own auctions", Description = "Can see advanced details for own auctions")]
-        ReadAdvancedDetailsForOwnAuction = 50,
+        ReadAdvancedDetailsForOwnAuction = 100,
         [Display(GroupName = "AuctionCreator", Name = "Change details for own auctions", Description = "Can create, update or delete own Auction details")]
-        ChangeOwnAuction = 51,
+        ChangeOwnAuction = 105,
 
         // PageAdministrator
-        // todo: permission list!
+
 
         /// <summary>
         /// This is a special Permission used by the SuperAdmin user. A user has this permission can access any other permission.

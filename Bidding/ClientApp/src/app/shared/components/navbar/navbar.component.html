@@ -36,7 +36,7 @@
                 ></app-home-sign-up-button>
               </li>
 
-              <li class="nav-item" *ngIf="userDetails">
+              <li class="nav-item" *ngIf="canAccessAdminPanel">
                 <a
                   class="nav-link"
                   [routerLinkActive]="['active-link']"

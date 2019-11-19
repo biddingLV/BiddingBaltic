@@ -1,9 +1,7 @@
 ﻿using Bidding.Models.ViewModels.Admin.Users.List;
 using Bidding.Services.Users;
-using FeatureAuthorize.PolicyCode;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using PermissionParts;
 using System;
 
 namespace Bidding.Controllers.Users
@@ -20,7 +18,6 @@ namespace Bidding.Controllers.Users
         }
 
         [HttpGet]
-        [HasPermission(Permission.ChangeOwnProfile)]
         public IActionResult Details([FromQuery] int userId)
         {
             return Ok(m_userService.UserDetails(userId));

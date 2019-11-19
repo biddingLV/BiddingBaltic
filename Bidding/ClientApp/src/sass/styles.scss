@@ -26,12 +26,20 @@
 * List
 */
 
-.auction-list__search {
+.application-list__search {
+  span {
+    position: absolute;
+    z-index: 20;
+    top: 7px;
+  }
+
   input {
     outline: 0;
     border-width: 0 0 2px;
     border-radius: 0;
     background-color: $gray-100;
+    padding-left: 25px;
+    z-index: 10;
     &:focus {
       border-color: $primary;
       box-shadow: none;

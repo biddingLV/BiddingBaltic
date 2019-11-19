@@ -65,7 +65,7 @@ namespace Bidding.Controllers.Auctions
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpGet]
-        [HasPermission(Permission.ReadAuctionList)]
+        [HasPermission(Permission.UseSearchOnAuctionList)]
         public IActionResult GetAuctionsWithSearch([FromQuery] AuctionListRequestModel request)
         {
             return Ok(m_auctionsService.GetAuctionsWithSearch(request));

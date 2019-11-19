@@ -14,7 +14,6 @@ import { ToastrModule } from "ngx-toastr";
 import { CookieService } from "ngx-cookie-service";
 
 // Internal
-import { CategoryConstants, RoleConstants } from "./constants";
 import { AuthenticatedGuard } from "./services/auth/auth-guard.service";
 import { PermissionService } from "./services/permissions/permission.service";
 import { AuthService } from "./services/auth/auth.service";
@@ -22,6 +21,7 @@ import { NotificationsService } from "./services/notifications/notifications.ser
 import { ExceptionsService } from "./services/exceptions/exceptions.service";
 import { FormService } from "./services/form/form.service";
 import { ModalService } from "./services/modal/modal.service";
+import { CategoryConstants } from "./constants/categories/category-constants";
 
 @NgModule({
   imports: [
@@ -38,8 +38,7 @@ import { ModalService } from "./services/modal/modal.service";
     FormService,
     CookieService,
     HttpClientModule,
-    CategoryConstants, // todo: kke: is this correct?
-    RoleConstants, // todo: kke: is this correct?
+    CategoryConstants,
     ModalService
   ],
   exports: [HttpClientModule, BrowserAnimationsModule, ToastrModule],
