@@ -1,19 +1,34 @@
 <!-- Modals -->
 <div>
   <ng-container *ngIf="selected.length === 1">
-    <button *hasRole="'Admin'" value="Edit User" type="button" (click)="editModal()" class="btn btn-primary">
+    <button
+      value="Edit Auction"
+      type="button"
+      (click)="editModal()"
+      class="btn btn-primary"
+    >
       Edit
     </button>
   </ng-container>
 
   <ng-container *ngIf="selected.length > 0">
-    <button *hasRole="'Admin'" value="Delete User" type="button" (click)="deleteModal()" class="btn btn-outline-danger">
+    <button
+      value="Delete Auction"
+      type="button"
+      (click)="deleteModal()"
+      class="btn btn-outline-danger"
+    >
       Delete
     </button>
   </ng-container>
 
   <ng-container *ngIf="selected.length === 0">
-    <button *hasRole="'Admin'" value="Add User" type="button" (click)="addModal()" class="btn btn-primary">
+    <button
+      value="Add Auction"
+      type="button"
+      (click)="addModal()"
+      class="btn btn-primary"
+    >
       Add
     </button>
   </ng-container>
@@ -21,5 +36,8 @@
 
 <!-- List -->
 <div *ngIf="auctionTable">
-  <app-auction-table [auctionTable]="auctionTable" [selected]="selected"></app-auction-table>
+  <app-auction-table
+    [auctionTable]="auctionTable"
+    [selected]="selected"
+  ></app-auction-table>
 </div>

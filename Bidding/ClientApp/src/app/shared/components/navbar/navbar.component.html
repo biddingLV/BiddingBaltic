@@ -32,7 +32,7 @@
               <li class="nav-item" *ngIf="!userDetails">
                 <app-home-sign-up-button
                   class="homepage__header--sign-up-button"
-                  (signInChange)="onSignInChange($event)"
+                  (signInChange)="onSignInChange()"
                 ></app-home-sign-up-button>
               </li>
 
@@ -59,7 +59,7 @@
                   class="nav-link"
                   [routerLink]="['/users/details', userDetails.UserId]"
                   href=""
-                  >{{ fullName }}</a
+                  >Mans abonoments</a
                 >
               </li>
 

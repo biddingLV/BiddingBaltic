@@ -18,7 +18,6 @@ export class NavbarComponent implements OnInit {
   // component
   navBarSub: Subscription;
 
-  fullName: string;
   userDetails = this.authService.userDetails;
 
   /** The navbarOpen variable would be set to either true or false , depending if the navbar is open or not, when we click the button to see it */
@@ -35,7 +34,6 @@ export class NavbarComponent implements OnInit {
 
   ngOnInit(): void {
     this.handleAdminPanel();
-    this.setNavBarUserInformation();
   }
 
   /** Used to handle sign-out */
@@ -44,12 +42,12 @@ export class NavbarComponent implements OnInit {
   }
 
   /** Used to handle responsive show/hide nav bar menu items */
-  toggleNavbar() {
+  toggleNavbar(): void {
     this.navbarOpen = !this.navbarOpen;
   }
 
   /** Used to handle sign-in */
-  onSignInChange(event: boolean) {
+  onSignInChange(): void {
     this.authService.login();
   }
 
@@ -75,21 +73,5 @@ export class NavbarComponent implements OnInit {
       },
       (error: string) => this.notificationService.error(error)
     );
-  }
-
-  /**
-   * Sets users full name.
-   * If first & last name exists then show full name.
-   * If first & last name doesnt exists show email as full name.
-   */
-  private setNavBarUserInformation(): void {
-    if (this.userDetails) {
-      if (this.userDetails.FirstName && this.userDetails.LastName) {
-        this.fullName =
-          this.userDetails.FirstName + " " + this.userDetails.LastName;
-      } else {
-        this.fullName = this.userDetails.Email;
-      }
-    }
   }
 }

@@ -20,14 +20,15 @@ namespace PermissionParts
         // Admin panel
         [Display(GroupName = "AdminPanel", Name = "Can Access Admin Panel", Description = "Can Access Admin Panel")]
         CanAccessAdminPanel = 200,
+        [Display(GroupName = "AdminPanel", Name = "Change details for own auctions", Description = "Can create, update or delete own Auction details")]
+        ChangeAuctionDetails = 105,
 
         // AuctionCreator
         [Display(GroupName = "AuctionCreator", Name = "Read advanced details for own auctions", Description = "Can see advanced details for own auctions")]
         ReadAdvancedDetailsForOwnAuction = 100,
-        [Display(GroupName = "AuctionCreator", Name = "Change details for own auctions", Description = "Can create, update or delete own Auction details")]
-        ChangeOwnAuction = 105,
 
-        // PageAdministrator
+
+        // PageAdministrator    
 
 
         /// <summary>

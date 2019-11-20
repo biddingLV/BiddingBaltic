@@ -4,7 +4,6 @@ import { Component, OnInit } from "@angular/core";
 // 3rd lib
 import { BsModalRef, BsModalService } from "ngx-bootstrap/modal";
 import { Subscription } from "rxjs";
-import * as moment from "moment-mini";
 
 // internal
 import { AuctionEditComponent } from "ClientApp/src/app/auctions/components/edit/edit.component";
@@ -117,6 +116,12 @@ export class AdminAuctionMainComponent implements OnInit {
         }
       })
     );
+  }
+
+  ngOnDestroy(): void {
+    if (this.mainSubscription) {
+      this.mainSubscription.unsubscribe();
+    }
   }
 
   private setupInitialAuctionRequest(): void {

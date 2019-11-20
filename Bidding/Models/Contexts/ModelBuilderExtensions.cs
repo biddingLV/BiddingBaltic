@@ -56,7 +56,7 @@ namespace Bidding.Models.Contexts
                 new RoleToPermissions(
                     ApplicationUserRoles.AuctionCreator,
                     "Can change data for own auctions",
-                    new List<Permission> { Permission.UseSearchOnAuctionList, Permission.CanAccessAdminPanel, Permission.ReadAdvancedDetailsForOwnAuction, Permission.ChangeOwnAuction }
+                    new List<Permission> { Permission.UseSearchOnAuctionList, Permission.CanAccessAdminPanel, Permission.ReadAdvancedDetailsForOwnAuction }
                 )
             );
 
@@ -64,7 +64,7 @@ namespace Bidding.Models.Contexts
                 new RoleToPermissions(
                     ApplicationUserRoles.PageAdministrator,
                     "Can almost do evrything in the page",
-                    new List<Permission> { Permission.UseSearchOnAuctionList, Permission.CanAccessAdminPanel, Permission.ReadAdvancedDetailsForOwnAuction, Permission.ChangeOwnAuction }
+                    new List<Permission> { Permission.UseSearchOnAuctionList, Permission.CanAccessAdminPanel, Permission.ReadAdvancedDetailsForOwnAuction }
                 )
             );
 

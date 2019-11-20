@@ -1,19 +1,5 @@
 <div class="container">
   <div class="row">
-    <div class="col-6">
-      <ng-container *ngIf="userDetails">
-        <h1>{{ fullName }}</h1>
-      </ng-container>
-    </div>
-
-    <div class="col-6">
-      <!-- <button value="Edit" type="button" (click)="editModal()" class="btn btn-primary">
-        Edit
-      </button> -->
-    </div>
-  </div>
-
-  <div class="row">
-    <a routerLink="/izsoles">Go Back to auction list!</a>
+    <app-breadcrumb [breadcrumbs]="breadcrumbs"></app-breadcrumb>
   </div>
 </div>

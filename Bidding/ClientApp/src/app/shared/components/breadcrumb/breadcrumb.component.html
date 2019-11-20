@@ -1,0 +1,24 @@
+<div class="col-12 text-uppercase">
+  <nav aria-label="breadcrumb">
+    <ol class="breadcrumb">
+      <ng-container
+        *ngFor="let breadcrumb of breadcrumbs; let isLast = last"
+        [ngTemplateOutlet]="!isLast ? activeLink : notActiveLink"
+        [ngTemplateOutletContext]="{ breadcrumb: breadcrumb }"
+      >
+      </ng-container>
+    </ol>
+  </nav>
+</div>
+
+<ng-template #activeLink let-breadcrumb="breadcrumb">
+  <li class="breadcrumb-item">
+    <a [routerLink]="[breadcrumb.url]">{{ breadcrumb.name }}</a>
+  </li>
+</ng-template>
+
+<ng-template #notActiveLink let-breadcrumb="breadcrumb">
+  <li class="breadcrumb-item active" aria-current="page">
+    {{ breadcrumb.name }}
+  </li>
+</ng-template>

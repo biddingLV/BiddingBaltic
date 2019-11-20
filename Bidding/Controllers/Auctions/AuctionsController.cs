@@ -76,7 +76,7 @@ namespace Bidding.Controllers.Auctions
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Authorize(Roles = "User, Admin")]
+        //[Authorize(Roles = "User, Admin")]
         public IActionResult CategoriesWithTypes()
         {
             return Ok(m_auctionsService.CategoriesWithTypes());
@@ -87,7 +87,7 @@ namespace Bidding.Controllers.Auctions
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public IActionResult Creators()
         {
             return Ok(m_auctionsService.Creators());
@@ -98,7 +98,7 @@ namespace Bidding.Controllers.Auctions
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public IActionResult Formats()
         {
             return Ok(m_auctionsService.Formats());
@@ -109,7 +109,7 @@ namespace Bidding.Controllers.Auctions
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public IActionResult CreateVehicleDetails()
         {
             return Ok(m_auctionsService.CreateVehicleDetails());
@@ -120,7 +120,7 @@ namespace Bidding.Controllers.Auctions
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public IActionResult Statuses()
         {
             return Ok(m_auctionsService.Statuses());
@@ -132,7 +132,7 @@ namespace Bidding.Controllers.Auctions
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpPost]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public IActionResult Create([FromBody] AddAuctionRequestModel request)
         {
             return Ok(m_auctionsService.Create(request));
@@ -144,7 +144,7 @@ namespace Bidding.Controllers.Auctions
         /// <param name="auctionId"></param>
         /// <returns></returns>
         [HttpGet]
-        [Authorize(Roles = "User, Admin")]
+        //[Authorize(Roles = "User, Admin")]
         public IActionResult EditDetails([FromQuery] int auctionId)
         {
             return Ok(m_auctionsService.EditDetails(auctionId));
@@ -156,7 +156,7 @@ namespace Bidding.Controllers.Auctions
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpPut]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public IActionResult Edit([FromBody] AuctionEditRequestModel request)
         {
             return Ok(m_auctionsService.UpdateAuctionDetails(request));
@@ -168,7 +168,7 @@ namespace Bidding.Controllers.Auctions
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpDelete]
-        [Authorize(Roles = "Admin")]
+        //[Authorize(Roles = "Admin")]
         public IActionResult Delete([FromBody] AuctionDeleteRequestModel request)
         {
             return Ok(m_auctionsService.Delete(request));

@@ -10,6 +10,7 @@ import { switchMap } from "rxjs/operators";
 import { AuctionsService } from "../../services/auctions.service";
 import { AuctionDetailsModel } from "../../models/details/auction-details.model";
 import { NotificationsService } from "ClientApp/src/app/core/services/notifications/notifications.service";
+import { BreadcrumbItem } from "ClientApp/src/app/shared/models/breadcrumb-item.model";
 
 @Component({
   selector: "app-auction-details",
@@ -23,6 +24,9 @@ export class AuctionDetailsComponent implements OnInit, OnDestroy {
 
   // template
   dateFormat = "dd/MM/yyyy";
+
+  // breadcrumbs
+  breadcrumbs: BreadcrumbItem[];
 
   constructor(
     private auctionApi: AuctionsService,
@@ -50,8 +54,26 @@ export class AuctionDetailsComponent implements OnInit, OnDestroy {
       .subscribe(
         response => {
           this.auctionDetails = response;
+          this.generateBreadcrumbs();
         },
         (error: string) => this.notification.error(error)
       );
+  }
+
+  private generateBreadcrumbs() {
+    this.breadcrumbs = [
+      {
+        name: "Sākumlapa",
+        url: "/"
+      },
+      {
+        name: "Izsoles",
+        url: "/izsoles"
+      },
+      {
+        name: this.auctionDetails.aboutAuctionDetails.auctionName,
+        url: ""
+      }
+    ];
   }
 }

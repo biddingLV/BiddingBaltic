@@ -31,6 +31,7 @@ import { RulesListComponent } from "./components/footer/static-components/rules-
 import { ServiceRulesComponent } from "./components/footer/static-components/service-rules/service-rules.component";
 import { FAQPageComponent } from "./components/footer/static-components/faq-page/faq-page.component";
 import { HomeSignUpButtonComponent } from "./components/home-sign-up-button/home-sign-up-button.component";
+import { BreadcrumbComponent } from "./components/breadcrumb/breadcrumb.component";
 
 @NgModule({
   imports: [
@@ -49,6 +50,7 @@ import { HomeSignUpButtonComponent } from "./components/home-sign-up-button/home
     ServiceRulesComponent,
     FAQPageComponent,
     CallbackComponent,
+    BreadcrumbComponent,
     FontAwesomeModule,
     ContentLoaderModule,
     HomeSignUpButtonComponent
@@ -62,6 +64,7 @@ import { HomeSignUpButtonComponent } from "./components/home-sign-up-button/home
     ServiceRulesComponent,
     FAQPageComponent,
     CallbackComponent,
+    BreadcrumbComponent,
     HomeSignUpButtonComponent
   ]
 })

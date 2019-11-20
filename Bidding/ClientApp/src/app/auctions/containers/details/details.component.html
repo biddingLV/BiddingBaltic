@@ -1,24 +1,8 @@
 <ng-container *ngIf="auctionDetails">
   <div class="fluid-container auction__details">
     <div class="container auction__details-container">
-      <div class="row auction__details-breadcrumb-row">
-        <div class="col-12 text-uppercase">
-          <nav aria-label="breadcrumb auction__details-breadcrumb">
-            <ol class="breadcrumb">
-              <li class="breadcrumb-item">
-                <a [routerLink]="['/']">Sākumlapa</a>
-              </li>
-
-              <li class="breadcrumb-item">
-                <a [routerLink]="['/izsoles']">Izsoles</a>
-              </li>
-
-              <li class="breadcrumb-item active">
-                {{ auctionDetails.aboutAuctionDetails.auctionName }}
-              </li>
-            </ol>
-          </nav>
-        </div>
+      <div class="row">
+        <app-breadcrumb [breadcrumbs]="breadcrumbs"></app-breadcrumb>
       </div>
 
       <div class="row auction__details-title-row">

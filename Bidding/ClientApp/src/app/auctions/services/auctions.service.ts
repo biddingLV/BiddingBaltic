@@ -44,7 +44,8 @@ export class AuctionsService {
           request.searchValue === undefined
             ? ""
             : request.searchValue.toString(),
-        currentPage: request.currentPage.toString()
+        currentPage: request.currentPage.toString(),
+        calledFrom: "AdminPanel"
       }
     });
 

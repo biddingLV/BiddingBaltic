@@ -1,18 +1,6 @@
 <div class="container page-content">
-  <div class="row auction__list-breadcrumb-row">
-    <div class="col-12 text-uppercase">
-      <nav aria-label="breadcrumb auction__list-breadcrumb">
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item">
-            <a [routerLink]="['/']">Sākumlapa</a>
-          </li>
-
-          <li class="breadcrumb-item">
-            <a [routerLink]="['/izsoles']">Izsoles</a>
-          </li>
-        </ol>
-      </nav>
-    </div>
+  <div class="row">
+    <app-breadcrumb [breadcrumbs]="breadcrumbs"></app-breadcrumb>
   </div>
 
   <!-- Page title -->

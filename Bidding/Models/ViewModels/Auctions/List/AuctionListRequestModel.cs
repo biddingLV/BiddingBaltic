@@ -1,8 +1,5 @@
-﻿using System;
+﻿using Bidding.Models.ViewModels.BaseModels;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using Bidding.Models.ViewModels.BaseModels;
 
 namespace Bidding.Models.ViewModels.Auctions.List
 {
@@ -16,5 +13,12 @@ namespace Bidding.Models.ViewModels.Auctions.List
         /// Type filter / sub-category filter ids
         /// </summary>
         public List<int> TypeIds { get; set; }
+
+        /// <summary>
+        /// Extra flag used to filter out auctions in list based on user role / permissions.
+        /// For example, if user role AuctionCreator in admin panel auction list show only own auctions.
+        /// For pageAdministrator show all auctions and so on.
+        /// </summary>
+        public string CalledFrom { get; set; }
     }
 }

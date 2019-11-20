@@ -12,6 +12,7 @@ import { AuctionFilterModel } from "../../models/filters/auction-filter.model";
 import { SubCategoryFilterModel } from "../../models/filters/sub-category-filter.model";
 import { AuctionListResponseModel } from "../../models/list/auction-list-response.model";
 import { AuctionListRequestModel } from "../../models/list/auction-list-request.model";
+import { BreadcrumbItem } from "ClientApp/src/app/shared/models/breadcrumb-item.model";
 
 @Component({
   selector: "app-auction-main",
@@ -41,12 +42,16 @@ export class AuctionMainComponent implements OnInit {
   filters: AuctionFilterModel;
   auctionTypes: SubCategoryFilterModel[];
 
+  // breadcrumbs
+  breadcrumbs: BreadcrumbItem[];
+
   constructor(
     private auctionService: AuctionsService,
     private notificationService: NotificationsService
   ) {}
 
   ngOnInit(): void {
+    this.generateBreadcrumbs();
     this.loadFilters();
   }
 
@@ -91,6 +96,19 @@ export class AuctionMainComponent implements OnInit {
 
   onSubCategoryChange(typeIds: number[]) {
     this.selectedTypeIds = typeIds;
+  }
+
+  private generateBreadcrumbs() {
+    this.breadcrumbs = [
+      {
+        name: "Sākumlapa",
+        url: "/"
+      },
+      {
+        name: "Izsoles",
+        url: "/izsoles"
+      }
+    ];
   }
 
   /** Load top & sub categories */

@@ -1,25 +1,30 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Bidding.Models.ViewModels.BaseModels
+﻿namespace Bidding.Models.ViewModels.BaseModels
 {
     public class BaseListRequestModel
     {
-        // for example, name, price
+        /// <summary>
+        /// For example, name, price
+        /// </summary>
         public string SortByColumn { get; set; }
 
-        // for example, asc or desc
+        /// <summary>
+        /// For example, asc or desc
+        /// </summary>
         public string SortingDirection { get; set; }
 
-        // for example, magic, auto
+        /// <summary>
+        /// For example, magic, auto
+        /// </summary>
         public string SearchValue { get; set; }
 
-        // start from 0 or 10, 100 and so on
+        /// <summary>
+        /// Start from 0 or 10, 100 and so on
+        /// </summary>
         public int OffsetStart { get; set; }
 
-        // take only till 10, 20, 100
+        /// <summary>
+        /// Take only till 10, 20, 100
+        /// </summary>
         public int OffsetEnd { get; set; }
 
         public int CurrentPage { get; set; }
