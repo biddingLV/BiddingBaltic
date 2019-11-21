@@ -3,11 +3,10 @@ import { Component, OnInit, OnDestroy, Input } from "@angular/core";
 
 // 3rd lib
 import { Subscription, interval } from "rxjs";
-import * as moment from "moment-mini";
+import { map } from "rxjs/operators";
 
 // internal
 import { AuctionDetailsModel } from "../../../models/details/auction-details.model";
-import { map, take, startWith } from "rxjs/operators";
 
 @Component({
   selector: "app-auction-details-countdown",
@@ -17,43 +16,24 @@ import { map, take, startWith } from "rxjs/operators";
 export class AuctionDetailsCountdownComponent implements OnInit, OnDestroy {
   @Input() auctionDetails: AuctionDetailsModel;
 
-  //https://stackblitz.com/edit/rxjs-rajp6s?file=index.ts
-
   /** Auction details countdown component subscription */
   countdownSub: Subscription;
 
-  countdown = {
-    days: 0,
-    hours: 0,
-    minutes: 0,
-    seconds: 0
-  };
+  enddate = "2019-11-29";
+
+  private difference: number;
+  private weeks: number = 0;
+  private days: number = 0;
+  private hours: number = 0;
+  private minutes: number = 0;
+  private seconds: number = 0;
 
   constructor() {}
 
   ngOnInit(): void {
-// CHECK THIS - https://stackblitz.com/edit/angular-wb5g7m
-
-    // let x = interval(1000).pipe(
-    //   map(i => {
-    //     5 - i - 1
-    //   }),
-    //   take(5),
-    //   startWith(5)
-    // );
-
-    // console.log("x: ", x);
-
-    //   .take()
-    // startWith())
-
-    // .subscribe(value => {
-    //   console.log(
-    //     "TCL: AuctionDetailsCountdownComponent -> constructor -> value",
-    //     value
-    //   );
-    //   this.setupCountdown();
-    // });
+    this.countdownSub = interval(1000)
+      .pipe(map(x => this.getTimeDifference()))
+      .subscribe(x => this.setTime());
   }
 
   ngOnDestroy(): void {
@@ -62,26 +42,47 @@ export class AuctionDetailsCountdownComponent implements OnInit, OnDestroy {
     }
   }
 
-  private setupCountdown(): void {
-    const eventTime = moment(
-      "19-08-2019 19:25:00",
-      "DD-MM-YYYY HH:mm:ss"
-    ).unix();
-    const currentTime = moment().unix();
-    const diffTime = eventTime - currentTime;
-    let duration = moment.duration(diffTime * 1000, "milliseconds");
-    const interval = 1000;
+  private getTimeDifference(): void {
+    this.difference =
+      Date.parse(this.enddate) - Date.parse(new Date().toString());
+  }
 
-    duration = moment.duration(
-      duration.asMilliseconds() - interval,
-      "milliseconds"
-    );
+  private setTime(): void {
+    this.weeks = this.getWeeks(this.difference);
 
-    if (diffTime > 0) {
-      this.countdown.days = moment.duration(duration).days();
-      this.countdown.hours = moment.duration(duration).hours();
-      this.countdown.minutes = moment.duration(duration).minutes();
-      this.countdown.seconds = moment.duration(duration).seconds();
+    if (this.weeks <= 0) {
+      this.weeks = 0;
+      this.days = this.getDays(this.difference);
+      this.hours = this.getHours(this.difference);
+      this.minutes = this.getMinutes(this.difference);
+      this.seconds = this.getSeconds(this.difference);
+    } else {
+      var magic = this.difference - this.weeks * 604800000;
+
+      this.days = this.getDays(magic);
+      this.hours = this.getHours(this.difference);
+      this.minutes = this.getMinutes(this.difference);
+      this.seconds = this.getSeconds(this.difference);
     }
+  }
+
+  private getWeeks(time: number): number {
+    return Math.floor(time / (1000 * 60 * 60 * 24 * 7));
+  }
+
+  private getDays(time: number): number {
+    return Math.floor(time / (1000 * 60 * 60 * 24));
+  }
+
+  private getHours(time: number): number {
+    return Math.floor((time / (1000 * 60 * 60)) % 24);
+  }
+
+  private getMinutes(time: number): number {
+    return Math.floor((time / 1000 / 60) % 60);
+  }
+
+  private getSeconds(time: number): number {
+    return Math.floor((time / 1000) % 60);
   }
 }

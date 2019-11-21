@@ -186,7 +186,7 @@ namespace Bidding.Services.Auctions
 
             m_permissionService.IsLoggedInUserActive();
 
-            bool status = false;
+            bool status;
 
             if (request.AboutAuction.AuctionTopCategoryId == Categories.ITEM_CATEGORY)
             {

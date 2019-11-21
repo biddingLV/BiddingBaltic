@@ -23,22 +23,27 @@
   <div class="card-body text-center d-flex flex-column countdown__card-body">
     <!-- <a class="card-link mt-auto">Laiks</a> -->
     <div class="countdown-item">
-      {{ countdown.days }}
+      {{ weeks }}
+      <span>weeks</span>
+    </div>
+
+    <div class="countdown-item">
+      {{ days }}
       <span>days</span>
     </div>
 
     <div class="countdown-item">
-      {{ countdown.hours }}
+      {{ hours }}
       <span>hours</span>
     </div>
 
     <div class="countdown-item">
-      {{ countdown.minutes }}
+      {{ minutes }}
       <span>minutes</span>
     </div>
 
     <div class="countdown-item">
-      {{ countdown.seconds }}
+      {{ seconds }}
       <span>seconds</span>
     </div>
   </div>
