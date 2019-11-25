@@ -56,7 +56,7 @@ namespace Bidding.Controllers.Auctions
         [AllowAnonymous]
         public async Task<IActionResult> Details([FromQuery] AuctionDetailsRequestModel request)
         {
-            return Ok(await m_auctionsService.DetailsAsync(request));
+            return Ok(await m_auctionsService.DetailsAsync(request).ConfigureAwait(false));
         }
 
         /// <summary>
@@ -65,7 +65,6 @@ namespace Bidding.Controllers.Auctions
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpGet]
-        [HasPermission(Permission.UseSearchOnAuctionList)]
         public IActionResult GetAuctionsWithSearch([FromQuery] AuctionListRequestModel request)
         {
             return Ok(m_auctionsService.GetAuctionsWithSearch(request));
@@ -76,21 +75,10 @@ namespace Bidding.Controllers.Auctions
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        //[Authorize(Roles = "User, Admin")]
+        [HasPermission(Permission.CreateAuction)]
         public IActionResult CategoriesWithTypes()
         {
             return Ok(m_auctionsService.CategoriesWithTypes());
-        }
-
-        /// <summary>
-        /// Fetch auction creator list for auction add modal
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet]
-        //[Authorize(Roles = "Admin")]
-        public IActionResult Creators()
-        {
-            return Ok(m_auctionsService.Creators());
         }
 
         /// <summary>
@@ -98,21 +86,10 @@ namespace Bidding.Controllers.Auctions
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        //[Authorize(Roles = "Admin")]
+        [HasPermission(Permission.CreateAuction)]
         public IActionResult Formats()
         {
             return Ok(m_auctionsService.Formats());
-        }
-
-        /// <summary>
-        /// Fetch extra details for create vehicle auction 
-        /// </summary>
-        /// <returns></returns>
-        [HttpGet]
-        //[Authorize(Roles = "Admin")]
-        public IActionResult CreateVehicleDetails()
-        {
-            return Ok(m_auctionsService.CreateVehicleDetails());
         }
 
         /// <summary>
@@ -120,7 +97,7 @@ namespace Bidding.Controllers.Auctions
         /// </summary>
         /// <returns></returns>
         [HttpGet]
-        //[Authorize(Roles = "Admin")]
+        [HasPermission(Permission.CreateAuction)]
         public IActionResult Statuses()
         {
             return Ok(m_auctionsService.Statuses());
@@ -132,7 +109,7 @@ namespace Bidding.Controllers.Auctions
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpPost]
-        //[Authorize(Roles = "Admin")]
+        [HasPermission(Permission.CreateAuction)]
         public IActionResult Create([FromBody] AddAuctionRequestModel request)
         {
             return Ok(m_auctionsService.Create(request));

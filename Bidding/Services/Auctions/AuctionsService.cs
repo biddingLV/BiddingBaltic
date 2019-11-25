@@ -54,7 +54,7 @@ namespace Bidding.Services.Auctions
                 ItemCount = m_auctionsRepository.TotalAuctionCount().Count()
             };
 
-            Pagination.PaginateResponse(ref auctionsResponse, TableItem.DEFAULT_SIZE, request.CurrentPage);
+            Pagination.PaginateResponse(ref auctionsResponse, TableItem.DefaultSize, request.CurrentPage);
 
             return auctionsResponse;
         }
@@ -73,7 +73,7 @@ namespace Bidding.Services.Auctions
                 ItemCount = m_auctionsRepository.TotalAuctionCount().Count()
             };
 
-            Pagination.PaginateResponse(ref auctionsResponse, TableItem.DEFAULT_SIZE, request.CurrentPage);
+            Pagination.PaginateResponse(ref auctionsResponse, TableItem.DefaultSize, request.CurrentPage);
 
             return auctionsResponse;
         }
@@ -93,8 +93,6 @@ namespace Bidding.Services.Auctions
 
         public CategoriesWithTypesModel CategoriesWithTypes()
         {
-            m_permissionService.IsLoggedInUserActive();
-
             return new CategoriesWithTypesModel()
             {
                 TopCategories = m_auctionsRepository.LoadTopCategories().ToList(),
@@ -102,40 +100,16 @@ namespace Bidding.Services.Auctions
             };
         }
 
-        public AuctionCreatorModel Creators()
-        {
-            m_permissionService.IsLoggedInUserActive();
-
-            return new AuctionCreatorModel()
-            {
-                Creators = m_auctionsRepository.Creators().ToList()
-            };
-        }
-
         public AuctionFormatModel Formats()
         {
-            m_permissionService.IsLoggedInUserActive();
-
             return new AuctionFormatModel()
             {
                 Formats = m_auctionsRepository.Formats().ToList()
             };
         }
 
-        public AuctionFormatModel CreateVehicleDetails()
-        {
-            m_permissionService.IsLoggedInUserActive();
-
-            return new AuctionFormatModel()
-            {
-                Formats = new List<AuctionFormatItemModel>() // m_auctionsRepository.CreateVehicleDetails()
-            };
-        }
-
         public AuctionStatusModel Statuses()
         {
-            m_permissionService.IsLoggedInUserActive();
-
             return new AuctionStatusModel()
             {
                 Statuses = m_auctionsRepository.Statuses().ToList()
@@ -156,8 +130,6 @@ namespace Bidding.Services.Auctions
         {
             if (auctionId.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
 
-            m_permissionService.IsLoggedInUserActive();
-
             return m_auctionsRepository.EditDetails(auctionId);
         }
 
@@ -165,47 +137,31 @@ namespace Bidding.Services.Auctions
         {
             ValidateAuctionUpdate(request);
 
-            int? loggedInUserId = m_permissionService.GetUserIdFromClaimsPrincipal();
+            int loggedInUserId = m_permissionService.GetUserIdFromClaimsPrincipal();
 
-            return m_auctionsRepository.UpdateAuctionDetails(request, loggedInUserId.Value);
+            return m_auctionsRepository.UpdateAuctionDetails(request, loggedInUserId);
         }
 
         public bool Delete(AuctionDeleteRequestModel request)
         {
             ValidateAuctionDelete(request);
 
-            int? loggedInUserId = m_permissionService.GetUserIdFromClaimsPrincipal();
+            int loggedInUserId = m_permissionService.GetUserIdFromClaimsPrincipal();
 
-            return m_auctionsRepository.Delete(request, loggedInUserId.Value);
+            return m_auctionsRepository.Delete(request, loggedInUserId);
         }
 
         public bool Create(AddAuctionRequestModel request)
         {
             if (request.IsNotSpecified()) throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation);
+            if (request.AboutAuction.IsNotSpecified()) throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation);
             if (request.AboutAuction.AuctionTopCategoryId.IsNotSpecified()) throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation);
 
-            m_permissionService.IsLoggedInUserActive();
+            if (request.AboutAuction.AuctionTopCategoryId == AuctionCategories.Item) return CreateItemAuction(request);
+            if (request.AboutAuction.AuctionTopCategoryId == AuctionCategories.Vehicle) return CreateVehicleAuction(request);
+            if (request.AboutAuction.AuctionTopCategoryId == AuctionCategories.Property) return CreatePropertyAuction(request);
 
-            bool status;
-
-            if (request.AboutAuction.AuctionTopCategoryId == Categories.ITEM_CATEGORY)
-            {
-                status = CreateItemAuction(request);
-            }
-            else if (request.AboutAuction.AuctionTopCategoryId == Categories.VEHICLE_CATEGORY)
-            {
-                status = CreateVehicleAuction(request);
-            }
-            else if (request.AboutAuction.AuctionTopCategoryId == Categories.PROPERTY_CATEGORY)
-            {
-                status = CreatePropertyAuction(request);
-            }
-            else
-            {
-                throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation);
-            }
-
-            return status;
+            throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation);
         }
 
         /// <summary>
@@ -232,27 +188,27 @@ namespace Bidding.Services.Auctions
         {
             // ValidateAuctionItemCreate(request);
 
-            int? loggedInUserId = m_permissionService.GetUserIdFromClaimsPrincipal();
+            int loggedInUserId = m_permissionService.GetUserIdFromClaimsPrincipal();
 
-            return m_auctionsRepository.CreateItemAuction(request, loggedInUserId.Value);
+            return m_auctionsRepository.CreateItemAuction(request, loggedInUserId);
         }
 
         private bool CreatePropertyAuction(AddAuctionRequestModel request)
         {
             // ValidateAuctionItemCreate(request);
 
-            int? loggedInUserId = m_permissionService.GetUserIdFromClaimsPrincipal();
+            int loggedInUserId = m_permissionService.GetUserIdFromClaimsPrincipal();
 
-            return m_auctionsRepository.CreatePropertyAuction(request, loggedInUserId.Value);
+            return m_auctionsRepository.CreatePropertyAuction(request, loggedInUserId);
         }
 
         private bool CreateVehicleAuction(AddAuctionRequestModel request)
         {
             // ValidateAuctionItemCreate(request);
 
-            int? loggedInUserId = m_permissionService.GetUserIdFromClaimsPrincipal();
+            int loggedInUserId = m_permissionService.GetUserIdFromClaimsPrincipal();
 
-            return m_auctionsRepository.CreateVehicleAuction(request, loggedInUserId.Value);
+            return m_auctionsRepository.CreateVehicleAuction(request, loggedInUserId);
         }
 
         private void ValidateAuctionItemCreate(string request)
@@ -267,8 +223,6 @@ namespace Bidding.Services.Auctions
             //if (request.AuctionEndDate.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
             //if (request.AuctionCreatorId.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
             //if (request.AuctionFormatId.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
-
-            m_permissionService.IsLoggedInUserActive();
 
             // todo: kke: save all dates to be UTC Format
             // todo: kke: validate all required fields to be specified + max lenghts / min leghts and regular expressions
@@ -313,8 +267,6 @@ namespace Bidding.Services.Auctions
             if (request.AuctionId.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
 
             // todo: kke: add missing validation checks!
-
-            m_permissionService.IsLoggedInUserActive();
         }
 
         private void ValidateAuctionDelete(AuctionDeleteRequestModel request)
@@ -322,8 +274,6 @@ namespace Bidding.Services.Auctions
             if (request.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
             if (request.AuctionIds.IsNotSpecified()) throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation);
             if (request.AuctionIds.Any(s => s.IsNotSpecified())) throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation);
-
-            m_permissionService.IsLoggedInUserActive();
         }
     }
 }

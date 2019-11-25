@@ -146,47 +146,10 @@ namespace Bidding.Repositories.Auctions
         }
 
         /// <summary>
-        /// Loads all active auction creators
-        /// </summary>
-        /// <returns></returns>
-        public IEnumerable<AuctionCreatorItemModel> Creators()
-        {
-            int adminRoleId = 1;
-
-            // @Permissions: WIP!
-            //m_context.Roles
-            //.Where(rol => rol.Name == "Admin") // && rol.Deleted == false
-            //.Select(rol => rol.RoleId).FirstOrDefault();
-
-            if (adminRoleId.IsNotSpecified())
-            {
-                throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.CouldNotFetchAuctionCreatorList);
-            }
-            else
-            {
-                return m_context.Users
-                    // .Where(usr => usr.Deleted == false && usr.RoleId == adminRoleId)  // @Permissions: WIP!
-                    .Select(usr => new AuctionCreatorItemModel
-                    {
-                        AuctionCreatorId = 1, // usr.UserId,  // @Permissions: WIP!
-                        FirstName = "Test", // usr.FirstName,  // @Permissions: WIP!
-                        LastName = "Dummy" // usr.LastName  // @Permissions: WIP!
-                    });
-            }
-        }
-
-        /// <summary>
         /// Loads all active auction formats
         /// </summary>
         /// <returns></returns>
         public IEnumerable<AuctionFormatItemModel> Formats()
-        {
-            return m_context.AuctionFormats
-                .Where(afor => afor.Deleted == false)
-                .Select(afor => new AuctionFormatItemModel { AuctionFormatId = afor.AuctionFormatId, AuctionFormatName = afor.Name });
-        }
-
-        public IEnumerable<AuctionFormatItemModel> CreateVehicleDetails()
         {
             return m_context.AuctionFormats
                 .Where(afor => afor.Deleted == false)
@@ -224,22 +187,22 @@ namespace Bidding.Repositories.Auctions
                                                    AuctionCreator = acrea
                                                }).FirstOrDefault();
 
-                if (details.Auction.AuctionCategoryId == Categories.ITEM_CATEGORY)
+                if (details.Auction.AuctionCategoryId == AuctionCategories.Item)
                 {
                     return SetupItemAuctionDetails(details);
                 }
-                else if (details.Auction.AuctionCategoryId == Categories.VEHICLE_CATEGORY)
+
+                if (details.Auction.AuctionCategoryId == AuctionCategories.Vehicle)
                 {
                     return SetupVehicleAuctionDetails(details);
                 }
-                else if (details.Auction.AuctionCategoryId == Categories.PROPERTY_CATEGORY)
+
+                if (details.Auction.AuctionCategoryId == AuctionCategories.Property)
                 {
                     return SetupPropertyAuctionDetails(details);
                 }
-                else
-                {
-                    throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation);
-                }
+
+                throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation);
             }
             else
             {

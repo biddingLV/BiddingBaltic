@@ -65,7 +65,7 @@ export class NavbarComponent implements OnInit {
       permissions => {
         if (permissions != null) {
           this.canAccessAdminPanel = permissions.includes(
-            PermissionConstants.CAN_ACCESS_ADMIN_PANEL
+            PermissionConstants.ACCESS_ADMIN_PANEL
           )
             ? true
             : false;

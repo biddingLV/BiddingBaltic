@@ -14,6 +14,7 @@ import { Subscription } from "rxjs";
 import { startWith } from "rxjs/operators";
 import { BsDatepickerConfig } from "ngx-bootstrap/datepicker/bs-datepicker.config";
 import { MovingDirection } from "angular-archwizard";
+import * as moment from "moment-mini";
 
 // internal
 import { AuctionsService } from "../../../services/auctions.service";
@@ -29,6 +30,7 @@ import { AuctionAddAboutWizardStepComponent } from "../../../components/wizard/w
 })
 export class AuctionAddMainWizardComponent
   implements OnInit, AfterViewInit, OnDestroy {
+  // component
   auctionAddSubscription: Subscription;
   submitted = false;
 
@@ -107,11 +109,17 @@ export class AuctionAddMainWizardComponent
 
   onClickNextReturnForm(formType: string, form: FormGroup): void {
     if (formType === "add-form") {
+      // note: this sets middle step form values, dont call onSubmit here!
       this.addStepForm = form;
-    } else {
+      return;
+    }
+
+    if (formType === "about-form") {
       this.aboutStepForm = form;
       this.onSubmit();
     }
+
+    return;
   }
 
   onSubmit(): void {
@@ -121,17 +129,21 @@ export class AuctionAddMainWizardComponent
       this.selectedTopCategoryId === this.categoryConstants.ITEM_CATEGORY_ID
     ) {
       this.setItemAuctionAddRequest();
-    } else if (
+    }
+
+    if (
       this.selectedTopCategoryId === this.categoryConstants.VEHICLE_CATEGORY_ID
     ) {
       this.setVehicleAuctionAddRequest();
-    } else if (
+    }
+
+    if (
       this.selectedTopCategoryId === this.categoryConstants.PROPERTY_CATEGORY_ID
     ) {
       this.setPropertyAuctionAddRequest();
-    } else {
-      // something is wrong!
     }
+
+    return;
   }
 
   /** Avoid memory leaks here by cleaning up after ourselves */
@@ -231,16 +243,44 @@ export class AuctionAddMainWizardComponent
   }
 
   private setAboutAuctionDetails(): Auctions.AboutAuctionModel {
+    let categoryStepValues = this.categoryStepForm.value;
+    let addStepValues = this.addStepForm.value;
+    let aboutStepValues = this.aboutStepForm.value;
+
     return {
-      auctionTopCategoryId: this.categoryStepForm.value.auctionTopCategory,
-      auctionSubCategoryId: this.categoryStepForm.value.auctionSubCategory,
-      auctionFormatId: this.categoryStepForm.value.auctionFormat,
+      auctionTopCategoryId: categoryStepValues.auctionTopCategory,
+      auctionSubCategoryId: categoryStepValues.auctionSubCategory,
+      auctionFormatId: categoryStepValues.auctionFormat,
       auctionName: "", // todo: kke: why this is just empty string here?
-      auctionStartingPrice: this.addStepForm.value.auctionStartingPrice,
-      auctionStartDate: this.aboutStepForm.value.auctionStartDate,
-      auctionApplyTillDate: this.aboutStepForm.value.auctionApplyTillDate,
-      auctionEndDate: this.aboutStepForm.value.auctionEndDate
+      auctionStartingPrice: addStepValues.auctionStartingPrice,
+      auctionStartDate: this.combineDateWithTime(
+        aboutStepValues.auctionStartDate,
+        aboutStepValues.auctionStartTime
+      ),
+      auctionApplyTillDate: this.combineDateWithTime(
+        aboutStepValues.auctionApplyTillDate,
+        aboutStepValues.auctionApplyTillTime
+      ),
+      auctionEndDate: this.combineDateWithTime(
+        aboutStepValues.auctionEndDate,
+        aboutStepValues.auctionEndTime
+      )
     };
+  }
+
+  /**
+   * Combines two dates, one from datepicker, second from timepicker!
+   * @param dateValue Only interested in date part!
+   * @param timeValue Only interesred in time part!
+   */
+  private combineDateWithTime(dateValue: Date, timeValue: Date): Date {
+    const dateFormat = "YYYY-MM-DD";
+    const timeFormat = "HH:mm:ss";
+
+    let date = moment(dateValue).format(dateFormat);
+    let time = moment(timeValue).format(timeFormat);
+
+    return moment(date + " " + time, "YYYY-MM-DD hh:mm:ss").toDate();
   }
 
   private setAboutAuctionCreatorDetails(): Auctions.AboutAuctionCreatorModel {
@@ -253,17 +293,19 @@ export class AuctionAddMainWizardComponent
   }
 
   private makeRequest(request: Auctions.AddAuctionRequestModel): void {
-    this.auctionService.addAuction$(request).subscribe(
-      (addSuccess: boolean) => {
-        if (addSuccess) {
-          this.notificationService.success("Auction successfully added.");
-          this.bsModalRef.hide();
-          this.externalModalService.setDismissReason("Create");
-        } else {
-          this.notificationService.error("Could not add auction.");
-        }
-      },
-      (error: string) => this.notificationService.error(error)
-    );
+    this.auctionAddSubscription = this.auctionService
+      .addAuction$(request)
+      .subscribe(
+        (addSuccess: boolean) => {
+          if (addSuccess) {
+            this.notificationService.success("Auction successfully added.");
+            this.bsModalRef.hide();
+            this.externalModalService.setDismissReason("Create");
+          } else {
+            this.notificationService.error("Could not add auction.");
+          }
+        },
+        (error: string) => this.notificationService.error(error)
+      );
   }
 }

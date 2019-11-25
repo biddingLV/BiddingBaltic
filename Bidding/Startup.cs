@@ -30,6 +30,7 @@ using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
 using SixLabors.ImageSharp.Web.DependencyInjection;
 using System;
@@ -37,7 +38,6 @@ using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Net;
 using System.Security.Claims;
-using System.Security.Principal;
 using System.Threading.Tasks;
 
 namespace Bidding
@@ -223,9 +223,7 @@ namespace Bidding
 
         private void ConfigureHttpContext(ref IServiceCollection services)
         {
-            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
-            services.AddTransient<IPrincipal>(
-                provider => provider.GetService<IHttpContextAccessor>().HttpContext.User);
+            services.TryAddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }
 
         private void ConfigureAppConfigurationService(ref IServiceCollection services)

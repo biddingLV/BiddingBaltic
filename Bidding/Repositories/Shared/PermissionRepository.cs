@@ -11,16 +11,5 @@ namespace Bidding.Repositories.Shared
         {
             m_context = context ?? throw new ArgumentNullException(nameof(context));
         }
-
-        /// <summary>
-        /// Check if the logged in user is still active
-        /// </summary>
-        /// <param name="loggedInUserId"></param>
-        /// <returns></returns>
-        public bool IsUserActive(int loggedInUserId)
-        {
-            // @Permissions: WIP!
-            return true; // m_context.Users.Where(usr => usr.UserId == loggedInUserId && usr.Deleted == false).Any();
-        }
     }
 }

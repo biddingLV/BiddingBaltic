@@ -38,7 +38,7 @@ import { BreadcrumbComponent } from "./components/breadcrumb/breadcrumb.componen
     CommonModule,
     RouterModule,
     FontAwesomeModule,
-    AccordionModule,
+    AccordionModule.forRoot(),
     ContentLoaderModule
   ],
   exports: [
@@ -53,6 +53,7 @@ import { BreadcrumbComponent } from "./components/breadcrumb/breadcrumb.componen
     BreadcrumbComponent,
     FontAwesomeModule,
     ContentLoaderModule,
+    AccordionModule,
     HomeSignUpButtonComponent
   ],
   declarations: [

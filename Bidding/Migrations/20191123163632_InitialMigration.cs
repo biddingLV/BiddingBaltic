@@ -574,10 +574,10 @@ namespace Bidding.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Description", "Name", "NormalizedName", "PermissionsInRole" },
                 values: new object[,]
                 {
-                    { 100, "38b3eb6b-556a-4b3c-9c28-15ea8931ef16", null, "BasicUser", "BASICUSER", null },
-                    { 300, "27dae3c9-ecc0-4030-9d9b-a7e108fc4d1a", null, "PageAdministrator", "PAGEADMINISTRATOR", null },
-                    { 400, "22f43517-0e32-4ebf-8909-0281c09d8c1d", null, "SuperAdministrator", "SUPERADMINISTRATOR", null },
-                    { 200, "bd5b7359-b321-4fac-afb8-b85d3af8af59", null, "AuctionCreator", "AUCTIONCREATOR", null }
+                    { 100, "541c3866-0873-4c60-a266-d98487654a03", null, "BasicUser", "BASICUSER", null },
+                    { 300, "61fee96d-77e7-4755-9c3b-d5a12824b5c1", null, "PageAdministrator", "PAGEADMINISTRATOR", null },
+                    { 400, "6320899e-79af-44ec-bef3-a43481be3aeb", null, "SuperAdministrator", "SUPERADMINISTRATOR", null },
+                    { 200, "e3d496d9-3b53-47fc-af90-f40b96c10fcb", null, "AuctionCreator", "AUCTIONCREATOR", null }
                 });
 
             migrationBuilder.InsertData(
@@ -655,10 +655,10 @@ namespace Bidding.Migrations
                 columns: new[] { "RoleName", "Description", "PermissionsInRole" },
                 values: new object[,]
                 {
-                    { "PageAdministrator", "Can almost do evrything in the page", "UseSearchOnAuctionList,CanAccessAdminPanel,ReadAdvancedDetailsForOwnAuction,ChangeOwnAuction" },
-                    { "BasicUser", "Basic user without anything extra", "UseSearchOnAuctionList" },
-                    { "AuctionCreator", "Can change data for own auctions", "UseSearchOnAuctionList,CanAccessAdminPanel,ReadAdvancedDetailsForOwnAuction,ChangeOwnAuction" },
-                    { "SuperAdministrator", "Can access everything", "AccessAll" }
+                    { "PageAdministrator", "Can add, edit or delete auctions and users", "AccessAdminPanel,CreateAuction,ChangeAuction,RemoveAuction" },
+                    { "BasicUser", "Basic user", "BasicUser" },
+                    { "AuctionCreator", "Can add, edit or delete own auctions", "AccessAdminPanel,CreateAuction,ChangeOwnAuction,RemoveOwnAuction" },
+                    { "SuperAdministrator", "Can do all possible actions", "AccessAll" }
                 });
 
             migrationBuilder.InsertData(

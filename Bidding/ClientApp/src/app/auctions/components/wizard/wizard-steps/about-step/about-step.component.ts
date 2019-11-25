@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 // 3rd lib
 import { BsDatepickerConfig } from "ngx-bootstrap/datepicker/bs-datepicker.config";
 import { BsModalRef } from "ngx-bootstrap/modal";
+import * as moment from "moment-mini";
 
 // internal
 import { FormService } from "ClientApp/src/app/core/services/form/form.service";
@@ -34,6 +35,9 @@ export class AuctionAddAboutWizardStepComponent implements OnInit {
 
   submitted = false;
 
+  /** Default date with time for timepickers */
+  defaultDateTime = moment(moment(), moment.ISO_8601).toDate();
+
   /** Convenience getter for easy access to form fields */
   get f() {
     return this.aboutStepForm.controls;
@@ -46,8 +50,9 @@ export class AuctionAddAboutWizardStepComponent implements OnInit {
   ) {
     this.bsConfig = {
       containerClass: "theme-green",
-      dateInputFormat: "DD/MM/YYYY",
-      showWeekNumbers: true
+      dateInputFormat: "YYYY-MM-DD",
+      showWeekNumbers: true,
+      isAnimated: true
     };
   }
 
@@ -58,7 +63,6 @@ export class AuctionAddAboutWizardStepComponent implements OnInit {
   onNext(): void {
     this.submitted = true;
 
-    // mark all fields as touched
     this.internalFormService.markFormGroupTouched(this.aboutStepForm);
 
     if (this.aboutStepForm.valid === false) {
@@ -78,16 +82,36 @@ export class AuctionAddAboutWizardStepComponent implements OnInit {
     this.returnAddWizardStepForm.emit(this.aboutStepForm);
   }
 
+  onStartDateChange(time: Date) {
+    this.aboutStepForm.patchValue({
+      auctionStartTime: time
+    });
+  }
+
+  onApplyTillDateChange(time: Date) {
+    this.aboutStepForm.patchValue({
+      auctionApplyTillTime: time
+    });
+  }
+
+  onEndDateChange(time: Date) {
+    this.aboutStepForm.patchValue({
+      auctionEndTime: time
+    });
+  }
+
   private buildForm(): void {
-    // todo: kke: I need something smart here how to build dynamic form based on specific conditions! + add validations!
     this.aboutStepForm = this.formBuilder.group({
       auctionCreator: ["", [Validators.required]],
       auctionAddress: ["", [Validators.required]],
       auctionCreatorEmail: ["", [Validators.required]],
       auctionCreatorPhone: ["", [Validators.required]],
       auctionStartDate: [null, []],
-      auctionApplyTillDate: [null, [Validators.required]],
-      auctionEndDate: [null, [Validators.required]]
+      auctionStartTime: [null, []],
+      auctionApplyTillDate: [this.defaultDateTime, [Validators.required]],
+      auctionApplyTillTime: [this.defaultDateTime, []],
+      auctionEndDate: [this.defaultDateTime, [Validators.required]],
+      auctionEndTime: [this.defaultDateTime, []]
     });
   }
 }

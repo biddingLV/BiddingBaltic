@@ -1,7 +1,4 @@
-﻿// Copyright (c) 2018 Jon P Smith, GitHub: JonPSmith, web: http://www.thereformedprogrammer.net/
-// Licensed under MIT license. See License.txt in the project root for license information.
-
-using System;
+﻿using System;
 using System.ComponentModel.DataAnnotations;
 
 namespace PermissionParts
@@ -13,23 +10,29 @@ namespace PermissionParts
         /// </summary>
         NotSet = 0,
 
-        // BasicUser
-        [Display(GroupName = "BasicUser", Name = "Read auction list", Description = "Can see auction list")]
-        UseSearchOnAuctionList = 10,
+        // Basic user
+        [Display(GroupName = "BasicUser", Name = "BasicUser", Description = "BasicUser")]
+        BasicUser = 10,
 
         // Admin panel
         [Display(GroupName = "AdminPanel", Name = "Can Access Admin Panel", Description = "Can Access Admin Panel")]
-        CanAccessAdminPanel = 200,
-        [Display(GroupName = "AdminPanel", Name = "Change details for own auctions", Description = "Can create, update or delete own Auction details")]
-        ChangeAuctionDetails = 105,
+        AccessAdminPanel = 50,
+
+        // Auction
+        [Display(GroupName = "Auction", Name = "Create new", Description = "Can create a new auction item")]
+        CreateAuction = 100,
 
         // AuctionCreator
-        [Display(GroupName = "AuctionCreator", Name = "Read advanced details for own auctions", Description = "Can see advanced details for own auctions")]
-        ReadAdvancedDetailsForOwnAuction = 100,
+        [Display(GroupName = "AuctionCreator", Name = "Alter own auction", Description = "Can change own auction item details")]
+        ChangeOwnAuction = 150,
+        [Display(GroupName = "AuctionCreator", Name = "Remove own auction", Description = "Can remove own auction items")]
+        RemoveOwnAuction = 151,
 
-
-        // PageAdministrator    
-
+        // PageAdministrator  
+        [Display(GroupName = "PageAdministrator", Name = "Alter auctions", Description = "Can change auction item details for all auctions")]
+        ChangeAuction = 200,
+        [Display(GroupName = "PageAdministrator", Name = "Remove auctions", Description = "Can remove all auctions")]
+        RemoveAuction = 201,
 
         /// <summary>
         /// This is a special Permission used by the SuperAdmin user. A user has this permission can access any other permission.

@@ -76,7 +76,7 @@ namespace Bidding.Services.Users
                 ItemCount = 1// m_userRepository.TotalUserCount().Count()
             };
 
-            Pagination.PaginateResponse(ref auctionsResponse, TableItem.DEFAULT_SIZE, request.CurrentPage);
+            Pagination.PaginateResponse(ref auctionsResponse, TableItem.DefaultSize, request.CurrentPage);
 
             return auctionsResponse;
         }
@@ -94,8 +94,6 @@ namespace Bidding.Services.Users
             // todo: kke: implement this logic!
             //List<string> allowedSortByColumns = new List<string> { "AuctionName", "AuctionStartingPrice", "AuctionStartDate", "AuctionEndDate" };
             //if (allowedSortByColumns.Contains(request.SortByColumn) == false) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
-
-            m_permissionService.IsLoggedInUserActive();
         }
     }
 }

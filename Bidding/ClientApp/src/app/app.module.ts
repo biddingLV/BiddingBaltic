@@ -5,10 +5,6 @@ import { FormsModule } from "@angular/forms";
 import { HttpClientModule } from "@angular/common/http";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 
-// 3rd lib
-import { ModalModule } from "ngx-bootstrap/modal"; // todo: kke: can we move this somewhere?
-import { AccordionModule } from "ngx-bootstrap/accordion"; // todo: kke: can we move this somewhere?
-
 // internal
 import { AppRoutingModule } from "./app-routing.module";
 import { AppComponent } from "./app.component";
@@ -26,8 +22,6 @@ import { PreviousRouteService } from "./shared/services/previous-route.service.t
     BrowserAnimationsModule,
     FormsModule,
     HttpClientModule,
-    ModalModule.forRoot(),
-    AccordionModule.forRoot(),
     SharedModule,
     HomeModule,
     AuctionsModule,

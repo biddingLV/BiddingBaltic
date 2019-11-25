@@ -18,7 +18,6 @@ export class AuthenticatedGuard implements CanActivate, CanLoad {
   constructor(private authService: AuthService, private router: Router) {}
 
   canLoad(): boolean {
-    console.log("called! canLoad");
     if (this.authService.userDetails.IsAuthenticated) {
       return true;
     } else {
@@ -35,7 +34,6 @@ export class AuthenticatedGuard implements CanActivate, CanLoad {
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot
   ): boolean {
-    console.log("called! canActivate");
     if (this.authService.userDetails.IsAuthenticated) {
       return true;
     } else {

@@ -32,7 +32,7 @@
       />
     </div>
 
-    <div class="form-group col-6">
+    <div class="form-group col-3">
       <label for="auctionStartDate">Izsoles sākums</label>
       <input
         type="text"
@@ -43,6 +43,13 @@
         id="auctionStartDate"
         name="auctionStartDate"
       />
+    </div>
+
+    <div class="form-group col-3">
+      <app-timepicker
+        [chosenTime]=""
+        (timeChange)="onStartDateChange($event)"
+      ></app-timepicker>
     </div>
   </div>
 
@@ -60,7 +67,49 @@
       />
     </div>
 
+    <div class="form-group col-3">
+      <label for="auctionApplyTillDate">Pieteikties līdz</label>
+      <input
+        class="form-control"
+        type="text"
+        bsDatepicker
+        [bsConfig]="bsConfig"
+        formControlName="auctionApplyTillDate"
+        id="auctionApplyTillDate"
+        name="auctionApplyTillDate"
+      />
+
+      <div
+        *ngIf="submitted && formErrors.auctionApplyTillDate"
+        class="invalid-feedback d-block"
+      >
+        {{ formErrors.auctionApplyTillDate }}
+      </div>
+    </div>
+
+    <div class="form-group col-3">
+      <app-timepicker
+        [chosenTime]="defaultDateTime"
+        (timeChange)="onApplyTillDateChange($event)"
+      ></app-timepicker>
+    </div>
+  </div>
+
+  <div class="form-row">
     <div class="form-group col-6">
+      <label for="auctionAddress">Adrese</label>
+      <input
+        type="text"
+        formControlName="auctionAddress"
+        class="form-control"
+        id="auctionAddress"
+        name="auctionAddress"
+        [ngClass]="{ 'is-invalid': submitted && f.auctionAddress.errors }"
+        maxlength="100"
+      />
+    </div>
+
+    <div class="form-group col-3">
       <label for="auctionEndDate">Izsoles beigas</label>
       <input
         type="text"
@@ -79,40 +128,12 @@
         {{ formErrors.auctionEndDate }}
       </div>
     </div>
-  </div>
 
-  <div class="form-row">
-    <div class="form-group col-6">
-      <label for="auctionAddress">Adrese</label>
-      <input
-        type="text"
-        formControlName="auctionAddress"
-        class="form-control"
-        id="auctionAddress"
-        name="auctionAddress"
-        [ngClass]="{ 'is-invalid': submitted && f.auctionAddress.errors }"
-        maxlength="100"
-      />
-    </div>
-
-    <div class="form-group col-6">
-      <label for="auctionApplyTillDate">Pieteikties līdz</label>
-      <input
-        type="text"
-        class="form-control"
-        bsDatepicker
-        [bsConfig]="bsConfig"
-        formControlName="auctionApplyTillDate"
-        id="auctionApplyTillDate"
-        name="auctionApplyTillDate"
-      />
-
-      <div
-        *ngIf="submitted && formErrors.auctionApplyTillDate"
-        class="invalid-feedback d-block"
-      >
-        {{ formErrors.auctionApplyTillDate }}
-      </div>
+    <div class="form-group col-3">
+      <app-timepicker
+        [chosenTime]="defaultDateTime"
+        (timeChange)="onEndDateChange($event)"
+      ></app-timepicker>
     </div>
   </div>
 

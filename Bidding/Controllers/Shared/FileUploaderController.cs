@@ -11,7 +11,7 @@ namespace Bidding.Controllers.Shared
     [Route("api/[Controller]/[action]")]
     public class FileUploaderController : ControllerBase
     {
-        public readonly FileUploaderService m_fileUploaderService;
+        private readonly FileUploaderService m_fileUploaderService;
 
         public FileUploaderController(FileUploaderService fileUploaderService)
         {
@@ -24,7 +24,7 @@ namespace Bidding.Controllers.Shared
         {
             IFormFileCollection files = Request.Form.Files;
 
-            return Ok(await m_fileUploaderService.Upload(files));
+            return Ok(await m_fileUploaderService.Upload(files).ConfigureAwait(false));
         }
     }
 }

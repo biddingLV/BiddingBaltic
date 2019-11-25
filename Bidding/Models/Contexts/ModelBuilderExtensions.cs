@@ -47,31 +47,31 @@ namespace Bidding.Models.Contexts
             modelBuilder.Entity<RoleToPermissions>().HasData(
                 new RoleToPermissions(
                     ApplicationUserRoles.BasicUser,
-                    "Basic user without anything extra",
-                    new List<Permission> { Permission.UseSearchOnAuctionList }
+                    "Basic user",
+                    new List<Permission> { Permission.BasicUser }
                 )
             );
 
             modelBuilder.Entity<RoleToPermissions>().HasData(
                 new RoleToPermissions(
                     ApplicationUserRoles.AuctionCreator,
-                    "Can change data for own auctions",
-                    new List<Permission> { Permission.UseSearchOnAuctionList, Permission.CanAccessAdminPanel, Permission.ReadAdvancedDetailsForOwnAuction }
+                    "Can add, edit or delete own auctions",
+                    new List<Permission> { Permission.AccessAdminPanel, Permission.CreateAuction, Permission.ChangeOwnAuction, Permission.RemoveOwnAuction }
                 )
             );
 
             modelBuilder.Entity<RoleToPermissions>().HasData(
                 new RoleToPermissions(
                     ApplicationUserRoles.PageAdministrator,
-                    "Can almost do evrything in the page",
-                    new List<Permission> { Permission.UseSearchOnAuctionList, Permission.CanAccessAdminPanel, Permission.ReadAdvancedDetailsForOwnAuction }
+                    "Can add, edit or delete auctions and users",
+                    new List<Permission> { Permission.AccessAdminPanel, Permission.CreateAuction, Permission.ChangeAuction, Permission.RemoveAuction }
                 )
             );
 
             modelBuilder.Entity<RoleToPermissions>().HasData(
                 new RoleToPermissions(
                     ApplicationUserRoles.SuperAdministrator,
-                    "Can access everything",
+                    "Can do all possible actions",
                     new List<Permission> { Permission.AccessAll }
                 )
             );

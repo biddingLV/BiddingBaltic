@@ -10,7 +10,7 @@ namespace Bidding.Controllers.Auth
 {
     public class AuthController : ControllerBase
     {
-        private readonly string clientURL; // log-in
+        private readonly string clientURL;
         private readonly string clientLogoutURL;
         private readonly string clientId;
         private readonly string clientSecret;
@@ -38,18 +38,18 @@ namespace Bidding.Controllers.Auth
             await HttpContext.ChallengeAsync(scheme, new AuthenticationProperties()
             {
                 RedirectUri = redirectPageUri.AbsoluteUri
-            });
+            }).ConfigureAwait(false);
         }
 
         public async Task Logout()
         {
             Response.Cookies.Delete(m_profileCookieName);
 
-            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme).ConfigureAwait(false);
             await HttpContext.SignOutAsync(scheme, new AuthenticationProperties
             {
                 RedirectUri = clientLogoutURL
-            });
+            }).ConfigureAwait(false);
         }
     }
 }
