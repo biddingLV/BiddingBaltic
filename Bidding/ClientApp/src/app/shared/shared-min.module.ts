@@ -4,24 +4,26 @@ import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
 
 // 3rd lib
-import { FontAwesomeModule } from "@fortawesome/angular-fontawesome";
 import { AccordionModule } from "ngx-bootstrap/accordion";
 import { ContentLoaderModule } from "@netbasal/ngx-content-loader";
-import { library } from "@fortawesome/fontawesome-svg-core";
+
+// Icons
+import {
+  FontAwesomeModule,
+  FaIconLibrary
+} from "@fortawesome/angular-fontawesome";
 import {
   faSearch,
   faExclamationCircle
 } from "@fortawesome/free-solid-svg-icons";
-
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
+import {
+  faFacebookF,
+  faTwitter,
+  faWhatsapp
+} from "@fortawesome/free-brands-svg-icons";
 
-// note: kke: for brand icons!
-// import {
-//   faMicrosoft,
-//   faGoogle
-// } from '@fortawesome/free-brands-svg-icons';
-
-// Components
+// Internal
 import { NavbarComponent } from "./components/navbar/navbar.component";
 import { FooterComponent } from "./components/footer/footer.component";
 import { CallbackComponent } from "./components/callback/callback.component";
@@ -70,7 +72,15 @@ import { BreadcrumbComponent } from "./components/breadcrumb/breadcrumb.componen
   ]
 })
 export class MinSharedModule {
-  constructor() {
-    library.add(faSearch, faHeart, faExclamationCircle);
+  constructor(library: FaIconLibrary) {
+    // Add an icon to the library for convenient access in other components
+    library.addIcons(
+      faSearch,
+      faExclamationCircle,
+      faHeart,
+      faFacebookF,
+      faTwitter,
+      faWhatsapp
+    );
   }
 }

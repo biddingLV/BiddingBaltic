@@ -26,7 +26,7 @@ export class TimepickerComponent {
   @Input() chosenTime: Date;
   @Output() timeChange = new EventEmitter<Date>();
 
-  onTimeChange() {
+  onTimeChange(event) {
     this.timeChange.emit(this.chosenTime);
   }
 }

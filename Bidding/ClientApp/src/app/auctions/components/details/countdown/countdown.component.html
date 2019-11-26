@@ -1,50 +1,56 @@
-<!-- <div class="countdown">
-  <h2 class="countdown_headline text-center">Līdz izsolei palicis</h2>
-  <div class="countdown_tiles">
-    <div class="countdown-item">
-      {{ countdown.days }}
-      <span>days</span>
-    </div>
-
-    <div class="countdown-item">
-      {{ countdown.hours }}
-      <span>hours</span>
-    </div>
-
-    <div class="countdown-item">
-      {{ countdown.minutes }}
-      <span>minutes</span>
-    </div>
-  </div>
-</div> -->
-
 <div class="card countdown__card">
-  <h2 class="text-center countdown__card-title">Līdz izsolei palicis</h2>
+  <div class="card-header countdown__card-title h-75">
+    <h2 class="text-center ">Līdz izsolei palicis</h2>
+  </div>
+
   <div class="card-body text-center d-flex flex-column countdown__card-body">
-    <!-- <a class="card-link mt-auto">Laiks</a> -->
-    <div class="countdown-item">
-      {{ weeks }}
+    <div class="card-deck countdown__card-deck">
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">3</h5>
+          <p class="card-text">nedelas</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">5</h5>
+          <p class="card-text">dienas</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">12</h5>
+          <p class="card-text">stundas</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title">47</h5>
+          <p class="card-text">minutes</p>
+        </div>
+      </div>
+    </div>
+    <!-- <div class="countdown-item">
+      10
       <span>weeks</span>
     </div>
 
     <div class="countdown-item">
-      {{ days }}
+      11
       <span>days</span>
     </div>
 
     <div class="countdown-item">
-      {{ hours }}
+      12
       <span>hours</span>
     </div>
 
     <div class="countdown-item">
-      {{ minutes }}
+      13
       <span>minutes</span>
-    </div>
-
-    <div class="countdown-item">
-      {{ seconds }}
-      <span>seconds</span>
-    </div>
+    </div> -->
   </div>
 </div>

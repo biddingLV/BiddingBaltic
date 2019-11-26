@@ -1,7 +1,7 @@
 <ng-container *ngIf="auctionDetails">
   <div class="fluid-container auction__details">
     <div class="container auction__details-container">
-      <div class="row">
+      <div class="row auction__details-breadcrumb-row">
         <app-breadcrumb [breadcrumbs]="breadcrumbs"></app-breadcrumb>
       </div>
 
@@ -18,26 +18,37 @@
         </div>
       </div>
 
-      <div class="row" style="height: 350px">
+      <div class="row auction__details-gallery-row">
         <div class="col-6">
           <app-image-gallery></app-image-gallery>
         </div>
 
         <div class="col-5 offset-1">
-          <app-auction-details-countdown></app-auction-details-countdown>
+          <div class="row h-75">
+            <app-auction-details-countdown
+              class="w-100"
+              [aboutDetails]="auctionDetails.aboutAuctionDetails"
+            ></app-auction-details-countdown>
+          </div>
+
+          <div class="row">
+            <fa-icon [icon]="['fab', 'facebook-f']" size="lg"></fa-icon>
+            <fa-icon [icon]="['fab', 'twitter']" size="lg"></fa-icon>
+            <fa-icon [icon]="['fab', 'whatsapp']" size="lg"></fa-icon>
+          </div>
         </div>
       </div>
 
       <div class="row auction__details-apply-row">
-        <div class="col-12 text-center">
-          <button type="button" class="apply_button">
-            <strong>Pieteikties izsolei</strong>
+        <div class="col-12 align-self-center text-center">
+          <button type="button" class="btn btn-primary btn-lg">
+            Pieteikties izsolei
           </button>
         </div>
       </div>
 
       <div class="row auction__details-information-row">
-        <div class="col-12">
+        <div class="col-4">
           <p>Nosaukums: {{ auctionDetails.aboutAuctionDetails.auctionName }}</p>
           <p>
             Minimālā cena (EUR):
@@ -68,8 +79,9 @@
                 | date: dateFormat
             }}
           </p>
-          <br />
+        </div>
 
+        <div class="col-4">
           <ng-container
             class="main_content"
             *ngIf="auctionDetails.vehicleAuction"
@@ -93,7 +105,9 @@
               [details]="auctionDetails.propertyAuction"
             ></app-auction-details-property-category>
           </ng-container>
-          <br />
+        </div>
+
+        <div class="col-4">
           <p>
             Izsoles veidotājs:
             {{ auctionDetails.aboutAuctionCreator.auctionCreatorName }}
@@ -114,150 +128,4 @@
       </div>
     </div>
   </div>
-
-  <!-- <div class="container">
-    <div class="row cards_container text-center">
-      <div class="card card_left mx-lg-3">
-        <h4 class="card_headline">Tev droši vien vajadzēs jaunas riepas</h4>
-        <h6 class="card_item">Vasaras riepas</h6>
-        <h6 class="card_item">Ziemas riepas</h6>
-        <h6 class="card_item">Vissezonas riepas</h6>
-        <button type="button" class="service_button"><strong>Gribu mainīt riepas</strong></button>
-      </div>
-      <div class="card card_middle mx-lg-3">
-        <h4 class="card_headline">Neaizmirsti apdrošināt savu jauno auto</h4>
-        <h6 class="card_item">OCTA</h6>
-        <h6 class="card_item">KASKO</h6>
-        <h6 class="card_item">ZELTA OCTA</h6>
-        <button type="button" class="service_button"><strong>Apdrošināt auto</strong></button>
-      </div>
-      <div class="card card-right mx-lg-3">
-        <h4 class="card_headline">Lai vienmēr tīrs auto</h4>
-        <h6 class="card_item">15% atlaide automazgātuve</h6>
-        <h6 class="card_item">"CARWASH"</h6>
-        <button type="button" class="service_button"><strong>Gribu atlaidi</strong></button>
-      </div>
-    </div>
-  </div> -->
-
-  <!-- <div class="date_info">
-    <button type="button" class="date_info_button text-uppercase">Svarīgie Datumi</button>
-    <div class="card date_info_card">
-      <div class="card-body date_info_card_body text-center">
-        <div class="card-group date_info_card_components">
-          <div class="card date_info_card_component">
-            <div class="card-body date_info_card_component_body">
-              <svg xmlns="http://www.w3.org/2000/svg" width="29.936" height="29.564" viewBox="0 0 29.936 29.564">
-                <defs>
-                  <style>
-                    .a {
-                      fill: #6f5081;
-                    }
-                  </style>
-                </defs>
-                <g transform="translate(-4.53 -8)">
-                  <g transform="translate(4.905 8)">
-                    <g transform="translate(0)">
-                      <path class="a"
-                        d="M28.818,9.3a2.6,2.6,0,0,0-3.675,0l-2.606,2.608V5.048a2.581,2.581,0,0,0-.761-1.837L19.327.761A2.581,2.581,0,0,0,17.489,0H2.616a2.6,2.6,0,0,0-2.6,2.6V26.965a2.6,2.6,0,0,0,2.6,2.6H19.939a2.6,2.6,0,0,0,2.6-2.6v-7.7l6.281-6.286A2.6,2.6,0,0,0,28.818,9.3ZM17.341,1.732a.945.945,0,0,1,.761.254l2.45,2.45a.945.945,0,0,1,.254.761H17.341Zm3.464,25.233a.867.867,0,0,1-.866.866H2.616a.867.867,0,0,1-.866-.866V2.6a.867.867,0,0,1,.866-.866H15.608V6.063a.866.866,0,0,0,.866.866h4.331v6.717L18.25,16.2l-1.224,1.224a.866.866,0,0,0-.209.339l-1.225,3.675a.866.866,0,0,0,1.1,1.1l3.675-1.225A.865.865,0,0,0,20.7,21.1L20.805,21ZM18.863,18.04l1.225,1.225-.468.468-1.837.612.612-1.837Zm2.45,0-1.225-1.225,4.163-4.167,1.225,1.225Zm6.281-6.286-.893.894-1.225-1.225.893-.894a.866.866,0,1,1,1.225,1.225Z"
-                        transform="translate(-0.018)" />
-                    </g>
-                  </g>
-                  <g transform="translate(4.53 10.519)">
-                    <path class="a" d="M73.01,150H60.884a.866.866,0,1,0,0,1.732H73.01a.866.866,0,1,0,0-1.732Z"
-                      transform="translate(-60.018 -150)" />
-                  </g>
-                  <g transform="translate(4.53 13.984)">
-                    <path class="a" d="M69.545,210H60.884a.866.866,0,1,0,0,1.732h8.661a.866.866,0,1,0,0-1.732Z"
-                      transform="translate(-60.018 -210)" />
-                  </g>
-                  <g transform="translate(4.53 17.448)">
-                    <path class="a" d="M69.545,270H60.884a.866.866,0,0,0,0,1.732h8.661a.866.866,0,0,0,0-1.732Z"
-                      transform="translate(-60.018 -270)" />
-                  </g>
-                  <g transform="translate(4.53 20.913)">
-                    <path class="a" d="M69.545,330H60.884a.866.866,0,0,0,0,1.732h8.661a.866.866,0,0,0,0-1.732Z"
-                      transform="translate(-60.018 -330)" />
-                  </g>
-                  <g transform="translate(11.459 26.225)">
-                    <path class="a" d="M186.081,422h-5.2a.866.866,0,1,0,0,1.732h5.2a.866.866,0,0,0,0-1.732Z"
-                      transform="translate(-180.018 -422)" />
-                  </g>
-                </g>
-              </svg>
-              <p><strong>Pieteikties līdz</strong></p>
-            </div>
-          </div>
-          <div class="card date_info_card_component">
-            <div class="card-body date_info_card_component_body">
-              <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
-                <defs>
-                  <style>
-                    .a {
-                      fill: #6f5081;
-                    }
-                  </style>
-                </defs>
-                <g transform="translate(0 -0.001)">
-                  <g transform="translate(6.294 10.715)">
-                    <path class="a" d="M101.771,171.6a.625.625,0,1,0,0,.884A.625.625,0,0,0,101.771,171.6Z"
-                      transform="translate(-100.704 -171.42)" />
-                  </g>
-                  <g transform="translate(0 24.5)">
-                    <path class="a"
-                      d="M15.825,395.47a2.188,2.188,0,0,0-1.763-3.483H3.437a2.186,2.186,0,0,0-1.762,3.482A3.127,3.127,0,0,0,0,398.237v.625a.625.625,0,0,0,.625.625h16.25a.625.625,0,0,0,.625-.625v-.625A3.127,3.127,0,0,0,15.825,395.47ZM2.774,393.511a.931.931,0,0,1,.663-.274H14.062a.937.937,0,1,1,0,1.875H3.437a.938.938,0,0,1-.663-1.6ZM1.25,398.237a1.877,1.877,0,0,1,1.875-1.875h11.25a1.877,1.877,0,0,1,1.875,1.875Z"
-                      transform="translate(0 -391.987)" />
-                  </g>
-                  <g transform="translate(0.001 0.001)">
-                    <g transform="translate(0 0)">
-                      <path class="a"
-                        d="M31.438,26.259a3.936,3.936,0,0,0-.753-.865l-2.92-2.547a.62.62,0,0,0-.249-.217L25.75,21.09l-8.174-7.131a1.872,1.872,0,0,0-.549-2.985l.756-.756A2.5,2.5,0,0,0,20.2,9.572a2.5,2.5,0,0,0,0-3.536l-5.3-5.3a2.5,2.5,0,0,0-4.182,2.413L3.167,10.692a2.515,2.515,0,0,0-.647-.085A2.5,2.5,0,0,0,.752,14.875l5.3,5.3a2.5,2.5,0,0,0,4.182-2.413l.755-.755a1.875,1.875,0,0,0,2.986.548l8.707,10a.628.628,0,0,0,.085.106c.011.011.023.021.035.032L25.4,30.68c.064.076.133.151.2.223A3.717,3.717,0,0,0,28.245,32a3.836,3.836,0,0,0,.526-.036,3.782,3.782,0,0,0,2.79-1.932A3.7,3.7,0,0,0,31.438,26.259ZM12.242,1.617a1.25,1.25,0,0,1,1.768,0l5.3,5.3a1.25,1.25,0,0,1-1.767,1.768l-5.3-5.3h0A1.251,1.251,0,0,1,12.242,1.617ZM8.707,19.294a1.252,1.252,0,0,1-1.768,0l-5.3-5.3A1.25,1.25,0,0,1,3.4,12.223l5.3,5.3A1.251,1.251,0,0,1,8.707,19.294Zm2.631-4.4L9.591,16.643l-5.3-5.3,7.071-7.071,5.3,5.3-1.751,1.751-.017.017L11.36,14.873Zm2.232,1.3,0,0-.44.44a.625.625,0,0,1-.892-.876l3.55-3.55a.625.625,0,0,1,1.06.449.619.619,0,0,1-.183.442l-.438.438-.009.009Zm1.294.473,1.827-1.827,7.734,6.746L21.6,24.414Zm7.561,8.687,2.944-2.944.944.824L23.248,26.3Zm8.046,4.063a2.542,2.542,0,0,1-1.871,1.3,2.483,2.483,0,0,1-2.113-.708c-.048-.048-.094-.1-.137-.149l-.006-.007L24.07,27.25l3.187-3.187,2.609,2.276.006.005a2.691,2.691,0,0,1,.516.593A2.468,2.468,0,0,1,30.471,29.422Z"
-                        transform="translate(-0.021 -0.001)" />
-                    </g>
-                  </g>
-                  <g transform="translate(8.062 6.295)">
-                    <path class="a"
-                      d="M132.7,100.89a.625.625,0,0,0-.884,0l-2.652,2.652a.625.625,0,0,0,.884.884l2.652-2.652A.625.625,0,0,0,132.7,100.89Z"
-                      transform="translate(-128.985 -100.707)" />
-                  </g>
-                </g>
-              </svg>
-              <p><strong>Izsoles datums</strong></p>
-            </div>
-          </div>
-          <div class="card date_info_card_component">
-            <div class="card-body date_info_card_component_body">
-              <svg xmlns="http://www.w3.org/2000/svg" width="31.505" height="31.506" viewBox="0 0 31.505 31.506">
-                <defs>
-                  <style>
-                    .a {
-                      fill: #6f5081;
-                    }
-                  </style>
-                </defs>
-                <g transform="translate(-0.007)">
-                  <g transform="translate(4.191 27.814)">
-                    <path class="a" d="M69.053,452.181a.615.615,0,1,0,.18.435A.62.62,0,0,0,69.053,452.181Z"
-                      transform="translate(-68.003 -452.001)" />
-                  </g>
-                  <g transform="translate(27.848 11.077)">
-                    <path class="a" d="M453.5,180.188a.614.614,0,1,0,.181.435A.619.619,0,0,0,453.5,180.188Z"
-                      transform="translate(-452.454 -180.008)" />
-                  </g>
-                  <g transform="translate(0.007)">
-                    <path class="a"
-                      d="M31.332.18A.616.616,0,0,0,30.9,0H15.759a.615.615,0,0,0-.615.615v1.76L9.311,3.939a.615.615,0,0,0-.435.754L11.9,15.974,9.284,18.59a1.845,1.845,0,0,0-1.524-.806H1.853A1.848,1.848,0,0,0,.007,19.63V29.66a1.848,1.848,0,0,0,1.846,1.846H7.76a1.849,1.849,0,0,0,1.792-1.4l.732.638a3.1,3.1,0,0,0,2.038.764H30.9a.615.615,0,0,0,.615-.615V.615A.616.616,0,0,0,31.332.18ZM8.375,29.66a.616.616,0,0,1-.615.615H1.853a.616.616,0,0,1-.615-.615V19.63a.616.616,0,0,1,.615-.615H4.191V26.1a.615.615,0,0,0,1.231,0V19.015H7.76a.616.616,0,0,1,.615.615V29.66ZM10.224,4.968l4.92-1.318V5.93l-.412.111a.615.615,0,0,0-.435.754,1.659,1.659,0,0,1-1.172,2.029.615.615,0,0,0-.435.755l2.4,8.882H13.854l-.636-2.49a.614.614,0,0,0-.1-.216Zm4.92,3.784v5.192L14.022,9.789A2.883,2.883,0,0,0,15.144,8.752Zm8.84,21.523H12.321a1.87,1.87,0,0,1-1.229-.461l-1.486-1.3V20.008l2.686-2.686.487,1.906a.615.615,0,0,0,.6.463h12.1a.861.861,0,0,1,0,1.723h-6.2a.615.615,0,1,0,0,1.231H27.4a.861.861,0,0,1,0,1.723H19.275a.615.615,0,1,0,0,1.231h6.808a.861.861,0,1,1,0,1.723H19.275a.615.615,0,1,0,0,1.231h4.709a.861.861,0,1,1,0,1.723Zm6.3,0H25.89a2.085,2.085,0,0,0,0-1.723h.193a2.091,2.091,0,0,0,1.87-3.029,2.09,2.09,0,0,0,1.126-3.264v-7.8a.615.615,0,0,0-1.231,0v7a2.093,2.093,0,0,0-.449-.049h-.02a2.091,2.091,0,0,0-1.906-2.954h-.989a2.945,2.945,0,1,0-2.314,0H18.807V6.76a2.9,2.9,0,0,0,2.206-2.206h4.629A2.9,2.9,0,0,0,27.848,6.76V8.674a.615.615,0,1,0,1.231,0V6.211a.615.615,0,0,0-.615-.615,1.659,1.659,0,0,1-1.657-1.657.615.615,0,0,0-.615-.615H20.464a.615.615,0,0,0-.615.615A1.659,1.659,0,0,1,18.192,5.6a.615.615,0,0,0-.615.615v12.25h-1.2V1.231H30.281ZM23.328,17.467a1.714,1.714,0,1,1,1.714-1.714A1.716,1.716,0,0,1,23.328,17.467Z"
-                      transform="translate(-0.007)" />
-                  </g>
-                </g>
-              </svg>
-              <p><strong>Izsoles noslēgums</strong></p>
-            </div>
-          </div>
-        </div>
-        <h1>{{auctionDetails.auctionStartDate}}</h1>
-      </div>
-
-    </div>
-  </div> -->
 </ng-container>

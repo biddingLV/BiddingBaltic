@@ -4,9 +4,7 @@ import { Component, OnInit, OnDestroy, Input } from "@angular/core";
 // 3rd lib
 import { Subscription, interval } from "rxjs";
 import { map } from "rxjs/operators";
-
-// internal
-import { AuctionDetailsModel } from "../../../models/details/auction-details.model";
+import * as moment from "moment-mini";
 
 @Component({
   selector: "app-auction-details-countdown",
@@ -14,26 +12,25 @@ import { AuctionDetailsModel } from "../../../models/details/auction-details.mod
   styleUrls: ["./countdown.component.scss"]
 })
 export class AuctionDetailsCountdownComponent implements OnInit, OnDestroy {
-  @Input() auctionDetails: AuctionDetailsModel;
+  @Input() aboutDetails: Auctions.AboutAuctionDetailsModel;
 
   /** Auction details countdown component subscription */
   countdownSub: Subscription;
 
-  enddate = "2019-11-29";
+  difference: number;
+  weeks: number = 0;
+  days: number = 0;
+  hours: number = 0;
+  minutes: number = 0;
 
-  private difference: number;
-  private weeks: number = 0;
-  private days: number = 0;
-  private hours: number = 0;
-  private minutes: number = 0;
-  private seconds: number = 0;
+  private skipApplyDate: boolean;
 
   constructor() {}
 
   ngOnInit(): void {
-    this.countdownSub = interval(1000)
-      .pipe(map(x => this.getTimeDifference()))
-      .subscribe(x => this.setTime());
+    // this.countdownSub = interval(1000)
+    //   .pipe(map(x => this.handleDates()))
+    //   .subscribe(x => this.setTime());
   }
 
   ngOnDestroy(): void {
@@ -42,9 +39,23 @@ export class AuctionDetailsCountdownComponent implements OnInit, OnDestroy {
     }
   }
 
-  private getTimeDifference(): void {
-    this.difference =
-      Date.parse(this.enddate) - Date.parse(new Date().toString());
+  private handleDates() {
+    // TODO: KKE: ADD CHECKS HERE FOR ALL DATES AND HANDLE ALL OF THEM IF THEY ARE endec & run out!
+    let applyDateDiff: number;
+
+    if (applyDateDiff != 0) {
+      applyDateDiff = this.timeDifferenceInSeconds(this.aboutDetails.auctionApplyTillDate);
+      return;
+    }
+
+    if (applyDateDiff == 0) {
+      this.skipApplyDate = true;
+      let startDateDiff = this.timeDifferenceInSeconds(this.aboutDetails.auctionStartDate);
+    }
+  }
+
+  private timeDifferenceInSeconds(date: Date): number {
+    return moment(date).diff(moment(), "seconds", true);
   }
 
   private setTime(): void {
@@ -55,34 +66,26 @@ export class AuctionDetailsCountdownComponent implements OnInit, OnDestroy {
       this.days = this.getDays(this.difference);
       this.hours = this.getHours(this.difference);
       this.minutes = this.getMinutes(this.difference);
-      this.seconds = this.getSeconds(this.difference);
     } else {
-      var magic = this.difference - this.weeks * 604800000;
-
-      this.days = this.getDays(magic);
+      this.days = this.getDays(this.difference - this.weeks * 604800);
       this.hours = this.getHours(this.difference);
       this.minutes = this.getMinutes(this.difference);
-      this.seconds = this.getSeconds(this.difference);
     }
   }
 
   private getWeeks(time: number): number {
-    return Math.floor(time / (1000 * 60 * 60 * 24 * 7));
+    return Math.floor(time / (60 * 60 * 24 * 7));
   }
 
   private getDays(time: number): number {
-    return Math.floor(time / (1000 * 60 * 60 * 24));
+    return Math.floor(time / (60 * 60 * 24));
   }
 
   private getHours(time: number): number {
-    return Math.floor((time / (1000 * 60 * 60)) % 24);
+    return Math.floor((time / (60 * 60)) % 24);
   }
 
   private getMinutes(time: number): number {
-    return Math.floor((time / 1000 / 60) % 60);
-  }
-
-  private getSeconds(time: number): number {
-    return Math.floor((time / 1000) % 60);
+    return Math.floor((time / 60) % 60);
   }
 }

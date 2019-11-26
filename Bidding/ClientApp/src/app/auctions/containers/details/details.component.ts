@@ -23,7 +23,7 @@ export class AuctionDetailsComponent implements OnInit, OnDestroy {
   auctionDetails: AuctionDetailsModel;
 
   // template
-  dateFormat = "dd/MM/yyyy";
+  dateFormat = "dd/MM/yyyy HH:mm";
 
   // breadcrumbs
   breadcrumbs: BreadcrumbItem[];
