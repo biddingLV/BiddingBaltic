@@ -10,6 +10,16 @@
 
     .auction__details-gallery-row {
       height: 350px;
+
+      ul {
+        list-style: none;
+        padding: 0;
+
+        li {
+          display: inline;
+          margin: 0 5px;
+        }
+      }
     }
 
     .auction__details-apply-row {

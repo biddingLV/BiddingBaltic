@@ -20,7 +20,8 @@ import { faHeart } from "@fortawesome/free-regular-svg-icons";
 import {
   faFacebookF,
   faTwitter,
-  faWhatsapp
+  faWhatsapp,
+  faInstagram
 } from "@fortawesome/free-brands-svg-icons";
 
 // Internal
@@ -80,7 +81,8 @@ export class MinSharedModule {
       faHeart,
       faFacebookF,
       faTwitter,
-      faWhatsapp
+      faWhatsapp,
+      faInstagram
     );
   }
 }

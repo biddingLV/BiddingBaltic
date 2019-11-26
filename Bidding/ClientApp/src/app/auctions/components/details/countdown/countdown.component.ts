@@ -17,20 +17,28 @@ export class AuctionDetailsCountdownComponent implements OnInit, OnDestroy {
   /** Auction details countdown component subscription */
   countdownSub: Subscription;
 
+  // countdown time params
   difference: number;
   weeks: number = 0;
   days: number = 0;
   hours: number = 0;
   minutes: number = 0;
 
-  private skipApplyDate: boolean;
+  // countdown text
+  countdownText: string = "Līdz izsolei palicis";
+
+  intervallTimer = interval(1000);
+  private alive = true;
 
   constructor() {}
 
   ngOnInit(): void {
-    // this.countdownSub = interval(1000)
-    //   .pipe(map(x => this.handleDates()))
-    //   .subscribe(x => this.setTime());
+    this.countdownSub = this.intervallTimer
+      .pipe(
+        map(x => (this.difference = this.handleDates()))
+        // takeWhile(() => !this.alive)
+      )
+      .subscribe(() => this.setTime());
   }
 
   ngOnDestroy(): void {
@@ -39,18 +47,35 @@ export class AuctionDetailsCountdownComponent implements OnInit, OnDestroy {
     }
   }
 
-  private handleDates() {
-    // TODO: KKE: ADD CHECKS HERE FOR ALL DATES AND HANDLE ALL OF THEM IF THEY ARE endec & run out!
-    let applyDateDiff: number;
+  private handleDates(): number {
+    let applyDateDiff = this.timeDifferenceInSeconds(
+      this.aboutDetails.auctionApplyTillDate
+    );
 
-    if (applyDateDiff != 0) {
-      applyDateDiff = this.timeDifferenceInSeconds(this.aboutDetails.auctionApplyTillDate);
-      return;
-    }
+    if (applyDateDiff <= 0) {
+      let startDateDiff = this.timeDifferenceInSeconds(
+        this.aboutDetails.auctionStartDate
+      );
 
-    if (applyDateDiff == 0) {
-      this.skipApplyDate = true;
-      let startDateDiff = this.timeDifferenceInSeconds(this.aboutDetails.auctionStartDate);
+      if (startDateDiff <= 0) {
+        let endDateDiff = this.timeDifferenceInSeconds(
+          this.aboutDetails.auctionEndDate
+        );
+
+        if (endDateDiff <= 0) {
+          this.countdownText = "Izsole beigusies";
+          this.alive = false; // I just do this so I know I've cleared the interval
+        } else {
+          this.countdownText = "Izsole beigsies pēc";
+          return endDateDiff;
+        }
+      } else {
+        this.countdownText = "Izsole notiek tagad";
+        return startDateDiff;
+      }
+    } else {
+      this.countdownText = "Līdz izsolei palicis";
+      return applyDateDiff;
     }
   }
 
