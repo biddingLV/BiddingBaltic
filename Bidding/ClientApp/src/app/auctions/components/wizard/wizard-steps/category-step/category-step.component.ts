@@ -55,6 +55,11 @@ export class AuctionAddCategoryWizardStepComponent
 
   auctionFormats: AuctionFormatModel;
 
+  /** Convenience getter for easy access to form fields */
+  get f() {
+    return this.categoryStepForm.controls;
+  }
+
   constructor(
     private formBuilder: FormBuilder,
     private internalFormService: FormService,
@@ -120,12 +125,12 @@ export class AuctionAddCategoryWizardStepComponent
   /** Build auction add category wizard step form group */
   private buildForm(): void {
     this.categoryStepForm = this.formBuilder.group({
-      auctionTopCategory: ["", [Validators.required]],
+      auctionTopCategory: [null, [Validators.required]],
       auctionSubCategory: [
-        { value: "", disabled: true },
+        { value: null, disabled: true },
         [Validators.required]
       ],
-      auctionFormat: ["", [Validators.required]]
+      auctionFormat: [null, [Validators.required]]
     });
 
     this.loadAuctionFormats();

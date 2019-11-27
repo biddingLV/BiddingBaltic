@@ -12,9 +12,12 @@
         maxlength="100"
       />
 
-      <button type="button" class="btn btn-primary">
-        Add new (+)
-      </button>
+      <div
+        *ngIf="submitted && formErrors.auctionCreator"
+        class="invalid-feedback"
+      >
+        {{ formErrors.auctionCreator }}
+      </div>
     </div>
   </div>
 
@@ -30,26 +33,13 @@
         [ngClass]="{ 'is-invalid': submitted && f.auctionCreatorEmail.errors }"
         maxlength="100"
       />
-    </div>
 
-    <div class="form-group col-3">
-      <label for="auctionStartDate">Izsoles sākums</label>
-      <input
-        type="text"
-        class="form-control"
-        bsDatepicker
-        [bsConfig]="bsConfig"
-        formControlName="auctionStartDate"
-        id="auctionStartDate"
-        name="auctionStartDate"
-      />
-    </div>
-
-    <div class="form-group col-3">
-      <app-timepicker
-        [chosenTime]=""
-        (timeChange)="onStartDateChange($event)"
-      ></app-timepicker>
+      <div
+        *ngIf="submitted && formErrors.auctionCreatorEmail"
+        class="invalid-feedback"
+      >
+        {{ formErrors.auctionCreatorEmail }}
+      </div>
     </div>
   </div>
 
@@ -65,8 +55,62 @@
         [ngClass]="{ 'is-invalid': submitted && f.auctionCreatorPhone.errors }"
         maxlength="100"
       />
+
+      <div
+        *ngIf="submitted && formErrors.auctionCreatorPhone"
+        class="invalid-feedback"
+      >
+        {{ formErrors.auctionCreatorPhone }}
+      </div>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group col-6">
+      <label for="auctionAddress">Adrese</label>
+      <input
+        type="text"
+        formControlName="auctionAddress"
+        class="form-control"
+        id="auctionAddress"
+        name="auctionAddress"
+        [ngClass]="{ 'is-invalid': submitted && f.auctionAddress.errors }"
+        maxlength="100"
+      />
+
+      <div
+        *ngIf="submitted && formErrors.auctionAddress"
+        class="invalid-feedback"
+      >
+        {{ formErrors.auctionAddress }}
+      </div>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-group col-3">
+      <label for="auctionStartDate">Izsoles sākums</label>
+      <input
+        type="text"
+        class="form-control"
+        bsDatepicker
+        [bsConfig]="bsConfig"
+        formControlName="auctionStartDate"
+        id="auctionStartDate"
+        name="auctionStartDate"
+        placeholder="Izvēlies datumu"
+      />
     </div>
 
+    <div class="form-group col-3">
+      <app-timepicker
+        [chosenTime]=""
+        (timeChange)="onStartDateChange($event)"
+      ></app-timepicker>
+    </div>
+  </div>
+
+  <div class="form-row">
     <div class="form-group col-3">
       <label for="auctionApplyTillDate">Pieteikties līdz</label>
       <input
@@ -96,19 +140,6 @@
   </div>
 
   <div class="form-row">
-    <div class="form-group col-6">
-      <label for="auctionAddress">Adrese</label>
-      <input
-        type="text"
-        formControlName="auctionAddress"
-        class="form-control"
-        id="auctionAddress"
-        name="auctionAddress"
-        [ngClass]="{ 'is-invalid': submitted && f.auctionAddress.errors }"
-        maxlength="100"
-      />
-    </div>
-
     <div class="form-group col-3">
       <label for="auctionEndDate">Izsoles beigas</label>
       <input
@@ -140,10 +171,11 @@
   <div class="form-row">
     <div class="form-group">
       <button type="button" class="btn btn-outline-dark" awPreviousStep>
-        Back
+        Atgriezties
       </button>
+
       <button class="btn btn-primary" [disabled]="false" (click)="onNext()">
-        Add
+        Izveidot
       </button>
     </div>
   </div>

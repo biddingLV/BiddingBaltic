@@ -1,5 +1,5 @@
 <div class="modal-header auction-add__header">
-  <h3 class="modal-title pull-left">New Auction</h3>
+  <h3 class="modal-title pull-left">Jauna izsole</h3>
   <button
     type="button"
     class="close pull-right"
@@ -15,7 +15,7 @@
     <app-auction-add-category-wizard-step
       style="width: 100%;"
       awWizardStep
-      [stepTitle]="'Kategorija'"
+      [stepTitle]="'Basic details'"
       [categories]="categories"
       [canExit]="moveDirectionCategoryStep"
       (emitTopCategoryId)="onTopCategoryChange($event)"
@@ -27,7 +27,7 @@
       <app-auction-add-add-wizard-step
         style="width: 100%;"
         awWizardStep
-        stepTitle="Izsoles detalas {{ i }}"
+        stepTitle="Advanced details {{ i }}"
         [selectedTopCategoryId]="selectedTopCategoryId"
         [canExit]="moveDirectionAddStep"
         [selectedSubCategoryId]="selectedSubCategoryId"
@@ -40,7 +40,7 @@
     <app-auction-add-about-wizard-step
       style="width: 100%;"
       awWizardStep
-      [stepTitle]="'Rikotajs un norise'"
+      [stepTitle]="'Rīkotājs un norise'"
       (formValuesAreValid)="onSubmit()"
       (returnAddWizardStepForm)="onClickNextReturnForm('about-form', $event)"
     >

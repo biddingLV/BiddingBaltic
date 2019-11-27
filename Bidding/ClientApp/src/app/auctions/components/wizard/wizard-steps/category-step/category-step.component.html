@@ -3,14 +3,18 @@
     <div class="col-12">
       <form [formGroup]="categoryStepForm">
         <div class="form-row" *ngIf="categories">
-          <div class="form-group col-12">
-            <label for="auctionTopCategory">Top-category:</label>
+          <div class="form-group col-4">
+            <label for="auctionTopCategory">Kategorija</label>
             <ng-select
+              class="form-control"
               #auctionTopCategorySelect
               formControlName="auctionTopCategory"
               [clearable]="false"
               [virtualScroll]="true"
-              placeholder="Select top-category"
+              placeholder="Izvēlies kategoriju"
+              [ngClass]="{
+                'is-invalid': submitted && f.auctionTopCategory.errors
+              }"
               (change)="onTopCategoryChange($event)"
             >
               <ng-option
@@ -23,7 +27,7 @@
 
             <div
               *ngIf="submitted && formErrors.auctionTopCategory"
-              class="d-block invalid-feedback"
+              class="invalid-feedback"
             >
               {{ formErrors.auctionTopCategory }}
             </div>
@@ -31,14 +35,18 @@
         </div>
 
         <div class="form-row">
-          <div class="form-group col-12">
-            <label for="auctionSubCategory">Sub-category:</label>
+          <div class="form-group col-4">
+            <label for="auctionSubCategory">Tips</label>
             <ng-select
+              class="form-control"
               #auctionSubCategorySelect
               formControlName="auctionSubCategory"
               [clearable]="false"
               [virtualScroll]="true"
-              placeholder="Select sub-category"
+              placeholder="Izvēlies tipu"
+              [ngClass]="{
+                'is-invalid': submitted && f.auctionSubCategory.errors
+              }"
               (change)="onSubCategoryChange($event)"
             >
               <ng-option
@@ -51,7 +59,7 @@
 
             <div
               *ngIf="submitted && formErrors.auctionSubCategory"
-              class="d-block invalid-feedback"
+              class="invalid-feedback"
             >
               {{ formErrors.auctionSubCategory }}
             </div>
@@ -59,16 +67,18 @@
         </div>
 
         <div class="form-row">
-          <div class="form-group col-12">
+          <div class="form-group col-4">
             <label for="auctionFormat">Izsoles veids</label>
             <ng-select
+              class="form-control"
               #auctionFormatSelect
               formControlName="auctionFormat"
               [clearable]="false"
               [virtualScroll]="true"
               [multiple]="false"
               [closeOnSelect]="true"
-              placeholder="Select auction format"
+              placeholder="Izvēlies veidu"
+              [ngClass]="{ 'is-invalid': submitted && f.auctionFormat.errors }"
             >
               <ng-option
                 *ngFor="let format of auctionFormats.formats; let i = index"
@@ -80,7 +90,7 @@
 
             <div
               *ngIf="submitted && formErrors.auctionFormat"
-              class="invalid-feedback d-block"
+              class="invalid-feedback"
             >
               {{ formErrors.auctionFormat }}
             </div>
@@ -95,7 +105,7 @@
               awNextStep
               (click)="onNext()"
             >
-              Next
+              Turpināt
             </button>
           </div>
         </div>
@@ -103,10 +113,3 @@
     </div>
   </div>
 </div>
-
-<!-- todo: kke: move to the shared sass file! -->
-<style>
-  .ng-select {
-    min-width: 300px;
-  }
-</style>

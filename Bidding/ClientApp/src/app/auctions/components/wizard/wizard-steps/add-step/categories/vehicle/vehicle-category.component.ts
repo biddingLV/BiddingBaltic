@@ -1,15 +1,14 @@
 // angular
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit, Output, EventEmitter, Input } from "@angular/core";
+import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 
 // internal
-import { FormService } from 'ClientApp/src/app/core/services/form/form.service';
-import { TypeConstants } from 'ClientApp/src/app/core/constants/types/type-constants';
-
+import { FormService } from "ClientApp/src/app/core/services/form/form.service";
+import { TypeConstants } from "ClientApp/src/app/core/constants/types/type-constants";
 
 @Component({
-  selector: 'app-auction-add-wizard-vehicle-category',
-  templateUrl: './vehicle-category.component.html'
+  selector: "app-auction-add-wizard-vehicle-category",
+  templateUrl: "./vehicle-category.component.html"
 })
 export class AuctionAddWizardVehicleComponent implements OnInit {
   @Input() selectedSubCategoryId: number;
@@ -23,20 +22,20 @@ export class AuctionAddWizardVehicleComponent implements OnInit {
 
   /** Form error object */
   formErrors = {
-    vehicleName: '',
-    auctionStartingPrice: '',
-    vehicleMake: '',
-    vehicleModel: '',
-    vehicleManufacturingYear: '',
-    vehicleRegistrationNumber: '',
-    vehicleIdentificationNumber: '',
-    vehicleInspectionActive: '',
-    vehicleTransmission: '',
-    vehicleFuelType: '',
-    vehicleEngineSize: '',
-    vehicleAxis: '',
-    vehicleDimensions: '',
-    vehicleEvaluation: ''
+    vehicleName: "",
+    auctionStartingPrice: "",
+    vehicleMake: "",
+    vehicleModel: "",
+    vehicleManufacturingYear: "",
+    vehicleRegistrationNumber: "",
+    vehicleIdentificationNumber: "",
+    vehicleInspectionActive: "",
+    vehicleTransmission: "",
+    vehicleFuelType: "",
+    vehicleEngineSize: "",
+    vehicleAxis: "",
+    vehicleDimensions: "",
+    vehicleEvaluation: ""
   };
 
   typeConstants = TypeConstants;
@@ -44,44 +43,46 @@ export class AuctionAddWizardVehicleComponent implements OnInit {
   transmissionTypes = [
     {
       transmissionTypeId: 1,
-      transmissionTypeName: 'automatiskā'
+      transmissionTypeName: "automatiskā"
     },
     {
       transmissionTypeId: 2,
-      transmissionTypeName: 'mehāniskā'
+      transmissionTypeName: "mehāniskā"
     }
   ];
 
   fuelTypes = [
     {
       fuelTypeId: 1,
-      fuelTypeName: 'benzīns'
+      fuelTypeName: "benzīns"
     },
     {
       fuelTypeId: 2,
-      fuelTypeName: 'dīzelis'
+      fuelTypeName: "dīzelis"
     },
     {
       fuelTypeId: 3,
-      fuelTypeName: 'benzīns/naftas gāze'
+      fuelTypeName: "benzīns/naftas gāze"
     },
     {
       fuelTypeId: 4,
-      fuelTypeName: 'elektroniskais'
+      fuelTypeName: "elektroniskais"
     },
     {
       fuelTypeId: 5,
-      fuelTypeName: 'hibrīds'
+      fuelTypeName: "hibrīds"
     }
   ];
 
   /** Convenience getter for easy access to form fields */
-  get f() { return this.addStepForm.controls; }
+  get f() {
+    return this.addStepForm.controls;
+  }
 
   constructor(
     private formBuilder: FormBuilder,
     private internalFormService: FormService
-  ) { }
+  ) {}
 
   ngOnInit(): void {
     this.buildForm();
@@ -95,7 +96,11 @@ export class AuctionAddWizardVehicleComponent implements OnInit {
     this.internalFormService.markFormGroupTouched(this.addStepForm);
 
     if (this.addStepForm.valid === false) {
-      this.formErrors = this.internalFormService.validateForm(this.addStepForm, this.formErrors, false);
+      this.formErrors = this.internalFormService.validateForm(
+        this.addStepForm,
+        this.formErrors,
+        false
+      );
     }
 
     // stop here if form is invalid
@@ -119,20 +124,20 @@ export class AuctionAddWizardVehicleComponent implements OnInit {
 
   private buildForm(): void {
     this.addStepForm = this.formBuilder.group({
-      vehicleName: ['', [Validators.required]],
+      vehicleName: [null, [Validators.required]],
       auctionStartingPrice: [null, [Validators.required]],
-      vehicleMake: ['', [Validators.required]],
-      vehicleModel: ['', [Validators.required]],
+      vehicleMake: [null, [Validators.required]],
+      vehicleModel: [null, [Validators.required]],
       vehicleManufacturingYear: [null, [Validators.required]],
-      vehicleRegistrationNumber: ['', []],
-      vehicleIdentificationNumber: ['', []],
+      vehicleRegistrationNumber: [null, []],
+      vehicleIdentificationNumber: [null, []],
       vehicleInspectionActive: [false, []],
       vehicleTransmission: [null, []],
       vehicleFuelType: [null, []],
-      vehicleEngineSize: ['', []],
-      vehicleAxis: ['', []],
-      vehicleDimensions: ['', []],
-      vehicleEvaluation: ['', []]
+      vehicleEngineSize: [null, []],
+      vehicleAxis: [null, []],
+      vehicleDimensions: [null, []],
+      vehicleEvaluation: [null, []]
     });
   }
 }
