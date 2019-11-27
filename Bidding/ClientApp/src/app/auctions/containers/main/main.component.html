@@ -11,24 +11,28 @@
   </div>
 
   <!-- Search bar -->
-  <div class="row d-flex justify-content-end">
+  <div class="row d-flex">
     <div class="col-3 mt-5 mb-5">
       <app-search-bar (searchChange)="onSearch($event)"></app-search-bar>
     </div>
   </div>
 
   <!-- Filters -->
-  <ng-container *ngIf="filters">
-    <app-auction-filters
-      [filters]="filters"
-      [auctionTypes]="auctionTypes"
-      (topCategoryChange)="onTopCategoryChange($event)"
-      (subCategoryChange)="onSubCategoryChange($event)"
-    ></app-auction-filters>
-  </ng-container>
+  <div class="row d-flex">
+    <div class="col-12">
+      <ng-container *ngIf="filters">
+        <app-auction-filters
+          [filters]="filters"
+          [auctionTypes]="auctionTypes"
+          (topCategoryChange)="onTopCategoryChange($event)"
+          (subCategoryChange)="onSubCategoryChange($event)"
+        ></app-auction-filters>
+      </ng-container>
+    </div>
+  </div>
 
   <!-- List & Table -->
-  <div class="row">
+  <div class="row mb-5">
     <div class="col-12">
       <app-auction-list
         [selectedCategoryIds]="selectedCategoryIds"

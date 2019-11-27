@@ -52,7 +52,8 @@ export class AuctionAddAboutWizardStepComponent implements OnInit {
       containerClass: "theme-green",
       dateInputFormat: "YYYY-MM-DD",
       showWeekNumbers: true,
-      isAnimated: true
+      isAnimated: true,
+      adaptivePosition: true
     };
   }
 

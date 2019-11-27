@@ -1,42 +1,40 @@
-<div class="container mb-5">
-  <div class="row">
-    <div class="col-6">
-      <label for="">Kategorija</label>
-      <ng-select
-        [clearable]="false"
-        [virtualScroll]="true"
-        [multiple]="true"
-        [closeOnSelect]="false"
-        placeholder="Izvēlies kategoriju"
-        (change)="onCategoryChange($event)"
+<div class="row mb-5">
+  <div class="col-6">
+    <label for="">Kategorija</label>
+    <ng-select
+      [clearable]="false"
+      [virtualScroll]="true"
+      [multiple]="true"
+      [closeOnSelect]="false"
+      placeholder="Izvēlies kategoriju"
+      (change)="onCategoryChange($event)"
+    >
+      <ng-option
+        *ngFor="let cat of filters.topCategories; let i = index"
+        [value]="cat.categoryId"
       >
-        <ng-option
-          *ngFor="let cat of filters.topCategories; let i = index"
-          [value]="cat.categoryId"
-        >
-          {{ cat.categoryName }} ({{ cat.categoryTotalCount }})
-        </ng-option>
-      </ng-select>
-    </div>
+        {{ cat.categoryName }} ({{ cat.categoryTotalCount }})
+      </ng-option>
+    </ng-select>
+  </div>
 
-    <div class="col-6">
-      <label for="">Tips</label>
-      <ng-select
-        #typeSelect
-        [clearable]="false"
-        [virtualScroll]="true"
-        [multiple]="true"
-        [closeOnSelect]="false"
-        placeholder="Izvēlies tipu"
-        (change)="onTypeChange($event)"
+  <div class="col-6">
+    <label for="">Tips</label>
+    <ng-select
+      #typeSelect
+      [clearable]="false"
+      [virtualScroll]="true"
+      [multiple]="true"
+      [closeOnSelect]="false"
+      placeholder="Izvēlies tipu"
+      (change)="onTypeChange($event)"
+    >
+      <ng-option
+        *ngFor="let typ of auctionTypes; let i = index"
+        [value]="typ.typeId"
       >
-        <ng-option
-          *ngFor="let typ of auctionTypes; let i = index"
-          [value]="typ.typeId"
-        >
-          {{ typ.typeName }} ({{ typ.typeTotalCount }})
-        </ng-option>
-      </ng-select>
-    </div>
+        {{ typ.typeName }} ({{ typ.typeTotalCount }})
+      </ng-option>
+    </ng-select>
   </div>
 </div>
