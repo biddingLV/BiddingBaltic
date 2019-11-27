@@ -16,11 +16,10 @@ import { FormService } from "ClientApp/src/app/core/services/form/form.service";
 import { ModalService } from "ClientApp/src/app/core/services/modal/modal.service";
 import { BreadcrumbItem } from "ClientApp/src/app/shared/models/breadcrumb-item.model";
 
-// MAYBE THIS NEEDS TO BE OWN USER PROFILE COMPONENT?
-// Then another component for another user profile?
 @Component({
   selector: "app-user-details",
-  templateUrl: "./details.component.html"
+  templateUrl: "./details.component.html",
+  styleUrls: ["./details.component.scss"]
 })
 export class UserDetailsComponent implements OnInit {
   // details

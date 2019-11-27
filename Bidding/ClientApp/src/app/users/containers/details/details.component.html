@@ -2,4 +2,89 @@
   <div class="row">
     <app-breadcrumb [breadcrumbs]="breadcrumbs"></app-breadcrumb>
   </div>
+
+  <ng-container *ngIf="this.userDetails">
+    <div class="row mt-5 mb-4">
+      <div class="col-12">
+        <h5>
+          <strong>Hei, {{ fullName }}!</strong>
+        </h5>
+      </div>
+    </div>
+
+    <div class="row mb-5">
+      <div class="col-12 mb-3">
+        <h5><strong>Mans profils</strong></h5>
+      </div>
+
+      <div class="col-12">
+        <p>Vārds {{ fullName }}</p>
+        <p>Epasts {{ fullName }}</p>
+        <p>Telefons -</p>
+      </div>
+    </div>
+
+    <div class="row user__profile-pricing-row pb-5 ">
+      <div class="col-12 mb-2 pricing__row-title">
+        <h5><strong>Bidding.lv abonēšanas pakas</strong></h5>
+      </div>
+
+      <div class="pricing__row-body w-100 pb-5">
+        <div class="col-12 mb-3">
+          <div class="row pricing__row-body-row align-items-center">
+            <div class="col-4 text-center">Bezmaksas</div>
+            <div class="col-4 text-center">
+              Kā bidding.lv apmeklētajs Tu droši vari skatīties izsoles,
+              salīdzinat, pieteikties un saņemt jaunumus.
+            </div>
+            <div class="col-4 text-center">0,00 EUR / mēnesī</div>
+          </div>
+        </div>
+
+        <div class="col-12 mb-3">
+          <div class="row pricing__row-body-row align-items-center">
+            <div class="col-4 text-center">Bronza</div>
+            <div class="col-4 text-center">
+              Saņem informāciju par vienu izsoļu kategoriju.
+              <br />
+              Izsoļu detaļas.
+              <br />
+              Pieteikšanās kārtību.
+            </div>
+            <div class="col-4 text-center">0,00 EUR / mēnesī</div>
+          </div>
+        </div>
+
+        <div class="col-12 mb-3">
+          <div class="row pricing__row-body-row align-items-center">
+            <div class="col-4 text-center">Zelts</div>
+            <div class="col-4 text-center">
+              Saņem visu informāciju par divām izsoļu kategorijām.
+              <br />
+              Izsoļu detaļas.
+              <br />
+              Pieteikšanās kārtību.
+            </div>
+            <div class="col-4 text-center">0,00 EUR / mēnesī</div>
+          </div>
+        </div>
+
+        <div class="col-12">
+          <div class="row pricing__row-body-row align-items-center">
+            <div class="col-4 text-center">Platīns</div>
+            <div class="col-4 text-center">
+              Saņem visu informāciju par trīs izsoļu kategorijām.
+              <br />
+              Izsoļu detaļas
+              <br />
+              Pieteikšanās kārtību
+              <br />
+              Pieejami 3 bezmaksas izsoļu pieteikuma palīgi
+            </div>
+            <div class="col-4 text-center">0,00 EUR / mēnesī</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
 </div>
