@@ -123,7 +123,7 @@ namespace Bidding.Services.Auctions
 
             // var xxx = await m_fileUploaderService.GetCloudBlobContainer2();
 
-            return await m_auctionsRepository.DetailsAsync(request);
+            return await m_auctionsRepository.DetailsAsync(request).ConfigureAwait(false);
         }
 
         public AuctionEditDetailsResponseModel EditDetails(int auctionId)

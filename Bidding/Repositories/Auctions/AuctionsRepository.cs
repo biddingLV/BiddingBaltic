@@ -169,23 +169,25 @@ namespace Bidding.Repositories.Auctions
 
         public async Task<AuctionDetailsResponseModel> DetailsAsync(AuctionDetailsRequestModel request)
         {
-            // check if even auction exists and only then do the full join
-            bool auctionExists = m_context.Auctions.Any(auct => auct.AuctionId == request.AuctionId);
+            // check if auction exists and only then do the full join
+            bool auctionExists = await m_context.Auctions.AnyAsync(auct => auct.AuctionId == request.AuctionId).ConfigureAwait(false);
 
             if (auctionExists)
             {
-                AuctionDetailsModel details = (from auct in m_context.Auctions
-                                               join aitem in m_context.AuctionItems on auct.AuctionId equals aitem.AuctionId
-                                               join adet in m_context.AuctionDetails on aitem.AuctionItemId equals adet.AuctionItemId
-                                               join acrea in m_context.AuctionCreators on auct.AuctionCreatorId equals acrea.AuctionCreatorId
-                                               where auct.AuctionId == request.AuctionId
-                                               select new AuctionDetailsModel
-                                               {
-                                                   Auction = auct,
-                                                   AuctionItem = aitem,
-                                                   AuctionDetails = adet,
-                                                   AuctionCreator = acrea
-                                               }).FirstOrDefault();
+                AuctionDetailsModel details = await (
+                    from auct in m_context.Auctions
+                    join aitem in m_context.AuctionItems on auct.AuctionId equals aitem.AuctionId
+                    join adet in m_context.AuctionDetails on aitem.AuctionItemId equals adet.AuctionItemId
+                    join acrea in m_context.AuctionCreators on auct.AuctionCreatorId equals acrea.AuctionCreatorId
+                    where auct.AuctionId == request.AuctionId
+                    select new AuctionDetailsModel
+                    {
+                        Auction = auct,
+                        AuctionItem = aitem,
+                        AuctionDetails = adet,
+                        AuctionCreator = acrea
+                    }
+                ).FirstOrDefaultAsync().ConfigureAwait(false);
 
                 if (details.Auction.AuctionCategoryId == AuctionCategories.Item)
                 {
@@ -616,6 +618,16 @@ namespace Bidding.Repositories.Auctions
             string transmissionName = details.AuctionDetails.TransmissionId.IsNotSpecified() ? null : LoadVehicleTransmissionName(details.AuctionDetails.TransmissionId.Value);
             string fuelTypeName = details.AuctionDetails.FuelTypeId.IsNotSpecified() ? null : LoadVehicleFuelTypeName(details.AuctionDetails.FuelTypeId.Value);
 
+            string inspectionActive = "Nav";
+
+            if (details.AuctionDetails.InspectionActive.HasValue)
+            {
+                if (details.AuctionDetails.InspectionActive.Value)
+                {
+                    inspectionActive = "Ir";
+                }
+            }
+
             return new AuctionDetailsResponseModel
             {
                 AboutAuctionDetails = new AboutAuctionDetailsModel
@@ -634,7 +646,7 @@ namespace Bidding.Repositories.Auctions
                     VehicleManufacturingYear = details.AuctionDetails.ManufacturingYear.Value,
                     VehicleRegistrationNumber = details.AuctionDetails.RegistrationNumber,
                     VehicleIdentificationNumber = details.AuctionDetails.IdentificationNumber,
-                    VehicleInspectionActive = details.AuctionDetails.InspectionActive.HasValue ? "Ir" : "Nav",
+                    VehicleInspectionActive = inspectionActive,
                     VehicleTransmissionName = transmissionName,
                     VehicleFuelType = fuelTypeName,
                     VehicleEngineSize = details.AuctionDetails.EngineSize,
