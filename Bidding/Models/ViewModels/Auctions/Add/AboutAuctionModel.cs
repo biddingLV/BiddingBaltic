@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Bidding.Models.ViewModels.Auctions.Add
 {
@@ -11,7 +12,11 @@ namespace Bidding.Models.ViewModels.Auctions.Add
         /// </summary>
         public int? AuctionSubCategoryId { get; set; }
         public string AuctionName { get; set; }
-        public int AuctionStartingPrice { get; set; }
+
+        /// <summary>
+        /// Defined as a string to support 694.21 && 694,21 both formats.
+        /// </summary>
+        public string AuctionStartingPrice { get; set; }
         public int AuctionFormatId { get; set; }
         public DateTime? AuctionStartDate { get; set; }
         public DateTime AuctionApplyTillDate { get; set; }

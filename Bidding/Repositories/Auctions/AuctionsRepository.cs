@@ -18,6 +18,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Globalization;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -476,7 +477,7 @@ namespace Bidding.Repositories.Auctions
             return new Auction()
             {
                 Name = request.AboutAuction.AuctionName,
-                StartingPrice = request.AboutAuction.AuctionStartingPrice,
+                StartingPrice = ConvertStringToDecimal(request.AboutAuction.AuctionStartingPrice),
                 StartDate = request.AboutAuction.AuctionStartDate ?? null,
                 ApplyTillDate = request.AboutAuction.AuctionApplyTillDate,
                 EndDate = request.AboutAuction.AuctionEndDate,
@@ -741,6 +742,16 @@ namespace Bidding.Repositories.Auctions
                     AuctionCreatorPhone = details.AuctionCreator.ContactPhone
                 }
             };
+        }
+
+        private decimal ConvertStringToDecimal(string item)
+        {
+            string newItem = item.Replace(',', '.');
+
+            if (decimal.TryParse(newItem, NumberStyles.Currency, CultureInfo.InvariantCulture, out decimal number))
+                return number;
+            else
+                throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.PriceFormatIncorrect);
         }
     }
 }

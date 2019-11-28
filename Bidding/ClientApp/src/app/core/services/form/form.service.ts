@@ -28,33 +28,12 @@ export class FormService {
    * @param fieldName form control
    */
   validationMessages(fieldName: string) {
-    const message = this.getRequiredMessage(fieldName);
+    const fieldMessage = this.getRequiredMessage(fieldName);
 
-    // for each unique field there needs to be an error message!
-    // todo: kke: combine getRequiredMessage() + messages!
     const messages = {
-      required: message + " is required.",
-      // this can be used to validate if the field consists of invalid characters,
-      // note: kke: it is not really fully tested!
-      invalid_characters: (matches: any[]) => {
-        let matchedCharacters = matches;
-
-        matchedCharacters = matchedCharacters.reduce(
-          (characterString, character, index) => {
-            let string = characterString;
-            string += character;
-
-            if (matchedCharacters.length !== index + 1) {
-              string += ", ";
-            }
-
-            return string;
-          },
-          ""
-        );
-
-        return `These characters are not allowed: ${matchedCharacters}`;
-      }
+      required: fieldMessage + " is required.",
+      invalidPrice: fieldMessage + " has invalid pattern.",
+      invalidYear: fieldMessage + " has invalid pattern."
     };
 
     return messages;
@@ -88,12 +67,7 @@ export class FormService {
         if (control && !control.valid) {
           if (!checkDirty || control.dirty || control.touched) {
             for (const key in control.errors) {
-              if (key && key !== "invalid_characters") {
-                formErrors[field] = formErrors[field] || messages[key];
-              } else {
-                formErrors[field] =
-                  formErrors[field] || messages[key](control.errors[key]);
-              }
+              formErrors[field] = formErrors[field] || messages[key];
             }
           }
         }

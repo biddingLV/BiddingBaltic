@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 
 namespace Bidding.Shared.ErrorHandling.Errors
 {
@@ -13,6 +9,9 @@ namespace Bidding.Shared.ErrorHandling.Errors
 
         [Description("Could not fetch auction list")]
         CouldNotFetchAuctionList,
+
+        [Description("Could not convert price to correct formatr")]
+        PriceFormatIncorrect,
 
         [Description("Could not fetch auction creator list")]
         CouldNotFetchAuctionCreatorList,

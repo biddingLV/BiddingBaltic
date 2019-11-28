@@ -5,6 +5,7 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 // internal
 import { FormService } from "ClientApp/src/app/core/services/form/form.service";
 import { TypeConstants } from "ClientApp/src/app/core/constants/types/type-constants";
+import { CustomValidators } from "ClientApp/src/app/core/services/form/custom.validators";
 
 @Component({
   selector: "app-auction-add-wizard-vehicle-category",
@@ -125,10 +126,20 @@ export class AuctionAddWizardVehicleComponent implements OnInit {
   private buildForm(): void {
     this.addStepForm = this.formBuilder.group({
       vehicleName: [null, [Validators.required]],
-      auctionStartingPrice: [null, [Validators.required]],
+      auctionStartingPrice: [
+        null,
+        [Validators.required, CustomValidators.validatePrice]
+      ],
       vehicleMake: [null, [Validators.required]],
       vehicleModel: [null, [Validators.required]],
-      vehicleManufacturingYear: [null, [Validators.required]],
+      vehicleManufacturingYear: [
+        null,
+        [
+          Validators.required,
+          CustomValidators.validateOnlyYear,
+          Validators.maxLength(4)
+        ]
+      ],
       vehicleRegistrationNumber: [null, []],
       vehicleIdentificationNumber: [null, []],
       vehicleInspectionActive: [false, []],

@@ -53,7 +53,8 @@ namespace Bidding.Migrations
 
                     b.Property<DateTime?>("StartDate");
 
-                    b.Property<int>("StartingPrice");
+                    b.Property<decimal>("StartingPrice")
+                        .HasColumnType("decimal(18,2)");
 
                     b.HasKey("AuctionId");
 
@@ -833,28 +834,28 @@ namespace Bidding.Migrations
                         new
                         {
                             Id = 100,
-                            ConcurrencyStamp = "541c3866-0873-4c60-a266-d98487654a03",
+                            ConcurrencyStamp = "a95a2bed-f21a-48ec-82f9-8ee7952dd239",
                             Name = "BasicUser",
                             NormalizedName = "BASICUSER"
                         },
                         new
                         {
                             Id = 200,
-                            ConcurrencyStamp = "e3d496d9-3b53-47fc-af90-f40b96c10fcb",
+                            ConcurrencyStamp = "7d81aea0-03e2-4380-b70e-e916f3e9cdec",
                             Name = "AuctionCreator",
                             NormalizedName = "AUCTIONCREATOR"
                         },
                         new
                         {
                             Id = 300,
-                            ConcurrencyStamp = "61fee96d-77e7-4755-9c3b-d5a12824b5c1",
+                            ConcurrencyStamp = "b0bd936c-4971-4141-8f2c-374557d99fec",
                             Name = "PageAdministrator",
                             NormalizedName = "PAGEADMINISTRATOR"
                         },
                         new
                         {
                             Id = 400,
-                            ConcurrencyStamp = "6320899e-79af-44ec-bef3-a43481be3aeb",
+                            ConcurrencyStamp = "e58f62fa-15c7-4383-9a70-a32f4c7e569a",
                             Name = "SuperAdministrator",
                             NormalizedName = "SUPERADMINISTRATOR"
                         });

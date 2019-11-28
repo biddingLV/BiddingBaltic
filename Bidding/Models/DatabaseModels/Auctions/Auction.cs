@@ -16,8 +16,8 @@ namespace Bidding.Models.DatabaseModels.Auctions
         [MaxLength(50)]
         public string Name { get; set; }
 
-        [Range(0, 1000000)]
-        public int StartingPrice { get; set; }
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal StartingPrice { get; set; }
 
         public DateTime? StartDate { get; set; }
 

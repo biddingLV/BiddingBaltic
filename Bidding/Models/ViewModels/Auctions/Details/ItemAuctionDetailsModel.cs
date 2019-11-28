@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Bidding.Models.ViewModels.Auctions.Details
 {
@@ -11,6 +8,8 @@ namespace Bidding.Models.ViewModels.Auctions.Details
         public int ItemManufacturingYear { get; set; }
         public string ItemConditionName { get; set; }
         public string ItemEvaluation { get; set; }
-        public int ItemStartingPrice { get; set; }
+
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal ItemStartingPrice { get; set; }
     }
 }

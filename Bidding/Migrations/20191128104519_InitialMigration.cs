@@ -409,7 +409,7 @@ namespace Bidding.Migrations
                     AuctionId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn),
                     Name = table.Column<string>(maxLength: 50, nullable: false),
-                    StartingPrice = table.Column<int>(nullable: false),
+                    StartingPrice = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     StartDate = table.Column<DateTime>(nullable: true),
                     ApplyTillDate = table.Column<DateTime>(nullable: false),
                     EndDate = table.Column<DateTime>(nullable: false),
@@ -574,10 +574,10 @@ namespace Bidding.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Description", "Name", "NormalizedName", "PermissionsInRole" },
                 values: new object[,]
                 {
-                    { 100, "541c3866-0873-4c60-a266-d98487654a03", null, "BasicUser", "BASICUSER", null },
-                    { 300, "61fee96d-77e7-4755-9c3b-d5a12824b5c1", null, "PageAdministrator", "PAGEADMINISTRATOR", null },
-                    { 400, "6320899e-79af-44ec-bef3-a43481be3aeb", null, "SuperAdministrator", "SUPERADMINISTRATOR", null },
-                    { 200, "e3d496d9-3b53-47fc-af90-f40b96c10fcb", null, "AuctionCreator", "AUCTIONCREATOR", null }
+                    { 100, "a95a2bed-f21a-48ec-82f9-8ee7952dd239", null, "BasicUser", "BASICUSER", null },
+                    { 300, "b0bd936c-4971-4141-8f2c-374557d99fec", null, "PageAdministrator", "PAGEADMINISTRATOR", null },
+                    { 400, "e58f62fa-15c7-4383-9a70-a32f4c7e569a", null, "SuperAdministrator", "SUPERADMINISTRATOR", null },
+                    { 200, "7d81aea0-03e2-4380-b70e-e916f3e9cdec", null, "AuctionCreator", "AUCTIONCREATOR", null }
                 });
 
             migrationBuilder.InsertData(

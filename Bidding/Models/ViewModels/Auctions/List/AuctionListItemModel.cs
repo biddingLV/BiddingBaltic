@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Bidding.Models.ViewModels.Auctions.List
 {
@@ -9,7 +7,9 @@ namespace Bidding.Models.ViewModels.Auctions.List
     {
         public int AuctionId { get; set; }
         public string AuctionName { get; set; }
-        public int AuctionStartingPrice { get; set; }
+
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal AuctionStartingPrice { get; set; }
         public DateTime AuctionApplyTillDate { get; set; }
         public DateTime AuctionEndDate { get; set; }
         public string AuctionStatusName { get; set; }

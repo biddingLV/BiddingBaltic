@@ -5,35 +5,95 @@
         <div class="form-row">
           <div class="form-group col-6">
             <label for="itemName">Izsoles Nosaukums</label>
-            <input type="text" formControlName="itemName" class="form-control" id="itemName" name="itemName"
-              [ngClass]="{ 'is-invalid': submitted && f.itemName.errors }" maxlength="100" />
+            <input
+              type="text"
+              formControlName="itemName"
+              class="form-control"
+              id="itemName"
+              name="itemName"
+              [ngClass]="{ 'is-invalid': submitted && f.itemName.errors }"
+              maxlength="100"
+            />
           </div>
+        </div>
 
+        <div class="form-row">
+          <div class="form-group col-6">
+            <label for="auctionStartingPrice">Minimālā cena (EUR)</label>
+            <input
+              type="text"
+              formControlName="auctionStartingPrice"
+              class="form-control"
+              id="auctionStartingPrice"
+              name="auctionStartingPrice"
+              [ngClass]="{
+                'is-invalid': submitted && f.auctionStartingPrice.errors
+              }"
+            />
+
+            <div
+              *ngIf="submitted && formErrors.auctionStartingPrice"
+              class="invalid-feedback"
+            >
+              {{ formErrors.auctionStartingPrice }}
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
           <div class="form-group col-6">
             <label for="itemModel">Modelis</label>
-            <input type="text" formControlName="itemModel" class="form-control" id="itemModel" name="itemModel"
-              [ngClass]="{ 'is-invalid': submitted && f.itemModel.errors }" maxlength="100" />
+            <input
+              type="text"
+              formControlName="itemModel"
+              class="form-control"
+              id="itemModel"
+              name="itemModel"
+              [ngClass]="{ 'is-invalid': submitted && f.itemModel.errors }"
+              maxlength="100"
+            />
           </div>
         </div>
 
         <div class="form-row">
           <div class="form-group col-6">
             <label for="itemManufacturingYear">Ražošanas gads:</label>
-            <input type="number" maxlength="10" formControlName="itemManufacturingYear" class="form-control"
-              id="itemManufacturingYear" name="itemManufacturingYear"
-              [ngClass]="{ 'is-invalid': submitted && f.itemManufacturingYear.errors }" />
+            <input
+              type="text"
+              formControlName="itemManufacturingYear"
+              class="form-control"
+              id="itemManufacturingYear"
+              name="itemManufacturingYear"
+              [ngClass]="{
+                'is-invalid': submitted && f.itemManufacturingYear.errors
+              }"
+            />
 
-            <div *ngIf="submitted && formErrors.itemManufacturingYear" class="invalid-feedback">
-              {{formErrors.itemManufacturingYear}}
+            <div
+              *ngIf="submitted && formErrors.itemManufacturingYear"
+              class="invalid-feedback"
+            >
+              {{ formErrors.itemManufacturingYear }}
             </div>
           </div>
+        </div>
 
+        <div class="form-row">
           <div class="form-group col-6">
             <label>Stāvoklis:</label>
-            <ng-select #itemConditionSelect formControlName="itemCondition" [clearable]="false" [virtualScroll]="true"
-              id="itemCondition" name="itemCondition">
-              <ng-option *ngFor="let cond of conditions; let i = index" [value]="cond.conditionId">
-                {{cond.conditionName}}
+            <ng-select
+              #itemConditionSelect
+              formControlName="itemCondition"
+              [clearable]="false"
+              [virtualScroll]="true"
+              id="itemCondition"
+              name="itemCondition"
+            >
+              <ng-option
+                *ngFor="let cond of conditions; let i = index"
+                [value]="cond.conditionId"
+              >
+                {{ cond.conditionName }}
               </ng-option>
             </ng-select>
           </div>
@@ -42,38 +102,48 @@
         <div class="form-row">
           <div class="form-group col-6">
             <label for="itemEvaluation">Apraksts / novērtējums:</label>
-            <textarea class="form-control" formControlName="itemEvaluation" rows="2" id="itemEvaluation"
-              name="itemEvaluation" [ngClass]="{ 'is-invalid': submitted && f.itemEvaluation.errors }"
-              maxlength="1000"></textarea>
+            <textarea
+              class="form-control"
+              formControlName="itemEvaluation"
+              rows="2"
+              id="itemEvaluation"
+              name="itemEvaluation"
+              [ngClass]="{ 'is-invalid': submitted && f.itemEvaluation.errors }"
+              maxlength="1000"
+            ></textarea>
 
-            <div *ngIf="submitted && formErrors.itemEvaluation" class="invalid-feedback">
-              {{formErrors.itemEvaluation}}
-            </div>
-          </div>
-
-          <div class="form-group col-6">
-            <label for="auctionStartingPrice">Minimālā cena (EUR):</label>
-            <input type="number" maxlength="10" formControlName="auctionStartingPrice" class="form-control"
-              id="auctionStartingPrice" name="auctionStartingPrice"
-              [ngClass]="{ 'is-invalid': submitted && f.auctionStartingPrice.errors }" />
-
-            <div *ngIf="submitted && formErrors.auctionStartingPrice" class="invalid-feedback">
-              {{formErrors.auctionStartingPrice}}
+            <div
+              *ngIf="submitted && formErrors.itemEvaluation"
+              class="invalid-feedback"
+            >
+              {{ formErrors.itemEvaluation }}
             </div>
           </div>
         </div>
 
         <div class="form-row">
           <div class="form-group col-12">
-            <app-file-uploader (fileUploaded)="onFileUploaded($event)" (fileRemoved)="onFileRemoved()">
+            <app-file-uploader
+              (fileUploaded)="onFileUploaded($event)"
+              (fileRemoved)="onFileRemoved()"
+            >
             </app-file-uploader>
           </div>
         </div>
 
         <div class="form-row float-right">
           <div class="form-group modal-buttons">
-            <button type="button" class="btn btn-outline-dark" awPreviousStep>Back</button>
-            <button type="button" class="btn btn-primary" (click)="onNext()" awNextStep>Next</button>
+            <button type="button" class="btn btn-outline-dark" awPreviousStep>
+              Back
+            </button>
+            <button
+              type="button"
+              class="btn btn-primary"
+              (click)="onNext()"
+              awNextStep
+            >
+              Next
+            </button>
           </div>
         </div>
       </form>
