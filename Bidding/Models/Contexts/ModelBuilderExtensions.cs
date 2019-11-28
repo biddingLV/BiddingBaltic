@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using PermissionParts;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using Type = Bidding.Models.DatabaseModels.Categories.Type;
 
 namespace Bidding.Models.Contexts
@@ -32,9 +33,6 @@ namespace Bidding.Models.Contexts
             PopulateTypes(modelBuilder);
             PopulateAuctionFormats(modelBuilder);
             PopulateAuctionConditions(modelBuilder);
-            // PopulateAuctions(modelBuilder);
-            // PopulateAuctionItems(modelBuilder);
-            // PopulateAuctionDetails(modelBuilder);
         }
 
         private static void PopulateRoles(ModelBuilder modelBuilder)
@@ -657,157 +655,25 @@ namespace Bidding.Models.Contexts
 
         private static void PopulateRegions(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Region>().HasData(
-                new Region
-                {
-                    RegionId = 1,
-                    Name = "Jelgava",
-                    CreatedAt = CreatedAtDateTime,
-                    // CreatedBy = CreatedByBiddingAdmin,
-                    Deleted = false,
-                    LastUpdatedAt = CreatedAtDateTime,
-                    LastUpdatedBy = CreatedByBiddingAdmin
-                },
-                new Region
-                {
-                    RegionId = 2,
-                    Name = "Ogre",
-                    CreatedAt = CreatedAtDateTime,
-                    // CreatedBy = CreatedByBiddingAdmin,
-                    Deleted = false,
-                    LastUpdatedAt = CreatedAtDateTime,
-                    LastUpdatedBy = CreatedByBiddingAdmin
-                }
-            );
-        }
+            List<Region> regions = new List<Region>();
 
-        private static void PopulateAuctions(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<Auction>().HasData(
-                new Auction
-                {
-                    AuctionId = 1,
-                    Name = "Tesla Model 3",
-                    StartingPrice = 15000,
-                    StartDate = CreatedAtDateTime.AddMonths(1),
-                    ApplyTillDate = CreatedAtDateTime.AddMonths(5),
-                    EndDate = CreatedAtDateTime.AddMonths(12),
-                    AuctionCategoryId = 1,
-                    AuctionTypeId = 1,
-                    AuctionStatusId = 1,
-                    CreatedAt = CreatedAtDateTime,
-                    // CreatedBy = CreatedByBiddingAdmin,
-                    Deleted = false,
-                    LastUpdatedAt = CreatedAtDateTime,
-                    LastUpdatedBy = CreatedByBiddingAdmin
-                },
-                new Auction
-                {
-                    AuctionId = 2,
-                    Name = "Penthouse tipa dzīvoklis Vecrīgas sirdī",
-                    StartingPrice = 50000,
-                    StartDate = CreatedAtDateTime.AddMonths(1),
-                    ApplyTillDate = CreatedAtDateTime.AddMonths(5),
-                    EndDate = CreatedAtDateTime.AddMonths(12),
-                    AuctionCategoryId = 3,
-                    AuctionTypeId = 13,
-                    AuctionStatusId = 1,
-                    CreatedAt = CreatedAtDateTime,
-                    // CreatedBy = CreatedByBiddingAdmin,
-                    Deleted = false,
-                    LastUpdatedAt = CreatedAtDateTime,
-                    LastUpdatedBy = CreatedByBiddingAdmin
-                },
-                new Auction
-                {
-                    AuctionId = 3,
-                    Name = "Vīna skapis",
-                    StartingPrice = 900,
-                    StartDate = CreatedAtDateTime.AddMonths(1),
-                    ApplyTillDate = CreatedAtDateTime.AddMonths(5),
-                    EndDate = CreatedAtDateTime.AddMonths(12),
-                    AuctionCategoryId = 2,
-                    AuctionTypeId = 12,
-                    AuctionStatusId = 1,
-                    CreatedAt = CreatedAtDateTime,
-                    // CreatedBy = CreatedByBiddingAdmin,
-                    Deleted = false,
-                    LastUpdatedAt = CreatedAtDateTime,
-                    LastUpdatedBy = CreatedByBiddingAdmin
-                }
-            );
-        }
+            for (int i = 0; i < Regions.Names.Count; i++)
+            {
+                regions.Add(
+                    new Region
+                    {
+                        RegionId = Regions.Names.Keys.ElementAt(i),
+                        Name = Regions.Names[Regions.Names.Keys.ElementAt(i)],
+                        CreatedAt = CreatedAtDateTime,
+                        // CreatedBy = CreatedByBiddingAdmin,
+                        Deleted = false,
+                        LastUpdatedAt = CreatedAtDateTime,
+                        LastUpdatedBy = CreatedByBiddingAdmin
+                    }
+                );
+            }
 
-        private static void PopulateAuctionItems(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<AuctionItem>().HasData(
-                new AuctionItem
-                {
-                    AuctionItemId = 1,
-                    Name = "Tesla Model 3",
-                    AuctionId = 1,
-                    AuctionItemCategoryId = 1,
-                    AuctionItemTypeId = 1,
-                    CreatedAt = CreatedAtDateTime,
-                    // CreatedBy = CreatedByBiddingAdmin,
-                    Deleted = false,
-                    LastUpdatedAt = CreatedAtDateTime,
-                    LastUpdatedBy = CreatedByBiddingAdmin
-                },
-                new AuctionItem
-                {
-                    AuctionItemId = 2,
-                    Name = "Penthouse tipa dzīvoklis Vecrīgas sirdī",
-                    AuctionId = 2,
-                    AuctionItemCategoryId = 3,
-                    AuctionItemTypeId = 13,
-                    CreatedAt = CreatedAtDateTime,
-                    // CreatedBy = CreatedByBiddingAdmin,
-                    Deleted = false,
-                    LastUpdatedAt = CreatedAtDateTime,
-                    LastUpdatedBy = CreatedByBiddingAdmin
-                },
-                new AuctionItem
-                {
-                    AuctionItemId = 3,
-                    Name = "Vīna skapis",
-                    AuctionId = 3,
-                    AuctionItemCategoryId = 2,
-                    AuctionItemTypeId = 12,
-                    CreatedAt = CreatedAtDateTime,
-                    // CreatedBy = CreatedByBiddingAdmin,
-                    Deleted = false,
-                    LastUpdatedAt = CreatedAtDateTime,
-                    LastUpdatedBy = CreatedByBiddingAdmin
-                }
-            );
-        }
-
-        private static void PopulateAuctionDetails(ModelBuilder modelBuilder)
-        {
-            modelBuilder.Entity<AuctionDetails>().HasData(
-                new AuctionDetails
-                {
-                    AuctionDetailsId = 1,
-                    AuctionItemId = 1,
-                    Make = "BMW",
-                    Model = "1-Series",
-                    ManufacturingYear = 2012,
-                    RegistrationNumber = "5990144781",
-                    IdentificationNumber = "5990144781",
-                    InspectionActive = true,
-                    TransmissionId = 1,
-                    FuelTypeId = 1,
-                    EngineSize = "In progress",
-                    Axis = "In progress",
-                    Evaluation = "In progress",
-                    CreatedAt = CreatedAtDateTime,
-                    // CreatedBy = CreatedByBiddingAdmin,
-                    Deleted = false,
-                    LastUpdatedAt = CreatedAtDateTime,
-                    LastUpdatedBy = CreatedByBiddingAdmin
-                }
-            );
+            modelBuilder.Entity<Region>().HasData(regions);
         }
     }
 }

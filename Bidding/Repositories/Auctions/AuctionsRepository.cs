@@ -570,7 +570,7 @@ namespace Bidding.Repositories.Auctions
                 Coordinates = request.PropertyAuction.PropertyCoordinates,
                 RegionId = request.PropertyAuction.PropertyRegionId,
                 CadastreNumber = request.PropertyAuction.PropertyCadastreNumber,
-                MeasurementValue = request.PropertyAuction.PropertyMeasurementValue,
+                MeasurementValue = ConvertStringToDecimal(request.PropertyAuction.PropertyMeasurementValue),
                 MeasurementTypeId = request.PropertyAuction.PropertyMeasurementTypeId,
                 Address = request.PropertyAuction.PropertyAddress,
                 FloorCount = request.PropertyAuction.PropertyFloorCount,

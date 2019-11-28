@@ -15,9 +15,9 @@ import { FormControl, Validators } from "@angular/forms";
 const emailRegExp = /[A-Za-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[A-Za-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?\.)+[A-Za-z0-9](?:[A-Za-z0-9-]*[A-Za-z0-9])?/;
 
 /**
- * Example - 694,21 || 694.21 both valid!
+ * Example - 694,21 || 694.21 both valid. [.,] chars are optional
  */
-const priceRegExp = /^\d*[\.,]\d*$/;
+const decimalRegExp = /^\d*[\.,]?\d*$/;
 
 /**
  * Valid years from 1000 to 2999
@@ -26,8 +26,14 @@ const yearRegExp = /^[12][0-9]{3}$/;
 
 export class CustomValidators extends Validators {
   static validatePrice(control: FormControl) {
-    return CustomValidators.handleFieldChange(control, priceRegExp, {
+    return CustomValidators.handleFieldChange(control, decimalRegExp, {
       invalidPrice: true
+    });
+  }
+
+  static validateMeasurementValue(control: FormControl) {
+    return CustomValidators.handleFieldChange(control, decimalRegExp, {
+      measurementValue: true
     });
   }
 

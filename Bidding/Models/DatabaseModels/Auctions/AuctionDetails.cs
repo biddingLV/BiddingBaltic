@@ -42,7 +42,9 @@ namespace Bidding.Models.DatabaseModels.Auctions
         public Region Region { get; set; }
 
         public int? CadastreNumber { get; set; }
-        public int? MeasurementValue { get; set; }
+
+        [Column(TypeName = "decimal(18,2)")]
+        public decimal? MeasurementValue { get; set; }
         public int? MeasurementTypeId { get; set; }
         public PropertyMeasurementType PropertyMeasurementType { get; set; }
 

@@ -6,6 +6,7 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 import { FormService } from "ClientApp/src/app/core/services/form/form.service";
 import { TypeConstants } from "ClientApp/src/app/core/constants/types/type-constants";
 import { CustomValidators } from "ClientApp/src/app/core/services/form/custom.validators";
+import { RegionsConstants } from "ClientApp/src/app/core/constants/regions/regions";
 
 @Component({
   selector: "app-auction-add-wizard-property-category",
@@ -35,17 +36,7 @@ export class AuctionAddWizardPropertyComponent implements OnInit {
   };
 
   typeConstants = TypeConstants;
-
-  regions = [
-    {
-      regionId: 1,
-      regionName: "Jelgava"
-    },
-    {
-      regionId: 2,
-      regionName: "Ogre"
-    }
-  ];
+  regions = RegionsConstants.names;
 
   measurementTypes = [
     {
@@ -120,7 +111,10 @@ export class AuctionAddWizardPropertyComponent implements OnInit {
       propertyCoordinates: [null, []],
       propertyRegion: [null, [Validators.required]],
       propertyCadastreNumber: [null, [Validators.required]],
-      propertyMeasurementValue: [null, [Validators.required]],
+      propertyMeasurementValue: [
+        null,
+        [Validators.required, CustomValidators.validateMeasurementValue]
+      ],
       propertyMeasurementType: [null, [Validators.required]],
       propertyAddress: [null, []],
       propertyFloorCount: [null, []],

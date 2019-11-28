@@ -55,10 +55,10 @@
               class="form-control"
             >
               <ng-option
-                *ngFor="let reg of regions; let i = index"
-                [value]="reg.regionId"
+                *ngFor="let item of regions; let i = index"
+                [value]="item.id"
               >
-                {{ reg.regionName }}
+                {{ item.name }}
               </ng-option>
             </ng-select>
 
@@ -89,7 +89,7 @@
           <div class="form-group col-6">
             <label for="propertyMeasurementValue">Izmēri:</label>
             <input
-              type="number"
+              type="text"
               formControlName="propertyMeasurementValue"
               class="form-control"
               id="propertyMeasurementValue"

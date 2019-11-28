@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Bidding.Migrations
 {
     [DbContext(typeof(BiddingContext))]
-    [Migration("20191128104519_InitialMigration")]
+    [Migration("20191128132443_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -219,7 +219,8 @@ namespace Bidding.Migrations
 
                     b.Property<int?>("MeasurementTypeId");
 
-                    b.Property<int?>("MeasurementValue");
+                    b.Property<decimal?>("MeasurementValue")
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("Model");
 
@@ -836,28 +837,28 @@ namespace Bidding.Migrations
                         new
                         {
                             Id = 100,
-                            ConcurrencyStamp = "a95a2bed-f21a-48ec-82f9-8ee7952dd239",
+                            ConcurrencyStamp = "c27bcf26-0af3-41ca-8a6c-2db3d873ffd4",
                             Name = "BasicUser",
                             NormalizedName = "BASICUSER"
                         },
                         new
                         {
                             Id = 200,
-                            ConcurrencyStamp = "7d81aea0-03e2-4380-b70e-e916f3e9cdec",
+                            ConcurrencyStamp = "ac9456be-13c4-4eed-97f0-6f94f032ff67",
                             Name = "AuctionCreator",
                             NormalizedName = "AUCTIONCREATOR"
                         },
                         new
                         {
                             Id = 300,
-                            ConcurrencyStamp = "b0bd936c-4971-4141-8f2c-374557d99fec",
+                            ConcurrencyStamp = "66b41f96-193e-47b7-839b-3598b742ac0c",
                             Name = "PageAdministrator",
                             NormalizedName = "PAGEADMINISTRATOR"
                         },
                         new
                         {
                             Id = 400,
-                            ConcurrencyStamp = "e58f62fa-15c7-4383-9a70-a32f4c7e569a",
+                            ConcurrencyStamp = "1c76e35b-6276-48d4-87e7-e860afdf717d",
                             Name = "SuperAdministrator",
                             NormalizedName = "SUPERADMINISTRATOR"
                         });
@@ -951,7 +952,7 @@ namespace Bidding.Migrations
                             Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
-                            Name = "Jelgava"
+                            Name = "Daugavpils"
                         },
                         new
                         {
@@ -960,7 +961,1051 @@ namespace Bidding.Migrations
                             Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
-                            Name = "Ogre"
+                            Name = "Jēkabpils"
+                        },
+                        new
+                        {
+                            RegionId = 3,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Jelgava"
+                        },
+                        new
+                        {
+                            RegionId = 4,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Jūrmala"
+                        },
+                        new
+                        {
+                            RegionId = 5,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Liepāja"
+                        },
+                        new
+                        {
+                            RegionId = 6,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Rēzekne"
+                        },
+                        new
+                        {
+                            RegionId = 7,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Rīga"
+                        },
+                        new
+                        {
+                            RegionId = 8,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Valmiera"
+                        },
+                        new
+                        {
+                            RegionId = 9,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Ventspils"
+                        },
+                        new
+                        {
+                            RegionId = 10,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Ādažu novads"
+                        },
+                        new
+                        {
+                            RegionId = 11,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Aglonas novads"
+                        },
+                        new
+                        {
+                            RegionId = 12,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Aizkraukles novads"
+                        },
+                        new
+                        {
+                            RegionId = 13,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Aizputes novads"
+                        },
+                        new
+                        {
+                            RegionId = 14,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Aknīstes novads"
+                        },
+                        new
+                        {
+                            RegionId = 15,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Alojas novads"
+                        },
+                        new
+                        {
+                            RegionId = 16,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Alsungas novads"
+                        },
+                        new
+                        {
+                            RegionId = 17,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Alūksnes novads"
+                        },
+                        new
+                        {
+                            RegionId = 18,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Amatas novads"
+                        },
+                        new
+                        {
+                            RegionId = 19,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Apes novads"
+                        },
+                        new
+                        {
+                            RegionId = 20,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Auces novads"
+                        },
+                        new
+                        {
+                            RegionId = 21,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Babītes novads"
+                        },
+                        new
+                        {
+                            RegionId = 22,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Baldones novads"
+                        },
+                        new
+                        {
+                            RegionId = 23,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Baltinavas novads"
+                        },
+                        new
+                        {
+                            RegionId = 24,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Balvu novads"
+                        },
+                        new
+                        {
+                            RegionId = 25,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Bauskas novads"
+                        },
+                        new
+                        {
+                            RegionId = 26,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Beverīnas novads"
+                        },
+                        new
+                        {
+                            RegionId = 27,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Brocēnu novads"
+                        },
+                        new
+                        {
+                            RegionId = 28,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Burtnieku novads"
+                        },
+                        new
+                        {
+                            RegionId = 29,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Carnikavas novads"
+                        },
+                        new
+                        {
+                            RegionId = 30,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Cēsu novads "
+                        },
+                        new
+                        {
+                            RegionId = 31,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Cesvaines novads"
+                        },
+                        new
+                        {
+                            RegionId = 32,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Ciblas novads"
+                        },
+                        new
+                        {
+                            RegionId = 33,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Dagdas novads"
+                        },
+                        new
+                        {
+                            RegionId = 34,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Daugavpils novads"
+                        },
+                        new
+                        {
+                            RegionId = 35,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Dobeles novads"
+                        },
+                        new
+                        {
+                            RegionId = 36,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Dundagas novads"
+                        },
+                        new
+                        {
+                            RegionId = 37,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Durbes novads"
+                        },
+                        new
+                        {
+                            RegionId = 38,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Engures novads"
+                        },
+                        new
+                        {
+                            RegionId = 39,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Ērgļu novads"
+                        },
+                        new
+                        {
+                            RegionId = 40,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Garkalnes novads"
+                        },
+                        new
+                        {
+                            RegionId = 41,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Grobiņas novads"
+                        },
+                        new
+                        {
+                            RegionId = 42,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Gulbenes novads"
+                        },
+                        new
+                        {
+                            RegionId = 43,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Iecavas novads"
+                        },
+                        new
+                        {
+                            RegionId = 44,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Ikšķiles novads"
+                        },
+                        new
+                        {
+                            RegionId = 45,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Ilūkstes novads"
+                        },
+                        new
+                        {
+                            RegionId = 46,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Inčukalna novads"
+                        },
+                        new
+                        {
+                            RegionId = 47,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Jaunjelgavas novads"
+                        },
+                        new
+                        {
+                            RegionId = 48,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Jaunpiebalgas novads"
+                        },
+                        new
+                        {
+                            RegionId = 49,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Jaunpils novads"
+                        },
+                        new
+                        {
+                            RegionId = 50,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Jēkabpils novads"
+                        },
+                        new
+                        {
+                            RegionId = 51,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Jelgavas novads"
+                        },
+                        new
+                        {
+                            RegionId = 52,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Kandavas novads"
+                        },
+                        new
+                        {
+                            RegionId = 53,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Kārsavas novads"
+                        },
+                        new
+                        {
+                            RegionId = 54,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Ķeguma novads"
+                        },
+                        new
+                        {
+                            RegionId = 55,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Ķekavas novads"
+                        },
+                        new
+                        {
+                            RegionId = 56,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Kocēnu novads"
+                        },
+                        new
+                        {
+                            RegionId = 57,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Kokneses novads"
+                        },
+                        new
+                        {
+                            RegionId = 58,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Krāslavas novads"
+                        },
+                        new
+                        {
+                            RegionId = 59,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Krimuldas novads"
+                        },
+                        new
+                        {
+                            RegionId = 60,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Krustpils novads"
+                        },
+                        new
+                        {
+                            RegionId = 61,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Kuldīgas novads"
+                        },
+                        new
+                        {
+                            RegionId = 62,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Lielvārdes novads"
+                        },
+                        new
+                        {
+                            RegionId = 63,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Līgatnes novads"
+                        },
+                        new
+                        {
+                            RegionId = 64,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Limbažu novads"
+                        },
+                        new
+                        {
+                            RegionId = 65,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Līvānu novads"
+                        },
+                        new
+                        {
+                            RegionId = 66,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Lubānas novads"
+                        },
+                        new
+                        {
+                            RegionId = 67,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Ludzas novads"
+                        },
+                        new
+                        {
+                            RegionId = 68,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Madonas novads"
+                        },
+                        new
+                        {
+                            RegionId = 69,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Mālpils novads"
+                        },
+                        new
+                        {
+                            RegionId = 70,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Mazsalacas novads"
+                        },
+                        new
+                        {
+                            RegionId = 71,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Mērsraga novads"
+                        },
+                        new
+                        {
+                            RegionId = 72,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Naukšēnu novads"
+                        },
+                        new
+                        {
+                            RegionId = 73,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Neretas novads"
+                        },
+                        new
+                        {
+                            RegionId = 74,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Nīcas novads"
+                        },
+                        new
+                        {
+                            RegionId = 75,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Ogres novads"
+                        },
+                        new
+                        {
+                            RegionId = 76,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Olaines novads"
+                        },
+                        new
+                        {
+                            RegionId = 77,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Ozolnieku novads"
+                        },
+                        new
+                        {
+                            RegionId = 78,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Pārgaujas novads"
+                        },
+                        new
+                        {
+                            RegionId = 79,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Pāvilostas novads"
+                        },
+                        new
+                        {
+                            RegionId = 80,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Pļaviņu novads"
+                        },
+                        new
+                        {
+                            RegionId = 81,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Preiļu novads"
+                        },
+                        new
+                        {
+                            RegionId = 82,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Priekules novads"
+                        },
+                        new
+                        {
+                            RegionId = 83,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Priekuļu novads"
+                        },
+                        new
+                        {
+                            RegionId = 84,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Raunas novads"
+                        },
+                        new
+                        {
+                            RegionId = 85,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Rēzeknes novads"
+                        },
+                        new
+                        {
+                            RegionId = 86,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Riebiņu novads"
+                        },
+                        new
+                        {
+                            RegionId = 87,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Rojas novads"
+                        },
+                        new
+                        {
+                            RegionId = 88,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Ropažu novads"
+                        },
+                        new
+                        {
+                            RegionId = 89,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Rucavas novads"
+                        },
+                        new
+                        {
+                            RegionId = 90,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Rugāju novads"
+                        },
+                        new
+                        {
+                            RegionId = 91,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Rūjienas novads"
+                        },
+                        new
+                        {
+                            RegionId = 92,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Rundāles novads"
+                        },
+                        new
+                        {
+                            RegionId = 93,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Salacgrīvas novads"
+                        },
+                        new
+                        {
+                            RegionId = 94,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Salas novads"
+                        },
+                        new
+                        {
+                            RegionId = 95,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Salaspils novads"
+                        },
+                        new
+                        {
+                            RegionId = 96,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Saldus novads"
+                        },
+                        new
+                        {
+                            RegionId = 97,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Saulkrastu novads"
+                        },
+                        new
+                        {
+                            RegionId = 98,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Sējas novads"
+                        },
+                        new
+                        {
+                            RegionId = 99,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Siguldas novads"
+                        },
+                        new
+                        {
+                            RegionId = 100,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Skrīveru novads"
+                        },
+                        new
+                        {
+                            RegionId = 101,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Skrundas novads"
+                        },
+                        new
+                        {
+                            RegionId = 102,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Smiltenes novads"
+                        },
+                        new
+                        {
+                            RegionId = 103,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Stopiņu novads"
+                        },
+                        new
+                        {
+                            RegionId = 104,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Strenču novads"
+                        },
+                        new
+                        {
+                            RegionId = 105,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Talsu novads"
+                        },
+                        new
+                        {
+                            RegionId = 106,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Tērvetes novads"
+                        },
+                        new
+                        {
+                            RegionId = 107,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Tukuma novads"
+                        },
+                        new
+                        {
+                            RegionId = 108,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Vaiņodes novads"
+                        },
+                        new
+                        {
+                            RegionId = 109,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Valkas novads"
+                        },
+                        new
+                        {
+                            RegionId = 110,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Varakļānu novads"
+                        },
+                        new
+                        {
+                            RegionId = 111,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Vārkavas novads"
+                        },
+                        new
+                        {
+                            RegionId = 112,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Vecpiebalgas novads"
+                        },
+                        new
+                        {
+                            RegionId = 113,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Vecumnieku novads "
+                        },
+                        new
+                        {
+                            RegionId = 114,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Ventspils novads"
+                        },
+                        new
+                        {
+                            RegionId = 115,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Viesītes novads"
+                        },
+                        new
+                        {
+                            RegionId = 116,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Viļakas novads"
+                        },
+                        new
+                        {
+                            RegionId = 117,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Viļānu novads"
+                        },
+                        new
+                        {
+                            RegionId = 118,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Zilupes novads"
                         });
                 });
 
