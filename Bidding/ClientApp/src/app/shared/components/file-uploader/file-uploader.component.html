@@ -1,46 +1,29 @@
-<label for="">Pievienot attēlus:</label>
+<label for="">Pievienot attēlus</label>
 <div class="input-group mb-3">
   <div class="input-group-prepend">
-    <span class="input-group-text" id="inputGroupFileAddon01">Pievienot attēlus:</span>
+    <span class="input-group-text" id="inputGroupFileAddon01"
+      >Pievienot attēlus</span
+    >
   </div>
+
   <div class="custom-file">
-    <input type="file" class="custom-file-input" id="inputGroupFile01" aria-describedby="inputGroupFileAddon01"
-      accept='image/*' (change)="upload($event)" multiple>
-    <label class="custom-file-label" for="inputGroupFile01">Choose file</label>
+    <input
+      #fileInput
+      type="file"
+      class="custom-file-input"
+      id="inputGroupFile01"
+      aria-describedby="inputGroupFileAddon01"
+      accept="image/*"
+      (click)="fileInput.value = null"
+      value=""
+      (change)="onUpload($event.target.files)"
+      multiple
+    />
+    <label class="custom-file-label" for="inputGroupFile01">Choose files</label>
   </div>
 </div>
 
-<div class="img-wrap" *ngFor='let url of urls; let i = index'>
-  <span class="close" (click)="onItemRemove(i)">&times;</span>
-  <img [src]="url" height="50">
+<div class="img-wrap" *ngFor="let file of files; let i = index">
+  <span class="close" (click)="onFileRemove(i)">&times;</span>
+  <img [src]="file" height="50" />
 </div>
-
-<!-- todo: kke: move this to the global scss file when doing the styling -->
-<style>
-  .img-wrap {
-    position: relative;
-    display: inline-block;
-    font-size: 0;
-  }
-
-  .img-wrap .close {
-    position: absolute;
-    top: 2px;
-    right: 2px;
-    z-index: 100;
-    background-color: #FFF;
-    padding: 5px 2px 2px;
-    color: #000;
-    font-weight: bold;
-    cursor: pointer;
-    opacity: .2;
-    text-align: center;
-    font-size: 22px;
-    line-height: 10px;
-    border-radius: 50%;
-  }
-
-  .img-wrap:hover .close {
-    opacity: 1;
-  }
-</style>

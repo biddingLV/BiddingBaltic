@@ -41,7 +41,7 @@ namespace Bidding.Shared.Exceptions
         {
         }
 
-        public WebApiException(HttpStatusCode statusCode, FileUploadErrorMessages message, Exception innerException = null) : this((int)statusCode, EnumHelper.GetDescriptionFromValue(message), innerException)
+        public WebApiException(HttpStatusCode statusCode, FileUploadErrorMessage message, Exception innerException = null) : this((int)statusCode, EnumHelper.GetDescriptionFromValue(message), innerException)
         {
         }
 

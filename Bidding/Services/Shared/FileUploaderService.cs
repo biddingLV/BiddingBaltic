@@ -13,6 +13,7 @@ using SixLabors.ImageSharp.Processing;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Net;
 using System.Net.Http.Headers;
 using System.Threading.Tasks;
@@ -25,7 +26,33 @@ namespace Bidding.Services.Shared
 
         private readonly string m_azureStorageConnectionString;
         private readonly IConfiguration m_configuration;
-        public readonly FileUploaderRepository m_fileUploaderRepository;
+        private readonly FileUploaderRepository m_fileUploaderRepository;
+
+        private readonly Dictionary<string, List<byte[]>> m_fileSignature = new Dictionary<string, List<byte[]>>
+        {
+            { "doc", new List<byte[]> { new byte[] { 0xD0, 0xCF, 0x11, 0xE0, 0xA1, 0xB1, 0x1A, 0xE1 } } },
+            { "docx", new List<byte[]> { new byte[] { 0x50, 0x4B, 0x03, 0x04 } } },
+            { "pdf", new List<byte[]> { new byte[] { 0x25, 0x50, 0x44, 0x46 } } },
+            { "png", new List<byte[]> { new byte[] { 0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A } } },
+            { "jpg", new List<byte[]> {
+                new byte[] { 0xFF, 0xD8, 0xFF, 0xE0 },
+                new byte[] { 0xFF, 0xD8, 0xFF, 0xE1 },
+                new byte[] { 0xFF, 0xD8, 0xFF, 0xE8 }
+            }},
+            { "jpeg", new List<byte[]> {
+                new byte[] { 0xFF, 0xD8, 0xFF, 0xE0 },
+                new byte[] { 0xFF, 0xD8, 0xFF, 0xE2 },
+                new byte[] { 0xFF, 0xD8, 0xFF, 0xE3 }
+            }}
+        };
+
+        private readonly Dictionary<string, string> m_contentTypeMap = new Dictionary<string, string>()
+        {
+            { "png", "image/png" },
+            { "jpg", "image/jpg" },
+            { "jpeg", "image/jpeg" },
+
+        };
 
         public FileUploaderService(IConfiguration configuration, FileUploaderRepository fileUploaderRepository)
         {
@@ -34,77 +61,71 @@ namespace Bidding.Services.Shared
             m_fileUploaderRepository = fileUploaderRepository ?? throw new ArgumentNullException(nameof(fileUploaderRepository));
         }
 
-        public async Task<CloudBlobContainer> GetCloudBlobContainer2()
+        public bool ValidateFiles(IFormFileCollection files)
         {
-            // CHECK THIS OUT - https://forums.asp.net/t/2142260.aspx?Blob+Container+rename 
+            if (files.IsNotSpecified()) throw new WebApiException(HttpStatusCode.BadRequest, FileUploadErrorMessage.MissingFileInformation);
+            if (files.Count > 30) throw new WebApiException(HttpStatusCode.BadRequest, FileUploadErrorMessage.MaxImageLimitReached);
 
-            if (CloudStorageAccount.TryParse(m_azureStorageConnectionString, out CloudStorageAccount cloudStorageAccount))
+            foreach (IFormFile item in files)
             {
-                CloudBlobClient cloudBlobClient = cloudStorageAccount.CreateCloudBlobClient();
-                CloudBlobContainer cloudBlobContainer = cloudBlobClient.GetContainerReference("bidauctionimages-67107ed8-d71f-4130-8787-91c202e8434a");
-
-                List<Uri> allBlobs = new List<Uri>();
-
-                BlobContinuationToken token = null;
-                do
-                {
-                    BlobResultSegment resultSegment = await cloudBlobContainer.ListBlobsSegmentedAsync(token);
-                    token = resultSegment.ContinuationToken;
-                    foreach (IListBlobItem blob in resultSegment.Results)
-                    {
-                        if (blob.GetType() == typeof(CloudBlockBlob))
-                            allBlobs.Add(blob.Uri);
-                    }
-                }
-                while (token != null);
-
-                return cloudBlobContainer;
+                ValidateFile(item);
             }
-            else
-            {
-                // todo: kke: improve this!
-                throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.IncorrectAuction);
-            }
+
+            return true;
         }
 
-        public async Task<bool> Upload(IFormFileCollection images)
+        public async Task<bool> UploadFilesAsync(IFormFileCollection files)
         {
-            if (images.IsNotSpecified()) throw new WebApiException(HttpStatusCode.BadRequest, FileUploadErrorMessages.MissingFileInformation);
-            if (images.Count > 30) throw new WebApiException(HttpStatusCode.BadRequest, FileUploadErrorMessages.MaxImageLimitReached);
-
-            bool status = false;
+            if (ValidateFiles(files) == false) throw new WebApiException(HttpStatusCode.BadRequest, FileUploadErrorMessage.GenericUploadErrorMessage);
 
             try
             {
-                CloudBlobContainer cloudBlobContainer = await GetCloudBlobContainer();
+                CloudBlobContainer cloudBlobContainer = await GetCloudBlobContainer().ConfigureAwait(true);
 
-                foreach (var image in images)
+                foreach (IFormFile file in files)
                 {
-                    ValidateImage(image);
+                    string fileName = GetFileName(file);
+                    string imageName = GenerateImageName(fileName);
+                    byte[] imageBytes = ConvertImageToByteArray(file);
+                    string fileExtension = GetFileExtension(file);
+                    ValidateFileSignature(fileExtension, imageBytes);
 
-                    var fileName = GetFileName(image);
-                    var imageName = GenerateImageName(fileName);
-                    var imageBytes = ConvertImageToByteArray(image);
-                    var imageUrl = await UploadImageByteArray(imageBytes, imageName, image.ContentType, cloudBlobContainer);
-
-                    status = true;
+                    var imageUrl = await m_fileUploaderRepository.UploadFilesAsync(imageBytes, imageName, file.ContentType, cloudBlobContainer).ConfigureAwait(true);
                 }
+
+                return true;
             }
             catch (Exception ex)
             {
-                throw new WebApiException(HttpStatusCode.BadRequest, FileUploadErrorMessages.MissingFileInformation, ex);
+                throw new WebApiException(HttpStatusCode.InternalServerError, FileUploadErrorMessage.GenericUploadErrorMessage, ex);
             }
-
-            return status;
         }
 
-        private void ValidateImage(IFormFile image)
+        private void ValidateFile(IFormFile file)
         {
-            if (!m_contentTypeMap.ContainsValue(image.ContentType)) throw new WebApiException(HttpStatusCode.BadRequest, "Could not upload image, unsupported file type.");
-            if (image.Length > MAX_FILE_SIZE) throw new WebApiException(HttpStatusCode.BadRequest, "Could not upload image, file too large.");
-            if (image.Length == 0) throw new WebApiException(HttpStatusCode.BadRequest, "Could not upload image, file empty.");
-            string fileExtension = Path.GetExtension(image.FileName).Trim().Trim('.').ToLower();
-            if (!m_contentTypeMap.ContainsKey(fileExtension)) throw new WebApiException(HttpStatusCode.BadRequest, "Could not upload image, unsupported file extension.");
+            if (!m_contentTypeMap.ContainsValue(file.ContentType)) throw new WebApiException(HttpStatusCode.BadRequest, FileUploadErrorMessage.UnsupportedFileType);
+            if (file.Length == 0) throw new WebApiException(HttpStatusCode.BadRequest, FileUploadErrorMessage.FileEmpty);
+            if (file.Length > MAX_FILE_SIZE) throw new WebApiException(HttpStatusCode.BadRequest, FileUploadErrorMessage.FileTooLarge);
+
+            string fileExtension = GetFileExtension(file);
+            if (!m_contentTypeMap.ContainsKey(fileExtension)) throw new WebApiException(HttpStatusCode.BadRequest, FileUploadErrorMessage.UnsupportedFileExtension);
+            if (!m_fileSignature.ContainsKey(fileExtension)) throw new WebApiException(HttpStatusCode.BadRequest, FileUploadErrorMessage.UnsupportedFileExtension);
+        }
+
+        private void ValidateFileSignature(string fileExtension, byte[] imageBytes)
+        {
+            List<byte[]> sig = m_fileSignature[fileExtension];
+            foreach (byte[] b in sig)
+            {
+                var curFileSig = new byte[b.Length];
+                Array.Copy(imageBytes, curFileSig, b.Length);
+                if (!curFileSig.SequenceEqual(b)) throw new WebApiException(HttpStatusCode.BadRequest, FileUploadErrorMessage.UnsupportedFileType);
+            }
+        }
+
+        private string GetFileExtension(IFormFile file)
+        {
+            return Path.GetExtension(file.FileName).Trim().Trim('.').ToLower();
         }
 
         private string GetFileName(IFormFile image)
@@ -114,19 +135,22 @@ namespace Bidding.Services.Shared
 
         private string GenerateImageName(string fileName)
         {
+            // todo: kke: also add date timestamp!
             return $"{Guid.NewGuid().ToString()}{Path.GetExtension(fileName)}";
         }
 
-        private byte[] ConvertImageToByteArray(IFormFile inputImage)
+        private byte[] ConvertImageToByteArray(IFormFile file)
         {
             byte[] result = null;
 
             try
             {
-                var imageStream = inputImage.OpenReadStream();
+                var imageStream = file.OpenReadStream();
 
-                Stream thumbnailStream = new MemoryStream((int)imageStream.Length);
-                thumbnailStream.Position = 0;
+                Stream thumbnailStream = new MemoryStream((int)imageStream.Length)
+                {
+                    Position = 0
+                };
 
                 using (Image<Rgba32> image = Image.Load(imageStream))
                 {
@@ -136,7 +160,9 @@ namespace Bidding.Services.Shared
                          .Resize(1500, 0, true)); // image.Width / thumbnailRate || image.Height / thumbnailRate
 
                     imageStream.Position = 0;
+
                     var imageFormat = Image.DetectFormat(imageStream);
+
                     if (imageFormat != null)
                     {
                         image.Save(thumbnailStream, imageFormat);
@@ -158,7 +184,7 @@ namespace Bidding.Services.Shared
             }
             catch (Exception ex)
             {
-
+                throw new WebApiException(HttpStatusCode.InternalServerError, FileUploadErrorMessage.GenericUploadErrorMessage, ex);
             }
 
             return result;
@@ -166,36 +192,11 @@ namespace Bidding.Services.Shared
 
         private int GetThumbnailRate(int originailWidth, int estimatedThumbnailWith)
         {
-            var thumbnailRate = originailWidth / estimatedThumbnailWith;
-            if (thumbnailRate == 0)
-            {
-                thumbnailRate = 1;
-            }
+            int thumbnailRate = originailWidth / estimatedThumbnailWith;
+
+            if (thumbnailRate == 0) thumbnailRate = 1;
 
             return thumbnailRate;
-        }
-
-        private async Task<string> UploadImageByteArray(byte[] imageBytes, string imageName, string contentType, CloudBlobContainer cloudBlobContainer)
-        {
-            if (imageBytes == null || imageBytes.Length == 0)
-            {
-                return null;
-            }
-
-            var cloudBlockBlob = cloudBlobContainer.GetBlockBlobReference(imageName);
-
-            cloudBlockBlob.Properties.ContentType = contentType;
-
-            const int byteArrayStartIndex = 0;
-
-            await cloudBlockBlob.UploadFromByteArrayAsync(
-                imageBytes,
-                byteArrayStartIndex,
-                imageBytes.Length);
-
-            var imageFullUrlPath = cloudBlockBlob.Uri.ToString();
-
-            return imageFullUrlPath;
         }
 
         private async Task<CloudBlobContainer> GetCloudBlobContainer()
@@ -204,31 +205,16 @@ namespace Bidding.Services.Shared
             {
                 CloudBlobClient cloudBlobClient = cloudStorageAccount.CreateCloudBlobClient();
                 CloudBlobContainer cloudBlobContainer = cloudBlobClient.GetContainerReference("bidauctionimages-" + Guid.NewGuid().ToString());
-                await cloudBlobContainer.CreateIfNotExistsAsync();
 
-                await cloudBlobContainer.SetPermissionsAsync(new BlobContainerPermissions { PublicAccess = BlobContainerPublicAccessType.Blob });
+                await cloudBlobContainer.CreateIfNotExistsAsync().ConfigureAwait(true);
+                await cloudBlobContainer.SetPermissionsAsync(new BlobContainerPermissions { PublicAccess = BlobContainerPublicAccessType.Blob }).ConfigureAwait(true);
 
                 return cloudBlobContainer;
             }
             else
             {
-                // todo: kke: improve this!
-                throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.IncorrectAuction);
+                throw new WebApiException(HttpStatusCode.InternalServerError, FileUploadErrorMessage.GenericUploadErrorMessage);
             }
         }
-
-        private Dictionary<string, string> m_contentTypeMap = new Dictionary<string, string>()
-        {
-            { "png", "image/png" },
-            { "jpg", "image/jpg" },
-            { "jpeg", "image/jpeg" }
-        };
-
-        //private List<ImageFormat> m_supportedImageFormats = new List<ImageFormat>()
-        //{
-        //    ImageFormat.Jpeg,
-        //    ImageFormat.Png,
-        //    ImageFormat.Gif
-        //};
     }
 }

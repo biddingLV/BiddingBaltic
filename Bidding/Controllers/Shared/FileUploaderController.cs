@@ -1,7 +1,8 @@
 ﻿using Bidding.Services.Shared;
-using Microsoft.AspNetCore.Authorization;
+using FeatureAuthorize.PolicyCode;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using PermissionParts;
 using System;
 using System.Threading.Tasks;
 
@@ -19,12 +20,21 @@ namespace Bidding.Controllers.Shared
         }
 
         [HttpPost]
-        [Authorize(Roles = "User, Admin")]
-        public async Task<IActionResult> Upload()
+        [HasPermission(Permission.CreateAuction)]
+        public IActionResult ValidateFiles()
         {
             IFormFileCollection files = Request.Form.Files;
 
-            return Ok(await m_fileUploaderService.Upload(files).ConfigureAwait(false));
+            return Ok(m_fileUploaderService.ValidateFiles(files));
+        }
+
+        [HttpPost]
+        [HasPermission(Permission.CreateAuction)]
+        public async Task<IActionResult> UploadFiles()
+        {
+            IFormFileCollection files = Request.Form.Files;
+
+            return Ok(await m_fileUploaderService.UploadFilesAsync(files).ConfigureAwait(true));
         }
     }
 }

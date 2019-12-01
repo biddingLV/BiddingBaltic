@@ -8,7 +8,6 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { NgxDatatableModule } from "@swimlane/ngx-datatable";
 import { NgSelectModule } from "@ng-select/ng-select";
 import { NgxGalleryModule } from "ngx-gallery";
-import { NgxUploaderModule } from "ngx-uploader";
 import { TimepickerModule } from "ngx-bootstrap/timepicker";
 import { ModalModule } from "ngx-bootstrap/modal";
 
@@ -30,7 +29,6 @@ import { TimepickerComponent } from "./components/timepicker/timepicker.componen
     FormsModule,
     ReactiveFormsModule,
     NgxGalleryModule,
-    NgxUploaderModule,
     ModalModule.forRoot(),
     TimepickerModule.forRoot()
   ],
@@ -43,7 +41,6 @@ import { TimepickerComponent } from "./components/timepicker/timepicker.componen
     ImageGalleryComponent,
     HasRoleDirective,
     NgxDatatableModule,
-    NgxUploaderModule,
     ModalModule,
     MinSharedModule,
     TimepickerModule,

@@ -41,7 +41,6 @@
     "ngx-cookie-service": "^2.1.0",
     "ngx-gallery": "git://github.com/onack/ngx-gallery-dist.git",
     "ngx-toastr": "^10.2.0",
-    "ngx-uploader": "^7.1.0",
     "popper.js": "^1.16.0",
     "rxjs": "^6.5.3",
     "zone.js": "~0.9.1"
