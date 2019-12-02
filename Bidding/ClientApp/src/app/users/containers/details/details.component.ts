@@ -10,9 +10,8 @@ import { BsModalService, BsModalRef } from "ngx-bootstrap/modal";
 // internal
 import { UsersService } from "../../services/users.service";
 import { NotificationsService } from "ClientApp/src/app/core/services/notifications/notifications.service";
-import { UserDetailsModel } from "../../models/details/user-details.model";
+import { UserDetailsResponseModel } from "../../models/details/user-details-response.model";
 import { UserEditComponent } from "../../components/edit/edit.component";
-import { FormService } from "ClientApp/src/app/core/services/form/form.service";
 import { ModalService } from "ClientApp/src/app/core/services/modal/modal.service";
 import { BreadcrumbItem } from "ClientApp/src/app/shared/models/breadcrumb-item.model";
 
@@ -22,9 +21,10 @@ import { BreadcrumbItem } from "ClientApp/src/app/shared/models/breadcrumb-item.
   styleUrls: ["./details.component.scss"]
 })
 export class UserDetailsComponent implements OnInit {
-  // details
+  // component
   detailsSub: Subscription;
-  userDetails: UserDetailsModel;
+  userDetails: UserDetailsResponseModel;
+  private userId: number;
 
   // template
   fullName: string;
@@ -41,36 +41,36 @@ export class UserDetailsComponent implements OnInit {
     private activedRoute: ActivatedRoute,
     private notificationService: NotificationsService,
     private externalModalService: BsModalService,
-    private internalModalService: ModalService,
-    private internalFormService: FormService
+    private internalModalService: ModalService
   ) {}
 
   ngOnInit(): void {
     this.loadUserDetails();
   }
 
-  // editModal(): void {
-  //   const initialState = {
-  //     selectedUserId: this.userDetails.userId
-  //   };
+  editModal(): void {
+    const initialState = {
+      selectedUserId: this.userId
+    };
 
-  //   const modalConfig = {
-  //     ...this.internalModalService.defaultModalOptions,
-  //     ...{ initialState: initialState, class: "modal-md" }
-  //   };
-  //   this.bsModalRef = this.externalModalService.show(
-  //     UserEditComponent,
-  //     modalConfig
-  //   );
+    const modalConfig = {
+      ...this.internalModalService.defaultModalOptions,
+      ...{ initialState: initialState, class: "modal-md" }
+    };
 
-  //   this.subscriptions.push(
-  //     this.externalModalService.onHidden.subscribe((result: string) => {
-  //       if (this.internalFormService.onModalHide(result, this.subscriptions)) {
-  //         this.loadUserDetails();
-  //       }
-  //     })
-  //   );
-  // }
+    this.bsModalRef = this.externalModalService.show(
+      UserEditComponent,
+      modalConfig
+    );
+
+    this.externalModalService.onHide
+      .pipe(this.internalModalService.toModalResult())
+      .subscribe(result => {
+        if (result.success) {
+          this.loadUserDetails();
+        }
+      });
+  }
 
   /**
    * Load user information/details for a specific user
@@ -78,12 +78,13 @@ export class UserDetailsComponent implements OnInit {
   private loadUserDetails() {
     this.detailsSub = this.activedRoute.paramMap
       .pipe(
-        switchMap((params: ParamMap) =>
-          this.userService.getUserDetails$(Number(params.get("id")))
-        )
+        switchMap((params: ParamMap) => {
+          this.userId = Number(params.get("id"));
+          return this.userService.getUserDetails$(this.userId);
+        })
       )
       .subscribe(
-        response => {
+        (response: UserDetailsResponseModel) => {
           this.userDetails = response;
           this.generateBreadcrumbs();
           this.setFullName();
@@ -106,11 +107,11 @@ export class UserDetailsComponent implements OnInit {
   }
 
   private setFullName(): void {
-    if (this.userDetails.userFirstName && this.userDetails.userLastName) {
+    if (this.userDetails.firstName && this.userDetails.lastName) {
       this.fullName =
-        this.userDetails.userFirstName + " " + this.userDetails.userLastName;
+        this.userDetails.firstName + " " + this.userDetails.lastName;
     } else {
-      this.fullName = this.userDetails.userEmail;
+      this.fullName = this.userDetails.email;
     }
   }
 }

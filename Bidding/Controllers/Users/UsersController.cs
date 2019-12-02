@@ -1,8 +1,10 @@
 ﻿using Bidding.Models.ViewModels.Admin.Users.List;
+using Bidding.Models.ViewModels.Users.Edit;
 using Bidding.Services.Users;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Threading.Tasks;
 
 namespace Bidding.Controllers.Users
 {
@@ -18,16 +20,30 @@ namespace Bidding.Controllers.Users
         }
 
         [HttpGet]
-        public IActionResult Details([FromQuery] int userId)
+        public async Task<IActionResult> Details([FromQuery] int userId)
         {
-            return Ok(m_userService.UserDetails(userId));
+            return Ok(await m_userService.UserDetails(userId).ConfigureAwait(true));
         }
 
         [HttpGet]
-        [Authorize(Roles = "User, Admin")]
-        public IActionResult EditDetails([FromQuery] int userId)
+        public async Task<IActionResult> EditDetails([FromQuery] int userId)
         {
-            return Ok(m_userService.UserDetails(userId));
+            return Ok(await m_userService.UserDetails(userId).ConfigureAwait(true));
+        }
+
+        /// <summary>
+        /// MAKE TWO DIFFERENT METHODS
+        /// ONE FOR UPDATING OWN PROFILE
+        /// ANOTHER OWN FOR UPDATEING ANOTHER USER BASED ON Permission
+        /// Get rid of user id passed to this method
+        /// TRY THAT!!!!!!!!
+        /// </summary>
+        /// <param name="request"></param>
+        /// <returns></returns>
+        [HttpPut]
+        public async Task<IActionResult> Edit([FromBody] UserEditRequestModel request)
+        {
+            return Ok(await m_userService.Edit(request).ConfigureAwait(true));
         }
 
         [HttpGet]

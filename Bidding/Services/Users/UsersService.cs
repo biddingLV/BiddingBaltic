@@ -1,7 +1,7 @@
 ﻿using Bidding.Models.DatabaseModels.Shared;
 using Bidding.Models.ViewModels.Admin.Users.List;
 using Bidding.Models.ViewModels.Users.Details;
-using Bidding.Models.ViewModels.Users.Shared;
+using Bidding.Models.ViewModels.Users.Edit;
 using Bidding.Repositories.Users;
 using Bidding.Services.Shared.Permissions;
 using Bidding.Shared.Constants;
@@ -19,11 +19,9 @@ namespace Bidding.Services.Users
     public class UsersService
     {
         private readonly UsersRepository m_userRepository;
-        private readonly PermissionService m_permissionService;
 
         public UsersService(UsersRepository userRepository, PermissionService permissionService)
         {
-            m_permissionService = permissionService ?? throw new ArgumentNullException(nameof(permissionService));
             m_userRepository = userRepository ?? throw new ArgumentNullException(nameof(userRepository));
         }
 
@@ -34,34 +32,24 @@ namespace Bidding.Services.Users
         /// <returns></returns>
         public async Task<ApplicationUser> HandleUserLoginAsync(ApplicationUser user)
         {
-            if (user.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, UserErrorMessages.MissingUsersInformation); }
-            if (user.Email.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, UserErrorMessages.MissingUsersInformation); }
-            if (user.IdentityId.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.Unauthorized, UserErrorMessages.CanNotSignIn); }
-            if (user.EmailConfirmed.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.Unauthorized, UserErrorMessages.CanNotSignIn); }
-            if (user.UserName.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.Unauthorized, UserErrorMessages.CanNotSignIn); }
+            if (user.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, UserErrorMessage.MissingUsersInformation); }
+            if (user.Email.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, UserErrorMessage.MissingUsersInformation); }
+            if (user.IdentityId.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.Unauthorized, UserErrorMessage.CanNotSignIn); }
+            if (user.EmailConfirmed.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.Unauthorized, UserErrorMessage.CanNotSignIn); }
+            if (user.UserName.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.Unauthorized, UserErrorMessage.CanNotSignIn); }
 
             return await m_userRepository.HandleUserLoginAsync(user).ConfigureAwait(false);
         }
 
-        public bool UserExists(string email)
+        public async Task<UserDetailsResponseModel> UserDetails(int userId)
         {
-            if (email.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, UserErrorMessages.EmailNotSpecified); }
+            if (userId.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, UserErrorMessage.UserNotValid); }
+            if (await UserExists(userId).ConfigureAwait(true) == false)
+            {
+                throw new WebApiException(HttpStatusCode.BadRequest, UserErrorMessage.UserNotActive);
+            }
 
-            return m_userRepository.UserExists(email);
-        }
-
-        public UserDetailsModel UserDetails(int userId)
-        {
-            if (userId.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, UserErrorMessages.UserNotValid); }
-
-            return m_userRepository.UserDetails(userId).FirstOrDefault();
-        }
-
-        public UserProfileModel UserDetails(string email)
-        {
-            if (email.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, UserErrorMessages.EmailNotSpecified); }
-
-            return m_userRepository.UserDetails(email).FirstOrDefault();
+            return await m_userRepository.UserDetails(userId).ConfigureAwait(true);
         }
 
         public UserListResponseModel ListWithSearch(UserListRequestModel request)
@@ -81,15 +69,34 @@ namespace Bidding.Services.Users
             return auctionsResponse;
         }
 
+        public async Task<bool> Edit(UserEditRequestModel request)
+        {
+            if (request.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, UserErrorMessage.MissingUsersInformation); }
+            if (request.UserId.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, UserErrorMessage.MissingUsersInformation); }
+            if (request.FirstName.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, UserErrorMessage.MissingUsersInformation); }
+            if (request.LastName.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, UserErrorMessage.MissingUsersInformation); }
+            if (await UserExists(request.UserId).ConfigureAwait(true) == false)
+            {
+                throw new WebApiException(HttpStatusCode.BadRequest, UserErrorMessage.UserNotActive);
+            }
+
+            return await m_userRepository.Edit(request).ConfigureAwait(true);
+        }
+
+        private async Task<bool> UserExists(int userId)
+        {
+            return await m_userRepository.UserExists(userId).ConfigureAwait(true);
+        }
+
         private void ValidateUserListWithSearch(UserListRequestModel request)
         {
-            if (request.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, UserErrorMessages.MissingUsersInformation); }
-            if (request.SortByColumn.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, UserErrorMessages.MissingUsersInformation); }
-            if (request.SortingDirection.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, UserErrorMessages.MissingUsersInformation); }
-            if (request.OffsetStart < 0) { throw new WebApiException(HttpStatusCode.BadRequest, UserErrorMessages.MissingUsersInformation); }
-            if (request.OffsetEnd.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, UserErrorMessages.MissingUsersInformation); }
-            if (request.CurrentPage < 0) { throw new WebApiException(HttpStatusCode.BadRequest, UserErrorMessages.MissingUsersInformation); }
-            if (request.SortingDirection != "asc" && request.SortingDirection != "desc") { throw new WebApiException(HttpStatusCode.BadRequest, UserErrorMessages.MissingUsersInformation); }
+            if (request.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, UserErrorMessage.MissingUsersInformation); }
+            if (request.SortByColumn.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, UserErrorMessage.MissingUsersInformation); }
+            if (request.SortingDirection.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, UserErrorMessage.MissingUsersInformation); }
+            if (request.OffsetStart < 0) { throw new WebApiException(HttpStatusCode.BadRequest, UserErrorMessage.MissingUsersInformation); }
+            if (request.OffsetEnd.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, UserErrorMessage.MissingUsersInformation); }
+            if (request.CurrentPage < 0) { throw new WebApiException(HttpStatusCode.BadRequest, UserErrorMessage.MissingUsersInformation); }
+            if (request.SortingDirection != "asc" && request.SortingDirection != "desc") { throw new WebApiException(HttpStatusCode.BadRequest, UserErrorMessage.MissingUsersInformation); }
 
             // todo: kke: implement this logic!
             //List<string> allowedSortByColumns = new List<string> { "AuctionName", "AuctionStartingPrice", "AuctionStartDate", "AuctionEndDate" };

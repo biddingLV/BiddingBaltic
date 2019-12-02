@@ -2,7 +2,7 @@
 
 namespace Bidding.Shared.ErrorHandling.Errors
 {
-    public enum UserErrorMessages
+    public enum UserErrorMessage
     {
         [Description("Users information missing")]
         MissingUsersInformation,
@@ -15,6 +15,9 @@ namespace Bidding.Shared.ErrorHandling.Errors
 
         [Description("Could not create the user")]
         CouldNotCreateUser,
+
+        [Description("Could not update the user")]
+        CouldNotUpdateUser,
 
         [Description("Please specify your e-mail!")]
         EmailNotSpecified,

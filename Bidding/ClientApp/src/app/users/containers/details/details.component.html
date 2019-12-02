@@ -3,24 +3,52 @@
     <app-breadcrumb [breadcrumbs]="breadcrumbs"></app-breadcrumb>
   </div>
 
-  <ng-container *ngIf="this.userDetails">
+  <ng-container *ngIf="userDetails">
     <div class="row mt-5 mb-4">
       <div class="col-12">
         <h5>
-          <strong>Hei, {{ fullName }}!</strong>
+          <strong>Hei, {{ fullName || "-" }}!</strong>
         </h5>
       </div>
     </div>
 
     <div class="row mb-5">
-      <div class="col-12 mb-3">
+      <div class="col-11 mb-3">
         <h5><strong>Mans profils</strong></h5>
       </div>
 
+      <div class="col-1 mb-3">
+        <button
+          (click)="editModal()"
+          value="Edit"
+          type="button"
+          class="btn btn-primary"
+        >
+          Edit
+        </button>
+      </div>
+
       <div class="col-12">
-        <p>Vārds {{ fullName }}</p>
-        <p>Epasts {{ fullName }}</p>
-        <p>Telefons -</p>
+        <div class="row">
+          <div class="col-1"><span class="text-muted">Vārds</span></div>
+          <div class="col-2">
+            <span>{{ fullName || "-" }}</span>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-1"><span class="text-muted">Epasts</span></div>
+          <div class="col-2">
+            <span>{{ userDetails.email || "-" }}</span>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="col-1"><span class="text-muted">Telefons</span></div>
+          <div class="col-2">
+            <span>{{ userDetails.phone || "-" }}</span>
+          </div>
+        </div>
       </div>
     </div>
 

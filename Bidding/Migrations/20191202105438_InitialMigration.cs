@@ -39,15 +39,15 @@ namespace Bidding.Migrations
                     PasswordHash = table.Column<string>(nullable: true),
                     SecurityStamp = table.Column<string>(nullable: true),
                     ConcurrencyStamp = table.Column<string>(nullable: true),
-                    PhoneNumber = table.Column<string>(nullable: true),
                     PhoneNumberConfirmed = table.Column<bool>(nullable: false),
                     TwoFactorEnabled = table.Column<bool>(nullable: false),
                     LockoutEnd = table.Column<DateTimeOffset>(nullable: true),
                     LockoutEnabled = table.Column<bool>(nullable: false),
                     AccessFailedCount = table.Column<int>(nullable: false),
-                    FirstName = table.Column<string>(nullable: true),
-                    LastName = table.Column<string>(nullable: true),
-                    IdentityId = table.Column<string>(nullable: true)
+                    FirstName = table.Column<string>(maxLength: 50, nullable: true),
+                    LastName = table.Column<string>(maxLength: 50, nullable: true),
+                    IdentityId = table.Column<string>(maxLength: 150, nullable: true),
+                    PhoneNumber = table.Column<string>(maxLength: 100, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -574,10 +574,10 @@ namespace Bidding.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Description", "Name", "NormalizedName", "PermissionsInRole" },
                 values: new object[,]
                 {
-                    { 100, "c27bcf26-0af3-41ca-8a6c-2db3d873ffd4", null, "BasicUser", "BASICUSER", null },
-                    { 300, "66b41f96-193e-47b7-839b-3598b742ac0c", null, "PageAdministrator", "PAGEADMINISTRATOR", null },
-                    { 400, "1c76e35b-6276-48d4-87e7-e860afdf717d", null, "SuperAdministrator", "SUPERADMINISTRATOR", null },
-                    { 200, "ac9456be-13c4-4eed-97f0-6f94f032ff67", null, "AuctionCreator", "AUCTIONCREATOR", null }
+                    { 100, "4a7025c3-8369-4857-b94c-69147887717c", null, "BasicUser", "BASICUSER", null },
+                    { 300, "00bc1325-a7d9-40cd-a5a8-602b62b173e5", null, "PageAdministrator", "PAGEADMINISTRATOR", null },
+                    { 400, "aa3521e7-6f81-4d84-9fed-bca86436da3f", null, "SuperAdministrator", "SUPERADMINISTRATOR", null },
+                    { 200, "6273e71e-a4ef-474f-a815-1def5039a0af", null, "AuctionCreator", "AUCTIONCREATOR", null }
                 });
 
             migrationBuilder.InsertData(

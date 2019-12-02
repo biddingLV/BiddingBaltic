@@ -88,7 +88,7 @@ namespace Bidding.Services.Shared
                     string imageName = GenerateImageName(fileName);
                     byte[] imageBytes = ConvertImageToByteArray(file);
                     string fileExtension = GetFileExtension(file);
-                    ValidateFileSignature(fileExtension, imageBytes);
+                    // ValidateFileSignature(fileExtension, imageBytes); // todo: kke: why this fails for jpg?
 
                     var imageUrl = await m_fileUploaderRepository.UploadFilesAsync(imageBytes, imageName, file.ContentType, cloudBlobContainer).ConfigureAwait(true);
                 }

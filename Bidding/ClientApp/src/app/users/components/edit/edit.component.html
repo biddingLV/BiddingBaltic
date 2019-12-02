@@ -1,29 +1,88 @@
 <div class="modal-header">
-  <h5 class="modal-title pull-left">Edit User</h5>
-  <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+  <h5 class="modal-title pull-left">Pamatinformācija</h5>
+  <button
+    type="button"
+    class="close pull-right"
+    aria-label="Close"
+    (click)="bsModalRef.hide()"
+  >
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
-<div class="modal-body">
-  <form [formGroup]="userEditForm">
+
+<div class="modal-body" *ngIf="details">
+  <form [formGroup]="editForm">
     <div class="form-row">
       <div class="form-group col-12">
-        <label for="usersFirstName" class="required">First name:</label>
-        <input type="text" formControlName="usersFirstName" class="form-control" id="usersFirstName"
-          name="usersFirstName" [ngClass]="{ 'is-invalid': submitted && f.usersFirstName.errors }" />
-        <div *ngIf="submitted && formErrors.usersFirstName" class="invalid-feedback">
-          {{formErrors.usersFirstName}}
+        <label for="userFirstName">Vārds</label>
+        <input
+          type="text"
+          formControlName="userFirstName"
+          class="form-control"
+          id="userFirstName"
+          name="userFirstName"
+          [ngClass]="{ 'is-invalid': submitted && f.userFirstName.errors }"
+        />
+        <div
+          *ngIf="submitted && formErrors.userFirstName"
+          class="invalid-feedback"
+        >
+          {{ formErrors.userFirstName }}
         </div>
       </div>
     </div>
 
     <div class="form-row">
       <div class="form-group col-12">
-        <label for="usersLastName" class="required">Last name:</label>
-        <input type="text" formControlName="usersLastName" class="form-control" id="usersLastName" name="usersLastName"
-          [ngClass]="{ 'is-invalid': submitted && f.usersLastName.errors }" />
-        <div *ngIf="submitted && formErrors.usersLastName" class="invalid-feedback">
-          {{formErrors.usersLastName}}
+        <label for="userLastName">Uzvārds</label>
+        <input
+          type="text"
+          formControlName="userLastName"
+          class="form-control"
+          id="userLastName"
+          name="userLastName"
+          [ngClass]="{ 'is-invalid': submitted && f.userLastName.errors }"
+        />
+        <div
+          *ngIf="submitted && formErrors.userLastName"
+          class="invalid-feedback"
+        >
+          {{ formErrors.userLastName }}
+        </div>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group col-12">
+        <label for="userEmail">Epasts</label>
+        <input
+          type="text"
+          formControlName="userEmail"
+          class="form-control"
+          id="userEmail"
+          name="userEmail"
+          readonly
+        />
+        <small class="form-text text-muted">
+          Epastu mainīt nevar. Jautājumu gadījumā sazinies ar portāla
+          administrāciju.
+        </small>
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group col-12">
+        <label for="userPhone">Telefons</label>
+        <input
+          type="text"
+          formControlName="userPhone"
+          class="form-control"
+          id="userPhone"
+          name="userPhone"
+          [ngClass]="{ 'is-invalid': submitted && f.userPhone.errors }"
+        />
+        <div *ngIf="submitted && formErrors.userPhone" class="invalid-feedback">
+          {{ formErrors.userPhone }}
         </div>
       </div>
     </div>
@@ -31,8 +90,12 @@
     <div class="form-row">
       <div class="col-12">
         <div class="form-group modal-buttons float-right">
-          <button class="btn btn-primary" [disabled]="disableButton" (click)="onSubmit()">Update</button>
-          <button class="btn btn-outline-dark" (click)="bsModalRef.hide()">Cancel</button>
+          <button class="btn btn-primary" (click)="onSubmit()">
+            Update
+          </button>
+          <button class="btn btn-outline-dark" (click)="bsModalRef.hide()">
+            Cancel
+          </button>
         </div>
       </div>
     </div>

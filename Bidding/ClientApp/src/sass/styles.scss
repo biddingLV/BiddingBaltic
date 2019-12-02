@@ -51,12 +51,6 @@
 * Form
 */
 
-// adds asterisk after required form control
-.required::after {
-  content: " *";
-  color: red;
-}
-
 /*
 * Modals
 */

@@ -1,6 +1,6 @@
 ﻿namespace Bidding.Models.ViewModels.Users.Shared
 {
-    public class UserProfileCookie
+    public class UserProfileCookieModel
     {
         public int UserId { get; set; }
         public bool IsAuthenticated { get; set; }

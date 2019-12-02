@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Bidding.Migrations
 {
     [DbContext(typeof(BiddingContext))]
-    [Migration("20191128132443_InitialMigration")]
+    [Migration("20191202105438_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -837,28 +837,28 @@ namespace Bidding.Migrations
                         new
                         {
                             Id = 100,
-                            ConcurrencyStamp = "c27bcf26-0af3-41ca-8a6c-2db3d873ffd4",
+                            ConcurrencyStamp = "4a7025c3-8369-4857-b94c-69147887717c",
                             Name = "BasicUser",
                             NormalizedName = "BASICUSER"
                         },
                         new
                         {
                             Id = 200,
-                            ConcurrencyStamp = "ac9456be-13c4-4eed-97f0-6f94f032ff67",
+                            ConcurrencyStamp = "6273e71e-a4ef-474f-a815-1def5039a0af",
                             Name = "AuctionCreator",
                             NormalizedName = "AUCTIONCREATOR"
                         },
                         new
                         {
                             Id = 300,
-                            ConcurrencyStamp = "66b41f96-193e-47b7-839b-3598b742ac0c",
+                            ConcurrencyStamp = "00bc1325-a7d9-40cd-a5a8-602b62b173e5",
                             Name = "PageAdministrator",
                             NormalizedName = "PAGEADMINISTRATOR"
                         },
                         new
                         {
                             Id = 400,
-                            ConcurrencyStamp = "1c76e35b-6276-48d4-87e7-e860afdf717d",
+                            ConcurrencyStamp = "aa3521e7-6f81-4d84-9fed-bca86436da3f",
                             Name = "SuperAdministrator",
                             NormalizedName = "SUPERADMINISTRATOR"
                         });
@@ -880,11 +880,14 @@ namespace Bidding.Migrations
 
                     b.Property<bool>("EmailConfirmed");
 
-                    b.Property<string>("FirstName");
+                    b.Property<string>("FirstName")
+                        .HasMaxLength(50);
 
-                    b.Property<string>("IdentityId");
+                    b.Property<string>("IdentityId")
+                        .HasMaxLength(150);
 
-                    b.Property<string>("LastName");
+                    b.Property<string>("LastName")
+                        .HasMaxLength(50);
 
                     b.Property<bool>("LockoutEnabled");
 
@@ -898,7 +901,8 @@ namespace Bidding.Migrations
 
                     b.Property<string>("PasswordHash");
 
-                    b.Property<string>("PhoneNumber");
+                    b.Property<string>("PhoneNumber")
+                        .HasMaxLength(100);
 
                     b.Property<bool>("PhoneNumberConfirmed");
 

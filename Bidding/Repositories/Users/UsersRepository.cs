@@ -2,7 +2,7 @@
 using Bidding.Models.DatabaseModels.Shared;
 using Bidding.Models.ViewModels.Admin.Users.List;
 using Bidding.Models.ViewModels.Users.Details;
-using Bidding.Models.ViewModels.Users.Shared;
+using Bidding.Models.ViewModels.Users.Edit;
 using Bidding.Shared.Constants;
 using Bidding.Shared.ErrorHandling.Errors;
 using Bidding.Shared.Exceptions;
@@ -21,31 +21,28 @@ namespace Bidding.Repositories.Users
 {
     public class UsersRepository
     {
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly BiddingContext _bidContext;
+        private readonly UserManager<ApplicationUser> m_userManager;
+        private readonly BiddingContext m_context;
 
         public UsersRepository(IServiceProvider services)
         {
-            _userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
-            _bidContext = services.GetRequiredService<BiddingContext>();
+            m_userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
+            m_context = services.GetRequiredService<BiddingContext>();
         }
 
         /// <summary>
-        /// Can be used to check if this specific user already exists
+        /// Check if user already exists in the system
         /// </summary>
         /// <param name="email">Users e-mail</param>
         /// <returns></returns>
-        public bool UserExists(string email)
+        public async Task<bool> UserExists(int userId)
         {
-            return true;
-
-            // @Permissions: WIP!
-            // m_context.Users.Any(usr => usr.LoginEmail == email && usr.Deleted == false);
+            return await m_userManager.Users.AnyAsync(u => u.Id == userId).ConfigureAwait(true);
         }
 
         public async Task<ApplicationUser> HandleUserLoginAsync(ApplicationUser user)
         {
-            ApplicationUser userDetails = await _userManager.FindByEmailAsync(user.Email).ConfigureAwait(false);
+            ApplicationUser userDetails = await m_userManager.FindByEmailAsync(user.Email).ConfigureAwait(true);
 
             if (userDetails.IsSpecified())
             {
@@ -55,35 +52,40 @@ namespace Bidding.Repositories.Users
             return await HandleNewUserAsync(user).ConfigureAwait(false);
         }
 
-        public IEnumerable<UserDetailsModel> UserDetails(int userId)
+        public async Task<UserDetailsResponseModel> UserDetails(int userId)
         {
-            yield return new UserDetailsModel();
+            ApplicationUser user = await m_userManager.Users.FirstOrDefaultAsync(u => u.Id == userId).ConfigureAwait(true);
 
-            // @Permissions: WIP!
-            //return (from usr in m_context.Users
-            //        where usr.UserId == userId && usr.Deleted == false
-            //        select new UserDetailsModel()
-            //        {
-            //            UserId = usr.UserId,
-            //            UserFirstName = usr.FirstName,
-            //            UserLastName = usr.LastName,
-            //            UserEmail = usr.LoginEmail
-            //        });
+            return new UserDetailsResponseModel()
+            {
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email,
+                Phone = user.PhoneNumber
+            };
         }
 
-        public IEnumerable<UserProfileModel> UserDetails(string email)
+        public async Task<bool> Edit(UserEditRequestModel request)
         {
-            yield return new UserProfileModel();
-            // @Permissions: WIP!
-            //return from usr in m_context.Users
-            //       join rol in m_context.Roles on usr.RoleId equals rol.RoleId
-            //       where usr.LoginEmail == email && usr.Deleted == false
-            //       select new UserProfileModel()
-            //       {
-            //           UserId = usr.UserId,
-            //           UserContactEmail = usr.ContactEmail,
-            //           UserRole = rol.Name
-            //       };
+            ApplicationUser userForUpdate = await m_userManager.Users.FirstOrDefaultAsync(u => u.Id == request.UserId).ConfigureAwait(true);
+
+            userForUpdate.FirstName = request.FirstName;
+            userForUpdate.LastName = request.LastName;
+            userForUpdate.PhoneNumber = request.Phone;
+
+            IdentityResult result = await m_userManager.UpdateAsync(userForUpdate).ConfigureAwait(false);
+
+            if (result.Succeeded)
+            {
+                return true;
+            }
+
+            if (!result.Succeeded)
+            {
+                throw new WebApiException(HttpStatusCode.InternalServerError, UserErrorMessage.CouldNotUpdateUser);
+            }
+
+            return true;
         }
 
         public IEnumerable<UserListItemModel> ListWithSearch(UserListRequestModel request, int startFrom, int endAt)
@@ -106,12 +108,12 @@ namespace Bidding.Repositories.Users
                     SqlDbType = SqlDbType.Int
                 };
 
-                return _bidContext.Query<UserListItemModel>()
+                return m_context.Query<UserListItemModel>()
                     .FromSql("[dbo].[BID_GetUsers] @start, @end", startPaginationFrom, endPaginationAt);
             }
             catch (Exception ex)
             {
-                throw new WebApiException(HttpStatusCode.BadRequest, UserErrorMessages.CouldNotFetchUserList, ex);
+                throw new WebApiException(HttpStatusCode.BadRequest, UserErrorMessage.CouldNotFetchUserList, ex);
             }
         }
 
@@ -132,7 +134,7 @@ namespace Bidding.Repositories.Users
             {
                 userDetails.EmailConfirmed = user.EmailConfirmed;
 
-                await _userManager.UpdateAsync(userDetails).ConfigureAwait(false);
+                await m_userManager.UpdateAsync(userDetails).ConfigureAwait(false);
             }
 
             return userDetails;
@@ -140,7 +142,7 @@ namespace Bidding.Repositories.Users
 
         private async Task<ApplicationUser> HandleNewUserAsync(ApplicationUser user)
         {
-            IdentityResult result = await _userManager.CreateAsync(user).ConfigureAwait(false);
+            IdentityResult result = await m_userManager.CreateAsync(user).ConfigureAwait(false);
 
             if (result.Succeeded)
             {
@@ -149,7 +151,7 @@ namespace Bidding.Repositories.Users
 
             if (!result.Succeeded)
             {
-                throw new WebApiException(HttpStatusCode.InternalServerError, UserErrorMessages.CanNotSignIn);
+                throw new WebApiException(HttpStatusCode.InternalServerError, UserErrorMessage.CanNotSignIn);
             }
 
             return user;
@@ -157,11 +159,11 @@ namespace Bidding.Repositories.Users
 
         private async Task AddBasicRoleToNewUser(ApplicationUser user)
         {
-            IdentityResult result = await _userManager.AddToRoleAsync(user, ApplicationUserRoles.BasicUser).ConfigureAwait(false);
+            IdentityResult result = await m_userManager.AddToRoleAsync(user, ApplicationUserRoles.BasicUser).ConfigureAwait(false);
 
             if (!result.Succeeded)
             {
-                throw new WebApiException(HttpStatusCode.InternalServerError, UserErrorMessages.CanNotSignIn);
+                throw new WebApiException(HttpStatusCode.InternalServerError, UserErrorMessage.CanNotSignIn);
             }
         }
     }

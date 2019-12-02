@@ -356,7 +356,7 @@ namespace Bidding
                         {
                             JwtPayload payload = context.SecurityToken.Payload;
 
-                            if (payload.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.Unauthorized, UserErrorMessages.CanNotSignIn); }
+                            if (payload.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.Unauthorized, UserErrorMessage.CanNotSignIn); }
 
                             ApplicationUser user = new ApplicationUser()
                             {
@@ -413,7 +413,7 @@ namespace Bidding
         /// <returns></returns>
         private string SetupUserProfileCookie(ApplicationUser userDetails)
         {
-            return Newtonsoft.Json.JsonConvert.SerializeObject(new UserProfileCookie()
+            return Newtonsoft.Json.JsonConvert.SerializeObject(new UserProfileCookieModel()
             {
                 IsAuthenticated = true,
                 UserId = userDetails.Id,

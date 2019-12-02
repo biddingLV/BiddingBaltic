@@ -22,7 +22,7 @@ namespace Bidding.Services.Shared.Permissions
 
             if (!int.TryParse(userId, out int i))
             {
-                throw new WebApiException(HttpStatusCode.Forbidden, UserErrorMessages.UserNotActive);
+                throw new WebApiException(HttpStatusCode.Forbidden, UserErrorMessage.UserNotActive);
             }
 
             return i;

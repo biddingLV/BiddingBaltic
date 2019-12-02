@@ -48,7 +48,7 @@ namespace Bidding.Repositories.Subscribe
                 }
                 catch (Exception ex)
                 {
-                    throw new WebApiException(HttpStatusCode.BadRequest, UserErrorMessages.SubscribeEmailFails, ex);
+                    throw new WebApiException(HttpStatusCode.BadRequest, UserErrorMessage.SubscribeEmailFails, ex);
                 }
             });
 
@@ -85,7 +85,7 @@ namespace Bidding.Repositories.Subscribe
                 }
                 catch (Exception ex)
                 {
-                    throw new WebApiException(HttpStatusCode.BadRequest, UserErrorMessages.SubscribWhatsAppFails, ex);
+                    throw new WebApiException(HttpStatusCode.BadRequest, UserErrorMessage.SubscribWhatsAppFails, ex);
                 }
             });
 

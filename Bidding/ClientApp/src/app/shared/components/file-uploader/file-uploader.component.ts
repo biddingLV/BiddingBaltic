@@ -75,7 +75,7 @@ export class FileUploaderComponent {
 
   private validateUploadedFiles(formData: FormData): void {
     this.fileSubscription = this.fileUploaderService
-      .validateFiles$(formData)
+      .uploadFiles$(formData) // validateFiles$(formData)
       .subscribe(
         (response: boolean) => {
           if (response) {

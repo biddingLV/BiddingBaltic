@@ -134,10 +134,10 @@ export class FormService {
       auctionCreatorEmail: "E-pasts",
       auctionCreatorPhone: "Telefons",
       // user
-      userFirstName: "First name",
-      userLastName: "Last name",
+      userFirstName: "Vārds",
+      userLastName: "Uzvārds",
       userEmail: "E-mail",
-      userPhone: "Phone"
+      userPhone: "Telefons"
     };
 
     return messages[fieldName];
