@@ -3,9 +3,9 @@ import { Component, OnInit, EventEmitter, Output } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
 // 3rd lib
-import { BsDatepickerConfig } from "ngx-bootstrap/datepicker/bs-datepicker.config";
 import { BsModalRef } from "ngx-bootstrap/modal";
 import * as moment from "moment-mini";
+import { BsDatepickerConfig } from "ngx-bootstrap/datepicker/bs-datepicker.config";
 
 // internal
 import { FormService } from "ClientApp/src/app/core/services/form/form.service";
@@ -31,9 +31,10 @@ export class AuctionAddAboutWizardStepComponent implements OnInit {
     auctionEndDate: ""
   };
 
-  bsConfig: Partial<BsDatepickerConfig>;
-
   submitted = false;
+
+  /** datepicker settings */
+  bsConfig: Partial<BsDatepickerConfig>;
 
   /** Default date with time for timepickers */
   defaultDateTime = moment(moment(), moment.ISO_8601).toDate();
@@ -48,13 +49,7 @@ export class AuctionAddAboutWizardStepComponent implements OnInit {
     public bsModalRef: BsModalRef,
     private internalFormService: FormService
   ) {
-    this.bsConfig = {
-      containerClass: "theme-green",
-      dateInputFormat: "YYYY-MM-DD",
-      showWeekNumbers: true,
-      isAnimated: true,
-      adaptivePosition: true
-    };
+    this.bsConfig = this.internalFormService.bsConfig;
   }
 
   ngOnInit(): void {

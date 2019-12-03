@@ -1,44 +1,84 @@
-<ngx-datatable class="bootstrap" [rows]="userTable.users" [columnMode]="'force'" [headerHeight]="50" [footerHeight]="50"
-  [rowHeight]="'auto'" [externalSorting]="true" [externalPaging]="true" [count]="userTable.itemCount"
-  [offset]="userTable.currentPage" [selectionType]="'checkbox'" [limit]="numberRows" (sort)="onSortChange($event)"
-  (select)='onSelect($event)' [sorts]="[{prop: 'name', dir: 'asc'}]" [selected]="selected"
-  [selectAllRowsOnPage]="false">
-
-  <ngx-datatable-column [width]="30" [sortable]="false" [canAutoResize]="false" [draggable]="false" [resizeable]="false"
-    [headerCheckboxable]="true" [checkboxable]="true">
+<ngx-datatable
+  class="bootstrap"
+  [rows]="userTable.users"
+  [columnMode]="'force'"
+  [headerHeight]="50"
+  [footerHeight]="50"
+  [rowHeight]="'auto'"
+  [externalSorting]="true"
+  [externalPaging]="true"
+  [count]="userTable.itemCount"
+  [offset]="userTable.currentPage"
+  [selectionType]="'checkbox'"
+  [limit]="numberRows"
+  (sort)="onSortChange($event)"
+  (select)="onSelect($event)"
+  [sorts]="[{ prop: 'name', dir: 'asc' }]"
+  [selected]="selected"
+  [selectAllRowsOnPage]="false"
+>
+  <ngx-datatable-column
+    [width]="30"
+    [sortable]="false"
+    [canAutoResize]="false"
+    [draggable]="false"
+    [resizeable]="false"
+    [headerCheckboxable]="true"
+    [checkboxable]="true"
+  >
   </ngx-datatable-column>
 
-  <ngx-datatable-column name="Full name" [sortable]="true">
+  <ngx-datatable-column name="Vārds" [sortable]="true">
     <ng-template let-row="row" ngx-datatable-cell-template>
-      <ng-container *ngIf="row.firstName != null && row.lastName != null; else noInfo">
-        <a [routerLink]="['/users/details', row.userId]">{{ row.firstName + ' ' + row.lastName }}</a>
+      <ng-container
+        *ngIf="row.firstName != null && row.lastName != null; else noInfo"
+      >
+        <a [routerLink]="['/users/details', row.userId]">{{
+          row.firstName + " " + row.lastName
+        }}</a>
       </ng-container>
     </ng-template>
   </ngx-datatable-column>
 
-  <ngx-datatable-column prop="loginEmail" name="Login email" [sortable]="true"></ngx-datatable-column>
-  <ngx-datatable-column prop="contactEmail" name="Contact email" [sortable]="true"></ngx-datatable-column>
+  <ngx-datatable-column
+    prop="email"
+    name="Epasts"
+    [sortable]="true"
+  ></ngx-datatable-column>
 
-  <ngx-datatable-column prop="phone" name="Phone" [sortable]="true">
+  <ngx-datatable-column prop="phone" name="Telefons" [sortable]="true">
     <ng-template let-row="row" ngx-datatable-cell-template>
       <ng-container *ngIf="row.phone; else noInfo">
-        {{row.phone}}
+        {{ row.phone }}
       </ng-container>
     </ng-template>
   </ngx-datatable-column>
 
-  <ngx-datatable-column prop="userRole" name="User role" [sortable]="true"></ngx-datatable-column>
-  <ngx-datatable-column prop="userStatus" name="User status" [sortable]="true"></ngx-datatable-column>
+  <ngx-datatable-column
+    prop="roleName"
+    name="Loma"
+    [sortable]="true"
+  ></ngx-datatable-column>
+
+  <ngx-datatable-column
+    prop="roleName"
+    name="Subscription till"
+    [sortable]="true"
+  ></ngx-datatable-column>
 
   <ngx-datatable-footer>
     <ng-template ngx-datatable-footer-template let-rowCount="page.size">
-      <div class="">
-        Kopējais useru skaits: {{ userTable.itemCount }}
-      </div>
+      <div class="">Kopējais lietotāju skaits {{ userTable.itemCount }}</div>
 
-      <datatable-pager [pagerLeftArrowIcon]="'datatable-icon-left'" [pagerRightArrowIcon]="'datatable-icon-right'"
-        [pagerPreviousIcon]="'datatable-icon-prev'" [pagerNextIcon]="'datatable-icon-skip'" [size]="numberRows"
-        [count]="userTable.itemCount" (change)="onPageChange($event)">
+      <datatable-pager
+        [pagerLeftArrowIcon]="'datatable-icon-left'"
+        [pagerRightArrowIcon]="'datatable-icon-right'"
+        [pagerPreviousIcon]="'datatable-icon-prev'"
+        [pagerNextIcon]="'datatable-icon-skip'"
+        [size]="numberRows"
+        [count]="userTable.itemCount"
+        (change)="onPageChange($event)"
+      >
       </datatable-pager>
     </ng-template>
   </ngx-datatable-footer>

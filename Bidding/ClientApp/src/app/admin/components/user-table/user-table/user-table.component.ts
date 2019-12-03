@@ -1,14 +1,13 @@
 // angular
-import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
+import { Component, OnInit, Input, EventEmitter, Output } from "@angular/core";
 
 // internal
-import { UserListResponseModel } from '../../../models/list/user-list-response.model';
-import { UserListItemModel } from '../../../models/list/user-list-item.model';
-
+import { UserListResponseModel } from "../../../models/list/user-list-response.model";
+import { UserListItemModel } from "../../../models/list/user-list-item.model";
 
 @Component({
-  selector: 'app-user-table',
-  templateUrl: './user-table.component.html'
+  selector: "app-user-table",
+  templateUrl: "./user-table.component.html"
 })
 export class UserTableComponent implements OnInit {
   // table
@@ -21,11 +20,9 @@ export class UserTableComponent implements OnInit {
   @Output() detailsClick = new EventEmitter<boolean>();
   @Output() selectedChange = new EventEmitter<any>();
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit(): void {
-
-  }
+  ngOnInit(): void {}
 
   onPageChange(page: number): void {
     this.pageChange.emit(page);
@@ -40,7 +37,6 @@ export class UserTableComponent implements OnInit {
   }
 
   onSelect({ selected }): void {
-
     this.selected.splice(0, this.selected.length);
     this.selected.push(...selected);
 

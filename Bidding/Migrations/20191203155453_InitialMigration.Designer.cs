@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Bidding.Migrations
 {
     [DbContext(typeof(BiddingContext))]
-    [Migration("20191202105438_InitialMigration")]
+    [Migration("20191203155453_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -837,28 +837,28 @@ namespace Bidding.Migrations
                         new
                         {
                             Id = 100,
-                            ConcurrencyStamp = "4a7025c3-8369-4857-b94c-69147887717c",
+                            ConcurrencyStamp = "c6a4bfe8-0203-48d7-b8a3-a19c674f80d5",
                             Name = "BasicUser",
                             NormalizedName = "BASICUSER"
                         },
                         new
                         {
                             Id = 200,
-                            ConcurrencyStamp = "6273e71e-a4ef-474f-a815-1def5039a0af",
+                            ConcurrencyStamp = "7932be7b-3947-45a8-b44f-f283708361a3",
                             Name = "AuctionCreator",
                             NormalizedName = "AUCTIONCREATOR"
                         },
                         new
                         {
                             Id = 300,
-                            ConcurrencyStamp = "00bc1325-a7d9-40cd-a5a8-602b62b173e5",
+                            ConcurrencyStamp = "ed328992-4c62-42f5-910f-96008898d075",
                             Name = "PageAdministrator",
                             NormalizedName = "PAGEADMINISTRATOR"
                         },
                         new
                         {
                             Id = 400,
-                            ConcurrencyStamp = "aa3521e7-6f81-4d84-9fed-bca86436da3f",
+                            ConcurrencyStamp = "2a5d6639-420d-4e2e-9be8-b9f066093dae",
                             Name = "SuperAdministrator",
                             NormalizedName = "SUPERADMINISTRATOR"
                         });
@@ -924,6 +924,19 @@ namespace Bidding.Migrations
                         .HasFilter("[NormalizedUserName] IS NOT NULL");
 
                     b.ToTable("AspNetUsers");
+                });
+
+            modelBuilder.Entity("Bidding.Models.DatabaseModels.Shared.ApplicationUserRole", b =>
+                {
+                    b.Property<int>("UserId");
+
+                    b.Property<int>("RoleId");
+
+                    b.HasKey("UserId", "RoleId");
+
+                    b.HasIndex("RoleId");
+
+                    b.ToTable("AspNetUserRoles");
                 });
 
             modelBuilder.Entity("Bidding.Models.DatabaseModels.Shared.Region", b =>
@@ -2203,7 +2216,7 @@ namespace Bidding.Migrations
                         {
                             RoleName = "PageAdministrator",
                             Description = "Can add, edit or delete auctions and users",
-                            _permissionsInRole = "AccessAdminPanel,CreateAuction,ChangeAuction,RemoveAuction"
+                            _permissionsInRole = "AccessAdminPanel,CreateAuction,ChangeAuction,RemoveAuction,ReadAllUsers"
                         },
                         new
                         {
@@ -2253,9 +2266,11 @@ namespace Bidding.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<int>", b =>
                 {
-                    b.Property<string>("LoginProvider");
+                    b.Property<string>("LoginProvider")
+                        .HasMaxLength(128);
 
-                    b.Property<string>("ProviderKey");
+                    b.Property<string>("ProviderKey")
+                        .HasMaxLength(128);
 
                     b.Property<string>("ProviderDisplayName");
 
@@ -2268,26 +2283,15 @@ namespace Bidding.Migrations
                     b.ToTable("AspNetUserLogins");
                 });
 
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<int>", b =>
-                {
-                    b.Property<int>("UserId");
-
-                    b.Property<int>("RoleId");
-
-                    b.HasKey("UserId", "RoleId");
-
-                    b.HasIndex("RoleId");
-
-                    b.ToTable("AspNetUserRoles");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<int>", b =>
                 {
                     b.Property<int>("UserId");
 
-                    b.Property<string>("LoginProvider");
+                    b.Property<string>("LoginProvider")
+                        .HasMaxLength(128);
 
-                    b.Property<string>("Name");
+                    b.Property<string>("Name")
+                        .HasMaxLength(128);
 
                     b.Property<string>("Value");
 
@@ -2383,6 +2387,19 @@ namespace Bidding.Migrations
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
+            modelBuilder.Entity("Bidding.Models.DatabaseModels.Shared.ApplicationUserRole", b =>
+                {
+                    b.HasOne("Bidding.Models.DatabaseModels.Shared.ApplicationRole", "Role")
+                        .WithMany("UserRoles")
+                        .HasForeignKey("RoleId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("Bidding.Models.DatabaseModels.Shared.ApplicationUser", "User")
+                        .WithMany("UserRoles")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Restrict);
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<int>", b =>
                 {
                     b.HasOne("Bidding.Models.DatabaseModels.Shared.ApplicationRole")
@@ -2401,19 +2418,6 @@ namespace Bidding.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<int>", b =>
                 {
-                    b.HasOne("Bidding.Models.DatabaseModels.Shared.ApplicationUser")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict);
-                });
-
-            modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserRole<int>", b =>
-                {
-                    b.HasOne("Bidding.Models.DatabaseModels.Shared.ApplicationRole")
-                        .WithMany()
-                        .HasForeignKey("RoleId")
-                        .OnDelete(DeleteBehavior.Restrict);
-
                     b.HasOne("Bidding.Models.DatabaseModels.Shared.ApplicationUser")
                         .WithMany()
                         .HasForeignKey("UserId")

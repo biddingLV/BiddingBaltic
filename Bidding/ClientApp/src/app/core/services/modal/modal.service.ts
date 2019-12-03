@@ -8,7 +8,7 @@ import { pipe } from "rxjs";
 @Injectable()
 export class ModalService {
   defaultModalOptions = {
-    class: "",
+    class: "modal-md",
     ignoreBackdropClick: true,
     initialState: {}
   };

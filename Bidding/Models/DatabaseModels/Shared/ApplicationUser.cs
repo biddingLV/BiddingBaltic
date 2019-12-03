@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace Bidding.Models.DatabaseModels.Shared
@@ -16,5 +17,7 @@ namespace Bidding.Models.DatabaseModels.Shared
 
         [MaxLength(100)]
         public override string PhoneNumber { get; set; }
+
+        public ICollection<ApplicationUserRole> UserRoles { get; set; }
     }
 }

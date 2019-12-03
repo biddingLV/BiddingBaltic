@@ -1,8 +1,9 @@
 ﻿using Bidding.Models.ViewModels.Admin.Users.List;
 using Bidding.Models.ViewModels.Users.Edit;
 using Bidding.Services.Users;
-using Microsoft.AspNetCore.Authorization;
+using FeatureAuthorize.PolicyCode;
 using Microsoft.AspNetCore.Mvc;
+using PermissionParts;
 using System;
 using System.Threading.Tasks;
 
@@ -25,32 +26,49 @@ namespace Bidding.Controllers.Users
             return Ok(await m_userService.UserDetails(userId).ConfigureAwait(true));
         }
 
+        /// <summary>
+        /// Load basic user details for edit modal, for example,
+        /// name, phone, email.
+        /// </summary>
+        /// <param name="userId"></param>
+        /// <returns></returns>
         [HttpGet]
-        public async Task<IActionResult> EditDetails([FromQuery] int userId)
+        public async Task<IActionResult> EditBasicDetails([FromQuery] int userId)
         {
-            return Ok(await m_userService.UserDetails(userId).ConfigureAwait(true));
+            return Ok(await m_userService.EditBasicDetails(userId).ConfigureAwait(true));
         }
 
         /// <summary>
-        /// MAKE TWO DIFFERENT METHODS
-        /// ONE FOR UPDATING OWN PROFILE
-        /// ANOTHER OWN FOR UPDATEING ANOTHER USER BASED ON Permission
-        /// Get rid of user id passed to this method
-        /// TRY THAT!!!!!!!!
+        /// Load advanced user details for edit modal, for example,
+        /// basic user details + role, subscription information and so on.
         /// </summary>
-        /// <param name="request"></param>
+        /// <param name="userId"></param>
         /// <returns></returns>
-        [HttpPut]
-        public async Task<IActionResult> Edit([FromBody] UserEditRequestModel request)
+        [HttpGet]
+        [HasPermission(Permission.ReadAllUsers)]
+        public async Task<IActionResult> EditAdvancedDetails([FromQuery] int userId)
         {
-            return Ok(await m_userService.Edit(request).ConfigureAwait(true));
+            return Ok(await m_userService.EditAdvancedDetails(userId).ConfigureAwait(true));
+        }
+
+        [HttpPut]
+        public async Task<IActionResult> EditBasic([FromBody] EditBasicDetailsRequestModel request)
+        {
+            return Ok(await m_userService.EditBasicAsync(request).ConfigureAwait(true));
+        }
+
+        [HttpPut]
+        [HasPermission(Permission.ReadAllUsers)]
+        public async Task<IActionResult> EditAdvanced([FromBody] EditAdvancedDetailsRequestModel request)
+        {
+            return Ok(await m_userService.EditAdvancedAsync(request).ConfigureAwait(true));
         }
 
         [HttpGet]
-        [Authorize(Roles = "User, Admin")]
-        public IActionResult Search([FromQuery] UserListRequestModel request)
+        [HasPermission(Permission.ReadAllUsers)]
+        public async Task<IActionResult> Search([FromQuery] UserListRequestModel request)
         {
-            return Ok(m_userService.ListWithSearch(request));
+            return Ok(await m_userService.ListWithSearchAsync(request).ConfigureAwait(true));
         }
     }
 }

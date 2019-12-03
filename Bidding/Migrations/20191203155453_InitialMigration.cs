@@ -318,8 +318,8 @@ namespace Bidding.Migrations
                 name: "AspNetUserLogins",
                 columns: table => new
                 {
-                    LoginProvider = table.Column<string>(nullable: false),
-                    ProviderKey = table.Column<string>(nullable: false),
+                    LoginProvider = table.Column<string>(maxLength: 128, nullable: false),
+                    ProviderKey = table.Column<string>(maxLength: 128, nullable: false),
                     ProviderDisplayName = table.Column<string>(nullable: true),
                     UserId = table.Column<int>(nullable: false)
                 },
@@ -363,8 +363,8 @@ namespace Bidding.Migrations
                 columns: table => new
                 {
                     UserId = table.Column<int>(nullable: false),
-                    LoginProvider = table.Column<string>(nullable: false),
-                    Name = table.Column<string>(nullable: false),
+                    LoginProvider = table.Column<string>(maxLength: 128, nullable: false),
+                    Name = table.Column<string>(maxLength: 128, nullable: false),
                     Value = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -574,10 +574,10 @@ namespace Bidding.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Description", "Name", "NormalizedName", "PermissionsInRole" },
                 values: new object[,]
                 {
-                    { 100, "4a7025c3-8369-4857-b94c-69147887717c", null, "BasicUser", "BASICUSER", null },
-                    { 300, "00bc1325-a7d9-40cd-a5a8-602b62b173e5", null, "PageAdministrator", "PAGEADMINISTRATOR", null },
-                    { 400, "aa3521e7-6f81-4d84-9fed-bca86436da3f", null, "SuperAdministrator", "SUPERADMINISTRATOR", null },
-                    { 200, "6273e71e-a4ef-474f-a815-1def5039a0af", null, "AuctionCreator", "AUCTIONCREATOR", null }
+                    { 100, "c6a4bfe8-0203-48d7-b8a3-a19c674f80d5", null, "BasicUser", "BASICUSER", null },
+                    { 300, "ed328992-4c62-42f5-910f-96008898d075", null, "PageAdministrator", "PAGEADMINISTRATOR", null },
+                    { 400, "2a5d6639-420d-4e2e-9be8-b9f066093dae", null, "SuperAdministrator", "SUPERADMINISTRATOR", null },
+                    { 200, "7932be7b-3947-45a8-b44f-f283708361a3", null, "AuctionCreator", "AUCTIONCREATOR", null }
                 });
 
             migrationBuilder.InsertData(
@@ -774,7 +774,7 @@ namespace Bidding.Migrations
                     { "AuctionCreator", "Can add, edit or delete own auctions", "AccessAdminPanel,CreateAuction,ChangeOwnAuction,RemoveOwnAuction" },
                     { "BasicUser", "Basic user", "BasicUser" },
                     { "SuperAdministrator", "Can do all possible actions", "AccessAll" },
-                    { "PageAdministrator", "Can add, edit or delete auctions and users", "AccessAdminPanel,CreateAuction,ChangeAuction,RemoveAuction" }
+                    { "PageAdministrator", "Can add, edit or delete auctions and users", "AccessAdminPanel,CreateAuction,ChangeAuction,RemoveAuction,ReadAllUsers" }
                 });
 
             migrationBuilder.InsertData(

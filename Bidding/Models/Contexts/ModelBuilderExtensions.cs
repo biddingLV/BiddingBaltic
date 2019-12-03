@@ -62,7 +62,7 @@ namespace Bidding.Models.Contexts
                 new RoleToPermissions(
                     ApplicationUserRoles.PageAdministrator,
                     "Can add, edit or delete auctions and users",
-                    new List<Permission> { Permission.AccessAdminPanel, Permission.CreateAuction, Permission.ChangeAuction, Permission.RemoveAuction }
+                    new List<Permission> { Permission.AccessAdminPanel, Permission.CreateAuction, Permission.ChangeAuction, Permission.RemoveAuction, Permission.ReadAllUsers }
                 )
             );
 

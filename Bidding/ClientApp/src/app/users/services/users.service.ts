@@ -8,10 +8,13 @@ import { catchError } from "rxjs/operators";
 
 // internal
 import { ExceptionsService } from "../../core/services/exceptions/exceptions.service";
-import { UserDetailsResponseModel } from "../models/details/user-details-response.model";
+
 import { UserListResponseModel } from "../../admin/models/list/user-list-response.model";
 import { UserListRequestModel } from "../../admin/models/list/user-list-request.model";
-import { UserEditRequestModel } from "../models/edit/user-edit-request.model";
+import { EditBasicDetailsRequestModel } from "../models/edit/edit-basic-details-request.model";
+import { UserAdvancedDetailsResponseModel } from "../models/details/user-advanced-details-response.model";
+import { UserBasicDetailsResponseModel } from "../models/details/user-basic-details-response.model";
+import { EditAdvancedDetailsRequestModel } from "../models/edit/edit-advanced-details-request.model";
 
 @Injectable({
   providedIn: "root"
@@ -48,24 +51,48 @@ export class UsersService {
       .pipe(catchError(this.exceptionService.errorHandler));
   }
 
-  getUserDetails$(userId: number): Observable<UserDetailsResponseModel> {
+  getUserDetails$(userId: number): Observable<UserBasicDetailsResponseModel> {
     const url = `/api/users/details?userId=${userId}`;
 
     return this.httpClient
-      .get<UserDetailsResponseModel>(url)
+      .get<UserBasicDetailsResponseModel>(url)
       .pipe(catchError(this.exceptionService.errorHandler));
   }
 
-  getUserDetailsForEdit$(userId: number): Observable<UserDetailsResponseModel> {
-    const url = `/api/users/editDetails?userId=${userId}`;
+  getDetailsForBasicEdit$(
+    userId: number
+  ): Observable<UserBasicDetailsResponseModel> {
+    const url = `/api/users/EditBasicDetails?userId=${userId}`;
 
     return this.httpClient
-      .get<UserDetailsResponseModel>(url)
+      .get<UserBasicDetailsResponseModel>(url)
       .pipe(catchError(this.exceptionService.errorHandler));
   }
 
-  editUser$(request: UserEditRequestModel): Observable<boolean> {
-    const url = "/api/users/edit";
+  getDetailsForAdvancedEdit$(
+    userId: number
+  ): Observable<UserAdvancedDetailsResponseModel> {
+    const url = `/api/users/EditAdvancedDetails?userId=${userId}`;
+
+    return this.httpClient
+      .get<UserAdvancedDetailsResponseModel>(url)
+      .pipe(catchError(this.exceptionService.errorHandler));
+  }
+
+  editBasicDetails$(
+    request: EditBasicDetailsRequestModel
+  ): Observable<boolean> {
+    const url = "/api/users/EditBasic";
+
+    return this.httpClient
+      .put<boolean>(url, request)
+      .pipe(catchError(this.exceptionService.errorHandler));
+  }
+
+  editAdvancedDetails$(
+    request: EditAdvancedDetailsRequestModel
+  ): Observable<boolean> {
+    const url = "/api/users/EditAdvanced";
 
     return this.httpClient
       .put<boolean>(url, request)

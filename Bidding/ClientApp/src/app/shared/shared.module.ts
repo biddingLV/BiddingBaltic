@@ -10,13 +10,13 @@ import { NgSelectModule } from "@ng-select/ng-select";
 import { NgxGalleryModule } from "ngx-gallery";
 import { TimepickerModule } from "ngx-bootstrap/timepicker";
 import { ModalModule } from "ngx-bootstrap/modal";
+import { BsDatepickerModule } from "ngx-bootstrap/datepicker";
 
 // internal
 import { SearchComponent } from "./components/search/search.component";
 import { MinSharedModule } from "./shared-min.module";
 import { FileUploaderComponent } from "./components/file-uploader/file-uploader.component";
 import { ImageGalleryComponent } from "./components/image-gallery/image-gallery.component";
-import { HasRoleDirective } from "./directives/authorization/role/has-role.directive";
 import { TimepickerComponent } from "./components/timepicker/timepicker.component";
 
 @NgModule({
@@ -30,7 +30,8 @@ import { TimepickerComponent } from "./components/timepicker/timepicker.componen
     ReactiveFormsModule,
     NgxGalleryModule,
     ModalModule.forRoot(),
-    TimepickerModule.forRoot()
+    TimepickerModule.forRoot(),
+    BsDatepickerModule.forRoot()
   ],
   exports: [
     SearchComponent,
@@ -39,18 +40,17 @@ import { TimepickerComponent } from "./components/timepicker/timepicker.componen
     ReactiveFormsModule,
     FileUploaderComponent,
     ImageGalleryComponent,
-    HasRoleDirective,
     NgxDatatableModule,
     ModalModule,
     MinSharedModule,
     TimepickerModule,
-    TimepickerComponent
+    TimepickerComponent,
+    BsDatepickerModule
   ],
   declarations: [
     SearchComponent,
     FileUploaderComponent,
     ImageGalleryComponent,
-    HasRoleDirective,
     TimepickerComponent
   ]
 })

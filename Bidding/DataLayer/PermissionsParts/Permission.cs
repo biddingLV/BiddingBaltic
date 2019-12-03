@@ -33,6 +33,8 @@ namespace PermissionParts
         ChangeAuction = 200,
         [Display(GroupName = "PageAdministrator", Name = "Remove auctions", Description = "Can remove all auctions")]
         RemoveAuction = 201,
+        [Display(GroupName = "PageAdministrator", Name = "Read all users", Description = "Can read all users in admin panel")]
+        ReadAllUsers = 202,
 
         /// <summary>
         /// This is a special Permission used by the SuperAdmin user. A user has this permission can access any other permission.

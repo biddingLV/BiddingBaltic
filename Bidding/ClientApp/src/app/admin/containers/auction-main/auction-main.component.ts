@@ -43,11 +43,11 @@ export class AdminAuctionMainComponent implements OnInit {
   searchText: string;
 
   constructor(
-    private modalService: BsModalService,
     private internalModalService: ModalService,
     private internalFormService: FormService,
     private auctionService: AuctionsService,
-    private notificationService: NotificationsService
+    private notificationService: NotificationsService,
+    private externalModalService: BsModalService
   ) {}
 
   ngOnInit(): void {
@@ -56,23 +56,23 @@ export class AdminAuctionMainComponent implements OnInit {
   }
 
   addModal(): void {
-    const initialState = {};
     const modalConfig = {
       ...this.internalModalService.defaultModalOptions,
-      ...{ initialState: initialState, class: "modal-lg" }
+      ...{ class: "modal-lg" }
     };
-    this.bsModalRef = this.modalService.show(
+
+    this.bsModalRef = this.externalModalService.show(
       AuctionAddMainWizardComponent,
       modalConfig
     );
 
-    this.subscriptions.push(
-      this.modalService.onHidden.subscribe((result: string) => {
-        if (this.internalFormService.onModalHide(result, this.subscriptions)) {
+    this.externalModalService.onHide
+      .pipe(this.internalModalService.toModalResult())
+      .subscribe(result => {
+        if (result.success) {
           this.loadAuctions();
         }
-      })
-    );
+      });
   }
 
   editModal(): void {
@@ -84,15 +84,19 @@ export class AdminAuctionMainComponent implements OnInit {
       ...this.internalModalService.defaultModalOptions,
       ...{ initialState: initialState, class: "modal-lg" }
     };
-    this.bsModalRef = this.modalService.show(AuctionEditComponent, modalConfig);
 
-    this.subscriptions.push(
-      this.modalService.onHidden.subscribe((result: string) => {
-        if (this.internalFormService.onModalHide(result, this.subscriptions)) {
+    this.bsModalRef = this.externalModalService.show(
+      AuctionEditComponent,
+      modalConfig
+    );
+
+    this.externalModalService.onHide
+      .pipe(this.internalModalService.toModalResult())
+      .subscribe(result => {
+        if (result.success) {
           this.loadAuctions();
         }
-      })
-    );
+      });
   }
 
   deleteModal(): void {
@@ -102,20 +106,21 @@ export class AdminAuctionMainComponent implements OnInit {
 
     const modalConfig = {
       ...this.internalModalService.defaultModalOptions,
-      ...{ initialState: initialState, class: "modal-md" }
+      ...{ initialState: initialState }
     };
-    this.bsModalRef = this.modalService.show(
+
+    this.bsModalRef = this.externalModalService.show(
       AuctionDeleteComponent,
       modalConfig
     );
 
-    this.subscriptions.push(
-      this.modalService.onHidden.subscribe((result: string) => {
-        if (this.internalFormService.onModalHide(result, this.subscriptions)) {
+    this.externalModalService.onHide
+      .pipe(this.internalModalService.toModalResult())
+      .subscribe(result => {
+        if (result.success) {
           this.loadAuctions();
         }
-      })
-    );
+      });
   }
 
   ngOnDestroy(): void {

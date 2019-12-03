@@ -4,20 +4,16 @@
 AS
 BEGIN
 	SELECT
-		usr.UserId,
+		usr.Id as UserId,
 		usr.FirstName,
 		usr.LastName,
-		usr.LoginEmail,
-		usr.ContactEmail,
-		usr.Phone,
-		rol.Name AS UserRole,
-		(CASE
-			WHEN usr.Deleted = 0 THEN 'Active'
-			ELSE 'Inactive'
-		END) AS UserStatus
-	FROM Users usr
-	INNER JOIN Roles rol ON usr.RoleId = rol.RoleId
-	ORDER BY usr.FirstName
+		usr.Email,
+		usr.PhoneNumber as Phone,
+		rol.Name as RoleName
+	FROM AspNetUsers usr
+	INNER JOIN AspNetUserRoles urol ON usr.Id = urol.UserId
+	INNER JOIN AspNetRoles rol ON urol.RoleId = rol.Id
+	ORDER BY usr.Id DESC
   OFFSET @start ROWS
   FETCH NEXT @end ROWS ONLY
 END

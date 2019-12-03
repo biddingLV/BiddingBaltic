@@ -28,6 +28,9 @@ namespace Bidding.Shared.ErrorHandling.Errors
         [Description("User is not active anymore")]
         UserNotActive,
 
+        [Description("Incorrect user role")]
+        IncorrectUserRole,
+
         [Description("Could not subscribe to newsletter using email approach")]
         SubscribeEmailFails,
 

@@ -1,6 +1,5 @@
-export class UserDetailsResponseModel {
+export interface EditBasicDetailsRequestModel {
   firstName: string;
   lastName: string;
-  email: string;
   phone: string;
 }

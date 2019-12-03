@@ -1,36 +1,31 @@
 // angular
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import { NgModule } from "@angular/core";
+import { CommonModule } from "@angular/common";
 
 // internal
-import { UsersRoutingModule } from './users-routing.module';
-import { UserDetailsComponent } from './containers/details/details.component';
-import { UsersService } from './services/users.service';
-import { UsersMainComponent } from './containers/main/main.component';
-import { UserEditComponent } from './components/edit/edit.component';
-import { SharedModule } from '../shared/shared.module';
+import { UsersRoutingModule } from "./users-routing.module";
+import { UserDetailsComponent } from "./containers/details/details.component";
+import { UsersService } from "./services/users.service";
+import { UsersMainComponent } from "./containers/main/main.component";
+import { UserBasicEditComponent } from "./components/basic-edit/basic-edit.component";
+import { SharedModule } from "../shared/shared.module";
+import { UserAdvancedEditComponent } from "./components/advanced-edit/advanced-edit.component";
 
 @NgModule({
-  imports: [
-    CommonModule,
-    UsersRoutingModule,
-    SharedModule
-  ],
+  imports: [CommonModule, UsersRoutingModule, SharedModule],
   exports: [
     UserDetailsComponent,
     UsersMainComponent,
-    UserEditComponent
+    UserBasicEditComponent,
+    UserAdvancedEditComponent
   ],
   declarations: [
     UserDetailsComponent,
     UsersMainComponent,
-    UserEditComponent
+    UserBasicEditComponent,
+    UserAdvancedEditComponent
   ],
-  providers: [
-    UsersService
-  ],
-  entryComponents: [
-    UserEditComponent
-  ]
+  providers: [UsersService],
+  entryComponents: [UserBasicEditComponent, UserAdvancedEditComponent]
 })
-export class UsersModule { }
+export class UsersModule {}

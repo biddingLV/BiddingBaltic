@@ -1,19 +1,12 @@
 // angular
-import { Component, OnInit } from '@angular/core';
-
-// 3rd lib
-
-// internal
-
+import { Component, OnInit } from "@angular/core";
 
 @Component({
-  selector: 'app-users-main',
-  templateUrl: './main.component.html'
+  selector: "app-users-main",
+  templateUrl: "./main.component.html"
 })
 export class UsersMainComponent implements OnInit {
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
-
-  }
+  ngOnInit() {}
 }

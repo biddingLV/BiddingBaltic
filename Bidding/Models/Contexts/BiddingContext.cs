@@ -9,13 +9,16 @@ using Bidding.Models.ViewModels.Admin.Users.List;
 using Bidding.Models.ViewModels.Auctions.List;
 using Bidding.Models.ViewModels.Filters;
 using DataLayer.ExtraAuthClasses;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 using System.Linq;
 
 namespace Bidding.Models.Contexts
 {
-    public class BiddingContext : IdentityDbContext<ApplicationUser, ApplicationRole, int>
+    public class BiddingContext : IdentityDbContext<ApplicationUser, ApplicationRole, int, IdentityUserClaim<int>,
+    ApplicationUserRole, IdentityUserLogin<int>,
+    IdentityRoleClaim<int>, IdentityUserToken<int>>
     {
         public BiddingContext(DbContextOptions<BiddingContext> options) : base(options) { }
 
@@ -66,6 +69,21 @@ namespace Bidding.Models.Contexts
             //    .HasOne(p => p.User)
             //    .WithMany(b => b.Auctions)
             //    .HasForeignKey(p => p.CreatedBy);
+
+            modelBuilder.Entity<ApplicationUserRole>(userRole =>
+            {
+                userRole.HasKey(ur => new { ur.UserId, ur.RoleId });
+
+                userRole.HasOne(ur => ur.Role)
+                    .WithMany(r => r.UserRoles)
+                    .HasForeignKey(ur => ur.RoleId)
+                    .IsRequired();
+
+                userRole.HasOne(ur => ur.User)
+                    .WithMany(r => r.UserRoles)
+                    .HasForeignKey(ur => ur.UserId)
+                    .IsRequired();
+            });
 
             modelBuilder.Entity<Auction>()
                 .HasOne(p => p.AuctionStatus)

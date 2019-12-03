@@ -14,7 +14,10 @@ import {
 } from "@fortawesome/angular-fontawesome";
 import {
   faSearch,
-  faExclamationCircle
+  faExclamationCircle,
+  faHammer,
+  faUsers,
+  faPlus
 } from "@fortawesome/free-solid-svg-icons";
 import { faHeart } from "@fortawesome/free-regular-svg-icons";
 import {
@@ -82,7 +85,10 @@ export class MinSharedModule {
       faFacebookF,
       faTwitter,
       faWhatsapp,
-      faInstagram
+      faInstagram,
+      faHammer,
+      faUsers,
+      faPlus
     );
   }
 }

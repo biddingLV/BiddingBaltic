@@ -1,5 +1,5 @@
 <!-- Modals -->
-<div>
+<div class="text-right">
   <ng-container *ngIf="selected.length === 1">
     <button
       value="Edit Auction"
@@ -29,6 +29,7 @@
       (click)="addModal()"
       class="btn btn-primary"
     >
+      <fa-icon [icon]="['fas', 'plus']"></fa-icon>
       Add
     </button>
   </ng-container>

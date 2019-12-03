@@ -4,7 +4,6 @@ import { CommonModule } from "@angular/common";
 
 // 3rd lib
 import { ArchwizardModule } from "angular-archwizard";
-import { BsDatepickerModule } from "ngx-bootstrap/datepicker";
 
 // internal
 import { AuctionDetailsComponent } from "./containers/details/details.component";
@@ -34,13 +33,12 @@ import { VehicleDetailsComponent } from "./components/details/categories/vehicle
     CommonModule,
     SharedModule,
     AuctionsRoutingModule,
-    ArchwizardModule,
-    BsDatepickerModule.forRoot()
+    ArchwizardModule
   ],
   exports: [
     AuctionTableComponent,
     ArchwizardModule,
-    BsDatepickerModule,
+
     AuctionListComponent,
     AuctionFiltersComponent
   ],

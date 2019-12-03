@@ -10,14 +10,14 @@ import { Subscription } from "rxjs";
 import { UsersService } from "../../services/users.service";
 import { NotificationsService } from "ClientApp/src/app/core/services/notifications/notifications.service";
 import { FormService } from "ClientApp/src/app/core/services/form/form.service";
-import { UserDetailsResponseModel } from "../../models/details/user-details-response.model";
-import { UserEditRequestModel } from "../../models/edit/user-edit-request.model";
+import { EditBasicDetailsRequestModel } from "../../models/edit/edit-basic-details-request.model";
+import { UserBasicDetailsResponseModel } from "../../models/details/user-basic-details-response.model";
 
 @Component({
-  selector: "app-edit-user",
-  templateUrl: "./edit.component.html"
+  selector: "app-basic-edit-user",
+  templateUrl: "./basic-edit.component.html"
 })
-export class UserEditComponent implements OnInit, OnDestroy {
+export class UserBasicEditComponent implements OnInit, OnDestroy {
   /** Passed from parent component */
   selectedUserId: number;
 
@@ -27,7 +27,7 @@ export class UserEditComponent implements OnInit, OnDestroy {
   // component
   editForm: FormGroup;
   submitted = false;
-  editRequestModel: UserEditRequestModel;
+  editRequestModel: EditBasicDetailsRequestModel;
 
   // template
   formErrors = {
@@ -36,7 +36,7 @@ export class UserEditComponent implements OnInit, OnDestroy {
     userPhone: ""
   };
 
-  details: UserDetailsResponseModel;
+  details: UserBasicDetailsResponseModel;
 
   /** Convenience getter for easy access to form fields */
   get f() {
@@ -85,9 +85,9 @@ export class UserEditComponent implements OnInit, OnDestroy {
 
   private loadUserDetails(): void {
     this.editSubscription = this.usersService
-      .getUserDetailsForEdit$(this.selectedUserId)
+      .getDetailsForBasicEdit$(this.selectedUserId)
       .subscribe(
-        (response: UserDetailsResponseModel) => {
+        (response: UserBasicDetailsResponseModel) => {
           this.details = response;
           this.buildForm();
         },
@@ -112,7 +112,6 @@ export class UserEditComponent implements OnInit, OnDestroy {
 
   private setEditRequestValues(): void {
     this.editRequestModel = {
-      userId: this.selectedUserId,
       firstName: this.editForm.value.userFirstName,
       lastName: this.editForm.value.userLastName,
       phone: this.editForm.value.userPhone
@@ -121,7 +120,7 @@ export class UserEditComponent implements OnInit, OnDestroy {
 
   private makeRequest(): void {
     this.editSubscription = this.usersService
-      .editUser$(this.editRequestModel)
+      .editBasicDetails$(this.editRequestModel)
       .subscribe(
         (editSuccess: boolean) => {
           if (editSuccess) {

@@ -1,10 +1,9 @@
-﻿namespace Bidding.Models.ViewModels.Users.Details
+﻿namespace Bidding.Models.ViewModels.Users.Edit
 {
-    public class UserDetailsResponseModel
+    public class EditBasicDetailsRequestModel
     {
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public string Email { get; set; }
         public string Phone { get; set; }
     }
 }

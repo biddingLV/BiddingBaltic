@@ -258,7 +258,7 @@ namespace Bidding
                 .GetSection(nameof(Authentication))
                 .Get<Authentication>();
 
-            services.AddIdentity<ApplicationUser, ApplicationRole>()
+            services.AddIdentity<ApplicationUser, ApplicationRole>(options => options.Stores.MaxLengthForKeys = 128)
                 .AddEntityFrameworkStores<BiddingContext>()
                 .AddDefaultTokenProviders();
 

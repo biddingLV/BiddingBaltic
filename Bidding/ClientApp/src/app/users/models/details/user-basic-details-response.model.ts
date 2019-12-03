@@ -1,8 +1,6 @@
-export interface UserListItemModel {
-  userId: number;
+export interface UserBasicDetailsResponseModel {
   firstName: string;
   lastName: string;
   email: string;
   phone: string;
-  roleName: string;
 }

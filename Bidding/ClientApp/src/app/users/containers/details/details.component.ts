@@ -10,10 +10,10 @@ import { BsModalService, BsModalRef } from "ngx-bootstrap/modal";
 // internal
 import { UsersService } from "../../services/users.service";
 import { NotificationsService } from "ClientApp/src/app/core/services/notifications/notifications.service";
-import { UserDetailsResponseModel } from "../../models/details/user-details-response.model";
-import { UserEditComponent } from "../../components/edit/edit.component";
+import { UserBasicEditComponent } from "../../components/basic-edit/basic-edit.component";
 import { ModalService } from "ClientApp/src/app/core/services/modal/modal.service";
 import { BreadcrumbItem } from "ClientApp/src/app/shared/models/breadcrumb-item.model";
+import { UserBasicDetailsResponseModel } from "../../models/details/user-basic-details-response.model";
 
 @Component({
   selector: "app-user-details",
@@ -23,7 +23,7 @@ import { BreadcrumbItem } from "ClientApp/src/app/shared/models/breadcrumb-item.
 export class UserDetailsComponent implements OnInit {
   // component
   detailsSub: Subscription;
-  userDetails: UserDetailsResponseModel;
+  userDetails: UserBasicDetailsResponseModel;
   private userId: number;
 
   // template
@@ -55,11 +55,11 @@ export class UserDetailsComponent implements OnInit {
 
     const modalConfig = {
       ...this.internalModalService.defaultModalOptions,
-      ...{ initialState: initialState, class: "modal-md" }
+      ...{ initialState: initialState }
     };
 
     this.bsModalRef = this.externalModalService.show(
-      UserEditComponent,
+      UserBasicEditComponent,
       modalConfig
     );
 
@@ -84,7 +84,7 @@ export class UserDetailsComponent implements OnInit {
         })
       )
       .subscribe(
-        (response: UserDetailsResponseModel) => {
+        (response: UserBasicDetailsResponseModel) => {
           this.userDetails = response;
           this.generateBreadcrumbs();
           this.setFullName();
