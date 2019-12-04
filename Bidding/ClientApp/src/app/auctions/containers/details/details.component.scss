@@ -22,10 +22,16 @@
 
     .auction__details-apply-row {
       height: 200px;
+
+      .apply__row-button {
+        border-radius: 35px;
+        width: 275px;
+        height: 69px;
+        font-size: 16px;
+      }
     }
 
     .auction__details-information-row {
-      height: 600px;
       box-shadow: 0px 40px 40px #00000029;
       border-bottom-left-radius: 40px;
       border-bottom-right-radius: 40px;

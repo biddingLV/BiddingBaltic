@@ -1,29 +1,72 @@
-<p>Marka: {{ details.vehicleMake }}</p>
-<p>Modelis: {{ details.vehicleModel }}</p>
 <p>
-  Ražošanas gads:
-  {{ details.vehicleManufacturingYear }}
+  <span class="pr-2">Marka:</span>
+  <span>{{ details.vehicleMake }}</span>
 </p>
-<p>VRN: {{ details.vehicleRegistrationNumber }}</p>
+
 <p>
-  VIN:
-  {{ details.vehicleIdentificationNumber }}
+  <span class="pr-2">Modelis:</span>
+  <span>{{ details.vehicleModel }}</span>
 </p>
+
 <p>
-  Ir T/A:
-  {{ details.vehicleInspectionActive }}
+  <span class="pr-2">Ražošanas gads:</span>
+  <span>{{ details.vehicleManufacturingYear }}</span>
 </p>
+
 <p>
-  Ātrumkārba:
-  {{ details.vehicleTransmissionName }}
+  <span class="pr-2">VRN:</span>
+  <span *ngIf="details.vehicleRegistrationNumber; else noInfo">{{
+    details.vehicleRegistrationNumber
+  }}</span>
 </p>
-<p>Motors: {{ details.vehicleFuelType }}</p>
+
 <p>
-  Motora tilpums:
-  {{ details.vehicleEngineSize }}
+  <span class="pr-2">VIN:</span>
+  <span *ngIf="details.vehicleIdentificationNumber; else noInfo">{{
+    details.vehicleIdentificationNumber
+  }}</span>
 </p>
-<p>Asis: {{ details.vehicleAxis }}</p>
+
 <p>
-  Apraksts / novērtējums:
-  {{ details.vehicleEvaluation }}
+  <span class="pr-2">Ir T/A:</span>
+  <span *ngIf="details.vehicleInspectionActive; else noInfo">{{
+    details.vehicleInspectionActive
+  }}</span>
 </p>
+
+<p>
+  <span class="pr-2">Ātrumkārba:</span>
+  <span *ngIf="details.vehicleTransmissionName; else noInfo">{{
+    details.vehicleTransmissionName
+  }}</span>
+</p>
+
+<p>
+  <span class="pr-2">Motors:</span>
+  <span *ngIf="details.vehicleFuelType; else noInfo">{{
+    details.vehicleFuelType
+  }}</span>
+</p>
+
+<p>
+  <span class="pr-2">Motora tilpums:</span>
+  <span *ngIf="details.vehicleEngineSize; else noInfo">{{
+    details.vehicleEngineSize
+  }}</span>
+</p>
+
+<p>
+  <span class="pr-2">Asis:</span>
+  <span *ngIf="details.vehicleAxis; else noInfo">{{
+    details.vehicleAxis
+  }}</span>
+</p>
+
+<p>
+  <span class="pr-2">Apraksts / novērtējums:</span>
+  <span *ngIf="details.vehicleEvaluation; else noInfo">{{
+    details.vehicleEvaluation
+  }}</span>
+</p>
+
+<ng-template #noInfo>-</ng-template>

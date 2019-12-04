@@ -57,47 +57,71 @@
 
       <div class="row auction__details-apply-row">
         <div class="col-12 align-self-center text-center">
-          <button type="button" class="btn btn-primary btn-lg">
+          <button
+            type="button"
+            class="btn btn-primary btn-lg apply__row-button"
+          >
             Pieteikties izsolei
           </button>
         </div>
       </div>
 
-      <div class="row auction__details-information-row">
-        <div class="col-4">
-          <p>Nosaukums: {{ auctionDetails.aboutAuctionDetails.auctionName }}</p>
+      <div class="row auction__details-information-row pt-5">
+        <div class="col-6">
           <p>
-            Minimālā cena (EUR):
-            {{ auctionDetails.aboutAuctionDetails.auctionStartingPrice }}
+            <span class="pr-2">Nosaukums:</span>
+            <span>{{ auctionDetails.aboutAuctionDetails.auctionName }}</span>
           </p>
+
           <p>
-            Izsoles veids:
-            {{ auctionDetails.aboutAuctionDetails.auctionFormat }}
+            <span class="pr-2">Minimālā cena (EUR):</span>
+            <span>{{
+              auctionDetails.aboutAuctionDetails.auctionStartingPrice
+            }}</span>
           </p>
+
           <p>
-            Izsoles sākums:
-            {{
-              auctionDetails.aboutAuctionDetails.auctionStartDate
-                | date: dateFormat
-            }}
+            <span class="pr-2">Izsoles veids:</span>
+            <span>{{ auctionDetails.aboutAuctionDetails.auctionFormat }}</span>
           </p>
+
           <p>
-            Pieteikties līdz:
-            {{
-              auctionDetails.aboutAuctionDetails.auctionApplyTillDate
-                | date: dateFormat
-            }}
+            <span class="pr-2">Izsoles sākums:</span>
+            <span
+              *ngIf="
+                auctionDetails.aboutAuctionDetails.auctionStartDate;
+                else noInfo
+              "
+            >
+              {{
+                auctionDetails.aboutAuctionDetails.auctionStartDate
+                  | date: dateFormat
+              }}</span
+            >
           </p>
+
           <p>
-            Izsoles beigas:
-            {{
-              auctionDetails.aboutAuctionDetails.auctionEndDate
-                | date: dateFormat
-            }}
+            <span class="pr-2">Pieteikties līdz:</span>
+            <span>
+              {{
+                auctionDetails.aboutAuctionDetails.auctionApplyTillDate
+                  | date: dateFormat
+              }}</span
+            >
+          </p>
+
+          <p>
+            <span class="pr-2">Izsoles beigas:</span>
+            <span>
+              {{
+                auctionDetails.aboutAuctionDetails.auctionEndDate
+                  | date: dateFormat
+              }}</span
+            >
           </p>
         </div>
 
-        <div class="col-4">
+        <div class="col-6">
           <ng-container
             class="main_content"
             *ngIf="auctionDetails.vehicleAuction"
@@ -123,25 +147,44 @@
           </ng-container>
         </div>
 
-        <div class="col-4">
+        <div class="col-6">
           <p>
-            Izsoles veidotājs:
-            {{ auctionDetails.aboutAuctionCreator.auctionCreatorName }}
+            <span class="pr-2">Izsoles veidotājs:</span>
+            <span>{{
+              auctionDetails.aboutAuctionCreator.auctionCreatorName
+            }}</span>
           </p>
+
           <p>
-            Adrese:
-            {{ auctionDetails.aboutAuctionCreator.auctionCreatorAddress }}
+            <span class="pr-2">E-pasts:</span>
+            <span>{{
+              auctionDetails.aboutAuctionCreator.auctionCreatorEmail
+            }}</span>
           </p>
+
           <p>
-            E-pasts:
-            {{ auctionDetails.aboutAuctionCreator.auctionCreatorEmail }}
+            <span class="pr-2">Telefons:</span>
+            <span>{{
+              auctionDetails.aboutAuctionCreator.auctionCreatorPhone
+            }}</span>
           </p>
+
           <p>
-            Telefons:
-            {{ auctionDetails.aboutAuctionCreator.auctionCreatorPhone }}
+            <span class="pr-2">Adrese:</span>
+            <span>{{
+              auctionDetails.aboutAuctionCreator.auctionCreatorAddress
+            }}</span>
+          </p>
+        </div>
+
+        <div class="col-12 pt-2">
+          <p class="text-muted">
+            <small>-* Šo informāciju precizēt ar izsoles veidotāju.</small>
           </p>
         </div>
       </div>
     </div>
   </div>
 </ng-container>
+
+<ng-template #noInfo>-</ng-template>

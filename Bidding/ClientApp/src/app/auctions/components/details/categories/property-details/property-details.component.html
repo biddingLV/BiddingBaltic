@@ -1,30 +1,64 @@
 <p>
-  Koordinātes:
-  {{ details.propertyCoordinates }}
+  <span class="pr-2">Koordinātes:</span>
+  <span *ngIf="details.propertyCoordinates; else noInfo">{{
+    details.propertyCoordinates
+  }}</span>
 </p>
-<p>Reģions: {{ details.propertyRegionName }}</p>
+
 <p>
-  Kadastra numurs:
-  {{ details.propertyCadastreNumber }}
+  <span class="pr-2">Reģions:</span>
+  <span *ngIf="details.propertyRegionName; else noInfo">{{
+    details.propertyRegionName
+  }}</span>
 </p>
+
 <p>
-  Izmēri:
-  {{ details.propertyMeasurementValue }}
+  <span class="pr-2">Kadastra numurs:</span>
+  <span *ngIf="details.propertyCadastreNumber; else noInfo">{{
+    details.propertyCadastreNumber
+  }}</span>
 </p>
+
 <p>
-  Mērvienība:
-  {{ details.propertyMeasurementTypeName }}
+  <span class="pr-2">Izmēri:</span>
+  <span *ngIf="details.propertyMeasurementValue; else noInfo">{{
+    details.propertyMeasurementValue
+  }}</span>
 </p>
-<p>Adrese: {{ details.propertyAddress }}</p>
+
 <p>
-  Stāvu skaits:
-  {{ details.propertyFloorCount }}
+  <span class="pr-2">Mērvienība:</span>
+  <span *ngIf="details.propertyMeasurementTypeName; else noInfo">{{
+    details.propertyMeasurementTypeName
+  }}</span>
 </p>
+
 <p>
-  Istabu skaits:
-  {{ details.propertyRoomCount }}
+  <span class="pr-2">Adrese:</span>
+  <span *ngIf="details.propertyAddress; else noInfo">{{
+    details.propertyAddress
+  }}</span>
 </p>
+
 <p>
-  Apraksts / novērtējums:
-  {{ details.propertyEvaluation }}
+  <span class="pr-2">Stāvu skaits:</span>
+  <span *ngIf="details.propertyFloorCount; else noInfo">{{
+    details.propertyFloorCount
+  }}</span>
 </p>
+
+<p>
+  <span class="pr-2">Istabu skaits:</span>
+  <span *ngIf="details.propertyRoomCount; else noInfo">{{
+    details.propertyRoomCount
+  }}</span>
+</p>
+
+<p>
+  <span class="pr-2">Apraksts / novērtējums:</span>
+  <span *ngIf="details.propertyEvaluation; else noInfo">{{
+    details.propertyEvaluation
+  }}</span>
+</p>
+
+<ng-template #noInfo>-</ng-template>

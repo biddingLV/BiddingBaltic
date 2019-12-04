@@ -1,7 +1,27 @@
-<p>Modelis: {{ details.itemModel }}</p>
-<p>Ražošanas gads:{{ details.itemManufacturingYear }}</p>
-<p>Stāvoklis: {{ details.itemConditionName }}</p>
 <p>
-  Apraksts / novērtējums:
-  {{ details.itemEvaluation }}
+  <span class="pr-2">Modelis:</span>
+  <span *ngIf="details.itemModel; else noInfo">{{ details.itemModel }}</span>
 </p>
+
+<p>
+  <span class="pr-2">Ražošanas gads:</span>
+  <span *ngIf="details.itemManufacturingYear; else noInfo">{{
+    details.itemManufacturingYear
+  }}</span>
+</p>
+
+<p>
+  <span class="pr-2">Stāvoklis:</span>
+  <span *ngIf="details.itemConditionName; else noInfo">{{
+    details.itemConditionName
+  }}</span>
+</p>
+
+<p>
+  <span class="pr-2">Apraksts / novērtējums:</span>
+  <span *ngIf="details.itemEvaluation; else noInfo">{{
+    details.itemEvaluation
+  }}</span>
+</p>
+
+<ng-template #noInfo>-</ng-template>
