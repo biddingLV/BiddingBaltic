@@ -43,7 +43,7 @@
     [sortable]="true"
   >
     <ng-template let-row="row" ngx-datatable-cell-template>
-      <span>€ {{ row.auctionStartingPrice | number: "1.2-2" }}</span>
+      <span>€ {{ row.auctionStartingPrice | number: "1.2-2" | noComma }}</span>
     </ng-template>
   </ngx-datatable-column>
 

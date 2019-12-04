@@ -18,6 +18,7 @@ import { MinSharedModule } from "./shared-min.module";
 import { FileUploaderComponent } from "./components/file-uploader/file-uploader.component";
 import { ImageGalleryComponent } from "./components/image-gallery/image-gallery.component";
 import { TimepickerComponent } from "./components/timepicker/timepicker.component";
+import { NoCommaPipe } from "./pipes/no-comma.pipe";
 
 @NgModule({
   imports: [
@@ -45,13 +46,15 @@ import { TimepickerComponent } from "./components/timepicker/timepicker.componen
     MinSharedModule,
     TimepickerModule,
     TimepickerComponent,
-    BsDatepickerModule
+    BsDatepickerModule,
+    NoCommaPipe
   ],
   declarations: [
     SearchComponent,
     FileUploaderComponent,
     ImageGalleryComponent,
-    TimepickerComponent
+    TimepickerComponent,
+    NoCommaPipe
   ]
 })
 export class SharedModule {}
