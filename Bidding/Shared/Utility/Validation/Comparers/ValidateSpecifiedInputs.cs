@@ -20,10 +20,10 @@ namespace Bidding.Shared.Utility.Validation.Comparers
             return list != null || list.Count != 0;
         }
 
-        //public static bool IsSpecified(this string text)
-        //{
-        //    return string.IsNullOrWhiteSpace(text);
-        //}
+        public static bool IsSpecified(this string text)
+        {
+            return !string.IsNullOrWhiteSpace(text);
+        }
 
         public static bool IsSpecified(this int? number)
         {

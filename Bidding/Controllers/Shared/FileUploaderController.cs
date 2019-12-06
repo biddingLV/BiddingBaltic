@@ -23,18 +23,18 @@ namespace Bidding.Controllers.Shared
         [HasPermission(Permission.CreateAuction)]
         public IActionResult ValidateFiles()
         {
-            IFormFileCollection files = Request.Form.Files;
+            IFormFileCollection files = Request.Form?.Files;
 
             return Ok(m_fileUploaderService.ValidateFiles(files));
         }
 
         [HttpPost]
         [HasPermission(Permission.CreateAuction)]
-        public async Task<IActionResult> UploadFiles()
+        public async Task<IActionResult> UploadFiles(int auctionId)
         {
-            IFormFileCollection files = Request.Form.Files;
+            IFormFileCollection files = Request.Form?.Files;
 
-            return Ok(await m_fileUploaderService.UploadFilesAsync(files).ConfigureAwait(true));
+            return Ok(await m_fileUploaderService.UploadFilesAsync(files, auctionId).ConfigureAwait(true));
         }
     }
 }

@@ -12,6 +12,7 @@ import {
   FontAwesomeModule,
   FaIconLibrary
 } from "@fortawesome/angular-fontawesome";
+
 import {
   faSearch,
   faExclamationCircle,
@@ -19,7 +20,13 @@ import {
   faUsers,
   faPlus
 } from "@fortawesome/free-solid-svg-icons";
-import { faHeart } from "@fortawesome/free-regular-svg-icons";
+
+import {
+  faHeart,
+  faEdit,
+  faTrashAlt
+} from "@fortawesome/free-regular-svg-icons";
+
 import {
   faFacebookF,
   faTwitter,
@@ -88,7 +95,9 @@ export class MinSharedModule {
       faInstagram,
       faHammer,
       faUsers,
-      faPlus
+      faPlus,
+      faEdit,
+      faTrashAlt
     );
   }
 }

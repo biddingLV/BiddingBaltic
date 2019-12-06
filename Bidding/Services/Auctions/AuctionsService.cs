@@ -29,13 +29,11 @@ namespace Bidding.Services.Auctions
     {
         private readonly PermissionService m_permissionService;
         private readonly AuctionsRepository m_auctionsRepository;
-        private readonly FileUploaderService m_fileUploaderService;
 
-        public AuctionsService(AuctionsRepository auctionRepository, PermissionService permissionService, FileUploaderService fileUploaderService)
+        public AuctionsService(AuctionsRepository auctionRepository, PermissionService permissionService)
         {
             m_permissionService = permissionService ?? throw new ArgumentNullException(nameof(permissionService));
             m_auctionsRepository = auctionRepository ?? throw new ArgumentNullException(nameof(auctionRepository));
-            m_fileUploaderService = fileUploaderService ?? throw new ArgumentNullException(nameof(fileUploaderService));
         }
 
         public AuctionListResponseModel GetAuctions(AuctionListRequestModel request)
@@ -151,7 +149,7 @@ namespace Bidding.Services.Auctions
             return m_auctionsRepository.Delete(request, loggedInUserId);
         }
 
-        public bool Create(AddAuctionRequestModel request)
+        public int Create(AddAuctionRequestModel request)
         {
             if (request.IsNotSpecified()) throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation);
             if (request.AboutAuction.IsNotSpecified()) throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation);
@@ -184,31 +182,31 @@ namespace Bidding.Services.Auctions
             if (allowedSortByColumns.Contains(request.SortByColumn) == false) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
         }
 
-        private bool CreateItemAuction(AddAuctionRequestModel request)
+        private int CreateItemAuction(AddAuctionRequestModel request)
         {
             // ValidateAuctionItemCreate(request);
 
             int loggedInUserId = m_permissionService.GetUserIdFromClaimsPrincipal();
 
-            return m_auctionsRepository.CreateItemAuction(request, loggedInUserId);
+            return m_auctionsRepository.CreateAuction(request, loggedInUserId);
         }
 
-        private bool CreatePropertyAuction(AddAuctionRequestModel request)
+        private int CreatePropertyAuction(AddAuctionRequestModel request)
         {
             // ValidateAuctionItemCreate(request);
 
             int loggedInUserId = m_permissionService.GetUserIdFromClaimsPrincipal();
 
-            return m_auctionsRepository.CreatePropertyAuction(request, loggedInUserId);
+            return m_auctionsRepository.CreateAuction(request, loggedInUserId);
         }
 
-        private bool CreateVehicleAuction(AddAuctionRequestModel request)
+        private int CreateVehicleAuction(AddAuctionRequestModel request)
         {
             // ValidateAuctionItemCreate(request);
 
             int loggedInUserId = m_permissionService.GetUserIdFromClaimsPrincipal();
 
-            return m_auctionsRepository.CreateVehicleAuction(request, loggedInUserId);
+            return m_auctionsRepository.CreateAuction(request, loggedInUserId);
         }
 
         private void ValidateAuctionItemCreate(string request)

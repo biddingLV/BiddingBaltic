@@ -1,6 +1,12 @@
 ﻿using Bidding.Models.Contexts;
+using Bidding.Models.DatabaseModels.Auctions;
+using Bidding.Shared.ErrorHandling.Errors;
+using Bidding.Shared.Exceptions;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.WindowsAzure.Storage.Blob;
 using System;
+using System.Linq;
+using System.Net;
 using System.Threading.Tasks;
 
 namespace Bidding.Repositories.Shared
@@ -14,22 +20,46 @@ namespace Bidding.Repositories.Shared
             m_context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public async Task<string> UploadFilesAsync(byte[] imageBytes, string imageName, string contentType, CloudBlobContainer cloudBlobContainer)
+        public async Task UploadFileAsync(byte[] fileBytes, string fileName, string fileContentType, CloudBlobContainer cloudBlobContainer)
         {
-            CloudBlockBlob cloudBlockBlob = cloudBlobContainer.GetBlockBlobReference(imageName);
+            // todo: kke: if file upload fails we need to delete auction from database!!! data corroption problem!
+            try
+            {
+                CloudBlockBlob cloudBlockBlob = cloudBlobContainer.GetBlockBlobReference(fileName);
 
-            cloudBlockBlob.Properties.ContentType = contentType;
+                cloudBlockBlob.Properties.ContentType = fileContentType;
 
-            const int byteArrayStartIndex = 0;
+                const int byteArrayStartIndex = 0;
 
-            await cloudBlockBlob.UploadFromByteArrayAsync(
-                imageBytes,
-                byteArrayStartIndex,
-                imageBytes.Length).ConfigureAwait(true);
+                await cloudBlockBlob.UploadFromByteArrayAsync(
+                    fileBytes,
+                    byteArrayStartIndex,
+                    fileBytes.Length).ConfigureAwait(true);
+            }
+            catch (Exception ex)
+            {
+                throw new WebApiException(HttpStatusCode.InternalServerError, FileUploadErrorMessage.GenericUploadErrorMessage, ex);
+            }
+        }
 
-            var imageFullUrlPath = cloudBlockBlob.Uri.ToString();
+        public async Task<bool> SaveAuction(string containerName, int auctionId, int loggedInUserId)
+        {
+            try
+            {
+                Auction auction = await m_context.Auctions.Where(auct => auct.AuctionId == auctionId).SingleOrDefaultAsync().ConfigureAwait(true);
 
-            return imageFullUrlPath;
+                auction.AuctionImageContainer = containerName;
+                auction.LastUpdatedAt = DateTime.UtcNow;
+                auction.LastUpdatedBy = loggedInUserId;
+
+                m_context.SaveChanges();
+            }
+            catch (Exception ex)
+            {
+                throw new WebApiException(HttpStatusCode.InternalServerError, FileUploadErrorMessage.GenericUploadErrorMessage, ex);
+            }
+
+            return true;
         }
     }
 }

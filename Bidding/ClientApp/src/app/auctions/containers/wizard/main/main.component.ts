@@ -11,7 +11,7 @@ import { FormGroup } from "@angular/forms";
 // 3rd party
 import { BsModalRef, BsModalService } from "ngx-bootstrap/modal";
 import { Subscription } from "rxjs";
-import { startWith } from "rxjs/operators";
+import { startWith, concatMap } from "rxjs/operators";
 import { BsDatepickerConfig } from "ngx-bootstrap/datepicker/bs-datepicker.config";
 import { MovingDirection } from "angular-archwizard";
 import * as moment from "moment-mini";
@@ -24,6 +24,7 @@ import { CategoryConstants } from "ClientApp/src/app/core/constants/categories/c
 import { CategoriesWithTypesModel } from "../../../models/add/categories-with-types.model";
 import { TypeModel } from "../../../models/shared/types/type.model";
 import { AuctionAddAboutWizardStepComponent } from "../../../components/wizard/wizard-steps/about-step/about-step.component";
+import { FileUploaderService } from "ClientApp/src/app/shared/services/file-uploader/file-uploader.service";
 
 @Component({
   templateUrl: "./main.component.html"
@@ -68,7 +69,8 @@ export class AuctionAddMainWizardComponent
     private auctionService: AuctionsService,
     private notificationService: NotificationsService,
     public bsModalRef: BsModalRef,
-    private externalModalService: BsModalService
+    private externalModalService: BsModalService,
+    private fileUploaderService: FileUploaderService
   ) {}
 
   ngOnInit(): void {
@@ -295,14 +297,22 @@ export class AuctionAddMainWizardComponent
   private makeRequest(request: Auctions.AddAuctionRequestModel): void {
     this.auctionAddSubscription = this.auctionService
       .addAuction$(request)
+      .pipe(
+        concatMap((auctionId: number) =>
+          this.fileUploaderService.uploadFiles$(
+            this.addStepForm.value.auctionFiles,
+            auctionId
+          )
+        )
+      )
       .subscribe(
-        (addSuccess: boolean) => {
-          if (addSuccess) {
+        response => {
+          if (response) {
             this.notificationService.success("Auction successfully added.");
             this.bsModalRef.hide();
             this.externalModalService.setDismissReason("Create");
           } else {
-            this.notificationService.error("Could not add auction.");
+            this.notificationService.error("Could not create auction.");
           }
         },
         (error: string) => this.notificationService.error(error)

@@ -1,13 +1,11 @@
 // angular
 import { Injectable } from "@angular/core";
-import { HttpClient, HttpParams, HttpRequest } from "@angular/common/http";
+import { HttpClient } from "@angular/common/http";
 
 // 3rd lib
 import { catchError } from "rxjs/operators";
 import { Observable } from "rxjs";
 import { ExceptionsService } from "ClientApp/src/app/core/services/exceptions/exceptions.service";
-
-// internal
 
 @Injectable({
   providedIn: "root"
@@ -26,11 +24,11 @@ export class FileUploaderService {
       .pipe(catchError(this.exceptionService.errorHandler));
   }
 
-  uploadFiles$(request: FormData): Observable<boolean> {
-    const url = "api/fileUploader/UploadFiles";
+  uploadFiles$(formData: FormData, auctionId: number): Observable<boolean> {
+    const url = `api/fileUploader/UploadFiles?auctionId=${auctionId}`;
 
     return this.httpService
-      .post<boolean>(url, request)
+      .post<boolean>(url, formData)
       .pipe(catchError(this.exceptionService.errorHandler));
   }
 }

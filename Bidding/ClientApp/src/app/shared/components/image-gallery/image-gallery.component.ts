@@ -1,5 +1,5 @@
 // angular
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, Input } from "@angular/core";
 
 // 3rd lib
 import {
@@ -13,16 +13,18 @@ import {
   templateUrl: "./image-gallery.component.html"
 })
 export class ImageGalleryComponent implements OnInit {
-  galleryOptions: NgxGalleryOptions[];
-  galleryImages: NgxGalleryImage[];
+  // note: kke: Get rid of font awesome css for Icons! Not needed!
+  @Input() auctionImages: string[];
 
-  constructor() {}
-  ngOnInit(): void {
+  galleryOptions: NgxGalleryOptions[] = [];
+  galleryImages: NgxGalleryImage[] = [];
+
+  constructor() {
     this.galleryOptions = [
       {
         width: "100%",
         height: "100%",
-        thumbnailsColumns: 4,
+        thumbnailsColumns: 2,
         imageAnimation: NgxGalleryAnimation.Slide
         // imageAutoPlay: true, // todo: kke: what is this?
         // imageAutoPlayPauseOnHover: true, // todo: kke: what is this?
@@ -45,72 +47,17 @@ export class ImageGalleryComponent implements OnInit {
         preview: false
       }
     ];
+  }
 
-    this.galleryImages = [
-      {
-        small:
-          "https://biddinglv.blob.core.windows.net/bidauctionimages-d010eef9-6db7-41ca-9e76-7029f09a6c31/13dab0ae-3641-40d9-ae91-5855a5c6e384.jpg",
-        medium:
-          "https://biddinglv.blob.core.windows.net/bidauctionimages-d010eef9-6db7-41ca-9e76-7029f09a6c31/13dab0ae-3641-40d9-ae91-5855a5c6e384.jpg",
-        big:
-          "https://biddinglv.blob.core.windows.net/bidauctionimages-d010eef9-6db7-41ca-9e76-7029f09a6c31/13dab0ae-3641-40d9-ae91-5855a5c6e384.jpg"
-      },
-      {
-        small:
-          "https://biddinglv.blob.core.windows.net/bidauctionimages-d010eef9-6db7-41ca-9e76-7029f09a6c31/13dab0ae-3641-40d9-ae91-5855a5c6e384.jpg",
-        medium:
-          "https://biddinglv.blob.core.windows.net/bidauctionimages-d010eef9-6db7-41ca-9e76-7029f09a6c31/13dab0ae-3641-40d9-ae91-5855a5c6e384.jpg",
-        big:
-          "https://biddinglv.blob.core.windows.net/bidauctionimages-d010eef9-6db7-41ca-9e76-7029f09a6c31/13dab0ae-3641-40d9-ae91-5855a5c6e384.jpg"
-      },
-      {
-        small:
-          "https://biddinglv.blob.core.windows.net/bidauctionimages-d010eef9-6db7-41ca-9e76-7029f09a6c31/13dab0ae-3641-40d9-ae91-5855a5c6e384.jpg",
-        medium:
-          "https://biddinglv.blob.core.windows.net/bidauctionimages-d010eef9-6db7-41ca-9e76-7029f09a6c31/13dab0ae-3641-40d9-ae91-5855a5c6e384.jpg",
-        big:
-          "https://biddinglv.blob.core.windows.net/bidauctionimages-d010eef9-6db7-41ca-9e76-7029f09a6c31/13dab0ae-3641-40d9-ae91-5855a5c6e384.jpg"
-      },
-      {
-        small:
-          "https://biddinglv.blob.core.windows.net/bidauctionimages-d010eef9-6db7-41ca-9e76-7029f09a6c31/13dab0ae-3641-40d9-ae91-5855a5c6e384.jpg",
-        medium:
-          "https://biddinglv.blob.core.windows.net/bidauctionimages-d010eef9-6db7-41ca-9e76-7029f09a6c31/13dab0ae-3641-40d9-ae91-5855a5c6e384.jpg",
-        big:
-          "https://biddinglv.blob.core.windows.net/bidauctionimages-d010eef9-6db7-41ca-9e76-7029f09a6c31/13dab0ae-3641-40d9-ae91-5855a5c6e384.jpg"
-      },
-      {
-        small:
-          "https://biddinglv.blob.core.windows.net/bidauctionimages-d010eef9-6db7-41ca-9e76-7029f09a6c31/13dab0ae-3641-40d9-ae91-5855a5c6e384.jpg",
-        medium:
-          "https://biddinglv.blob.core.windows.net/bidauctionimages-d010eef9-6db7-41ca-9e76-7029f09a6c31/13dab0ae-3641-40d9-ae91-5855a5c6e384.jpg",
-        big:
-          "https://biddinglv.blob.core.windows.net/bidauctionimages-d010eef9-6db7-41ca-9e76-7029f09a6c31/13dab0ae-3641-40d9-ae91-5855a5c6e384.jpg"
-      },
-      {
-        small:
-          "https://biddinglv.blob.core.windows.net/bidauctionimages-d010eef9-6db7-41ca-9e76-7029f09a6c31/13dab0ae-3641-40d9-ae91-5855a5c6e384.jpg",
-        medium:
-          "https://biddinglv.blob.core.windows.net/bidauctionimages-d010eef9-6db7-41ca-9e76-7029f09a6c31/13dab0ae-3641-40d9-ae91-5855a5c6e384.jpg",
-        big:
-          "https://biddinglv.blob.core.windows.net/bidauctionimages-d010eef9-6db7-41ca-9e76-7029f09a6c31/13dab0ae-3641-40d9-ae91-5855a5c6e384.jpg"
-      },
-      {
-        small:
-          "https://biddinglv.blob.core.windows.net/bidauctionimages-d010eef9-6db7-41ca-9e76-7029f09a6c31/13dab0ae-3641-40d9-ae91-5855a5c6e384.jpg",
-        medium:
-          "https://biddinglv.blob.core.windows.net/bidauctionimages-d010eef9-6db7-41ca-9e76-7029f09a6c31/13dab0ae-3641-40d9-ae91-5855a5c6e384.jpg",
-        big:
-          "https://biddinglv.blob.core.windows.net/bidauctionimages-d010eef9-6db7-41ca-9e76-7029f09a6c31/13dab0ae-3641-40d9-ae91-5855a5c6e384.jpg"
-      },
-      {
-        small:
-          "https://biddinglv.blob.core.windows.net/bidauctionimages-d010eef9-6db7-41ca-9e76-7029f09a6c31/13dab0ae-3641-40d9-ae91-5855a5c6e384.jpg",
-        medium:
-          "https://biddinglv.blob.core.windows.net/bidauctionimages-d010eef9-6db7-41ca-9e76-7029f09a6c31/13dab0ae-3641-40d9-ae91-5855a5c6e384.jpg",
-        big:
-          "https://biddinglv.blob.core.windows.net/bidauctionimages-d010eef9-6db7-41ca-9e76-7029f09a6c31/13dab0ae-3641-40d9-ae91-5855a5c6e384.jpg"
-      }
-    ];
+  ngOnInit(): void {
+    this.auctionImages.forEach(item => {
+      var x = {
+        small: item,
+        medium: item,
+        big: item
+      };
+
+      this.galleryImages.push(x);
+    });
   }
 }

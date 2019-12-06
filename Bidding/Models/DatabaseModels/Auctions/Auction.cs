@@ -47,6 +47,8 @@ namespace Bidding.Models.DatabaseModels.Auctions
         public int AuctionCreatorId { get; set; }
         public AuctionCreator AuctionCreator { get; set; }
 
+        public string AuctionImageContainer { get; set; }
+
         public DateTime CreatedAt { get; set; }
 
         //[Required]

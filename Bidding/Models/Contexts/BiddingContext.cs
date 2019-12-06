@@ -41,14 +41,13 @@ namespace Bidding.Models.Contexts
         public DbSet<RoleToPermissions> RolesToPermissions { get; set; }
         public DbSet<ModulesForUser> ModulesForUsers { get; set; }
 
-        //public virtual DbSet<TypeProduct> TypeProducts { get; set; }
-        //public virtual DbSet<Product> Products { get; set; }
-        //public virtual DbSet<Feature> Features { get; set; }
-        //public virtual DbSet<Images> Images { get; set; }
-        //public virtual DbSet<Organization> Organizations { get; set; }
-        //public virtual DbSet<ProductDetail> ProductDetails { get; set; }
-        //public virtual DbSet<UserDetail> UserDetails { get; set; }
-        //public virtual DbSet<UserOrganization> UserOrganizations { get; set; }
+        // public DbSet<TypeProduct> TypeProducts { get; set; }
+        // public DbSet<Product> Products { get; set; }
+        // public DbSet<Feature> Features { get; set; }
+        // public DbSet<Organization> Organizations { get; set; }
+        // public DbSet<ProductDetail> ProductDetails { get; set; }
+        // public DbSet<UserDetail> UserDetails { get; set; }
+        // public DbSet<UserOrganization> UserOrganizations { get; set; }
 
         // Database Queries for stored procedures, views and so on!
         public virtual DbQuery<TopCategoryFilterModel> TopCategoryFilter { get; set; }

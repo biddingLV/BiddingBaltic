@@ -145,11 +145,11 @@ export class AuctionsService {
    * Adds a new auction, it can be item, vehicle or property - auction
    * @param request Global auction add request
    */
-  addAuction$(request: Auctions.AddAuctionRequestModel): Observable<boolean> {
+  addAuction$(request: Auctions.AddAuctionRequestModel): Observable<number> {
     const url = "/api/auctions/create";
 
     return this.httpService
-      .post<boolean>(url, request)
+      .post<number>(url, request)
       .pipe(catchError(this.exceptionService.errorHandler));
   }
 

@@ -39,6 +39,10 @@ export class AuctionAddWizardVehicleComponent implements OnInit {
     vehicleEvaluation: ""
   };
 
+  // component
+  auctionImages: File[];
+  auctionDocuments: File[];
+
   typeConstants = TypeConstants;
 
   transmissionTypes = [
@@ -93,7 +97,6 @@ export class AuctionAddWizardVehicleComponent implements OnInit {
   onNext(): void {
     this.submitted = true;
 
-    // mark all fields as touched
     this.internalFormService.markFormGroupTouched(this.addStepForm);
 
     if (this.addStepForm.valid === false) {
@@ -109,18 +112,36 @@ export class AuctionAddWizardVehicleComponent implements OnInit {
       return;
     }
 
+    const formData = new FormData();
+
+    if (this.auctionImages.length > 0)
+      this.setupFileFormData(formData, this.auctionImages);
+
+    if (this.auctionDocuments.length > 0)
+      this.setupFileFormData(formData, this.auctionDocuments);
+
+    this.addStepForm.patchValue({
+      auctionFiles: formData
+    });
+
     // return form values back to parent component
     this.returnAddWizardStepForm.emit(this.addStepForm);
   }
 
-  onFileUploaded(fileId: string) {
-    // todo: kke: add to form object!
-    // this.firstStepForm.get('logo').setValue(fileId);
+  private setupFileFormData(formData: FormData, files: File[]) {
+    for (let i = 0; i < files.length; i++) {
+      let item = files[i];
+
+      formData.append(item.name, item);
+    }
   }
 
-  onFileRemoved() {
-    // todo: kke: add to form object!
-    // this.firstStepForm.get('logo').reset();
+  onImageChange(files) {
+    this.auctionImages = files;
+  }
+
+  onFileChange(files) {
+    this.auctionDocuments = files;
   }
 
   private buildForm(): void {
@@ -148,7 +169,8 @@ export class AuctionAddWizardVehicleComponent implements OnInit {
       vehicleEngineSize: [null, []],
       vehicleAxis: [null, []],
       vehicleDimensions: [null, []],
-      vehicleEvaluation: [null, []]
+      vehicleEvaluation: [null, []],
+      auctionFiles: [null, []]
     });
   }
 }

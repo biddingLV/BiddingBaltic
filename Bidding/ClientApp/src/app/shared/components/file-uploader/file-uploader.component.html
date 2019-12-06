@@ -1,9 +1,7 @@
-<label for="">Pievienot attēlus</label>
+<label for="addFiles">{{ label }}</label>
 <div class="input-group mb-3">
   <div class="input-group-prepend">
-    <span class="input-group-text" id="inputGroupFileAddon01"
-      >Pievienot attēlus</span
-    >
+    <span class="input-group-text" id="id1">{{ label }}</span>
   </div>
 
   <div class="custom-file">
@@ -11,19 +9,32 @@
       #fileInput
       type="file"
       class="custom-file-input"
-      id="inputGroupFile01"
-      aria-describedby="inputGroupFileAddon01"
-      accept="image/*"
-      (click)="fileInput.value = null"
-      value=""
-      (change)="onUpload($event.target.files)"
-      multiple
+      id="browseFiles"
+      aria-describedby="addFiles"
+      (change)="onFileChange($event.target.files)"
+      [accept]="acceptFormats"
+      [multiple]="multiple"
     />
-    <label class="custom-file-label" for="inputGroupFile01">Choose files</label>
+
+    <label class="custom-file-label" for="browseFiles">{{ label }}</label>
   </div>
 </div>
 
-<div class="img-wrap" *ngFor="let file of files; let i = index">
-  <span class="close" (click)="onFileRemove(i)">&times;</span>
-  <img [src]="file" height="50" />
+<div class="showImage" *ngFor="let item of selectedFiles; let i = index">
+  <span class="clearImage" (click)="onFileRemove(i)"
+    ><fa-icon [icon]="['far', 'trash-alt']"></fa-icon
+  ></span>
+
+  <ng-container
+    [ngTemplateOutlet]="enablePreview ? imageList : documentList"
+    [ngTemplateOutletContext]="{ item: item }"
+  ></ng-container>
 </div>
+
+<ng-template #imageList let-item="item">
+  <img [src]="item" height="50" />
+</ng-template>
+
+<ng-template #documentList let-item="item">
+  <p>{{ item }}</p>
+</ng-template>

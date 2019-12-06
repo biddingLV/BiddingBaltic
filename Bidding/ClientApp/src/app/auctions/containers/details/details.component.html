@@ -20,7 +20,9 @@
 
       <div class="row auction__details-gallery-row">
         <div class="col-6">
-          <app-image-gallery></app-image-gallery>
+          <app-image-gallery
+            [auctionImages]="auctionDetails.aboutAuctionDetails.auctionFiles"
+          ></app-image-gallery>
         </div>
 
         <div class="col-5 offset-1">

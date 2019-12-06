@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Bidding.Migrations
 {
     [DbContext(typeof(BiddingContext))]
-    [Migration("20191203155453_InitialMigration")]
+    [Migration("20191206124442_InitialMigration")]
     partial class InitialMigration
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -34,6 +34,8 @@ namespace Bidding.Migrations
                     b.Property<int>("AuctionCreatorId");
 
                     b.Property<int>("AuctionFormatId");
+
+                    b.Property<string>("AuctionImageContainer");
 
                     b.Property<int>("AuctionStatusId");
 
@@ -837,28 +839,28 @@ namespace Bidding.Migrations
                         new
                         {
                             Id = 100,
-                            ConcurrencyStamp = "c6a4bfe8-0203-48d7-b8a3-a19c674f80d5",
+                            ConcurrencyStamp = "2c2bf5e2-911f-4428-bcbf-31dc37d0101d",
                             Name = "BasicUser",
                             NormalizedName = "BASICUSER"
                         },
                         new
                         {
                             Id = 200,
-                            ConcurrencyStamp = "7932be7b-3947-45a8-b44f-f283708361a3",
+                            ConcurrencyStamp = "90d5b0f7-e0d8-4ef4-8177-7b96a8e36eeb",
                             Name = "AuctionCreator",
                             NormalizedName = "AUCTIONCREATOR"
                         },
                         new
                         {
                             Id = 300,
-                            ConcurrencyStamp = "ed328992-4c62-42f5-910f-96008898d075",
+                            ConcurrencyStamp = "4092d17f-f346-49a2-b2f5-dea20a6a7208",
                             Name = "PageAdministrator",
                             NormalizedName = "PAGEADMINISTRATOR"
                         },
                         new
                         {
                             Id = 400,
-                            ConcurrencyStamp = "2a5d6639-420d-4e2e-9be8-b9f066093dae",
+                            ConcurrencyStamp = "cdb88a7e-b4ec-4f57-94e7-a996cbe277dc",
                             Name = "SuperAdministrator",
                             NormalizedName = "SUPERADMINISTRATOR"
                         });

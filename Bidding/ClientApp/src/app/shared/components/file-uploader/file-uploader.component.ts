@@ -1,5 +1,12 @@
 // angular
-import { Component, EventEmitter, Output } from "@angular/core";
+import {
+  Component,
+  EventEmitter,
+  Output,
+  Input,
+  ViewChild,
+  ElementRef
+} from "@angular/core";
 
 // 3rd lib
 import { Subscription } from "rxjs";
@@ -14,42 +21,64 @@ import { NotificationsService } from "ClientApp/src/app/core/services/notificati
   styleUrls: ["./file-uploader.component.scss"]
 })
 export class FileUploaderComponent {
-  @Output() fileUploaded = new EventEmitter<string>();
-  @Output() fileRemoved = new EventEmitter();
+  @Input() label = "Pievienot attēlus";
+  @Input() acceptFormats = "*/*";
+  @Input() multiple = true;
+  @Output() fileChange = new EventEmitter<File[]>();
+
+  @ViewChild("fileInput", { static: false }) fileInput: ElementRef;
 
   // component
   fileSubscription: Subscription;
 
-  files = [];
+  // template
+  selectedFiles = [];
+  enablePreview: boolean = false;
 
   constructor(
     private notificationService: NotificationsService,
     private fileUploaderService: FileUploaderService
   ) {}
 
-  onUpload(selectedFiles: FileList): void {
-    if (selectedFiles.length === 0) {
+  onFileChange(files: FileList): void {
+    if (files.length === 0) {
       return;
     }
 
-    if (selectedFiles && selectedFiles[0]) {
-      this.setFilesforUI(selectedFiles);
-    }
+    let proceed: boolean = true;
 
     const formData = new FormData();
 
-    for (let i = 0; i < selectedFiles.length; i++) {
-      formData.append("files", selectedFiles[i], selectedFiles[i].name);
+    for (let i = 0; i < files.length; i++) {
+      let item = files.item(i);
+
+      formData.append(item.name, item);
+
+      if (this.acceptFormats == "image/*") {
+        if (!this.onlyImagesAllowed(item, files, i)) {
+          proceed = false;
+          break;
+        }
+
+        this.enablePreview = true;
+      }
+
+      if (this.acceptFormats == "application/pdf") {
+        if (!this.onlyPDFAllowed(item)) {
+          proceed = false;
+          break;
+        }
+      }
     }
 
-    this.validateUploadedFiles(formData);
-
-    // todo: kke: PASS FORMDATA TO PARENT COMPONENT
-    // this.filesUploaded.emit(formData);
+    if (proceed) {
+      this.validateUploadedFiles(formData, files);
+      this.fileInput.nativeElement.value = null;
+    }
   }
 
   onFileRemove(index: number): void {
-    this.files.splice(index, 1);
+    this.selectedFiles.splice(index, 1);
   }
 
   ngOnDestroy(): void {
@@ -58,28 +87,55 @@ export class FileUploaderComponent {
     }
   }
 
-  private setFilesforUI(selectedFiles: FileList) {
-    const fileCount = selectedFiles.length;
+  private onlyImagesAllowed(item: File, files: FileList, i: number): boolean {
+    if (item.type.match(/image\/*/) == null) {
+      this.notificationService.warning(
+        "Incorrect file format, you can upload only images here!"
+      );
 
-    for (let i = 0; i < fileCount; i++) {
-      const fileReader: FileReader = new FileReader();
+      return false;
+    } else {
+      this.handleImagePreview(files, i);
 
-      fileReader.onload = (event: Event) => {
-        // event.target.result; // This is not working - 3/11/2019 TypeScript problem
-        this.files.push(fileReader.result);
-      };
-
-      fileReader.readAsDataURL(selectedFiles[i]);
+      return true;
     }
   }
 
-  private validateUploadedFiles(formData: FormData): void {
+  private onlyPDFAllowed(item: File): boolean {
+    if (item.type.match(/application\/pdf/) == null) {
+      this.notificationService.warning(
+        "Incorrect file format, you can upload only pdf here!"
+      );
+
+      return false;
+    }
+
+    this.selectedFiles.push(item.name);
+
+    return true;
+  }
+
+  private handleImagePreview(files: FileList, i: number) {
+    const fileReader: FileReader = new FileReader();
+
+    fileReader.onload = (event: Event) => {
+      // note: kke: event.target.result - This is not working - 3/11/2019 TypeScript problem
+      this.selectedFiles.push(fileReader.result);
+    };
+
+    fileReader.readAsDataURL(files[i]);
+  }
+
+  private validateUploadedFiles(formData: FormData, files: FileList): void {
+    const records = Array.from(files);
+
     this.fileSubscription = this.fileUploaderService
-      .uploadFiles$(formData) // validateFiles$(formData)
+      .validateFiles$(formData)
       .subscribe(
         (response: boolean) => {
           if (response) {
             this.notificationService.success("All files passed validations");
+            this.fileChange.emit(records);
           } else {
             this.notificationService.error("Could not validate file(s).");
           }

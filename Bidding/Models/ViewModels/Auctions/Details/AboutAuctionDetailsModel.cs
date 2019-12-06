@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Bidding.Models.ViewModels.Auctions.Details
@@ -13,5 +14,6 @@ namespace Bidding.Models.ViewModels.Auctions.Details
         public DateTime? AuctionStartDate { get; set; }
         public DateTime AuctionApplyTillDate { get; set; }
         public DateTime AuctionEndDate { get; set; }
+        public List<string> AuctionFiles { get; set; }
     }
 }

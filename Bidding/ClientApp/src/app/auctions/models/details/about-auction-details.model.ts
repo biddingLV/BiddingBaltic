@@ -6,5 +6,6 @@ namespace Auctions {
     auctionStartDate: Date;
     auctionApplyTillDate: Date;
     auctionEndDate: Date;
+    auctionFiles: string[];
   }
 }

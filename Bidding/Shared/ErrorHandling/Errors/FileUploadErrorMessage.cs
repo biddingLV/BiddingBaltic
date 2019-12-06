@@ -7,8 +7,8 @@ namespace Bidding.Shared.ErrorHandling.Errors
         [Description("Missing file information")]
         MissingFileInformation,
 
-        [Description("Could not upload - max image upload limit reached(30)")]
-        MaxImageLimitReached,
+        [Description("Could not upload - max file upload limit reached(30)")]
+        MaxFileLimitReached,
 
         [Description("Could not upload - unsupported file type.")]
         UnsupportedFileType,
@@ -23,6 +23,6 @@ namespace Bidding.Shared.ErrorHandling.Errors
         UnsupportedFileExtension,
 
         [Description("Can not upload files")]
-        GenericUploadErrorMessage,
+        GenericUploadErrorMessage
     }
 }

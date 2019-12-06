@@ -418,6 +418,7 @@ namespace Bidding.Migrations
                     AuctionStatusId = table.Column<int>(nullable: false),
                     AuctionFormatId = table.Column<int>(nullable: false),
                     AuctionCreatorId = table.Column<int>(nullable: false),
+                    AuctionImageContainer = table.Column<string>(nullable: true),
                     CreatedAt = table.Column<DateTime>(nullable: false),
                     LastUpdatedAt = table.Column<DateTime>(nullable: false),
                     LastUpdatedBy = table.Column<int>(nullable: false),
@@ -574,10 +575,10 @@ namespace Bidding.Migrations
                 columns: new[] { "Id", "ConcurrencyStamp", "Description", "Name", "NormalizedName", "PermissionsInRole" },
                 values: new object[,]
                 {
-                    { 100, "c6a4bfe8-0203-48d7-b8a3-a19c674f80d5", null, "BasicUser", "BASICUSER", null },
-                    { 300, "ed328992-4c62-42f5-910f-96008898d075", null, "PageAdministrator", "PAGEADMINISTRATOR", null },
-                    { 400, "2a5d6639-420d-4e2e-9be8-b9f066093dae", null, "SuperAdministrator", "SUPERADMINISTRATOR", null },
-                    { 200, "7932be7b-3947-45a8-b44f-f283708361a3", null, "AuctionCreator", "AUCTIONCREATOR", null }
+                    { 100, "2c2bf5e2-911f-4428-bcbf-31dc37d0101d", null, "BasicUser", "BASICUSER", null },
+                    { 300, "4092d17f-f346-49a2-b2f5-dea20a6a7208", null, "PageAdministrator", "PAGEADMINISTRATOR", null },
+                    { 400, "cdb88a7e-b4ec-4f57-94e7-a996cbe277dc", null, "SuperAdministrator", "SUPERADMINISTRATOR", null },
+                    { 200, "90d5b0f7-e0d8-4ef4-8177-7b96a8e36eeb", null, "AuctionCreator", "AUCTIONCREATOR", null }
                 });
 
             migrationBuilder.InsertData(

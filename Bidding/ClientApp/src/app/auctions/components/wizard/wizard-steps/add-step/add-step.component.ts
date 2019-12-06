@@ -52,6 +52,7 @@ export class AuctionAddAddWizardStepComponent implements OnInit, OnChanges {
   }
 
   private handleTopCategory(): void {
+    // note: kke: what about steps object, with all these steps, not always a new variable here for template!
     // todo: kke: how to refactor this?
     if (this.selectedTopCategoryId === CategoryConstants.VEHICLE_CATEGORY_ID) {
       this.showVehicleStep = true;

@@ -190,10 +190,7 @@
 
         <div class="form-row">
           <div class="form-group col-12">
-            <app-file-uploader
-              (fileUploaded)="onFileUploaded($event)"
-              (fileRemoved)="onFileRemoved()"
-            >
+            <app-file-uploader (filesChange)="onFilesChange($event)">
             </app-file-uploader>
           </div>
         </div>
