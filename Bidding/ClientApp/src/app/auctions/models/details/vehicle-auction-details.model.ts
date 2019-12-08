@@ -10,6 +10,5 @@ namespace Auctions {
     vehicleFuelType: string;
     vehicleEngineSize: string;
     vehicleAxis: string;
-    vehicleEvaluation: string;
   }
 }

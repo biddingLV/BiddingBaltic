@@ -8,6 +8,5 @@ namespace Auctions {
     propertyAddress: string;
     propertyFloorCount: number;
     propertyRoomCount: number;
-    propertyEvaluation: string;
   }
 }

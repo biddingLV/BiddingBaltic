@@ -10,6 +10,5 @@
         public string PropertyAddress { get; set; }
         public int? PropertyFloorCount { get; set; }
         public int? PropertyRoomCount { get; set; }
-        public string PropertyEvaluation { get; set; }
     }
 }

@@ -87,6 +87,19 @@ export class FormService {
   }
 
   /**
+   * Adds files to form data object, used for file upload.
+   * @param formData Form data object
+   * @param files List with files, can be images, pdfs and so on.
+   */
+  addFilesToFormData(formData: FormData, files: File[]) {
+    for (let i = 0; i < files.length; i++) {
+      let item = files[i];
+
+      formData.append(item.name, item);
+    }
+  }
+
+  /**
    * Gets a user friendly error message for specific form control
    * @param fieldName - form control name
    */

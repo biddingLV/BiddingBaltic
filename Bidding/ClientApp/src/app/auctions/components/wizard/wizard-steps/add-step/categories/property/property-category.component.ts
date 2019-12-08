@@ -53,6 +53,10 @@ export class AuctionAddWizardPropertyComponent implements OnInit {
     }
   ];
 
+  // component
+  auctionImages: File[];
+  auctionDocuments: File[];
+
   /** Convenience getter for easy access to form fields */
   get f() {
     return this.addStepForm.controls;
@@ -71,7 +75,6 @@ export class AuctionAddWizardPropertyComponent implements OnInit {
   onNext(): void {
     this.submitted = true;
 
-    // mark all fields as touched
     this.internalFormService.markFormGroupTouched(this.addStepForm);
 
     if (this.addStepForm.valid === false) {
@@ -82,6 +85,8 @@ export class AuctionAddWizardPropertyComponent implements OnInit {
       );
     }
 
+    this.handleUploadedFiles();
+
     // stop here if form is invalid
     if (this.addStepForm.invalid) {
       return;
@@ -91,14 +96,12 @@ export class AuctionAddWizardPropertyComponent implements OnInit {
     this.returnAddWizardStepForm.emit(this.addStepForm);
   }
 
-  onFileUploaded(fileId: string) {
-    // todo: kke: add to form object!
-    // this.firstStepForm.get('logo').setValue(fileId);
+  onImageChange(files: File[]) {
+    this.auctionImages = files;
   }
 
-  onFileRemoved() {
-    // todo: kke: add to form object!
-    // this.firstStepForm.get('logo').reset();
+  onFileChange(files: File[]) {
+    this.auctionDocuments = files;
   }
 
   private buildForm(): void {
@@ -119,7 +122,25 @@ export class AuctionAddWizardPropertyComponent implements OnInit {
       propertyAddress: [null, []],
       propertyFloorCount: [null, []],
       propertyRoomCount: [null, []],
-      propertyEvaluation: [null, []]
+      propertyEvaluation: [null, []],
+      auctionFiles: [null, []]
+    });
+  }
+
+  private handleUploadedFiles() {
+    const formData = new FormData();
+
+    if (this.auctionImages && this.auctionImages.length > 0)
+      this.internalFormService.addFilesToFormData(formData, this.auctionImages);
+
+    if (this.auctionDocuments && this.auctionDocuments.length > 0)
+      this.internalFormService.addFilesToFormData(
+        formData,
+        this.auctionDocuments
+      );
+
+    this.addStepForm.patchValue({
+      auctionFiles: formData
     });
   }
 }

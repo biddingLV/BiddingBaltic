@@ -16,9 +16,9 @@ import {
 import {
   faSearch,
   faExclamationCircle,
-  faHammer,
   faUsers,
-  faPlus
+  faPlus,
+  faGavel
 } from "@fortawesome/free-solid-svg-icons";
 
 import {
@@ -93,7 +93,7 @@ export class MinSharedModule {
       faTwitter,
       faWhatsapp,
       faInstagram,
-      faHammer,
+      faGavel,
       faUsers,
       faPlus,
       faEdit,

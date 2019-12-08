@@ -1,26 +1,19 @@
 <p>
-  <span class="pr-2">Modelis:</span>
+  <span class="pr-2 font-weight-bold">Modelis:</span>
   <span *ngIf="details.itemModel; else noInfo">{{ details.itemModel }}</span>
 </p>
 
 <p>
-  <span class="pr-2">Ražošanas gads:</span>
+  <span class="pr-2 font-weight-bold">Ražošanas gads:</span>
   <span *ngIf="details.itemManufacturingYear; else noInfo">{{
     details.itemManufacturingYear
   }}</span>
 </p>
 
 <p>
-  <span class="pr-2">Stāvoklis:</span>
+  <span class="pr-2 font-weight-bold">Stāvoklis:</span>
   <span *ngIf="details.itemConditionName; else noInfo">{{
     details.itemConditionName
-  }}</span>
-</p>
-
-<p>
-  <span class="pr-2">Apraksts / novērtējums:</span>
-  <span *ngIf="details.itemEvaluation; else noInfo">{{
-    details.itemEvaluation
   }}</span>
 </p>
 

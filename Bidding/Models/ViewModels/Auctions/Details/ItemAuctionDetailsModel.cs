@@ -7,7 +7,6 @@ namespace Bidding.Models.ViewModels.Auctions.Details
         public string ItemModel { get; set; }
         public int ItemManufacturingYear { get; set; }
         public string ItemConditionName { get; set; }
-        public string ItemEvaluation { get; set; }
 
         [Column(TypeName = "decimal(18,2)")]
         public decimal ItemStartingPrice { get; set; }

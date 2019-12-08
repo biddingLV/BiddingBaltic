@@ -112,35 +112,17 @@ export class AuctionAddWizardVehicleComponent implements OnInit {
       return;
     }
 
-    const formData = new FormData();
-
-    if (this.auctionImages.length > 0)
-      this.setupFileFormData(formData, this.auctionImages);
-
-    if (this.auctionDocuments.length > 0)
-      this.setupFileFormData(formData, this.auctionDocuments);
-
-    this.addStepForm.patchValue({
-      auctionFiles: formData
-    });
+    this.handleUploadedFiles();
 
     // return form values back to parent component
     this.returnAddWizardStepForm.emit(this.addStepForm);
   }
 
-  private setupFileFormData(formData: FormData, files: File[]) {
-    for (let i = 0; i < files.length; i++) {
-      let item = files[i];
-
-      formData.append(item.name, item);
-    }
-  }
-
-  onImageChange(files) {
+  onImageChange(files: File[]) {
     this.auctionImages = files;
   }
 
-  onFileChange(files) {
+  onFileChange(files: File[]) {
     this.auctionDocuments = files;
   }
 
@@ -171,6 +153,23 @@ export class AuctionAddWizardVehicleComponent implements OnInit {
       vehicleDimensions: [null, []],
       vehicleEvaluation: [null, []],
       auctionFiles: [null, []]
+    });
+  }
+
+  private handleUploadedFiles() {
+    const formData = new FormData();
+
+    if (this.auctionImages && this.auctionImages.length > 0)
+      this.internalFormService.addFilesToFormData(formData, this.auctionImages);
+
+    if (this.auctionDocuments && this.auctionDocuments.length > 0)
+      this.internalFormService.addFilesToFormData(
+        formData,
+        this.auctionDocuments
+      );
+
+    this.addStepForm.patchValue({
+      auctionFiles: formData
     });
   }
 }

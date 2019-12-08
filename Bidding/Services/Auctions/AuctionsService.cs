@@ -119,8 +119,6 @@ namespace Bidding.Services.Auctions
             if (request.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
             if (request.AuctionId.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.IncorrectAuction); }
 
-            // var xxx = await m_fileUploaderService.GetCloudBlobContainer2();
-
             return await m_auctionsRepository.DetailsAsync(request).ConfigureAwait(false);
         }
 

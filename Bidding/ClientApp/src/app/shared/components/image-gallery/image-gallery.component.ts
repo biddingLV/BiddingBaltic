@@ -14,7 +14,7 @@ import {
 })
 export class ImageGalleryComponent implements OnInit {
   // note: kke: Get rid of font awesome css for Icons! Not needed!
-  @Input() auctionImages: string[];
+  @Input() auctionImageUrls: string[];
 
   galleryOptions: NgxGalleryOptions[] = [];
   galleryImages: NgxGalleryImage[] = [];
@@ -50,14 +50,14 @@ export class ImageGalleryComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.auctionImages.forEach(item => {
-      var x = {
+    this.auctionImageUrls.forEach(item => {
+      var image = {
         small: item,
         medium: item,
         big: item
       };
 
-      this.galleryImages.push(x);
+      this.galleryImages.push(image);
     });
   }
 }

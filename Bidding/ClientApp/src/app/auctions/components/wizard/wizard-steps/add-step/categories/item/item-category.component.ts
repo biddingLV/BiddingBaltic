@@ -39,6 +39,10 @@ export class AuctionAddWizardItemComponent implements OnInit {
     }
   ];
 
+  // component
+  auctionImages: File[];
+  auctionDocuments: File[];
+
   /** Convenience getter for easy access to form fields */
   get f() {
     return this.addStepForm.controls;
@@ -57,7 +61,6 @@ export class AuctionAddWizardItemComponent implements OnInit {
   onNext(): void {
     this.submitted = true;
 
-    // mark all fields as touched
     this.internalFormService.markFormGroupTouched(this.addStepForm);
 
     if (this.addStepForm.valid === false) {
@@ -73,18 +76,18 @@ export class AuctionAddWizardItemComponent implements OnInit {
       return;
     }
 
+    this.handleUploadedFiles();
+
     // return form values back to parent component
     this.returnAddWizardStepForm.emit(this.addStepForm);
   }
 
-  onFileUploaded(fileId: any) {
-    // todo: kke: add to form object!
-    // this.firstStepForm.get('logo').setValue(fileId);
+  onImageChange(files: File[]) {
+    this.auctionImages = files;
   }
 
-  onFileRemoved() {
-    // todo: kke: add to form object!
-    // this.firstStepForm.get('logo').reset();
+  onFileChange(files: File[]) {
+    this.auctionDocuments = files;
   }
 
   private buildForm(): void {
@@ -104,7 +107,25 @@ export class AuctionAddWizardItemComponent implements OnInit {
       auctionStartingPrice: [
         null,
         [Validators.required, CustomValidators.validatePrice]
-      ]
+      ],
+      auctionFiles: [null, []]
+    });
+  }
+
+  private handleUploadedFiles() {
+    const formData = new FormData();
+
+    if (this.auctionImages && this.auctionImages.length > 0)
+      this.internalFormService.addFilesToFormData(formData, this.auctionImages);
+
+    if (this.auctionDocuments && this.auctionDocuments.length > 0)
+      this.internalFormService.addFilesToFormData(
+        formData,
+        this.auctionDocuments
+      );
+
+    this.addStepForm.patchValue({
+      auctionFiles: formData
     });
   }
 }

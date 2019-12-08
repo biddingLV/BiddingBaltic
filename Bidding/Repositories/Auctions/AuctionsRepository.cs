@@ -15,6 +15,7 @@ using Bidding.Shared.Exceptions;
 using Bidding.Shared.Utility.Validation.Comparers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
+using Microsoft.Extensions.Configuration;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
 using System;
@@ -31,9 +32,13 @@ namespace Bidding.Repositories.Auctions
     public class AuctionsRepository
     {
         private readonly BiddingContext m_context;
+        private readonly IConfiguration m_configuration;
+        private readonly string m_azureStorageConnectionString;
 
-        public AuctionsRepository(BiddingContext context)
+        public AuctionsRepository(BiddingContext context, IConfiguration configuration)
         {
+            m_configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
+            m_azureStorageConnectionString = m_configuration["AzureStorage:ConnectionString"];
             m_context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
@@ -195,7 +200,7 @@ namespace Bidding.Repositories.Auctions
 
                 if (details.Auction.AuctionCategoryId == AuctionCategories.Item)
                 {
-                    return SetupItemAuctionDetails(details);
+                    return await SetupItemAuctionDetails(details, request).ConfigureAwait(true);
                 }
 
                 if (details.Auction.AuctionCategoryId == AuctionCategories.Vehicle)
@@ -205,7 +210,7 @@ namespace Bidding.Repositories.Auctions
 
                 if (details.Auction.AuctionCategoryId == AuctionCategories.Property)
                 {
-                    return SetupPropertyAuctionDetails(details);
+                    return await SetupPropertyAuctionDetails(details, request).ConfigureAwait(true);
                 }
 
                 throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation);
@@ -550,48 +555,12 @@ namespace Bidding.Repositories.Auctions
 
             string inspectionActive = "Nav";
 
-            if (details.AuctionDetails.InspectionActive.HasValue)
+            if (details.AuctionDetails.InspectionActive.HasValue && details.AuctionDetails.InspectionActive.Value)
             {
-                if (details.AuctionDetails.InspectionActive.Value)
-                {
-                    inspectionActive = "Ir";
-                }
+                inspectionActive = "Ir";
             }
 
-            // wip
-            var xList = new List<string>();
-
-            string imageContainer = await m_context.Auctions.Where(auct => auct.AuctionId == request.AuctionId).Select(x => x.AuctionImageContainer).SingleOrDefaultAsync().ConfigureAwait(true);
-
-            if (CloudStorageAccount.TryParse("DefaultEndpointsProtocol=https;AccountName=biddinglv;AccountKey=4Eu14ZURhYllAljW6tdJRdGRxelCEU1sUkUUQ4x/WXG/JIaVQEmXXYDTMspp4l1T6LibRMS8TISFxEz20b11vA==;EndpointSuffix=core.windows.net", out CloudStorageAccount cloudStorageAccount))
-            {
-                var context = new OperationContext();
-                var options = new BlobRequestOptions();
-                CloudBlobClient cloudBlobClient = cloudStorageAccount.CreateCloudBlobClient();
-                CloudBlobContainer cloudBlobContainer = cloudBlobClient.GetContainerReference(imageContainer);
-
-                BlobContinuationToken blobContinuationToken = null;
-
-                
-
-                do
-                {
-                    var results = await cloudBlobContainer.ListBlobsSegmentedAsync(
-                        null, true, BlobListingDetails.All, null, blobContinuationToken, options, context
-                    ).ConfigureAwait(true);
-
-                    blobContinuationToken = results.ContinuationToken;
-
-                    foreach (var item in results.Results)
-                    {
-                        xList.Add(item.Uri.AbsoluteUri);
-                    }
-                } while (blobContinuationToken != null);
-
-                //var blobs = list.OfType<CloudBlockBlob>().Where(b => Path.GetExtension(b.Name).Equals(".png"));
-            }
-
-            // wip
+            Tuple<List<string>, List<string>> auctionFiles = await LoadAuctionFiles(request.AuctionId).ConfigureAwait(true);
 
             return new AuctionDetailsResponseModel
             {
@@ -603,7 +572,9 @@ namespace Bidding.Repositories.Auctions
                     AuctionApplyTillDate = details.Auction.ApplyTillDate,
                     AuctionEndDate = details.Auction.EndDate,
                     AuctionFormat = auctionFormatName,
-                    AuctionFiles = xList
+                    ItemEvaluation = details.AuctionDetails.Evaluation,
+                    AuctionImageUrls = auctionFiles.Item1,
+                    AuctionDocumentUrls = auctionFiles.Item2
                 },
                 VehicleAuction = new VehicleAuctionDetailsModel
                 {
@@ -616,8 +587,7 @@ namespace Bidding.Repositories.Auctions
                     VehicleTransmissionName = transmissionName,
                     VehicleFuelType = fuelTypeName,
                     VehicleEngineSize = details.AuctionDetails.EngineSize,
-                    VehicleAxis = details.AuctionDetails.Axis,
-                    VehicleEvaluation = details.AuctionDetails.Evaluation
+                    VehicleAxis = details.AuctionDetails.Axis
                 },
                 AboutAuctionCreator = new AuctionCreatorDetailsModel
                 {
@@ -629,10 +599,12 @@ namespace Bidding.Repositories.Auctions
             };
         }
 
-        private AuctionDetailsResponseModel SetupItemAuctionDetails(AuctionDetailsModel details)
+        private async Task<AuctionDetailsResponseModel> SetupItemAuctionDetails(AuctionDetailsModel details, AuctionDetailsRequestModel request)
         {
             string auctionFormatName = LoadAuctionFormatName(details.Auction.AuctionFormatId);
             string conditionName = details.AuctionDetails.ConditionId.IsNotSpecified() ? null : LoadItemConditionName(details.AuctionDetails.ConditionId.Value);
+
+            Tuple<List<string>, List<string>> auctionFiles = await LoadAuctionFiles(request.AuctionId).ConfigureAwait(true);
 
             return new AuctionDetailsResponseModel
             {
@@ -643,14 +615,16 @@ namespace Bidding.Repositories.Auctions
                     AuctionStartDate = details.Auction.StartDate,
                     AuctionApplyTillDate = details.Auction.ApplyTillDate,
                     AuctionEndDate = details.Auction.EndDate,
-                    AuctionFormat = auctionFormatName
+                    AuctionFormat = auctionFormatName,
+                    ItemEvaluation = details.AuctionDetails.Evaluation,
+                    AuctionImageUrls = auctionFiles.Item1,
+                    AuctionDocumentUrls = auctionFiles.Item2
                 },
                 ItemAuction = new ItemAuctionDetailsModel
                 {
                     ItemModel = details.AuctionDetails.Model,
                     ItemManufacturingYear = details.AuctionDetails.ManufacturingYear.Value,
                     ItemConditionName = conditionName,
-                    ItemEvaluation = details.AuctionDetails.Evaluation,
                     ItemStartingPrice = details.Auction.StartingPrice
                 },
                 AboutAuctionCreator = new AuctionCreatorDetailsModel
@@ -663,11 +637,13 @@ namespace Bidding.Repositories.Auctions
             };
         }
 
-        private AuctionDetailsResponseModel SetupPropertyAuctionDetails(AuctionDetailsModel details)
+        private async Task<AuctionDetailsResponseModel> SetupPropertyAuctionDetails(AuctionDetailsModel details, AuctionDetailsRequestModel request)
         {
             string auctionFormatName = LoadAuctionFormatName(details.Auction.AuctionFormatId);
             string measurementTypeName = details.AuctionDetails.MeasurementTypeId.IsNotSpecified() ? null : LoadPropertyMeasurementTypeName(details.AuctionDetails.MeasurementTypeId.Value);
             string regionName = details.AuctionDetails.RegionId.IsNotSpecified() ? null : LoadPropertyRegionName(details.AuctionDetails.RegionId.Value);
+
+            Tuple<List<string>, List<string>> auctionFiles = await LoadAuctionFiles(request.AuctionId).ConfigureAwait(true);
 
             return new AuctionDetailsResponseModel
             {
@@ -678,7 +654,10 @@ namespace Bidding.Repositories.Auctions
                     AuctionStartDate = details.Auction.StartDate,
                     AuctionApplyTillDate = details.Auction.ApplyTillDate,
                     AuctionEndDate = details.Auction.EndDate,
-                    AuctionFormat = auctionFormatName
+                    AuctionFormat = auctionFormatName,
+                    ItemEvaluation = details.AuctionDetails.Evaluation,
+                    AuctionImageUrls = auctionFiles.Item1,
+                    AuctionDocumentUrls = auctionFiles.Item2
                 },
                 PropertyAuction = new PropertyAuctionDetailsModel
                 {
@@ -689,8 +668,7 @@ namespace Bidding.Repositories.Auctions
                     PropertyMeasurementTypeName = measurementTypeName,
                     PropertyAddress = details.AuctionDetails.Address,
                     PropertyFloorCount = details.AuctionDetails.FloorCount ?? null,
-                    PropertyRoomCount = details.AuctionDetails.RoomCount ?? null,
-                    PropertyEvaluation = details.AuctionDetails.Evaluation
+                    PropertyRoomCount = details.AuctionDetails.RoomCount ?? null
                 },
                 AboutAuctionCreator = new AuctionCreatorDetailsModel
                 {
@@ -702,6 +680,12 @@ namespace Bidding.Repositories.Auctions
             };
         }
 
+        /// <summary>
+        /// Could be made global!
+        /// </summary>
+        /// <typeparam name="T"></typeparam>
+        /// <param name="value"></param>
+        /// <returns></returns>
         private object HandleNull<T>(T value)
         {
             if (value == null)
@@ -709,6 +693,11 @@ namespace Bidding.Repositories.Auctions
             return value;
         }
 
+        /// <summary>
+        /// Could be made global - atm used for currency convert!
+        /// </summary>
+        /// <param name="item"></param>
+        /// <returns></returns>
         private decimal ConvertStringToDecimal(string item)
         {
             string newItem = item.Replace(',', '.');
@@ -735,6 +724,58 @@ namespace Bidding.Repositories.Auctions
         {
             AuctionDetails itemAuctionDetails = SetupNewVehicleAuctionDetails(request, newAuctionItem, loggedInUserId);
             m_context.AuctionDetails.Add(itemAuctionDetails);
+        }
+
+        private async Task<Tuple<List<string>, List<string>>> LoadAuctionFiles(int auctionId)
+        {
+            var auctionImageUrls = new List<string>();
+            var auctionDocumentUrls = new List<string>();
+
+            string imageContainer = await m_context.Auctions
+                .Where(auct => auct.AuctionId == auctionId)
+                .Select(auct => auct.AuctionImageContainer).SingleOrDefaultAsync().ConfigureAwait(true);
+
+            if (CloudStorageAccount.TryParse(m_azureStorageConnectionString, out CloudStorageAccount cloudStorageAccount))
+            {
+                OperationContext context = new OperationContext();
+                BlobRequestOptions options = new BlobRequestOptions();
+                CloudBlobClient cloudBlobClient = cloudStorageAccount.CreateCloudBlobClient();
+                CloudBlobContainer cloudBlobContainer = cloudBlobClient.GetContainerReference(imageContainer);
+
+                BlobContinuationToken blobContinuationToken = null;
+
+                do
+                {
+                    BlobResultSegment results = await cloudBlobContainer
+                        .ListBlobsSegmentedAsync(null, true, BlobListingDetails.All, null, blobContinuationToken, options, context)
+                        .ConfigureAwait(true);
+
+                    blobContinuationToken = results.ContinuationToken;
+
+                    foreach (IListBlobItem item in results.Results)
+                    {
+                        if (item is CloudBlockBlob blobItem)
+                        {
+                            if (blobItem.Properties.ContentType == "image/jpeg")
+                            {
+                                auctionImageUrls.Add(blobItem.Uri.AbsoluteUri);
+                            }
+
+                            if (blobItem.Properties.ContentType == "application/pdf")
+                            {
+                                auctionDocumentUrls.Add(blobItem.Uri.AbsoluteUri);
+                            }
+                        }
+                    }
+                } while (blobContinuationToken != null);
+            }
+            else
+            {
+                throw new WebApiException(HttpStatusCode.InternalServerError, AuctionErrorMessages.CouldNotFetchAuctionDetails);
+            }
+
+            var result = new Tuple<List<string>, List<string>>(auctionImageUrls, auctionDocumentUrls);
+            return await Task.FromResult(result).ConfigureAwait(true);
         }
     }
 }

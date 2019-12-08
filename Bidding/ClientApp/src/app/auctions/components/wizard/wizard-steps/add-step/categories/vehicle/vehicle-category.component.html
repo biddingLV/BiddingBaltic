@@ -261,28 +261,10 @@
           </div>
         </div>
 
-        <div class="form-row">
-          <div class="form-group col-12">
-            <app-file-uploader
-              label="Pievienot attēlus"
-              acceptFormats="image/*"
-              (fileChange)="onImageChange($event)"
-            >
-            </app-file-uploader>
-          </div>
-        </div>
-
-        <div class="form-row">
-          <div class="form-group col-12">
-            <app-file-uploader
-              label="Pievienot dokumentus"
-              acceptFormats="application/pdf"
-              [multiple]="false"
-              (fileChange)="onFileChange($event)"
-            >
-            </app-file-uploader>
-          </div>
-        </div>
+        <app-auction-file-uploader
+          (imageChange)="onImageChange($event)"
+          (fileChange)="onFileChange($event)"
+        ></app-auction-file-uploader>
 
         <div class="form-row float-right">
           <div class="form-group modal-buttons">

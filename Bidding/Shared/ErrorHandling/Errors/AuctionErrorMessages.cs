@@ -25,6 +25,9 @@ namespace Bidding.Shared.ErrorHandling.Errors
         [Description("Could not delete auction")]
         CouldNotDeleteAuction,
 
+        [Description("Could not fetch auction details")]
+        CouldNotFetchAuctionDetails,
+
         [Description("Could not delete, because it is not active anymore")]
         NotActiveAuction,
 
@@ -35,6 +38,9 @@ namespace Bidding.Shared.ErrorHandling.Errors
         IncorrectAuction,
 
         [Description("Incorrect auction status or doesn't exist")]
-        MissingRequiredAuctionStatus
+        MissingRequiredAuctionStatus,
+
+        [Description("Incorrect auction status or doesn't exist")]
+        MissingRequiredAuctionStatus2
     }
 }

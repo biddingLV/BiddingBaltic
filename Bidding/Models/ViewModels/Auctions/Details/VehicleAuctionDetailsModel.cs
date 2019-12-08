@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Bidding.Models.ViewModels.Auctions.Details
+﻿namespace Bidding.Models.ViewModels.Auctions.Details
 {
     public class VehicleAuctionDetailsModel
     {
@@ -17,6 +12,5 @@ namespace Bidding.Models.ViewModels.Auctions.Details
         public string VehicleFuelType { get; set; }
         public string VehicleEngineSize { get; set; }
         public string VehicleAxis { get; set; }
-        public string VehicleEvaluation { get; set; }
     }
 }

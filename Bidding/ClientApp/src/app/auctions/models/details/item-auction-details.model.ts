@@ -3,7 +3,6 @@ namespace Auctions {
     itemModel: string;
     itemManufacturingYear: number;
     itemConditionName: string;
-    itemEvaluation: string;
     itemStartingPrice: number;
   }
 }

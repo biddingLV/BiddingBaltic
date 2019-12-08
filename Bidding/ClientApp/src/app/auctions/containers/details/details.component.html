@@ -21,7 +21,9 @@
       <div class="row auction__details-gallery-row">
         <div class="col-6">
           <app-image-gallery
-            [auctionImages]="auctionDetails.aboutAuctionDetails.auctionFiles"
+            [auctionImageUrls]="
+              auctionDetails.aboutAuctionDetails.auctionImageUrls
+            "
           ></app-image-gallery>
         </div>
 
@@ -71,24 +73,24 @@
       <div class="row auction__details-information-row pt-5">
         <div class="col-6">
           <p>
-            <span class="pr-2">Nosaukums:</span>
+            <span class="pr-2 font-weight-bold">Nosaukums:</span>
             <span>{{ auctionDetails.aboutAuctionDetails.auctionName }}</span>
           </p>
 
           <p>
-            <span class="pr-2">Minimālā cena (EUR):</span>
+            <span class="pr-2 font-weight-bold">Minimālā cena (EUR):</span>
             <span>{{
               auctionDetails.aboutAuctionDetails.auctionStartingPrice
             }}</span>
           </p>
 
           <p>
-            <span class="pr-2">Izsoles veids:</span>
+            <span class="pr-2 font-weight-bold">Izsoles veids:</span>
             <span>{{ auctionDetails.aboutAuctionDetails.auctionFormat }}</span>
           </p>
 
           <p>
-            <span class="pr-2">Izsoles sākums:</span>
+            <span class="pr-2 font-weight-bold">Izsoles sākums:</span>
             <span
               *ngIf="
                 auctionDetails.aboutAuctionDetails.auctionStartDate;
@@ -103,7 +105,7 @@
           </p>
 
           <p>
-            <span class="pr-2">Pieteikties līdz:</span>
+            <span class="pr-2 font-weight-bold">Pieteikties līdz:</span>
             <span>
               {{
                 auctionDetails.aboutAuctionDetails.auctionApplyTillDate
@@ -113,12 +115,39 @@
           </p>
 
           <p>
-            <span class="pr-2">Izsoles beigas:</span>
+            <span class="pr-2 font-weight-bold">Izsoles beigas:</span>
             <span>
               {{
                 auctionDetails.aboutAuctionDetails.auctionEndDate
                   | date: dateFormat
               }}</span
+            >
+          </p>
+
+          <span class="pr-2 font-weight-bold">Izsoles dokumenti:</span>
+          <ul>
+            <li
+              *ngFor="
+                let item of auctionDetails.aboutAuctionDetails
+                  .auctionDocumentUrls;
+                let i = index
+              "
+            >
+              <a [href]="item" target="_blank">File</a>
+            </li>
+          </ul>
+          <br />
+        </div>
+
+        <div class="col-6">
+          <p>
+            <span class="pr-2 font-weight-bold">Apraksts / novērtējums:</span>
+            <span
+              *ngIf="
+                auctionDetails.aboutAuctionDetails.itemEvaluation;
+                else noInfo
+              "
+              >{{ auctionDetails.aboutAuctionDetails.itemEvaluation }}</span
             >
           </p>
         </div>
@@ -151,28 +180,28 @@
 
         <div class="col-6">
           <p>
-            <span class="pr-2">Izsoles veidotājs:</span>
+            <span class="pr-2 font-weight-bold">Izsoles veidotājs:</span>
             <span>{{
               auctionDetails.aboutAuctionCreator.auctionCreatorName
             }}</span>
           </p>
 
           <p>
-            <span class="pr-2">E-pasts:</span>
+            <span class="pr-2 font-weight-bold">E-pasts:</span>
             <span>{{
               auctionDetails.aboutAuctionCreator.auctionCreatorEmail
             }}</span>
           </p>
 
           <p>
-            <span class="pr-2">Telefons:</span>
+            <span class="pr-2 font-weight-bold">Telefons:</span>
             <span>{{
               auctionDetails.aboutAuctionCreator.auctionCreatorPhone
             }}</span>
           </p>
 
           <p>
-            <span class="pr-2">Adrese:</span>
+            <span class="pr-2 font-weight-bold">Adrese:</span>
             <span>{{
               auctionDetails.aboutAuctionCreator.auctionCreatorAddress
             }}</span>
@@ -180,7 +209,7 @@
         </div>
 
         <div class="col-12 pt-2">
-          <p class="text-muted">
+          <p class="text-muted text-right">
             <small>-* Šo informāciju precizēt ar izsoles veidotāju.</small>
           </p>
         </div>

@@ -14,6 +14,8 @@ namespace Bidding.Models.ViewModels.Auctions.Details
         public DateTime? AuctionStartDate { get; set; }
         public DateTime AuctionApplyTillDate { get; set; }
         public DateTime AuctionEndDate { get; set; }
-        public List<string> AuctionFiles { get; set; }
+        public string ItemEvaluation { get; set; }
+        public List<string> AuctionImageUrls { get; set; }
+        public List<string> AuctionDocumentUrls { get; set; }     
     }
 }
