@@ -837,28 +837,28 @@ namespace Bidding.Migrations
                         new
                         {
                             Id = 100,
-                            ConcurrencyStamp = "2c2bf5e2-911f-4428-bcbf-31dc37d0101d",
+                            ConcurrencyStamp = "91099d26-1a09-4515-ae25-6c1b0d822586",
                             Name = "BasicUser",
                             NormalizedName = "BASICUSER"
                         },
                         new
                         {
                             Id = 200,
-                            ConcurrencyStamp = "90d5b0f7-e0d8-4ef4-8177-7b96a8e36eeb",
+                            ConcurrencyStamp = "ddcf55d5-1f6e-4498-8981-189bd92f18f5",
                             Name = "AuctionCreator",
                             NormalizedName = "AUCTIONCREATOR"
                         },
                         new
                         {
                             Id = 300,
-                            ConcurrencyStamp = "4092d17f-f346-49a2-b2f5-dea20a6a7208",
+                            ConcurrencyStamp = "6977367f-3844-4b36-b9b1-2248dff926ac",
                             Name = "PageAdministrator",
                             NormalizedName = "PAGEADMINISTRATOR"
                         },
                         new
                         {
                             Id = 400,
-                            ConcurrencyStamp = "cdb88a7e-b4ec-4f57-94e7-a996cbe277dc",
+                            ConcurrencyStamp = "62e82b72-1e3d-4f1c-84a1-8e8395bc5bdb",
                             Name = "SuperAdministrator",
                             NormalizedName = "SUPERADMINISTRATOR"
                         });
