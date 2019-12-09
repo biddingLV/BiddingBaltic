@@ -112,6 +112,22 @@
           </div>
 
           <div class="form-group col-6">
+            <label for="propertyAddress">Adrese:</label>
+            <input
+              type="text"
+              formControlName="propertyAddress"
+              class="form-control"
+              id="propertyAddress"
+              name="propertyAddress"
+              [ngClass]="{
+                'is-invalid': submitted && f.propertyAddress.errors
+              }"
+            />
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-6">
             <label for="propertyMeasurementValue">Izmēri:</label>
             <input
               type="text"
@@ -131,10 +147,8 @@
               {{ formErrors.propertyMeasurementValue }}
             </div>
           </div>
-        </div>
 
-        <div class="form-row">
-          <div class="form-group col-6">
+          <div class="form-group col-2">
             <label for="propertyMeasurementType">Mērvienība:</label>
             <ng-select
               class="form-control"
@@ -144,7 +158,7 @@
               [virtualScroll]="true"
               [multiple]="false"
               [closeOnSelect]="true"
-              placeholder="Izvēlies mērvienību"
+              placeholder="Mērvienība"
               [ngClass]="{
                 'is-invalid': submitted && f.propertyMeasurementType.errors
               }"
@@ -164,24 +178,10 @@
               {{ formErrors.propertyMeasurementType }}
             </div>
           </div>
-
-          <div class="form-group col-6">
-            <label for="propertyAddress">Adrese:</label>
-            <input
-              type="text"
-              formControlName="propertyAddress"
-              class="form-control"
-              id="propertyAddress"
-              name="propertyAddress"
-              [ngClass]="{
-                'is-invalid': submitted && f.propertyAddress.errors
-              }"
-            />
-          </div>
         </div>
 
         <div class="form-row">
-          <div class="form-group col-6">
+          <div class="form-group col-6" *ngIf="showCountFields">
             <label for="propertyFloorCount">Stāvu skaits:</label>
             <input
               type="text"
@@ -195,7 +195,7 @@
             />
           </div>
 
-          <div class="form-group col-6">
+          <div class="form-group col-6" *ngIf="showCountFields">
             <label for="propertyRoomCount">Istabu skaits:</label>
             <input
               type="text"
@@ -211,12 +211,12 @@
         </div>
 
         <div class="form-row">
-          <div class="form-group col-6">
+          <div class="form-group col-12">
             <label for="propertyEvaluation">Apraksts / novērtējums:</label>
             <textarea
               class="form-control"
               formControlName="propertyEvaluation"
-              rows="2"
+              rows="4"
               id="propertyEvaluation"
               name="propertyEvaluation"
               [ngClass]="{

@@ -24,6 +24,11 @@ const decimalRegExp = /^\d*[\.,]?\d*$/;
  */
 const yearRegExp = /^[12][0-9]{3}$/;
 
+/**
+ * This accepts any number of digits, at least one digit specified.
+ */
+const onlyDigitRegExp = /^[0-9]+$/;
+
 export class CustomValidators extends Validators {
   static validatePrice(control: FormControl) {
     return CustomValidators.handleFieldChange(control, decimalRegExp, {
@@ -40,6 +45,12 @@ export class CustomValidators extends Validators {
   static validateOnlyYear(control: FormControl) {
     return CustomValidators.handleFieldChange(control, yearRegExp, {
       invalidYear: true
+    });
+  }
+
+  static validateCadastreNumber(control: FormControl) {
+    return CustomValidators.handleFieldChange(control, onlyDigitRegExp, {
+      invalidCadastreNumber: true
     });
   }
 

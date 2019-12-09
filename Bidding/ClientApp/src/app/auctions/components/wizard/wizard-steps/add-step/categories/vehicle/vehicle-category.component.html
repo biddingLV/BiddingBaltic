@@ -149,7 +149,7 @@
         <div class="form-row">
           <div
             class="form-group col-6"
-            *ngIf="selectedSubCategoryId != auctionSubCategoryIds.TRAILER_TYPE"
+            *ngIf="selectedSubCategoryId != auctionSubCategoryIds.TRAILER"
           >
             <label for="vehicleTransmission">Ātrumkārba</label>
             <ng-select
@@ -169,7 +169,7 @@
 
           <div
             class="form-group col-6"
-            *ngIf="selectedSubCategoryId != auctionSubCategoryIds.TRAILER_TYPE"
+            *ngIf="selectedSubCategoryId != auctionSubCategoryIds.TRAILER"
           >
             <label for="vehicleFuelType">Motors</label>
             <ng-select
@@ -191,7 +191,7 @@
         <div class="form-row">
           <div
             class="form-group col-6"
-            *ngIf="selectedSubCategoryId != auctionSubCategoryIds.TRAILER_TYPE"
+            *ngIf="selectedSubCategoryId != auctionSubCategoryIds.TRAILER"
           >
             <label for="vehicleEngineSize">Motora tilpums</label>
             <input
@@ -211,7 +211,7 @@
           <div
             class="form-group col-6"
             *ngIf="
-              selectedSubCategoryId != auctionSubCategoryIds.WATER_CARRIAGE_TYPE
+              selectedSubCategoryId != auctionSubCategoryIds.WATER_CARRIAGE
             "
           >
             <label for="vehicleAxis">Asis</label>
@@ -224,10 +224,12 @@
               [ngClass]="{ 'is-invalid': submitted && f.vehicleAxis.errors }"
             />
           </div>
+        </div>
 
+        <div class="form-row">
           <div
             class="form-group col-6"
-            *ngIf="selectedSubCategoryId == auctionSubCategoryIds.TRAILER_TYPE"
+            *ngIf="selectedSubCategoryId == auctionSubCategoryIds.TRAILER"
           >
             <label for="vehicleDimensions">Izmēri</label>
             <input
@@ -241,15 +243,17 @@
               }"
             />
           </div>
+
+          <!-- TODO: TE -->
         </div>
 
         <div class="form-row">
-          <div class="form-group col-6">
+          <div class="form-group col-12">
             <label for="vehicleEvaluation">Apraksts / novērtējums</label>
             <textarea
               class="form-control"
               formControlName="vehicleEvaluation"
-              rows="2"
+              rows="4"
               id="vehicleEvaluation"
               name="vehicleEvaluation"
               [ngClass]="{

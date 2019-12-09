@@ -42,7 +42,8 @@ export class FormService {
     const messages = {
       required: fieldMessage + " is required.",
       invalidPrice: fieldMessage + " has invalid pattern.",
-      invalidYear: fieldMessage + " has invalid pattern."
+      invalidYear: fieldMessage + " has invalid pattern.",
+      invalidCadastreNumber: fieldMessage + " has invalid pattern."
     };
 
     return messages;

@@ -15,6 +15,7 @@
 
 <ng-container *ngIf="showPropertyStep">
   <app-auction-add-wizard-property-category
+    [selectedSubCategoryId]="selectedSubCategoryId"
     (returnAddWizardStepForm)="onClickNextReturnForm($event)"
   >
   </app-auction-add-wizard-property-category>
