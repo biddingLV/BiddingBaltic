@@ -13,6 +13,13 @@
               name="propertyName"
               [ngClass]="{ 'is-invalid': submitted && f.propertyName.errors }"
             />
+
+            <div
+              *ngIf="submitted && formErrors.propertyName"
+              class="invalid-feedback"
+            >
+              {{ formErrors.propertyName }}
+            </div>
           </div>
 
           <div class="form-group col-6">
@@ -27,6 +34,13 @@
                 'is-invalid': submitted && f.auctionStartingPrice.errors
               }"
             />
+
+            <div
+              *ngIf="submitted && formErrors.auctionStartingPrice"
+              class="invalid-feedback"
+            >
+              {{ formErrors.auctionStartingPrice }}
+            </div>
           </div>
         </div>
 
@@ -48,11 +62,15 @@
           <div class="form-group col-6">
             <label for="propertyRegion">Reģions:</label>
             <ng-select
+              class="form-control"
               #regionSelect
               formControlName="propertyRegion"
               [clearable]="false"
               [virtualScroll]="true"
-              class="form-control"
+              [multiple]="false"
+              [closeOnSelect]="true"
+              placeholder="Izvēlies reģionu"
+              [ngClass]="{ 'is-invalid': submitted && f.propertyRegion.errors }"
             >
               <ng-option
                 *ngFor="let item of regions; let i = index"
@@ -64,7 +82,7 @@
 
             <div
               *ngIf="submitted && formErrors.propertyRegion"
-              class="invalid-feedback d-block"
+              class="invalid-feedback"
             >
               {{ formErrors.propertyRegion }}
             </div>
@@ -75,7 +93,7 @@
           <div class="form-group col-6">
             <label for="propertyCadastreNumber">Kadastra numurs:</label>
             <input
-              type="number"
+              type="text"
               formControlName="propertyCadastreNumber"
               class="form-control"
               id="propertyCadastreNumber"
@@ -84,6 +102,13 @@
                 'is-invalid': submitted && f.propertyCadastreNumber.errors
               }"
             />
+
+            <div
+              *ngIf="submitted && formErrors.propertyCadastreNumber"
+              class="invalid-feedback"
+            >
+              {{ formErrors.propertyCadastreNumber }}
+            </div>
           </div>
 
           <div class="form-group col-6">
@@ -98,6 +123,13 @@
                 'is-invalid': submitted && f.propertyMeasurementValue.errors
               }"
             />
+
+            <div
+              *ngIf="submitted && formErrors.propertyMeasurementValue"
+              class="invalid-feedback"
+            >
+              {{ formErrors.propertyMeasurementValue }}
+            </div>
           </div>
         </div>
 
@@ -105,10 +137,17 @@
           <div class="form-group col-6">
             <label for="propertyMeasurementType">Mērvienība:</label>
             <ng-select
+              class="form-control"
               #measurementTypeSelect
               formControlName="propertyMeasurementType"
               [clearable]="false"
               [virtualScroll]="true"
+              [multiple]="false"
+              [closeOnSelect]="true"
+              placeholder="Izvēlies mērvienību"
+              [ngClass]="{
+                'is-invalid': submitted && f.propertyMeasurementType.errors
+              }"
             >
               <ng-option
                 *ngFor="let typ of measurementTypes; let i = index"
@@ -120,7 +159,7 @@
 
             <div
               *ngIf="submitted && formErrors.propertyMeasurementType"
-              class="invalid-feedback d-block"
+              class="invalid-feedback"
             >
               {{ formErrors.propertyMeasurementType }}
             </div>
@@ -145,7 +184,7 @@
           <div class="form-group col-6">
             <label for="propertyFloorCount">Stāvu skaits:</label>
             <input
-              type="number"
+              type="text"
               formControlName="propertyFloorCount"
               class="form-control"
               id="propertyFloorCount"
@@ -159,7 +198,7 @@
           <div class="form-group col-6">
             <label for="propertyRoomCount">Istabu skaits:</label>
             <input
-              type="number"
+              type="text"
               formControlName="propertyRoomCount"
               class="form-control"
               id="propertyRoomCount"

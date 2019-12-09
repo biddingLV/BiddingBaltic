@@ -36,6 +36,7 @@ export class AuctionAddWizardPropertyComponent implements OnInit {
 
   regions = RegionsConstants.names;
 
+  // note: kke: if you change these ids, also change them in DB (PropertyMeasurementTypes)!
   measurementTypes = [
     {
       measurementTypeId: 1,

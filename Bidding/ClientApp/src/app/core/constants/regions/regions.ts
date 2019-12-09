@@ -1,5 +1,6 @@
 export class RegionsConstants {
-  static names = [
+  // note: kke: if you change these ids, also change them in DB (Regions)!
+  static readonly names = [
     { id: 1, name: "Daugavpils" },
     { id: 2, name: "Jēkabpils" },
     { id: 3, name: "Jelgava" },

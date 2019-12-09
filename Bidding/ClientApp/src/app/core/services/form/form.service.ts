@@ -121,6 +121,12 @@ export class FormService {
       itemName: "Nosaukums",
       itemModel: "Modelis",
       itemEvaluation: "Novērtējums",
+      // auction - property category
+      propertyName: "Nosaukums",
+      propertyCadastreNumber: "Kadastra numurs",
+      propertyMeasurementValue: "Izmēri",
+      propertyRegion: "Reģions",
+      propertyMeasurementType: "Mērvienība",
       // auction - about
       auctionCreator: "Izsoles veidotājs",
       auctionAddress: "Adrese",
