@@ -9,9 +9,12 @@ import { Subscription } from "rxjs";
 import { AuctionsService } from "../../services/auctions.service";
 import { AuctionListRequestModel } from "../../models/list/auction-list-request.model";
 import { AuctionListResponseModel } from "../../models/list/auction-list-response.model";
-import { CategoryConstants } from "ClientApp/src/app/core/constants/categories/category-constants";
 import { NotificationsService } from "ClientApp/src/app/core/services/notifications/notifications.service";
 import { AuthService } from "ClientApp/src/app/core/services/auth/auth.service";
+import {
+  AuctionTopCategoryNames,
+  AuctionTopCategoryIds
+} from "ClientApp/src/app/core/constants/auction-top-category-constants";
 
 @Component({
   selector: "app-auction-list",
@@ -99,20 +102,27 @@ export class AuctionListComponent implements OnInit {
   }
 
   private handleCardLinkClick(filterParam: any) {
-    if (filterParam == CategoryConstants.VEHICLE_CATEGORY_NAME) {
+    if (filterParam === AuctionTopCategoryNames.VehicleCategoryName) {
       this.setupCardAuctionRequest();
+
       this.auctionListRequest.topCategoryIds = [
-        CategoryConstants.VEHICLE_CATEGORY_ID
+        AuctionTopCategoryIds.VehicleCategoryId
       ];
-    } else if (filterParam == CategoryConstants.PROPERTY_CATEGORY_NAME) {
+    }
+
+    if (filterParam === AuctionTopCategoryNames.PropertyCategoryName) {
       this.setupCardAuctionRequest();
+
       this.auctionListRequest.topCategoryIds = [
-        CategoryConstants.PROPERTY_CATEGORY_ID
+        AuctionTopCategoryIds.PropertyCategoryId
       ];
-    } else if (filterParam == CategoryConstants.ITEM_CATEGORY_NAME) {
+    }
+
+    if (filterParam === AuctionTopCategoryNames.ItemCategoryName) {
       this.setupCardAuctionRequest();
+
       this.auctionListRequest.topCategoryIds = [
-        CategoryConstants.ITEM_CATEGORY_ID
+        AuctionTopCategoryIds.ItemCategoryId
       ];
     }
 

@@ -21,7 +21,6 @@ import { NotificationsService } from "./services/notifications/notifications.ser
 import { ExceptionsService } from "./services/exceptions/exceptions.service";
 import { FormService } from "./services/form/form.service";
 import { ModalService } from "./services/modal/modal.service";
-import { CategoryConstants } from "./constants/categories/category-constants";
 
 @NgModule({
   imports: [
@@ -38,7 +37,6 @@ import { CategoryConstants } from "./constants/categories/category-constants";
     FormService,
     CookieService,
     HttpClientModule,
-    CategoryConstants,
     ModalService
   ],
   exports: [HttpClientModule, BrowserAnimationsModule, ToastrModule],

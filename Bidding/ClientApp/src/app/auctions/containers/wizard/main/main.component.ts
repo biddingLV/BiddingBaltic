@@ -20,11 +20,11 @@ import * as moment from "moment-mini";
 import { AuctionsService } from "../../../services/auctions.service";
 import { NotificationsService } from "ClientApp/src/app/core/services/notifications/notifications.service";
 import { AuctionAddCategoryWizardStepComponent } from "../../../components/wizard/wizard-steps/category-step/category-step.component";
-import { CategoryConstants } from "ClientApp/src/app/core/constants/categories/category-constants";
 import { CategoriesWithTypesModel } from "../../../models/add/categories-with-types.model";
 import { TypeModel } from "../../../models/shared/types/type.model";
 import { AuctionAddAboutWizardStepComponent } from "../../../components/wizard/wizard-steps/about-step/about-step.component";
 import { FileUploaderService } from "ClientApp/src/app/shared/services/file-uploader/file-uploader.service";
+import { AuctionTopCategoryIds } from "ClientApp/src/app/core/constants/auction-top-category-constants";
 
 @Component({
   templateUrl: "./main.component.html"
@@ -62,8 +62,6 @@ export class AuctionAddMainWizardComponent
   categoryStepForm: FormGroup;
   addStepForm: FormGroup;
   aboutStepForm: FormGroup;
-
-  private categoryConstants = CategoryConstants;
 
   constructor(
     private auctionService: AuctionsService,
@@ -127,20 +125,18 @@ export class AuctionAddMainWizardComponent
   onSubmit(): void {
     this.aboutStepForm = this.aboutStep.aboutStepForm;
 
-    if (
-      this.selectedTopCategoryId === this.categoryConstants.ITEM_CATEGORY_ID
-    ) {
+    if (this.selectedTopCategoryId === AuctionTopCategoryIds.ItemCategoryId) {
       this.setItemAuctionAddRequest();
     }
 
     if (
-      this.selectedTopCategoryId === this.categoryConstants.VEHICLE_CATEGORY_ID
+      this.selectedTopCategoryId === AuctionTopCategoryIds.VehicleCategoryId
     ) {
       this.setVehicleAuctionAddRequest();
     }
 
     if (
-      this.selectedTopCategoryId === this.categoryConstants.PROPERTY_CATEGORY_ID
+      this.selectedTopCategoryId === AuctionTopCategoryIds.PropertyCategoryId
     ) {
       this.setPropertyAuctionAddRequest();
     }

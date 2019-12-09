@@ -4,7 +4,7 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 
 // internal
 import { FormService } from "ClientApp/src/app/core/services/form/form.service";
-import { TypeConstants } from "ClientApp/src/app/core/constants/types/type-constants";
+import { AuctionSubCategoryIds } from "ClientApp/src/app/core/constants/auction-sub-category-constants";
 import { CustomValidators } from "ClientApp/src/app/core/services/form/custom.validators";
 
 @Component({
@@ -43,8 +43,9 @@ export class AuctionAddWizardVehicleComponent implements OnInit {
   auctionImages: File[];
   auctionDocuments: File[];
 
-  typeConstants = TypeConstants;
+  auctionSubCategoryIds = AuctionSubCategoryIds;
 
+  // note: kke: if you change these ids, also change them in DB (VehicleTransmissions)!
   transmissionTypes = [
     {
       transmissionTypeId: 1,
@@ -56,6 +57,7 @@ export class AuctionAddWizardVehicleComponent implements OnInit {
     }
   ];
 
+  // note: kke: if you change these ids, also change them in DB (VehicleFuelTypes)!
   fuelTypes = [
     {
       fuelTypeId: 1,

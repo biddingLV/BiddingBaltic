@@ -11,7 +11,7 @@ import {
 import { FormGroup } from "@angular/forms";
 
 // internal
-import { CategoryConstants } from "ClientApp/src/app/core/constants/categories/category-constants";
+import { AuctionTopCategoryIds } from "ClientApp/src/app/core/constants/auction-top-category-constants";
 
 @Component({
   selector: "app-auction-add-add-wizard-step",
@@ -54,19 +54,23 @@ export class AuctionAddAddWizardStepComponent implements OnInit, OnChanges {
   private handleTopCategory(): void {
     // note: kke: what about steps object, with all these steps, not always a new variable here for template!
     // todo: kke: how to refactor this?
-    if (this.selectedTopCategoryId === CategoryConstants.VEHICLE_CATEGORY_ID) {
+    if (
+      this.selectedTopCategoryId === AuctionTopCategoryIds.VehicleCategoryId
+    ) {
       this.showVehicleStep = true;
       this.showItemStep = false;
       this.showPropertyStep = false;
+    }
 
-      // fetch here vehicle category
-    } else if (
-      this.selectedTopCategoryId === CategoryConstants.ITEM_CATEGORY_ID
-    ) {
+    if (this.selectedTopCategoryId === AuctionTopCategoryIds.ItemCategoryId) {
       this.showVehicleStep = false;
       this.showItemStep = true;
       this.showPropertyStep = false;
-    } else {
+    }
+
+    if (
+      this.selectedTopCategoryId === AuctionTopCategoryIds.PropertyCategoryId
+    ) {
       this.showVehicleStep = false;
       this.showItemStep = false;
       this.showPropertyStep = true;

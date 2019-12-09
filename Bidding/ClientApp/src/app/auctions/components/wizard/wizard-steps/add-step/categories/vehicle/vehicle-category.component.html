@@ -122,10 +122,7 @@
         </div>
 
         <div class="form-row">
-          <div
-            class="form-group col-6"
-            *ngIf="selectedSubCategoryId != typeConstants.TRAILER_TYPE"
-          >
+          <div class="form-group col-6">
             <label for="vehicleIdentificationNumber">VIN</label>
             <input
               type="text"
@@ -152,7 +149,7 @@
         <div class="form-row">
           <div
             class="form-group col-6"
-            *ngIf="selectedSubCategoryId != typeConstants.TRAILER_TYPE"
+            *ngIf="selectedSubCategoryId != auctionSubCategoryIds.TRAILER_TYPE"
           >
             <label for="vehicleTransmission">Ātrumkārba</label>
             <ng-select
@@ -172,7 +169,7 @@
 
           <div
             class="form-group col-6"
-            *ngIf="selectedSubCategoryId != typeConstants.TRAILER_TYPE"
+            *ngIf="selectedSubCategoryId != auctionSubCategoryIds.TRAILER_TYPE"
           >
             <label for="vehicleFuelType">Motors</label>
             <ng-select
@@ -194,7 +191,7 @@
         <div class="form-row">
           <div
             class="form-group col-6"
-            *ngIf="selectedSubCategoryId != typeConstants.TRAILER_TYPE"
+            *ngIf="selectedSubCategoryId != auctionSubCategoryIds.TRAILER_TYPE"
           >
             <label for="vehicleEngineSize">Motora tilpums</label>
             <input
@@ -213,7 +210,9 @@
         <div class="form-row">
           <div
             class="form-group col-6"
-            *ngIf="selectedSubCategoryId != typeConstants.WATER_CARRIAGE_TYPE"
+            *ngIf="
+              selectedSubCategoryId != auctionSubCategoryIds.WATER_CARRIAGE_TYPE
+            "
           >
             <label for="vehicleAxis">Asis</label>
             <input
@@ -228,7 +227,7 @@
 
           <div
             class="form-group col-6"
-            *ngIf="selectedSubCategoryId == typeConstants.TRAILER_TYPE"
+            *ngIf="selectedSubCategoryId == auctionSubCategoryIds.TRAILER_TYPE"
           >
             <label for="vehicleDimensions">Izmēri</label>
             <input

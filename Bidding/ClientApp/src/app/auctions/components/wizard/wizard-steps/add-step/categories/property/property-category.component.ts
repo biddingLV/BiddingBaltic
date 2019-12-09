@@ -4,7 +4,6 @@ import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 
 // internal
 import { FormService } from "ClientApp/src/app/core/services/form/form.service";
-import { TypeConstants } from "ClientApp/src/app/core/constants/types/type-constants";
 import { CustomValidators } from "ClientApp/src/app/core/services/form/custom.validators";
 import { RegionsConstants } from "ClientApp/src/app/core/constants/regions/regions";
 
@@ -35,7 +34,6 @@ export class AuctionAddWizardPropertyComponent implements OnInit {
     propertyEvaluation: ""
   };
 
-  typeConstants = TypeConstants;
   regions = RegionsConstants.names;
 
   measurementTypes = [
