@@ -154,25 +154,19 @@
         </div>
 
         <div class="col-6">
-          <ng-container
-            class="main_content"
-            *ngIf="auctionDetails.vehicleAuction"
-          >
+          <ng-container *ngIf="auctionDetails.vehicleAuction">
             <app-auction-details-vehicle-category
               [details]="auctionDetails.vehicleAuction"
             ></app-auction-details-vehicle-category>
           </ng-container>
 
-          <ng-container class="main_content" *ngIf="auctionDetails.itemAuction">
+          <ng-container *ngIf="auctionDetails.itemAuction">
             <app-auction-details-item-category
               [details]="auctionDetails.itemAuction"
             ></app-auction-details-item-category>
           </ng-container>
 
-          <ng-container
-            class="main_content"
-            *ngIf="auctionDetails.propertyAuction"
-          >
+          <ng-container *ngIf="auctionDetails.propertyAuction">
             <app-auction-details-property-category
               [details]="auctionDetails.propertyAuction"
             ></app-auction-details-property-category>

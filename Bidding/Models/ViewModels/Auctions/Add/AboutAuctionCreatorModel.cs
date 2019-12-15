@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-
-namespace Bidding.Models.ViewModels.Auctions.Add
+﻿namespace Bidding.Models.ViewModels.Auctions.Add
 {
     public class AboutAuctionCreatorModel
     {

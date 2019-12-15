@@ -172,70 +172,75 @@ export class AuctionAddMainWizardComponent
   }
 
   private setItemAuctionAddRequest(): void {
+    let addStepForm = this.addStepForm.value;
+
     this.addAuctionRequest = {
       aboutAuction: this.setAboutAuctionDetails(),
       itemAuction: {
-        itemModel: this.addStepForm.value.itemModel,
-        itemManufacturingYear: this.addStepForm.value.itemManufacturingYear,
-        itemConditionId: this.addStepForm.value.itemCondition,
-        itemEvaluation: this.addStepForm.value.itemEvaluation,
-        itemStartingPrice: this.addStepForm.value.itemStartingPrice
+        itemModel: addStepForm.itemModel,
+        itemManufacturingYear: addStepForm.itemManufacturingYear,
+        itemConditionId: addStepForm.itemCondition,
+        itemEvaluation: addStepForm.itemEvaluation,
+        itemStartingPrice: addStepForm.itemStartingPrice,
+        itemVolume: addStepForm.itemVolume,
+        itemCompanyTypeId: addStepForm.itemCompanyType
       },
       aboutAuctionCreator: this.setAboutAuctionCreatorDetails()
     };
 
-    this.addAuctionRequest.aboutAuction.auctionName = this.addStepForm.value.itemName;
+    this.addAuctionRequest.aboutAuction.auctionName = addStepForm.itemName;
 
     this.makeRequest(this.addAuctionRequest);
   }
 
   private setVehicleAuctionAddRequest(): void {
+    let addStepForm = this.addStepForm.value;
+
     this.addAuctionRequest = {
       aboutAuction: this.setAboutAuctionDetails(),
       vehicleAuction: {
-        vehicleMake: this.addStepForm.value.vehicleMake,
-        vehicleModel: this.addStepForm.value.vehicleModel,
-        vehicleManufacturingYear: this.addStepForm.value
-          .vehicleManufacturingYear,
-        vehicleRegistrationNumber: this.addStepForm.value
-          .vehicleRegistrationNumber,
-        vehicleIdentificationNumber: this.addStepForm.value
-          .vehicleIdentificationNumber,
-        vehicleInspectionActive: this.addStepForm.value.vehicleInspectionActive,
-        vehicleTransmissionId: this.addStepForm.value.vehicleTransmission,
-        vehicleFuelTypeId: this.addStepForm.value.vehicleFuelType,
-        vehicleEngineSize: this.addStepForm.value.vehicleEngineSize,
-        vehicleAxis: this.addStepForm.value.vehicleAxis,
-        vehicleEvaluation: this.addStepForm.value.vehicleEvaluation
+        vehicleMake: addStepForm.vehicleMake,
+        vehicleModel: addStepForm.vehicleModel,
+        vehicleManufacturingYear: addStepForm.vehicleManufacturingYear,
+        vehicleRegistrationNumber: addStepForm.vehicleRegistrationNumber,
+        vehicleIdentificationNumber: addStepForm.vehicleIdentificationNumber,
+        vehicleInspectionActive: addStepForm.vehicleInspectionActive,
+        vehicleTransmissionId: addStepForm.vehicleTransmission,
+        vehicleFuelTypeId: addStepForm.vehicleFuelType,
+        vehicleEngineSize: addStepForm.vehicleEngineSize,
+        vehicleAxis: addStepForm.vehicleAxis,
+        vehicleDimensionValue: addStepForm.vehicleDimensionValue,
+        vehicleDimensionType: addStepForm.vehicleDimensionType,
+        vehicleEvaluation: addStepForm.vehicleEvaluation
       },
       aboutAuctionCreator: this.setAboutAuctionCreatorDetails()
     };
 
-    this.addAuctionRequest.aboutAuction.auctionName = this.addStepForm.value.vehicleName;
+    this.addAuctionRequest.aboutAuction.auctionName = addStepForm.vehicleName;
 
     this.makeRequest(this.addAuctionRequest);
   }
 
   private setPropertyAuctionAddRequest(): void {
+    let addStepForm = this.addStepForm.value;
+
     this.addAuctionRequest = {
       aboutAuction: this.setAboutAuctionDetails(),
       propertyAuction: {
-        propertyCoordinates: this.addStepForm.value.propertyCoordinates,
-        propertyRegionId: this.addStepForm.value.propertyRegion,
-        propertyCadastreNumber: this.addStepForm.value.propertyCadastreNumber,
-        propertyMeasurementValue: this.addStepForm.value
-          .propertyMeasurementValue,
-        propertyMeasurementTypeId: this.addStepForm.value
-          .propertyMeasurementType,
-        propertyAddress: this.addStepForm.value.propertyAddress,
-        propertyFloorCount: this.addStepForm.value.propertyFloorCount,
-        propertyRoomCount: this.addStepForm.value.propertyRoomCount,
-        propertyEvaluation: this.addStepForm.value.propertyEvaluation
+        propertyCoordinates: addStepForm.propertyCoordinates,
+        propertyRegionId: addStepForm.propertyRegion,
+        propertyCadastreNumber: addStepForm.propertyCadastreNumber,
+        propertyMeasurementValue: addStepForm.propertyMeasurementValue,
+        propertyMeasurementTypeId: addStepForm.propertyMeasurementType,
+        propertyAddress: addStepForm.propertyAddress,
+        propertyFloorCount: addStepForm.propertyFloorCount,
+        propertyRoomCount: addStepForm.propertyRoomCount,
+        propertyEvaluation: addStepForm.propertyEvaluation
       },
       aboutAuctionCreator: this.setAboutAuctionCreatorDetails()
     };
 
-    this.addAuctionRequest.aboutAuction.auctionName = this.addStepForm.value.propertyName;
+    this.addAuctionRequest.aboutAuction.auctionName = addStepForm.propertyName;
 
     this.makeRequest(this.addAuctionRequest);
   }

@@ -1,6 +1,6 @@
 // angular
 import { Component, OnInit, Input, SimpleChanges } from "@angular/core";
-import { ActivatedRoute, ParamMap } from "@angular/router";
+import { ActivatedRoute } from "@angular/router";
 
 // 3rd lib
 import { Subscription } from "rxjs";
@@ -15,6 +15,7 @@ import {
   AuctionTopCategoryNames,
   AuctionTopCategoryIds
 } from "ClientApp/src/app/core/constants/auction-top-category-constants";
+import { AuctionListItemModel } from "../../models/list/auction-list-item.model";
 
 @Component({
   selector: "app-auction-list",
@@ -33,10 +34,10 @@ export class AuctionListComponent implements OnInit {
   loggedInUserId: number;
 
   // pagination || form
-  numberRows = 15;
-  currentPage = 1;
-  isLoading = true;
-  selected: [] = [];
+  numberRows: number = 15;
+  currentPage: number = 1;
+  isLoading: boolean = true;
+  selected: AuctionListItemModel[] = [];
 
   constructor(
     private auctionService: AuctionsService,
@@ -78,7 +79,7 @@ export class AuctionListComponent implements OnInit {
   ngOnInit(): void {
     this.listSubscription = this.activatedRoute.queryParams.subscribe(
       params => {
-        let filterParam = params["filtrs"];
+        let filterParam: string = params["filtrs"];
 
         if (filterParam) {
           this.handleCardLinkClick(filterParam);
@@ -88,6 +89,36 @@ export class AuctionListComponent implements OnInit {
         }
       }
     );
+  }
+
+  onSortChange(event): void {
+    // this.request.SortColumn = event.column.prop;
+    // this.request.SortDirection = event.newValue;
+    // this.selectedUsers = [];
+    // this.getUsers();
+  }
+
+  onSelectedChange(selected): void {
+    // this.selectedUsers = selected;
+  }
+
+  /**
+   * Called on page change in auction list
+   * @param pageNumber
+   */
+  onPageChange(pageNumber: number): void {
+    // this.selectedUsers = []; TODO: kke: for admin page auction list this needs to be implemented!
+    this.auctionListRequest.currentPage = pageNumber;
+    this.loadActiveAuctions();
+  }
+
+  /** Gets only active auctions */
+  loadActiveAuctions(): void {
+    if (this.loggedInUserId) {
+      this.loadAuctionsWithSearch();
+    } else {
+      this.loadAuctionsWithoutSearch();
+    }
   }
 
   private setupInitialAuctionRequest(): void {
@@ -101,7 +132,7 @@ export class AuctionListComponent implements OnInit {
     };
   }
 
-  private handleCardLinkClick(filterParam: any) {
+  private handleCardLinkClick(filterParam: string) {
     if (filterParam === AuctionTopCategoryNames.VehicleCategoryName) {
       this.setupCardAuctionRequest();
 
@@ -138,15 +169,6 @@ export class AuctionListComponent implements OnInit {
       sortingDirection: "asc", // by default ascending
       searchValue: ""
     };
-  }
-
-  /** Gets only active auctions */
-  private loadActiveAuctions(): void {
-    if (this.loggedInUserId) {
-      this.loadAuctionsWithSearch();
-    } else {
-      this.loadAuctionsWithoutSearch();
-    }
   }
 
   private loadAuctionsWithSearch() {

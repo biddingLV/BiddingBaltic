@@ -36,9 +36,9 @@
 </div>
 
 <!-- List -->
-<div *ngIf="auctionTable">
-  <app-auction-table
-    [auctionTable]="auctionTable"
-    [selected]="selected"
-  ></app-auction-table>
+<div>
+  <app-auction-list
+    [selectedCategoryIds]="selectedCategoryIds"
+    [selectedTypeIds]="selectedTypeIds"
+  ></app-auction-list>
 </div>

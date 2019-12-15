@@ -44,7 +44,7 @@ namespace Bidding.Services.Auctions
             // because the user needs to be signed-in to use search functionality!
             request.SearchValue = null;
 
-            (int startFrom, int endAt) = Pagination.GetStartAndEnd(request);
+            (int startFrom, int endAt) = Pagination.GetOffsetAndSize(request);
 
             AuctionListResponseModel auctionsResponse = new AuctionListResponseModel()
             {
@@ -63,7 +63,7 @@ namespace Bidding.Services.Auctions
 
             // todo: kke: validate request.SearchValue to be valid value!
 
-            (int startFrom, int endAt) = Pagination.GetStartAndEnd(request);
+            (int startFrom, int endAt) = Pagination.GetOffsetAndSize(request);
 
             AuctionListResponseModel auctionsResponse = new AuctionListResponseModel()
             {

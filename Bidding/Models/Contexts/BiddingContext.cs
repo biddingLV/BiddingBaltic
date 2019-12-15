@@ -24,7 +24,9 @@ namespace Bidding.Models.Contexts
 
         public DbSet<VehicleTransmission> VehicleTransmissions { get; set; }
         public DbSet<VehicleFuelType> VehicleFuelTypes { get; set; }
+        public DbSet<VehicleDimensionType> VehicleDimensionTypes { get; set; }
         public DbSet<ItemCondition> ItemConditions { get; set; }
+        public DbSet<ItemCompanyType> ItemCompanyTypes { get; set; }
         public DbSet<PropertyMeasurementType> PropertyMeasurementTypes { get; set; }
         public DbSet<AuctionStatus> AuctionStatuses { get; set; }
         public DbSet<AuctionFormat> AuctionFormats { get; set; }
@@ -105,9 +107,19 @@ namespace Bidding.Models.Contexts
                 .HasForeignKey(p => p.FuelTypeId);
 
             modelBuilder.Entity<AuctionDetails>() // todo: kke: is this right?
+                .HasOne(p => p.VehicleDimensionType)
+                .WithMany(b => b.AuctionDetails)
+                .HasForeignKey(p => p.DimensionTypeId);
+
+            modelBuilder.Entity<AuctionDetails>() // todo: kke: is this right?
                 .HasOne(p => p.ItemCondition)
                 .WithMany(b => b.AuctionDetails)
                 .HasForeignKey(p => p.ConditionId);
+
+            modelBuilder.Entity<AuctionDetails>() // todo: kke: is this right?
+                .HasOne(p => p.ItemCompanyType)
+                .WithMany(b => b.AuctionDetails)
+                .HasForeignKey(p => p.CompanyTypeId);
 
             modelBuilder.Entity<AuctionDetails>() // todo: kke: is this right?
                 .HasOne(p => p.PropertyMeasurementType)

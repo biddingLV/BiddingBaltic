@@ -457,6 +457,8 @@ namespace Bidding.Repositories.Auctions
                 FuelTypeId = request.VehicleAuction.VehicleFuelTypeId,
                 EngineSize = request.VehicleAuction.VehicleEngineSize,
                 Axis = request.VehicleAuction.VehicleAxis,
+                DimensionValue = request.VehicleAuction.VehicleDimensionValue,
+                DimensionTypeId = request.VehicleAuction.VehicleDimensionType,
                 Evaluation = request.VehicleAuction.VehicleEvaluation,
                 CreatedAt = DateTime.UtcNow,
                 // CreatedBy = loggedInUserId,
@@ -473,6 +475,8 @@ namespace Bidding.Repositories.Auctions
                 Model = request.ItemAuction.ItemModel,
                 ManufacturingYear = request.ItemAuction.ItemManufacturingYear,
                 ConditionId = request.ItemAuction.ItemConditionId,
+                Volume = request.ItemAuction.ItemVolume,
+                CompanyTypeId = request.ItemAuction.ItemCompanyTypeId,
                 Evaluation = request.ItemAuction.ItemEvaluation,
                 CreatedAt = DateTime.UtcNow,
                 // CreatedBy = loggedInUserId,
@@ -532,9 +536,19 @@ namespace Bidding.Repositories.Auctions
             return m_context.VehicleFuelTypes.FirstOrDefault(vfue => vfue.VehicleFuelTypeId == fuelTypeId).Name;
         }
 
+        private string LoadVehicleDimensionTypeName(int dimensionTypeId)
+        {
+            return m_context.VehicleDimensionTypes.FirstOrDefault(vdim => vdim.VehicleDimensionTypeId == dimensionTypeId).Name;
+        }
+
         private string LoadItemConditionName(int conditionId)
         {
             return m_context.ItemConditions.FirstOrDefault(icon => icon.ItemConditionId == conditionId).Name;
+        }
+
+        private string LoadCompanyTypeName(int typeId)
+        {
+            return m_context.ItemCompanyTypes.FirstOrDefault(icty => icty.ItemCompanyTypeId == typeId).Name;
         }
 
         private string LoadPropertyMeasurementTypeName(int measurementTypeId)
@@ -552,6 +566,7 @@ namespace Bidding.Repositories.Auctions
             string auctionFormatName = LoadAuctionFormatName(details.Auction.AuctionFormatId);
             string transmissionName = details.AuctionDetails.TransmissionId.IsNotSpecified() ? null : LoadVehicleTransmissionName(details.AuctionDetails.TransmissionId.Value);
             string fuelTypeName = details.AuctionDetails.FuelTypeId.IsNotSpecified() ? null : LoadVehicleFuelTypeName(details.AuctionDetails.FuelTypeId.Value);
+            string dimensionName = details.AuctionDetails.DimensionTypeId.IsNotSpecified() ? null : LoadVehicleDimensionTypeName(details.AuctionDetails.DimensionTypeId.Value);
 
             string inspectionActive = "Nav";
 
@@ -586,6 +601,8 @@ namespace Bidding.Repositories.Auctions
                     VehicleInspectionActive = inspectionActive,
                     VehicleTransmissionName = transmissionName,
                     VehicleFuelType = fuelTypeName,
+                    VehicleDimensionValue = details.AuctionDetails.DimensionValue,
+                    VehicleDimensionType = dimensionName,
                     VehicleEngineSize = details.AuctionDetails.EngineSize,
                     VehicleAxis = details.AuctionDetails.Axis
                 },
@@ -603,6 +620,7 @@ namespace Bidding.Repositories.Auctions
         {
             string auctionFormatName = LoadAuctionFormatName(details.Auction.AuctionFormatId);
             string conditionName = details.AuctionDetails.ConditionId.IsNotSpecified() ? null : LoadItemConditionName(details.AuctionDetails.ConditionId.Value);
+            string companyTypeName = details.AuctionDetails.CompanyTypeId.IsNotSpecified() ? null : LoadCompanyTypeName(details.AuctionDetails.CompanyTypeId.Value);
 
             Tuple<List<string>, List<string>> auctionFiles = await LoadAuctionFiles(request.AuctionId).ConfigureAwait(true);
 
@@ -623,9 +641,11 @@ namespace Bidding.Repositories.Auctions
                 ItemAuction = new ItemAuctionDetailsModel
                 {
                     ItemModel = details.AuctionDetails.Model,
-                    ItemManufacturingYear = details.AuctionDetails.ManufacturingYear.Value,
+                    ItemManufacturingYear = details.AuctionDetails.ManufacturingYear ?? null,
                     ItemConditionName = conditionName,
-                    ItemStartingPrice = details.Auction.StartingPrice
+                    ItemStartingPrice = details.Auction.StartingPrice,
+                    ItemVolume = details.AuctionDetails.Volume,
+                    ItemCompanyType = companyTypeName
                 },
                 AboutAuctionCreator = new AuctionCreatorDetailsModel
                 {

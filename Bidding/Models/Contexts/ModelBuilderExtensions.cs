@@ -26,7 +26,9 @@ namespace Bidding.Models.Contexts
             PopulateAuctionStatuses(modelBuilder);
             PopulateVehicleTransmissions(modelBuilder);
             PopulateVehicleFuelTypes(modelBuilder);
+            PopulateVehicleDimensionTypes(modelBuilder);
             PopulateItemConditions(modelBuilder);
+            PopulateItemCompanyTypes(modelBuilder);
             PopulatePropertyMeasurementTypes(modelBuilder);
             PopulateRegions(modelBuilder);
             PopulateCategories(modelBuilder);
@@ -193,6 +195,42 @@ namespace Bidding.Models.Contexts
             );
         }
 
+        private static void PopulateVehicleDimensionTypes(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<VehicleDimensionType>().HasData(
+                new VehicleDimensionType
+                {
+                    VehicleDimensionTypeId = 1,
+                    Name = "Garums",
+                    CreatedAt = CreatedAtDateTime,
+                    // CreatedBy = CreatedByBiddingAdmin,
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin,
+                    Deleted = false
+                },
+                new VehicleDimensionType
+                {
+                    VehicleDimensionTypeId = 2,
+                    Name = "Platums",
+                    CreatedAt = CreatedAtDateTime,
+                    // CreatedBy = CreatedByBiddingAdmin,
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin,
+                    Deleted = false
+                },
+                new VehicleDimensionType
+                {
+                    VehicleDimensionTypeId = 3,
+                    Name = "Augstums",
+                    CreatedAt = CreatedAtDateTime,
+                    // CreatedBy = CreatedByBiddingAdmin,
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin,
+                    Deleted = false
+                }
+            );
+        }
+
         private static void PopulateItemConditions(ModelBuilder modelBuilder)
         {
             modelBuilder.Entity<ItemCondition>().HasData(
@@ -210,6 +248,32 @@ namespace Bidding.Models.Contexts
                 {
                     ItemConditionId = 2,
                     Name = "Lietots",
+                    CreatedAt = CreatedAtDateTime,
+                    // CreatedBy = CreatedByBiddingAdmin,
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin,
+                    Deleted = false
+                }
+            );
+        }
+
+        private static void PopulateItemCompanyTypes(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<ItemCompanyType>().HasData(
+                new ItemCompanyType
+                {
+                    ItemCompanyTypeId = 1,
+                    Name = "SIA",
+                    CreatedAt = CreatedAtDateTime,
+                    // CreatedBy = CreatedByBiddingAdmin,
+                    LastUpdatedAt = CreatedAtDateTime,
+                    LastUpdatedBy = CreatedByBiddingAdmin,
+                    Deleted = false
+                },
+                new ItemCompanyType
+                {
+                    ItemCompanyTypeId = 2,
+                    Name = "A/S",
                     CreatedAt = CreatedAtDateTime,
                     // CreatedBy = CreatedByBiddingAdmin,
                     LastUpdatedAt = CreatedAtDateTime,

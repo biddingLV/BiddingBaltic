@@ -29,9 +29,9 @@ export class AuctionDetailsComponent implements OnInit, OnDestroy {
   breadcrumbs: BreadcrumbItem[];
 
   constructor(
-    private auctionApi: AuctionsService,
-    private notification: NotificationsService,
-    private route: ActivatedRoute
+    private auctionService: AuctionsService,
+    private notificationService: NotificationsService,
+    private activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
@@ -45,10 +45,10 @@ export class AuctionDetailsComponent implements OnInit, OnDestroy {
   }
 
   private getAuctionDetails(): void {
-    this.auctionDetailsSub = this.route.paramMap
+    this.auctionDetailsSub = this.activatedRoute.paramMap
       .pipe(
         switchMap((params: ParamMap) =>
-          this.auctionApi.getAuctionDetails$(Number(params.get("id")))
+          this.auctionService.getAuctionDetails$(Number(params.get("id")))
         )
       )
       .subscribe(
@@ -56,7 +56,7 @@ export class AuctionDetailsComponent implements OnInit, OnDestroy {
           this.auctionDetails = response;
           this.generateBreadcrumbs();
         },
-        (error: string) => this.notification.error(error)
+        (error: string) => this.notificationService.error(error)
       );
   }
 

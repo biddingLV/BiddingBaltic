@@ -5,6 +5,7 @@ using Bidding.Shared.Exceptions;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.WindowsAzure.Storage.Blob;
 using System;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -20,7 +21,7 @@ namespace Bidding.Repositories.Shared
             m_context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public async Task UploadFileAsync(byte[] fileBytes, string fileName, string fileContentType, CloudBlobContainer cloudBlobContainer)
+        public async Task UploadFileAsync(MemoryStream fileStream, string fileName, string fileContentType, CloudBlobContainer cloudBlobContainer)
         {
             // todo: kke: if file upload fails we need to delete auction from database!!! data corroption problem!
             try
@@ -29,12 +30,12 @@ namespace Bidding.Repositories.Shared
 
                 cloudBlockBlob.Properties.ContentType = fileContentType;
 
-                const int byteArrayStartIndex = 0;
+                fileStream.Position = 0;
 
-                await cloudBlockBlob.UploadFromByteArrayAsync(
-                    fileBytes,
-                    byteArrayStartIndex,
-                    fileBytes.Length).ConfigureAwait(true);
+                using (var stream = fileStream)
+                {
+                    await cloudBlockBlob.UploadFromStreamAsync(stream).ConfigureAwait(true);
+                }
             }
             catch (Exception ex)
             {

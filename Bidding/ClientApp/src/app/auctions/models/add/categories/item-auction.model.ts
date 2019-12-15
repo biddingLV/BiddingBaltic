@@ -5,5 +5,7 @@ namespace Auctions {
     itemConditionId: string;
     itemEvaluation: string;
     itemStartingPrice: number;
+    itemVolume: number;
+    itemCompanyTypeId: number;
   }
 }

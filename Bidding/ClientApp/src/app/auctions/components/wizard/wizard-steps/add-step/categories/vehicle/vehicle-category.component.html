@@ -135,22 +135,27 @@
               }"
             />
           </div>
+        </div>
 
+        <div class="form-row">
           <div class="form-group col-6">
-            <label for="vehicleInspectionActive">Ir T/A</label>
-            <input
-              type="checkbox"
-              formControlName="vehicleInspectionActive"
-              aria-label="Checkbox for following text input"
-            />
+            <div class="custom-control custom-checkbox">
+              <input
+                type="checkbox"
+                class="custom-control-input"
+                id="vehicleInspectionActive"
+                formControlName="vehicleInspectionActive"
+                aria-label="Checkbox for vehicle inspection"
+              />
+              <label class="custom-control-label" for="vehicleInspectionActive"
+                >Ir Tehniskā apskate</label
+              >
+            </div>
           </div>
         </div>
 
         <div class="form-row">
-          <div
-            class="form-group col-6"
-            *ngIf="selectedSubCategoryId != auctionSubCategoryIds.TRAILER"
-          >
+          <div class="form-group col-6" *ngIf="!showTrailerFields">
             <label for="vehicleTransmission">Ātrumkārba</label>
             <ng-select
               #transmissionSelect
@@ -167,10 +172,7 @@
             </ng-select>
           </div>
 
-          <div
-            class="form-group col-6"
-            *ngIf="selectedSubCategoryId != auctionSubCategoryIds.TRAILER"
-          >
+          <div class="form-group col-6" *ngIf="!showTrailerFields">
             <label for="vehicleFuelType">Motors</label>
             <ng-select
               #fuelTypeSelect
@@ -189,10 +191,7 @@
         </div>
 
         <div class="form-row">
-          <div
-            class="form-group col-6"
-            *ngIf="selectedSubCategoryId != auctionSubCategoryIds.TRAILER"
-          >
+          <div class="form-group col-6" *ngIf="!showTrailerFields">
             <label for="vehicleEngineSize">Motora tilpums</label>
             <input
               type="text"
@@ -227,24 +226,50 @@
         </div>
 
         <div class="form-row">
-          <div
-            class="form-group col-6"
-            *ngIf="selectedSubCategoryId == auctionSubCategoryIds.TRAILER"
-          >
-            <label for="vehicleDimensions">Izmēri</label>
+          <div class="form-group col-6" *ngIf="showTrailerFields">
+            <label for="vehicleDimensionValue">Izmēri</label>
             <input
               type="text"
-              formControlName="vehicleDimensions"
+              formControlName="vehicleDimensionValue"
               class="form-control"
-              id="vehicleDimensions"
-              name="vehicleDimensions"
+              id="vehicleDimensionValue"
+              name="vehicleDimensionValue"
               [ngClass]="{
-                'is-invalid': submitted && f.vehicleDimensions.errors
+                'is-invalid': submitted && f.vehicleDimensionValue.errors
               }"
             />
           </div>
 
-          <!-- TODO: TE -->
+          <div class="form-group col-2" *ngIf="showTrailerFields">
+            <label for="vehicleDimensionType">Mērvienība:</label>
+            <ng-select
+              class="form-control"
+              #measurementTypeSelect
+              formControlName="vehicleDimensionType"
+              [clearable]="false"
+              [virtualScroll]="true"
+              [multiple]="false"
+              [closeOnSelect]="true"
+              placeholder="Mērvienība"
+              [ngClass]="{
+                'is-invalid': submitted && f.vehicleDimensionType.errors
+              }"
+            >
+              <ng-option
+                *ngFor="let val of dimensionValues; let i = index"
+                [value]="val.dimensionValueId"
+              >
+                {{ val.dimensionValueName }}
+              </ng-option>
+            </ng-select>
+
+            <div
+              *ngIf="submitted && formErrors.vehicleDimensionType"
+              class="invalid-feedback"
+            >
+              {{ formErrors.vehicleDimensionType }}
+            </div>
+          </div>
         </div>
 
         <div class="form-row">

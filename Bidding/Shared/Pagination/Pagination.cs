@@ -1,8 +1,7 @@
 ﻿using Bidding.Models.ViewModels.BaseModels;
+using Bidding.Shared.Constants;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 
 namespace Bidding.Shared.Pagination
 {
@@ -49,13 +48,12 @@ namespace Bidding.Shared.Pagination
             return;
         }
 
-        public static (int, int) GetStartAndEnd(BaseListRequestModel request)
+        public static (int, int) GetOffsetAndSize(BaseListRequestModel request)
         {
-            int startFromThisItem = request.OffsetStart;
-            int takeUntilThisItem = request.OffsetEnd;
-            int startFrom = Math.Max(startFromThisItem - 1, 0) * takeUntilThisItem;
-            int endAt = startFrom + takeUntilThisItem;
-            return (startFrom, takeUntilThisItem);
+            int pageNum = request.CurrentPage;
+            int offset = Math.Max(pageNum - 1, 0) * request.OffsetEnd;
+            int size = TableItem.DefaultSize;
+            return (offset, size);
         }
     }
 }

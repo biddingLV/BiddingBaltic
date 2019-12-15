@@ -75,7 +75,7 @@ namespace Bidding.Services.Users
         {
             ValidateUserListWithSearch(request);
 
-            (int startFrom, int endAt) = Pagination.GetStartAndEnd(request);
+            (int startFrom, int endAt) = Pagination.GetOffsetAndSize(request);
 
             UserListResponseModel response = new UserListResponseModel()
             {

@@ -27,17 +27,30 @@ namespace Bidding.Models.DatabaseModels.Auctions
         [MaxLength(50)]
         public string IdentificationNumber { get; set; }
         public bool? InspectionActive { get; set; }
+
         public int? TransmissionId { get; set; }
         public VehicleTransmission VehicleTransmission { get; set; }
 
         public int? FuelTypeId { get; set; }
         public VehicleFuelType VehicleFuelType { get; set; }
+
         public string EngineSize { get; set; }
         public string Axis { get; set; }
+        public string DimensionValue { get; set; }
+
+        public int? DimensionTypeId { get; set; }
+        public VehicleDimensionType VehicleDimensionType { get; set; }
+
         public int? ConditionId { get; set; }
         public ItemCondition ItemCondition { get; set; }
 
+        public string Volume { get; set; }
+
+        public int? CompanyTypeId { get; set; }
+        public ItemCompanyType ItemCompanyType { get; set; }
+
         public string Coordinates { get; set; }
+
         public int? RegionId { get; set; }
         public Region Region { get; set; }
 
@@ -45,6 +58,7 @@ namespace Bidding.Models.DatabaseModels.Auctions
 
         [Column(TypeName = "decimal(18,2)")]
         public decimal? MeasurementValue { get; set; }
+
         public int? MeasurementTypeId { get; set; }
         public PropertyMeasurementType PropertyMeasurementType { get; set; }
 

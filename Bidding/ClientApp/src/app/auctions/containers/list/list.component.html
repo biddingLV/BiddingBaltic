@@ -1,11 +1,9 @@
 <ng-container *ngIf="!isLoading; else loading">
   <app-auction-table
     [auctionTable]="auctionTable"
-    [numberRows]="numberRows"
     [selected]="selected"
-    (pageChange)="updateRequest('Page', $event)"
+    (pageChange)="onPageChange($event)"
     (sortChange)="onSortChange($event)"
-    (detailsClick)="onDetailsClick()"
     (selectedChange)="onSelectedChange($event)"
   ></app-auction-table>
 </ng-container>

@@ -17,4 +17,16 @@
   }}</span>
 </p>
 
+<p>
+  <span class="pr-2 font-weight-bold">Skaits/Apjoms:</span>
+  <span *ngIf="details.itemVolume; else noInfo">{{ details.itemVolume }}</span>
+</p>
+
+<p>
+  <span class="pr-2 font-weight-bold">Kompānijas tips:</span>
+  <span *ngIf="details.itemCompanyType; else noInfo">{{
+    details.itemCompanyType
+  }}</span>
+</p>
+
 <ng-template #noInfo>-</ng-template>

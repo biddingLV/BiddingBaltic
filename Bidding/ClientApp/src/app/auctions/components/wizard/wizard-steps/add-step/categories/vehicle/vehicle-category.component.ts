@@ -1,5 +1,12 @@
 // angular
-import { Component, OnInit, Output, EventEmitter, Input } from "@angular/core";
+import {
+  Component,
+  OnInit,
+  Output,
+  EventEmitter,
+  Input,
+  SimpleChanges
+} from "@angular/core";
 import { FormGroup, FormBuilder, Validators } from "@angular/forms";
 
 // internal
@@ -35,7 +42,8 @@ export class AuctionAddWizardVehicleComponent implements OnInit {
     vehicleFuelType: "",
     vehicleEngineSize: "",
     vehicleAxis: "",
-    vehicleDimensions: "",
+    vehicleDimensionValue: "",
+    vehicleDimensionType: "",
     vehicleEvaluation: ""
   };
 
@@ -81,6 +89,26 @@ export class AuctionAddWizardVehicleComponent implements OnInit {
     }
   ];
 
+  // note: kke: if you change these ids, also change them in DB (-)!
+  /** Only used for auctionSubCategoryIds.TRAILER category */
+  dimensionValues = [
+    {
+      dimensionValueId: 1,
+      dimensionValueName: "Garums"
+    },
+    {
+      dimensionValueId: 2,
+      dimensionValueName: "Platums"
+    },
+    {
+      dimensionValueId: 3,
+      dimensionValueName: "Augstums"
+    }
+  ];
+
+  // template
+  showTrailerFields: boolean;
+
   /** Convenience getter for easy access to form fields */
   get f() {
     return this.addStepForm.controls;
@@ -90,6 +118,16 @@ export class AuctionAddWizardVehicleComponent implements OnInit {
     private formBuilder: FormBuilder,
     private internalFormService: FormService
   ) {}
+
+  ngOnChanges(changes: SimpleChanges): void {
+    const subCategoryChange = changes["selectedSubCategoryId"];
+
+    if (subCategoryChange && !subCategoryChange.isFirstChange()) {
+      if (subCategoryChange !== undefined) {
+        this.handleTrailerFields();
+      }
+    }
+  }
 
   ngOnInit(): void {
     this.buildForm();
@@ -152,7 +190,8 @@ export class AuctionAddWizardVehicleComponent implements OnInit {
       vehicleFuelType: [null, []],
       vehicleEngineSize: [null, []],
       vehicleAxis: [null, []],
-      vehicleDimensions: [null, []],
+      vehicleDimensionValue: [null, []],
+      vehicleDimensionType: [null, []],
       vehicleEvaluation: [null, []],
       auctionFiles: [null, []]
     });
@@ -173,5 +212,12 @@ export class AuctionAddWizardVehicleComponent implements OnInit {
     this.addStepForm.patchValue({
       auctionFiles: formData
     });
+  }
+
+  private handleTrailerFields(): void {
+    this.showTrailerFields =
+      this.selectedSubCategoryId == AuctionSubCategoryIds.TRAILER
+        ? true
+        : false;
   }
 }

@@ -62,4 +62,11 @@
   }}</span>
 </p>
 
+<p>
+  <span class="pr-2 font-weight-bold">Izmēri:</span>
+  <span *ngIf="details.vehicleDimensionValue; else noInfo">{{
+    details.vehicleDimensionValue + " " + details.vehicleDimensionType
+  }}</span>
+</p>
+
 <ng-template #noInfo>-</ng-template>

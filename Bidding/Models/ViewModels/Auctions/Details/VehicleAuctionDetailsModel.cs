@@ -10,6 +10,8 @@
         public string VehicleInspectionActive { get; set; }
         public string VehicleTransmissionName { get; set; }
         public string VehicleFuelType { get; set; }
+        public string VehicleDimensionValue { get; set; }
+        public string VehicleDimensionType { get; set; }
         public string VehicleEngineSize { get; set; }
         public string VehicleAxis { get; set; }
     }

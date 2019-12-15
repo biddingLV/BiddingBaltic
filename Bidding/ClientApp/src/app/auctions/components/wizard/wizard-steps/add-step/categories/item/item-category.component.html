@@ -40,7 +40,7 @@
           </div>
         </div>
 
-        <div class="form-row">
+        <div class="form-row" *ngIf="fieldConditions.showModelField">
           <div class="form-group col-6">
             <label for="itemModel">Modelis</label>
             <input
@@ -55,7 +55,7 @@
           </div>
         </div>
 
-        <div class="form-row">
+        <div class="form-row" *ngIf="fieldConditions.showYearField">
           <div class="form-group col-6">
             <label for="itemManufacturingYear">Ražošanas gads:</label>
             <input
@@ -78,7 +78,7 @@
           </div>
         </div>
 
-        <div class="form-row">
+        <div class="form-row" *ngIf="fieldConditions.showConditionField">
           <div class="form-group col-6">
             <label>Stāvoklis:</label>
             <ng-select
@@ -90,10 +90,54 @@
               name="itemCondition"
             >
               <ng-option
-                *ngFor="let cond of conditions; let i = index"
+                *ngFor="let cond of itemConditions; let i = index"
                 [value]="cond.conditionId"
               >
                 {{ cond.conditionName }}
+              </ng-option>
+            </ng-select>
+          </div>
+        </div>
+
+        <div class="form-row" *ngIf="fieldConditions.showVolumeField">
+          <div class="form-group col-6">
+            <label for="itemVolume">Skaits/Apjoms:</label>
+            <input
+              type="text"
+              formControlName="itemVolume"
+              class="form-control"
+              id="itemVolume"
+              name="itemVolume"
+              [ngClass]="{
+                'is-invalid': submitted && f.itemVolume.errors
+              }"
+            />
+
+            <div
+              *ngIf="submitted && formErrors.itemVolume"
+              class="invalid-feedback"
+            >
+              {{ formErrors.itemVolume }}
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row" *ngIf="fieldConditions.showCompanyTypeField">
+          <div class="form-group col-6">
+            <label>Tips:</label>
+            <ng-select
+              #itemCompanyTypeSelect
+              formControlName="itemCompanyType"
+              [clearable]="false"
+              [virtualScroll]="true"
+              id="itemCompanyType"
+              name="itemCompanyType"
+            >
+              <ng-option
+                *ngFor="let ctyp of companyTypes; let i = index"
+                [value]="ctyp.companyTypeId"
+              >
+                {{ ctyp.companyTypeName }}
               </ng-option>
             </ng-select>
           </div>
@@ -122,6 +166,7 @@
         </div>
 
         <app-auction-file-uploader
+          *ngIf="fieldConditions.showPictures"
           (imageChange)="onImageChange($event)"
           (fileChange)="onFileChange($event)"
         ></app-auction-file-uploader>

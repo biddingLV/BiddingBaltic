@@ -8,6 +8,7 @@
 
 <ng-container *ngIf="showItemStep">
   <app-auction-add-wizard-item-category
+    [selectedSubCategoryId]="selectedSubCategoryId"
     (returnAddWizardStepForm)="onClickNextReturnForm($event)"
   >
   </app-auction-add-wizard-item-category>

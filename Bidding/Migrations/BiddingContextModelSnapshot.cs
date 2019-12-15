@@ -188,6 +188,8 @@ namespace Bidding.Migrations
 
                     b.Property<int?>("CadastreNumber");
 
+                    b.Property<int?>("CompanyTypeId");
+
                     b.Property<int?>("ConditionId");
 
                     b.Property<string>("Coordinates");
@@ -195,6 +197,10 @@ namespace Bidding.Migrations
                     b.Property<DateTime>("CreatedAt");
 
                     b.Property<bool>("Deleted");
+
+                    b.Property<int?>("DimensionTypeId");
+
+                    b.Property<string>("DimensionValue");
 
                     b.Property<string>("EngineSize");
 
@@ -233,11 +239,17 @@ namespace Bidding.Migrations
 
                     b.Property<int?>("TransmissionId");
 
+                    b.Property<string>("Volume");
+
                     b.HasKey("AuctionDetailsId");
 
                     b.HasIndex("AuctionItemId");
 
+                    b.HasIndex("CompanyTypeId");
+
                     b.HasIndex("ConditionId");
+
+                    b.HasIndex("DimensionTypeId");
 
                     b.HasIndex("FuelTypeId");
 
@@ -710,6 +722,49 @@ namespace Bidding.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Bidding.Models.DatabaseModels.Item.ItemCompanyType", b =>
+                {
+                    b.Property<int>("ItemCompanyTypeId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedAt");
+
+                    b.Property<bool>("Deleted");
+
+                    b.Property<DateTime>("LastUpdatedAt");
+
+                    b.Property<int>("LastUpdatedBy");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.HasKey("ItemCompanyTypeId");
+
+                    b.ToTable("ItemCompanyTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            ItemCompanyTypeId = 1,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "SIA"
+                        },
+                        new
+                        {
+                            ItemCompanyTypeId = 2,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "A/S"
+                        });
+                });
+
             modelBuilder.Entity("Bidding.Models.DatabaseModels.Item.ItemCondition", b =>
                 {
                     b.Property<int>("ItemConditionId")
@@ -837,28 +892,28 @@ namespace Bidding.Migrations
                         new
                         {
                             Id = 100,
-                            ConcurrencyStamp = "91099d26-1a09-4515-ae25-6c1b0d822586",
+                            ConcurrencyStamp = "c4f837c9-2934-41a8-88dc-73311aef6ca8",
                             Name = "BasicUser",
                             NormalizedName = "BASICUSER"
                         },
                         new
                         {
                             Id = 200,
-                            ConcurrencyStamp = "ddcf55d5-1f6e-4498-8981-189bd92f18f5",
+                            ConcurrencyStamp = "b83f098c-2ce5-4316-9594-84f818611cd0",
                             Name = "AuctionCreator",
                             NormalizedName = "AUCTIONCREATOR"
                         },
                         new
                         {
                             Id = 300,
-                            ConcurrencyStamp = "6977367f-3844-4b36-b9b1-2248dff926ac",
+                            ConcurrencyStamp = "2acd26fd-b511-4559-a217-888447e6fe48",
                             Name = "PageAdministrator",
                             NormalizedName = "PAGEADMINISTRATOR"
                         },
                         new
                         {
                             Id = 400,
-                            ConcurrencyStamp = "62e82b72-1e3d-4f1c-84a1-8e8395bc5bdb",
+                            ConcurrencyStamp = "f0088a54-6b4e-4377-b374-00af7f358c75",
                             Name = "SuperAdministrator",
                             NormalizedName = "SUPERADMINISTRATOR"
                         });
@@ -2055,6 +2110,58 @@ namespace Bidding.Migrations
                     b.ToTable("Newsletters");
                 });
 
+            modelBuilder.Entity("Bidding.Models.DatabaseModels.Vehicle.VehicleDimensionType", b =>
+                {
+                    b.Property<int>("VehicleDimensionTypeId")
+                        .ValueGeneratedOnAdd()
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedAt");
+
+                    b.Property<bool>("Deleted");
+
+                    b.Property<DateTime>("LastUpdatedAt");
+
+                    b.Property<int>("LastUpdatedBy");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(50);
+
+                    b.HasKey("VehicleDimensionTypeId");
+
+                    b.ToTable("VehicleDimensionTypes");
+
+                    b.HasData(
+                        new
+                        {
+                            VehicleDimensionTypeId = 1,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Garums"
+                        },
+                        new
+                        {
+                            VehicleDimensionTypeId = 2,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Platums"
+                        },
+                        new
+                        {
+                            VehicleDimensionTypeId = 3,
+                            CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Deleted = false,
+                            LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            LastUpdatedBy = 1,
+                            Name = "Augstums"
+                        });
+                });
+
             modelBuilder.Entity("Bidding.Models.DatabaseModels.Vehicle.VehicleFuelType", b =>
                 {
                     b.Property<int>("VehicleFuelTypeId")
@@ -2335,9 +2442,19 @@ namespace Bidding.Migrations
                         .HasForeignKey("AuctionItemId")
                         .OnDelete(DeleteBehavior.Restrict);
 
+                    b.HasOne("Bidding.Models.DatabaseModels.Item.ItemCompanyType", "ItemCompanyType")
+                        .WithMany("AuctionDetails")
+                        .HasForeignKey("CompanyTypeId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
                     b.HasOne("Bidding.Models.DatabaseModels.Item.ItemCondition", "ItemCondition")
                         .WithMany("AuctionDetails")
                         .HasForeignKey("ConditionId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("Bidding.Models.DatabaseModels.Vehicle.VehicleDimensionType", "VehicleDimensionType")
+                        .WithMany("AuctionDetails")
+                        .HasForeignKey("DimensionTypeId")
                         .OnDelete(DeleteBehavior.Restrict);
 
                     b.HasOne("Bidding.Models.DatabaseModels.Vehicle.VehicleFuelType", "VehicleFuelType")

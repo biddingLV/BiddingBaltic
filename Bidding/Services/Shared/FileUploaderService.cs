@@ -7,6 +7,11 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Formats.Jpeg;
+using SixLabors.ImageSharp.PixelFormats;
+using SixLabors.ImageSharp.Processing;
+using SixLabors.Primitives;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -84,14 +89,27 @@ namespace Bidding.Services.Shared
 
                 foreach (IFormFile file in files)
                 {
-                    string fileName = CreateSafeFileName(file);
-                    byte[] fileBytes = ConvertFileToByteArray(file);
-
                     // todo: kke: add back & validate file signature logic!
                     // string fileExtension = GetFileExtension(file);
                     // ValidateFileSignature(fileExtension, imageBytes); // todo: kke: why this fails for jpg?
 
-                    await m_fileUploaderRepository.UploadFileAsync(fileBytes, fileName, file.ContentType, cloudBlobContainer).ConfigureAwait(true);
+                    string fileName = CreateSafeFileName(file);
+                    Stream imageStream = file.OpenReadStream();
+
+                    using (MemoryStream optimiziedImageStream = new MemoryStream())
+                    using (Image<Rgba32> image = Image.Load(imageStream))
+                    {
+                        Image<Rgba32> clone = image.Clone(context => context
+                            .Resize(new ResizeOptions
+                            {
+                                Mode = ResizeMode.Max,
+                                Size = new Size(1280, 1280)
+                            }));
+
+                        clone.Save(optimiziedImageStream, new JpegEncoder { Quality = 70 });
+
+                        await m_fileUploaderRepository.UploadFileAsync(optimiziedImageStream, fileName, file.ContentType, cloudBlobContainer).ConfigureAwait(true);
+                    }
                 }
 
                 int loggedInUserId = m_permissionService.GetUserIdFromClaimsPrincipal();
@@ -141,66 +159,6 @@ namespace Bidding.Services.Shared
             // note: kke: TEST THIS
 
             return fileName;
-        }
-
-        private byte[] ConvertFileToByteArray(IFormFile file)
-        {
-            byte[] result = null;
-
-            try
-            {
-                var stream1 = file.OpenReadStream();
-
-                //Stream thumbnailStream = new MemoryStream((int)stream1.Length)
-                //{
-                //    Position = 0
-                //};
-
-                //using (Image<Rgba32> image = Image.Load(imageStream))
-                //{
-                //    var thumbnailRate = GetThumbnailRate(image.Width, 100);
-
-                //    image.Mutate(x => x
-                //         .Resize(1500, 0, true)); // image.Width / thumbnailRate || image.Height / thumbnailRate
-
-                //    imageStream.Position = 0;
-
-                //    var imageFormat = Image.DetectFormat(imageStream);
-
-                //    if (imageFormat != null)
-                //    {
-                //        image.Save(thumbnailStream, imageFormat);
-                //    }
-                //    else
-                //    {
-                //        image.Save(thumbnailStream, new JpegEncoder());
-                //    }
-
-                //}
-
-                stream1.Position = 0;
-
-                using (MemoryStream ms = new MemoryStream())
-                {
-                    stream1.CopyTo(ms);
-                    result = ms.ToArray();
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new WebApiException(HttpStatusCode.InternalServerError, FileUploadErrorMessage.GenericUploadErrorMessage, ex);
-            }
-
-            return result;
-        }
-
-        private int GetThumbnailRate(int originailWidth, int estimatedThumbnailWith)
-        {
-            int thumbnailRate = originailWidth / estimatedThumbnailWith;
-
-            if (thumbnailRate == 0) thumbnailRate = 1;
-
-            return thumbnailRate;
         }
 
         private async Task<CloudBlobContainer> GetCloudBlobContainer()

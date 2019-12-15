@@ -11,41 +11,32 @@ import { AuctionListResponseModel } from "../../models/list/auction-list-respons
 })
 export class AuctionTableComponent implements OnInit {
   // template
-  @Input() numberRows: number;
+  @Input() numberRows?: number = 15;
   @Input() auctionTable: AuctionListResponseModel;
+
+  /** This input param cant be initialized empty on this level only on parent level */
   @Input() selected: AuctionListItemModel[];
 
-  /**
-   * Can be passed from parent component to show or hide select all checkbox column in template.
-   * By default don't show.
-   */
-  @Input() showSelectAllCheckboxColumn = false;
+  /** Show or hide select all checkbox column in template. */
+  @Input() showSelectAllCheckboxColumn? = false;
 
   @Output() pageChange = new EventEmitter<number>();
   @Output() sortChange = new EventEmitter<boolean>();
-  @Output() detailsClick = new EventEmitter<boolean>();
-  @Output() selectedChange = new EventEmitter<any>();
+  @Output() selectedChange = new EventEmitter<AuctionListItemModel[]>();
 
   constructor() {}
 
   ngOnInit(): void {}
 
-  onPageChange(page: number): void {
-    this.pageChange.emit(page);
+  onPageChange(event): void {
+    this.pageChange.emit(event.page);
   }
 
   onSortChange(event: boolean): void {
     this.sortChange.emit(event);
   }
 
-  onDetailsClick(): void {
-    this.detailsClick.emit();
-  }
-
-  onSelect({ selected }): void {
-    this.selected.splice(0, this.selected.length);
-    this.selected.push(...selected);
-
-    this.selectedChange.emit(selected);
+  onSelect(selectedItems: { selected }): void {
+    this.selectedChange.emit(selectedItems.selected);
   }
 }
