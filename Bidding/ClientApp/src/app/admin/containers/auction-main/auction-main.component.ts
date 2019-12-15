@@ -21,7 +21,7 @@ export class AdminAuctionMainComponent implements OnInit {
   mainSubscription: Subscription;
 
   // table
-  selected: AuctionListItemModel[] = [];
+  selectedAuctions: AuctionListItemModel[] = [];
 
   // modals
   bsModalRef: BsModalRef;
@@ -29,6 +29,9 @@ export class AdminAuctionMainComponent implements OnInit {
   // template
   selectedCategoryIds: number[] = [];
   selectedTypeIds: number[] = [];
+
+  /** Show or hide select all checkbox column in auction table. */
+  showSelectAllCheckboxColumn: boolean = true;
 
   @ViewChild(AuctionListComponent, { static: false })
   auctionList: AuctionListComponent;
@@ -62,7 +65,7 @@ export class AdminAuctionMainComponent implements OnInit {
 
   editModal(): void {
     const initialState = {
-      selectedAuctionId: this.selected[0].auctionId
+      selectedAuctionId: this.selectedAuctions[0].auctionId
     };
 
     const modalConfig = {
@@ -86,7 +89,7 @@ export class AdminAuctionMainComponent implements OnInit {
 
   deleteModal(): void {
     const initialState = {
-      selectedAuctions: this.selected
+      selectedAuctions: this.selectedAuctions
     };
 
     const modalConfig = {
@@ -106,6 +109,10 @@ export class AdminAuctionMainComponent implements OnInit {
           this.auctionList.loadActiveAuctions();
         }
       });
+  }
+
+  onSelectedChange(selected: AuctionListItemModel[]): void {
+    this.selectedAuctions = selected;
   }
 
   ngOnDestroy(): void {

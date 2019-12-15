@@ -171,7 +171,7 @@ export class AuctionsService {
       .pipe(catchError(this.exceptionService.errorHandler));
   }
 
-  deleteAuction$(request: AuctionDeleteRequest): Observable<boolean> {
+  deleteAuctions$(request: AuctionDeleteRequest): Observable<boolean> {
     const url = "/api/auctions/delete";
     const options = {
       headers: {},

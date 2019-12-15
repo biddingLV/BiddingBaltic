@@ -121,7 +121,7 @@ namespace Bidding.Controllers.Auctions
         /// <param name="auctionId"></param>
         /// <returns></returns>
         [HttpGet]
-        //[Authorize(Roles = "User, Admin")]
+        [HasPermission(Permission.CreateAuction)] // TODO: KKE: Add correct permission!
         public IActionResult EditDetails([FromQuery] int auctionId)
         {
             return Ok(m_auctionsService.EditDetails(auctionId));
@@ -133,7 +133,7 @@ namespace Bidding.Controllers.Auctions
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpPut]
-        //[Authorize(Roles = "Admin")]
+        [HasPermission(Permission.CreateAuction)] // TODO: KKE: Add correct permission!
         public IActionResult Edit([FromBody] AuctionEditRequestModel request)
         {
             return Ok(m_auctionsService.UpdateAuctionDetails(request));
@@ -145,10 +145,10 @@ namespace Bidding.Controllers.Auctions
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpDelete]
-        //[Authorize(Roles = "Admin")]
-        public IActionResult Delete([FromBody] AuctionDeleteRequestModel request)
+        [HasPermission(Permission.CreateAuction)] // TODO: KKE: Add correct permission!
+        public async Task<IActionResult> Delete([FromBody] AuctionDeleteRequestModel request)
         {
-            return Ok(m_auctionsService.Delete(request));
+            return Ok(await m_auctionsService.DeleteAsync(request));
         }
     }
 }

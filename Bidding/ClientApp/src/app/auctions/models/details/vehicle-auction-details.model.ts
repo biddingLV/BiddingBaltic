@@ -8,6 +8,8 @@ namespace Auctions {
     vehicleInspectionActive: string;
     vehicleTransmissionName: string;
     vehicleFuelType: string;
+    vehicleDimensionValue: string;
+    vehicleDimensionType: string;
     vehicleEngineSize: string;
     vehicleAxis: string;
   }

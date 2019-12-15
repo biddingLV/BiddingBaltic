@@ -95,7 +95,7 @@ export class AuctionDeleteComponent implements OnInit {
   private makeRequest(): void {
     this.setupDeleteRequest();
 
-    this.auctionService.deleteAuction$(this.deleteRequest).subscribe(
+    this.auctionService.deleteAuctions$(this.deleteRequest).subscribe(
       (data: boolean) => {
         const deleteSuccess = data;
         if (deleteSuccess) {

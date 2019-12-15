@@ -1,5 +1,5 @@
 // angular
-import { Component, OnInit, Input, SimpleChanges } from "@angular/core";
+import { Component, OnInit, Input, SimpleChanges, EventEmitter, Output } from "@angular/core";
 import { ActivatedRoute } from "@angular/router";
 
 // 3rd lib
@@ -25,6 +25,10 @@ export class AuctionListComponent implements OnInit {
   @Input() selectedCategoryIds: number[];
   @Input() selectedTypeIds: number[];
   @Input() specifiedSearchText: string;
+
+  /** Show or hide select all checkbox column in auction table. */
+  @Input() showSelectAllCheckboxColumn?: boolean;
+  @Output() selectedChange = new EventEmitter<AuctionListItemModel[]>();
 
   listSubscription: Subscription;
 
@@ -98,8 +102,8 @@ export class AuctionListComponent implements OnInit {
     // this.getUsers();
   }
 
-  onSelectedChange(selected): void {
-    // this.selectedUsers = selected;
+  onSelectedChange(selected: AuctionListItemModel[]): void {
+    this.selectedChange.emit(selected);
   }
 
   /**

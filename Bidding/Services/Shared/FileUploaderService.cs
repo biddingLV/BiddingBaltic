@@ -94,22 +94,26 @@ namespace Bidding.Services.Shared
                     // ValidateFileSignature(fileExtension, imageBytes); // todo: kke: why this fails for jpg?
 
                     string fileName = CreateSafeFileName(file);
-                    Stream imageStream = file.OpenReadStream();
+                    byte[] fileBytes = ConvertFileToByteArray(file);
 
-                    using (MemoryStream optimiziedImageStream = new MemoryStream())
-                    using (Image<Rgba32> image = Image.Load(imageStream))
-                    {
-                        Image<Rgba32> clone = image.Clone(context => context
-                            .Resize(new ResizeOptions
-                            {
-                                Mode = ResizeMode.Max,
-                                Size = new Size(1280, 1280)
-                            }));
+                    await m_fileUploaderRepository.UploadFileAsync(fileBytes, fileName, file.ContentType, cloudBlobContainer).ConfigureAwait(true);
+                    //Stream imageStream = file.OpenReadStream();
 
-                        clone.Save(optimiziedImageStream, new JpegEncoder { Quality = 70 });
+                    //using (MemoryStream optimiziedImageStream = new MemoryStream())
+                    //using (Image<Rgba32> image = Image.Load(imageStream))
+                    //{
+                    // todo: kke: var imageFormat = Image.DetectFormat(imageStream);	!!!
+                    //    Image<Rgba32> clone = image.Clone(context => context
+                    //        .Resize(new ResizeOptions
+                    //        {
+                    //            Mode = ResizeMode.Max,
+                    //            Size = new Size(1280, 1280)
+                    //        }));
 
-                        await m_fileUploaderRepository.UploadFileAsync(optimiziedImageStream, fileName, file.ContentType, cloudBlobContainer).ConfigureAwait(true);
-                    }
+                    //    clone.Save(optimiziedImageStream, new JpegEncoder { Quality = 70 });
+
+                    //    await m_fileUploaderRepository.UploadFileAsync(optimiziedImageStream, fileName, file.ContentType, cloudBlobContainer).ConfigureAwait(true);
+                    //}
                 }
 
                 int loggedInUserId = m_permissionService.GetUserIdFromClaimsPrincipal();
@@ -120,6 +124,57 @@ namespace Bidding.Services.Shared
             {
                 throw new WebApiException(HttpStatusCode.InternalServerError, FileUploadErrorMessage.GenericUploadErrorMessage, ex);
             }
+        }
+
+        private byte[] ConvertFileToByteArray(IFormFile file)
+        {
+            byte[] result = null;
+
+            try
+            {
+                var stream1 = file.OpenReadStream();
+
+                //Stream thumbnailStream = new MemoryStream((int)stream1.Length)	
+                //{	
+                //    Position = 0	
+                //};	
+
+                //using (Image<Rgba32> image = Image.Load(imageStream))	
+                //{	
+                //    var thumbnailRate = GetThumbnailRate(image.Width, 100);	
+
+                //    image.Mutate(x => x	
+                //         .Resize(1500, 0, true)); // image.Width / thumbnailRate || image.Height / thumbnailRate	
+
+                //    imageStream.Position = 0;	
+
+                //    var imageFormat = Image.DetectFormat(imageStream);	
+
+                //    if (imageFormat != null)	
+                //    {	
+                //        image.Save(thumbnailStream, imageFormat);	
+                //    }	
+                //    else	
+                //    {	
+                //        image.Save(thumbnailStream, new JpegEncoder());	
+                //    }	
+
+                //}	
+
+                stream1.Position = 0;
+
+                using (MemoryStream ms = new MemoryStream())
+                {
+                    stream1.CopyTo(ms);
+                    result = ms.ToArray();
+                }
+            }
+            catch (Exception ex)
+            {
+                throw new WebApiException(HttpStatusCode.InternalServerError, FileUploadErrorMessage.GenericUploadErrorMessage, ex);
+            }
+
+            return result;
         }
 
         private void ValidateFile(IFormFile file)
@@ -168,6 +223,7 @@ namespace Bidding.Services.Shared
                 CloudBlobClient cloudBlobClient = cloudStorageAccount.CreateCloudBlobClient();
                 CloudBlobContainer cloudBlobContainer = cloudBlobClient.GetContainerReference("auctionfiles-" + Guid.NewGuid().ToString());
 
+                // todo: kke: add more robust try catch using (StorageException e)
                 await cloudBlobContainer.CreateIfNotExistsAsync().ConfigureAwait(true);
                 await cloudBlobContainer.SetPermissionsAsync(new BlobContainerPermissions { PublicAccess = BlobContainerPublicAccessType.Blob }).ConfigureAwait(true);
 

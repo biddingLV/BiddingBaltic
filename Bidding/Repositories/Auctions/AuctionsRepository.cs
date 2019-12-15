@@ -336,10 +336,10 @@ namespace Bidding.Repositories.Auctions
             return true;
         }
 
-        public bool Delete(AuctionDeleteRequestModel request, int loggedInUserId)
+        public async Task<bool> DeleteAsync(AuctionDeleteRequestModel request, int loggedInUserId)
         {
             var strategy = m_context.Database.CreateExecutionStrategy();
-            strategy.Execute(() =>
+            await strategy.Execute(async () =>
             {
                 try
                 {
@@ -347,26 +347,49 @@ namespace Bidding.Repositories.Auctions
                     {
                         foreach (int auctionId in request.AuctionIds)
                         {
-                            bool auctionExists = m_context.Auctions.Any(auct => auct.AuctionId == auctionId);
+                            bool auctionExists = await m_context.Auctions.AnyAsync(auct => auct.AuctionId == auctionId).ConfigureAwait(true);
 
                             if (auctionExists)
                             {
-                                Auction auctionForDelete = m_context.Auctions.Where(auct => auct.AuctionId == auctionId).FirstOrDefault();
+                                Auction auctionForDelete =
+                                    await m_context.Auctions.Where(auct => auct.AuctionId == auctionId).FirstOrDefaultAsync().ConfigureAwait(true);
+
+                                if (CloudStorageAccount.TryParse(m_azureStorageConnectionString, out CloudStorageAccount cloudStorageAccount))
+                                {                                  
+                                    try
+                                    {
+                                        CloudBlobClient cloudBlobClient = cloudStorageAccount.CreateCloudBlobClient();
+                                        CloudBlobContainer container = cloudBlobClient.GetContainerReference(auctionForDelete.AuctionImageContainer);
+                                        await container.DeleteIfExistsAsync().ConfigureAwait(true);
+                                    }
+                                    catch (StorageException ex)
+                                    {
+                                        throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.CouldNotDeleteAuction, ex);
+                                    }
+                                }
+                                else
+                                {
+                                    throw new WebApiException(HttpStatusCode.InternalServerError, FileUploadErrorMessage.GenericUploadErrorMessage);
+                                }
+
                                 auctionForDelete.Deleted = true;
                                 auctionForDelete.LastUpdatedAt = DateTime.UtcNow;
                                 auctionForDelete.LastUpdatedBy = loggedInUserId;
 
-                                AuctionItem auctionItemForDelete = m_context.AuctionItems.Where(aitem => aitem.AuctionId == auctionId).FirstOrDefault();
+                                AuctionItem auctionItemForDelete =
+                                    await m_context.AuctionItems.Where(aitem => aitem.AuctionId == auctionId).FirstOrDefaultAsync().ConfigureAwait(true);
                                 auctionItemForDelete.Deleted = true;
                                 auctionItemForDelete.LastUpdatedAt = DateTime.UtcNow;
                                 auctionItemForDelete.LastUpdatedBy = loggedInUserId;
 
-                                AuctionDetails auctionDetailsForDelete = m_context.AuctionDetails.Where(adet => adet.AuctionItemId == auctionItemForDelete.AuctionItemId).FirstOrDefault();
+                                AuctionDetails auctionDetailsForDelete =
+                                    await m_context.AuctionDetails.Where(adet => adet.AuctionItemId == auctionItemForDelete.AuctionItemId)
+                                                                  .FirstOrDefaultAsync().ConfigureAwait(true);
                                 auctionDetailsForDelete.Deleted = true;
                                 auctionDetailsForDelete.LastUpdatedAt = DateTime.UtcNow;
                                 auctionDetailsForDelete.LastUpdatedBy = loggedInUserId;
 
-                                m_context.SaveChanges();
+                                await m_context.SaveChangesAsync().ConfigureAwait(true);
                             }
                             else
                             {
@@ -381,7 +404,7 @@ namespace Bidding.Repositories.Auctions
                 {
                     throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.CouldNotDeleteAuction, ex);
                 }
-            });
+            }).ConfigureAwait(true);
 
             return true;
         }

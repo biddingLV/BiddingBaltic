@@ -138,13 +138,13 @@ namespace Bidding.Services.Auctions
             return m_auctionsRepository.UpdateAuctionDetails(request, loggedInUserId);
         }
 
-        public bool Delete(AuctionDeleteRequestModel request)
+        public async Task<bool> DeleteAsync(AuctionDeleteRequestModel request)
         {
             ValidateAuctionDelete(request);
 
             int loggedInUserId = m_permissionService.GetUserIdFromClaimsPrincipal();
 
-            return m_auctionsRepository.Delete(request, loggedInUserId);
+            return await m_auctionsRepository.DeleteAsync(request, loggedInUserId);
         }
 
         public int Create(AddAuctionRequestModel request)

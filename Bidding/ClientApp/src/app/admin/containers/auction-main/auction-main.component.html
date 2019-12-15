@@ -1,6 +1,6 @@
 <!-- Modals -->
 <div class="text-right">
-  <ng-container *ngIf="selected.length === 1">
+  <!-- <ng-container *ngIf="selectedAuctions.length === 1">
     <button
       value="Edit Auction"
       type="button"
@@ -9,9 +9,9 @@
     >
       Edit
     </button>
-  </ng-container>
+  </ng-container> -->
 
-  <ng-container *ngIf="selected.length > 0">
+  <ng-container *ngIf="selectedAuctions.length > 0">
     <button
       value="Delete Auction"
       type="button"
@@ -22,7 +22,7 @@
     </button>
   </ng-container>
 
-  <ng-container *ngIf="selected.length === 0">
+  <ng-container *ngIf="selectedAuctions.length === 0">
     <button
       value="Add Auction"
       type="button"
@@ -40,5 +40,7 @@
   <app-auction-list
     [selectedCategoryIds]="selectedCategoryIds"
     [selectedTypeIds]="selectedTypeIds"
+    [showSelectAllCheckboxColumn]="showSelectAllCheckboxColumn"
+    (selectedChange)="onSelectedChange($event)"
   ></app-auction-list>
 </div>

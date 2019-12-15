@@ -21,6 +21,25 @@ namespace Bidding.Repositories.Shared
             m_context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
+        public async Task UploadFileAsync(byte[] fileBytes, string fileName, string fileContentType, CloudBlobContainer cloudBlobContainer)
+        {
+            // todo: kke: if file upload fails we need to delete auction from database!!! data corroption problem!
+            try
+            {
+                CloudBlockBlob cloudBlockBlob = cloudBlobContainer.GetBlockBlobReference(fileName);
+
+                cloudBlockBlob.Properties.ContentType = fileContentType;
+
+                const int byteArrayStartIndex = 0;
+
+                await cloudBlockBlob.UploadFromByteArrayAsync(fileBytes, byteArrayStartIndex, fileBytes.Length).ConfigureAwait(true);
+            }
+            catch (Exception ex)
+            {
+                throw new WebApiException(HttpStatusCode.InternalServerError, FileUploadErrorMessage.GenericUploadErrorMessage, ex);
+            }
+        }
+
         public async Task UploadFileAsync(MemoryStream fileStream, string fileName, string fileContentType, CloudBlobContainer cloudBlobContainer)
         {
             // todo: kke: if file upload fails we need to delete auction from database!!! data corroption problem!

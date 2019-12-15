@@ -1,6 +1,11 @@
 <div class="modal-header">
   <h5 class="modal-title pull-left">Delete Auction</h5>
-  <button type="button" class="close pull-right" aria-label="Close" (click)="bsModalRef.hide()">
+  <button
+    type="button"
+    class="close pull-right"
+    aria-label="Close"
+    (click)="bsModalRef.hide()"
+  >
     <span aria-hidden="true">&times;</span>
   </button>
 </div>
@@ -10,10 +15,13 @@
     <div class="form-row">
       <div class="form-group col-12">
         <p>
-          <strong>You are about to delete the following auction:</strong>
+          <strong>Vai tiešām vēlies izdzēst šīs izsoles?</strong>
         </p>
-        <ul *ngFor="let auction of selectedAuctions; let i = index">
-          <li>{{ auction.auctionName }}</li>
+
+        <ul>
+          <ng-container *ngFor="let auction of selectedAuctions; let i = index">
+            <li>{{ auction.auctionName }}</li>
+          </ng-container>
         </ul>
       </div>
     </div>
@@ -21,8 +29,10 @@
     <div class="form-row">
       <div class="col-12">
         <div class="form-group modal-buttons float-right">
-          <button class="btn btn-danger" (click)="onSubmit()">Delete</button>
-          <button class="btn btn-outline-dark" (click)="bsModalRef.hide()">Cancel</button>
+          <button class="btn btn-danger" (click)="onSubmit()">Piekrītu</button>
+          <button class="btn btn-outline-dark" (click)="bsModalRef.hide()">
+            Atcelt
+          </button>
         </div>
       </div>
     </div>

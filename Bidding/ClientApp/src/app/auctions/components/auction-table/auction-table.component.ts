@@ -18,7 +18,7 @@ export class AuctionTableComponent implements OnInit {
   @Input() selected: AuctionListItemModel[];
 
   /** Show or hide select all checkbox column in template. */
-  @Input() showSelectAllCheckboxColumn? = false;
+  @Input() showSelectAllCheckboxColumn: boolean;
 
   @Output() pageChange = new EventEmitter<number>();
   @Output() sortChange = new EventEmitter<boolean>();
