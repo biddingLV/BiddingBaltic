@@ -1,5 +1,6 @@
 // angular
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, OnDestroy } from "@angular/core";
+import { ActivatedRoute } from "@angular/router";
 
 // 3rd lib
 import { Subscription } from "rxjs";
@@ -19,7 +20,7 @@ import { BreadcrumbItem } from "ClientApp/src/app/shared/models/breadcrumb-item.
   templateUrl: "./main.component.html",
   styleUrls: ["./main.component.scss"]
 })
-export class AuctionMainComponent implements OnInit {
+export class AuctionMainComponent implements OnInit, OnDestroy {
   // component
   mainSubscription: Subscription;
 
@@ -45,14 +46,19 @@ export class AuctionMainComponent implements OnInit {
   // breadcrumbs
   breadcrumbs: BreadcrumbItem[];
 
+  // template
+  categoryFilter: string = "";
+
   constructor(
     private auctionService: AuctionsService,
-    private notificationService: NotificationsService
+    private notificationService: NotificationsService,
+    private activatedRoute: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
     this.generateBreadcrumbs();
     this.loadFilters();
+    this.handleCategoryFilterChange();
   }
 
   /** Called on auction search event */
@@ -66,6 +72,12 @@ export class AuctionMainComponent implements OnInit {
 
   onSubCategoryChange(typeIds: number[]) {
     this.selectedTypeIds = typeIds;
+  }
+
+  ngOnDestroy(): void {
+    if (this.mainSubscription) {
+      this.mainSubscription.unsubscribe();
+    }
   }
 
   private generateBreadcrumbs() {
@@ -93,5 +105,14 @@ export class AuctionMainComponent implements OnInit {
         },
         (error: string) => this.notificationService.error(error)
       );
+  }
+
+  private handleCategoryFilterChange(): void {
+    this.mainSubscription = this.activatedRoute.queryParams.subscribe(
+      params => {
+        let filterParam: string = params["filtrs"];
+        if (filterParam) this.categoryFilter = filterParam;
+      }
+    );
   }
 }

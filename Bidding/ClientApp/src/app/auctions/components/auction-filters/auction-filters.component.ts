@@ -5,7 +5,9 @@ import {
   Output,
   EventEmitter,
   Input,
-  ViewChild
+  ViewChild,
+  OnChanges,
+  SimpleChanges
 } from "@angular/core";
 
 // 3rd lib
@@ -15,14 +17,19 @@ import { NgSelectComponent } from "@ng-select/ng-select";
 // internal
 import { AuctionFilterModel } from "../../models/filters/auction-filter.model";
 import { SubCategoryFilterModel } from "../../models/filters/sub-category-filter.model";
+import {
+  AuctionTopCategoryNames,
+  AuctionTopCategoryIds
+} from "ClientApp/src/app/core/constants/auction-top-category-constants";
 
 @Component({
   selector: "app-auction-filters",
   templateUrl: "./auction-filters.component.html"
 })
-export class AuctionFiltersComponent implements OnInit {
+export class AuctionFiltersComponent implements OnInit, OnChanges {
   @Input() filters: AuctionFilterModel;
   @Input() auctionTypes: SubCategoryFilterModel[];
+  @Input() categoryFilter?: string;
 
   @Output() topCategoryChange = new EventEmitter<number[]>();
   @Output() subCategoryChange = new EventEmitter<number[]>();
@@ -36,7 +43,20 @@ export class AuctionFiltersComponent implements OnInit {
   selectedCategoryIds: number[];
   selectedTypeIds: number[];
 
+  // template
+  selectedCategory: number;
+
   constructor() {}
+
+  ngOnChanges(changes: SimpleChanges): void {
+    const categoryFilterChange = changes["categoryFilter"];
+
+    if (categoryFilterChange && categoryFilterChange.currentValue) {
+      this.handleCardLinkClick(categoryFilterChange.currentValue);
+    }
+
+    return;
+  }
 
   ngOnInit(): void {}
 
@@ -60,5 +80,19 @@ export class AuctionFiltersComponent implements OnInit {
     this.selectedTypeIds = typeIds;
 
     this.subCategoryChange.emit(typeIds);
+  }
+
+  private handleCardLinkClick(filterParam: string) {
+    if (filterParam === AuctionTopCategoryNames.VehicleCategoryName) {
+      this.selectedCategory = AuctionTopCategoryIds.VehicleCategoryId;
+    }
+
+    if (filterParam === AuctionTopCategoryNames.PropertyCategoryName) {
+      this.selectedCategory = AuctionTopCategoryIds.PropertyCategoryId;
+    }
+
+    if (filterParam === AuctionTopCategoryNames.ItemCategoryName) {
+      this.selectedCategory = AuctionTopCategoryIds.ItemCategoryId;
+    }
   }
 }

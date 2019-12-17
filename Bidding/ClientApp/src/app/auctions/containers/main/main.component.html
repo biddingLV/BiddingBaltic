@@ -24,6 +24,7 @@
         <app-auction-filters
           [filters]="filters"
           [auctionTypes]="auctionTypes"
+          [categoryFilter]="categoryFilter"
           (topCategoryChange)="onTopCategoryChange($event)"
           (subCategoryChange)="onSubCategoryChange($event)"
         ></app-auction-filters>
@@ -38,6 +39,7 @@
         [selectedCategoryIds]="selectedCategoryIds"
         [selectedTypeIds]="selectedTypeIds"
         [specifiedSearchText]="specifiedSearchText"
+        [categoryFilter]="categoryFilter"
       ></app-auction-list>
     </div>
   </div>

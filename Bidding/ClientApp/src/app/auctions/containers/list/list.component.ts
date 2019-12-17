@@ -1,6 +1,14 @@
 // angular
-import { Component, OnInit, Input, SimpleChanges, EventEmitter, Output } from "@angular/core";
-import { ActivatedRoute } from "@angular/router";
+import {
+  Component,
+  OnInit,
+  Input,
+  SimpleChanges,
+  EventEmitter,
+  Output,
+  OnChanges,
+  OnDestroy
+} from "@angular/core";
 
 // 3rd lib
 import { Subscription } from "rxjs";
@@ -21,10 +29,11 @@ import { AuctionListItemModel } from "../../models/list/auction-list-item.model"
   selector: "app-auction-list",
   templateUrl: "./list.component.html"
 })
-export class AuctionListComponent implements OnInit {
+export class AuctionListComponent implements OnInit, OnChanges, OnDestroy {
   @Input() selectedCategoryIds: number[];
   @Input() selectedTypeIds: number[];
   @Input() specifiedSearchText: string;
+  @Input() categoryFilter?: string;
 
   /** Show or hide select all checkbox column in auction table. */
   @Input() showSelectAllCheckboxColumn?: boolean;
@@ -46,7 +55,6 @@ export class AuctionListComponent implements OnInit {
   constructor(
     private auctionService: AuctionsService,
     private notificationService: NotificationsService,
-    private activatedRoute: ActivatedRoute,
     private authService: AuthService
   ) {
     if (this.authService.userDetails) {
@@ -58,6 +66,7 @@ export class AuctionListComponent implements OnInit {
     const categoryIdsChange = changes["selectedCategoryIds"];
     const typeIdsChange = changes["selectedTypeIds"];
     const searchTextChange = changes["specifiedSearchText"];
+    const categoryFilterChange = changes["categoryFilter"];
 
     if (categoryIdsChange && !categoryIdsChange.isFirstChange()) {
       this.auctionListRequest.topCategoryIds = categoryIdsChange.currentValue;
@@ -77,23 +86,17 @@ export class AuctionListComponent implements OnInit {
       this.loadActiveAuctions();
     }
 
+    if (categoryFilterChange && categoryFilterChange.currentValue) {
+      this.handleCardLinkClick(categoryFilterChange.currentValue);
+    } else {
+      this.setupInitialAuctionRequest();
+      this.loadActiveAuctions();
+    }
+
     return;
   }
 
-  ngOnInit(): void {
-    this.listSubscription = this.activatedRoute.queryParams.subscribe(
-      params => {
-        let filterParam: string = params["filtrs"];
-
-        if (filterParam) {
-          this.handleCardLinkClick(filterParam);
-        } else {
-          this.setupInitialAuctionRequest();
-          this.loadActiveAuctions();
-        }
-      }
-    );
-  }
+  ngOnInit(): void {}
 
   onSortChange(event): void {
     // this.request.SortColumn = event.column.prop;
@@ -122,6 +125,12 @@ export class AuctionListComponent implements OnInit {
       this.loadAuctionsWithSearch();
     } else {
       this.loadAuctionsWithoutSearch();
+    }
+  }
+
+  ngOnDestroy(): void {
+    if (this.listSubscription) {
+      this.listSubscription.unsubscribe();
     }
   }
 
