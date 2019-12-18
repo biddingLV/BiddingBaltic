@@ -32,6 +32,7 @@ export class AuctionAddWizardVehicleComponent implements OnInit {
   formErrors = {
     vehicleName: "",
     auctionStartingPrice: "",
+    auctionValueAddedTax: "",
     vehicleMake: "",
     vehicleModel: "",
     vehicleManufacturingYear: "",
@@ -173,6 +174,7 @@ export class AuctionAddWizardVehicleComponent implements OnInit {
         null,
         [Validators.required, CustomValidators.validatePrice]
       ],
+      auctionValueAddedTax: [false, []],
       vehicleMake: [null, [Validators.required]],
       vehicleModel: [null, [Validators.required]],
       vehicleManufacturingYear: [

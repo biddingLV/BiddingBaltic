@@ -55,7 +55,8 @@ export class AuctionAddWizardItemComponent implements OnInit {
     itemCondition: "",
     itemEvaluation: "",
     itemVolume: "",
-    auctionStartingPrice: ""
+    auctionStartingPrice: "",
+    auctionValueAddedTax: ""
   };
 
   itemConditions = [
@@ -161,6 +162,7 @@ export class AuctionAddWizardItemComponent implements OnInit {
         null,
         [Validators.required, CustomValidators.validatePrice]
       ],
+      auctionValueAddedTax: [false, []],
       itemVolume: [null, []],
       itemCompanyType: [null, []],
       auctionFiles: [null, []]

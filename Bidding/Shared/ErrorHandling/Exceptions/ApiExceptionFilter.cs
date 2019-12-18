@@ -36,7 +36,7 @@ namespace Bidding.Shared.Exceptions
                 }
                 if (wex.UserMessage != null)
                 {
-                    await context.HttpContext.Response.WriteAsync(wex.UserMessage).ConfigureAwait(false);
+                    await context.HttpContext.Response.WriteAsync(wex.UserMessage).ConfigureAwait(true);
                 }
             }
             else // unhandled exceptions: send an email (note that unhandled exceptions are automatically logged in the logger)

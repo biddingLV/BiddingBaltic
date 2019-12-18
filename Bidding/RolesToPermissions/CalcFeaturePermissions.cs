@@ -31,7 +31,7 @@ namespace FeatureAuthorize
                        join rol in _context.Roles on urol.RoleId equals rol.Id
                        join rperm in _context.RolesToPermissions on rol.Name equals rperm.RoleName
                        where urol.UserId == userId
-                       select rperm.PermissionsInRole).FirstOrDefaultAsync().ConfigureAwait(false);
+                       select rperm.PermissionsInRole).FirstOrDefaultAsync().ConfigureAwait(true);
 
             //// we get the modules this user is allowed to see
             //// todo: KKE: Research this part!

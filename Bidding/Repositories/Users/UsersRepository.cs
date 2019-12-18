@@ -60,10 +60,10 @@ namespace Bidding.Repositories.Users
 
             if (userDetails.IsSpecified())
             {
-                return await HandleExistingUserAsync(user, userDetails).ConfigureAwait(false);
+                return await HandleExistingUserAsync(user, userDetails).ConfigureAwait(true);
             }
 
-            return await HandleNewUserAsync(user).ConfigureAwait(false);
+            return await HandleNewUserAsync(user).ConfigureAwait(true);
         }
 
         public async Task<UserBasicDetailsResponseModel> UserDetails(int userId)
@@ -109,7 +109,7 @@ namespace Bidding.Repositories.Users
             userForUpdate.LastName = request.LastName;
             userForUpdate.PhoneNumber = request.Phone;
 
-            IdentityResult result = await m_userManager.UpdateAsync(userForUpdate).ConfigureAwait(false);
+            IdentityResult result = await m_userManager.UpdateAsync(userForUpdate).ConfigureAwait(true);
 
             if (result.Succeeded)
             {
@@ -149,7 +149,7 @@ namespace Bidding.Repositories.Users
                 //var aaa3 = await m_userManager.AddToRoleAsync(userForUpdate, userRole.Name).ConfigureAwait(true);
             }
 
-            IdentityResult result = await m_userManager.UpdateAsync(userForUpdate).ConfigureAwait(false);
+            IdentityResult result = await m_userManager.UpdateAsync(userForUpdate).ConfigureAwait(true);
 
             if (result.Succeeded)
             {
@@ -208,7 +208,7 @@ namespace Bidding.Repositories.Users
             {
                 userDetails.EmailConfirmed = user.EmailConfirmed;
 
-                await m_userManager.UpdateAsync(userDetails).ConfigureAwait(false);
+                await m_userManager.UpdateAsync(userDetails).ConfigureAwait(true);
             }
 
             return userDetails;
@@ -216,11 +216,11 @@ namespace Bidding.Repositories.Users
 
         private async Task<ApplicationUser> HandleNewUserAsync(ApplicationUser user)
         {
-            IdentityResult result = await m_userManager.CreateAsync(user).ConfigureAwait(false);
+            IdentityResult result = await m_userManager.CreateAsync(user).ConfigureAwait(true);
 
             if (result.Succeeded)
             {
-                await AddBasicRoleToNewUser(user).ConfigureAwait(false);
+                await AddBasicRoleToNewUser(user).ConfigureAwait(true);
             }
 
             if (!result.Succeeded)
@@ -233,7 +233,7 @@ namespace Bidding.Repositories.Users
 
         private async Task AddBasicRoleToNewUser(ApplicationUser user)
         {
-            IdentityResult result = await m_userManager.AddToRoleAsync(user, ApplicationUserRoles.BasicUser).ConfigureAwait(false);
+            IdentityResult result = await m_userManager.AddToRoleAsync(user, ApplicationUserRoles.BasicUser).ConfigureAwait(true);
 
             if (!result.Succeeded)
             {

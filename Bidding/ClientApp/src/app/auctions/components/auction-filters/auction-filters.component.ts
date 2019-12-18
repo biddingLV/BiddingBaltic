@@ -44,7 +44,8 @@ export class AuctionFiltersComponent implements OnInit, OnChanges {
   selectedTypeIds: number[];
 
   // template
-  selectedCategory: number;
+  // note: kke: super strange that this only works with Array, not just number!
+  preselectedCategory: number[] = [];
 
   constructor() {}
 
@@ -84,15 +85,15 @@ export class AuctionFiltersComponent implements OnInit, OnChanges {
 
   private handleCardLinkClick(filterParam: string) {
     if (filterParam === AuctionTopCategoryNames.VehicleCategoryName) {
-      this.selectedCategory = AuctionTopCategoryIds.VehicleCategoryId;
+      this.preselectedCategory.push(AuctionTopCategoryIds.VehicleCategoryId);
     }
 
     if (filterParam === AuctionTopCategoryNames.PropertyCategoryName) {
-      this.selectedCategory = AuctionTopCategoryIds.PropertyCategoryId;
+      this.preselectedCategory.push(AuctionTopCategoryIds.PropertyCategoryId);
     }
 
     if (filterParam === AuctionTopCategoryNames.ItemCategoryName) {
-      this.selectedCategory = AuctionTopCategoryIds.ItemCategoryId;
+      this.preselectedCategory.push(AuctionTopCategoryIds.ItemCategoryId);
     }
   }
 }

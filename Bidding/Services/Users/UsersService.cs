@@ -40,7 +40,7 @@ namespace Bidding.Services.Users
             if (user.EmailConfirmed.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.Unauthorized, UserErrorMessage.CanNotSignIn); }
             if (user.UserName.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.Unauthorized, UserErrorMessage.CanNotSignIn); }
 
-            return await m_userRepository.HandleUserLoginAsync(user).ConfigureAwait(false);
+            return await m_userRepository.HandleUserLoginAsync(user).ConfigureAwait(true);
         }
 
         public async Task<UserBasicDetailsResponseModel> UserDetails(int userId)

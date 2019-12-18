@@ -1,12 +1,16 @@
 <div class="row mb-5">
   <div class="col-6">
-    <label for="">Kategorija</label>
+    <label for="topCategory">Kategorija</label>
     <ng-select
+      #categorySelect
+      id="topCategory"
+      name="topCategory"
       [clearable]="false"
       [virtualScroll]="true"
       [multiple]="true"
       [closeOnSelect]="false"
       placeholder="Izvēlies kategoriju"
+      [(ngModel)]="preselectedCategory"
       (change)="onCategoryChange($event)"
     >
       <ng-option
@@ -19,9 +23,11 @@
   </div>
 
   <div class="col-6">
-    <label for="">Tips</label>
+    <label for="subCategory">Tips</label>
     <ng-select
       #typeSelect
+      id="subCategory"
+      name="subCategory"
       [clearable]="false"
       [virtualScroll]="true"
       [multiple]="true"

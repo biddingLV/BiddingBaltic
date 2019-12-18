@@ -10,6 +10,7 @@ namespace Bidding.Models.ViewModels.Auctions.Details
 
         [Column(TypeName = "decimal(18,2)")]
         public decimal AuctionStartingPrice { get; set; }
+        public string AuctionValueAddedTax { get; set; }
         public string AuctionFormat { get; set; }
         public DateTime? AuctionStartDate { get; set; }
         public DateTime AuctionApplyTillDate { get; set; }

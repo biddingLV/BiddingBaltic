@@ -110,8 +110,10 @@ export class AuctionMainComponent implements OnInit, OnDestroy {
   private handleCategoryFilterChange(): void {
     this.mainSubscription = this.activatedRoute.queryParams.subscribe(
       params => {
-        let filterParam: string = params["filtrs"];
-        if (filterParam) this.categoryFilter = filterParam;
+        if (Object.keys(params).length) {
+          let filterParam: string = params["filtrs"];
+          if (filterParam) this.categoryFilter = filterParam;
+        }
       }
     );
   }

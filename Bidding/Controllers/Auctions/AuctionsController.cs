@@ -56,7 +56,7 @@ namespace Bidding.Controllers.Auctions
         [AllowAnonymous]
         public async Task<IActionResult> Details([FromQuery] AuctionDetailsRequestModel request)
         {
-            return Ok(await m_auctionsService.DetailsAsync(request).ConfigureAwait(false));
+            return Ok(await m_auctionsService.DetailsAsync(request).ConfigureAwait(true));
         }
 
         /// <summary>

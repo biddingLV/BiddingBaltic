@@ -256,6 +256,7 @@ export class AuctionAddMainWizardComponent
       auctionFormatId: categoryStepValues.auctionFormat,
       auctionName: "", // todo: kke: why this is just empty string here?
       auctionStartingPrice: addStepValues.auctionStartingPrice,
+      auctionValueAddedTax: addStepValues.auctionValueAddedTax,
       auctionStartDate: this.combineDateWithTime(
         aboutStepValues.auctionStartDate,
         aboutStepValues.auctionStartTime

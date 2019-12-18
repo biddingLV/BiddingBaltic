@@ -21,7 +21,9 @@
               {{ formErrors.vehicleName }}
             </div>
           </div>
+        </div>
 
+        <div class="form-row">
           <div class="form-group col-6">
             <label for="auctionStartingPrice">Minimālā cena (EUR)</label>
             <input
@@ -40,6 +42,23 @@
               class="invalid-feedback"
             >
               {{ formErrors.auctionStartingPrice }}
+            </div>
+          </div>
+        </div>
+
+        <div class="form-row">
+          <div class="form-group col-6">
+            <div class="custom-control custom-checkbox">
+              <input
+                type="checkbox"
+                class="custom-control-input"
+                id="auctionValueAddedTax"
+                formControlName="auctionValueAddedTax"
+                aria-label="Checkbox for value added tax"
+              />
+              <label class="custom-control-label" for="auctionValueAddedTax"
+                >Ir PVN</label
+              >
             </div>
           </div>
         </div>

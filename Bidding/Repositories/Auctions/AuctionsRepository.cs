@@ -179,7 +179,7 @@ namespace Bidding.Repositories.Auctions
         public async Task<AuctionDetailsResponseModel> DetailsAsync(AuctionDetailsRequestModel request)
         {
             // check if auction exists and only then do the full join
-            bool auctionExists = await m_context.Auctions.AnyAsync(auct => auct.AuctionId == request.AuctionId).ConfigureAwait(false);
+            bool auctionExists = await m_context.Auctions.AnyAsync(auct => auct.AuctionId == request.AuctionId).ConfigureAwait(true);
 
             if (auctionExists)
             {
@@ -196,21 +196,21 @@ namespace Bidding.Repositories.Auctions
                         AuctionDetails = adet,
                         AuctionCreator = acrea
                     }
-                ).FirstOrDefaultAsync().ConfigureAwait(false);
+                ).FirstOrDefaultAsync().ConfigureAwait(true);
 
                 if (details.Auction.AuctionCategoryId == AuctionCategories.Item)
                 {
-                    return await SetupItemAuctionDetails(details, request).ConfigureAwait(true);
+                    return await SetupItemAuctionDetailsAsync(details, request).ConfigureAwait(true);
                 }
 
                 if (details.Auction.AuctionCategoryId == AuctionCategories.Vehicle)
                 {
-                    return await SetupVehicleAuctionDetails(details, request).ConfigureAwait(true);
+                    return await SetupVehicleAuctionDetailsAsync(details, request).ConfigureAwait(true);
                 }
 
                 if (details.Auction.AuctionCategoryId == AuctionCategories.Property)
                 {
-                    return await SetupPropertyAuctionDetails(details, request).ConfigureAwait(true);
+                    return await SetupPropertyAuctionDetailsAsync(details, request).ConfigureAwait(true);
                 }
 
                 throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation);
@@ -355,7 +355,7 @@ namespace Bidding.Repositories.Auctions
                                     await m_context.Auctions.Where(auct => auct.AuctionId == auctionId).FirstOrDefaultAsync().ConfigureAwait(true);
 
                                 if (CloudStorageAccount.TryParse(m_azureStorageConnectionString, out CloudStorageAccount cloudStorageAccount))
-                                {                                  
+                                {
                                     try
                                     {
                                         CloudBlobClient cloudBlobClient = cloudStorageAccount.CreateCloudBlobClient();
@@ -435,6 +435,7 @@ namespace Bidding.Repositories.Auctions
             {
                 Name = request.AboutAuction.AuctionName,
                 StartingPrice = ConvertStringToDecimal(request.AboutAuction.AuctionStartingPrice),
+                ValueAddedTax = request.AboutAuction.AuctionValueAddedTax,
                 StartDate = request.AboutAuction.AuctionStartDate ?? null,
                 ApplyTillDate = request.AboutAuction.AuctionApplyTillDate,
                 EndDate = request.AboutAuction.AuctionEndDate,
@@ -584,21 +585,16 @@ namespace Bidding.Repositories.Auctions
             return m_context.Regions.FirstOrDefault(preg => preg.RegionId == regionId).Name;
         }
 
-        private async Task<AuctionDetailsResponseModel> SetupVehicleAuctionDetails(AuctionDetailsModel details, AuctionDetailsRequestModel request)
+        private async Task<AuctionDetailsResponseModel> SetupVehicleAuctionDetailsAsync(AuctionDetailsModel details, AuctionDetailsRequestModel request)
         {
             string auctionFormatName = LoadAuctionFormatName(details.Auction.AuctionFormatId);
             string transmissionName = details.AuctionDetails.TransmissionId.IsNotSpecified() ? null : LoadVehicleTransmissionName(details.AuctionDetails.TransmissionId.Value);
             string fuelTypeName = details.AuctionDetails.FuelTypeId.IsNotSpecified() ? null : LoadVehicleFuelTypeName(details.AuctionDetails.FuelTypeId.Value);
             string dimensionName = details.AuctionDetails.DimensionTypeId.IsNotSpecified() ? null : LoadVehicleDimensionTypeName(details.AuctionDetails.DimensionTypeId.Value);
+            string inspectionActive = details.AuctionDetails.InspectionActive.HasValue && details.AuctionDetails.InspectionActive.Value ? "Ir" : "Nav";
 
-            string inspectionActive = "Nav";
 
-            if (details.AuctionDetails.InspectionActive.HasValue && details.AuctionDetails.InspectionActive.Value)
-            {
-                inspectionActive = "Ir";
-            }
-
-            Tuple<List<string>, List<string>> auctionFiles = await LoadAuctionFiles(request.AuctionId).ConfigureAwait(true);
+            Tuple<List<string>, List<string>> auctionFiles = await LoadAuctionFilesAsync(request.AuctionId).ConfigureAwait(true);
 
             return new AuctionDetailsResponseModel
             {
@@ -606,6 +602,7 @@ namespace Bidding.Repositories.Auctions
                 {
                     AuctionName = details.Auction.Name,
                     AuctionStartingPrice = details.Auction.StartingPrice,
+                    AuctionValueAddedTax = details.Auction.ValueAddedTax ? "Ir" : "Nav",
                     AuctionStartDate = details.Auction.StartDate,
                     AuctionApplyTillDate = details.Auction.ApplyTillDate,
                     AuctionEndDate = details.Auction.EndDate,
@@ -639,13 +636,13 @@ namespace Bidding.Repositories.Auctions
             };
         }
 
-        private async Task<AuctionDetailsResponseModel> SetupItemAuctionDetails(AuctionDetailsModel details, AuctionDetailsRequestModel request)
+        private async Task<AuctionDetailsResponseModel> SetupItemAuctionDetailsAsync(AuctionDetailsModel details, AuctionDetailsRequestModel request)
         {
             string auctionFormatName = LoadAuctionFormatName(details.Auction.AuctionFormatId);
             string conditionName = details.AuctionDetails.ConditionId.IsNotSpecified() ? null : LoadItemConditionName(details.AuctionDetails.ConditionId.Value);
             string companyTypeName = details.AuctionDetails.CompanyTypeId.IsNotSpecified() ? null : LoadCompanyTypeName(details.AuctionDetails.CompanyTypeId.Value);
 
-            Tuple<List<string>, List<string>> auctionFiles = await LoadAuctionFiles(request.AuctionId).ConfigureAwait(true);
+            Tuple<List<string>, List<string>> auctionFiles = await LoadAuctionFilesAsync(request.AuctionId).ConfigureAwait(true);
 
             return new AuctionDetailsResponseModel
             {
@@ -653,6 +650,7 @@ namespace Bidding.Repositories.Auctions
                 {
                     AuctionName = details.Auction.Name,
                     AuctionStartingPrice = details.Auction.StartingPrice,
+                    AuctionValueAddedTax = details.Auction.ValueAddedTax ? "Ir" : "Nav",
                     AuctionStartDate = details.Auction.StartDate,
                     AuctionApplyTillDate = details.Auction.ApplyTillDate,
                     AuctionEndDate = details.Auction.EndDate,
@@ -680,13 +678,13 @@ namespace Bidding.Repositories.Auctions
             };
         }
 
-        private async Task<AuctionDetailsResponseModel> SetupPropertyAuctionDetails(AuctionDetailsModel details, AuctionDetailsRequestModel request)
+        private async Task<AuctionDetailsResponseModel> SetupPropertyAuctionDetailsAsync(AuctionDetailsModel details, AuctionDetailsRequestModel request)
         {
             string auctionFormatName = LoadAuctionFormatName(details.Auction.AuctionFormatId);
             string measurementTypeName = details.AuctionDetails.MeasurementTypeId.IsNotSpecified() ? null : LoadPropertyMeasurementTypeName(details.AuctionDetails.MeasurementTypeId.Value);
             string regionName = details.AuctionDetails.RegionId.IsNotSpecified() ? null : LoadPropertyRegionName(details.AuctionDetails.RegionId.Value);
 
-            Tuple<List<string>, List<string>> auctionFiles = await LoadAuctionFiles(request.AuctionId).ConfigureAwait(true);
+            Tuple<List<string>, List<string>> auctionFiles = await LoadAuctionFilesAsync(request.AuctionId).ConfigureAwait(true);
 
             return new AuctionDetailsResponseModel
             {
@@ -694,6 +692,7 @@ namespace Bidding.Repositories.Auctions
                 {
                     AuctionName = details.Auction.Name,
                     AuctionStartingPrice = details.Auction.StartingPrice,
+                    AuctionValueAddedTax = details.Auction.ValueAddedTax ? "Ir" : "Nav",
                     AuctionStartDate = details.Auction.StartDate,
                     AuctionApplyTillDate = details.Auction.ApplyTillDate,
                     AuctionEndDate = details.Auction.EndDate,
@@ -769,7 +768,7 @@ namespace Bidding.Repositories.Auctions
             m_context.AuctionDetails.Add(itemAuctionDetails);
         }
 
-        private async Task<Tuple<List<string>, List<string>>> LoadAuctionFiles(int auctionId)
+        private async Task<Tuple<List<string>, List<string>>> LoadAuctionFilesAsync(int auctionId)
         {
             var auctionImageUrls = new List<string>();
             var auctionDocumentUrls = new List<string>();

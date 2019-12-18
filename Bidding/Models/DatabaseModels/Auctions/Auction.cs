@@ -19,6 +19,8 @@ namespace Bidding.Models.DatabaseModels.Auctions
         [Column(TypeName = "decimal(18,2)")]
         public decimal StartingPrice { get; set; }
 
+        public bool ValueAddedTax { get; set; }
+
         public DateTime? StartDate { get; set; }
 
         [Required]

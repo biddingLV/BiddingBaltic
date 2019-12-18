@@ -367,10 +367,10 @@ namespace Bidding
                             };
 
                             UsersService usersService = services.BuildServiceProvider().GetService<UsersService>();
-                            ApplicationUser userDetails = await usersService.HandleUserLoginAsync(user).ConfigureAwait(false);
+                            ApplicationUser userDetails = await usersService.HandleUserLoginAsync(user).ConfigureAwait(true);
 
                             // setup user claims
-                            context.Principal.AddIdentity(await SetupUserClaimsAsync(services, userDetails).ConfigureAwait(false));
+                            context.Principal.AddIdentity(await SetupUserClaimsAsync(services, userDetails).ConfigureAwait(true));
 
                             // setup profile cookie
                             string userProfileCookieJSON = SetupUserProfileCookie(userDetails);
@@ -399,7 +399,7 @@ namespace Bidding
                 ),
                 new Claim(
                     type: PermissionConstants.PackedPermissionClaimType,
-                    value: await rtoPCalcer.CalcPermissionsForUserAsync(userDetails.Id).ConfigureAwait(false)
+                    value: await rtoPCalcer.CalcPermissionsForUserAsync(userDetails.Id).ConfigureAwait(true)
                 )
             };
 

@@ -41,7 +41,8 @@ export class AuctionAddWizardPropertyComponent implements OnInit, OnChanges {
     propertyAddress: "",
     propertyFloorCount: "",
     propertyRoomCount: "",
-    propertyEvaluation: ""
+    propertyEvaluation: "",
+    auctionValueAddedTax: ""
   };
 
   regions = RegionsConstants.names;
@@ -133,6 +134,7 @@ export class AuctionAddWizardPropertyComponent implements OnInit, OnChanges {
         null,
         [Validators.required, CustomValidators.validatePrice]
       ],
+      auctionValueAddedTax: [false, []],
       propertyCoordinates: [null, []],
       propertyRegion: [null, [Validators.required]],
       propertyCadastreNumber: [

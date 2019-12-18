@@ -15,7 +15,7 @@
     <app-auction-add-category-wizard-step
       class="w-100"
       awWizardStep
-      [stepTitle]="'Basic details'"
+      [stepTitle]="'Pamatinformācija'"
       [categories]="categories"
       [canExit]="moveDirectionCategoryStep"
       (emitTopCategoryId)="onTopCategoryChange($event)"
@@ -27,7 +27,7 @@
       <app-auction-add-add-wizard-step
         class="w-100"
         awWizardStep
-        stepTitle="Advanced details {{ i }}"
+        stepTitle="Papildu informācija {{ i }}"
         [selectedTopCategoryId]="selectedTopCategoryId"
         [canExit]="moveDirectionAddStep"
         [selectedSubCategoryId]="selectedSubCategoryId"

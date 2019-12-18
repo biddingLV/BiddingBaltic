@@ -119,7 +119,7 @@ namespace Bidding.Services.Auctions
             if (request.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
             if (request.AuctionId.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.IncorrectAuction); }
 
-            return await m_auctionsRepository.DetailsAsync(request).ConfigureAwait(false);
+            return await m_auctionsRepository.DetailsAsync(request).ConfigureAwait(true);
         }
 
         public AuctionEditDetailsResponseModel EditDetails(int auctionId)

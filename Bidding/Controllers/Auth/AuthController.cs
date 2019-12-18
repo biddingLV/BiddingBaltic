@@ -38,18 +38,18 @@ namespace Bidding.Controllers.Auth
             await HttpContext.ChallengeAsync(scheme, new AuthenticationProperties()
             {
                 RedirectUri = redirectPageUri.AbsoluteUri
-            }).ConfigureAwait(false);
+            }).ConfigureAwait(true);
         }
 
         public async Task Logout()
         {
             Response.Cookies.Delete(m_profileCookieName);
 
-            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme).ConfigureAwait(false);
+            await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme).ConfigureAwait(true);
             await HttpContext.SignOutAsync(scheme, new AuthenticationProperties
             {
                 RedirectUri = clientLogoutURL
-            }).ConfigureAwait(false);
+            }).ConfigureAwait(true);
         }
     }
 }
