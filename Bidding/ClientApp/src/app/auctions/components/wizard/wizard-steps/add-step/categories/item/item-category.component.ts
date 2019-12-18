@@ -22,6 +22,7 @@ export class AddItemFormFieldModel {
   showPictures: boolean;
   showVolumeField: boolean;
   showCompanyTypeField: boolean;
+  showValueAddedTaxField: boolean;
 
   constructor() {
     this.showModelField = true;
@@ -30,6 +31,7 @@ export class AddItemFormFieldModel {
     this.showPictures = true;
     this.showVolumeField = false;
     this.showCompanyTypeField = false;
+    this.showValueAddedTaxField = true;
   }
 }
 
@@ -205,6 +207,7 @@ export class AuctionAddWizardItemComponent implements OnInit {
       this.fieldConditions.showPictures = false;
       this.fieldConditions.showVolumeField = true;
       this.fieldConditions.showCompanyTypeField = true;
+      this.fieldConditions.showValueAddedTaxField = false;
     }
   }
 
