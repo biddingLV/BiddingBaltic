@@ -87,6 +87,30 @@
     </div>
   </div>
 
+  <div class="form-row" *ngIf="showWebsiteField">
+    <div class="form-group col-6">
+      <label for="auctionExternalWebsite">Izsoles portāls:</label>
+      <input
+        type="text"
+        formControlName="auctionExternalWebsite"
+        class="form-control"
+        id="auctionExternalWebsite"
+        name="auctionExternalWebsite"
+        [ngClass]="{
+          'is-invalid': submitted && f.auctionExternalWebsite.errors
+        }"
+        maxlength="100"
+      />
+
+      <div
+        *ngIf="submitted && formErrors.auctionExternalWebsite"
+        class="invalid-feedback"
+      >
+        {{ formErrors.auctionExternalWebsite }}
+      </div>
+    </div>
+  </div>
+
   <div class="form-row">
     <div class="form-group col-3">
       <label for="auctionStartDate">Izsoles sākums</label>

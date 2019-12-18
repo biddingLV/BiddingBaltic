@@ -6,13 +6,16 @@ import { Subscription, interval } from "rxjs";
 import { map } from "rxjs/operators";
 import * as moment from "moment-mini";
 
+// internal
+import { AboutAuctionDetailsModel } from "../../../models/details/about-auction-details.model";
+
 @Component({
   selector: "app-auction-details-countdown",
   templateUrl: "./countdown.component.html",
   styleUrls: ["./countdown.component.scss"]
 })
 export class AuctionDetailsCountdownComponent implements OnInit, OnDestroy {
-  @Input() aboutDetails: Auctions.AboutAuctionDetailsModel;
+  @Input() aboutDetails: AboutAuctionDetailsModel;
 
   /** Auction details countdown component subscription */
   countdownSub: Subscription;

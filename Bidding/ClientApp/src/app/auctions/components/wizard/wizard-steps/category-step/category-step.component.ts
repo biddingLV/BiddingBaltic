@@ -35,6 +35,7 @@ export class AuctionAddCategoryWizardStepComponent
 
   /** Selected auction sub-category id / type */
   @Output() emitSubCategoryId = new EventEmitter<number>();
+  @Output() emitFormatId = new EventEmitter<number>();
 
   auctionAddSubscription: Subscription;
 
@@ -92,6 +93,10 @@ export class AuctionAddCategoryWizardStepComponent
   /** Return sub-category id to the parent component */
   onSubCategoryChange(typeId: number): void {
     this.emitSubCategoryId.emit(typeId);
+  }
+
+  onFormatChange(formatId: number): void {
+    this.emitFormatId.emit(formatId);
   }
 
   /** On Next click validate if all the required values are specified */

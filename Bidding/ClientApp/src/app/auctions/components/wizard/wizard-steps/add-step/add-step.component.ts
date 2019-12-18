@@ -30,8 +30,6 @@ export class AuctionAddAddWizardStepComponent implements OnInit, OnChanges {
 
   constructor() {}
 
-  ngOnInit(): void {}
-
   ngOnChanges(changes: SimpleChanges): void {
     const topCategoryChange = changes["selectedTopCategoryId"];
 
@@ -41,6 +39,8 @@ export class AuctionAddAddWizardStepComponent implements OnInit, OnChanges {
       }
     }
   }
+
+  ngOnInit(): void {}
 
   addWizardStep(): void {
     this.emitAddWizardStep.emit(true);

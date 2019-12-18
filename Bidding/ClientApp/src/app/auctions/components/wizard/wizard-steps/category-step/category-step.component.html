@@ -79,6 +79,7 @@
               [closeOnSelect]="true"
               placeholder="Izvēlies veidu"
               [ngClass]="{ 'is-invalid': submitted && f.auctionFormat.errors }"
+              (change)="onFormatChange($event)"
             >
               <ng-option
                 *ngFor="let format of auctionFormats.formats; let i = index"

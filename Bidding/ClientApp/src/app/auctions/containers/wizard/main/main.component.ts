@@ -42,8 +42,10 @@ export class AuctionAddMainWizardComponent
   // API
   addAuctionRequest: Auctions.AddAuctionRequestModel;
 
+  // template
   selectedTopCategoryId: number;
   selectedSubCategoryId: number;
+  selectedFormatId: number;
 
   /** Category step component */
   @ViewChild(AuctionAddCategoryWizardStepComponent, { static: true })
@@ -105,6 +107,10 @@ export class AuctionAddMainWizardComponent
 
   onSubCategoryChange(typeId: number): void {
     this.selectedSubCategoryId = typeId;
+  }
+
+  onAuctionFormatChange(formatId: number): void {
+    this.selectedFormatId = formatId;
   }
 
   onClickNextReturnForm(formType: string, form: FormGroup): void {
