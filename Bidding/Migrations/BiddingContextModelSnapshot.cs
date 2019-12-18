@@ -41,8 +41,6 @@ namespace Bidding.Migrations
 
                     b.Property<DateTime>("CreatedAt");
 
-                    b.Property<bool>("Deleted");
-
                     b.Property<DateTime>("EndDate");
 
                     b.Property<DateTime>("LastUpdatedAt");
@@ -83,8 +81,6 @@ namespace Bidding.Migrations
 
                     b.Property<DateTime>("CreatedAt");
 
-                    b.Property<bool>("Deleted");
-
                     b.Property<DateTime>("LastUpdatedAt");
 
                     b.Property<int>("LastUpdatedBy");
@@ -102,7 +98,6 @@ namespace Bidding.Migrations
                         {
                             AuctionConditionId = 1,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Lietota"
@@ -111,7 +106,6 @@ namespace Bidding.Migrations
                         {
                             AuctionConditionId = 2,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Jauna"
@@ -120,7 +114,6 @@ namespace Bidding.Migrations
                         {
                             AuctionConditionId = 3,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Apdzīvots"
@@ -129,7 +122,6 @@ namespace Bidding.Migrations
                         {
                             AuctionConditionId = 4,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Neapdzīvots"
@@ -138,7 +130,6 @@ namespace Bidding.Migrations
                         {
                             AuctionConditionId = 5,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Nepieciešams remonts"
@@ -161,8 +152,6 @@ namespace Bidding.Migrations
                         .IsRequired();
 
                     b.Property<DateTime>("CreatedAt");
-
-                    b.Property<bool>("Deleted");
 
                     b.Property<DateTime>("LastUpdatedAt");
 
@@ -197,8 +186,6 @@ namespace Bidding.Migrations
                     b.Property<string>("Coordinates");
 
                     b.Property<DateTime>("CreatedAt");
-
-                    b.Property<bool>("Deleted");
 
                     b.Property<int?>("DimensionTypeId");
 
@@ -272,8 +259,6 @@ namespace Bidding.Migrations
 
                     b.Property<DateTime>("CreatedAt");
 
-                    b.Property<bool>("Deleted");
-
                     b.Property<DateTime>("LastUpdatedAt");
 
                     b.Property<int>("LastUpdatedBy");
@@ -291,7 +276,6 @@ namespace Bidding.Migrations
                         {
                             AuctionFormatId = 1,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Cenu aptauja"
@@ -300,7 +284,6 @@ namespace Bidding.Migrations
                         {
                             AuctionFormatId = 2,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Izsole elektroniski"
@@ -309,7 +292,6 @@ namespace Bidding.Migrations
                         {
                             AuctionFormatId = 3,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Izsole klātienē"
@@ -329,8 +311,6 @@ namespace Bidding.Migrations
                     b.Property<int>("AuctionItemTypeId");
 
                     b.Property<DateTime>("CreatedAt");
-
-                    b.Property<bool>("Deleted");
 
                     b.Property<DateTime>("LastUpdatedAt");
 
@@ -359,8 +339,6 @@ namespace Bidding.Migrations
 
                     b.Property<DateTime>("CreatedAt");
 
-                    b.Property<bool>("Deleted");
-
                     b.Property<DateTime>("LastUpdatedAt");
 
                     b.Property<int>("LastUpdatedBy");
@@ -378,7 +356,6 @@ namespace Bidding.Migrations
                         {
                             AuctionStatusId = 1,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Aktīva"
@@ -387,7 +364,6 @@ namespace Bidding.Migrations
                         {
                             AuctionStatusId = 2,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Pārtraukta"
@@ -396,22 +372,19 @@ namespace Bidding.Migrations
                         {
                             AuctionStatusId = 3,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Beigusies"
                         });
                 });
 
-            modelBuilder.Entity("Bidding.Models.DatabaseModels.Categories.Category", b =>
+            modelBuilder.Entity("Bidding.Models.DatabaseModels.Categories.AuctionCategory", b =>
                 {
                     b.Property<int>("CategoryId")
                         .ValueGeneratedOnAdd()
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("CreatedAt");
-
-                    b.Property<bool>("Deleted");
 
                     b.Property<DateTime>("LastUpdatedAt");
 
@@ -430,7 +403,6 @@ namespace Bidding.Migrations
                         {
                             CategoryId = 1,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Transports"
@@ -439,7 +411,6 @@ namespace Bidding.Migrations
                         {
                             CategoryId = 2,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Manta"
@@ -448,14 +419,13 @@ namespace Bidding.Migrations
                         {
                             CategoryId = 3,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Nekustamais īpašums"
                         });
                 });
 
-            modelBuilder.Entity("Bidding.Models.DatabaseModels.Categories.Type", b =>
+            modelBuilder.Entity("Bidding.Models.DatabaseModels.Categories.AuctionType", b =>
                 {
                     b.Property<int>("TypeId")
                         .ValueGeneratedOnAdd()
@@ -464,8 +434,6 @@ namespace Bidding.Migrations
                     b.Property<int>("AuctionCategoryId");
 
                     b.Property<DateTime>("CreatedAt");
-
-                    b.Property<bool>("Deleted");
 
                     b.Property<DateTime>("LastUpdatedAt");
 
@@ -487,7 +455,6 @@ namespace Bidding.Migrations
                             TypeId = 1,
                             AuctionCategoryId = 1,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Vieglais transports līdz 3,5t"
@@ -497,7 +464,6 @@ namespace Bidding.Migrations
                             TypeId = 2,
                             AuctionCategoryId = 1,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Traktortehnika"
@@ -507,7 +473,6 @@ namespace Bidding.Migrations
                             TypeId = 3,
                             AuctionCategoryId = 1,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Kravas auto"
@@ -517,7 +482,6 @@ namespace Bidding.Migrations
                             TypeId = 4,
                             AuctionCategoryId = 1,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Mototehnika"
@@ -527,7 +491,6 @@ namespace Bidding.Migrations
                             TypeId = 5,
                             AuctionCategoryId = 1,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Piekabes"
@@ -537,7 +500,6 @@ namespace Bidding.Migrations
                             TypeId = 6,
                             AuctionCategoryId = 1,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Ūdens transports"
@@ -547,7 +509,6 @@ namespace Bidding.Migrations
                             TypeId = 7,
                             AuctionCategoryId = 1,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Cits transports"
@@ -557,7 +518,6 @@ namespace Bidding.Migrations
                             TypeId = 8,
                             AuctionCategoryId = 2,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Biroja tehnika"
@@ -567,7 +527,6 @@ namespace Bidding.Migrations
                             TypeId = 9,
                             AuctionCategoryId = 2,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Sadzīves tehnika"
@@ -577,7 +536,6 @@ namespace Bidding.Migrations
                             TypeId = 10,
                             AuctionCategoryId = 2,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Instrumenti"
@@ -587,7 +545,6 @@ namespace Bidding.Migrations
                             TypeId = 11,
                             AuctionCategoryId = 2,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Iekārtas"
@@ -597,7 +554,6 @@ namespace Bidding.Migrations
                             TypeId = 12,
                             AuctionCategoryId = 2,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Ražošanas materiāli"
@@ -607,7 +563,6 @@ namespace Bidding.Migrations
                             TypeId = 13,
                             AuctionCategoryId = 2,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Veikala produkcija"
@@ -617,7 +572,6 @@ namespace Bidding.Migrations
                             TypeId = 14,
                             AuctionCategoryId = 2,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Uzņēmums"
@@ -627,7 +581,6 @@ namespace Bidding.Migrations
                             TypeId = 15,
                             AuctionCategoryId = 2,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Domeins"
@@ -637,7 +590,6 @@ namespace Bidding.Migrations
                             TypeId = 16,
                             AuctionCategoryId = 2,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Preču zīme"
@@ -647,7 +599,6 @@ namespace Bidding.Migrations
                             TypeId = 17,
                             AuctionCategoryId = 2,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Sadzīves mēbeles"
@@ -657,7 +608,6 @@ namespace Bidding.Migrations
                             TypeId = 18,
                             AuctionCategoryId = 2,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Biroja mēbeles"
@@ -667,7 +617,6 @@ namespace Bidding.Migrations
                             TypeId = 19,
                             AuctionCategoryId = 2,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Cita manta"
@@ -677,7 +626,6 @@ namespace Bidding.Migrations
                             TypeId = 20,
                             AuctionCategoryId = 3,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Dzīvoklis"
@@ -687,7 +635,6 @@ namespace Bidding.Migrations
                             TypeId = 21,
                             AuctionCategoryId = 3,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Māja"
@@ -697,7 +644,6 @@ namespace Bidding.Migrations
                             TypeId = 22,
                             AuctionCategoryId = 3,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Zeme"
@@ -707,7 +653,6 @@ namespace Bidding.Migrations
                             TypeId = 23,
                             AuctionCategoryId = 3,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Telpa"
@@ -717,7 +662,6 @@ namespace Bidding.Migrations
                             TypeId = 24,
                             AuctionCategoryId = 3,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Garāža"
@@ -731,8 +675,6 @@ namespace Bidding.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("CreatedAt");
-
-                    b.Property<bool>("Deleted");
 
                     b.Property<DateTime>("LastUpdatedAt");
 
@@ -751,7 +693,6 @@ namespace Bidding.Migrations
                         {
                             ItemCompanyTypeId = 1,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "SIA"
@@ -760,7 +701,6 @@ namespace Bidding.Migrations
                         {
                             ItemCompanyTypeId = 2,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "A/S"
@@ -774,8 +714,6 @@ namespace Bidding.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("CreatedAt");
-
-                    b.Property<bool>("Deleted");
 
                     b.Property<DateTime>("LastUpdatedAt");
 
@@ -794,7 +732,6 @@ namespace Bidding.Migrations
                         {
                             ItemConditionId = 1,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Jauns"
@@ -803,7 +740,6 @@ namespace Bidding.Migrations
                         {
                             ItemConditionId = 2,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Lietots"
@@ -817,8 +753,6 @@ namespace Bidding.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("CreatedAt");
-
-                    b.Property<bool>("Deleted");
 
                     b.Property<DateTime>("LastUpdatedAt");
 
@@ -837,7 +771,6 @@ namespace Bidding.Migrations
                         {
                             PropertyMeasurementTypeId = 1,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "m2"
@@ -846,7 +779,6 @@ namespace Bidding.Migrations
                         {
                             PropertyMeasurementTypeId = 2,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "a"
@@ -855,7 +787,6 @@ namespace Bidding.Migrations
                         {
                             PropertyMeasurementTypeId = 3,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "ha"
@@ -894,28 +825,28 @@ namespace Bidding.Migrations
                         new
                         {
                             Id = 100,
-                            ConcurrencyStamp = "c0b6e0eb-35b1-4330-ae57-0a625ffd13c9",
+                            ConcurrencyStamp = "6fa6bd71-a414-4477-8ffe-40f548a918b7",
                             Name = "BasicUser",
                             NormalizedName = "BASICUSER"
                         },
                         new
                         {
                             Id = 200,
-                            ConcurrencyStamp = "f8d6b4ce-18db-4c0c-88f1-483f4d8d3a10",
+                            ConcurrencyStamp = "da8da7ab-8cdd-4865-8d4c-114aac192f1f",
                             Name = "AuctionCreator",
                             NormalizedName = "AUCTIONCREATOR"
                         },
                         new
                         {
                             Id = 300,
-                            ConcurrencyStamp = "f4fcce40-a66e-46ad-94a4-dd2be44948ff",
+                            ConcurrencyStamp = "f6a18d98-9d18-4c76-bf3a-b7efe34c6dcc",
                             Name = "PageAdministrator",
                             NormalizedName = "PAGEADMINISTRATOR"
                         },
                         new
                         {
                             Id = 400,
-                            ConcurrencyStamp = "23c7f016-c32a-483b-a469-4f02b281b033",
+                            ConcurrencyStamp = "2bd22c74-ffcb-49c8-a427-08cbec370d26",
                             Name = "SuperAdministrator",
                             NormalizedName = "SUPERADMINISTRATOR"
                         });
@@ -1004,8 +935,6 @@ namespace Bidding.Migrations
 
                     b.Property<DateTime>("CreatedAt");
 
-                    b.Property<bool>("Deleted");
-
                     b.Property<DateTime>("LastUpdatedAt");
 
                     b.Property<int>("LastUpdatedBy");
@@ -1023,7 +952,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 1,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Daugavpils"
@@ -1032,7 +960,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 2,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Jēkabpils"
@@ -1041,7 +968,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 3,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Jelgava"
@@ -1050,7 +976,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 4,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Jūrmala"
@@ -1059,7 +984,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 5,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Liepāja"
@@ -1068,7 +992,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 6,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Rēzekne"
@@ -1077,7 +1000,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 7,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Rīga"
@@ -1086,7 +1008,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 8,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Valmiera"
@@ -1095,7 +1016,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 9,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Ventspils"
@@ -1104,7 +1024,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 10,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Ādažu novads"
@@ -1113,7 +1032,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 11,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Aglonas novads"
@@ -1122,7 +1040,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 12,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Aizkraukles novads"
@@ -1131,7 +1048,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 13,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Aizputes novads"
@@ -1140,7 +1056,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 14,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Aknīstes novads"
@@ -1149,7 +1064,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 15,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Alojas novads"
@@ -1158,7 +1072,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 16,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Alsungas novads"
@@ -1167,7 +1080,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 17,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Alūksnes novads"
@@ -1176,7 +1088,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 18,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Amatas novads"
@@ -1185,7 +1096,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 19,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Apes novads"
@@ -1194,7 +1104,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 20,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Auces novads"
@@ -1203,7 +1112,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 21,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Babītes novads"
@@ -1212,7 +1120,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 22,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Baldones novads"
@@ -1221,7 +1128,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 23,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Baltinavas novads"
@@ -1230,7 +1136,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 24,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Balvu novads"
@@ -1239,7 +1144,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 25,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Bauskas novads"
@@ -1248,7 +1152,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 26,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Beverīnas novads"
@@ -1257,7 +1160,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 27,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Brocēnu novads"
@@ -1266,7 +1168,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 28,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Burtnieku novads"
@@ -1275,7 +1176,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 29,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Carnikavas novads"
@@ -1284,7 +1184,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 30,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Cēsu novads "
@@ -1293,7 +1192,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 31,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Cesvaines novads"
@@ -1302,7 +1200,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 32,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Ciblas novads"
@@ -1311,7 +1208,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 33,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Dagdas novads"
@@ -1320,7 +1216,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 34,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Daugavpils novads"
@@ -1329,7 +1224,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 35,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Dobeles novads"
@@ -1338,7 +1232,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 36,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Dundagas novads"
@@ -1347,7 +1240,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 37,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Durbes novads"
@@ -1356,7 +1248,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 38,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Engures novads"
@@ -1365,7 +1256,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 39,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Ērgļu novads"
@@ -1374,7 +1264,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 40,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Garkalnes novads"
@@ -1383,7 +1272,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 41,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Grobiņas novads"
@@ -1392,7 +1280,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 42,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Gulbenes novads"
@@ -1401,7 +1288,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 43,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Iecavas novads"
@@ -1410,7 +1296,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 44,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Ikšķiles novads"
@@ -1419,7 +1304,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 45,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Ilūkstes novads"
@@ -1428,7 +1312,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 46,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Inčukalna novads"
@@ -1437,7 +1320,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 47,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Jaunjelgavas novads"
@@ -1446,7 +1328,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 48,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Jaunpiebalgas novads"
@@ -1455,7 +1336,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 49,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Jaunpils novads"
@@ -1464,7 +1344,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 50,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Jēkabpils novads"
@@ -1473,7 +1352,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 51,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Jelgavas novads"
@@ -1482,7 +1360,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 52,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Kandavas novads"
@@ -1491,7 +1368,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 53,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Kārsavas novads"
@@ -1500,7 +1376,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 54,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Ķeguma novads"
@@ -1509,7 +1384,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 55,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Ķekavas novads"
@@ -1518,7 +1392,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 56,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Kocēnu novads"
@@ -1527,7 +1400,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 57,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Kokneses novads"
@@ -1536,7 +1408,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 58,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Krāslavas novads"
@@ -1545,7 +1416,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 59,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Krimuldas novads"
@@ -1554,7 +1424,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 60,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Krustpils novads"
@@ -1563,7 +1432,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 61,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Kuldīgas novads"
@@ -1572,7 +1440,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 62,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Lielvārdes novads"
@@ -1581,7 +1448,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 63,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Līgatnes novads"
@@ -1590,7 +1456,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 64,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Limbažu novads"
@@ -1599,7 +1464,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 65,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Līvānu novads"
@@ -1608,7 +1472,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 66,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Lubānas novads"
@@ -1617,7 +1480,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 67,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Ludzas novads"
@@ -1626,7 +1488,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 68,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Madonas novads"
@@ -1635,7 +1496,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 69,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Mālpils novads"
@@ -1644,7 +1504,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 70,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Mazsalacas novads"
@@ -1653,7 +1512,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 71,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Mērsraga novads"
@@ -1662,7 +1520,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 72,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Naukšēnu novads"
@@ -1671,7 +1528,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 73,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Neretas novads"
@@ -1680,7 +1536,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 74,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Nīcas novads"
@@ -1689,7 +1544,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 75,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Ogres novads"
@@ -1698,7 +1552,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 76,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Olaines novads"
@@ -1707,7 +1560,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 77,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Ozolnieku novads"
@@ -1716,7 +1568,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 78,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Pārgaujas novads"
@@ -1725,7 +1576,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 79,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Pāvilostas novads"
@@ -1734,7 +1584,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 80,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Pļaviņu novads"
@@ -1743,7 +1592,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 81,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Preiļu novads"
@@ -1752,7 +1600,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 82,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Priekules novads"
@@ -1761,7 +1608,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 83,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Priekuļu novads"
@@ -1770,7 +1616,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 84,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Raunas novads"
@@ -1779,7 +1624,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 85,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Rēzeknes novads"
@@ -1788,7 +1632,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 86,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Riebiņu novads"
@@ -1797,7 +1640,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 87,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Rojas novads"
@@ -1806,7 +1648,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 88,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Ropažu novads"
@@ -1815,7 +1656,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 89,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Rucavas novads"
@@ -1824,7 +1664,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 90,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Rugāju novads"
@@ -1833,7 +1672,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 91,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Rūjienas novads"
@@ -1842,7 +1680,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 92,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Rundāles novads"
@@ -1851,7 +1688,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 93,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Salacgrīvas novads"
@@ -1860,7 +1696,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 94,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Salas novads"
@@ -1869,7 +1704,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 95,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Salaspils novads"
@@ -1878,7 +1712,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 96,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Saldus novads"
@@ -1887,7 +1720,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 97,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Saulkrastu novads"
@@ -1896,7 +1728,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 98,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Sējas novads"
@@ -1905,7 +1736,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 99,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Siguldas novads"
@@ -1914,7 +1744,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 100,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Skrīveru novads"
@@ -1923,7 +1752,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 101,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Skrundas novads"
@@ -1932,7 +1760,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 102,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Smiltenes novads"
@@ -1941,7 +1768,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 103,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Stopiņu novads"
@@ -1950,7 +1776,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 104,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Strenču novads"
@@ -1959,7 +1784,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 105,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Talsu novads"
@@ -1968,7 +1792,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 106,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Tērvetes novads"
@@ -1977,7 +1800,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 107,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Tukuma novads"
@@ -1986,7 +1808,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 108,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Vaiņodes novads"
@@ -1995,7 +1816,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 109,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Valkas novads"
@@ -2004,7 +1824,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 110,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Varakļānu novads"
@@ -2013,7 +1832,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 111,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Vārkavas novads"
@@ -2022,7 +1840,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 112,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Vecpiebalgas novads"
@@ -2031,7 +1848,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 113,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Vecumnieku novads "
@@ -2040,7 +1856,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 114,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Ventspils novads"
@@ -2049,7 +1864,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 115,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Viesītes novads"
@@ -2058,7 +1872,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 116,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Viļakas novads"
@@ -2067,7 +1880,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 117,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Viļānu novads"
@@ -2076,7 +1888,6 @@ namespace Bidding.Migrations
                         {
                             RegionId = 118,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Zilupes novads"
@@ -2120,8 +1931,6 @@ namespace Bidding.Migrations
 
                     b.Property<DateTime>("CreatedAt");
 
-                    b.Property<bool>("Deleted");
-
                     b.Property<DateTime>("LastUpdatedAt");
 
                     b.Property<int>("LastUpdatedBy");
@@ -2139,7 +1948,6 @@ namespace Bidding.Migrations
                         {
                             VehicleDimensionTypeId = 1,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Garums"
@@ -2148,7 +1956,6 @@ namespace Bidding.Migrations
                         {
                             VehicleDimensionTypeId = 2,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Platums"
@@ -2157,7 +1964,6 @@ namespace Bidding.Migrations
                         {
                             VehicleDimensionTypeId = 3,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Augstums"
@@ -2171,8 +1977,6 @@ namespace Bidding.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("CreatedAt");
-
-                    b.Property<bool>("Deleted");
 
                     b.Property<DateTime>("LastUpdatedAt");
 
@@ -2191,7 +1995,6 @@ namespace Bidding.Migrations
                         {
                             VehicleFuelTypeId = 1,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Benzīns"
@@ -2200,7 +2003,6 @@ namespace Bidding.Migrations
                         {
                             VehicleFuelTypeId = 2,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Dīzelis"
@@ -2209,7 +2011,6 @@ namespace Bidding.Migrations
                         {
                             VehicleFuelTypeId = 3,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Benzīns/Naftas gāze"
@@ -2218,7 +2019,6 @@ namespace Bidding.Migrations
                         {
                             VehicleFuelTypeId = 4,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Elektroniskais"
@@ -2227,7 +2027,6 @@ namespace Bidding.Migrations
                         {
                             VehicleFuelTypeId = 5,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Hibrīds"
@@ -2241,8 +2040,6 @@ namespace Bidding.Migrations
                         .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
                     b.Property<DateTime>("CreatedAt");
-
-                    b.Property<bool>("Deleted");
 
                     b.Property<DateTime>("LastUpdatedAt");
 
@@ -2261,7 +2058,6 @@ namespace Bidding.Migrations
                         {
                             VehicleTransmissionId = 1,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Automatiskā"
@@ -2270,7 +2066,6 @@ namespace Bidding.Migrations
                         {
                             VehicleTransmissionId = 2,
                             CreatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
-                            Deleted = false,
                             LastUpdatedAt = new DateTime(2019, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified),
                             LastUpdatedBy = 1,
                             Name = "Mehāniskā"
@@ -2411,7 +2206,7 @@ namespace Bidding.Migrations
 
             modelBuilder.Entity("Bidding.Models.DatabaseModels.Auctions.Auction", b =>
                 {
-                    b.HasOne("Bidding.Models.DatabaseModels.Categories.Category", "Category")
+                    b.HasOne("Bidding.Models.DatabaseModels.Categories.AuctionCategory", "Category")
                         .WithMany("Auctions")
                         .HasForeignKey("AuctionCategoryId")
                         .OnDelete(DeleteBehavior.Restrict);
@@ -2431,7 +2226,7 @@ namespace Bidding.Migrations
                         .HasForeignKey("AuctionStatusId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("Bidding.Models.DatabaseModels.Categories.Type", "Type")
+                    b.HasOne("Bidding.Models.DatabaseModels.Categories.AuctionType", "Type")
                         .WithMany("Auctions")
                         .HasForeignKey("AuctionTypeId")
                         .OnDelete(DeleteBehavior.Restrict);
@@ -2487,20 +2282,20 @@ namespace Bidding.Migrations
                         .HasForeignKey("AuctionId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("Bidding.Models.DatabaseModels.Categories.Category", "Category")
+                    b.HasOne("Bidding.Models.DatabaseModels.Categories.AuctionCategory", "Category")
                         .WithMany("AuctionItems")
                         .HasForeignKey("AuctionItemCategoryId")
                         .OnDelete(DeleteBehavior.Restrict);
 
-                    b.HasOne("Bidding.Models.DatabaseModels.Categories.Type", "Type")
+                    b.HasOne("Bidding.Models.DatabaseModels.Categories.AuctionType", "Type")
                         .WithMany("AuctionItems")
                         .HasForeignKey("AuctionItemTypeId")
                         .OnDelete(DeleteBehavior.Restrict);
                 });
 
-            modelBuilder.Entity("Bidding.Models.DatabaseModels.Categories.Type", b =>
+            modelBuilder.Entity("Bidding.Models.DatabaseModels.Categories.AuctionType", b =>
                 {
-                    b.HasOne("Bidding.Models.DatabaseModels.Categories.Category", "Category")
+                    b.HasOne("Bidding.Models.DatabaseModels.Categories.AuctionCategory", "Category")
                         .WithMany("Types")
                         .HasForeignKey("AuctionCategoryId")
                         .OnDelete(DeleteBehavior.Restrict);

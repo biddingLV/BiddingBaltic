@@ -6,15 +6,18 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Bidding.Models.DatabaseModels.Categories
 {
-    public partial class Category
+    public partial class AuctionType
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int CategoryId { get; set; }
+        public int TypeId { get; set; }
 
         [Required]
         [MaxLength(50)]
         public string Name { get; set; }
+
+        public int AuctionCategoryId { get; set; }
+        public AuctionCategory Category { get; set; }
 
         [Required]
         public DateTime CreatedAt { get; set; }
@@ -27,10 +30,7 @@ namespace Bidding.Models.DatabaseModels.Categories
 
         public int LastUpdatedBy { get; set; }
 
-        public bool Deleted { get; set; }
-
         public List<Auction> Auctions { get; set; }
         public List<AuctionItem> AuctionItems { get; set; }
-        public List<Type> Types { get; set; }
     }
 }

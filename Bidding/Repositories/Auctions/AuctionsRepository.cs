@@ -104,7 +104,7 @@ namespace Bidding.Repositories.Auctions
         /// <returns></returns>
         public IEnumerable<Auction> TotalAuctionCount()
         {
-            return m_context.Auctions.Where(auct => auct.Deleted == false && auct.EndDate >= DateTime.Now.Date);
+            return m_context.Auctions.Where(auct => auct.EndDate >= DateTime.Now.Date);
         }
 
         /// <summary>
@@ -161,7 +161,6 @@ namespace Bidding.Repositories.Auctions
         public IEnumerable<AuctionFormatItemModel> Formats()
         {
             return m_context.AuctionFormats
-                .Where(afor => afor.Deleted == false)
                 .Select(afor => new AuctionFormatItemModel { AuctionFormatId = afor.AuctionFormatId, AuctionFormatName = afor.Name });
         }
 
@@ -172,7 +171,6 @@ namespace Bidding.Repositories.Auctions
         public IEnumerable<AuctionStatusItemModel> Statuses()
         {
             return m_context.AuctionStatuses
-                .Where(asta => asta.Deleted == false)
                 .Select(asta => new AuctionStatusItemModel { AuctionStatusId = asta.AuctionStatusId, AuctionStatusName = asta.Name });
         }
 
@@ -351,43 +349,29 @@ namespace Bidding.Repositories.Auctions
 
                             if (auctionExists)
                             {
-                                Auction auctionForDelete =
-                                    await m_context.Auctions.Where(auct => auct.AuctionId == auctionId).FirstOrDefaultAsync().ConfigureAwait(true);
+                                Auction auctionForDelete = await m_context.Auctions
+                                    .Where(auct => auct.AuctionId == auctionId)
+                                    .FirstOrDefaultAsync()
+                                    .ConfigureAwait(true);
 
-                                if (CloudStorageAccount.TryParse(m_azureStorageConnectionString, out CloudStorageAccount cloudStorageAccount))
+                                if (auctionForDelete.AuctionImageContainer.IsSpecified())
                                 {
-                                    try
-                                    {
-                                        CloudBlobClient cloudBlobClient = cloudStorageAccount.CreateCloudBlobClient();
-                                        CloudBlobContainer container = cloudBlobClient.GetContainerReference(auctionForDelete.AuctionImageContainer);
-                                        await container.DeleteIfExistsAsync().ConfigureAwait(true);
-                                    }
-                                    catch (StorageException ex)
-                                    {
-                                        throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.CouldNotDeleteAuction, ex);
-                                    }
-                                }
-                                else
-                                {
-                                    throw new WebApiException(HttpStatusCode.InternalServerError, FileUploadErrorMessage.GenericUploadErrorMessage);
+                                    await HandleAuctionDeleteImages(auctionForDelete.AuctionImageContainer).ConfigureAwait(true);
                                 }
 
-                                auctionForDelete.Deleted = true;
-                                auctionForDelete.LastUpdatedAt = DateTime.UtcNow;
-                                auctionForDelete.LastUpdatedBy = loggedInUserId;
+                                AuctionItem auctionItemDetails = await m_context.AuctionItems
+                                    .Where(aitem => aitem.AuctionId == auctionId)
+                                    .FirstOrDefaultAsync()
+                                    .ConfigureAwait(true);
 
-                                AuctionItem auctionItemForDelete =
-                                    await m_context.AuctionItems.Where(aitem => aitem.AuctionId == auctionId).FirstOrDefaultAsync().ConfigureAwait(true);
-                                auctionItemForDelete.Deleted = true;
-                                auctionItemForDelete.LastUpdatedAt = DateTime.UtcNow;
-                                auctionItemForDelete.LastUpdatedBy = loggedInUserId;
+                                AuctionDetails auctionDetails = await m_context.AuctionDetails
+                                    .Where(adet => adet.AuctionItemId == auctionItemDetails.AuctionItemId)
+                                    .FirstOrDefaultAsync()
+                                    .ConfigureAwait(true);
 
-                                AuctionDetails auctionDetailsForDelete =
-                                    await m_context.AuctionDetails.Where(adet => adet.AuctionItemId == auctionItemForDelete.AuctionItemId)
-                                                                  .FirstOrDefaultAsync().ConfigureAwait(true);
-                                auctionDetailsForDelete.Deleted = true;
-                                auctionDetailsForDelete.LastUpdatedAt = DateTime.UtcNow;
-                                auctionDetailsForDelete.LastUpdatedBy = loggedInUserId;
+                                m_context.Remove(auctionDetails);
+                                m_context.Remove(auctionItemDetails);
+                                m_context.Remove(auctionForDelete);
 
                                 await m_context.SaveChangesAsync().ConfigureAwait(true);
                             }
@@ -407,6 +391,27 @@ namespace Bidding.Repositories.Auctions
             }).ConfigureAwait(true);
 
             return true;
+        }
+
+        private async Task HandleAuctionDeleteImages(string imageContainerName)
+        {
+            if (CloudStorageAccount.TryParse(m_azureStorageConnectionString, out CloudStorageAccount cloudStorageAccount))
+            {
+                try
+                {
+                    CloudBlobClient cloudBlobClient = cloudStorageAccount.CreateCloudBlobClient();
+                    CloudBlobContainer container = cloudBlobClient.GetContainerReference(imageContainerName);
+                    await container.DeleteIfExistsAsync().ConfigureAwait(true);
+                }
+                catch (StorageException ex)
+                {
+                    throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.CouldNotDeleteAuction, ex);
+                }
+            }
+            else
+            {
+                throw new WebApiException(HttpStatusCode.InternalServerError, FileUploadErrorMessage.GenericUploadErrorMessage);
+            }
         }
 
         /// <summary>
@@ -594,7 +599,7 @@ namespace Bidding.Repositories.Auctions
             string inspectionActive = details.AuctionDetails.InspectionActive.HasValue && details.AuctionDetails.InspectionActive.Value ? "Ir" : "Nav";
 
 
-            Tuple<List<string>, List<string>> auctionFiles = await LoadAuctionFilesAsync(request.AuctionId).ConfigureAwait(true);
+            Tuple<List<string>, List<AuctionDocumentModel>> auctionFiles = await LoadAuctionFilesAsync(request.AuctionId).ConfigureAwait(true);
 
             return new AuctionDetailsResponseModel
             {
@@ -642,7 +647,7 @@ namespace Bidding.Repositories.Auctions
             string conditionName = details.AuctionDetails.ConditionId.IsNotSpecified() ? null : LoadItemConditionName(details.AuctionDetails.ConditionId.Value);
             string companyTypeName = details.AuctionDetails.CompanyTypeId.IsNotSpecified() ? null : LoadCompanyTypeName(details.AuctionDetails.CompanyTypeId.Value);
 
-            Tuple<List<string>, List<string>> auctionFiles = await LoadAuctionFilesAsync(request.AuctionId).ConfigureAwait(true);
+            Tuple<List<string>, List<AuctionDocumentModel>> auctionFiles = await LoadAuctionFilesAsync(request.AuctionId).ConfigureAwait(true);
 
             return new AuctionDetailsResponseModel
             {
@@ -684,7 +689,7 @@ namespace Bidding.Repositories.Auctions
             string measurementTypeName = details.AuctionDetails.MeasurementTypeId.IsNotSpecified() ? null : LoadPropertyMeasurementTypeName(details.AuctionDetails.MeasurementTypeId.Value);
             string regionName = details.AuctionDetails.RegionId.IsNotSpecified() ? null : LoadPropertyRegionName(details.AuctionDetails.RegionId.Value);
 
-            Tuple<List<string>, List<string>> auctionFiles = await LoadAuctionFilesAsync(request.AuctionId).ConfigureAwait(true);
+            Tuple<List<string>, List<AuctionDocumentModel>> auctionFiles = await LoadAuctionFilesAsync(request.AuctionId).ConfigureAwait(true);
 
             return new AuctionDetailsResponseModel
             {
@@ -768,10 +773,10 @@ namespace Bidding.Repositories.Auctions
             m_context.AuctionDetails.Add(itemAuctionDetails);
         }
 
-        private async Task<Tuple<List<string>, List<string>>> LoadAuctionFilesAsync(int auctionId)
+        private async Task<Tuple<List<string>, List<AuctionDocumentModel>>> LoadAuctionFilesAsync(int auctionId)
         {
             var auctionImageUrls = new List<string>();
-            var auctionDocumentUrls = new List<string>();
+            var auctionDocumentUrls = new List<AuctionDocumentModel>();
 
             string imageContainer = await m_context.Auctions
                 .Where(auct => auct.AuctionId == auctionId)
@@ -805,7 +810,11 @@ namespace Bidding.Repositories.Auctions
 
                             if (blobItem.Properties.ContentType == "application/pdf")
                             {
-                                auctionDocumentUrls.Add(blobItem.Uri.AbsoluteUri);
+                                auctionDocumentUrls.Add(new AuctionDocumentModel()
+                                {
+                                    DocumentName = blobItem.Name,
+                                    DocumentUrl = blobItem.Uri.AbsoluteUri
+                                });
                             }
                         }
                     }
@@ -816,7 +825,7 @@ namespace Bidding.Repositories.Auctions
                 throw new WebApiException(HttpStatusCode.InternalServerError, AuctionErrorMessages.CouldNotFetchAuctionDetails);
             }
 
-            var result = new Tuple<List<string>, List<string>>(auctionImageUrls, auctionDocumentUrls);
+            var result = new Tuple<List<string>, List<AuctionDocumentModel>>(auctionImageUrls, auctionDocumentUrls);
             return await Task.FromResult(result).ConfigureAwait(true);
         }
     }

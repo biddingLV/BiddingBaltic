@@ -36,8 +36,8 @@ namespace Bidding.Models.Contexts
         public DbSet<AuctionItem> AuctionItems { get; set; }
         public DbSet<AuctionCreator> AuctionCreators { get; set; }
         public DbSet<Auction> Auctions { get; set; }
-        public DbSet<Category> Categories { get; set; }
-        public DbSet<Type> Types { get; set; }
+        public DbSet<AuctionCategory> Categories { get; set; }
+        public DbSet<AuctionType> Types { get; set; }
         public DbSet<Newsletter> Newsletters { get; set; }
 
         public DbSet<RoleToPermissions> RolesToPermissions { get; set; }
@@ -217,7 +217,7 @@ namespace Bidding.Models.Contexts
             //    .HasForeignKey(p => p.CreatedBy);
 
             // todo: kke: not sure if this is right?
-            modelBuilder.Entity<Type>()
+            modelBuilder.Entity<AuctionType>()
                 .HasOne(p => p.Category)
                 .WithMany(b => b.Types)
                 .HasForeignKey(p => p.AuctionCategoryId);

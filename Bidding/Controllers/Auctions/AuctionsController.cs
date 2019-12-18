@@ -148,7 +148,7 @@ namespace Bidding.Controllers.Auctions
         [HasPermission(Permission.CreateAuction)] // TODO: KKE: Add correct permission!
         public async Task<IActionResult> Delete([FromBody] AuctionDeleteRequestModel request)
         {
-            return Ok(await m_auctionsService.DeleteAsync(request));
+            return Ok(await m_auctionsService.DeleteAsync(request).ConfigureAwait(true));
         }
     }
 }

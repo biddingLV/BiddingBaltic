@@ -27,8 +27,6 @@ namespace Bidding.Models.DatabaseModels.Item
 
         public int LastUpdatedBy { get; set; }
 
-        public bool Deleted { get; set; }
-
         public List<AuctionDetails> AuctionDetails { get; set; }
     }
 }

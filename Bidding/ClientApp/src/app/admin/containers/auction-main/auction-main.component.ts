@@ -63,29 +63,29 @@ export class AdminAuctionMainComponent implements OnInit {
       });
   }
 
-  editModal(): void {
-    const initialState = {
-      selectedAuctionId: this.selectedAuctions[0].auctionId
-    };
+  // editModal(): void {
+  //   const initialState = {
+  //     selectedAuctionId: this.selectedAuctions[0].auctionId
+  //   };
 
-    const modalConfig = {
-      ...this.internalModalService.defaultModalOptions,
-      ...{ initialState: initialState, class: "modal-lg" }
-    };
+  //   const modalConfig = {
+  //     ...this.internalModalService.defaultModalOptions,
+  //     ...{ initialState: initialState, class: "modal-lg" }
+  //   };
 
-    this.bsModalRef = this.externalModalService.show(
-      AuctionEditComponent,
-      modalConfig
-    );
+  //   this.bsModalRef = this.externalModalService.show(
+  //     AuctionEditComponent,
+  //     modalConfig
+  //   );
 
-    this.externalModalService.onHide
-      .pipe(this.internalModalService.toModalResult())
-      .subscribe(result => {
-        if (result.success) {
-          this.auctionList.loadActiveAuctions();
-        }
-      });
-  }
+  //   this.externalModalService.onHide
+  //     .pipe(this.internalModalService.toModalResult())
+  //     .subscribe(result => {
+  //       if (result.success) {
+  //         this.auctionList.loadActiveAuctions();
+  //       }
+  //     });
+  // }
 
   deleteModal(): void {
     const initialState = {
@@ -106,6 +106,7 @@ export class AdminAuctionMainComponent implements OnInit {
       .pipe(this.internalModalService.toModalResult())
       .subscribe(result => {
         if (result.success) {
+          this.selectedAuctions = [];
           this.auctionList.loadActiveAuctions();
         }
       });

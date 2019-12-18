@@ -9,7 +9,6 @@ BEGIN
     END) AS CategoryTotalCount
   FROM Categories cat
   LEFT JOIN Auctions auct ON cat.CategoryId = auct.AuctionCategoryId
-  WHERE cat.Deleted = 0
   GROUP BY cat.CategoryId,
            cat.Name;
 END;

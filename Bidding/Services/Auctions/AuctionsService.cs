@@ -144,7 +144,7 @@ namespace Bidding.Services.Auctions
 
             int loggedInUserId = m_permissionService.GetUserIdFromClaimsPrincipal();
 
-            return await m_auctionsRepository.DeleteAsync(request, loggedInUserId);
+            return await m_auctionsRepository.DeleteAsync(request, loggedInUserId).ConfigureAwait(true);
         }
 
         public int Create(AddAuctionRequestModel request)

@@ -25,9 +25,6 @@ namespace Bidding.Models.DatabaseModels.Auctions
         public DateTime LastUpdatedAt { get; set; }
 
         public int LastUpdatedBy { get; set; }
-
-        public bool Deleted { get; set; }
-
         public List<Auction> Auctions { get; set; }
     }
 }

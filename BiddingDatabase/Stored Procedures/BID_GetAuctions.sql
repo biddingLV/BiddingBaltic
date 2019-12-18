@@ -19,8 +19,7 @@ BEGIN
     INSERT INTO @TempCategoryIds (CategoryId)
       SELECT
         CategoryId
-      FROM Categories
-      WHERE Deleted = 0;
+      FROM Categories;
   END
   ELSE
   BEGIN
@@ -35,8 +34,7 @@ BEGIN
     INSERT INTO @TempTypeIds (TypeId)
       SELECT
         TypeId
-      FROM Types
-      WHERE Deleted = 0;
+      FROM Types;
   END
   ELSE
   BEGIN
@@ -56,7 +54,6 @@ BEGIN
   FROM Auctions auct
   INNER JOIN AuctionStatuses asta
     ON auct.AuctionStatusId = asta.AuctionStatusId
-    AND auct.Deleted = 0
     AND (auct.EndDate >= CONVERT(date, GETDATE()))
     AND auct.AuctionCategoryId IN (SELECT
       CategoryId

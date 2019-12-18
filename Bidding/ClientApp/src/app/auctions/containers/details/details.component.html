@@ -141,7 +141,9 @@
                 let i = index
               "
             >
-              <a [href]="item" target="_blank">File</a>
+              <a [href]="item.documentUrl" target="_blank">{{
+                item.documentName
+              }}</a>
             </li>
           </ul>
           <br />

@@ -31,11 +31,11 @@ namespace Bidding.Models.DatabaseModels.Auctions
 
         [Required]
         public int AuctionCategoryId { get; set; }
-        public Category Category { get; set; }
+        public AuctionCategory Category { get; set; }
 
         [Required]
         public int AuctionTypeId { get; set; }
-        public Categories.Type Type { get; set; }
+        public AuctionType Type { get; set; }
 
         [Required]
         public int AuctionStatusId { get; set; }
@@ -60,8 +60,6 @@ namespace Bidding.Models.DatabaseModels.Auctions
         public DateTime LastUpdatedAt { get; set; }
 
         public int LastUpdatedBy { get; set; }
-
-        public bool Deleted { get; set; }
 
         public List<AuctionItem> AuctionItems { get; set; }
     }
