@@ -116,7 +116,7 @@ namespace Bidding.Services.Shared
                     //}
                 }
 
-                int loggedInUserId = m_permissionService.GetUserIdFromClaimsPrincipal();
+                int loggedInUserId = m_permissionService.GetAndValidateUserId();
 
                 return await m_fileUploaderRepository.SaveAuction(cloudBlobContainer.Name, auctionId, loggedInUserId).ConfigureAwait(true);
             }

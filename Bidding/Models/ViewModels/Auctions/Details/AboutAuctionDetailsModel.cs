@@ -12,6 +12,7 @@ namespace Bidding.Models.ViewModels.Auctions.Details
         public decimal AuctionStartingPrice { get; set; }
         public string AuctionValueAddedTax { get; set; }
         public string AuctionFormat { get; set; }
+        public string AuctionExternalWebsite { get; set; }
         public DateTime? AuctionStartDate { get; set; }
         public DateTime AuctionApplyTillDate { get; set; }
         public DateTime AuctionEndDate { get; set; }

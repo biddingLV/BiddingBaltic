@@ -94,7 +94,7 @@ namespace Bidding.Services.Users
             if (request.FirstName.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, UserErrorMessage.MissingUsersInformation); }
             if (request.LastName.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, UserErrorMessage.MissingUsersInformation); }
 
-            int loggedInUserId = m_permissionService.GetUserIdFromClaimsPrincipal();
+            int loggedInUserId = m_permissionService.GetAndValidateUserId();
 
             return await m_userRepository.EditBasicAsync(request, loggedInUserId).ConfigureAwait(true);
         }

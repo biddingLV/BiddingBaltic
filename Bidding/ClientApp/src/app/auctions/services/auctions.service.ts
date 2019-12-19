@@ -29,10 +29,10 @@ export class AuctionsService {
     private exceptionService: ExceptionsService
   ) {}
 
-  getAuctionsWithSearch$(
+  getActiveAuctions$(
     request: AuctionListRequestModel
   ): Observable<AuctionListResponseModel> {
-    const url = "/api/auctions/GetAuctionsWithSearch";
+    const url = "/api/auctions/GetActiveAuctions";
 
     let params = new HttpParams({
       fromObject: {
@@ -44,8 +44,7 @@ export class AuctionsService {
           request.searchValue === undefined
             ? ""
             : request.searchValue.toString(),
-        currentPage: request.currentPage.toString(),
-        calledFrom: "AdminPanel"
+        currentPage: request.currentPage.toString()
       }
     });
 
@@ -62,10 +61,10 @@ export class AuctionsService {
       .pipe(catchError(this.exceptionService.errorHandler));
   }
 
-  getAuctionsWithoutSearch$(
+  getAllAuctions$(
     request: AuctionListRequestModel
   ): Observable<AuctionListResponseModel> {
-    const url = "/api/auctions/GetAuctions";
+    const url = "/api/auctions/GetAllAuctions";
 
     let params = new HttpParams({
       fromObject: {
@@ -73,7 +72,10 @@ export class AuctionsService {
         sortingDirection: request.sortingDirection.toString(),
         offsetEnd: request.offsetEnd.toString(),
         offsetStart: request.offsetStart.toString(),
-        searchValue: "", // always set this to be empty string!
+        searchValue:
+          request.searchValue === undefined
+            ? ""
+            : request.searchValue.toString(),
         currentPage: request.currentPage.toString()
       }
     });

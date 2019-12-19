@@ -25,15 +25,15 @@ namespace Bidding.Controllers.Auctions
         }
 
         /// <summary>
-        /// Fetch auction list with filters, but without search
+        /// Fetch only Active auctions, atm used in homepage and auction list page.
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult GetAuctions([FromQuery] AuctionListRequestModel request)
+        public IActionResult GetActiveAuctions([FromQuery] AuctionListRequestModel request)
         {
-            return Ok(m_auctionsService.GetAuctions(request));
+            return Ok(m_auctionsService.GetActiveAuctions(request));
         }
 
         /// <summary>
@@ -60,14 +60,15 @@ namespace Bidding.Controllers.Auctions
         }
 
         /// <summary>
-        /// Fetch auction list with filters, including search
+        /// Gets all auctions, active, not active for admin page.
         /// </summary>
         /// <param name="request"></param>
         /// <returns></returns>
         [HttpGet]
-        public IActionResult GetAuctionsWithSearch([FromQuery] AuctionListRequestModel request)
+        [HasPermission(Permission.AccessAdminPanel)]
+        public IActionResult GetAllAuctions([FromQuery] AuctionListRequestModel request)
         {
-            return Ok(m_auctionsService.GetAuctionsWithSearch(request));
+            return Ok(m_auctionsService.GetAllAuctions(request));
         }
 
         /// <summary>

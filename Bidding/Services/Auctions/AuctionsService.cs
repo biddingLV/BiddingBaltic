@@ -36,20 +36,22 @@ namespace Bidding.Services.Auctions
             m_auctionsRepository = auctionRepository ?? throw new ArgumentNullException(nameof(auctionRepository));
         }
 
-        public AuctionListResponseModel GetAuctions(AuctionListRequestModel request)
+        public AuctionListResponseModel GetActiveAuctions(AuctionListRequestModel request)
         {
             ValidateAuctionList(request);
 
-            // note: kke: Always set searchValue to be null here, 
-            // because the user needs to be signed-in to use search functionality!
-            request.SearchValue = null;
+            // note: kke: if the user is not logged in, cant use search functionality!
+            if (m_permissionService.GetUserId().IsNotSpecified()) request.SearchValue = null;
 
             (int startFrom, int endAt) = Pagination.GetOffsetAndSize(request);
 
+            // Note: kke: load only active auctions.
+            DateTime fromDate = DateTime.UtcNow;
+
             AuctionListResponseModel auctionsResponse = new AuctionListResponseModel()
             {
-                Auctions = m_auctionsRepository.GetAuctions(request, startFrom, endAt).ToList(),
-                ItemCount = m_auctionsRepository.TotalAuctionCount().Count()
+                Auctions = m_auctionsRepository.GetActiveAuctions(request, startFrom, endAt, fromDate).ToList(),
+                ItemCount = m_auctionsRepository.ActiveAuctionCount().Count()
             };
 
             Pagination.PaginateResponse(ref auctionsResponse, TableItem.DefaultSize, request.CurrentPage);
@@ -57,18 +59,21 @@ namespace Bidding.Services.Auctions
             return auctionsResponse;
         }
 
-        public AuctionListResponseModel GetAuctionsWithSearch(AuctionListRequestModel request)
+        public AuctionListResponseModel GetAllAuctions(AuctionListRequestModel request)
         {
             ValidateAuctionList(request);
 
-            // todo: kke: validate request.SearchValue to be valid value!
+            // TODO: kke: validate request.SearchValue to be valid value!
 
             (int startFrom, int endAt) = Pagination.GetOffsetAndSize(request);
 
+            // Note: kke: load all possible auctions.
+            DateTime fromDate = new DateTime(1900, 1, 1);
+
             AuctionListResponseModel auctionsResponse = new AuctionListResponseModel()
             {
-                Auctions = m_auctionsRepository.GetAuctions(request, startFrom, endAt).ToList(),
-                ItemCount = m_auctionsRepository.TotalAuctionCount().Count()
+                Auctions = m_auctionsRepository.GetActiveAuctions(request, startFrom, endAt, fromDate).ToList(),
+                ItemCount = m_auctionsRepository.AllAuctionCount().Count()
             };
 
             Pagination.PaginateResponse(ref auctionsResponse, TableItem.DefaultSize, request.CurrentPage);
@@ -133,7 +138,7 @@ namespace Bidding.Services.Auctions
         {
             ValidateAuctionUpdate(request);
 
-            int loggedInUserId = m_permissionService.GetUserIdFromClaimsPrincipal();
+            int loggedInUserId = m_permissionService.GetAndValidateUserId();
 
             return m_auctionsRepository.UpdateAuctionDetails(request, loggedInUserId);
         }
@@ -142,7 +147,7 @@ namespace Bidding.Services.Auctions
         {
             ValidateAuctionDelete(request);
 
-            int loggedInUserId = m_permissionService.GetUserIdFromClaimsPrincipal();
+            int loggedInUserId = m_permissionService.GetAndValidateUserId();
 
             return await m_auctionsRepository.DeleteAsync(request, loggedInUserId).ConfigureAwait(true);
         }
@@ -184,7 +189,7 @@ namespace Bidding.Services.Auctions
         {
             // ValidateAuctionItemCreate(request);
 
-            int loggedInUserId = m_permissionService.GetUserIdFromClaimsPrincipal();
+            int loggedInUserId = m_permissionService.GetAndValidateUserId();
 
             return m_auctionsRepository.CreateAuction(request, loggedInUserId);
         }
@@ -193,7 +198,7 @@ namespace Bidding.Services.Auctions
         {
             // ValidateAuctionItemCreate(request);
 
-            int loggedInUserId = m_permissionService.GetUserIdFromClaimsPrincipal();
+            int loggedInUserId = m_permissionService.GetAndValidateUserId();
 
             return m_auctionsRepository.CreateAuction(request, loggedInUserId);
         }
@@ -202,7 +207,7 @@ namespace Bidding.Services.Auctions
         {
             // ValidateAuctionItemCreate(request);
 
-            int loggedInUserId = m_permissionService.GetUserIdFromClaimsPrincipal();
+            int loggedInUserId = m_permissionService.GetAndValidateUserId();
 
             return m_auctionsRepository.CreateAuction(request, loggedInUserId);
         }

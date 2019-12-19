@@ -29,6 +29,7 @@ export class AdminAuctionMainComponent implements OnInit {
   // template
   selectedCategoryIds: number[] = [];
   selectedTypeIds: number[] = [];
+  loadAllAuctionsFlag: boolean = true;
 
   /** Show or hide select all checkbox column in auction table. */
   showSelectAllCheckboxColumn: boolean = true;

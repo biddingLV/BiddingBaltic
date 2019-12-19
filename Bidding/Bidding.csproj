@@ -37,13 +37,11 @@
     <Compile Remove="ClientApp\src\app\auth\components\sign-in\**" />
     <Compile Remove="ClientApp\src\app\auth\models\**" />
     <Compile Remove="ClientApp\src\app\auth\services\**" />
-    <Compile Remove="Models\ViewModels\Admin\Auctions\**" />
     <Compile Remove="Models\ViewModels\Users\Delete\**" />
     <Content Remove="$(SpaRoot)**" />
     <Content Remove="ClientApp\src\app\auth\components\sign-in\**" />
     <Content Remove="ClientApp\src\app\auth\models\**" />
     <Content Remove="ClientApp\src\app\auth\services\**" />
-    <Content Remove="Models\ViewModels\Admin\Auctions\**" />
     <Content Remove="Models\ViewModels\Users\Delete\**" />
     <None Include="$(SpaRoot)**" Exclude="$(SpaRoot)node_modules\**" />
   </ItemGroup>
@@ -52,12 +50,10 @@
     <EmbeddedResource Remove="ClientApp\src\app\auth\components\sign-in\**" />
     <EmbeddedResource Remove="ClientApp\src\app\auth\models\**" />
     <EmbeddedResource Remove="ClientApp\src\app\auth\services\**" />
-    <EmbeddedResource Remove="Models\ViewModels\Admin\Auctions\**" />
     <EmbeddedResource Remove="Models\ViewModels\Users\Delete\**" />
     <None Remove="ClientApp\src\app\auth\components\sign-in\**" />
     <None Remove="ClientApp\src\app\auth\models\**" />
     <None Remove="ClientApp\src\app\auth\services\**" />
-    <None Remove="Models\ViewModels\Admin\Auctions\**" />
     <None Remove="Models\ViewModels\Users\Delete\**" />
   </ItemGroup>
 

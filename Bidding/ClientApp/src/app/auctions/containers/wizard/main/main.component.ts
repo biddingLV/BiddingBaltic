@@ -294,11 +294,14 @@ export class AuctionAddMainWizardComponent
   }
 
   private setAboutAuctionCreatorDetails(): Auctions.AboutAuctionCreatorModel {
+    let aboutForm = this.aboutStepForm.value;
+
     return {
-      auctionCreatorName: this.aboutStepForm.value.auctionCreator,
-      auctionCreatorAddress: this.aboutStepForm.value.auctionAddress,
-      auctionCreatorEmail: this.aboutStepForm.value.auctionCreatorEmail,
-      auctionCreatorPhone: this.aboutStepForm.value.auctionCreatorPhone
+      auctionCreatorName: aboutForm.auctionCreator,
+      auctionCreatorAddress: aboutForm.auctionAddress,
+      auctionCreatorEmail: aboutForm.auctionCreatorEmail,
+      auctionCreatorPhone: aboutForm.auctionCreatorPhone,
+      auctionExternalWebsite: aboutForm.auctionExternalWebsite
     };
   }
 

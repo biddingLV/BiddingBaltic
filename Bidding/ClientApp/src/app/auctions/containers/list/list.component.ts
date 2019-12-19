@@ -35,6 +35,9 @@ export class AuctionListComponent implements OnInit, OnChanges, OnDestroy {
   @Input() specifiedSearchText: string;
   @Input() categoryFilter?: string;
 
+  /** Based on this flag list loads all active and inactive auctions */
+  @Input() loadAllAuctionsFlag: boolean;
+
   /** Show or hide select all checkbox column in auction table. */
   @Input() showSelectAllCheckboxColumn?: boolean;
   @Output() selectedChange = new EventEmitter<AuctionListItemModel[]>();
@@ -119,13 +122,10 @@ export class AuctionListComponent implements OnInit, OnChanges, OnDestroy {
     this.loadActiveAuctions();
   }
 
-  /** Gets only active auctions */
   loadActiveAuctions(): void {
-    if (this.loggedInUserId) {
-      this.loadAuctionsWithSearch();
-    } else {
-      this.loadAuctionsWithoutSearch();
-    }
+    this.loadAllAuctionsFlag
+      ? this.getAllAuctions()
+      : this.getOnlyActiveAuctions();
   }
 
   ngOnDestroy(): void {
@@ -184,9 +184,9 @@ export class AuctionListComponent implements OnInit, OnChanges, OnDestroy {
     };
   }
 
-  private loadAuctionsWithSearch() {
+  private getOnlyActiveAuctions() {
     this.listSubscription = this.auctionService
-      .getAuctionsWithSearch$(this.auctionListRequest)
+      .getActiveAuctions$(this.auctionListRequest)
       .subscribe(
         (response: AuctionListResponseModel) => {
           this.auctionTable = response;
@@ -196,9 +196,9 @@ export class AuctionListComponent implements OnInit, OnChanges, OnDestroy {
       );
   }
 
-  private loadAuctionsWithoutSearch() {
+  private getAllAuctions() {
     this.listSubscription = this.auctionService
-      .getAuctionsWithoutSearch$(this.auctionListRequest)
+      .getAllAuctions$(this.auctionListRequest)
       .subscribe(
         (response: AuctionListResponseModel) => {
           this.auctionTable = response;

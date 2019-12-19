@@ -98,6 +98,24 @@
           </p>
 
           <p>
+            <span class="pr-2 font-weight-bold">Izsoles portāls:</span>
+            <ng-container
+              *ngIf="
+                auctionDetails.aboutAuctionDetails.auctionExternalWebsite;
+                else noInfo
+              "
+            >
+              <a
+                [href]="
+                  auctionDetails.aboutAuctionDetails.auctionExternalWebsite
+                "
+                target="_blank"
+                >Izsoles portāls</a
+              >
+            </ng-container>
+          </p>
+
+          <p>
             <span class="pr-2 font-weight-bold">Izsoles sākums:</span>
             <span
               *ngIf="

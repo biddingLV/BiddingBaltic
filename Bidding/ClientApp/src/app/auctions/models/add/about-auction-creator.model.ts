@@ -4,5 +4,6 @@ namespace Auctions {
     auctionCreatorAddress: string;
     auctionCreatorEmail: string;
     auctionCreatorPhone: string;
+    auctionExternalWebsite: string;
   }
 }

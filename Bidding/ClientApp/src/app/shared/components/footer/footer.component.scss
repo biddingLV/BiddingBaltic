@@ -41,6 +41,16 @@ footer {
   padding-bottom: 10px;
 }
 
+// social icons
+ul.social-network {
+  list-style: none;
+  padding: 0;
+}
+ul.social-network li {
+  display: inline;
+  margin: 0 5px;
+}
+
 .social-circle li a {
   font-size: 20px;
 }

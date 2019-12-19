@@ -4,9 +4,11 @@ BEGIN
     typ.AuctionCategoryId AS CategoryId,
     typ.TypeId,
     typ.Name AS TypeName,
-    SUM(CASE
-      WHEN auct.AuctionTypeId = typ.TypeId THEN 1
-      ELSE 0
+    SUM(
+		CASE
+			WHEN auct.AuctionTypeId = typ.TypeId AND (auct.EndDate >= CONVERT(date, GETDATE())) 
+			THEN 1
+			ELSE 0
     END) AS TypeTotalCount
   FROM Types typ
   LEFT JOIN Auctions auct ON typ.TypeId = auct.AuctionTypeId

@@ -16,16 +16,29 @@ namespace Bidding.Services.Shared.Permissions
             _httpContextAccessor = httpContextAccessor ?? throw new ArgumentNullException(nameof(httpContextAccessor));
         }
 
-        public int GetUserIdFromClaimsPrincipal()
+        /// <summary>
+        /// Pretty much only gets UserId.
+        /// </summary>
+        /// <returns></returns>
+        public string GetUserId()
         {
-            string userId = _httpContextAccessor.HttpContext.User.FindFirst(PermissionConstants.UserIdClaimType).Value;
+            return _httpContextAccessor.HttpContext.User.FindFirst(PermissionConstants.UserIdClaimType)?.Value;
+        }
 
-            if (!int.TryParse(userId, out int i))
+        /// <summary>
+        /// Gets user id and also validates if the user id exists in Claims.
+        /// </summary>
+        /// <returns></returns>
+        public int GetAndValidateUserId()
+        {
+            string userIdValue = GetUserId();
+
+            if (!int.TryParse(userIdValue, out int userId))
             {
                 throw new WebApiException(HttpStatusCode.Forbidden, UserErrorMessage.UserNotActive);
             }
 
-            return i;
+            return userId;
         }
     }
 }

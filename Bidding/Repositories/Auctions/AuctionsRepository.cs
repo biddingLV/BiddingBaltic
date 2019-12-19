@@ -42,7 +42,7 @@ namespace Bidding.Repositories.Auctions
             m_context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
-        public IEnumerable<AuctionListItemModel> GetAuctions(AuctionListRequestModel request, int startFrom, int endAt)
+        public IEnumerable<AuctionListItemModel> GetActiveAuctions(AuctionListRequestModel request, int startFrom, int endAt, DateTime auctionsFromDate)
         {
             try
             {
@@ -89,8 +89,16 @@ namespace Bidding.Repositories.Auctions
                     SqlDbType = SqlDbType.Text
                 };
 
+                SqlParameter loadFromDate = new SqlParameter
+                {
+                    ParameterName = "fromDate",
+                    Direction = ParameterDirection.Input,
+                    Value = auctionsFromDate,
+                    SqlDbType = SqlDbType.DateTime
+                };
+
                 return m_context.Query<AuctionListItemModel>()
-                    .FromSql("[dbo].[BID_GetAuctions] @selectedCategories, @selectedTypes, @start, @end, @searchValue", categoryIds, typeIds, startPaginationFrom, endPaginationAt, searchBy);
+                    .FromSql("[dbo].[BID_GetAuctions] @selectedCategories, @selectedTypes, @start, @end, @searchValue, @fromDate", categoryIds, typeIds, startPaginationFrom, endPaginationAt, searchBy, loadFromDate);
             }
             catch (Exception ex)
             {
@@ -102,9 +110,18 @@ namespace Bidding.Repositories.Auctions
         /// Gets total count of active auctions
         /// </summary>
         /// <returns></returns>
-        public IEnumerable<Auction> TotalAuctionCount()
+        public IEnumerable<Auction> ActiveAuctionCount()
         {
             return m_context.Auctions.Where(auct => auct.EndDate >= DateTime.Now.Date);
+        }
+
+        /// <summary>
+        /// Gets total count of ALL possible auctions
+        /// </summary>
+        /// <returns></returns>
+        public IEnumerable<Auction> AllAuctionCount()
+        {
+            return m_context.Auctions;
         }
 
         /// <summary>
@@ -449,6 +466,7 @@ namespace Bidding.Repositories.Auctions
                 AuctionStatusId = defaultAuctionStatusId,
                 AuctionFormatId = request.AboutAuction.AuctionFormatId,
                 AuctionCreatorId = auctionCreatorId,
+                AuctionExternalWebsite = request.AboutAuctionCreator.AuctionExternalWebsite, // NOTE: KKE: No idea if this is correct placement!
                 CreatedAt = DateTime.UtcNow,
                 // CreatedBy = loggedInUserId,
                 LastUpdatedAt = DateTime.UtcNow,
@@ -612,6 +630,7 @@ namespace Bidding.Repositories.Auctions
                     AuctionApplyTillDate = details.Auction.ApplyTillDate,
                     AuctionEndDate = details.Auction.EndDate,
                     AuctionFormat = auctionFormatName,
+                    AuctionExternalWebsite = details.Auction.AuctionExternalWebsite,
                     ItemEvaluation = details.AuctionDetails.Evaluation,
                     AuctionImageUrls = auctionFiles.Item1,
                     AuctionDocumentUrls = auctionFiles.Item2
@@ -660,6 +679,7 @@ namespace Bidding.Repositories.Auctions
                     AuctionApplyTillDate = details.Auction.ApplyTillDate,
                     AuctionEndDate = details.Auction.EndDate,
                     AuctionFormat = auctionFormatName,
+                    AuctionExternalWebsite = details.Auction.AuctionExternalWebsite,
                     ItemEvaluation = details.AuctionDetails.Evaluation,
                     AuctionImageUrls = auctionFiles.Item1,
                     AuctionDocumentUrls = auctionFiles.Item2
@@ -702,6 +722,7 @@ namespace Bidding.Repositories.Auctions
                     AuctionApplyTillDate = details.Auction.ApplyTillDate,
                     AuctionEndDate = details.Auction.EndDate,
                     AuctionFormat = auctionFormatName,
+                    AuctionExternalWebsite = details.Auction.AuctionExternalWebsite,
                     ItemEvaluation = details.AuctionDetails.Evaluation,
                     AuctionImageUrls = auctionFiles.Item1,
                     AuctionDocumentUrls = auctionFiles.Item2

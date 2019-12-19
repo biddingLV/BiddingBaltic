@@ -1,18 +1,14 @@
-﻿CREATE PROCEDURE [dbo].[BID_GetAuctions] @selectedCategories varchar(1000) = NULL,
-@selectedTypes varchar(1000) = NULL,
-@start int,
-@end int,
-@searchValue varchar(100) = NULL
-AS
+﻿CREATE PROCEDURE [dbo].[BID_GetAuctions] 
+	@selectedCategories varchar(1000) = NULL,
+	@selectedTypes varchar(1000) = NULL,
+	@start int,
+	@end int,
+	@searchValue varchar(100) = NULL,
+	@fromDate datetime AS
 BEGIN
+  DECLARE @TempCategoryIds TABLE (CategoryId int);
 
-  DECLARE @TempCategoryIds TABLE (
-    CategoryId int
-  );
-
-  DECLARE @TempTypeIds TABLE (
-    TypeId int
-  );
+  DECLARE @TempTypeIds TABLE (TypeId int);
 
   IF @selectedCategories IS NULL
   BEGIN
@@ -52,19 +48,20 @@ BEGIN
     auct.EndDate AS AuctionEndDate,
     asta.Name AS AuctionStatusName
   FROM Auctions auct
-  INNER JOIN AuctionStatuses asta
-    ON auct.AuctionStatusId = asta.AuctionStatusId
-    AND (auct.EndDate >= CONVERT(date, GETDATE()))
-    AND auct.AuctionCategoryId IN (SELECT
-      CategoryId
-    FROM @TempCategoryIds)
-    AND auct.AuctionTypeId IN (SELECT
-      TypeId
-    FROM @TempTypeIds)
-    AND (@searchValue IS NULL
-    OR auct.Name LIKE '%' + @searchValue + '%')
-  ORDER BY (CASE
-    WHEN auct.StartDate IS NULL THEN 1
+  INNER JOIN AuctionStatuses asta ON auct.AuctionStatusId = asta.AuctionStatusId
+  AND (auct.EndDate >= @fromDate)
+  AND auct.AuctionCategoryId IN (
+		SELECT CategoryId
+    FROM @TempCategoryIds
+	)
+  AND auct.AuctionTypeId IN (
+		SELECT TypeId
+    FROM @TempTypeIds
+	)
+  AND (@searchValue IS NULL OR auct.Name LIKE '%' + @searchValue + '%')
+  ORDER BY (
+		CASE
+			WHEN auct.StartDate IS NULL THEN 1
     ELSE 0
   END) DESC,
   auct.StartDate DESC

@@ -5,6 +5,7 @@ export interface AboutAuctionDetailsModel {
   auctionStartingPrice: number;
   auctionValueAddedTax: string;
   auctionFormat: string;
+  auctionExternalWebsite: string;
   auctionStartDate: Date;
   auctionApplyTillDate: Date;
   auctionEndDate: Date;
