@@ -8,7 +8,7 @@
       [clearable]="false"
       [virtualScroll]="true"
       [multiple]="true"
-      [closeOnSelect]="false"
+      [closeOnSelect]="true"
       placeholder="Izvēlies kategoriju"
       [(ngModel)]="preselectedCategory"
       (change)="onCategoryChange($event)"
@@ -31,7 +31,7 @@
       [clearable]="false"
       [virtualScroll]="true"
       [multiple]="true"
-      [closeOnSelect]="false"
+      [closeOnSelect]="true"
       placeholder="Izvēlies tipu"
       (change)="onTypeChange($event)"
     >

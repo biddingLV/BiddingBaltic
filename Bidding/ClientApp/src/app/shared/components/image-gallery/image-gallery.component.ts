@@ -13,51 +13,50 @@ import {
   templateUrl: "./image-gallery.component.html"
 })
 export class ImageGalleryComponent implements OnInit {
-  // note: kke: Get rid of font awesome css for Icons! Not needed!
+  // TODO: kke: Get rid of font awesome css for Icons! Not needed!
   @Input() auctionImageUrls: string[];
 
-  galleryOptions: NgxGalleryOptions[] = [];
-  galleryImages: NgxGalleryImage[] = [];
+  /** Default gallery options */
+  galleryOptions: NgxGalleryOptions[] = [
+    {
+      thumbnailsColumns: 2,
+      imageAnimation: NgxGalleryAnimation.Slide,
+      width: "100%",
+      height: "600px",
+      imagePercent: 80,
+      breakpoint: 400,
+      preview: false
+    }
+  ];
 
-  constructor() {
-    this.galleryOptions = [
-      {
-        width: "100%",
-        height: "100%",
-        thumbnailsColumns: 2,
-        imageAnimation: NgxGalleryAnimation.Slide
-        // imageAutoPlay: true, // todo: kke: what is this?
-        // imageAutoPlayPauseOnHover: true, // todo: kke: what is this?
-        // previewAutoPlay: true, // todo: kke: what is this?
-        // previewAutoPlayPauseOnHover: true // todo: kke: what is this?
-      },
-      // max-width 800
-      {
-        breakpoint: 800,
-        width: "100%",
-        height: "600px",
-        imagePercent: 80,
-        thumbnailsPercent: 20,
-        thumbnailsMargin: 20,
-        thumbnailMargin: 20
-      },
-      // max-width 400
-      {
-        breakpoint: 400,
-        preview: false
-      }
-    ];
-  }
+  galleryImages: NgxGalleryImage[] = [
+    {
+      small: "../../../../assets/images/non-picture-placeholder.jpg",
+      medium: "../../../../assets/images/non-picture-placeholder.jpg",
+      big: "../../../../assets/images/non-picture-placeholder.jpg"
+    }
+  ];
+
+  constructor() {}
 
   ngOnInit(): void {
-    this.auctionImageUrls.forEach(item => {
-      var image = {
-        small: item,
-        medium: item,
-        big: item
-      };
+    this.handleImages();
+  }
 
-      this.galleryImages.push(image);
-    });
+  private handleImages(): void {
+    if (this.auctionImageUrls.length != 0) {
+      // remove default image placeholder
+      this.galleryImages = [];
+
+      this.auctionImageUrls.forEach(item => {
+        let imageObject = {
+          small: item,
+          medium: item,
+          big: item
+        };
+
+        this.galleryImages.push(imageObject);
+      });
+    }
   }
 }
