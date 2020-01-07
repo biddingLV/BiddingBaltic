@@ -467,6 +467,7 @@ namespace Bidding.Repositories.Auctions
                 AuctionFormatId = request.AboutAuction.AuctionFormatId,
                 AuctionCreatorId = auctionCreatorId,
                 AuctionExternalWebsite = request.AboutAuctionCreator.AuctionExternalWebsite, // NOTE: KKE: No idea if this is correct placement!
+                Requirements = request.AboutAuctionCreator.AuctionRequirements,
                 CreatedAt = DateTime.UtcNow,
                 // CreatedBy = loggedInUserId,
                 LastUpdatedAt = DateTime.UtcNow,
@@ -621,20 +622,7 @@ namespace Bidding.Repositories.Auctions
 
             return new AuctionDetailsResponseModel
             {
-                AboutAuctionDetails = new AboutAuctionDetailsModel
-                {
-                    AuctionName = details.Auction.Name,
-                    AuctionStartingPrice = details.Auction.StartingPrice,
-                    AuctionValueAddedTax = details.Auction.ValueAddedTax ? "Ir" : "Nav",
-                    AuctionStartDate = details.Auction.StartDate,
-                    AuctionApplyTillDate = details.Auction.ApplyTillDate,
-                    AuctionEndDate = details.Auction.EndDate,
-                    AuctionFormat = auctionFormatName,
-                    AuctionExternalWebsite = details.Auction.AuctionExternalWebsite,
-                    ItemEvaluation = details.AuctionDetails.Evaluation,
-                    AuctionImageUrls = auctionFiles.Item1,
-                    AuctionDocumentUrls = auctionFiles.Item2
-                },
+                AboutAuctionDetails = SetAboutAuctionDetails(details, auctionFormatName, auctionFiles),
                 VehicleAuction = new VehicleAuctionDetailsModel
                 {
                     VehicleMake = details.AuctionDetails.Make,
@@ -650,13 +638,7 @@ namespace Bidding.Repositories.Auctions
                     VehicleEngineSize = details.AuctionDetails.EngineSize,
                     VehicleAxis = details.AuctionDetails.Axis
                 },
-                AboutAuctionCreator = new AuctionCreatorDetailsModel
-                {
-                    AuctionCreatorName = details.AuctionCreator.Name,
-                    AuctionCreatorAddress = details.AuctionCreator.ContactAddress,
-                    AuctionCreatorEmail = details.AuctionCreator.ContactEmail,
-                    AuctionCreatorPhone = details.AuctionCreator.ContactPhone
-                }
+                AboutAuctionCreator = SetAuctionCreatorDetails(details)
             };
         }
 
@@ -670,20 +652,7 @@ namespace Bidding.Repositories.Auctions
 
             return new AuctionDetailsResponseModel
             {
-                AboutAuctionDetails = new AboutAuctionDetailsModel
-                {
-                    AuctionName = details.Auction.Name,
-                    AuctionStartingPrice = details.Auction.StartingPrice,
-                    AuctionValueAddedTax = details.Auction.ValueAddedTax ? "Ir" : "Nav",
-                    AuctionStartDate = details.Auction.StartDate,
-                    AuctionApplyTillDate = details.Auction.ApplyTillDate,
-                    AuctionEndDate = details.Auction.EndDate,
-                    AuctionFormat = auctionFormatName,
-                    AuctionExternalWebsite = details.Auction.AuctionExternalWebsite,
-                    ItemEvaluation = details.AuctionDetails.Evaluation,
-                    AuctionImageUrls = auctionFiles.Item1,
-                    AuctionDocumentUrls = auctionFiles.Item2
-                },
+                AboutAuctionDetails = SetAboutAuctionDetails(details, auctionFormatName, auctionFiles),
                 ItemAuction = new ItemAuctionDetailsModel
                 {
                     ItemModel = details.AuctionDetails.Model,
@@ -693,13 +662,7 @@ namespace Bidding.Repositories.Auctions
                     ItemVolume = details.AuctionDetails.Volume,
                     ItemCompanyType = companyTypeName
                 },
-                AboutAuctionCreator = new AuctionCreatorDetailsModel
-                {
-                    AuctionCreatorName = details.AuctionCreator.Name,
-                    AuctionCreatorAddress = details.AuctionCreator.ContactAddress,
-                    AuctionCreatorEmail = details.AuctionCreator.ContactEmail,
-                    AuctionCreatorPhone = details.AuctionCreator.ContactPhone
-                }
+                AboutAuctionCreator = SetAuctionCreatorDetails(details)
             };
         }
 
@@ -713,20 +676,7 @@ namespace Bidding.Repositories.Auctions
 
             return new AuctionDetailsResponseModel
             {
-                AboutAuctionDetails = new AboutAuctionDetailsModel
-                {
-                    AuctionName = details.Auction.Name,
-                    AuctionStartingPrice = details.Auction.StartingPrice,
-                    AuctionValueAddedTax = details.Auction.ValueAddedTax ? "Ir" : "Nav",
-                    AuctionStartDate = details.Auction.StartDate,
-                    AuctionApplyTillDate = details.Auction.ApplyTillDate,
-                    AuctionEndDate = details.Auction.EndDate,
-                    AuctionFormat = auctionFormatName,
-                    AuctionExternalWebsite = details.Auction.AuctionExternalWebsite,
-                    ItemEvaluation = details.AuctionDetails.Evaluation,
-                    AuctionImageUrls = auctionFiles.Item1,
-                    AuctionDocumentUrls = auctionFiles.Item2
-                },
+                AboutAuctionDetails = SetAboutAuctionDetails(details, auctionFormatName, auctionFiles),
                 PropertyAuction = new PropertyAuctionDetailsModel
                 {
                     PropertyCoordinates = details.AuctionDetails.Coordinates,
@@ -738,13 +688,37 @@ namespace Bidding.Repositories.Auctions
                     PropertyFloorCount = details.AuctionDetails.FloorCount ?? null,
                     PropertyRoomCount = details.AuctionDetails.RoomCount ?? null
                 },
-                AboutAuctionCreator = new AuctionCreatorDetailsModel
-                {
-                    AuctionCreatorName = details.AuctionCreator.Name,
-                    AuctionCreatorAddress = details.AuctionCreator.ContactAddress,
-                    AuctionCreatorEmail = details.AuctionCreator.ContactEmail,
-                    AuctionCreatorPhone = details.AuctionCreator.ContactPhone
-                }
+                AboutAuctionCreator = SetAuctionCreatorDetails(details)
+            };
+        }
+
+        private AboutAuctionDetailsModel SetAboutAuctionDetails(AuctionDetailsModel details, string auctionFormatName, Tuple<List<string>, List<AuctionDocumentModel>> auctionFiles)
+        {
+            return new AboutAuctionDetailsModel
+            {
+                AuctionName = details.Auction.Name,
+                AuctionStartingPrice = details.Auction.StartingPrice,
+                AuctionValueAddedTax = details.Auction.ValueAddedTax ? "Ir" : "Nav",
+                AuctionStartDate = details.Auction.StartDate,
+                AuctionApplyTillDate = details.Auction.ApplyTillDate,
+                AuctionEndDate = details.Auction.EndDate,
+                AuctionFormat = auctionFormatName,
+                AuctionExternalWebsite = details.Auction.AuctionExternalWebsite,
+                ItemEvaluation = details.AuctionDetails.Evaluation,
+                AuctionImageUrls = auctionFiles.Item1,
+                AuctionDocuments = auctionFiles.Item2
+            };
+        }
+
+        private AuctionCreatorDetailsModel SetAuctionCreatorDetails(AuctionDetailsModel details)
+        {
+            return new AuctionCreatorDetailsModel
+            {
+                AuctionCreatorName = details.AuctionCreator.Name,
+                AuctionCreatorAddress = details.AuctionCreator.ContactAddress,
+                AuctionCreatorEmail = details.AuctionCreator.ContactEmail,
+                AuctionCreatorPhone = details.AuctionCreator.ContactPhone,
+                AuctionRequirements = details.Auction.Requirements
             };
         }
 

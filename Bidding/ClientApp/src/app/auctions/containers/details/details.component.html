@@ -228,6 +228,21 @@
               auctionDetails.aboutAuctionCreator.auctionCreatorAddress
             }}</span>
           </p>
+
+          <p>
+            <span class="pr-2 font-weight-bold"
+              >Pieteikuma forma / prasības:</span
+            >
+            <span
+              *ngIf="
+                auctionDetails.aboutAuctionCreator.auctionRequirements;
+                else noInfo
+              "
+              >{{
+                auctionDetails.aboutAuctionCreator.auctionRequirements
+              }}</span
+            >
+          </p>
         </div>
 
         <div class="col-12 pt-2">

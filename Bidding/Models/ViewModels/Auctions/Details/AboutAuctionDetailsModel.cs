@@ -18,6 +18,6 @@ namespace Bidding.Models.ViewModels.Auctions.Details
         public DateTime AuctionEndDate { get; set; }
         public string ItemEvaluation { get; set; }
         public List<string> AuctionImageUrls { get; set; }
-        public List<AuctionDocumentModel> AuctionDocumentUrls { get; set; }     
+        public List<AuctionDocumentModel> AuctionDocuments { get; set; }     
     }
 }

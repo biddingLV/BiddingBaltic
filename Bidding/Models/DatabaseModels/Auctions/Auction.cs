@@ -50,6 +50,7 @@ namespace Bidding.Models.DatabaseModels.Auctions
         public AuctionCreator AuctionCreator { get; set; }
 
         public string AuctionExternalWebsite { get; set; }
+        public string Requirements { get; set; }
         public string AuctionImageContainer { get; set; }
 
         public DateTime CreatedAt { get; set; }

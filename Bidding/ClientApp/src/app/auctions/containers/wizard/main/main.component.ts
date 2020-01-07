@@ -96,7 +96,7 @@ export class AuctionAddMainWizardComponent
   };
 
   /** Adds additional add-wizard step to the whole wizard flow */
-  addWizardStep(event: boolean) {
+  addWizardStep(event: boolean): void {
     this.step++;
     this.steps.push(this.step);
   }
@@ -299,6 +299,7 @@ export class AuctionAddMainWizardComponent
     return {
       auctionCreatorName: aboutForm.auctionCreator,
       auctionCreatorAddress: aboutForm.auctionAddress,
+      auctionRequirements: aboutForm.auctionRequirements,
       auctionCreatorEmail: aboutForm.auctionCreatorEmail,
       auctionCreatorPhone: aboutForm.auctionCreatorPhone,
       auctionExternalWebsite: aboutForm.auctionExternalWebsite

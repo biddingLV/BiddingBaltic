@@ -35,6 +35,7 @@ export class AuctionAddAboutWizardStepComponent implements OnInit, OnChanges {
   formErrors = {
     auctionCreator: "",
     auctionAddress: "",
+    auctionRequirements: "",
     auctionCreatorEmail: "",
     auctionCreatorPhone: "",
     auctionExternalWebsite: "",
@@ -110,19 +111,19 @@ export class AuctionAddAboutWizardStepComponent implements OnInit, OnChanges {
     this.returnAddWizardStepForm.emit(this.aboutStepForm);
   }
 
-  onStartDateChange(time: Date) {
+  onStartDateChange(time: Date): void {
     this.aboutStepForm.patchValue({
       auctionStartTime: time
     });
   }
 
-  onApplyTillDateChange(time: Date) {
+  onApplyTillDateChange(time: Date): void {
     this.aboutStepForm.patchValue({
       auctionApplyTillTime: time
     });
   }
 
-  onEndDateChange(time: Date) {
+  onEndDateChange(time: Date): void {
     this.aboutStepForm.patchValue({
       auctionEndTime: time
     });
@@ -132,6 +133,7 @@ export class AuctionAddAboutWizardStepComponent implements OnInit, OnChanges {
     this.aboutStepForm = this.formBuilder.group({
       auctionCreator: ["", [Validators.required]],
       auctionAddress: ["", [Validators.required]],
+      auctionRequirements: ["", []],
       auctionCreatorEmail: ["", [Validators.required]],
       auctionCreatorPhone: ["", [Validators.required]],
       auctionExternalWebsite: [null, []],

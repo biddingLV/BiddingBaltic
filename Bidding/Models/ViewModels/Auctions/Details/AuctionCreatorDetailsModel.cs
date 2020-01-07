@@ -11,5 +11,6 @@ namespace Bidding.Models.ViewModels.Auctions.Details
         public string AuctionCreatorAddress { get; set; }
         public string AuctionCreatorEmail { get; set; }
         public string AuctionCreatorPhone { get; set; }
+        public string AuctionRequirements { get; set; }
     }
 }
