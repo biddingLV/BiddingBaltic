@@ -284,11 +284,12 @@ namespace Bidding
                 {
                     options.Cookie.Name = Configuration["Cookies:Session"];
                     options.SlidingExpiration = true;
-                    options.Cookie.HttpOnly = true;
+                    options.Cookie.HttpOnly = false;
                     options.Cookie.SameSite = SameSiteMode.Lax;
                     options.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
                     options.LoginPath = "/sign-in";
                     options.Cookie.IsEssential = true;
+                    options.Cookie.Domain = Configuration["Cookies:Domain"];
                     options.Events = new CookieAuthenticationEvents()
                     {
                         OnRedirectToLogin = (context) =>
@@ -425,7 +426,7 @@ namespace Bidding
         {
             return new CookieOptions
             {
-                SameSite = SameSiteMode.Lax,
+                Domain = Configuration["Cookies:Domain"],
                 HttpOnly = false
             };
         }
