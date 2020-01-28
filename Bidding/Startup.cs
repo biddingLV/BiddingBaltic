@@ -284,7 +284,7 @@ namespace Bidding
                 {
                     options.Cookie.Name = Configuration["Cookies:Session"];
                     options.SlidingExpiration = true;
-                    options.Cookie.HttpOnly = false;
+                    options.Cookie.HttpOnly = true;
                     options.Cookie.SameSite = SameSiteMode.Lax;
                     options.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
                     options.LoginPath = "/sign-in";
