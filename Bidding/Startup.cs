@@ -289,7 +289,6 @@ namespace Bidding
                     options.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
                     options.LoginPath = "/sign-in";
                     options.Cookie.IsEssential = true;
-                    options.Cookie.Domain = Configuration["Cookies:Domain"];
                     options.Events = new CookieAuthenticationEvents()
                     {
                         OnRedirectToLogin = (context) =>
@@ -426,7 +425,7 @@ namespace Bidding
         {
             return new CookieOptions
             {
-                Domain = Configuration["Cookies:Domain"],
+                SameSite = SameSiteMode.Lax,
                 HttpOnly = false
             };
         }
