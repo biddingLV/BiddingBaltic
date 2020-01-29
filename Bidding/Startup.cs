@@ -425,7 +425,6 @@ namespace Bidding
         {
             return new CookieOptions
             {
-                SameSite = SameSiteMode.Lax,
                 HttpOnly = false
             };
         }
