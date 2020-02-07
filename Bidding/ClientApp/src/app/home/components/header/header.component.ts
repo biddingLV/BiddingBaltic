@@ -12,7 +12,11 @@ import { CustomButtonModel } from "ClientApp/src/app/core/services/buttons/custo
   styleUrls: ["./header.component.scss"]
 })
 export class HomeHeaderComponent implements OnInit {
+  // template
   buttonConfig: CustomButtonModel;
+  isLoggedIn: boolean;
+
+  userDetails = this.authService.userDetails;
 
   constructor(
     private authService: AuthService,
@@ -20,6 +24,7 @@ export class HomeHeaderComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.isLoggedIn = this.userDetails != null ? true : false;
     this.handleSignInButton();
   }
 

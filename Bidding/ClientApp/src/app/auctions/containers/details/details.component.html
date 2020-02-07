@@ -63,6 +63,7 @@
       <div class="row auction__details-apply-row">
         <div class="col-12 align-self-center text-center">
           <app-sign-in-button
+            *ngIf="!isLoggedIn"
             class="homepage__header--sign-up-button"
             [buttonConfig]="buttonConfig"
             (signInChange)="onSignInChange($event)"
@@ -206,6 +207,7 @@
           ></app-auction-creator>
 
           <app-sign-in-button
+            *ngIf="!isLoggedIn"
             class="homepage__header--sign-up-button"
             [buttonConfig]="buttonConfig"
             (signInChange)="onSignInChange($event)"

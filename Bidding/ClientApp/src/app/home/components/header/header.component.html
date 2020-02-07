@@ -15,6 +15,7 @@
         </h2>
 
         <app-sign-in-button
+          *ngIf="!isLoggedIn"
           class="homepage__header--sign-up-button"
           [buttonConfig]="buttonConfig"
           (signInChange)="onSignInChange($event)"
