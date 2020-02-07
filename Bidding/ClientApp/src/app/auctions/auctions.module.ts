@@ -28,6 +28,7 @@ import { ItemDetailsComponent } from "./components/details/categories/item-detai
 import { PropertyDetailsComponent } from "./components/details/categories/property-details/property-details.component";
 import { VehicleDetailsComponent } from "./components/details/categories/vehicle-details/vehicle-details.component";
 import { AuctionFileUploaderComponent } from './components/wizard/auction-file-uploader/auction-file-uploader.component';
+import { AuctionCreatorComponent } from './components/details/auction-creator/auction-creator.component';
 
 @NgModule({
   imports: [
@@ -62,7 +63,8 @@ import { AuctionFileUploaderComponent } from './components/wizard/auction-file-u
     ItemDetailsComponent,
     PropertyDetailsComponent,
     VehicleDetailsComponent,
-    AuctionFileUploaderComponent
+    AuctionFileUploaderComponent,
+    AuctionCreatorComponent
   ],
   providers: [AuctionsService],
   entryComponents: [

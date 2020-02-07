@@ -24,7 +24,8 @@ import {
 
 @Component({
   selector: "app-auction-filters",
-  templateUrl: "./auction-filters.component.html"
+  templateUrl: "./auction-filters.component.html",
+  styleUrls: ["./auction-filters.component.scss"]
 })
 export class AuctionFiltersComponent implements OnInit, OnChanges {
   @Input() filters: AuctionFilterModel;

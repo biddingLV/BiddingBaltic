@@ -43,7 +43,7 @@ import { PartnerRulesComponent } from "./components/footer/static-components/par
 import { RulesListComponent } from "./components/footer/static-components/rules-list/rules-list.component";
 import { ServiceRulesComponent } from "./components/footer/static-components/service-rules/service-rules.component";
 import { FAQPageComponent } from "./components/footer/static-components/faq-page/faq-page.component";
-import { HomeSignUpButtonComponent } from "./components/home-sign-up-button/home-sign-up-button.component";
+import { SignInButtonComponent } from "./components/sign-in-button/sign-in-button.component";
 import { BreadcrumbComponent } from "./components/breadcrumb/breadcrumb.component";
 
 @NgModule({
@@ -67,7 +67,7 @@ import { BreadcrumbComponent } from "./components/breadcrumb/breadcrumb.componen
     FontAwesomeModule,
     ContentLoaderModule,
     AccordionModule,
-    HomeSignUpButtonComponent
+    SignInButtonComponent
   ],
   declarations: [
     NavbarComponent,
@@ -79,7 +79,7 @@ import { BreadcrumbComponent } from "./components/breadcrumb/breadcrumb.componen
     FAQPageComponent,
     CallbackComponent,
     BreadcrumbComponent,
-    HomeSignUpButtonComponent
+    SignInButtonComponent
   ]
 })
 export class MinSharedModule {

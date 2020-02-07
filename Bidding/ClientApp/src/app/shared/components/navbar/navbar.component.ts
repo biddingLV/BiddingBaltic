@@ -9,10 +9,13 @@ import { AuthService } from "ClientApp/src/app/core/services/auth/auth.service";
 import { PermissionService } from "ClientApp/src/app/core/services/permissions/permission.service";
 import { NotificationsService } from "ClientApp/src/app/core/services/notifications/notifications.service";
 import { PermissionConstants } from "ClientApp/src/app/core/constants/permissions/permission-constants";
+import { ButtonsService } from "ClientApp/src/app/core/services/buttons/buttons.service";
+import { CustomButtonModel } from "ClientApp/src/app/core/services/buttons/custom-button.model";
 
 @Component({
   selector: "app-navbar",
-  templateUrl: "./navbar.component.html"
+  templateUrl: "./navbar.component.html",
+  styleUrls: ["./navbar.component.scss"]
 })
 export class NavbarComponent implements OnInit {
   // component
@@ -26,13 +29,17 @@ export class NavbarComponent implements OnInit {
   /** Used to show or hide Admin panel in nav bar */
   canAccessAdminPanel: boolean = false;
 
+  buttonConfig: CustomButtonModel;
+
   constructor(
     private authService: AuthService,
     private permissionService: PermissionService,
-    private notificationService: NotificationsService
+    private notificationService: NotificationsService,
+    private buttonsService: ButtonsService
   ) {}
 
   ngOnInit(): void {
+    this.handleSignInButton();
     this.handleAdminPanel();
   }
 
@@ -73,5 +80,11 @@ export class NavbarComponent implements OnInit {
       },
       (error: string) => this.notificationService.error(error)
     );
+  }
+
+  private handleSignInButton(): void {
+    this.buttonConfig = {
+      ...this.buttonsService.defaultButtonConfig
+    };
   }
 }

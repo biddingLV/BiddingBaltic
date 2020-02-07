@@ -2,19 +2,23 @@
   <div class="container">
     <div class="row">
       <div class="col-12 text-center">
-        <h1 class="homepage__header--title">Baltijas Izsoļu Datubāze</h1>
+        <h1 class="homepage__header--title font-weight-bold">
+          Baltijas Izsoļu Datubāze
+        </h1>
       </div>
 
       <div class="col-12 text-center">
-        <h2 class="homepage__header--description">
+        <h2 class="homepage__header--description font-weight-bold">
           Kļūsti par Baltijas izsoļu Datubāzes lietotāju jau šodien.
           <br />
           Pieraksties un lieto datubāzi pirmās 30 dienas bezmaksas
         </h2>
-        <app-home-sign-up-button
-          (signInChange)="onSignInChange($event)"
+
+        <app-sign-in-button
           class="homepage__header--sign-up-button"
-        ></app-home-sign-up-button>
+          [buttonConfig]="buttonConfig"
+          (signInChange)="onSignInChange($event)"
+        ></app-sign-in-button>
       </div>
     </div>
   </div>

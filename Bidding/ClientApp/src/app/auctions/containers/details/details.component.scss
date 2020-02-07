@@ -1,9 +1,22 @@
 @import "../../../../sass/variables";
 
-.fluid-container.auction__details {
+.auction__details {
   .auction__details-container {
+    .auction__details-breadcrumb-row {
+      padding-bottom: 40px;
+    }
+
     .auction__details-title-row {
-      height: 200px;
+      height: 170px;
+
+      .page-title {
+        font-size: 50px;
+        padding-bottom: 10px;
+      }
+
+      .sub-title {
+        font-size: 32px;
+      }
     }
 
     .auction__details-gallery-row {
@@ -36,6 +49,22 @@
       border-bottom-left-radius: 40px;
       border-bottom-right-radius: 40px;
       margin-bottom: 100px;
+
+      .information-row__basic-details {
+        margin-left: 7%;
+      }
+
+      .information-row__description {
+        margin-right: 7%;
+      }
+
+      .information-row__advanced-details {
+        margin-left: 7%;
+      }
+
+      .information-row__creator-details {
+        margin-right: 7%;
+      }
     }
   }
 }

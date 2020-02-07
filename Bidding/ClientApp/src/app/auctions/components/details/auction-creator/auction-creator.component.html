@@ -1,0 +1,38 @@
+<ng-container *ngIf="isLoggedIn; else notLoggedIn">
+  <p>
+    <span class="pr-2 font-weight-bold">Izsoles veidotājs:</span>
+    <span>{{ creatorDetails.auctionCreatorName }}</span>
+  </p>
+
+  <p>
+    <span class="pr-2 font-weight-bold">E-pasts:</span>
+    <span>{{ creatorDetails.auctionCreatorEmail }}</span>
+  </p>
+
+  <p>
+    <span class="pr-2 font-weight-bold">Telefons:</span>
+    <span>{{ creatorDetails.auctionCreatorPhone }}</span>
+  </p>
+
+  <p>
+    <span class="pr-2 font-weight-bold">Adrese:</span>
+    <span>{{ creatorDetails.auctionCreatorAddress }}</span>
+  </p>
+
+  <p>
+    <span class="pr-2 font-weight-bold">Pieteikuma forma / prasības:</span>
+    <span *ngIf="creatorDetails.auctionRequirements; else noInfo">{{
+      creatorDetails.auctionRequirements
+    }}</span>
+  </p>
+</ng-container>
+
+<ng-template #noInfo>-*</ng-template>
+
+<ng-template #notLoggedIn>
+  <p class="not-logged-in-title font-weight-bold">Izsoles veidotājs</p>
+  <p class="not-logged-in-sub-title">
+    Lai redzētu izsoles veidotāja informāciju Tev ir jāpierakstās par bidding.lv
+    lietotāju
+  </p></ng-template
+>

@@ -21,6 +21,7 @@ import { NotificationsService } from "./services/notifications/notifications.ser
 import { ExceptionsService } from "./services/exceptions/exceptions.service";
 import { FormService } from "./services/form/form.service";
 import { ModalService } from "./services/modal/modal.service";
+import { ButtonsService } from "./services/buttons/buttons.service";
 
 @NgModule({
   imports: [
@@ -37,7 +38,8 @@ import { ModalService } from "./services/modal/modal.service";
     FormService,
     CookieService,
     HttpClientModule,
-    ModalService
+    ModalService,
+    ButtonsService
   ],
   exports: [HttpClientModule, BrowserAnimationsModule, ToastrModule],
   declarations: []

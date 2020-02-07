@@ -14,6 +14,7 @@ import { HomeModule } from "./home/home.module";
 import { AuctionsModule } from "./auctions/auctions.module";
 import { AuthModule } from "./auth/auth.module";
 import { PreviousRouteService } from "./shared/services/previous-route.service.ts/previous-route.service";
+import { TranslocoRootModule } from './transloco-root.module';
 
 @NgModule({
   declarations: [AppComponent],
@@ -27,8 +28,8 @@ import { PreviousRouteService } from "./shared/services/previous-route.service.t
     AuctionsModule,
     CoreModule.forRoot(),
     AuthModule,
-    // leave routing module as the last one!
-    AppRoutingModule
+    AppRoutingModule,
+    TranslocoRootModule
   ],
   providers: [PreviousRouteService],
   bootstrap: [AppComponent],

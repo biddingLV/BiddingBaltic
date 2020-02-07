@@ -7,11 +7,11 @@
 
       <div class="row auction__details-title-row">
         <div class="col-12 text-center">
-          <h1 class="font-weight-bold text-capitalize">
+          <h1 class="font-weight-bold text-capitalize page-title">
             {{ auctionDetails.aboutAuctionDetails.auctionName }}
           </h1>
 
-          <h4 class="font-weight-bold">
+          <h4 class="font-weight-bold sub-title">
             Sākumcena &euro;
             {{ auctionDetails.aboutAuctionDetails.auctionStartingPrice }}
           </h4>
@@ -19,7 +19,7 @@
       </div>
 
       <div class="row auction__details-gallery-row">
-        <div class="col-6">
+        <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
           <app-image-gallery
             [auctionImageUrls]="
               auctionDetails.aboutAuctionDetails.auctionImageUrls
@@ -62,17 +62,16 @@
 
       <div class="row auction__details-apply-row">
         <div class="col-12 align-self-center text-center">
-          <button
-            type="button"
-            class="btn btn-primary btn-lg apply__row-button"
-          >
-            Pieteikties izsolei
-          </button>
+          <app-sign-in-button
+            class="homepage__header--sign-up-button"
+            [buttonConfig]="buttonConfig"
+            (signInChange)="onSignInChange($event)"
+          ></app-sign-in-button>
         </div>
       </div>
 
       <div class="row auction__details-information-row pt-5">
-        <div class="col-6">
+        <div class="col-5 information-row__basic-details">
           <p>
             <span class="pr-2 font-weight-bold">Nosaukums:</span>
             <span>{{ auctionDetails.aboutAuctionDetails.auctionName }}</span>
@@ -167,7 +166,7 @@
           <br />
         </div>
 
-        <div class="col-6">
+        <div class="col-5 information-row__description">
           <p>
             <span class="pr-2 font-weight-bold">Apraksts / novērtējums:</span>
             <span
@@ -180,7 +179,7 @@
           </p>
         </div>
 
-        <div class="col-6">
+        <div class="col-5 information-row__advanced-details">
           <ng-container *ngIf="auctionDetails.vehicleAuction">
             <app-auction-details-vehicle-category
               [details]="auctionDetails.vehicleAuction"
@@ -200,49 +199,17 @@
           </ng-container>
         </div>
 
-        <div class="col-6">
-          <p>
-            <span class="pr-2 font-weight-bold">Izsoles veidotājs:</span>
-            <span>{{
-              auctionDetails.aboutAuctionCreator.auctionCreatorName
-            }}</span>
-          </p>
+        <div class="col-5 information-row__creator-details">
+          <app-auction-creator
+            [creatorDetails]="auctionDetails.aboutAuctionCreator"
+            [isLoggedIn]="isLoggedIn"
+          ></app-auction-creator>
 
-          <p>
-            <span class="pr-2 font-weight-bold">E-pasts:</span>
-            <span>{{
-              auctionDetails.aboutAuctionCreator.auctionCreatorEmail
-            }}</span>
-          </p>
-
-          <p>
-            <span class="pr-2 font-weight-bold">Telefons:</span>
-            <span>{{
-              auctionDetails.aboutAuctionCreator.auctionCreatorPhone
-            }}</span>
-          </p>
-
-          <p>
-            <span class="pr-2 font-weight-bold">Adrese:</span>
-            <span>{{
-              auctionDetails.aboutAuctionCreator.auctionCreatorAddress
-            }}</span>
-          </p>
-
-          <p>
-            <span class="pr-2 font-weight-bold"
-              >Pieteikuma forma / prasības:</span
-            >
-            <span
-              *ngIf="
-                auctionDetails.aboutAuctionCreator.auctionRequirements;
-                else noInfo
-              "
-              >{{
-                auctionDetails.aboutAuctionCreator.auctionRequirements
-              }}</span
-            >
-          </p>
+          <app-sign-in-button
+            class="homepage__header--sign-up-button"
+            [buttonConfig]="buttonConfig"
+            (signInChange)="onSignInChange($event)"
+          ></app-sign-in-button>
         </div>
 
         <div class="col-12 pt-2">
