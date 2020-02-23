@@ -2,7 +2,7 @@
   <div class="form-group col-12">
     <app-file-uploader
       label="Pievienot attēlus"
-      acceptFormats="image/*"
+      fileType="images"
       [multiple]="true"
       (fileChange)="onImageChange($event)"
     >
@@ -14,7 +14,7 @@
   <div class="form-group col-12">
     <app-file-uploader
       label="Pievienot dokumentus"
-      acceptFormats="application/pdf"
+      fileType="documents"
       [multiple]="true"
       (fileChange)="onFileChange($event)"
     >

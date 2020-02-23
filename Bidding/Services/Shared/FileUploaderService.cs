@@ -55,7 +55,9 @@ namespace Bidding.Services.Shared
             { "png", "image/png" },
             { "jpg", "image/jpg" },
             { "jpeg", "image/jpeg" },
-            { "pdf", "application/pdf" }
+            { "pdf", "application/pdf" },
+            {".doc", "application/msword"},
+            {".docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"}
         };
 
         public FileUploaderService(IConfiguration configuration, FileUploaderRepository fileUploaderRepository, PermissionService permissionService)

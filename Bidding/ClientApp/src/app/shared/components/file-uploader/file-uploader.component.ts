@@ -5,7 +5,9 @@ import {
   Output,
   Input,
   ViewChild,
-  ElementRef
+  ElementRef,
+  OnDestroy,
+  OnInit
 } from "@angular/core";
 
 // 3rd lib
@@ -15,14 +17,17 @@ import { Subscription } from "rxjs";
 import { FileUploaderService } from "../../services/file-uploader/file-uploader.service";
 import { NotificationsService } from "ClientApp/src/app/core/services/notifications/notifications.service";
 
+const allowedImageExtensions = ".png,.jpg,.jpeg";
+const allowedDocumentExtensions = ".doc,.docx,.pdf";
+
 @Component({
   selector: "app-file-uploader",
   templateUrl: "./file-uploader.component.html",
   styleUrls: ["./file-uploader.component.scss"]
 })
-export class FileUploaderComponent {
+export class FileUploaderComponent implements OnInit, OnDestroy {
   @Input() label = "Pievienot attēlus";
-  @Input() acceptFormats = "*/*";
+  @Input() fileType = "images";
   @Input() multiple = true;
   @Output() fileChange = new EventEmitter<File[]>();
 
@@ -34,11 +39,18 @@ export class FileUploaderComponent {
   // template
   selectedFiles = [];
   enablePreview: boolean = false;
+  acceptExtensions: string = allowedImageExtensions;
 
   constructor(
     private notificationService: NotificationsService,
     private fileUploaderService: FileUploaderService
   ) {}
+
+  ngOnInit(): void {
+    if (this.fileType != "images") {
+      this.acceptExtensions = allowedDocumentExtensions;
+    }
+  }
 
   onFileChange(files: FileList): void {
     if (files.length === 0) {
@@ -51,11 +63,10 @@ export class FileUploaderComponent {
 
     for (let i = 0; i < files.length; i++) {
       let item = files.item(i);
-
       formData.append(item.name, item);
 
-      if (this.acceptFormats == "image/*") {
-        if (!this.onlyImagesAllowed(item, files, i)) {
+      if (this.fileType == "images") {
+        if (!this.handleImages(item, files, i)) {
           proceed = false;
           break;
         }
@@ -63,8 +74,8 @@ export class FileUploaderComponent {
         this.enablePreview = true;
       }
 
-      if (this.acceptFormats == "application/pdf") {
-        if (!this.onlyPDFAllowed(item)) {
+      if (this.fileType == "documents") {
+        if (!this.handleDocuments(item)) {
           proceed = false;
           break;
         }
@@ -72,7 +83,7 @@ export class FileUploaderComponent {
     }
 
     if (proceed) {
-      this.validateUploadedFiles(formData, files);
+      // this.validateUploadedFiles(formData, files);
       this.fileInput.nativeElement.value = null;
     }
   }
@@ -87,22 +98,25 @@ export class FileUploaderComponent {
     }
   }
 
-  private onlyImagesAllowed(item: File, files: FileList, i: number): boolean {
-    if (item.type.match(/image\/*/) == null) {
+  private handleImages(item: File, files: FileList, index: number): boolean {
+    const validImageTypes = "image/*";
+
+    if (item.type.match(validImageTypes) == null) {
       this.notificationService.warning(
         "Incorrect file format, you can upload only images here!"
-      );
-
+      )
       return false;
     } else {
-      this.handleImagePreview(files, i);
+      this.handleImagePreview(files, index);
 
       return true;
     }
   }
 
-  private onlyPDFAllowed(item: File): boolean {
-    if (item.type.match(/application\/pdf/) == null) {
+  private handleDocuments(item: File): boolean {
+    const validDocumentFormats = "/application/pdf/";
+
+    if (item.type.match(validDocumentFormats) == null) {
       this.notificationService.warning(
         "Incorrect file format, you can upload only pdf here!"
       );
@@ -115,7 +129,7 @@ export class FileUploaderComponent {
     return true;
   }
 
-  private handleImagePreview(files: FileList, i: number) {
+  private handleImagePreview(files: FileList, index: number) {
     const fileReader: FileReader = new FileReader();
 
     fileReader.onload = (event: Event) => {
@@ -123,7 +137,7 @@ export class FileUploaderComponent {
       this.selectedFiles.push(fileReader.result);
     };
 
-    fileReader.readAsDataURL(files[i]);
+    fileReader.readAsDataURL(files[index]);
   }
 
   private validateUploadedFiles(formData: FormData, files: FileList): void {
