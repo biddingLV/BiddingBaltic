@@ -35,7 +35,7 @@ export class AuctionFiltersComponent implements OnInit, OnChanges {
   @Output() topCategoryChange = new EventEmitter<number[]>();
   @Output() subCategoryChange = new EventEmitter<number[]>();
 
-  @ViewChild("typeSelect", { static: false }) typeSelect: NgSelectComponent;
+  @ViewChild("typeSelect") typeSelect: NgSelectComponent;
 
   // component
   filterSubscription: Subscription;

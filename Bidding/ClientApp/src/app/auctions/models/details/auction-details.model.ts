@@ -1,9 +1,13 @@
 import { AboutAuctionDetailsModel } from "./about-auction-details.model";
+import { VehicleAuctionDetailsModel } from "./vehicle-auction-details.model";
+import { ItemAuctionDetailsModel } from "./item-auction-details.model";
+import { PropertyAuctionDetailsModel } from "./property-auction-details.model";
+import { AuctionCreatorDetailsModel } from "./auction-creator-details.model";
 
 export interface AuctionDetailsModel {
   aboutAuctionDetails: AboutAuctionDetailsModel;
-  vehicleAuction?: Auctions.VehicleAuctionDetailsModel;
-  itemAuction?: Auctions.ItemAuctionDetailsModel;
-  propertyAuction?: Auctions.PropertyAuctionDetailsModel;
-  aboutAuctionCreator: Auctions.AuctionCreatorDetailsModel;
+  vehicleAuction?: VehicleAuctionDetailsModel;
+  itemAuction?: ItemAuctionDetailsModel;
+  propertyAuction?: PropertyAuctionDetailsModel;
+  aboutAuctionCreator: AuctionCreatorDetailsModel;
 }

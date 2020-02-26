@@ -31,7 +31,7 @@ export class FileUploaderComponent implements OnInit, OnDestroy {
   @Input() multiple = true;
   @Output() fileChange = new EventEmitter<File[]>();
 
-  @ViewChild("fileInput", { static: false }) fileInput: ElementRef;
+  @ViewChild("fileInput") fileInput: ElementRef;
 
   // component
   fileSubscription: Subscription;

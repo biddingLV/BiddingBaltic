@@ -34,7 +34,7 @@ export class AdminAuctionMainComponent implements OnInit {
   /** Show or hide select all checkbox column in auction table. */
   showSelectAllCheckboxColumn: boolean = true;
 
-  @ViewChild(AuctionListComponent, { static: false })
+  @ViewChild(AuctionListComponent)
   auctionList: AuctionListComponent;
 
   constructor(

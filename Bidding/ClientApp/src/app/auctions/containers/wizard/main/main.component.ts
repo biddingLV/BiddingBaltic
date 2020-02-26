@@ -25,6 +25,9 @@ import { TypeModel } from "../../../models/shared/types/type.model";
 import { AuctionAddAboutWizardStepComponent } from "../../../components/wizard/wizard-steps/about-step/about-step.component";
 import { FileUploaderService } from "ClientApp/src/app/shared/services/file-uploader/file-uploader.service";
 import { AuctionTopCategoryIds } from "ClientApp/src/app/core/constants/auction-top-category-constants";
+import { AddAuctionRequestModel } from "../../../models/add/add-auction-request.model";
+import { AboutAuctionCreatorModel } from "../../../models/add/about-auction-creator.model";
+import { AboutAuctionModel } from "../../../models/add/about-auction.model";
 
 @Component({
   templateUrl: "./main.component.html"
@@ -40,7 +43,7 @@ export class AuctionAddMainWizardComponent
   auctionTypes: TypeModel[];
 
   // API
-  addAuctionRequest: Auctions.AddAuctionRequestModel;
+  addAuctionRequest: AddAuctionRequestModel;
 
   // template
   selectedTopCategoryId: number;
@@ -251,7 +254,7 @@ export class AuctionAddMainWizardComponent
     this.makeRequest(this.addAuctionRequest);
   }
 
-  private setAboutAuctionDetails(): Auctions.AboutAuctionModel {
+  private setAboutAuctionDetails(): AboutAuctionModel {
     let categoryStepValues = this.categoryStepForm.value;
     let addStepValues = this.addStepForm.value;
     let aboutStepValues = this.aboutStepForm.value;
@@ -293,7 +296,7 @@ export class AuctionAddMainWizardComponent
     return moment(date + " " + time, "YYYY-MM-DD hh:mm:ss").toDate();
   }
 
-  private setAboutAuctionCreatorDetails(): Auctions.AboutAuctionCreatorModel {
+  private setAboutAuctionCreatorDetails(): AboutAuctionCreatorModel {
     let aboutForm = this.aboutStepForm.value;
 
     return {
@@ -306,7 +309,7 @@ export class AuctionAddMainWizardComponent
     };
   }
 
-  private makeRequest(request: Auctions.AddAuctionRequestModel): void {
+  private makeRequest(request: AddAuctionRequestModel): void {
     this.auctionAddSubscription = this.auctionService
       .addAuction$(request)
       .pipe(

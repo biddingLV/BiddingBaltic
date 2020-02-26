@@ -1,10 +1,8 @@
-namespace Auctions {
-  export interface ItemAuctionDetailsModel {
-    itemModel: string;
-    itemManufacturingYear: number;
-    itemConditionName: string;
-    itemVolume: string;
-    itemCompanyType: string;
-    itemStartingPrice: number;
-  }
+export interface ItemAuctionDetailsModel {
+  itemModel: string;
+  itemManufacturingYear: number;
+  itemConditionName: string;
+  itemVolume: string;
+  itemCompanyType: string;
+  itemStartingPrice: number;
 }

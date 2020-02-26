@@ -13,6 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "aot": true,
             "outputPath": "ClientApp/dist",
             "index": "ClientApp/src/index.html",
             "main": "ClientApp/src/main.ts",
@@ -23,18 +24,24 @@
               "ClientApp/src/assets"
             ],
             "styles": [
-              "node_modules/bootstrap/dist/css/bootstrap.min.css",
-              "node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
-              "node_modules/@swimlane/ngx-datatable/release/index.css",
-              "node_modules/@swimlane/ngx-datatable/release/assets/icons.css",
-              "node_modules/@swimlane/ngx-datatable/release/themes/bootstrap.css",
-              "node_modules/font-awesome/css/font-awesome.css",
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/ngx-bootstrap/datepicker/bs-datepicker.css",
+              "./node_modules/@swimlane/ngx-datatable/index.scss",
+              "./node_modules/@swimlane/ngx-datatable/assets/icons.css",
+              "./node_modules/@swimlane/ngx-datatable/themes/bootstrap.scss",
+              "./node_modules/font-awesome/css/font-awesome.css",
               "ClientApp/src/sass/styles.scss"
             ],
             "scripts": []
           },
           "configurations": {
             "production": {
+              "budgets": [
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb"
+                }
+              ],
               "fileReplacements": [
                 {
                   "replace": "ClientApp/src/environments/environment.ts",
@@ -134,7 +141,7 @@
   "defaultProject": "ClientApp",
   "schematics": {
     "@schematics/angular:component": {
-      "styleext": "scss"
+      "style": "scss"
     }
   }
 }

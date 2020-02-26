@@ -19,6 +19,7 @@ import { AuctionStatusModel } from "../models/add/auction-status.model";
 import { AuctionDeleteRequest } from "../models/delete/auction-delete-request.model";
 import { CategoriesWithTypesModel } from "../models/add/categories-with-types.model";
 import { AuctionEditDetailsResponseModel } from "../models/edit/auction-edit-details-response.model";
+import { AddAuctionRequestModel } from "../models/add/add-auction-request.model";
 
 @Injectable({
   providedIn: "root"
@@ -147,7 +148,7 @@ export class AuctionsService {
    * Adds a new auction, it can be item, vehicle or property - auction
    * @param request Global auction add request
    */
-  addAuction$(request: Auctions.AddAuctionRequestModel): Observable<number> {
+  addAuction$(request: AddAuctionRequestModel): Observable<number> {
     const url = "/api/auctions/create";
 
     return this.httpService

@@ -7,7 +7,7 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 // 3rd lib
 import { NgxDatatableModule } from "@swimlane/ngx-datatable";
 import { NgSelectModule } from "@ng-select/ng-select";
-import { NgxGalleryModule } from "ngx-gallery";
+import { NgxGalleryModule } from "@kolkov/ngx-gallery";
 import { TimepickerModule } from "ngx-bootstrap/timepicker";
 import { ModalModule } from "ngx-bootstrap/modal";
 import { BsDatepickerModule } from "ngx-bootstrap/datepicker";

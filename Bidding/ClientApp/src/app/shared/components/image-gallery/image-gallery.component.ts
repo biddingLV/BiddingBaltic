@@ -6,7 +6,7 @@ import {
   NgxGalleryOptions,
   NgxGalleryImage,
   NgxGalleryAnimation
-} from "ngx-gallery";
+} from "@kolkov/ngx-gallery";
 
 @Component({
   selector: "app-image-gallery",
