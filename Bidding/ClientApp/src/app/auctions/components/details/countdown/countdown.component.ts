@@ -89,7 +89,7 @@ export class AuctionDetailsCountdownComponent implements OnInit, OnDestroy {
     this.handleAuctionEnded();
   }
 
-  private handleAuctionEnded() {
+  private handleAuctionEnded(): void {
     this.options.countdownText = "Izsole beigusies";
     this.options.weeks = 0;
     this.options.days = 0;

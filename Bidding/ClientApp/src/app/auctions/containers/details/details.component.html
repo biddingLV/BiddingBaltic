@@ -19,7 +19,7 @@
       </div>
 
       <div class="row auction__details-gallery-row">
-        <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
+        <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 h-100">
           <app-image-gallery
             [auctionImageUrls]="
               auctionDetails.aboutAuctionDetails.auctionImageUrls
@@ -27,36 +27,13 @@
           ></app-image-gallery>
         </div>
 
-        <div class="col-5 offset-1">
+        <div class="col-sm-12 col-md-12 col-lg-5 col-xl-5 offset-lg-1">
           <div class="row h-75">
             <app-auction-details-countdown
               class="w-100"
               [aboutDetails]="auctionDetails.aboutAuctionDetails"
             ></app-auction-details-countdown>
           </div>
-
-          <!-- Note: KKe: removed because of need to research sharing on social platforms -->
-          <!-- <div class="row pt-5">
-            <ul>
-              <li class="pr-3">
-                <a target="_blank" href="https://www.facebook.com/biddinglv/">
-                  <fa-icon [icon]="['fab', 'facebook-f']" size="lg"></fa-icon>
-                </a>
-              </li>
-
-              <li class="pr-3">
-                <a target="_blank" href="https://www.instagram.com/bidding.lv/">
-                  <fa-icon [icon]="['fab', 'instagram']" size="lg"></fa-icon>
-                </a>
-              </li>
-
-              <li>
-                <a target="_blank" href="#">
-                  <fa-icon [icon]="['fab', 'whatsapp']" size="lg"></fa-icon>
-                </a>
-              </li>
-            </ul>
-          </div> -->
         </div>
       </div>
 
@@ -116,38 +93,24 @@
           </p>
 
           <p>
+            <span class="pr-2 font-weight-bold">Pieteikties līdz:</span>
+            <span>{{ applyDate }}</span>
+          </p>
+
+          <p>
             <span class="pr-2 font-weight-bold">Izsoles sākums:</span>
             <span
               *ngIf="
                 auctionDetails.aboutAuctionDetails.auctionStartDate;
                 else noInfo
               "
-            >
-              {{
-                auctionDetails.aboutAuctionDetails.auctionStartDate
-                  | date: dateFormat
-              }}</span
-            >
-          </p>
-
-          <p>
-            <span class="pr-2 font-weight-bold">Pieteikties līdz:</span>
-            <span>
-              {{
-                auctionDetails.aboutAuctionDetails.auctionApplyTillDate
-                  | date: dateFormat
-              }}</span
+              >{{ startDate }}</span
             >
           </p>
 
           <p>
             <span class="pr-2 font-weight-bold">Izsoles beigas:</span>
-            <span>
-              {{
-                auctionDetails.aboutAuctionDetails.auctionEndDate
-                  | date: dateFormat
-              }}</span
-            >
+            <span>{{ endDate }}</span>
           </p>
 
           <span class="pr-2 font-weight-bold">Izsoles dokumenti:</span>

@@ -15,6 +15,7 @@ import { BreadcrumbItem } from "ClientApp/src/app/shared/models/breadcrumb-item.
 import { AuthService } from "ClientApp/src/app/core/services/auth/auth.service";
 import { ButtonsService } from "ClientApp/src/app/core/services/buttons/buttons.service";
 import { CustomButtonModel } from "ClientApp/src/app/core/services/buttons/custom-button.model";
+import { AboutAuctionDetailsModel } from "../../models/details/about-auction-details.model";
 
 @Component({
   selector: "app-auction-details",
@@ -27,10 +28,13 @@ export class AuctionDetailsComponent implements OnInit, OnDestroy {
   auctionDetails: AuctionDetailsModel;
 
   // template
-  dateFormat = "dd/MM/yyyy HH:mm";
+  private dateFormat = "DD/MM/YYYY HH:mm";
   userDetails = this.authService.userDetails;
   isLoggedIn: boolean;
   buttonConfig: CustomButtonModel;
+  applyDate: string;
+  startDate: string;
+  endDate: string;
 
   // breadcrumbs
   breadcrumbs: BreadcrumbItem[];
@@ -55,20 +59,6 @@ export class AuctionDetailsComponent implements OnInit, OnDestroy {
     }
   }
 
-  /**
-   * Transforms passed date to be date in users local timezone
-   * @param activityDate Date in UTC format
-   */
-  getLocalTime(date: any): string {
-    let parsedDate = moment(date).format(this.dateFormat);
-    let utcDate = moment.utc(parsedDate).toDate();
-    let localDate = moment(utcDate)
-      .local()
-      .format(this.dateFormat);
-
-    return localDate;
-  }
-
   /** Used to handle sign-in */
   onSignInChange(): void {
     this.authService.login();
@@ -85,9 +75,31 @@ export class AuctionDetailsComponent implements OnInit, OnDestroy {
         response => {
           this.auctionDetails = response;
           this.generateBreadcrumbs();
+          this.handleDatesToLocalTime(response.aboutAuctionDetails);
         },
         (error: string) => this.notificationService.error(error)
       );
+  }
+
+  private handleDatesToLocalTime(details: AboutAuctionDetailsModel): void {
+    this.applyDate = this.convertToLocalTime(details.auctionApplyTillDate);
+
+    if (details.auctionStartDate) {
+      this.startDate = this.convertToLocalTime(details.auctionStartDate);
+    }
+
+    this.endDate = this.convertToLocalTime(details.auctionEndDate);
+  }
+
+  /**
+   * Transforms passed date to be date in users local timezone
+   * @param activityDate Date in UTC format
+   */
+  private convertToLocalTime(utcTime: Date): string {
+    return moment
+      .utc(utcTime)
+      .local()
+      .format(this.dateFormat);
   }
 
   private generateBreadcrumbs() {
