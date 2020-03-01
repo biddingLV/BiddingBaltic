@@ -39,4 +39,22 @@
       }
     }
   }
+
+  @media only screen and (min-width: map-get($grid-breakpoints, xs)) {
+    .countdown__card-title {
+      height: 25%;
+    }
+  }
+
+  @media only screen and (min-width: map-get($grid-breakpoints, md)) {
+    .countdown__card-title {
+      height: 75%;
+    }
+  }
+
+  @media only screen and (min-width: map-get($grid-breakpoints, lg)) {
+    .countdown__card-title {
+      height: 75%;
+    }
+  }
 }

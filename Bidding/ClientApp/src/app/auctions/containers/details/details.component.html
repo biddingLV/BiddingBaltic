@@ -19,7 +19,7 @@
       </div>
 
       <div class="row auction__details-gallery-row">
-        <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 h-100">
+        <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
           <app-image-gallery
             [auctionImageUrls]="
               auctionDetails.aboutAuctionDetails.auctionImageUrls
@@ -28,7 +28,7 @@
         </div>
 
         <div class="col-sm-12 col-md-12 col-lg-5 col-xl-5 offset-lg-1">
-          <div class="row h-75">
+          <div class="row">
             <app-auction-details-countdown
               class="w-100"
               [aboutDetails]="auctionDetails.aboutAuctionDetails"
@@ -49,7 +49,9 @@
       </div>
 
       <div class="row auction__details-information-row pt-5">
-        <div class="col-5 information-row__basic-details">
+        <div
+          class="col-sm-12 col-md-6 col-lg-5 col-xl-5 information-row__basic-details"
+        >
           <p>
             <span class="pr-2 font-weight-bold">Nosaukums:</span>
             <span>{{ auctionDetails.aboutAuctionDetails.auctionName }}</span>
@@ -130,7 +132,9 @@
           <br />
         </div>
 
-        <div class="col-5 information-row__description">
+        <div
+          class="col-sm-12 col-md-6 col-lg-5 col-xl-5 information-row__description"
+        >
           <p>
             <span class="pr-2 font-weight-bold">Apraksts / novērtējums:</span>
             <span
@@ -143,7 +147,9 @@
           </p>
         </div>
 
-        <div class="col-5 information-row__advanced-details">
+        <div
+          class="col-sm-12 col-md-6 col-lg-5 col-xl-5 information-row__advanced-details"
+        >
           <ng-container *ngIf="auctionDetails.vehicleAuction">
             <app-auction-details-vehicle-category
               [details]="auctionDetails.vehicleAuction"
@@ -163,7 +169,9 @@
           </ng-container>
         </div>
 
-        <div class="col-5 information-row__creator-details">
+        <div
+          class="col-sm-12 col-md-6 col-lg-5 col-xl-5 information-row__creator-details"
+        >
           <app-auction-creator
             [creatorDetails]="auctionDetails.aboutAuctionCreator"
             [isLoggedIn]="isLoggedIn"

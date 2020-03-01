@@ -1,5 +1,19 @@
 @import "../../../../sass/variables";
 
-ol.breadcrumb {
-  padding-top: 50px;
+@media only screen and (min-width: map-get($grid-breakpoints, xs)) {
+  ol.breadcrumb {
+    padding-top: 20px;
+  }
+}
+
+@media only screen and (min-width: map-get($grid-breakpoints, md)) {
+  ol.breadcrumb {
+    padding-top: 50px;
+  }
+}
+
+@media only screen and (min-width: map-get($grid-breakpoints, lg)) {
+  ol.breadcrumb {
+    padding-top: 50px;
+  }
 }
