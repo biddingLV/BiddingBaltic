@@ -43,7 +43,7 @@
             *ngIf="!isLoggedIn"
             class="homepage__header--sign-up-button"
             [buttonConfig]="buttonConfig"
-            (signInChange)="onSignInChange($event)"
+            (signInChange)="onSignInChange()"
           ></app-sign-in-button>
         </div>
       </div>
@@ -181,7 +181,7 @@
             *ngIf="!isLoggedIn"
             class="homepage__header--sign-up-button"
             [buttonConfig]="buttonConfig"
-            (signInChange)="onSignInChange($event)"
+            (signInChange)="onSignInChange()"
           ></app-sign-in-button>
         </div>
 

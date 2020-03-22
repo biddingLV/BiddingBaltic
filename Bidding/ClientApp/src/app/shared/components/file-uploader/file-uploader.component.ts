@@ -37,11 +37,7 @@ export class FileUploaderComponent implements OnInit, OnDestroy {
 
   // component
   fileSubscription: Subscription;
-  formData = new FormData();
-
-  // template
-  selectedFiles = [];
-  enableImagePreview: boolean = false;
+  selectedFiles = new FormData();
 
   /** Used in template to not allow incorrect file formats */
   acceptExtensions: string = allowedImageExtensions;
@@ -62,95 +58,60 @@ export class FileUploaderComponent implements OnInit, OnDestroy {
   }
 
   onFileChange(files: FileList): void {
-    if (files.length === 0) {
-      return;
+    if (this.fileType == "images") {
+      this.handleImages(files);
     }
 
-    for (let i = 0; i < files.length; i++) {
-      let item = files.item(i);
-
-      if (this.fileType == "images") {
-        if (this.handleImages(item, files, i) == false) {
-          break;
-        }
-
-        this.enableImagePreview = true;
-      }
-
-      if (this.fileType == "documents") {
-        // note: kke: ATM File.type cant really read file type for word documents,
-        // not worth to add this validation client side for documents!
-        if (this.selectedFiles.includes(item.name) == false) {
-          this.selectedFiles.push(item.name);
-        }
-
-        this.enableImagePreview = false;
-      }
-
-      if (this.formData.get(item.name) == null) {
-        this.formData.append(item.name, item);
-      }
+    if (this.fileType == "documents") {
+      this.handleDocuments(files);
     }
 
-    this.formData.forEach((value, key) => {
-      console.log(key + " " + value);
-    });
-
-    // debugger;
-
-    // NOTE: KKE: Are we using this.selectedFiles OR FormDATA????
-
-    // check if formData lenght ir > 0???
-    // if (proceed) {
-    //   // this.validateUploadedFiles(formData, files);
-    //   this.fileInput.nativeElement.value = null;
-    // }
+    this.validateUploadedFiles(this.selectedFiles, files);
+    this.fileInput.nativeElement.value = null;
   }
 
-  onFileRemove(item): void {
-    debugger;
-    this.formData.delete(this.formData.get(item));
+  private handleImages(files: FileList) {
+    for (let i = 0; i < files.length; i++) {
+      let image = files.item(i);
 
-    this.formData.forEach((value, key) => {
-      console.log(key + " " + value);
-    });
-    // this.selectedFiles.splice(index, 1);
+      if (allowedImageTypes.includes(image.type)) {
+        if (this.selectedFiles.has(image.name)) {
+          this.notificationService.warning(
+            "You have already uploaded this image!"
+          );
+        } else {
+          this.selectedFiles.append(image.name, image);
+        }
+      } else {
+        this.notificationService.warning(
+          "Incorrect file format, you can upload only images!"
+        );
+      }
+    }
+  }
+
+  private handleDocuments(files: FileList) {
+    for (let i = 0; i < files.length; i++) {
+      let document = files.item(i);
+
+      if (this.selectedFiles.has(document.name)) {
+        this.notificationService.warning(
+          "You have already uploaded this document!"
+        );
+      } else {
+        this.selectedFiles.append(document.name, document);
+      }
+    }
+  }
+
+  onFileRemove(itemName: string): void {
+    this.selectedFiles.delete(itemName);
   }
 
   ngOnDestroy(): void {
     if (this.fileSubscription) {
       this.fileSubscription.unsubscribe();
     }
-  }
-
-  private handleImages(item: File, files: FileList, index: number): boolean {
-    if (allowedImageTypes.includes(item.type)) {
-      this.handleImagePreview(files, index);
-
-      return true;
-    } else {
-      this.notificationService.warning(
-        "Incorrect file format, you can upload only images!"
-      );
-
-      return false;
-    }
-  }
-
-  private handleImagePreview(files: FileList, index: number) {
-    const fileReader: FileReader = new FileReader();
-
-    fileReader.onload = (event: Event) => {
-      // note: kke: event.target.result - This is not working - 3/11/2019 TypeScript problem
-      if (this.selectedFiles.includes(fileReader.result) == false) {
-        this.selectedFiles.push({
-          fileName: files[index].name,
-          fileContent: fileReader.result
-        });
-      }
-    };
-
-    fileReader.readAsDataURL(files[index]);
   }
 
   private validateUploadedFiles(formData: FormData, files: FileList): void {

@@ -1,8 +1,5 @@
-.showImage {
-  position: relative;
-  display: inline-block;
-
-  .clearImage {
+.file-container {
+  .remove-image {
     position: absolute;
     right: 2px;
     background-color: #fff;
@@ -15,6 +12,6 @@
   }
 }
 
-.showImage:hover .clearImage {
+.file-container:hover .remove-image {
   opacity: 1;
 }
