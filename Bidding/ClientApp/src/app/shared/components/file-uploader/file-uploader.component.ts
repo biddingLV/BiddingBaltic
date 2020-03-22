@@ -20,6 +20,8 @@ import { NotificationsService } from "ClientApp/src/app/core/services/notificati
 const allowedImageExtensions = ".png,.jpg,.jpeg";
 const allowedDocumentExtensions = ".doc,.docx,.pdf";
 
+const allowedImageTypes = ["image/png", "image/jpeg"];
+
 @Component({
   selector: "app-file-uploader",
   templateUrl: "./file-uploader.component.html",
@@ -35,10 +37,13 @@ export class FileUploaderComponent implements OnInit, OnDestroy {
 
   // component
   fileSubscription: Subscription;
+  formData = new FormData();
 
   // template
   selectedFiles = [];
-  enablePreview: boolean = false;
+  enableImagePreview: boolean = false;
+
+  /** Used in template to not allow incorrect file formats */
   acceptExtensions: string = allowedImageExtensions;
 
   constructor(
@@ -47,7 +52,11 @@ export class FileUploaderComponent implements OnInit, OnDestroy {
   ) {}
 
   ngOnInit(): void {
-    if (this.fileType != "images") {
+    if (this.fileType == "images") {
+      this.acceptExtensions = allowedImageExtensions;
+    }
+
+    if (this.fileType == "documents") {
       this.acceptExtensions = allowedDocumentExtensions;
     }
   }
@@ -57,39 +66,55 @@ export class FileUploaderComponent implements OnInit, OnDestroy {
       return;
     }
 
-    let proceed: boolean = true;
-
-    const formData = new FormData();
-
     for (let i = 0; i < files.length; i++) {
       let item = files.item(i);
-      formData.append(item.name, item);
 
       if (this.fileType == "images") {
-        if (!this.handleImages(item, files, i)) {
-          proceed = false;
+        if (this.handleImages(item, files, i) == false) {
           break;
         }
 
-        this.enablePreview = true;
+        this.enableImagePreview = true;
       }
 
       if (this.fileType == "documents") {
-        if (!this.handleDocuments(item)) {
-          proceed = false;
-          break;
+        // note: kke: ATM File.type cant really read file type for word documents,
+        // not worth to add this validation client side for documents!
+        if (this.selectedFiles.includes(item.name) == false) {
+          this.selectedFiles.push(item.name);
         }
+
+        this.enableImagePreview = false;
+      }
+
+      if (this.formData.get(item.name) == null) {
+        this.formData.append(item.name, item);
       }
     }
 
-    if (proceed) {
-      // this.validateUploadedFiles(formData, files);
-      this.fileInput.nativeElement.value = null;
-    }
+    this.formData.forEach((value, key) => {
+      console.log(key + " " + value);
+    });
+
+    // debugger;
+
+    // NOTE: KKE: Are we using this.selectedFiles OR FormDATA????
+
+    // check if formData lenght ir > 0???
+    // if (proceed) {
+    //   // this.validateUploadedFiles(formData, files);
+    //   this.fileInput.nativeElement.value = null;
+    // }
   }
 
-  onFileRemove(index: number): void {
-    this.selectedFiles.splice(index, 1);
+  onFileRemove(item): void {
+    debugger;
+    this.formData.delete(this.formData.get(item));
+
+    this.formData.forEach((value, key) => {
+      console.log(key + " " + value);
+    });
+    // this.selectedFiles.splice(index, 1);
   }
 
   ngOnDestroy(): void {
@@ -99,34 +124,17 @@ export class FileUploaderComponent implements OnInit, OnDestroy {
   }
 
   private handleImages(item: File, files: FileList, index: number): boolean {
-    const validImageTypes = "image/*";
-
-    if (item.type.match(validImageTypes) == null) {
-      this.notificationService.warning(
-        "Incorrect file format, you can upload only images here!"
-      )
-      return false;
-    } else {
+    if (allowedImageTypes.includes(item.type)) {
       this.handleImagePreview(files, index);
 
       return true;
-    }
-  }
-
-  private handleDocuments(item: File): boolean {
-    const validDocumentFormats = "/application/pdf/";
-
-    if (item.type.match(validDocumentFormats) == null) {
+    } else {
       this.notificationService.warning(
-        "Incorrect file format, you can upload only pdf here!"
+        "Incorrect file format, you can upload only images!"
       );
 
       return false;
     }
-
-    this.selectedFiles.push(item.name);
-
-    return true;
   }
 
   private handleImagePreview(files: FileList, index: number) {
@@ -134,7 +142,12 @@ export class FileUploaderComponent implements OnInit, OnDestroy {
 
     fileReader.onload = (event: Event) => {
       // note: kke: event.target.result - This is not working - 3/11/2019 TypeScript problem
-      this.selectedFiles.push(fileReader.result);
+      if (this.selectedFiles.includes(fileReader.result) == false) {
+        this.selectedFiles.push({
+          fileName: files[index].name,
+          fileContent: fileReader.result
+        });
+      }
     };
 
     fileReader.readAsDataURL(files[index]);

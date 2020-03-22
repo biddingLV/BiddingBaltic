@@ -21,12 +21,12 @@
 </div>
 
 <div class="showImage" *ngFor="let item of selectedFiles; let i = index">
-  <span class="clearImage" (click)="onFileRemove(i)"
+  <span class="clearImage" (click)="onFileRemove(item)"
     ><fa-icon [icon]="['far', 'trash-alt']"></fa-icon
   ></span>
 
   <ng-container
-    [ngTemplateOutlet]="enablePreview ? imageList : documentList"
+    [ngTemplateOutlet]="enableImagePreview ? imageList : documentList"
     [ngTemplateOutletContext]="{ item: item }"
   ></ng-container>
 </div>
