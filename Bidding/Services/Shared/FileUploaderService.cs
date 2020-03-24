@@ -56,8 +56,8 @@ namespace Bidding.Services.Shared
             { "jpg", "image/jpg" },
             { "jpeg", "image/jpeg" },
             { "pdf", "application/pdf" },
-            {".doc", "application/msword"},
-            {".docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"}
+            { "doc", "application/msword"},
+            { "docx", "application/vnd.openxmlformats-officedocument.wordprocessingml.document"}
         };
 
         public FileUploaderService(IConfiguration configuration, FileUploaderRepository fileUploaderRepository, PermissionService permissionService)
@@ -73,9 +73,9 @@ namespace Bidding.Services.Shared
             if (files.IsNotSpecified()) throw new WebApiException(HttpStatusCode.BadRequest, FileUploadErrorMessage.MissingFileInformation);
             if (files.Count > 30) throw new WebApiException(HttpStatusCode.BadRequest, FileUploadErrorMessage.MaxFileLimitReached);
 
-            foreach (IFormFile item in files)
+            foreach (IFormFile file in files)
             {
-                ValidateFile(item);
+                ValidateFile(file);
             }
 
             return true;

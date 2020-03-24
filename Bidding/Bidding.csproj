@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>netcoreapp2.2</TargetFramework>
@@ -11,8 +11,8 @@
     <!-- Set this to true if you enable server-side prerendering -->
     <BuildServerSideRenderer>false</BuildServerSideRenderer>
     <UserSecretsId>b57eaf8a-ceb8-4f70-9666-3ecd6356d3f6</UserSecretsId>
-    <AssemblyName>BiddingBaltic</AssemblyName>
-    <StartupObject>Bidding.Program</StartupObject>
+    <AssemblyName></AssemblyName>
+    <StartupObject></StartupObject>
   </PropertyGroup>
 
   <ItemGroup>

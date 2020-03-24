@@ -6,18 +6,18 @@ import { Component, OnInit, EventEmitter, Output } from "@angular/core";
   styleUrls: ["./auction-file-uploader.component.scss"]
 })
 export class AuctionFileUploaderComponent implements OnInit {
-  @Output() imageChange = new EventEmitter<File[]>();
-  @Output() fileChange = new EventEmitter<File[]>();
+  @Output() imageChange = new EventEmitter<FormDataEntryValue[]>();
+  @Output() fileChange = new EventEmitter<FormDataEntryValue[]>();
 
   constructor() {}
 
   ngOnInit() {}
 
-  onImageChange(files: File[]) {
-    this.imageChange.emit(files);
+  onImageChange(images: FormDataEntryValue[]) {
+    this.imageChange.emit(images);
   }
 
-  onFileChange(files: File[]) {
-    this.fileChange.emit(files);
+  onFileChange(documents: FormDataEntryValue[]) {
+    this.fileChange.emit(documents);
   }
 }

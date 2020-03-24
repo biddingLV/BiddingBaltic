@@ -31,7 +31,7 @@ export class FileUploaderComponent implements OnInit, OnDestroy {
   @Input() label = "Pievienot attēlus";
   @Input() fileType = "images";
   @Input() multiple = true;
-  @Output() fileChange = new EventEmitter<File[]>();
+  @Output() fileChange = new EventEmitter<FormDataEntryValue[]>();
 
   @ViewChild("fileInput") fileInput: ElementRef;
 
@@ -66,7 +66,7 @@ export class FileUploaderComponent implements OnInit, OnDestroy {
       this.handleDocuments(files);
     }
 
-    this.validateUploadedFiles(this.selectedFiles, files);
+    this.validateUploadedFiles();
     this.fileInput.nativeElement.value = null;
   }
 
@@ -75,11 +75,7 @@ export class FileUploaderComponent implements OnInit, OnDestroy {
       let image = files.item(i);
 
       if (allowedImageTypes.includes(image.type)) {
-        if (this.selectedFiles.has(image.name)) {
-          this.notificationService.warning(
-            "You have already uploaded this image!"
-          );
-        } else {
+        if (this.selectedFiles.has(image.name) == false) {
           this.selectedFiles.append(image.name, image);
         }
       } else {
@@ -94,11 +90,7 @@ export class FileUploaderComponent implements OnInit, OnDestroy {
     for (let i = 0; i < files.length; i++) {
       let document = files.item(i);
 
-      if (this.selectedFiles.has(document.name)) {
-        this.notificationService.warning(
-          "You have already uploaded this document!"
-        );
-      } else {
+      if (this.selectedFiles.has(document.name) == false) {
         this.selectedFiles.append(document.name, document);
       }
     }
@@ -106,6 +98,8 @@ export class FileUploaderComponent implements OnInit, OnDestroy {
 
   onFileRemove(itemName: string): void {
     this.selectedFiles.delete(itemName);
+
+    this.fileChange.emit(this.populateSelectedFiles());
   }
 
   ngOnDestroy(): void {
@@ -114,16 +108,23 @@ export class FileUploaderComponent implements OnInit, OnDestroy {
     }
   }
 
-  private validateUploadedFiles(formData: FormData, files: FileList): void {
-    const records = Array.from(files);
+  private populateSelectedFiles(): FormDataEntryValue[] {
+    const items: FormDataEntryValue[] = [];
 
+    this.selectedFiles.forEach(function(val) {
+      items.push(val);
+    });
+
+    return items;
+  }
+
+  private validateUploadedFiles(): void {
     this.fileSubscription = this.fileUploaderService
-      .validateFiles$(formData)
+      .validateFiles$(this.selectedFiles)
       .subscribe(
         (response: boolean) => {
           if (response) {
-            this.notificationService.success("All files passed validations");
-            this.fileChange.emit(records);
+            this.fileChange.emit(this.populateSelectedFiles());
           } else {
             this.notificationService.error("Could not validate file(s).");
           }
