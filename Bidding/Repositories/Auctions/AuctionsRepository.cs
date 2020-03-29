@@ -1,4 +1,6 @@
-﻿using Bidding.Models.Contexts;
+﻿using Azure.Storage.Blobs;
+using Azure.Storage.Blobs.Models;
+using Bidding.Models.Contexts;
 using Bidding.Models.DatabaseModels.Auctions;
 using Bidding.Models.ViewModels.Auctions.Add;
 using Bidding.Models.ViewModels.Auctions.Delete;
@@ -16,13 +18,12 @@ using Bidding.Shared.Utility.Validation.Comparers;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.ChangeTracking;
 using Microsoft.Extensions.Configuration;
-using Microsoft.WindowsAzure.Storage;
-using Microsoft.WindowsAzure.Storage.Blob;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Threading.Tasks;
@@ -32,13 +33,18 @@ namespace Bidding.Repositories.Auctions
     public class AuctionsRepository
     {
         private readonly BiddingContext m_context;
-        private readonly IConfiguration m_configuration;
-        private readonly string m_azureStorageConnectionString;
+        private readonly IConfiguration _configuration;
+        private readonly string _connectionString;
+        private readonly string _containerDomain;
+
+        private readonly List<string> _imageExtensions = new List<string>() { "jpg", "jpeg", "png" };
+        private readonly List<string> _documentExtensions = new List<string>() { "pdf", "doc", "docx" };
 
         public AuctionsRepository(BiddingContext context, IConfiguration configuration)
         {
-            m_configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
-            m_azureStorageConnectionString = m_configuration["AzureStorage:ConnectionString"];
+            _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
+            _connectionString = _configuration["AzureStorage:ConnectionString"];
+            _containerDomain = _configuration["AzureStorage:ContainerDomain"];
             m_context = context ?? throw new ArgumentNullException(nameof(context));
         }
 
@@ -410,25 +416,10 @@ namespace Bidding.Repositories.Auctions
             return true;
         }
 
-        private async Task HandleAuctionDeleteImages(string imageContainerName)
+        private async Task HandleAuctionDeleteImages(string fileContainerName)
         {
-            if (CloudStorageAccount.TryParse(m_azureStorageConnectionString, out CloudStorageAccount cloudStorageAccount))
-            {
-                try
-                {
-                    CloudBlobClient cloudBlobClient = cloudStorageAccount.CreateCloudBlobClient();
-                    CloudBlobContainer container = cloudBlobClient.GetContainerReference(imageContainerName);
-                    await container.DeleteIfExistsAsync().ConfigureAwait(true);
-                }
-                catch (StorageException ex)
-                {
-                    throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.CouldNotDeleteAuction, ex);
-                }
-            }
-            else
-            {
-                throw new WebApiException(HttpStatusCode.InternalServerError, FileUploadErrorMessage.GenericUploadErrorMessage);
-            }
+            BlobContainerClient container = new BlobContainerClient(_connectionString, fileContainerName);
+            await container.DeleteAsync();
         }
 
         /// <summary>
@@ -770,58 +761,44 @@ namespace Bidding.Repositories.Auctions
 
         private async Task<Tuple<List<string>, List<AuctionDocumentModel>>> LoadAuctionFilesAsync(int auctionId)
         {
-            var auctionImageUrls = new List<string>();
-            var auctionDocumentUrls = new List<AuctionDocumentModel>();
+            List<string> auctionImageUrls = new List<string>();
+            List<AuctionDocumentModel> auctionDocumentUrls = new List<AuctionDocumentModel>();
 
-            string imageContainer = await m_context.Auctions
+            string containerName = await m_context.Auctions
                 .Where(auct => auct.AuctionId == auctionId)
                 .Select(auct => auct.AuctionImageContainer).SingleOrDefaultAsync().ConfigureAwait(true);
 
-            if (CloudStorageAccount.TryParse(m_azureStorageConnectionString, out CloudStorageAccount cloudStorageAccount))
+            BlobContainerClient container = new BlobContainerClient(_connectionString, containerName); ;
+
+            // NOTE: KKE: This can be rewritten as a Async stream 
+            // example - github.com/Azure/azure-sdk-for-net/blob/master/sdk/storage/Azure.Storage.Blobs/samples/Sample01b_HelloWorldAsync.cs#L128
+            foreach (BlobItem blob in container.GetBlobs())
             {
-                OperationContext context = new OperationContext();
-                BlobRequestOptions options = new BlobRequestOptions();
-                CloudBlobClient cloudBlobClient = cloudStorageAccount.CreateCloudBlobClient();
-                CloudBlobContainer cloudBlobContainer = cloudBlobClient.GetContainerReference(imageContainer);
+                string blobName = blob.Name;
+                string fileExtension = GetFileExtension(blobName);
 
-                BlobContinuationToken blobContinuationToken = null;
-
-                do
+                if (_imageExtensions.Contains(fileExtension))
                 {
-                    BlobResultSegment results = await cloudBlobContainer
-                        .ListBlobsSegmentedAsync(null, true, BlobListingDetails.All, null, blobContinuationToken, options, context)
-                        .ConfigureAwait(true);
+                    auctionImageUrls.Add(_containerDomain + containerName + "/" + blobName);
+                }
 
-                    blobContinuationToken = results.ContinuationToken;
-
-                    foreach (IListBlobItem item in results.Results)
+                if (_documentExtensions.Contains(fileExtension))
+                {
+                    auctionDocumentUrls.Add(new AuctionDocumentModel()
                     {
-                        if (item is CloudBlockBlob blobItem)
-                        {
-                            if (blobItem.Properties.ContentType == "image/jpeg")
-                            {
-                                auctionImageUrls.Add(blobItem.Uri.AbsoluteUri);
-                            }
-
-                            if (blobItem.Properties.ContentType == "application/pdf")
-                            {
-                                auctionDocumentUrls.Add(new AuctionDocumentModel()
-                                {
-                                    DocumentName = blobItem.Name,
-                                    DocumentUrl = blobItem.Uri.AbsoluteUri
-                                });
-                            }
-                        }
-                    }
-                } while (blobContinuationToken != null);
-            }
-            else
-            {
-                throw new WebApiException(HttpStatusCode.InternalServerError, AuctionErrorMessages.CouldNotFetchAuctionDetails);
+                        DocumentName = blob.Name,
+                        DocumentUrl = _containerDomain + containerName + "/" + blobName
+                    });
+                }
             }
 
             var result = new Tuple<List<string>, List<AuctionDocumentModel>>(auctionImageUrls, auctionDocumentUrls);
             return await Task.FromResult(result).ConfigureAwait(true);
+        }
+
+        private string GetFileExtension(string fileName)
+        {
+            return Path.GetExtension(fileName).Trim().Trim('.').ToLower();
         }
     }
 }

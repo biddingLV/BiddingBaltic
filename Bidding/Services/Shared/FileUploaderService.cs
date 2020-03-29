@@ -1,17 +1,12 @@
-﻿using Bidding.Repositories.Shared;
+﻿using Azure.Storage.Blobs;
+using Azure.Storage.Blobs.Models;
+using Bidding.Repositories.Shared;
 using Bidding.Services.Shared.Permissions;
 using Bidding.Shared.ErrorHandling.Errors;
 using Bidding.Shared.Exceptions;
 using Bidding.Shared.Utility.Validation.Comparers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
-using Microsoft.WindowsAzure.Storage;
-using Microsoft.WindowsAzure.Storage.Blob;
-using SixLabors.ImageSharp;
-using SixLabors.ImageSharp.Formats.Jpeg;
-using SixLabors.ImageSharp.PixelFormats;
-using SixLabors.ImageSharp.Processing;
-using SixLabors.Primitives;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -27,10 +22,10 @@ namespace Bidding.Services.Shared
     {
         private const int MAX_FILE_SIZE = 10000000; // ~ 10mb
 
-        private readonly string m_azureStorageConnectionString;
-        private readonly IConfiguration m_configuration;
-        private readonly FileUploaderRepository m_fileUploaderRepository;
-        private readonly PermissionService m_permissionService;
+        private readonly string _connectionString;
+        private readonly IConfiguration _configuration;
+        private readonly FileUploaderRepository _fileUploaderRepository;
+        private readonly PermissionService _permissionService;
 
         private readonly Dictionary<string, List<byte[]>> m_fileSignature = new Dictionary<string, List<byte[]>>
         {
@@ -62,10 +57,10 @@ namespace Bidding.Services.Shared
 
         public FileUploaderService(IConfiguration configuration, FileUploaderRepository fileUploaderRepository, PermissionService permissionService)
         {
-            m_configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
-            m_azureStorageConnectionString = m_configuration["AzureStorage:ConnectionString"];
-            m_fileUploaderRepository = fileUploaderRepository ?? throw new ArgumentNullException(nameof(fileUploaderRepository));
-            m_permissionService = permissionService ?? throw new ArgumentNullException(nameof(permissionService));
+            _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
+            _connectionString = _configuration["AzureStorage:ConnectionString"];
+            _fileUploaderRepository = fileUploaderRepository ?? throw new ArgumentNullException(nameof(fileUploaderRepository));
+            _permissionService = permissionService ?? throw new ArgumentNullException(nameof(permissionService));
         }
 
         public bool ValidateFiles(IFormFileCollection files)
@@ -87,96 +82,26 @@ namespace Bidding.Services.Shared
 
             try
             {
-                CloudBlobContainer cloudBlobContainer = await GetCloudBlobContainer().ConfigureAwait(true);
+                BlobServiceClient blobServiceClient = new BlobServiceClient(_connectionString);
+                string containerName = "auctionfiles-" + Guid.NewGuid().ToString();
+                BlobContainerClient blobContainerClient = await blobServiceClient.CreateBlobContainerAsync(containerName, PublicAccessType.BlobContainer);
 
                 foreach (IFormFile file in files)
                 {
-                    // todo: kke: add back & validate file signature logic!
-                    // string fileExtension = GetFileExtension(file);
-                    // ValidateFileSignature(fileExtension, imageBytes); // todo: kke: why this fails for jpg?
-
+                    Stream fileStream = file.OpenReadStream();
                     string fileName = CreateSafeFileName(file);
-                    byte[] fileBytes = ConvertFileToByteArray(file);
 
-                    await m_fileUploaderRepository.UploadFileAsync(fileBytes, fileName, file.ContentType, cloudBlobContainer).ConfigureAwait(true);
-                    //Stream imageStream = file.OpenReadStream();
-
-                    //using (MemoryStream optimiziedImageStream = new MemoryStream())
-                    //using (Image<Rgba32> image = Image.Load(imageStream))
-                    //{
-                    // todo: kke: var imageFormat = Image.DetectFormat(imageStream);	!!!
-                    //    Image<Rgba32> clone = image.Clone(context => context
-                    //        .Resize(new ResizeOptions
-                    //        {
-                    //            Mode = ResizeMode.Max,
-                    //            Size = new Size(1280, 1280)
-                    //        }));
-
-                    //    clone.Save(optimiziedImageStream, new JpegEncoder { Quality = 70 });
-
-                    //    await m_fileUploaderRepository.UploadFileAsync(optimiziedImageStream, fileName, file.ContentType, cloudBlobContainer).ConfigureAwait(true);
-                    //}
+                    await blobContainerClient.UploadBlobAsync(fileName, fileStream);
                 }
 
-                int loggedInUserId = m_permissionService.GetAndValidateUserId();
+                int loggedInUserId = _permissionService.GetAndValidateUserId();
 
-                return await m_fileUploaderRepository.SaveAuction(cloudBlobContainer.Name, auctionId, loggedInUserId).ConfigureAwait(true);
+                return await _fileUploaderRepository.SaveAuction(containerName, auctionId, loggedInUserId).ConfigureAwait(true);
             }
             catch (Exception ex)
             {
                 throw new WebApiException(HttpStatusCode.InternalServerError, FileUploadErrorMessage.GenericUploadErrorMessage, ex);
             }
-        }
-
-        private byte[] ConvertFileToByteArray(IFormFile file)
-        {
-            byte[] result = null;
-
-            try
-            {
-                var stream1 = file.OpenReadStream();
-
-                //Stream thumbnailStream = new MemoryStream((int)stream1.Length)	
-                //{	
-                //    Position = 0	
-                //};	
-
-                //using (Image<Rgba32> image = Image.Load(imageStream))	
-                //{	
-                //    var thumbnailRate = GetThumbnailRate(image.Width, 100);	
-
-                //    image.Mutate(x => x	
-                //         .Resize(1500, 0, true)); // image.Width / thumbnailRate || image.Height / thumbnailRate	
-
-                //    imageStream.Position = 0;	
-
-                //    var imageFormat = Image.DetectFormat(imageStream);	
-
-                //    if (imageFormat != null)	
-                //    {	
-                //        image.Save(thumbnailStream, imageFormat);	
-                //    }	
-                //    else	
-                //    {	
-                //        image.Save(thumbnailStream, new JpegEncoder());	
-                //    }	
-
-                //}	
-
-                stream1.Position = 0;
-
-                using (MemoryStream ms = new MemoryStream())
-                {
-                    stream1.CopyTo(ms);
-                    result = ms.ToArray();
-                }
-            }
-            catch (Exception ex)
-            {
-                throw new WebApiException(HttpStatusCode.InternalServerError, FileUploadErrorMessage.GenericUploadErrorMessage, ex);
-            }
-
-            return result;
         }
 
         private void ValidateFile(IFormFile file)
@@ -208,33 +133,12 @@ namespace Bidding.Services.Shared
 
         private string CreateSafeFileName(IFormFile file)
         {
-            // note: kke: TEST THIS
             var fileName = ContentDispositionHeaderValue.Parse(file.ContentDisposition).FileName;
             var urlPattern = "[^a-zA-Z0-9-.]";
             var friendlyUrl = Regex.Replace(fileName, @"\s", "-").ToLower();
             fileName = Regex.Replace(friendlyUrl, urlPattern, string.Empty);
-            // note: kke: TEST THIS
 
             return fileName;
-        }
-
-        private async Task<CloudBlobContainer> GetCloudBlobContainer()
-        {
-            if (CloudStorageAccount.TryParse(m_azureStorageConnectionString, out CloudStorageAccount cloudStorageAccount))
-            {
-                CloudBlobClient cloudBlobClient = cloudStorageAccount.CreateCloudBlobClient();
-                CloudBlobContainer cloudBlobContainer = cloudBlobClient.GetContainerReference("auctionfiles-" + Guid.NewGuid().ToString());
-
-                // todo: kke: add more robust try catch using (StorageException e)
-                await cloudBlobContainer.CreateIfNotExistsAsync().ConfigureAwait(true);
-                await cloudBlobContainer.SetPermissionsAsync(new BlobContainerPermissions { PublicAccess = BlobContainerPublicAccessType.Blob }).ConfigureAwait(true);
-
-                return cloudBlobContainer;
-            }
-            else
-            {
-                throw new WebApiException(HttpStatusCode.InternalServerError, FileUploadErrorMessage.GenericUploadErrorMessage);
-            }
         }
     }
 }
