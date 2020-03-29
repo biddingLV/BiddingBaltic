@@ -99,48 +99,6 @@ $body-bg: $gray-100;
 $breadcrumb-bg: $gray-100;
 $link-hover-decoration: underline;
 
-// todo: kke: clean-up
-// $body-color: $gray-dark;
-// $transition-base: all .2s ease-in-out;
-// $enable-rounded: false;
-// $border-color: $gray-300;
-// $font-size-base: 0.9rem;
-// $table-border-color: $gray-300;
-// $input-color: $gray-dark;
-
-// old
-// // define global heading styles
-// $h5-font-size: 1rem;
-// @media only screen and (min-width: map-get($grid-breakpoints, xs)) {
-//   $h1-font-size: 30px;
-//   h1 {
-//     font-size: $h1-font-size
-//   }
-//   h5 {
-//     font-size: $h5-font-size
-//   }
-// }
-
-// @media only screen and (min-width: map-get($grid-breakpoints, md)) {
-//   $h1-font-size: 40px;
-//   h1 {
-//     font-size: $h1-font-size
-//   }
-//   h5 {
-//     font-size: $h5-font-size
-//   }
-// }
-
-// @media only screen and (min-width: map-get($grid-breakpoints, lg)) {
-//   $h1-font-size: 50px;
-//   h1 {
-//     font-size: $h1-font-size
-//   }
-//   h5 {
-//     font-size: $h5-font-size
-//   }
-// }
-
 // overwrite default heading sizes
 
 // todo: kke: move this to the documentation!

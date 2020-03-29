@@ -19,7 +19,7 @@
       </div>
 
       <div class="row auction__details-gallery-row">
-        <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
+        <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6 gallery-row__gallery">
           <app-image-gallery
             [auctionImageUrls]="
               auctionDetails.aboutAuctionDetails.auctionImageUrls
@@ -27,7 +27,7 @@
           ></app-image-gallery>
         </div>
 
-        <div class="col-sm-12 col-md-12 col-lg-5 col-xl-5 offset-lg-1">
+        <div class="col-sm-12 col-md-12 col-lg-5 col-xl-5 offset-lg-1 gallery-row__countdown">
           <div class="row">
             <app-auction-details-countdown
               class="w-100"
