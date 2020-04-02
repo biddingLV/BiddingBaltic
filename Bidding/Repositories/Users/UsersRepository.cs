@@ -31,7 +31,7 @@ namespace Bidding.Repositories.Users
         {
             m_userManager = services.GetRequiredService<UserManager<ApplicationUser>>();
             m_roleManager = services.GetRequiredService<RoleManager<ApplicationRole>>();
-            m_context = services.GetRequiredService<BiddingContext>(); // m_context = context ?? throw new ArgumentNullException(nameof(context));
+            m_context = services.GetRequiredService<BiddingContext>();
         }
 
         /// <summary>
@@ -111,17 +111,7 @@ namespace Bidding.Repositories.Users
 
             IdentityResult result = await m_userManager.UpdateAsync(userForUpdate).ConfigureAwait(true);
 
-            if (result.Succeeded)
-            {
-                return true;
-            }
-
-            if (!result.Succeeded)
-            {
-                throw new WebApiException(HttpStatusCode.InternalServerError, UserErrorMessage.CouldNotUpdateUser);
-            }
-
-            return true;
+            return result.Succeeded ? true : throw new WebApiException(HttpStatusCode.InternalServerError, UserErrorMessage.CouldNotUpdateUser);
         }
 
         public async Task<bool> EditAdvancedAsync(EditAdvancedDetailsRequestModel request)
@@ -131,37 +121,12 @@ namespace Bidding.Repositories.Users
             userForUpdate.FirstName = request.FirstName;
             userForUpdate.LastName = request.LastName;
             userForUpdate.PhoneNumber = request.Phone;
-            userForUpdate.UserRoles.SingleOrDefault().RoleId = request.RoleId;
 
-            var userRole = await m_roleManager.FindByIdAsync(request.RoleId.ToString()).ConfigureAwait(true);
-
-            var check1 = await m_userManager.IsInRoleAsync(userForUpdate, userRole.Name).ConfigureAwait(true);
-
-            //  wip!
-
-            if (check1)
-            {
-                //var aaa1 = await m_userManager.RemoveFromRoleAsync(userForUpdate, userRole.Name).ConfigureAwait(true);
-                //var aaa2 = await m_userManager.AddToRoleAsync(userForUpdate, userRole.Name).ConfigureAwait(true);
-            }
-            else
-            {
-                //var aaa3 = await m_userManager.AddToRoleAsync(userForUpdate, userRole.Name).ConfigureAwait(true);
-            }
+            await ChangeUserRole(request, userForUpdate);
 
             IdentityResult result = await m_userManager.UpdateAsync(userForUpdate).ConfigureAwait(true);
 
-            if (result.Succeeded)
-            {
-                return true;
-            }
-
-            if (!result.Succeeded)
-            {
-                throw new WebApiException(HttpStatusCode.InternalServerError, UserErrorMessage.CouldNotUpdateUser);
-            }
-
-            return true;
+            return result.Succeeded ? true : throw new WebApiException(HttpStatusCode.InternalServerError, UserErrorMessage.CouldNotUpdateUser);
         }
 
         public IEnumerable<UserListItemModel> ListWithSearch(int startFrom, int endAt)
@@ -200,6 +165,15 @@ namespace Bidding.Repositories.Users
         public async Task<int> GetTotalUserCountAsync()
         {
             return await m_userManager.Users.CountAsync().ConfigureAwait(true);
+        }
+
+        private async Task ChangeUserRole(EditAdvancedDetailsRequestModel request, ApplicationUser userForUpdate)
+        {
+            var userRoles = await m_userManager.GetRolesAsync(userForUpdate);
+            ApplicationRole newUserRole = await m_roleManager.FindByIdAsync(request.RoleId.ToString()).ConfigureAwait(true);
+
+            await m_userManager.RemoveFromRoleAsync(userForUpdate, userRoles.FirstOrDefault()).ConfigureAwait(true); ;
+            await m_userManager.AddToRoleAsync(userForUpdate, newUserRole.Name).ConfigureAwait(true);
         }
 
         private async Task<ApplicationUser> HandleExistingUserAsync(ApplicationUser user, ApplicationUser userDetails)

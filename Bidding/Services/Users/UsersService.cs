@@ -116,8 +116,6 @@ namespace Bidding.Services.Users
                 throw new WebApiException(HttpStatusCode.BadRequest, UserErrorMessage.IncorrectUserRole);
             }
 
-            // todo: kke: validate if date is valid, when specified!
-
             return await m_userRepository.EditAdvancedAsync(request).ConfigureAwait(true);
         }
 

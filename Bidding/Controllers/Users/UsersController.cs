@@ -2,6 +2,7 @@
 using Bidding.Models.ViewModels.Users.Edit;
 using Bidding.Services.Users;
 using FeatureAuthorize.PolicyCode;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PermissionParts;
 using System;
@@ -9,21 +10,22 @@ using System.Threading.Tasks;
 
 namespace Bidding.Controllers.Users
 {
+    [ApiController]
     [Produces("application/json")]
     [Route("api/[Controller]/[action]")]
     public class UsersController : ControllerBase
     {
-        private readonly UsersService m_userService;
+        private readonly UsersService _userService;
 
         public UsersController(UsersService userService)
         {
-            m_userService = userService ?? throw new ArgumentNullException(nameof(userService));
+            _userService = userService ?? throw new ArgumentNullException(nameof(userService));
         }
 
         [HttpGet]
         public async Task<IActionResult> Details([FromQuery] int userId)
         {
-            return Ok(await m_userService.UserDetails(userId).ConfigureAwait(true));
+            return Ok(await _userService.UserDetails(userId).ConfigureAwait(true));
         }
 
         /// <summary>
@@ -35,7 +37,7 @@ namespace Bidding.Controllers.Users
         [HttpGet]
         public async Task<IActionResult> EditBasicDetails([FromQuery] int userId)
         {
-            return Ok(await m_userService.EditBasicDetails(userId).ConfigureAwait(true));
+            return Ok(await _userService.EditBasicDetails(userId).ConfigureAwait(true));
         }
 
         /// <summary>
@@ -48,27 +50,27 @@ namespace Bidding.Controllers.Users
         [HasPermission(Permission.ReadAllUsers)]
         public async Task<IActionResult> EditAdvancedDetails([FromQuery] int userId)
         {
-            return Ok(await m_userService.EditAdvancedDetails(userId).ConfigureAwait(true));
+            return Ok(await _userService.EditAdvancedDetails(userId).ConfigureAwait(true));
         }
 
         [HttpPut]
         public async Task<IActionResult> EditBasic([FromBody] EditBasicDetailsRequestModel request)
         {
-            return Ok(await m_userService.EditBasicAsync(request).ConfigureAwait(true));
+            return Ok(await _userService.EditBasicAsync(request).ConfigureAwait(true));
         }
 
         [HttpPut]
         [HasPermission(Permission.ReadAllUsers)]
         public async Task<IActionResult> EditAdvanced([FromBody] EditAdvancedDetailsRequestModel request)
         {
-            return Ok(await m_userService.EditAdvancedAsync(request).ConfigureAwait(true));
+            return Ok(await _userService.EditAdvancedAsync(request).ConfigureAwait(true));
         }
 
         [HttpGet]
         [HasPermission(Permission.ReadAllUsers)]
         public async Task<IActionResult> Search([FromQuery] UserListRequestModel request)
         {
-            return Ok(await m_userService.ListWithSearchAsync(request).ConfigureAwait(true));
+            return Ok(await _userService.ListWithSearchAsync(request).ConfigureAwait(true));
         }
     }
 }

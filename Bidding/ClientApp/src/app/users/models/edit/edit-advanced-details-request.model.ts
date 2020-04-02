@@ -4,5 +4,5 @@ export interface EditAdvancedDetailsRequestModel
   extends EditBasicDetailsRequestModel {
   userId: number;
   roleId: number;
-  subscriptionTill: string;
+  // subscriptionTill: string;
 }

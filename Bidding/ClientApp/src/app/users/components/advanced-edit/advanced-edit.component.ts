@@ -114,8 +114,8 @@ export class UserAdvancedEditComponent implements OnInit, OnDestroy {
       ],
       userEmail: [{ value: this.details.email, disabled: true }, []],
       userPhone: [this.details.phone, [Validators.maxLength(100)]],
-      userRole: [this.details.roleId, []],
-      subscriptionTill: [null, []]
+      userRole: [this.details.roleId, []] // ,
+      // subscriptionTill: [null, []]
     });
   }
 
@@ -125,8 +125,8 @@ export class UserAdvancedEditComponent implements OnInit, OnDestroy {
       firstName: this.editForm.value.userFirstName,
       lastName: this.editForm.value.userLastName,
       phone: this.editForm.value.userPhone,
-      roleId: this.editForm.value.userRole,
-      subscriptionTill: this.editForm.value.subscriptionTill
+      roleId: this.editForm.value.userRole // ,
+      // subscriptionTill: this.editForm.value.subscriptionTill
     };
   }
 
