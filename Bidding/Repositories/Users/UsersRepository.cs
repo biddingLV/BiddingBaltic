@@ -81,10 +81,7 @@ namespace Bidding.Repositories.Users
 
         public async Task<UserAdvancedDetailsResponseModel> EditAdvancedDetails(int userId)
         {
-            List<RoleItemModel> roles = await m_roleManager.Roles
-                .Where(rol => rol.Name != ApplicationUserRoles.SuperAdministrator)
-                .Select(rol => new RoleItemModel() { RoleId = rol.Id, RoleName = rol.Name })
-                .ToListAsync().ConfigureAwait(true);
+            List<RoleItemModel> roles = await ApplicationRoles();
 
             return await m_userManager.Users
                 .Where(usr => usr.Id == userId)
@@ -129,28 +126,16 @@ namespace Bidding.Repositories.Users
             return result.Succeeded ? true : throw new WebApiException(HttpStatusCode.InternalServerError, UserErrorMessage.CouldNotUpdateUser);
         }
 
-        public IEnumerable<UserListItemModel> ListWithSearch(int startFrom, int endAt)
+        public IEnumerable<UserListItemModel> ListWithSearch(int startFrom, int endAt, int usersId)
         {
             try
             {
-                SqlParameter startPaginationFrom = new SqlParameter
-                {
-                    ParameterName = "start",
-                    Direction = ParameterDirection.Input,
-                    Value = startFrom,
-                    SqlDbType = SqlDbType.Int
-                };
-
-                SqlParameter endPaginationAt = new SqlParameter
-                {
-                    ParameterName = "end",
-                    Direction = ParameterDirection.Input,
-                    Value = endAt,
-                    SqlDbType = SqlDbType.Int
-                };
+                SqlParameter startPaginationFrom = SetupSqlParameter("start", startFrom);
+                SqlParameter endPaginationAt = SetupSqlParameter("end", endAt);
+                SqlParameter loggedInUserId = SetupSqlParameter("userId", usersId);
 
                 return m_context.Query<UserListItemModel>()
-                    .FromSql("[dbo].[BID_GetUsers] @start, @end", startPaginationFrom, endPaginationAt);
+                    .FromSql("[dbo].[BID_GetUsers] @start, @end, @userId", startPaginationFrom, endPaginationAt, loggedInUserId);
             }
             catch (Exception ex)
             {
@@ -158,13 +143,20 @@ namespace Bidding.Repositories.Users
             }
         }
 
-        /// <summary>
-        /// Returns total count of all active and inactive users for admin panel!
-        /// </summary>
-        /// <returns></returns>
-        public async Task<int> GetTotalUserCountAsync()
+        public async Task<int> GetTotalUserCountAsync(int loggedInUserId)
         {
-            return await m_userManager.Users.CountAsync().ConfigureAwait(true);
+            return await m_userManager.Users.Where(usr => usr.Id != loggedInUserId).CountAsync().ConfigureAwait(true);
+        }
+
+        private static SqlParameter SetupSqlParameter(string parameterName, int parameterValue)
+        {
+            return new SqlParameter
+            {
+                ParameterName = parameterName,
+                Direction = ParameterDirection.Input,
+                Value = parameterValue,
+                SqlDbType = SqlDbType.Int
+            };
         }
 
         private async Task ChangeUserRole(EditAdvancedDetailsRequestModel request, ApplicationUser userForUpdate)
@@ -213,6 +205,14 @@ namespace Bidding.Repositories.Users
             {
                 throw new WebApiException(HttpStatusCode.InternalServerError, UserErrorMessage.CanNotSignIn);
             }
+        }
+
+        private async Task<List<RoleItemModel>> ApplicationRoles()
+        {
+            return await m_roleManager.Roles
+                .Where(rol => rol.Name != ApplicationUserRoles.SuperAdministrator)
+                .Select(rol => new RoleItemModel() { RoleId = rol.Id, RoleName = rol.Name })
+                .ToListAsync().ConfigureAwait(true);
         }
     }
 }

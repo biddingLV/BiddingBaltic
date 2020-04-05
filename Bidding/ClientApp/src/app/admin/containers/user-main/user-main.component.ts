@@ -16,7 +16,7 @@ import { ModalService } from "ClientApp/src/app/core/services/modal/modal.servic
 import { UserAdvancedEditComponent } from "ClientApp/src/app/users/components/advanced-edit/advanced-edit.component";
 
 @Component({
-  templateUrl: "./user-main.component.html"
+  templateUrl: "./user-main.component.html",
 })
 export class AdminUserMainComponent implements OnInit {
   // Component
@@ -24,10 +24,10 @@ export class AdminUserMainComponent implements OnInit {
 
   // API
   userTable: UserListResponseModel;
-  requestModel: UserListRequestModel;
+  auctionUserRequest: UserListRequestModel;
 
   // table
-  selected: UserListItemModel[] = [];
+  selectedUsers: UserListItemModel[] = [];
 
   // modals
   bsModalRef: BsModalRef;
@@ -54,12 +54,12 @@ export class AdminUserMainComponent implements OnInit {
 
   editModal(): void {
     const initialState = {
-      selectedUserId: this.selected[0].userId
+      selectedUserId: this.selectedUsers[0].userId,
     };
 
     const modalConfig = {
       ...this.internalModalService.defaultModalOptions,
-      ...{ initialState: initialState }
+      ...{ initialState: initialState },
     };
 
     this.bsModalRef = this.externalModalService.show(
@@ -69,28 +69,47 @@ export class AdminUserMainComponent implements OnInit {
 
     this.externalModalService.onHide
       .pipe(this.internalModalService.toModalResult())
-      .subscribe(result => {
+      .subscribe((result) => {
         if (result.success) {
+          this.clearSelectedUsers();
           this.loadUsers();
         }
       });
   }
 
+  onSortChange(event): void {}
+
+  onSelectedChange(): void {}
+
+  /**
+   * Called on page change in auction list
+   * @param pageNumber
+   */
+  onPageChange(pageNumber: number): void {
+    this.clearSelectedUsers();
+    this.auctionUserRequest.currentPage = pageNumber;
+    this.loadUsers();
+  }
+
+  private clearSelectedUsers() {
+    this.selectedUsers = [];
+  }
+
   private setupInitialAuctionRequest(): void {
-    this.requestModel = {
+    this.auctionUserRequest = {
       offsetStart: 0,
       offsetEnd: this.numberRows,
       currentPage: this.currentPage,
       sortByColumn: "FirstName",
       sortingDirection: "asc",
-      searchValue: this.searchText
+      searchValue: this.searchText,
     };
   }
 
   /** Gets all users */
   private loadUsers(): void {
     this.mainSubscription = this.usersService
-      .getUsers$(this.requestModel)
+      .getUsers$(this.auctionUserRequest)
       .subscribe(
         (response: UserListResponseModel) => {
           this.userTable = response;

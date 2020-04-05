@@ -1,18 +1,23 @@
 <div class="text-right">
-  <button
-    value="Edit User"
-    type="button"
-    (click)="editModal()"
-    class="btn btn-primary"
-  >
-    <fa-icon [icon]="['far', 'edit']"></fa-icon>
-    Edit
-  </button>
+  <ng-container *ngIf="selectedUsers.length > 0">
+    <button
+      value="Edit User"
+      type="button"
+      (click)="editModal()"
+      class="btn btn-primary"
+    >
+      <fa-icon [icon]="['far', 'edit']"></fa-icon>
+      Edit
+    </button>
+  </ng-container>
 </div>
 
 <div *ngIf="userTable">
   <app-user-table
     [userTable]="userTable"
-    [selected]="selected"
+    [selected]="selectedUsers"
+    (pageChange)="onPageChange($event)"
+    (sortChange)="onSortChange($event)"
+    (selectedChange)="onSelectedChange($event)"
   ></app-user-table>
 </div>

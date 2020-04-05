@@ -7,12 +7,13 @@ import { UserListItemModel } from "../../../models/list/user-list-item.model";
 
 @Component({
   selector: "app-user-table",
-  templateUrl: "./user-table.component.html"
+  templateUrl: "./user-table.component.html",
 })
 export class UserTableComponent implements OnInit {
-  // table
-  @Input() numberRows: number;
+  // template
+  @Input() numberRows?: number = 15;
   @Input() userTable: UserListResponseModel;
+
   @Input() selected: UserListItemModel[];
 
   @Output() pageChange = new EventEmitter<number>();
@@ -24,8 +25,8 @@ export class UserTableComponent implements OnInit {
 
   ngOnInit(): void {}
 
-  onPageChange(page: number): void {
-    this.pageChange.emit(page);
+  onPageChange(event): void {
+    this.pageChange.emit(event.page);
   }
 
   onSortChange(event: boolean): void {
@@ -36,10 +37,7 @@ export class UserTableComponent implements OnInit {
     this.detailsClick.emit();
   }
 
-  onSelect({ selected }): void {
-    this.selected.splice(0, this.selected.length);
-    this.selected.push(...selected);
-
-    this.selectedChange.emit(selected);
+  onSelect(selectedItems: { selected }): void {
+    this.selectedChange.emit(selectedItems.selected);
   }
 }

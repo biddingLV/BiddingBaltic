@@ -77,10 +77,12 @@ namespace Bidding.Services.Users
 
             (int startFrom, int endAt) = Pagination.GetOffsetAndSize(request);
 
+            int loggedInUserId = LoggedInUserId();
+
             UserListResponseModel response = new UserListResponseModel()
             {
-                Users = m_userRepository.ListWithSearch(startFrom, endAt).ToList(),
-                ItemCount = await m_userRepository.GetTotalUserCountAsync().ConfigureAwait(true)
+                Users = m_userRepository.ListWithSearch(startFrom, endAt, loggedInUserId).ToList(),
+                ItemCount = await m_userRepository.GetTotalUserCountAsync(loggedInUserId).ConfigureAwait(true)
             };
 
             Pagination.PaginateResponse(ref response, TableItem.DefaultSize, request.CurrentPage);
@@ -94,7 +96,7 @@ namespace Bidding.Services.Users
             if (request.FirstName.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, UserErrorMessage.MissingUsersInformation); }
             if (request.LastName.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, UserErrorMessage.MissingUsersInformation); }
 
-            int loggedInUserId = m_permissionService.GetAndValidateUserId();
+            int loggedInUserId = LoggedInUserId();
 
             return await m_userRepository.EditBasicAsync(request, loggedInUserId).ConfigureAwait(true);
         }
@@ -142,6 +144,11 @@ namespace Bidding.Services.Users
             // todo: kke: implement this logic!
             //List<string> allowedSortByColumns = new List<string> { "AuctionName", "AuctionStartingPrice", "AuctionStartDate", "AuctionEndDate" };
             //if (allowedSortByColumns.Contains(request.SortByColumn) == false) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
+        }
+
+        private int LoggedInUserId()
+        {
+            return m_permissionService.GetAndValidateUserId();
         }
     }
 }
