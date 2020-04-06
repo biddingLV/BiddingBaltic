@@ -27,7 +27,9 @@
           ></app-image-gallery>
         </div>
 
-        <div class="col-sm-12 col-md-12 col-lg-5 col-xl-5 offset-lg-1 gallery-row__countdown">
+        <div
+          class="col-sm-12 col-md-12 col-lg-5 col-xl-5 offset-lg-1 gallery-row__countdown"
+        >
           <div class="row">
             <app-auction-details-countdown
               class="w-100"
@@ -114,21 +116,6 @@
             <span class="pr-2 font-weight-bold">Izsoles beigas:</span>
             <span>{{ endDate }}</span>
           </p>
-
-          <span class="pr-2 font-weight-bold">Izsoles dokumenti:</span>
-          <ul>
-            <li
-              *ngFor="
-                let item of auctionDetails.aboutAuctionDetails.auctionDocuments;
-                let i = index
-              "
-            >
-              <a [href]="item.documentUrl" target="_blank">{{
-                item.documentName
-              }}</a>
-            </li>
-          </ul>
-          <br />
         </div>
 
         <div
@@ -175,6 +162,25 @@
             [creatorDetails]="auctionDetails.aboutAuctionCreator"
             [isLoggedIn]="isLoggedIn"
           ></app-auction-creator>
+
+          <!-- TODO: KKE: Move to dumb component this logic! -->
+          <ng-container *ngIf="isLoggedIn">
+            <span class="pr-2 font-weight-bold">Izsoles dokumenti:</span>
+            <ul>
+              <li
+                *ngFor="
+                  let item of auctionDetails.aboutAuctionDetails
+                    .auctionDocuments;
+                  let i = index
+                "
+              >
+                <a [href]="item.documentUrl" target="_blank">{{
+                  item.documentName
+                }}</a>
+              </li>
+            </ul>
+            <br />
+          </ng-container>
 
           <app-sign-in-button
             *ngIf="!isLoggedIn"

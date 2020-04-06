@@ -1,15 +1,14 @@
 <div class="text-right">
-  <ng-container *ngIf="selectedUsers.length > 0">
-    <button
-      value="Edit User"
-      type="button"
-      (click)="editModal()"
-      class="btn btn-primary"
-    >
-      <fa-icon [icon]="['far', 'edit']"></fa-icon>
-      Edit
-    </button>
-  </ng-container>
+  <button
+    value="Edit User"
+    type="button"
+    (click)="editModal()"
+    class="btn btn-primary"
+    [disabled]="selectedUsers.length != 1"
+  >
+    <fa-icon [icon]="['far', 'edit']"></fa-icon>
+    Edit
+  </button>
 </div>
 
 <div *ngIf="userTable">

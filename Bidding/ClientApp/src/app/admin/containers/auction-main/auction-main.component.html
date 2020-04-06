@@ -11,28 +11,26 @@
     </button>
   </ng-container> -->
 
-  <ng-container *ngIf="selectedAuctions.length > 0">
-    <button
-      value="Delete Auction"
-      type="button"
-      (click)="deleteModal()"
-      class="btn btn-outline-danger"
-    >
-      Delete
-    </button>
-  </ng-container>
+  <button
+    value="Delete Auction"
+    type="button"
+    (click)="deleteModal()"
+    class="btn btn-outline-danger"
+    [disabled]="selectedAuctions.length == 0"
+  >
+    Izdzēst
+  </button>
 
-  <ng-container *ngIf="selectedAuctions.length === 0">
-    <button
-      value="Add Auction"
-      type="button"
-      (click)="addModal()"
-      class="btn btn-primary"
-    >
-      <fa-icon [icon]="['fas', 'plus']"></fa-icon>
-      Add
-    </button>
-  </ng-container>
+  <button
+    value="Add Auction"
+    type="button"
+    (click)="addModal()"
+    class="btn btn-primary"
+    [disabled]="selectedAuctions.length != 0"
+  >
+    <fa-icon [icon]="['fas', 'plus']"></fa-icon>
+    Pievienot
+  </button>
 </div>
 
 <!-- List -->
