@@ -6,7 +6,8 @@ import {
   Output,
   OnChanges,
   SimpleChanges,
-  Input
+  Input,
+  SimpleChange
 } from "@angular/core";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
@@ -25,6 +26,9 @@ import { AuctionFormatConstants } from "ClientApp/src/app/core/constants/auction
 })
 export class AuctionAddAboutWizardStepComponent implements OnInit, OnChanges {
   @Input() selectedFormatId: number;
+
+  /** Used to enable or disable action button in template */
+  @Input() isDisabled: boolean = false;
 
   @Output() returnAddWizardStepForm = new EventEmitter<FormGroup>();
 
@@ -70,18 +74,14 @@ export class AuctionAddAboutWizardStepComponent implements OnInit, OnChanges {
 
   ngOnChanges(changes: SimpleChanges): void {
     const formatChange = changes["selectedFormatId"];
+    const isDisabledChange = changes["isDisabled"];
 
-    if (formatChange && !formatChange.isFirstChange()) {
-      if (formatChange !== undefined) {
-        if (
-          formatChange.currentValue ==
-          AuctionFormatConstants.AUCTION_ELECTRONICALLY_ID
-        ) {
-          this.showWebsiteField = true;
-        } else {
-          this.showWebsiteField = false;
-        }
-      }
+    if (formatChange != undefined) {
+      this.handleFormatChange(formatChange);
+    }
+
+    if (isDisabledChange != undefined) {
+      this.handleIsDisabledChange(isDisabledChange);
     }
   }
 
@@ -144,5 +144,23 @@ export class AuctionAddAboutWizardStepComponent implements OnInit, OnChanges {
       auctionEndDate: [this.defaultDateTime, [Validators.required]],
       auctionEndTime: [this.defaultDateTime, []]
     });
+  }
+
+  private handleFormatChange(change: SimpleChange) {
+    if (change && change.isFirstChange() == false) {
+      if (change.currentValue ==
+        AuctionFormatConstants.AUCTION_ELECTRONICALLY_ID) {
+        this.showWebsiteField = true;
+      }
+      else {
+        this.showWebsiteField = false;
+      }
+    }
+  }
+
+  private handleIsDisabledChange(change: SimpleChange) {
+    if (change && change.isFirstChange() == false) {
+      this.isDisabled = change.currentValue;
+    }
   }
 }

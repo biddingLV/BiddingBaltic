@@ -25,11 +25,18 @@ namespace Bidding.Repositories.Shared
             {
                 Auction auction = await _context.Auctions.Where(auct => auct.AuctionId == auctionId).SingleOrDefaultAsync().ConfigureAwait(true);
 
-                auction.AuctionImageContainer = containerName;
-                auction.LastUpdatedAt = DateTime.UtcNow;
-                auction.LastUpdatedBy = loggedInUserId;
+                if (auction != null)
+                {
+                    auction.AuctionImageContainer = containerName;
+                    auction.LastUpdatedAt = DateTime.UtcNow;
+                    auction.LastUpdatedBy = loggedInUserId;
 
-                _context.SaveChanges();
+                    _context.SaveChanges();
+                }
+                else
+                {
+                    return false;
+                }
             }
             catch (Exception ex)
             {

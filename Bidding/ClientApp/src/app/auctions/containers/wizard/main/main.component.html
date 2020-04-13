@@ -43,6 +43,7 @@
       awWizardStep
       [stepTitle]="'Rīkotājs un norise'"
       [selectedFormatId]="selectedFormatId"
+      [isDisabled]="isDisabled"
       (formValuesAreValid)="onSubmit()"
       (returnAddWizardStepForm)="onClickNextReturnForm('about-form', $event)"
     >

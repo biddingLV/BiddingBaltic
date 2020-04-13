@@ -38,6 +38,9 @@ export class UserBasicEditComponent implements OnInit, OnDestroy {
 
   details: UserBasicDetailsResponseModel;
 
+  /** Used to enable or disable action button in template */
+  isDisabled: boolean = false;
+
   /** Convenience getter for easy access to form fields */
   get f() {
     return this.editForm.controls;
@@ -119,20 +122,31 @@ export class UserBasicEditComponent implements OnInit, OnDestroy {
   }
 
   private makeRequest(): void {
+    this.isDisabled = true;
+
     this.editSubscription = this.usersService
       .editBasicDetails$(this.editRequestModel)
       .subscribe(
-        (editSuccess: boolean) => {
-          if (editSuccess) {
+        (editResponse: boolean) => {
+          if (editResponse) {
+            this.enableButton();
             this.notificationService.success("User successfully updated.");
             this.editForm.reset();
             this.bsModalRef.hide();
             this.externalModalService.setDismissReason("Update");
           } else {
+            this.enableButton();
             this.notificationService.error("Could not update user.");
           }
         },
-        (error: string) => this.notificationService.error(error)
+        (error: string) => {
+          this.enableButton();
+          this.notificationService.error(error)
+        }
       );
+  }
+
+  private enableButton(): void {
+    this.isDisabled = false;
   }
 }

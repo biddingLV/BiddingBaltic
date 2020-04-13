@@ -90,9 +90,10 @@
     <div class="form-row">
       <div class="col-12">
         <div class="form-group modal-buttons float-right">
-          <button class="btn btn-primary" (click)="onSubmit()">
+          <button class="btn btn-primary" (click)="onSubmit()" [disabled]="isDisabled">
             Update
           </button>
+          
           <button class="btn btn-outline-dark" (click)="bsModalRef.hide()">
             Cancel
           </button>

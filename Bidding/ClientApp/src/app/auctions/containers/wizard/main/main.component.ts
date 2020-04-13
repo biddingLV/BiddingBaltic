@@ -32,10 +32,9 @@ import { AboutAuctionModel } from "../../../models/add/about-auction.model";
 @Component({
   templateUrl: "./main.component.html"
 })
-export class AuctionAddMainWizardComponent
-  implements OnInit, AfterViewInit, OnDestroy {
+export class AuctionAddMainWizardComponent implements OnInit, AfterViewInit, OnDestroy {
   // component
-  auctionAddSubscription: Subscription;
+  addSubscription: Subscription;
   submitted = false;
 
   // filters
@@ -49,6 +48,9 @@ export class AuctionAddMainWizardComponent
   selectedTopCategoryId: number;
   selectedSubCategoryId: number;
   selectedFormatId: number;
+
+  /** Used to enable or disable action button in template */
+  isDisabled: boolean = false;
 
   /** Category step component */
   @ViewChild(AuctionAddCategoryWizardStepComponent, { static: true })
@@ -155,20 +157,17 @@ export class AuctionAddMainWizardComponent
 
   /** Avoid memory leaks here by cleaning up after ourselves */
   ngOnDestroy(): void {
-    if (this.auctionAddSubscription) {
-      this.auctionAddSubscription.unsubscribe();
+    if (this.addSubscription) {
+      this.addSubscription.unsubscribe();
     }
   }
 
-  private moveDirection = (
-    formOfStep: FormGroup,
-    direction: MovingDirection
-  ): boolean => {
+  private moveDirection = (formOfStep: FormGroup, direction: MovingDirection): boolean => {
     return direction === MovingDirection.Backwards ? true : formOfStep.valid;
   };
 
   private loadTopAndSubCategories(): void {
-    this.auctionAddSubscription = this.auctionService
+    this.addSubscription = this.auctionService
       .categoriesWithTypes$()
       .pipe(startWith(new CategoriesWithTypesModel()))
       .subscribe(
@@ -310,7 +309,9 @@ export class AuctionAddMainWizardComponent
   }
 
   private makeRequest(request: AddAuctionRequestModel): void {
-    this.auctionAddSubscription = this.auctionService
+    this.isDisabled = true;
+
+    this.addSubscription = this.auctionService
       .addAuction$(request)
       .pipe(
         concatMap((auctionId: number) =>
@@ -321,16 +322,25 @@ export class AuctionAddMainWizardComponent
         )
       )
       .subscribe(
-        response => {
-          if (response) {
+        (addResponse: boolean) => {
+          if (addResponse) {
+            this.enableButton();
             this.notificationService.success("Auction successfully added.");
             this.bsModalRef.hide();
             this.externalModalService.setDismissReason("Create");
           } else {
+            this.enableButton();
             this.notificationService.error("Could not create auction.");
           }
         },
-        (error: string) => this.notificationService.error(error)
+        (error: string) => {
+          this.enableButton();
+          this.notificationService.error(error)
+        }
       );
+  }
+
+  private enableButton(): void {
+    this.isDisabled = false;
   }
 }
