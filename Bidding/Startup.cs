@@ -240,10 +240,10 @@ namespace Bidding
         {
             services.AddScoped<ISubscribeService, SubscribeService>();
             services.AddScoped<ISubscribeRepository, SubscribeRepository>();
-            services.AddScoped<PermissionService>();
+            services.AddScoped<IPermissionService, PermissionService>();
             services.AddScoped<PermissionRepository>();
-            services.AddScoped<AuctionsService>();
-            services.AddScoped<AuctionsRepository>();
+            services.AddScoped<IAuctionService, AuctionService>();
+            services.AddScoped<IAuctionRepository, AuctionRepository>();
             services.AddScoped<UsersService>();
             services.AddScoped<UsersRepository>();
             services.AddScoped<FileUploaderService>();

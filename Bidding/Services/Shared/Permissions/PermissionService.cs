@@ -7,7 +7,7 @@ using System.Net;
 
 namespace Bidding.Services.Shared.Permissions
 {
-    public class PermissionService
+    public class PermissionService : IPermissionService
     {
         private readonly IHttpContextAccessor _httpContextAccessor;
 

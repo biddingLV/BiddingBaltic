@@ -1,6 +1,5 @@
 // angular
 import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
 
 // internal
 import { SharedModule } from "../shared/shared.module";
@@ -14,22 +13,16 @@ import { AdminSidebarComponent } from "./components/sidebar/sidebar.component";
 import { UsersModule } from "../users/users.module";
 
 @NgModule({
-  imports: [
-    CommonModule,
-    AdminRoutingModule,
-    SharedModule,
-    AuctionsModule,
-    UsersModule
-  ],
+  imports: [AdminRoutingModule, SharedModule, AuctionsModule, UsersModule],
   exports: [],
   declarations: [
     AdminAuctionMainComponent,
     AdminUserMainComponent,
     AdminMainComponent,
     UserTableComponent,
-    AdminSidebarComponent
+    AdminSidebarComponent,
   ],
   providers: [],
-  entryComponents: []
+  entryComponents: [],
 })
 export class AdminModule {}

@@ -17,11 +17,11 @@ namespace Bidding.Controllers.Auctions
     [Route("api/[Controller]/[action]")]
     public class AuctionsController : ControllerBase
     {
-        private readonly AuctionsService m_auctionsService;
+        private readonly IAuctionService _auctionService;
 
-        public AuctionsController(AuctionsService auctionsService)
+        public AuctionsController(IAuctionService auctionService)
         {
-            m_auctionsService = auctionsService ?? throw new ArgumentNullException(nameof(auctionsService));
+            _auctionService = auctionService ?? throw new ArgumentNullException(nameof(auctionService));
         }
 
         /// <summary>
@@ -33,7 +33,7 @@ namespace Bidding.Controllers.Auctions
         [AllowAnonymous]
         public IActionResult GetActiveAuctions([FromQuery] AuctionListRequestModel request)
         {
-            return Ok(m_auctionsService.GetActiveAuctions(request));
+            return Ok(_auctionService.GetActiveAuctions(request));
         }
 
         /// <summary>
@@ -44,7 +44,7 @@ namespace Bidding.Controllers.Auctions
         [AllowAnonymous]
         public IActionResult Filters()
         {
-            return Ok(m_auctionsService.Filters());
+            return Ok(_auctionService.Filters());
         }
 
         /// <summary>
@@ -56,7 +56,7 @@ namespace Bidding.Controllers.Auctions
         [AllowAnonymous]
         public async Task<IActionResult> Details([FromQuery] AuctionDetailsRequestModel request)
         {
-            return Ok(await m_auctionsService.DetailsAsync(request).ConfigureAwait(true));
+            return Ok(await _auctionService.DetailsAsync(request).ConfigureAwait(true));
         }
 
         /// <summary>
@@ -68,7 +68,7 @@ namespace Bidding.Controllers.Auctions
         [HasPermission(Permission.AccessAdminPanel)]
         public IActionResult GetAllAuctions([FromQuery] AuctionListRequestModel request)
         {
-            return Ok(m_auctionsService.GetAllAuctions(request));
+            return Ok(_auctionService.GetAllAuctions(request));
         }
 
         /// <summary>
@@ -79,7 +79,7 @@ namespace Bidding.Controllers.Auctions
         [HasPermission(Permission.CreateAuction)]
         public IActionResult CategoriesWithTypes()
         {
-            return Ok(m_auctionsService.CategoriesWithTypes());
+            return Ok(_auctionService.CategoriesWithTypes());
         }
 
         /// <summary>
@@ -90,7 +90,7 @@ namespace Bidding.Controllers.Auctions
         [HasPermission(Permission.CreateAuction)]
         public IActionResult Formats()
         {
-            return Ok(m_auctionsService.Formats());
+            return Ok(_auctionService.Formats());
         }
 
         /// <summary>
@@ -101,7 +101,7 @@ namespace Bidding.Controllers.Auctions
         [HasPermission(Permission.CreateAuction)]
         public IActionResult Statuses()
         {
-            return Ok(m_auctionsService.Statuses());
+            return Ok(_auctionService.Statuses());
         }
 
         /// <summary>
@@ -113,7 +113,7 @@ namespace Bidding.Controllers.Auctions
         [HasPermission(Permission.CreateAuction)]
         public IActionResult Create([FromBody] AddAuctionRequestModel request)
         {
-            return Ok(m_auctionsService.Create(request));
+            return Ok(_auctionService.Create(request));
         }
 
         /// <summary>
@@ -125,7 +125,7 @@ namespace Bidding.Controllers.Auctions
         [HasPermission(Permission.CreateAuction)] // TODO: KKE: Add correct permission!
         public IActionResult EditDetails([FromQuery] int auctionId)
         {
-            return Ok(m_auctionsService.EditDetails(auctionId));
+            return Ok(_auctionService.EditDetails(auctionId));
         }
 
         /// <summary>
@@ -137,7 +137,7 @@ namespace Bidding.Controllers.Auctions
         [HasPermission(Permission.CreateAuction)] // TODO: KKE: Add correct permission!
         public IActionResult Edit([FromBody] AuctionEditRequestModel request)
         {
-            return Ok(m_auctionsService.UpdateAuctionDetails(request));
+            return Ok(_auctionService.UpdateAuctionDetails(request));
         }
 
         /// <summary>
@@ -149,7 +149,7 @@ namespace Bidding.Controllers.Auctions
         [HasPermission(Permission.CreateAuction)] // TODO: KKE: Add correct permission!
         public async Task<IActionResult> Delete([FromBody] AuctionDeleteRequestModel request)
         {
-            return Ok(await m_auctionsService.DeleteAsync(request).ConfigureAwait(true));
+            return Ok(await _auctionService.DeleteAsync(request).ConfigureAwait(true));
         }
     }
 }

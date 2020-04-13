@@ -1,6 +1,5 @@
 // angular
 import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
 
 // 3rd lib
 import { ArchwizardModule } from "angular-archwizard";
@@ -27,23 +26,12 @@ import { AuctionFiltersComponent } from "./components/auction-filters/auction-fi
 import { ItemDetailsComponent } from "./components/details/categories/item-details/item-details.component";
 import { PropertyDetailsComponent } from "./components/details/categories/property-details/property-details.component";
 import { VehicleDetailsComponent } from "./components/details/categories/vehicle-details/vehicle-details.component";
-import { AuctionFileUploaderComponent } from './components/wizard/auction-file-uploader/auction-file-uploader.component';
-import { AuctionCreatorComponent } from './components/details/auction-creator/auction-creator.component';
+import { AuctionFileUploaderComponent } from "./components/wizard/auction-file-uploader/auction-file-uploader.component";
+import { AuctionCreatorComponent } from "./components/details/auction-creator/auction-creator.component";
 
 @NgModule({
-  imports: [
-    CommonModule,
-    SharedModule,
-    AuctionsRoutingModule,
-    ArchwizardModule
-  ],
-  exports: [
-    AuctionTableComponent,
-    ArchwizardModule,
-
-    AuctionListComponent,
-    AuctionFiltersComponent
-  ],
+  imports: [SharedModule, AuctionsRoutingModule, ArchwizardModule],
+  exports: [AuctionTableComponent, ArchwizardModule, AuctionListComponent, AuctionFiltersComponent],
   declarations: [
     AuctionTableComponent,
     AuctionDetailsComponent,
@@ -64,7 +52,7 @@ import { AuctionCreatorComponent } from './components/details/auction-creator/au
     PropertyDetailsComponent,
     VehicleDetailsComponent,
     AuctionFileUploaderComponent,
-    AuctionCreatorComponent
+    AuctionCreatorComponent,
   ],
   providers: [AuctionsService],
   entryComponents: [
@@ -73,7 +61,7 @@ import { AuctionCreatorComponent } from './components/details/auction-creator/au
     AuctionDeleteComponent,
     AuctionAddCategoryWizardStepComponent,
     AuctionAddAddWizardStepComponent,
-    AuctionAddAboutWizardStepComponent
-  ]
+    AuctionAddAboutWizardStepComponent,
+  ],
 })
 export class AuctionsModule {}

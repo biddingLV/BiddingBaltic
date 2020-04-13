@@ -1,6 +1,5 @@
 // angular
 import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
 
 // internal
 import { UsersRoutingModule } from "./users-routing.module";
@@ -12,20 +11,10 @@ import { SharedModule } from "../shared/shared.module";
 import { UserAdvancedEditComponent } from "./components/advanced-edit/advanced-edit.component";
 
 @NgModule({
-  imports: [CommonModule, UsersRoutingModule, SharedModule],
-  exports: [
-    UserDetailsComponent,
-    UsersMainComponent,
-    UserBasicEditComponent,
-    UserAdvancedEditComponent
-  ],
-  declarations: [
-    UserDetailsComponent,
-    UsersMainComponent,
-    UserBasicEditComponent,
-    UserAdvancedEditComponent
-  ],
+  imports: [UsersRoutingModule, SharedModule],
+  exports: [UserDetailsComponent, UsersMainComponent, UserBasicEditComponent, UserAdvancedEditComponent],
+  declarations: [UserDetailsComponent, UsersMainComponent, UserBasicEditComponent, UserAdvancedEditComponent],
   providers: [UsersService],
-  entryComponents: [UserBasicEditComponent, UserAdvancedEditComponent]
+  entryComponents: [UserBasicEditComponent, UserAdvancedEditComponent],
 })
 export class UsersModule {}

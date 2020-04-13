@@ -7,7 +7,6 @@ using Bidding.Models.ViewModels.Auctions.List;
 using Bidding.Models.ViewModels.Auctions.Shared;
 using Bidding.Models.ViewModels.Filters;
 using Bidding.Repositories.Auctions;
-using Bidding.Services.Shared;
 using Bidding.Services.Shared.Permissions;
 using Bidding.Shared.Constants;
 using Bidding.Shared.ErrorHandling.Errors;
@@ -25,15 +24,15 @@ using System.Threading.Tasks;
 
 namespace Bidding.Services.Auctions
 {
-    public class AuctionsService
+    public class AuctionService : IAuctionService
     {
-        private readonly PermissionService m_permissionService;
-        private readonly AuctionsRepository m_auctionsRepository;
+        private readonly IPermissionService _permissionService;
+        private readonly IAuctionRepository _auctionRepository;
 
-        public AuctionsService(AuctionsRepository auctionRepository, PermissionService permissionService)
+        public AuctionService(IAuctionRepository auctionRepository, IPermissionService permissionService)
         {
-            m_permissionService = permissionService ?? throw new ArgumentNullException(nameof(permissionService));
-            m_auctionsRepository = auctionRepository ?? throw new ArgumentNullException(nameof(auctionRepository));
+            _permissionService = permissionService ?? throw new ArgumentNullException(nameof(permissionService));
+            _auctionRepository = auctionRepository ?? throw new ArgumentNullException(nameof(auctionRepository));
         }
 
         public AuctionListResponseModel GetActiveAuctions(AuctionListRequestModel request)
@@ -41,7 +40,7 @@ namespace Bidding.Services.Auctions
             ValidateAuctionList(request);
 
             // note: kke: if the user is not logged in, cant use search functionality!
-            if (m_permissionService.GetUserId().IsNotSpecified()) request.SearchValue = null;
+            if (_permissionService.GetUserId().IsNotSpecified()) request.SearchValue = null;
 
             (int startFrom, int endAt) = Pagination.GetOffsetAndSize(request);
 
@@ -50,8 +49,8 @@ namespace Bidding.Services.Auctions
 
             AuctionListResponseModel auctionsResponse = new AuctionListResponseModel()
             {
-                Auctions = m_auctionsRepository.GetActiveAuctions(request, startFrom, endAt, fromDate).ToList(),
-                ItemCount = m_auctionsRepository.ActiveAuctionCount().Count()
+                Auctions = _auctionRepository.GetActiveAuctions(request, startFrom, endAt, fromDate).ToList(),
+                ItemCount = _auctionRepository.ActiveAuctionCount().Count()
             };
 
             Pagination.PaginateResponse(ref auctionsResponse, TableItem.DefaultSize, request.CurrentPage);
@@ -72,8 +71,8 @@ namespace Bidding.Services.Auctions
 
             AuctionListResponseModel auctionsResponse = new AuctionListResponseModel()
             {
-                Auctions = m_auctionsRepository.GetActiveAuctions(request, startFrom, endAt, fromDate).ToList(),
-                ItemCount = m_auctionsRepository.AllAuctionCount().Count()
+                Auctions = _auctionRepository.GetActiveAuctions(request, startFrom, endAt, fromDate).ToList(),
+                ItemCount = _auctionRepository.AllAuctionCount().Count()
             };
 
             Pagination.PaginateResponse(ref auctionsResponse, TableItem.DefaultSize, request.CurrentPage);
@@ -89,8 +88,8 @@ namespace Bidding.Services.Auctions
         {
             return new AuctionFilterModel()
             {
-                TopCategories = m_auctionsRepository.LoadActiveTopCategoriesWithCount().ToList(),
-                SubCategories = m_auctionsRepository.LoadActiveSubCategoriesWithCount().ToList()
+                TopCategories = _auctionRepository.LoadActiveTopCategoriesWithCount().ToList(),
+                SubCategories = _auctionRepository.LoadActiveSubCategoriesWithCount().ToList()
             };
         }
 
@@ -98,8 +97,8 @@ namespace Bidding.Services.Auctions
         {
             return new CategoriesWithTypesModel()
             {
-                TopCategories = m_auctionsRepository.LoadTopCategories().ToList(),
-                SubCategories = m_auctionsRepository.LoadSubCategories().ToList()
+                TopCategories = _auctionRepository.LoadTopCategories().ToList(),
+                SubCategories = _auctionRepository.LoadSubCategories().ToList()
             };
         }
 
@@ -107,7 +106,7 @@ namespace Bidding.Services.Auctions
         {
             return new AuctionFormatModel()
             {
-                Formats = m_auctionsRepository.Formats().ToList()
+                Formats = _auctionRepository.Formats().ToList()
             };
         }
 
@@ -115,7 +114,7 @@ namespace Bidding.Services.Auctions
         {
             return new AuctionStatusModel()
             {
-                Statuses = m_auctionsRepository.Statuses().ToList()
+                Statuses = _auctionRepository.Statuses().ToList()
             };
         }
 
@@ -124,32 +123,32 @@ namespace Bidding.Services.Auctions
             if (request.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
             if (request.AuctionId.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.IncorrectAuction); }
 
-            return await m_auctionsRepository.DetailsAsync(request).ConfigureAwait(true);
+            return await _auctionRepository.DetailsAsync(request).ConfigureAwait(true);
         }
 
         public AuctionEditDetailsResponseModel EditDetails(int auctionId)
         {
             if (auctionId.IsNotSpecified()) { throw new WebApiException(HttpStatusCode.BadRequest, AuctionErrorMessages.MissingAuctionsInformation); }
 
-            return m_auctionsRepository.EditDetails(auctionId);
+            return _auctionRepository.EditDetails(auctionId);
         }
 
         public bool UpdateAuctionDetails(AuctionEditRequestModel request)
         {
             ValidateAuctionUpdate(request);
 
-            int loggedInUserId = m_permissionService.GetAndValidateUserId();
+            int loggedInUserId = _permissionService.GetAndValidateUserId();
 
-            return m_auctionsRepository.UpdateAuctionDetails(request, loggedInUserId);
+            return _auctionRepository.UpdateAuctionDetails(request, loggedInUserId);
         }
 
         public async Task<bool> DeleteAsync(AuctionDeleteRequestModel request)
         {
             ValidateAuctionDelete(request);
 
-            int loggedInUserId = m_permissionService.GetAndValidateUserId();
+            int loggedInUserId = _permissionService.GetAndValidateUserId();
 
-            return await m_auctionsRepository.DeleteAsync(request, loggedInUserId).ConfigureAwait(true);
+            return await _auctionRepository.DeleteAsync(request, loggedInUserId).ConfigureAwait(true);
         }
 
         public int Create(AddAuctionRequestModel request)
@@ -189,27 +188,27 @@ namespace Bidding.Services.Auctions
         {
             // ValidateAuctionItemCreate(request);
 
-            int loggedInUserId = m_permissionService.GetAndValidateUserId();
+            int loggedInUserId = _permissionService.GetAndValidateUserId();
 
-            return m_auctionsRepository.CreateAuction(request, loggedInUserId);
+            return _auctionRepository.CreateAuction(request, loggedInUserId);
         }
 
         private int CreatePropertyAuction(AddAuctionRequestModel request)
         {
             // ValidateAuctionItemCreate(request);
 
-            int loggedInUserId = m_permissionService.GetAndValidateUserId();
+            int loggedInUserId = _permissionService.GetAndValidateUserId();
 
-            return m_auctionsRepository.CreateAuction(request, loggedInUserId);
+            return _auctionRepository.CreateAuction(request, loggedInUserId);
         }
 
         private int CreateVehicleAuction(AddAuctionRequestModel request)
         {
             // ValidateAuctionItemCreate(request);
 
-            int loggedInUserId = m_permissionService.GetAndValidateUserId();
+            int loggedInUserId = _permissionService.GetAndValidateUserId();
 
-            return m_auctionsRepository.CreateAuction(request, loggedInUserId);
+            return _auctionRepository.CreateAuction(request, loggedInUserId);
         }
 
         private void ValidateAuctionItemCreate(string request)

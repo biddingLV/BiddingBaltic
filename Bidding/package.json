@@ -7,7 +7,8 @@
     "build": "ng build --prod",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "format:check": "prettier --config ./.prettierrc --list-different \"ClientApp/src/{app,environments,assets}/**/*{.ts,.js,.json,.css,.scss}\""
   },
   "private": true,
   "dependencies": {
@@ -63,10 +64,13 @@
     "karma-coverage-istanbul-reporter": "^2.1.1",
     "karma-jasmine": "~2.0.1",
     "karma-jasmine-html-reporter": "^1.5.2",
+    "prettier": "^2.0.4",
     "protractor": "^5.4.3",
     "ts-node": "~7.0.1",
     "tslint": "~5.12.1",
     "tslint-angular": "^1.1.2",
-    "typescript": "^3.7.5"
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "^3.7.5",
+    "webpack-bundle-analyzer": "^3.6.1"
   }
 }

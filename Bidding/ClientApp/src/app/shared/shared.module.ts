@@ -1,8 +1,9 @@
 // angular
 import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
 import { RouterModule } from "@angular/router";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { CommonModule } from "@angular/common";
+import { HttpClientModule } from "@angular/common/http";
 
 // 3rd lib
 import { NgxDatatableModule } from "@swimlane/ngx-datatable";
@@ -23,6 +24,7 @@ import { NoCommaPipe } from "./pipes/no-comma.pipe";
 @NgModule({
   imports: [
     CommonModule,
+    HttpClientModule,
     RouterModule,
     NgSelectModule,
     NgxDatatableModule,
@@ -32,9 +34,12 @@ import { NoCommaPipe } from "./pipes/no-comma.pipe";
     NgxGalleryModule,
     ModalModule.forRoot(),
     TimepickerModule.forRoot(),
-    BsDatepickerModule.forRoot()
+    BsDatepickerModule.forRoot(),
   ],
   exports: [
+    CommonModule,
+    HttpClientModule,
+    RouterModule,
     SearchComponent,
     NgSelectModule,
     FormsModule,
@@ -47,14 +52,8 @@ import { NoCommaPipe } from "./pipes/no-comma.pipe";
     TimepickerModule,
     TimepickerComponent,
     BsDatepickerModule,
-    NoCommaPipe
+    NoCommaPipe,
   ],
-  declarations: [
-    SearchComponent,
-    FileUploaderComponent,
-    ImageGalleryComponent,
-    TimepickerComponent,
-    NoCommaPipe
-  ]
+  declarations: [SearchComponent, FileUploaderComponent, ImageGalleryComponent, TimepickerComponent, NoCommaPipe],
 })
 export class SharedModule {}

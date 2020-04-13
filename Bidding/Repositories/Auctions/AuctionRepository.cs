@@ -30,7 +30,7 @@ using System.Threading.Tasks;
 
 namespace Bidding.Repositories.Auctions
 {
-    public class AuctionsRepository
+    public class AuctionRepository : IAuctionRepository
     {
         private readonly BiddingContext m_context;
         private readonly IConfiguration _configuration;
@@ -40,7 +40,7 @@ namespace Bidding.Repositories.Auctions
         private readonly List<string> _imageExtensions = new List<string>() { "jpg", "jpeg", "png" };
         private readonly List<string> _documentExtensions = new List<string>() { "pdf", "doc", "docx" };
 
-        public AuctionsRepository(BiddingContext context, IConfiguration configuration)
+        public AuctionRepository(BiddingContext context, IConfiguration configuration)
         {
             _configuration = configuration ?? throw new ArgumentNullException(nameof(configuration));
             _connectionString = _configuration["AzureStorage:ConnectionString"];

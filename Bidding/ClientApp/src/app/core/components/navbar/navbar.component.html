@@ -2,9 +2,7 @@
   <div class="container">
     <div class="row">
       <div class="col-md-12">
-        <nav
-          class="navbar navbar-expand-lg shared-page__innerNavBar navbar-dark bg-dark-pink"
-        >
+        <nav class="navbar navbar-expand-lg shared-page__innerNavBar navbar-dark bg-dark-pink">
           <a class="navbar-brand" [routerLink]="['/']">
             <img
               id="bidding-logo"
@@ -18,15 +16,11 @@
             <span class="navbar-toggler-icon"></span>
           </button>
 
-          <div
-            class="collapse navbar-collapse justify-content-end"
-            [ngClass]="{ show: navbarOpen }"
-          >
+          <div class="collapse navbar-collapse justify-content-end">
+            <!-- [ngClass]="{ show: navbarOpen }" -->
             <ul class="navbar-nav">
               <li class="nav-item all-auctions" *ngIf="!userDetails">
-                <a class="nav-link font-weight-bold" [routerLink]="['/izsoles']"
-                  >Visas izsoles
-                </a>
+                <a class="nav-link font-weight-bold" [routerLink]="['/izsoles']">Visas izsoles </a>
               </li>
 
               <li class="nav-item" *ngIf="!userDetails">
@@ -38,36 +32,25 @@
               </li>
 
               <li class="nav-item" *ngIf="canAccessAdminPanel">
-                <a
-                  class="nav-link font-weight-bold"
-                  [routerLinkActive]="['active-link']"
-                  [routerLink]="['/admin']"
+                <a class="nav-link font-weight-bold" [routerLinkActive]="['active-link']" [routerLink]="['/admin']"
                   >Admin</a
                 >
               </li>
 
               <li class="nav-item" *ngIf="userDetails">
-                <a
-                  class="nav-link font-weight-bold"
-                  [routerLinkActive]="['active-link']"
-                  [routerLink]="['/izsoles']"
+                <a class="nav-link font-weight-bold" [routerLinkActive]="['active-link']" [routerLink]="['/izsoles']"
                   >Izsoles</a
                 >
               </li>
 
               <li class="nav-item" *ngIf="userDetails">
-                <a
-                  class="nav-link font-weight-bold"
-                  [routerLink]="['/users/details', userDetails.UserId]"
-                  href=""
+                <a class="nav-link font-weight-bold" [routerLink]="['/users/details', userDetails.UserId]" href=""
                   >Mans abonoments</a
                 >
               </li>
 
               <li class="nav-item" *ngIf="userDetails">
-                <a class="nav-link font-weight-bold" [routerLink]="" (click)="signOut()" href=""
-                  >Iziet</a
-                >
+                <a class="nav-link font-weight-bold" [routerLink]="" (click)="signOut()" href="">Iziet</a>
               </li>
             </ul>
           </div>
