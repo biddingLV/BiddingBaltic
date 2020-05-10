@@ -12,6 +12,7 @@ export class User {
   FirstName: string;
   LastName: string;
   Email: string;
+  IsEmailVerified: boolean;
 }
 
 interface TxWindow extends Window {
@@ -20,22 +21,20 @@ interface TxWindow extends Window {
 
 ((window as unknown) as TxWindow).global = window;
 
-@Injectable()
+@Injectable({
+  providedIn: "root",
+})
 export class AuthService {
   userDetails: User;
   redirectUri: string;
 
-  constructor(
-    private cookieService: CookieService,
-    private permissionService: PermissionService
-  ) {
+  constructor(private cookieService: CookieService, private permissionService: PermissionService) {
     this.checkCookie();
   }
 
   login(): void {
     if (this.redirectUri !== undefined) {
-      window.location.href =
-        "/start/auth/login?redirectPage=" + this.redirectUri;
+      window.location.href = "/start/auth/login?redirectPage=" + this.redirectUri;
     } else {
       window.location.href = "/start/auth/login";
     }
@@ -80,5 +79,6 @@ export class AuthService {
     this.userDetails.FirstName = profile.FirstName;
     this.userDetails.LastName = profile.LastName;
     this.userDetails.Email = profile.Email;
+    this.userDetails.IsEmailVerified = profile.IsEmailVerified;
   }
 }

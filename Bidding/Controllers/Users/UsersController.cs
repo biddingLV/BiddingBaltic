@@ -2,7 +2,6 @@
 using Bidding.Models.ViewModels.Users.Edit;
 using Bidding.Services.Users;
 using FeatureAuthorize.PolicyCode;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PermissionParts;
 using System;

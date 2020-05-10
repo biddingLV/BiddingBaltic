@@ -14,12 +14,8 @@ import { NotificationsService } from "../notifications/notifications.service";
   providedIn: "root"
 })
 export class PermissionService {
-  private _userPermissions: BehaviorSubject<string[]> = new BehaviorSubject(
-    null
-  );
-  readonly userPermissions: Observable<
-    string[]
-  > = this._userPermissions.asObservable();
+  private _userPermissions: BehaviorSubject<string[]> = new BehaviorSubject(null);
+  readonly userPermissions: Observable<string[]> = this._userPermissions.asObservable();
 
   constructor(
     private httpClient: HttpClient,
@@ -42,8 +38,6 @@ export class PermissionService {
   private loadUserPermissions$(): Observable<string[]> {
     const permissionsUrl = "/api/permissions/LoadUserPermissions";
 
-    return this.httpClient
-      .get<string[]>(permissionsUrl)
-      .pipe(catchError(this.exceptionService.errorHandler));
+    return this.httpClient.get<string[]>(permissionsUrl).pipe(catchError(this.exceptionService.errorHandler));
   }
 }

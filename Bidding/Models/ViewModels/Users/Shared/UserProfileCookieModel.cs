@@ -5,5 +5,6 @@
         public int UserId { get; set; }
         public bool IsAuthenticated { get; set; }
         public string Email { get; set; }
+        public bool IsEmailVerified { get; set; }
     }
 }

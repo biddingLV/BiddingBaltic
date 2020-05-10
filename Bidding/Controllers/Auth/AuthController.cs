@@ -16,7 +16,7 @@ namespace Bidding.Controllers.Auth
         private readonly string clientSecret;
         private readonly string domain;
         private readonly string scheme;
-        private readonly string m_profileCookieName;
+        private readonly string _profileCookieName;
 
         public AuthController(IConfiguration configuration)
         {
@@ -26,7 +26,7 @@ namespace Bidding.Controllers.Auth
             clientSecret = configuration["Authentication:ClientSecret"];
             domain = configuration["Authentication:Domain"];
             scheme = configuration["Authentication:Scheme"];
-            m_profileCookieName = configuration["Cookies:Profile"];
+            _profileCookieName = configuration["Cookies:Profile"];
         }
 
         [AllowAnonymous]
@@ -43,7 +43,7 @@ namespace Bidding.Controllers.Auth
 
         public async Task Logout()
         {
-            Response.Cookies.Delete(m_profileCookieName);
+            Response.Cookies.Delete(_profileCookieName);
 
             await HttpContext.SignOutAsync(CookieAuthenticationDefaults.AuthenticationScheme).ConfigureAwait(true);
             await HttpContext.SignOutAsync(scheme, new AuthenticationProperties

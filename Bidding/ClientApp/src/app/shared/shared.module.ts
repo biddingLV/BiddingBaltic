@@ -11,6 +11,7 @@ import { NgxGalleryModule } from "@kolkov/ngx-gallery";
 import { TimepickerModule } from "ngx-bootstrap/timepicker";
 import { ModalModule } from "ngx-bootstrap/modal";
 import { BsDatepickerModule } from "ngx-bootstrap/datepicker";
+import { AlertModule } from "ngx-bootstrap/alert";
 
 // internal
 import { SearchComponent } from "./components/search/search.component";
@@ -19,6 +20,7 @@ import { FileUploaderComponent } from "./components/file-uploader/file-uploader.
 import { ImageGalleryComponent } from "./components/image-gallery/image-gallery.component";
 import { TimepickerComponent } from "./components/timepicker/timepicker.component";
 import { NoCommaPipe } from "./pipes/no-comma.pipe";
+import { VerificationAlertComponent } from "./components/verification-alert/verification-alert.component";
 
 @NgModule({
   imports: [
@@ -32,7 +34,8 @@ import { NoCommaPipe } from "./pipes/no-comma.pipe";
     NgxGalleryModule,
     ModalModule.forRoot(),
     TimepickerModule.forRoot(),
-    BsDatepickerModule.forRoot()
+    BsDatepickerModule.forRoot(),
+    AlertModule.forRoot(),
   ],
   exports: [
     SearchComponent,
@@ -47,14 +50,17 @@ import { NoCommaPipe } from "./pipes/no-comma.pipe";
     TimepickerModule,
     TimepickerComponent,
     BsDatepickerModule,
-    NoCommaPipe
+    AlertModule,
+    NoCommaPipe,
+    VerificationAlertComponent,
   ],
   declarations: [
     SearchComponent,
     FileUploaderComponent,
     ImageGalleryComponent,
     TimepickerComponent,
-    NoCommaPipe
-  ]
+    NoCommaPipe,
+    VerificationAlertComponent,
+  ],
 })
 export class SharedModule {}

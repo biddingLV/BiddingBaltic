@@ -1,4 +1,6 @@
 <div class="container">
+  <app-verification-alert></app-verification-alert>
+
   <div class="row">
     <app-breadcrumb [breadcrumbs]="breadcrumbs"></app-breadcrumb>
   </div>
@@ -18,12 +20,7 @@
       </div>
 
       <div class="col-1 mb-3">
-        <button
-          (click)="editModal()"
-          value="Edit"
-          type="button"
-          class="btn btn-primary"
-        >
+        <button (click)="editModal()" value="Edit" type="button" class="btn btn-primary">
           Labot
         </button>
       </div>
@@ -62,8 +59,7 @@
           <div class="row pricing__row-body-row align-items-center">
             <div class="col-4 text-center">Bezmaksas</div>
             <div class="col-4 text-center">
-              Kā bidding.lv apmeklētajs Tu droši vari skatīties izsoles,
-              salīdzinat, pieteikties un saņemt jaunumus.
+              Kā bidding.lv apmeklētajs Tu droši vari skatīties izsoles, salīdzinat, pieteikties un saņemt jaunumus.
             </div>
             <div class="col-4 text-center">0,00 EUR / mēnesī</div>
           </div>

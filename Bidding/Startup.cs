@@ -32,6 +32,8 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.DependencyInjection.Extensions;
 using Microsoft.Extensions.Logging;
+using Microsoft.OpenApi.Models;
+using Newtonsoft.Json;
 using SixLabors.ImageSharp.Web.DependencyInjection;
 using System;
 using System.Collections.Generic;
@@ -131,6 +133,12 @@ namespace Bidding
                     template: "start/{controller=Auth}/{action=Index}/{id?}");
             });
 
+            app.UseSwagger();
+            app.UseSwaggerUI(c =>
+            {
+                c.SwaggerEndpoint("/swagger/v1/swagger.json", "My API V1");
+            });
+
             app.UseSpa(spa =>
             {
                 // To learn more about options for serving an Angular SPA from ASP.NET Core,
@@ -200,6 +208,11 @@ namespace Bidding
                     options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute());
                 })
                 .SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
+
+            services.AddSwaggerGen(c =>
+            {
+                c.SwaggerDoc("v1", new OpenApiInfo { Title = "My API", Version = "v1" });
+            });
         }
 
         private void ConfigureCORS(ref IServiceCollection services)
@@ -414,11 +427,12 @@ namespace Bidding
         /// <returns></returns>
         private string SetupUserProfileCookie(ApplicationUser userDetails)
         {
-            return Newtonsoft.Json.JsonConvert.SerializeObject(new UserProfileCookieModel()
+            return JsonConvert.SerializeObject(new UserProfileCookieModel()
             {
                 IsAuthenticated = true,
                 UserId = userDetails.Id,
-                Email = userDetails.Email
+                Email = userDetails.Email,
+                IsEmailVerified = userDetails.EmailConfirmed
             });
         }
 

@@ -12,6 +12,7 @@
     <BuildServerSideRenderer>false</BuildServerSideRenderer>
     <UserSecretsId>b57eaf8a-ceb8-4f70-9666-3ecd6356d3f6</UserSecretsId>
     <ApplicationInsightsResourceId>/subscriptions/2e686f06-4af6-4817-9bdf-2db76345bc55/resourcegroups/Default-ApplicationInsights-EastUS/providers/microsoft.insights/components/Bidding</ApplicationInsightsResourceId>
+    <AssemblyName>BiddingBaltic</AssemblyName>
   </PropertyGroup>
 
   <ItemGroup>
@@ -31,6 +32,7 @@
     </PackageReference>
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="2.2.2" />
     <PackageReference Include="SixLabors.ImageSharp.Web" Version="1.0.0-beta0007" />
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="5.4.1" />
     <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="5.4.0" />
   </ItemGroup>
 
