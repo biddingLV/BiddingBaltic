@@ -17,12 +17,12 @@ export class HomeCardsComponent implements OnInit {
   ngOnInit(): void {
     this.cards = [
       {
-        cardTitle: "Piedalīties Garāžu izsolē",
-        linkDescription: "Reģistrēties kā dalībniekam",
+        cardTitle: "Pārdot garāžu izsolē",
+        linkDescription: "Pieteikt mantu garāžu izsolei",
       },
       {
-        cardTitle: "Vēlos pārdot Garāžu izsolē",
-        linkDescription: "Pieteikt mantu “Garāžu izsolei”",
+        cardTitle: "Pirkt garāžu izsolē",
+        linkDescription: "Reģistrēties kā pircējam",
       },
     ];
   }

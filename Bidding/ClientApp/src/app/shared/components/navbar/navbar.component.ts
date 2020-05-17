@@ -15,7 +15,7 @@ import { CustomButtonModel } from "ClientApp/src/app/core/services/buttons/custo
 @Component({
   selector: "app-navbar",
   templateUrl: "./navbar.component.html",
-  styleUrls: ["./navbar.component.scss"]
+  styleUrls: ["./navbar.component.scss"],
 })
 export class NavbarComponent implements OnInit {
   // component
@@ -69,7 +69,7 @@ export class NavbarComponent implements OnInit {
 
   private handleAdminPanel(): void {
     this.navBarSub = this.permissionService.userPermissions.subscribe(
-      permissions => {
+      (permissions) => {
         if (permissions != null) {
           this.canAccessAdminPanel = permissions.includes(
             PermissionConstants.ACCESS_ADMIN_PANEL
@@ -84,7 +84,7 @@ export class NavbarComponent implements OnInit {
 
   private handleSignInButton(): void {
     this.buttonConfig = {
-      ...this.buttonsService.defaultButtonConfig
+      ...this.buttonsService.defaultButtonConfig,
     };
   }
 }
