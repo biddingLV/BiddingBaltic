@@ -7,7 +7,7 @@ import {
   EventEmitter,
   Output,
   OnChanges,
-  OnDestroy
+  OnDestroy,
 } from "@angular/core";
 
 // 3rd lib
@@ -21,18 +21,18 @@ import { NotificationsService } from "ClientApp/src/app/core/services/notificati
 import { AuthService } from "ClientApp/src/app/core/services/auth/auth.service";
 import {
   AuctionTopCategoryNames,
-  AuctionTopCategoryIds
+  AuctionTopCategoryIds,
 } from "ClientApp/src/app/core/constants/auction-top-category-constants";
 import { AuctionListItemModel } from "../../models/list/auction-list-item.model";
 
 @Component({
   selector: "app-auction-list",
-  templateUrl: "./list.component.html"
+  templateUrl: "./list.component.html",
 })
 export class AuctionListComponent implements OnInit, OnChanges, OnDestroy {
-  @Input() selectedCategoryIds: number[];
-  @Input() selectedTypeIds: number[];
   @Input() specifiedSearchText: string;
+  @Input() selectedCategoryIds?: number[];
+  @Input() selectedTypeIds?: number[];
   @Input() categoryFilter?: string;
 
   /** Based on this flag list loads all active and inactive auctions */
@@ -66,22 +66,7 @@ export class AuctionListComponent implements OnInit, OnChanges, OnDestroy {
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    const categoryIdsChange = changes["selectedCategoryIds"];
-    const typeIdsChange = changes["selectedTypeIds"];
     const searchTextChange = changes["specifiedSearchText"];
-    const categoryFilterChange = changes["categoryFilter"];
-
-    if (categoryIdsChange && !categoryIdsChange.isFirstChange()) {
-      this.auctionListRequest.topCategoryIds = categoryIdsChange.currentValue;
-
-      this.loadActiveAuctions();
-    }
-
-    if (typeIdsChange && !typeIdsChange.isFirstChange()) {
-      this.auctionListRequest.typeIds = typeIdsChange.currentValue;
-
-      this.loadActiveAuctions();
-    }
 
     if (searchTextChange && !searchTextChange.isFirstChange()) {
       this.auctionListRequest.searchValue = searchTextChange.currentValue;
@@ -89,24 +74,15 @@ export class AuctionListComponent implements OnInit, OnChanges, OnDestroy {
       this.loadActiveAuctions();
     }
 
-    if (categoryFilterChange && categoryFilterChange.currentValue) {
-      this.handleCardLinkClick(categoryFilterChange.currentValue);
-    } else {
-      this.setupInitialAuctionRequest();
-      this.loadActiveAuctions();
-    }
-
     return;
   }
 
-  ngOnInit(): void {}
-
-  onSortChange(event): void {
-    // this.request.SortColumn = event.column.prop;
-    // this.request.SortDirection = event.newValue;
-    // this.selectedUsers = [];
-    // this.getUsers();
+  ngOnInit(): void {
+    this.setupInitialAuctionRequest();
+    this.loadActiveAuctions();
   }
+
+  onSortChange(event): void {}
 
   onSelectedChange(selected: AuctionListItemModel[]): void {
     this.selectedChange.emit(selected);
@@ -141,7 +117,7 @@ export class AuctionListComponent implements OnInit, OnChanges, OnDestroy {
       currentPage: this.currentPage,
       sortByColumn: "AuctionName", // by default sort by auction name
       sortingDirection: "asc", // by default ascending
-      searchValue: ""
+      searchValue: "",
     };
   }
 
@@ -150,7 +126,7 @@ export class AuctionListComponent implements OnInit, OnChanges, OnDestroy {
       this.setupCardAuctionRequest();
 
       this.auctionListRequest.topCategoryIds = [
-        AuctionTopCategoryIds.VehicleCategoryId
+        AuctionTopCategoryIds.VehicleCategoryId,
       ];
     }
 
@@ -158,7 +134,7 @@ export class AuctionListComponent implements OnInit, OnChanges, OnDestroy {
       this.setupCardAuctionRequest();
 
       this.auctionListRequest.topCategoryIds = [
-        AuctionTopCategoryIds.PropertyCategoryId
+        AuctionTopCategoryIds.PropertyCategoryId,
       ];
     }
 
@@ -166,7 +142,7 @@ export class AuctionListComponent implements OnInit, OnChanges, OnDestroy {
       this.setupCardAuctionRequest();
 
       this.auctionListRequest.topCategoryIds = [
-        AuctionTopCategoryIds.ItemCategoryId
+        AuctionTopCategoryIds.ItemCategoryId,
       ];
     }
 
@@ -178,9 +154,9 @@ export class AuctionListComponent implements OnInit, OnChanges, OnDestroy {
       offsetStart: 0,
       offsetEnd: this.numberRows,
       currentPage: this.currentPage,
-      sortByColumn: "AuctionName", // by default sort by auction name
-      sortingDirection: "asc", // by default ascending
-      searchValue: ""
+      sortByColumn: "AuctionName",
+      sortingDirection: "asc",
+      searchValue: "",
     };
   }
 

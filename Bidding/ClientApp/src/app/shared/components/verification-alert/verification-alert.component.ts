@@ -10,10 +10,12 @@ import { AuthService } from "ClientApp/src/app/core/services/auth/auth.service";
 })
 export class VerificationAlertComponent implements OnInit {
   emailVerified: boolean;
+  isLoggedIn: boolean;
 
   constructor(private authService: AuthService) {}
 
   ngOnInit(): void {
-    this.emailVerified = this.authService.userDetails.IsEmailVerified;
+    this.isLoggedIn = this.authService.userDetails?.IsAuthenticated;
+    this.emailVerified = this.authService.userDetails?.IsEmailVerified;
   }
 }

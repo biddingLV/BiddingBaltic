@@ -7,7 +7,7 @@ import {
   Input,
   ViewChild,
   OnChanges,
-  SimpleChanges
+  SimpleChanges,
 } from "@angular/core";
 
 // 3rd lib
@@ -19,13 +19,13 @@ import { AuctionFilterModel } from "../../models/filters/auction-filter.model";
 import { SubCategoryFilterModel } from "../../models/filters/sub-category-filter.model";
 import {
   AuctionTopCategoryNames,
-  AuctionTopCategoryIds
+  AuctionTopCategoryIds,
 } from "ClientApp/src/app/core/constants/auction-top-category-constants";
 
 @Component({
   selector: "app-auction-filters",
   templateUrl: "./auction-filters.component.html",
-  styleUrls: ["./auction-filters.component.scss"]
+  styleUrls: ["./auction-filters.component.scss"],
 })
 export class AuctionFiltersComponent implements OnInit, OnChanges {
   @Input() filters: AuctionFilterModel;
@@ -67,7 +67,7 @@ export class AuctionFiltersComponent implements OnInit, OnChanges {
 
     if (categoryIds.length > 0) {
       // filter out based on selected category ids
-      this.auctionTypes = this.filters.subCategories.filter(item =>
+      this.auctionTypes = this.filters.subCategories.filter((item) =>
         categoryIds.includes(item.categoryId)
       );
     } else {

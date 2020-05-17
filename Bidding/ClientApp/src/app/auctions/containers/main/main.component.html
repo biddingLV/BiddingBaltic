@@ -8,7 +8,9 @@
   <!-- Page title -->
   <div class="row d-flex justify-content-end">
     <div class="col-12 mt-5 mb-5 d-flex justify-content-center">
-      <h1 class="auction-list--title font-weight-bold">Izvēlies izsoli un aidā!</h1>
+      <h1 class="auction-list--title font-weight-bold">
+        Izvēlies izsoli un aidā!
+      </h1>
     </div>
   </div>
 
@@ -19,29 +21,11 @@
     </div>
   </div>
 
-  <!-- Filters -->
-  <div class="row d-flex">
-    <div class="col-12">
-      <ng-container *ngIf="filters">
-        <app-auction-filters
-          [filters]="filters"
-          [auctionTypes]="auctionTypes"
-          [categoryFilter]="categoryFilter"
-          (topCategoryChange)="onTopCategoryChange($event)"
-          (subCategoryChange)="onSubCategoryChange($event)"
-        ></app-auction-filters>
-      </ng-container>
-    </div>
-  </div>
-
   <!-- List & Table -->
   <div class="row mb-5">
     <div class="col-12">
       <app-auction-list
-        [selectedCategoryIds]="selectedCategoryIds"
-        [selectedTypeIds]="selectedTypeIds"
         [specifiedSearchText]="specifiedSearchText"
-        [categoryFilter]="categoryFilter"
       ></app-auction-list>
     </div>
   </div>
