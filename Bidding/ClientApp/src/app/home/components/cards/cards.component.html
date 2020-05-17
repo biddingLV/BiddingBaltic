@@ -1,18 +1,14 @@
 <div class="container homepage__cards">
   <div class="card-deck">
     <div class="card homepage__cards-card" *ngFor="let item of cards">
-      <img
-        [src]="item.imagePath"
-        class="card-img-top mx-auto homepage__cards--card-image"
-        [alt]="item.description"
-      />
-      <div class="card-body text-center d-flex flex-column">
-        <h5 class="card-title font-weight-bold">{{ item.description }}</h5>
+      <div
+        class="card-body text-center d-flex flex-column justify-content-center"
+      >
+        <h5 class="card-title font-weight-bold">{{ item.cardTitle }}</h5>
         <a
           [routerLink]="['/izsoles']"
-          [queryParams]="{ filtrs: item.filterUrl }"
-          class="card-link mt-auto font-weight-bold"
-          >Skatīt vairāk</a
+          class="card-link font-weight-bold pt-4"
+          >{{ item.linkDescription }}</a
         >
       </div>
     </div>

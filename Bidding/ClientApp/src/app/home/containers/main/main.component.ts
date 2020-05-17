@@ -13,7 +13,7 @@ import { NotificationsService } from "ClientApp/src/app/core/services/notificati
 
 @Component({
   selector: "app-home-main",
-  templateUrl: "./main.component.html"
+  templateUrl: "./main.component.html",
 })
 export class HomeMainComponent implements OnInit {
   // used to pass selected filter values to the auction list component

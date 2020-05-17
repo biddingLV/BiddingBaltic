@@ -1,31 +1,29 @@
 // angular
 import { Component, OnInit } from "@angular/core";
 
+// internal
+import { HomepageCardModel } from "../../models/homepage-card.model";
+
 @Component({
   selector: "app-home-cards",
   templateUrl: "./cards.component.html",
-  styleUrls: ["./cards.component.scss"]
+  styleUrls: ["./cards.component.scss"],
 })
 export class HomeCardsComponent implements OnInit {
-  cards = [
-    {
-      description: "Transportlīdzekļu izsoles",
-      imagePath: "../../../../../assets/images/delivery-truck.svg",
-      filterUrl: "transports"
-    },
-    {
-      description: "Nekustamo īpašumu izsoles",
-      imagePath: "../../../../../assets/images/apartments.svg",
-      filterUrl: "ipasumi"
-    },
-    {
-      description: "Mantu izsoles",
-      imagePath: "../../../../../assets/images/shelf.svg",
-      filterUrl: "mantas"
-    }
-  ];
+  cards: HomepageCardModel[];
 
   constructor() {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.cards = [
+      {
+        cardTitle: "Piedalīties Garāžu izsolē",
+        linkDescription: "Reģistrēties kā dalībniekam",
+      },
+      {
+        cardTitle: "Vēlos pārdot Garāžu izsolē",
+        linkDescription: "Pieteikt mantu “Garāžu izsolei”",
+      },
+    ];
+  }
 }

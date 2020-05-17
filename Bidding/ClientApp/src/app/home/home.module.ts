@@ -14,6 +14,6 @@ import { HomeCardsComponent } from "./components/cards/cards.component";
   imports: [CommonModule, SharedModule, HomeRoutingModule, AuctionsModule],
   exports: [],
   declarations: [HomeHeaderComponent, HomeMainComponent, HomeCardsComponent],
-  providers: []
+  providers: [],
 })
 export class HomeModule {}
