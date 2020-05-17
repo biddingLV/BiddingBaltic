@@ -6,14 +6,13 @@ import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-
 @Component({
-  templateUrl: './404-page-not-found.component.html'
+  templateUrl: './404-page-not-found.component.html',
 })
 export class PageNotFoundComponent {
   url: Observable<string>;
 
   constructor(route: ActivatedRoute) {
-    this.url = route.url.pipe(map(segments => segments.join('/')));
+    this.url = route.url.pipe(map((segments) => segments.join('/')));
   }
 }
