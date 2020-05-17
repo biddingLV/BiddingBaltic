@@ -1,25 +1,20 @@
 <div class="fluid-container homepage__header">
   <div class="container">
     <div class="row">
-      <div class="col-12 text-center">
+      <div class="col-9">
         <h1 class="homepage__header--title font-weight-bold">
           Baltijas Izsoļu Datubāze
         </h1>
+
+        <h2 class="homepage__header--description font-weight-bold">
+          Jauns projekts - Garāžu izsoles online. Piesaki mantas, kas Tev
+          <br />
+          sakrājušās un mēs tās reizi mēnesī pārdosim.
+        </h2>
       </div>
 
-      <div class="col-12 text-center">
-        <h2 class="homepage__header--description font-weight-bold">
-          Kļūsti par Baltijas izsoļu Datubāzes lietotāju jau šodien.
-          <br />
-          Pieraksties un lieto datubāzi pirmās 30 dienas bezmaksas
-        </h2>
-
-        <app-sign-in-button
-          *ngIf="!isLoggedIn"
-          class="homepage__header--sign-up-button"
-          [buttonConfig]="buttonConfig"
-          (signInChange)="onSignInChange($event)"
-        ></app-sign-in-button>
+      <div class="col-3">
+        <img src="assets/images/homepage-people.svg" class="img-fluid" alt="..." />
       </div>
     </div>
   </div>
