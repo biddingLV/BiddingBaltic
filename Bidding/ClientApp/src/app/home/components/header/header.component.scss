@@ -1,4 +1,4 @@
-@import "../../../../sass/variables";
+@import '../../../../sass/variables';
 
 .homepage__header {
   box-shadow: 0px 10px 17px rgba(0, 0, 0, 0.1);
@@ -32,11 +32,17 @@
   margin-top: -5px !important;
 
   .homepage__header--title {
-    color: white;
+    color: $white;
   }
 
   .homepage__header--description {
-    color: white;
+    color: $white;
+  }
+
+  .homepage__header--action-button {
+    font-size: 14px;
+    color: $primary;
+    padding: 15px 45px 15px 45px;
   }
 
   @media only screen and (min-width: map-get($grid-breakpoints, xs)) {

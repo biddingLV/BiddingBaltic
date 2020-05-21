@@ -1,50 +1,45 @@
 // Angular
-import { NgModule } from "@angular/core";
-import { CommonModule } from "@angular/common";
-import { RouterModule } from "@angular/router";
+import { NgModule } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 // 3rd lib
-import { AccordionModule } from "ngx-bootstrap/accordion";
-import { ContentLoaderModule } from "@netbasal/ngx-content-loader";
+import { AccordionModule } from 'ngx-bootstrap/accordion';
+import { ContentLoaderModule } from '@netbasal/ngx-content-loader';
 
 // Icons
 import {
   FontAwesomeModule,
-  FaIconLibrary
-} from "@fortawesome/angular-fontawesome";
+  FaIconLibrary,
+} from '@fortawesome/angular-fontawesome';
 
 import {
   faSearch,
   faExclamationCircle,
   faUsers,
   faPlus,
-  faGavel
-} from "@fortawesome/free-solid-svg-icons";
+  faGavel,
+} from '@fortawesome/free-solid-svg-icons';
 
 import {
   faHeart,
   faEdit,
-  faTrashAlt
-} from "@fortawesome/free-regular-svg-icons";
+  faTrashAlt,
+} from '@fortawesome/free-regular-svg-icons';
 
 import {
   faFacebookF,
   faTwitter,
   faWhatsapp,
-  faInstagram
-} from "@fortawesome/free-brands-svg-icons";
+  faInstagram,
+} from '@fortawesome/free-brands-svg-icons';
 
 // Internal
-import { NavbarComponent } from "./components/navbar/navbar.component";
-import { FooterComponent } from "./components/footer/footer.component";
-import { CallbackComponent } from "./components/callback/callback.component";
-import { GdprRulesComponent } from "./components/footer/static-components/gdpr-rules/gdpr-rules.component";
-import { PartnerRulesComponent } from "./components/footer/static-components/partner-rules/partner-rules.component";
-import { RulesListComponent } from "./components/footer/static-components/rules-list/rules-list.component";
-import { ServiceRulesComponent } from "./components/footer/static-components/service-rules/service-rules.component";
-import { FAQPageComponent } from "./components/footer/static-components/faq-page/faq-page.component";
-import { SignInButtonComponent } from "./components/sign-in-button/sign-in-button.component";
-import { BreadcrumbComponent } from "./components/breadcrumb/breadcrumb.component";
+import { NavbarComponent } from './components/navbar/navbar.component';
+import { FooterComponent } from './components/footer/footer.component';
+import { CallbackComponent } from './components/callback/callback.component';
+import { SignInButtonComponent } from './components/sign-in-button/sign-in-button.component';
+import { BreadcrumbComponent } from './components/breadcrumb/breadcrumb.component';
 
 @NgModule({
   imports: [
@@ -52,39 +47,28 @@ import { BreadcrumbComponent } from "./components/breadcrumb/breadcrumb.componen
     RouterModule,
     FontAwesomeModule,
     AccordionModule.forRoot(),
-    ContentLoaderModule
+    ContentLoaderModule,
   ],
   exports: [
     NavbarComponent,
     FooterComponent,
-    GdprRulesComponent,
-    PartnerRulesComponent,
-    RulesListComponent,
-    ServiceRulesComponent,
-    FAQPageComponent,
     CallbackComponent,
     BreadcrumbComponent,
     FontAwesomeModule,
     ContentLoaderModule,
     AccordionModule,
-    SignInButtonComponent
+    SignInButtonComponent,
   ],
   declarations: [
     NavbarComponent,
     FooterComponent,
-    GdprRulesComponent,
-    PartnerRulesComponent,
-    RulesListComponent,
-    ServiceRulesComponent,
-    FAQPageComponent,
     CallbackComponent,
     BreadcrumbComponent,
-    SignInButtonComponent
-  ]
+    SignInButtonComponent,
+  ],
 })
 export class MinSharedModule {
   constructor(library: FaIconLibrary) {
-    // Add an icon to the library for convenient access in other components
     library.addIcons(
       faSearch,
       faExclamationCircle,

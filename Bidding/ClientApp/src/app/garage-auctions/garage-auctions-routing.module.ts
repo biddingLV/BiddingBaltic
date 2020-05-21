@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-import { GarageAuctionMainComponent } from './components/main.component';
+import { GarageAuctionMainComponent } from './containers/main/main.component';
 
 const routes: Routes = [{ path: '', component: GarageAuctionMainComponent }];
 
