@@ -1,0 +1,62 @@
+.title__block {
+  padding-top: 6.25rem;
+  padding-bottom: 5rem;
+
+  .title__text {
+    font-size: 50px;
+  }
+}
+
+.subtitle__block {
+  padding-bottom: 5rem;
+}
+
+.seller__block {
+  padding-bottom: 100px;
+
+  .image__block {
+    padding-left: 90px;
+  }
+
+  .description__block {
+    flex: 0 0 36em;
+  }
+}
+
+.buyer__block {
+  padding-bottom: 100px;
+  padding-left: 130px;
+
+  .description__block {
+    flex: 0 0 32em;
+  }
+}
+
+.online__block {
+  padding-bottom: 100px;
+
+  .image__block {
+    padding-left: 90px;
+  }
+
+  .description__block {
+    flex: 0 0 36em;
+  }
+}
+
+.rule__block {
+  padding-bottom: 90px;
+}
+
+.cards__block {
+  .card {
+    img {
+      width: 7rem;
+    }
+  }
+}
+
+.agreement__block {
+  padding-top: 90px;
+  padding-bottom: 100px;
+}

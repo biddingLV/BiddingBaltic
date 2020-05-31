@@ -1,23 +1,23 @@
 <div class="container">
-  <div class="row">
-    <div class="col-12">
-      <h1>Garāžu izsoles</h1>
-    </div>
+  <div class="d-flex justify-content-center title__block">
+    <h1 class="title__text font-weight-bold">Garāžu izsoles</h1>
   </div>
 
-  <div class="row">
-    <div class="col-12">
-      <h2>Kā tas strādā</h2>
-    </div>
+  <div class="d-flex justify-content-start subtitle__block">
+    <h2 class="subtitle__text font-weight-bold">Kā tas strādā</h2>
   </div>
 
-  <div class="row">
-    <div class="col-6">
-      <p>image</p>
+  <div class="d-flex seller__block">
+    <div class="mr-auto image__block">
+      <img
+        src="assets/images/piesakas-pardeveji.svg"
+        class="img-fluid seller__image"
+        alt="piesakas pardeveji"
+      />
     </div>
 
-    <div class="col-6">
-      <h3>1. Piesakās mantu pārdevēji</h3>
+    <div class="description__block">
+      <h4>1. Piesakās mantu pārdevēji</h4>
       <p>
         Pievieno savas mantas bidding.lv izveidotajā anketā, aizpildi visu
         nepieciešamo informāciju un mēs ar Tevi sazināsimies.
@@ -25,9 +25,9 @@
     </div>
   </div>
 
-  <div class="row">
-    <div class="col-6">
-      <h3>2. Piesakās mantu pircēji</h3>
+  <div class="d-flex buyer__block">
+    <div class="description__block">
+      <h4>2. Piesakās mantu pircēji</h4>
       <p>
         Mantas ir, tagad nepieciešami pircēji. Seko informācijai un piesakies
         par pircēju. Dalības maksa ir 10eur, un tu vari pirkt cik daudz vēlies,
@@ -36,18 +36,26 @@
       </p>
     </div>
 
-    <div class="col-6">
-      <p>image</p>
+    <div class="ml-auto image__block">
+      <img
+        src="assets/images/piesakas-pirceji.svg"
+        class="img-fluid"
+        alt="piesakas pirceji"
+      />
     </div>
   </div>
 
-  <div class="row">
-    <div class="col-6">
-      <p>image</p>
+  <div class="d-flex online__block">
+    <div class="mr-auto image__block">
+      <img
+        src="assets/images/online-izsole.svg"
+        class="img-fluid"
+        alt="online izsole"
+      />
     </div>
 
-    <div class="col-6">
-      <h3>3. Online izsole</h3>
+    <div class="description__block">
+      <h4>3. Online izsole</h4>
       <p>
         Seko mantu izsolei tiešsaistē. Katrai izsoles mantai būs 2 - 3 min laika
         lai par viņu solītu, esi ātrs un nosoli labāko cenu. Cenu sūtīšana
@@ -56,52 +64,66 @@
     </div>
   </div>
 
-  <div class="row">
-    <div class="col-12">
+  <div class="d-flex rule__block">
+    <p class="rule__text">
       Ar pilnajiem garāžu izsoles noteikumiem iespējams iepazīties šeit.
-    </div>
+    </p>
   </div>
 
-  <div class="row">
-    <div class="col-12">
-      <h2>Piesakies jau tagad un tiekamies tiešsaistē</h2>
-    </div>
+  <div class="d-flex justify-content-start subtitle__block">
+    <h2 class="subtitle__text font-weight-bold">
+      Piesakies jau tagad un tiekamies tiešsaistē
+    </h2>
   </div>
 
-  <div class="row">
-    <div class="col-6">
-      <div class="card" style="width: 18rem;">
-        <img src="..." class="card-img-top" alt="..." />
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">
-            Some quick example text to build on the card title and make up the
-            bulk of the card's content.
-          </p>
-          <a href="#" class="btn btn-primary">Go somewhere</a>
-        </div>
+  <div class="d-flex cards__block">
+    <div class="card mr-3 seller__card">
+      <img
+        src="assets/images/pardevejs-izsoles.svg"
+        class="card-img-top img-fluid seller__image"
+        alt="pardevejs izsoles"
+      />
+
+      <div class="card-body">
+        <h5 class="card-title">Vēlos pārdot garāžu izsolē</h5>
+        <p class="card-text font-weight-bold">
+          €0 /Bezmaksas dalība*
+        </p>
+
+        <p class="card-text">
+          Mantas, kas vēl ir darbojošā stāvoklī ir iespējams pieteikt uz garažu
+          izsoli. Vairāk par garažu izsolēm uzzini noteikumu sadaļā.
+        </p>
+        <a href="#" class="btn btn-primary">Pieteikt mantu</a>
       </div>
     </div>
 
-    <div class="col-6">
-      <div class="card" style="width: 18rem;">
-        <img src="..." class="card-img-top" alt="..." />
-        <div class="card-body">
-          <h5 class="card-title">Card title</h5>
-          <p class="card-text">
-            Some quick example text to build on the card title and make up the
-            bulk of the card's content.
-          </p>
-          <a href="#" class="btn btn-primary">Go somewhere</a>
-        </div>
+    <div class="card ml-auto buyer__card">
+      <img
+        src="assets/images/pircejs-izsoles.svg"
+        class="card-img-top img-fluid buyer__image"
+        alt="Pircejs izsoles"
+      />
+
+      <div class="card-body">
+        <h5 class="card-title">Piedalīties garāžu izsolē</h5>
+        <p class="card-text font-weight-bold">
+          €10 /Dalības maksa
+        </p>
+
+        <p class="card-text">
+          Izvēlies mantas kas tev interesē un cīnies par tām online izsolē.
+          Detalizētu bidding garāžu izsole aprakstu meklē noteikumu sadaļā.
+        </p>
+        <a href="#" class="btn btn-primary">Reģistrē dalību</a>
       </div>
     </div>
   </div>
 
-  <div class="row">
-    <div class="col-12">
+  <div class="d-flex agreement__block">
+    <p class="agreement__text text-muted">
       *Izsoles veidotājs – pārdevējs apņemas samaksāt Bidding komisijas maksu
       10,2% apmērā no Interneta izsolē nosolītās Preces cenas.
-    </div>
+    </p>
   </div>
 </div>
