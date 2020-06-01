@@ -6,8 +6,9 @@
       >
         <h5 class="card-title font-weight-bold">{{ item.cardTitle }}</h5>
         <a
-          [routerLink]="['/izsoles']"
+          target="_blank"
           class="card-link font-weight-bold pt-4"
+          href="{{ item.link }}"
           >{{ item.linkDescription }}</a
         >
       </div>
